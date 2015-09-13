@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="myAppender" class="LoggerAppenderFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{d.m.Y H:i:s,u} [%level] [%logger] %file %line | %message %newline" />
+        </layout>
+        <param name="file" value="../../../../log/logFile.log" />
+    </appender>
+    <appender name="logError" class="LoggerAppenderFile" threshold="ERROR">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{d.m.Y H:i:s,u}  [%level] [%logger] %file%line %message %newline" />
+        </layout>
+        <param name="file" value="../../../../log/logFileError.log" />
+    </appender>
+    <appender name="Mail" class="LoggerAppenderMailEvent" threshold="FATAL">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{d.m.Y H:i:s}  [%level] [%logger] %file %line | %message " />
+        </layout>
+        <param name="to" value="pathe.gueye@kiwi.sn" />
+        <param name="from" value="kiwi.senegal@gmail.com" />
+        <param name="subject" value="Mail log4php" />
+        <param name="smtpHost" value="smtp.gmail.com" />
+        <param name="port" value="465" />
+        
+    </appender>
+    <root>
+        <level value="TRACE" />
+        <appender_ref ref="myAppender" />
+        <appender_ref ref="logError" />
+        <appender_ref ref="Mail" />
+    </root>
+    
+</configuration>
