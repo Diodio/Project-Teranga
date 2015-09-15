@@ -87,7 +87,7 @@
 															<span class="lbl"> Remember Me</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                                                                            <button type="button" id="btn-connect" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">Login</span>
 														</button>
@@ -103,19 +103,7 @@
 
 											<div class="space-6"></div>
 
-											<div class="social-login center">
-												<a class="btn btn-primary">
-													<i class="ace-icon fa fa-facebook"></i>
-												</a>
-
-												<a class="btn btn-info">
-													<i class="ace-icon fa fa-twitter"></i>
-												</a>
-
-												<a class="btn btn-danger">
-													<i class="ace-icon fa fa-google-plus"></i>
-												</a>
-											</div>
+		
 										</div><!-- /.widget-main -->
 
 										<div class="toolbar clearfix">
@@ -312,8 +300,6 @@
 			 });
 			});
 			
-			
-			
 			//you don't need this, just used for changing background
 			jQuery(function($) {
 			 $('#btn-login-dark').on('click', function(e) {
@@ -337,7 +323,11 @@
 				
 				e.preventDefault();
 			 });
-			 
+			 $('#btn-connect').click(function(e){
+                     e.preventDefault();
+                     var url = "main.php";
+                        document.location.href=url;
+                   });
 			});
 		</script>
 	</body>
