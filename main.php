@@ -1,3 +1,7 @@
+<?php
+
+require 'common/app.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -65,7 +69,7 @@
                     <a href="index.html" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
-                            Ace Admin
+                            MacFish Production
                         </small>
                     </a>
                 </div>
@@ -383,7 +387,7 @@
                     } catch (e) {
                     }
                 </script>
-
+<!--
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn btn-success">
@@ -412,7 +416,7 @@
 
                         <span class="btn btn-danger"></span>
                     </div>
-                </div><!-- /.sidebar-shortcuts -->
+                </div> /.sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
                     <li class="active">
@@ -424,38 +428,15 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="">
-                        <a href="#" class="dropdown-toggle">
+                    <li id="MNU_PRODUITS"class="">
+                        <a id="PRODUITS" href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">
                                 Produit
                             </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
                         </a>
-
                         <b class="arrow"></b>
 
-                        <ul class="submenu">
-                            <li id="MNU_PRODUITFAMILLE" class="">
-                                <a id="PRD_FAMILLE" href="#" class="dropdown-toggle">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-
-                                    Famille de produit
-                                    <b class="arrow fa fa-angle-down"></b>
-                                </a>
-
-                                <b class="arrow"></b>
-                                    <li id="MNU_PRODUIT" class="">
-                                        <a id="PRD_PRODUIT" href="#">
-                                            <i class="menu-icon fa fa-caret-right"></i>
-                                            Produit
-                                        </a>
-
-                                        <b class="arrow"></b>
-                                    </li>
-                            </li>
-                        </ul>
                     </li>
 
 
@@ -652,7 +633,15 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {
-                
+                $("#MNU_PRODUITS").click(function(e){
+                   // mnu_selected_id = "#MNU_DBD";
+                   // mnu_selected_parent_id = "";
+                    $("#MNU_PRODUITS").attr("Class", "active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produits.php", function() {
+                        
+                    });
+                    
+                });
 
               
 
