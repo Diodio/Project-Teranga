@@ -14,7 +14,7 @@
     <link rel="icon" href="../../favicon.ico">
     <link href="assets/css/bootstrap.min.css"/>
     <link href="assets/css/jquery-ui-1.10.3.custom.min.css"/>
-    <title>WebSMS</title>
+    <title>MacFish Production</title>
 
   </head>
   <body>

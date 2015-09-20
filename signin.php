@@ -1,334 +1,295 @@
+<?php 
+    require_once 'common/app.php';
+    $parameters = parse_ini_file('config/parameters.ini');
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>Login Page - Ace Admin</title>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta charset="utf-8" />
+        <title>MacFish Production - Authentification</title>
 
-		<meta name="description" content="User login page" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="description" content="User login page" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+        <!-- bootstrap & fontawesome -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 
-		<!-- text fonts -->
-		<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
+        <!-- text fonts -->
+        <link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
+        
+        <link rel="stylesheet" href="assets/css/select2.css" />
 
-		<!-- ace styles -->
-		<link rel="stylesheet" href="assets/css/ace.min.css" />
+        <!-- ace styles -->
+        <link rel="stylesheet" href="assets/css/ace.min.css" />
 
-		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
-		<![endif]-->
-		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+        <!--[if lte IE 9]>
+                <link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+        <![endif]-->
+        <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+        <!--[if lte IE 9]>
+          <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+        <![endif]-->
 
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
-		<!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
-	</head>
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
 
-	<body class="login-layout">
-		<div class="main-container">
-			<div class="main-content">
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-1">
-						<div class="login-container">
-							<div class="center">
-								<h1>
-									<i class="ace-icon fa fa-leaf green"></i>
-									<span class="red">Ace</span>
-									<span class="white" id="id-text2">Application</span>
-								</h1>
-								<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
-							</div>
+    <body class="login-layout">
+        <div class="main-container">
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="login-container">
+                            <div class="center">
+                                <h1>
+                                    <i class="ace-icon fa fa-leaf green"></i>
+                                    <span class="red">MacFish</span>
+                                    <span class="white" id="id-text2">Application</span>
+                                </h1>
+                                <h4 class="blue" id="id-company-text">&copy; MacFish Production</h4>
+                            </div>
 
-							<div class="space-6"></div>
+                            <div class="space-6"></div>
 
-							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
-												<i class="ace-icon fa fa-coffee green"></i>
-												Please Enter Your Information
-											</h4>
+                            <div class="position-relative">
+                                <div id="login-box" class="login-box visible widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header blue lighter bigger">
+                                                <i class="ace-icon fa fa-coffee green"></i>
+                                                Connectez vous à MacFish
+                                            </h4>
 
-											<div class="space-6"></div>
+                                            <div class="space-6"></div>
 
-											<form>
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
-															<i class="ace-icon fa fa-user"></i>
-														</span>
-													</label>
+                                            <form>
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input id="username" type="text" class="form-control" placeholder="Username" />
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
 
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
-															<i class="ace-icon fa fa-lock"></i>
-														</span>
-													</label>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input id="password" type="password" class="form-control" placeholder="Password" />
+                                                            <i class="ace-icon fa fa-lock"></i>
+                                                        </span>
+                                                    </label>
 
-													<div class="space"></div>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <select id="LISTE_USINE" class="width-100">
+                                                                <option value="*" class="usines">Selectionnez usine<option>
+                                                            </select>
+                                                            
+                                                            
+                                                        </span>
+                                                    </label>
 
-													<div class="clearfix">
-														<label class="inline">
-															<input type="checkbox" class="ace" />
-															<span class="lbl"> Remember Me</span>
-														</label>
+                                                    <div class="space"></div>
+                                                        <button id="btn-connect" class="width-50 btn btn-sm btn-primary" style="margin-left: 28%;
+">
+                                                            <i class="ace-icon fa fa-key"></i>
+                                                            <span class="bigger-110">Se connecter</span>
+                                                        </button>
+                                                     </fieldset>
+                                            </form>
+                                                    </div>
 
-                                                                                                            <button type="button" id="btn-connect" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="ace-icon fa fa-key"></i>
-															<span class="bigger-110">Login</span>
-														</button>
-													</div>
+                                                    <div class="space-4"></div>
+                                               
 
-													<div class="space-4"></div>
-												</fieldset>
-											</form>
+                                          
+                                            <div class="space-6"></div>
 
-											<div class="social-or-login center">
-												<span class="bigger-110">Or Login Using</span>
-											</div>
 
-											<div class="space-6"></div>
+                                        </div><!-- /.widget-main -->
 
-		
-										</div><!-- /.widget-main -->
+                                       
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.login-box -->
 
-										<div class="toolbar clearfix">
-											<div>
-												<a href="#" data-target="#forgot-box" class="forgot-password-link">
-													<i class="ace-icon fa fa-arrow-left"></i>
-													I forgot my password
-												</a>
-											</div>
+                    \
+                            </div><!-- /.position-relative -->
 
-											<div>
-												<a href="#" data-target="#signup-box" class="user-signup-link">
-													I want to register
-													<i class="ace-icon fa fa-arrow-right"></i>
-												</a>
-											</div>
-										</div>
-									</div><!-- /.widget-body -->
-								</div><!-- /.login-box -->
+                            <div class="navbar-fixed-top align-right">
+                                <br />
+                                &nbsp;
+                                <a id="btn-login-dark" href="#">Dark</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-blur" href="#">Blur</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-light" href="#">Light</a>
+                                &nbsp; &nbsp; &nbsp;
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.main-content -->
+        </div><!-- /.main-container -->
 
-								<div id="forgot-box" class="forgot-box widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header red lighter bigger">
-												<i class="ace-icon fa fa-key"></i>
-												Retrieve Password
-											</h4>
+        <!-- basic scripts -->
 
-											<div class="space-6"></div>
-											<p>
-												Enter your email and to receive instructions
-											</p>
+        <!--[if !IE]> -->
+        <script src="assets/js/jquery.2.1.1.min.js"></script>
+        
+	<script src="assets/js/select2.min.js"></script>
+        <script src="assets/js/jquery.loadJSON.js"></script>
+	<script src="assets/js/bootbox.min.js"></script>
+        <script src="assets/js/jquery.cookie.js"></script>
 
-											<form>
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
-															<i class="ace-icon fa fa-envelope"></i>
-														</span>
-													</label>
+        <!-- <![endif]-->
 
-													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
-															<i class="ace-icon fa fa-lightbulb-o"></i>
-															<span class="bigger-110">Send Me!</span>
-														</button>
-													</div>
-												</fieldset>
-											</form>
-										</div><!-- /.widget-main -->
-
-										<div class="toolbar center">
-											<a href="#" data-target="#login-box" class="back-to-login-link">
-												Back to login
-												<i class="ace-icon fa fa-arrow-right"></i>
-											</a>
-										</div>
-									</div><!-- /.widget-body -->
-								</div><!-- /.forgot-box -->
-
-								<div id="signup-box" class="signup-box widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header green lighter bigger">
-												<i class="ace-icon fa fa-users blue"></i>
-												New User Registration
-											</h4>
-
-											<div class="space-6"></div>
-											<p> Enter your details to begin: </p>
-
-											<form>
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
-															<i class="ace-icon fa fa-envelope"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
-															<i class="ace-icon fa fa-user"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
-															<i class="ace-icon fa fa-lock"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
-															<i class="ace-icon fa fa-retweet"></i>
-														</span>
-													</label>
-
-													<label class="block">
-														<input type="checkbox" class="ace" />
-														<span class="lbl">
-															I accept the
-															<a href="#">User Agreement</a>
-														</span>
-													</label>
-
-													<div class="space-24"></div>
-
-													<div class="clearfix">
-														<button type="reset" class="width-30 pull-left btn btn-sm">
-															<i class="ace-icon fa fa-refresh"></i>
-															<span class="bigger-110">Reset</span>
-														</button>
-
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
-															<span class="bigger-110">Register</span>
-
-															<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-														</button>
-													</div>
-												</fieldset>
-											</form>
-										</div>
-
-										<div class="toolbar center">
-											<a href="#" data-target="#login-box" class="back-to-login-link">
-												<i class="ace-icon fa fa-arrow-left"></i>
-												Back to login
-											</a>
-										</div>
-									</div><!-- /.widget-body -->
-								</div><!-- /.signup-box -->
-							</div><!-- /.position-relative -->
-
-							<div class="navbar-fixed-top align-right">
-								<br />
-								&nbsp;
-								<a id="btn-login-dark" href="#">Dark</a>
-								&nbsp;
-								<span class="blue">/</span>
-								&nbsp;
-								<a id="btn-login-blur" href="#">Blur</a>
-								&nbsp;
-								<span class="blue">/</span>
-								&nbsp;
-								<a id="btn-login-light" href="#">Light</a>
-								&nbsp; &nbsp; &nbsp;
-							</div>
-						</div>
-					</div><!-- /.col -->
-				</div><!-- /.row -->
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script src="assets/js/jquery.2.1.1.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
+        <!--[if IE]>
 <script src="assets/js/jquery.1.11.1.min.js"></script>
 <![endif]-->
 
-		<!--[if !IE]> -->
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='assets/js/jquery.min.js'>"+"<"+"/script>");
-		</script>
+        <!--[if !IE]> -->
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='assets/js/jquery.min.js'>" + "<" + "/script>");
+        </script>
 
-		<!-- <![endif]-->
+        <!-- <![endif]-->
 
-		<!--[if IE]>
+        <!--[if IE]>
 <script type="text/javascript">
- window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"/script>");
+window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
+        <script type="text/javascript">
+            if ('ontouchstart' in document.documentElement)
+                document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+        </script>
 
-		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
-			jQuery(function($) {
-			 $(document).on('click', '.toolbar a[data-target]', function(e) {
-				e.preventDefault();
-				var target = $(this).data('target');
-				$('.widget-box.visible').removeClass('visible');//hide others
-				$(target).addClass('visible');//show target
-			 });
-			});
-			
-			//you don't need this, just used for changing background
-			jQuery(function($) {
-			 $('#btn-login-dark').on('click', function(e) {
-				$('body').attr('class', 'login-layout');
-				$('#id-text2').attr('class', 'white');
-				$('#id-company-text').attr('class', 'blue');
-				
-				e.preventDefault();
-			 });
-			 $('#btn-login-light').on('click', function(e) {
-				$('body').attr('class', 'login-layout light-login');
-				$('#id-text2').attr('class', 'grey');
-				$('#id-company-text').attr('class', 'blue');
-				
-				e.preventDefault();
-			 });
-			 $('#btn-login-blur').on('click', function(e) {
-				$('body').attr('class', 'login-layout blur-login');
-				$('#id-text2').attr('class', 'white');
-				$('#id-company-text').attr('class', 'light-blue');
-				
-				e.preventDefault();
-			 });
-			 $('#btn-connect').click(function(e){
-                     e.preventDefault();
-                     var url = "main.php";
-                        document.location.href=url;
+        <!-- inline scripts related to this page -->
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $(document).on('click', '.toolbar a[data-target]', function (e) {
+                    e.preventDefault();
+                    var target = $(this).data('target');
+                    $('.widget-box.visible').removeClass('visible');//hide others
+                    $(target).addClass('visible');//show target
+                });
+            });
+
+            //you don't need this, just used for changing background
+            jQuery(function ($) {
+                $('#btn-login-dark').on('click', function (e) {
+                    $('body').attr('class', 'login-layout');
+                    $('#id-text2').attr('class', 'white');
+                    $('#id-company-text').attr('class', 'blue');
+
+                    e.preventDefault();
+                });
+                $('#btn-login-light').on('click', function (e) {
+                    $('body').attr('class', 'login-layout light-login');
+                    $('#id-text2').attr('class', 'grey');
+                    $('#id-company-text').attr('class', 'blue');
+
+                    e.preventDefault();
+                });
+                $('#btn-login-blur').on('click', function (e) {
+                    $('body').attr('class', 'login-layout blur-login');
+                    $('#id-text2').attr('class', 'white');
+                    $('#id-company-text').attr('class', 'light-blue');
+
+                    e.preventDefault();
+                });
+                
+                
+         $("#LISTE_USINE").select2();       
+        loadUsine = function(){
+            $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
+                sData=$.parseJSON(data);
+                if(sData.rc==-1){
+                    $.gritter.add({
+                            title: 'Notification',
+                            text: sData.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                }else{
+//                 
+                    $("#LISTE_USINE").loadJSON('{"usines":' + data + '}');
+                }
+            });
+        };
+        loadUsine();
+                
+                 seConnecter=function(){
+                      var username=$('#username').val();
+                      var password=$('#password').val();
+                      var usine=$('#LISTE_USINE').val();
+                      if(username!=='' && password!=='' && usine!=="*"){
+                          var domainName='/';
+                         
+                          var heure = new Date();
+                          var m = 30* 60 * 1000; // 30 minutes
+                          heure.setTime(heure.getTime() + m ); // l'heure actuelle + 30 minutes
+                      $.ajax({
+                            type: "POST",
+                            url: "<?php echo \App::getBoPath();?>/utilisateur/UtilisateurController.php",
+                            data: {
+                                login: username,
+                                password: password,
+                                usine:usine,
+                                ACTION: 'SIGNIN'
+                            },
+                            success: function(data) {
+                                data=$.parseJSON(data);
+                                if(data.rc===1){
+                                    $.cookie('userId', data.infos.id, { expires: heure, path: domainName, domain:domainName });
+                                    $.cookie('nomUser', data.infos.nomUtilisateur, { expires: heure, path: domainName, domain:domainName });
+                                    $.cookie('profil', data.infos.profil, { expires: heure, path: domainName, domain:domainName });
+                                    $.cookie('status', data.infos.status, { expires: heure, path: domainName, domain:domainName });
+                                    $.cookie('etatCompte', data.infos.etatCompte, { expires: heure, path: domainName, domain:domainName });
+                                    $.cookie('usine', data.infos.nomUsine, { expires: heure, path: domainName, domain:domainName });
+                                    
+                                    var url = "<?php echo \App::getHome();?>/main.php";
+                                    document.location.href=url;
+                                }else if(data.rc===0){
+                                        alert("Login ou mot de passe incorrect");
+                                        return false;
+                                }
+                                else if(data.rc===-1){
+                                        alert("Utilisateur desactivé");
+                                        return false;
+                                }
+                                else {
+                                        alert("Login ou mot de passe incorrect");
+                                  return false;
+                              }
+                                },
+                                error: function(data) {
+                                  alert("Erreur de connexion");
+                                  return false;
+                                }
+                            });
+                      }else{
+                        alert("Les champs ne doivent pas être vide");
+                        return false;
+                      }
+                   };
+                   $('#btn-connect').click(function(e){
+                        seConnecter();
+                    e.preventDefault();
+                    
                    });
-			});
-		</script>
-	</body>
+                   
+            });
+        </script>
+    </body>
 </html>

@@ -11,11 +11,11 @@
  * ----------------------------------------
  */
 
-namespace Produit;
+namespace Utilisateur;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="produit") * */
-class Produit {
+ * @Table(name="utilisateur") * */
+class Utilisateur {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -25,30 +25,33 @@ class Produit {
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $libelle;
-    /**
-     * @Column(type="integer", nullable=false)
-     * */
-    protected $poidsBrut;
-    /**
-     * @Column(type="integer", nullable=false)
-     * */
-    protected $poidsNet;
+    protected $login;
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $prixUnitaire;
+    protected $password;
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="string", length=60, nullable=false)
      * */
-    protected $stock;
+    protected $nomUtilisateur;
+     
+    //pour les utilisateurs connectes
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="string", length=60, nullable=false)
      * */
-    protected $seuil;
+    protected $status;
     
-/** @ManyToOne(targetEntity="Produit\FamilleProduit", inversedBy="familleProduit", cascade={"persist"}) */
-    protected $familleProduit;
+    //activer ou desactiver um compte
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $etatCompte;
+    
+/** @ManyToOne(targetEntity="Usine\Usine", inversedBy="usine", cascade={"persist"}) */
+    protected $usine;
+    
+    /** @ManyToOne(targetEntity="Utilisateur\Profil", inversedBy="profil", cascade={"persist"}) */
+    protected $profil;
     
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
@@ -63,24 +66,32 @@ class Produit {
         return $this->id;
     }
 
-    function getLibelle() {
-        return $this->libelle;
+    function getLogin() {
+        return $this->login;
     }
 
-    function getPoidsNet() {
-        return $this->poidsNet;
+    function getPassword() {
+        return $this->password;
     }
 
-    function getPrixUnitaire() {
-        return $this->prixUnitaire;
+    function getNomUtilisateur() {
+        return $this->nomUtilisateur;
     }
 
-    function getStock() {
-        return $this->stock;
+    function getStatus() {
+        return $this->status;
     }
 
-    function getSeuil() {
-        return $this->seuil;
+    function getEtatCompte() {
+        return $this->etatCompte;
+    }
+
+    function getUsine() {
+        return $this->usine;
+    }
+
+    function getProfil() {
+        return $this->profil;
     }
 
     function getCreatedDate() {
@@ -99,24 +110,32 @@ class Produit {
         $this->id = $id;
     }
 
-    function setLibelle($libelle) {
-        $this->libelle = $libelle;
+    function setLogin($login) {
+        $this->login = $login;
     }
 
-    function setPoidsNet($poidsNet) {
-        $this->poidsNet = $poidsNet;
+    function setPassword($password) {
+        $this->password = $password;
     }
 
-    function setPrixUnitaire($prixUnitaire) {
-        $this->prixUnitaire = $prixUnitaire;
+    function setNomUtilisateur($nomUtilisateur) {
+        $this->nomUtilisateur = $nomUtilisateur;
     }
 
-    function setStock($stock) {
-        $this->stock = $stock;
+    function setStatus($status) {
+        $this->status = $status;
     }
 
-    function setSeuil($seuil) {
-        $this->seuil = $seuil;
+    function setEtatCompte($etatCompte) {
+        $this->etatCompte = $etatCompte;
+    }
+
+    function setUsine($usine) {
+        $this->usine = $usine;
+    }
+
+    function setProfil($profil) {
+        $this->profil = $profil;
     }
 
     function setCreatedDate($createdDate) {
@@ -130,14 +149,8 @@ class Produit {
     function setDeleteDate($deleteDate) {
         $this->deleteDate = $deleteDate;
     }
-    function getFamilleProduit() {
-        return $this->familleProduit;
-    }
 
-    function setFamilleProduit($familleProduit) {
-        $this->familleProduit = $familleProduit;
-    }
-
+    
         
 
 /** @PrePersist */

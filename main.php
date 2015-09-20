@@ -638,10 +638,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <script src="assets/js/jquery.gritter.min.js"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+         <script src="assets/js/jquery.cookie.js"></script>
 
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {
+                
+                $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/home/home.php", function() {
+                        
+                    });
+                
                 $("#MNU_PRODUITS").click(function(e){
                    // mnu_selected_id = "#MNU_DBD";
                    // mnu_selected_parent_id = "";

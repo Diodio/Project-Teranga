@@ -165,9 +165,18 @@
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Poids Net (1 coli) </label>
-                                    <div class="col-sm-9">
-                                            <input type="text" id="poidsNet" placeholder="" class="col-xs-10 col-sm-7">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Poids brut</label>
+                                    <div class="col-sm-6">
+                                            <input type="text" id="poidsBrut" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                    <div class="col-sm-2" style="margin-left: -20%;">
+                                        <input type="number" id="pourcentage" placeholder="" class="col-xs-10 col-sm-7">&nbsp;%
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Poids Net</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" readonly id="poidsNet" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                             </div>
                             <div class="form-group">
@@ -613,5 +622,17 @@ $("#MNU_PRODUIT_EDIT").click(function()
                 }
             }
     });
+    
+     $("#prixUnit").bind("focus", function () {
+           if($("#pourcentage").val() !="") {
+               var pourcentage = $("#pourcentage").val();
+               var poidsBrut = $("#poidsBrut").val();
+               var pn;
+               pn = (parseInt(poidsBrut) * pourcentage)/100;
+               $("#poidsNet").val(pn);
+           }
+           
+                
+        });
     });
 </script>
