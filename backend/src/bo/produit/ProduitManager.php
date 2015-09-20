@@ -45,9 +45,9 @@ class ProduitManager {
     }
 
    
-    public function view($clientId) {
-        $client = $this->produitQuery->view($clientId);
-        return $client;
+    public function view($produitId) {
+        $produit = $this->produitQuery->view($produitId);
+        return $produit;
     }
     
     

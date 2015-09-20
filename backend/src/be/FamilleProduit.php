@@ -11,11 +11,11 @@
  * ----------------------------------------
  */
 
-namespace Article;
+namespace Produit;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="typearticle") * */
-class TypeArticle {
+ * @Table(name="famille_produit") * */
+class FamilleProduit {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -26,6 +26,7 @@ class TypeArticle {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $libelle;
+    
 
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
@@ -36,8 +37,8 @@ class TypeArticle {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
-    /** @OneToMany(targetEntity="Article\Article", mappedBy="article", cascade={"persist"}) */
-    protected $article;
+    /** @OneToMany(targetEntity="Produit\Produit", mappedBy="produit", cascade={"persist"}) */
+    protected $produit;
     
     function getId() {
         return $this->id;

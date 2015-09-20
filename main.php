@@ -43,6 +43,8 @@ require 'common/app.php';
         <script src="assets/js/html5shiv.min.js"></script>
         <script src="assets/js/respond.min.js"></script>
         <![endif]-->
+        <link rel="stylesheet" href="assets/css/jquery.gritter.css" />
+        <link rel="stylesheet" href="assets/css/select2.css" />
     </head>
 
     <body class="no-skin">
@@ -625,10 +627,17 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <script src="assets/js/jquery.flot.min.js"></script>
         <script src="assets/js/jquery.flot.pie.min.js"></script>
         <script src="assets/js/jquery.flot.resize.min.js"></script>
+	<script src="assets/js/select2.min.js"></script>
+        <script src="assets/js/jquery.loadJSON.js"></script>	
+        <script src="assets/js/jquery.validate.min.js"></script>
+	<script src="assets/js/bootbox.min.js"></script>
 
         <!-- ace scripts -->
         <script src="assets/js/ace-elements.min.js"></script>
         <script src="assets/js/ace.min.js"></script>
+        <script src="assets/js/jquery.gritter.min.js"></script>
+	<script src="assets/js/jquery.dataTables.min.js"></script>
+	<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
 
         <!-- inline scripts related to this page -->
         <script type="text/javascript">

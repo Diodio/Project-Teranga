@@ -29,17 +29,23 @@ class Produit {
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $quantite;
+    protected $poidsNet;
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $prixUnitaire;
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $stock;
+    /**
+     * @Column(type="integer", nullable=false)
      * */
     protected $seuil;
     
-
+/** @ManyToOne(targetEntity="Produit\FamilleProduit", inversedBy="familleProduit", cascade={"persist"}) */
+    protected $familleProduit;
+    
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
 
@@ -57,16 +63,32 @@ class Produit {
         return $this->libelle;
     }
 
-    function getQuantite() {
-        return $this->quantite;
+    function getPoidsNet() {
+        return $this->poidsNet;
     }
 
     function getPrixUnitaire() {
         return $this->prixUnitaire;
     }
 
+    function getStock() {
+        return $this->stock;
+    }
+
     function getSeuil() {
         return $this->seuil;
+    }
+
+    function getCreatedDate() {
+        return $this->createdDate;
+    }
+
+    function getUpdatedDate() {
+        return $this->updatedDate;
+    }
+
+    function getDeleteDate() {
+        return $this->deleteDate;
     }
 
     function setId($id) {
@@ -77,18 +99,42 @@ class Produit {
         $this->libelle = $libelle;
     }
 
-    function setQuantite($quantite) {
-        $this->quantite = $quantite;
+    function setPoidsNet($poidsNet) {
+        $this->poidsNet = $poidsNet;
     }
 
     function setPrixUnitaire($prixUnitaire) {
         $this->prixUnitaire = $prixUnitaire;
     }
 
+    function setStock($stock) {
+        $this->stock = $stock;
+    }
+
     function setSeuil($seuil) {
         $this->seuil = $seuil;
     }
 
+    function setCreatedDate($createdDate) {
+        $this->createdDate = $createdDate;
+    }
+
+    function setUpdatedDate($updatedDate) {
+        $this->updatedDate = $updatedDate;
+    }
+
+    function setDeleteDate($deleteDate) {
+        $this->deleteDate = $deleteDate;
+    }
+    function getFamilleProduit() {
+        return $this->familleProduit;
+    }
+
+    function setFamilleProduit($familleProduit) {
+        $this->familleProduit = $familleProduit;
+    }
+
+        
 
 /** @PrePersist */
     public function doPrePersist() {

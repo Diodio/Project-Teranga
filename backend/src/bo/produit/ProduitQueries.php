@@ -42,7 +42,8 @@ class ProduitQueries {
         }
     }
 
-   
+    
+    
     public function findAll() {
         $clientRepository = Bootstrap::$entityManager->getRepository($this->classString);
         $clients = $clientRepository->findAll();
@@ -53,23 +54,25 @@ class ProduitQueries {
     public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " where " . $sWhere;
-            $sql = 'select distinct(id), libelle, quantite, prixUnitaire
+            $sql = 'select distinct(id), libelle, poidsNet, prixUnitaire,stock,seuil
                     from produit' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
-        $arrayContact = array();
+        $arrayProduits = array();
         $i = 0;
         foreach ($products as $key => $value) {
-            $arrayContact [$i] [] = $value ['id'];
-            $arrayContact [$i] [] = $value ['libelle'];
-            $arrayContact [$i] [] = $value ['quantite'];
-            $arrayContact [$i] [] = $value ['prixUnitaire'];
+            $arrayProduits [$i] [] = $value ['id'];
+            $arrayProduits [$i] [] = $value ['libelle'];
+            $arrayProduits [$i] [] = $value ['poidsNet'];
+            $arrayProduits [$i] [] = $value ['prixUnitaire'];
+            $arrayProduits [$i] [] = $value ['stock'];
+            $arrayProduits [$i] [] = $value ['seuil'];
             $i++;
         }
-        return $arrayContact;
+        return $arrayProduits;
     }
 
  
@@ -81,18 +84,12 @@ class ProduitQueries {
         else
             return null;
     }
-    public function view($contactId, $supp = null) {
-        $contactd = $this->findAllById($contactId);
-        if ($contactd->getValidate() == true) {
-            $sql = "SELECT distinct(c.id), c.firstName, c.lastName, c.cellular, c.email, co.code, co.indicative FROM Contact\Contact c, Common\Country co WHERE c.id=" . $contactId . " and c.status=1 and c.cellular like concat(co.indicative, '%') ";
+    public function view($produitId) {
+        $query = B::$entityManager->createQuery('SELECT id, libelle,poidsNet, prixUnitaire, stock, seuil FROM Produit\Produit p WHERE p.id=' . $produitId . '');
+        $produit = $query->getResult();
+        if (count($produit) != 0) {
+            return $produit;
         } else {
-            $sql = "SELECT distinct(c.id), c.firstName, c.lastName, c.cellular, c.email FROM Contact\Contact c WHERE c.id=" . $contactId . " and c.status=1  ";
-        }
-        $query = Bootstrap::$entityManager->createQuery($sql);
-        try {
-            $contact = $query->getSingleResult();
-            return $contact; 
-        } catch (Exception $e) {  
             return null;
         }
     }
