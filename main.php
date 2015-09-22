@@ -429,6 +429,29 @@ require 'common/app.php';
 
                         <b class="arrow"></b>
                     </li>
+                    
+                    <li id="MNU_MAREYEURS"class="">
+                        <a id="MAREYEURS" href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-desktop"></i>
+                            <span class="menu-text">
+                                Mareyeur
+                            </span>
+                        </a>
+                        <b class="arrow"></b>
+
+                    </li>
+                    
+                    <li id="MNU_CLIENTS"class="">
+                        <a id="CLIENTS" href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-desktop"></i>
+                            <span class="menu-text">
+                                Client
+                            </span>
+                        </a>
+                        <b class="arrow"></b>
+
+                    </li>
+                    
 
                     <li id="MNU_PRODUITS"class="">
                         <a id="PRODUITS" href="#" class="dropdown-toggle">
@@ -652,13 +675,33 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                    // mnu_selected_id = "#MNU_DBD";
                    // mnu_selected_parent_id = "";
                     $("#MNU_PRODUITS").attr("Class", "active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produits.php", function() {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function() {
                         
                     });
                     
                 });
 
-              
+
+                $("#MNU_MAREYEURS").click(function(e){
+                    // mnu_selected_id = "#MNU_DBD";
+                    // mnu_selected_parent_id = "";
+                     $("#MNU_MAREYEURS").attr("Class", "active");
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/mareyeur/mareyeursVue.php", function() {
+                         
+                     });
+                     
+                 });     
+
+
+                $("#MNU_CLIENTS").click(function(e){
+                    // mnu_selected_id = "#MNU_DBD";
+                    // mnu_selected_parent_id = "";
+                     $("#MNU_CLIENTS").attr("Class", "active");
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/client/mareyeursVue.php", function() {
+                         
+                     });
+                     
+                 });            
 
 
             });
