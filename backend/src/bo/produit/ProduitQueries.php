@@ -164,12 +164,12 @@ class ProduitQueries {
    
     
      public function findProduitsByName($name) {
-        $sql = 'SELECT id  FROM produit where ( id = "'. $name .'")';
+        $sql = 'SELECT id, stock, seuil FROM produit where libelle = "'.$name.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $produit = $stmt->fetchAll();
         if ($produit != null)
-            return $produit;
+            return $produit[0];
         else
             return null;
     }

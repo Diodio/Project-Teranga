@@ -148,7 +148,7 @@
                             <h3 class="smaller lighter blue no-margin">Produit</h3>
                         </div>
 
-                        <div class="modal-body" style="height: 320px;">
+                        <div class="modal-body" style="height: 340px;">
                             <form id="FRM_PRODUIT" class="form-horizontal" role="form">
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille </label>
@@ -623,16 +623,23 @@ $("#MNU_PRODUIT_EDIT").click(function()
             }
     });
     
-     $("#prixUnit").bind("focus", function () {
-           if($("#pourcentage").val() !="") {
-               var pourcentage = $("#pourcentage").val();
-               var poidsBrut = $("#poidsBrut").val();
-               var pn;
-               pn = (parseInt(poidsBrut) * pourcentage)/100;
-               $("#poidsNet").val(pn);
-           }
-           
-                
+        $("#prixUnit").bind("focus", function () {
+            var pn;
+           if($("#pourcentage").val() !=="") {
+              var pourcentage = $("#pourcentage").val();
+              var poidsBrut = $("#poidsBrut").val();
+              pn = (parseInt(poidsBrut) * pourcentage)/100;
+              $("#poidsNet").val(pn);
+            }    
+        });
+        
+        $("#seuil").bind("focus", function () {
+            var stock = $("#stock").val();
+            var seuil;
+           if(stock !=="") {
+              seuil = (parseInt(stock) * 25)/100;
+              $("#seuil").val(seuil);
+            }    
         });
     });
 </script>

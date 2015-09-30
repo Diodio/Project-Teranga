@@ -1,6 +1,15 @@
 <?php
     require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
-    $userId = 1;
+    if(!isset($_COOKIE['userId'])){
+    header('Location: '.\App::getHome());
+    exit();
+}
+$userId = $_COOKIE['userId'];
+$etatCompte = $_COOKIE['etatCompte'];
+$nomUser = $_COOKIE['nomUser'];
+$profil = $_COOKIE['profil'];
+$status = $_COOKIE['status'];
+$usine = $_COOKIE['usine'];
 ?>
 
 

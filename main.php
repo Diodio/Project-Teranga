@@ -1,6 +1,16 @@
 <?php
 
 require 'common/app.php';
+if(!isset($_COOKIE['userId'])){
+    header('Location: '.\App::getHome());
+    exit();
+}
+$userId = $_COOKIE['userId'];
+$etatCompte = $_COOKIE['etatCompte'];
+$nomUser = $_COOKIE['nomUser'];
+$profil = $_COOKIE['profil'];
+$status = $_COOKIE['status'];
+$usine = $_COOKIE['usine'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
