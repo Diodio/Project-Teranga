@@ -425,7 +425,7 @@ require 'common/app.php';
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a id="MNU_BORD" href="" class="">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Tableau de bord </span>
                         </a>
@@ -433,7 +433,7 @@ require 'common/app.php';
                         <b class="arrow"></b>
                     </li>
                     
-                    <li id="MNU_MAREYEURS"class="">
+                    <li id="MNU_MAREYEURS" class="">
                         <a id="MAREYEURS" href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">
@@ -444,7 +444,7 @@ require 'common/app.php';
 
                     </li>
                     
-                    <li id="MNU_CLIENTS"class="">
+                    <li id="MNU_CLIENTS" class="">
                         <a id="CLIENTS" href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">
@@ -456,7 +456,7 @@ require 'common/app.php';
                     </li>
                     
 
-                    <li id="MNU_PRODUITS"class="">
+                    <li id="MNU_PRODUITS" class="">
                         <a id="PRODUITS" href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
                             <span class="menu-text">
@@ -676,9 +676,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 
                 $("#MNU_PRODUITS").click(function(e){
-                   // mnu_selected_id = "#MNU_DBD";
-                   // mnu_selected_parent_id = "";
-                    $("#MNU_PRODUITS").attr("Class", "active");
+                	$("#MNU_PRODUITS").attr("Class", "active");
+                    $("#MNU_MAREYEURS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_CLIENTS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function() {
                         
                     });
@@ -696,16 +697,18 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      
                  });     
 
-
                 $("#MNU_CLIENTS").click(function(e){
                     // mnu_selected_id = "#MNU_DBD";
                     // mnu_selected_parent_id = "";
                      $("#MNU_CLIENTS").attr("Class", "active");
+                     $("#MNU_MAREYEURS").attr("Class", "no-active");
+                     $("#MNU_BORD").attr("Class", "no-active");
+                     $("#MNU_PRODUITS").attr("Class", "no-active");
                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/client/clientsVue.php", function() {
                          
                      });
                      
-                 });            
+                 });  
 
 
             });

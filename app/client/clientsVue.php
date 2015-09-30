@@ -24,7 +24,7 @@
                 <a href="#modal-table" role="button" class="green" data-toggle="modal"> Liste des clients </a>
             </h4>
             </div>
-            <div class="col-sm-6" style="margin-left: -6%;margin-top: 0.5%;">
+            <div class="col-sm-6" style="margin-left: -10%;margin-top: 0.5%;">
                 <button id="MNU_CLIENT_NEW" class="btn btn-primary btn-xs" title="Client">
                     <i class="ace-icon fa fa-plus-square bigger-110" ></i> Nouveau
                 </button> 
