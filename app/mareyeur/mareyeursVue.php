@@ -106,7 +106,6 @@
             $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {userId: "<?php echo $userId;?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
             
                 grid_data=$.parseJSON(data);
-                langua
                 jQuery(grid_selector).jqGrid({
 					//direction: "rtl",
 			
@@ -122,7 +121,7 @@
 					//for this example we are using local data
 					
 			
-			        
+			
 					data: grid_data,
 					datatype: "local",
 					height: 250,
