@@ -234,7 +234,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       var password=$('#password').val();
                       var usine=$('#LISTE_USINE').val();
                       if(username!=='' && password!=='' && usine!=="*"){
-                          var domainName='/';
+                          var domainName='';
                          
                           var heure = new Date();
                           var m = 30* 60 * 1000; // 30 minutes
@@ -251,12 +251,12 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                             success: function(data) {
                                 data=$.parseJSON(data);
                                 if(data.rc===1){
-                                    $.cookie('userId', data.infos.id, { expires: heure, path: domainName, domain:domainName });
-                                    $.cookie('nomUser', data.infos.nomUtilisateur, { expires: heure, path: domainName, domain:domainName });
-                                    $.cookie('profil', data.infos.profil, { expires: heure, path: domainName, domain:domainName });
-                                    $.cookie('status', data.infos.status, { expires: heure, path: domainName, domain:domainName });
-                                    $.cookie('etatCompte', data.infos.etatCompte, { expires: heure, path: domainName, domain:domainName });
-                                    $.cookie('usine', data.infos.nomUsine, { expires: heure, path: domainName, domain:domainName });
+                                    $.cookie('userId', data.infos.id, { expires: heure, path: domainName });
+                                    $.cookie('nomUser', data.infos.nomUtilisateur, { expires: heure, path: domainName });
+                                    $.cookie('profil', data.infos.profil, { expires: heure, path: domainName});
+                                    $.cookie('status', data.infos.status, { expires: heure, path: domainName });
+                                    $.cookie('etatCompte', data.infos.etatCompte, { expires: heure, path: domainName });
+                                    $.cookie('usine', data.infos.nomUsine, { expires: heure, path: domainName});
                                     
                                     var url = "<?php echo \App::getHome();?>/main.php";
                                     document.location.href=url;

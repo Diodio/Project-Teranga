@@ -39,10 +39,13 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_REMOVE:
                                 $this->doRemove($request);
                                 break;
+                        case \App::ACTION_GET_PRODUCT:
+                                $this->doGetInfoProduct($request);
+                                break;
                         
                     }
             } else {
-                throw new Exception($this->parameters['NO_ACTION']);
+                throw new Exception('NO_ACTION');
             }
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
@@ -172,6 +175,25 @@ class ProduitController extends BaseController implements BaseAction {
         }
     }
 
+     public function doGetInfoProduct($request) {
+        try {
+            if (isset($request['libelle'])) {
+                $produitManager = new ProduitManager();
+                $produit = $produitManager->findProduitsByName($request['libelle']);
+                if($produit !=null)
+                    $this->doSuccessO($produit);
+                else
+                   echo json_encode(array());  
+            } else {
+                throw new Exception('PARAM_NOT_ENOUGH');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
+        }
+    }
+    
     
 
 }
