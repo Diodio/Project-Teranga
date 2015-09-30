@@ -1,10 +1,10 @@
 <?php
 
-namespace Client;
+namespace Mareyeur;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="client") * */
-class Client {
+ * @Table(name="mareyeur") * */
+class Mareyeur {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -24,6 +24,10 @@ class Client {
      * @Column(type="string", length=32, nullable=false)
      * */
     protected $telephone;
+    /**
+     * @Column(type="string", length=32, nullable=false)
+     * */
+    protected $montantFinancement;
    
     
     public function getId() {
@@ -34,13 +38,15 @@ class Client {
         return $this->nom;
     }
 
-
     public function getAdresse() {
         return $this->adresse;
     }
 
     public function getTelephone() {
         return $this->telephone;
+    }
+    public function getMontantFinancement() {
+    	return $this->montantFinancement;
     }
 
     public function setId($id) {
@@ -51,7 +57,6 @@ class Client {
         $this->nom = $nom;
     }
 
-
     public function setAdresse($adresse) {
         $this->adresse = $adresse;
     }
@@ -59,8 +64,11 @@ class Client {
     public function setTelephone($telephone) {
         $this->telephone = $telephone;
     }
-
-
-
+    
+    public function setMontantFinancement($montantFinancement) {
+    	$this->montantFinancement = $montantFinancement;
+    }
+    
+    
 
     }

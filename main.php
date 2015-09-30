@@ -13,36 +13,39 @@ require 'common/app.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
         <!-- bootstrap & fontawesome -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+       <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 
-        <!-- page specific plugin styles -->
+		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="assets/css/datepicker.min.css" />
+		<link rel="stylesheet" href="assets/css/ui.jqgrid.min.css" />
 
-        <!-- text fonts -->
-        <link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
+		<!-- text fonts -->
+		<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
 
-        <!-- ace styles -->
-        <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+		<!-- ace styles -->
+		<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
-        <!--[if lte IE 9]>
-                <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
-        <![endif]-->
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
 
-        <!--[if lte IE 9]>
-          <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-        <![endif]-->
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
 
-        <!-- inline styles related to this page -->
+		<!-- inline styles related to this page -->
 
-        <!-- ace settings handler -->
-        <script src="assets/js/ace-extra.min.js"></script>
+		<!-- ace settings handler -->
+		<script src="assets/js/ace-extra.min.js"></script>
 
-        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
-        <!--[if lte IE 8]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
+		<!--[if lte IE 8]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
         <link rel="stylesheet" href="assets/css/jquery.gritter.css" />
         <link rel="stylesheet" href="assets/css/select2.css" />
     </head>
@@ -662,7 +665,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
          <script src="assets/js/jquery.cookie.js"></script>
-
+         <script src="assets/js/jquery.jqGrid.min.js"></script>
+        <script src="assets/js/grid.locale-en.js"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {
@@ -697,7 +701,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     // mnu_selected_id = "#MNU_DBD";
                     // mnu_selected_parent_id = "";
                      $("#MNU_CLIENTS").attr("Class", "active");
-                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/client/mareyeursVue.php", function() {
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/client/clientsVue.php", function() {
                          
                      });
                      
