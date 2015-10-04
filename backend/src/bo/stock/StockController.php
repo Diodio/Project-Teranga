@@ -76,9 +76,9 @@ class StockController extends BaseController {
                     }
                 }
                 // End filter from dataTable
-                $produits = $stockManager->retrieveAll($request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $produits = $stockManager->retrieveAll($request['nomUsine'],$request['nomUser'],$request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($produits != null) {
-                    $nbProduits = $stockManager->count($request['typeProduit'], $sWhere);
+                    $nbProduits = $stockManager->count($request['nomUsine'],$request['nomUser'],$request['typeProduit'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -96,7 +96,7 @@ class StockController extends BaseController {
      public function doGetStat($request) {
         try {
             if (isset($request['userId'])) {
-                $stockManager = new StockManager();stockManager;
+                $stockManager = new StockManager();
                 $infoStocks = $stockManager->findStats($request['nomUser'],$request['nomUsine']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);

@@ -157,6 +157,8 @@ $usine = $_COOKIE['usine'];
                         /* Add some extra data to the sender */
                     aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                     aoData.push({"name": "typeProduit", "value": typeProduit});
+                    aoData.push({"name": "nomUsine", "value": "<?php echo $usine?>"});
+                    aoData.push({"name": "nomUser", "value": "<?php echo $nomUser?>"});
                     aoData.push({"name": "offset", "value": "1"});
                     aoData.push({"name": "rowCount", "value": "10"});
                    

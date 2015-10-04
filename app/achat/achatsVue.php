@@ -1,8 +1,8 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
-if(!isset($_COOKIE['userId'])){
-	header('Location: '.\App::getHome());
-	exit();
+if (!isset($_COOKIE['userId'])) {
+    header('Location: ' . \App::getHome());
+    exit();
 }
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
@@ -14,93 +14,86 @@ $usine = $_COOKIE['usine'];
 
 
 <div class="page-content">
-	<div class="page-header">
-		<h1>
-			Achat de produits <small> <i
-				class="ace-icon fa fa-angle-double-right"></i> Achat
-			</small>
-		</h1>
-	</div>
-	<!-- /.page-header -->
+    <div class="page-header">
+        <h1>
+            Achat de produits <small> <i
+                    class="ace-icon fa fa-angle-double-right"></i> Achat
+            </small>
+        </h1>
+    </div>
+    <!-- /.page-header -->
 
-	<div class="row">
-		<div class="col-xs-12">
-			<!-- PAGE CONTENT BEGINS -->
-			
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
 
-					<form id="FRM_MAREYEUR" role="form">
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-								 <label class="col-sm-2 control-label no-padding-right"
-										for="form-field-1"> Mareyeur</label>
-									<div class="col-sm-5">
-										<select id="GRP_NEW_CMB" data-placeholder=""
-											style="width: 225px">
-											<option value="*" class="groups">Nom Mareyeur</option>
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label no-padding-right"
-										for="form-field-1"> Reference</label>
-									<div class="col-sm-9">
-										<input type="text" id="reference" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right"
-										for="form-field-1"> Adresse</label>
-									<div class="col-sm-9">
-										<input type="text" id="adresse" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
 
-							</div>
+           <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label> Mareyeur</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <select id="GRP_NEW_CMB" data-placeholder=""
+                                style="width: 225px">
+                            <option value="*" class="groups">Nom Mareyeur</option>
+                        </select>
+                    </div>
+                </div>
+               <div class="space-6"></div>
+                <div class="row">
+                        <div class="col-sm-2">
+                            <label> Reference</label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
+               <div class="space-6"></div>
+                 <div class="row">
+                        <div class="col-sm-2">
+                            <label> Reference</label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="adresse" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
+                 <div class="space-6"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right"
+                                   for="form-field-1"> Numero Commande</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="reference" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right"
+                                   for="form-field-1"> Date Commande</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="reference" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                        </div>
+                       
+                    </div>
 
-							<div class="col-sm-6">
+                </div>
 
-								<div class="form-group">
-									<label class="col-sm-2 control-label no-padding-right"
-										for="form-field-1"> Numero Commande</label>
-									<div class="col-sm-9">
-										<input type="text" id="reference" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label no-padding-right"
-										for="form-field-1"> Date Commande</label>
-									<div class="col-sm-9">
-										<input type="text" id="reference" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
-<!-- 								<div class="form-group"> -->
-<!-- 									<label class="col-sm-3 control-label no-padding-right" -->
-<!-- 										for="form-field-1"> Adresse</label> -->
-<!-- 									<div class="col-sm-9"> -->
-<!-- 										<input type="text" id="adresse" placeholder="" -->
-<!-- 											class="col-xs-10 col-sm-7"> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-							</div>
-							
-						</div>
-						</form>
-
-				<div class="row">
-					<div class="col-xs-12">
-						<table id="grid-table"></table>
-						<div id="grid-pager"></div>
-					</div>
-				</div>
-		</div>
-		<!-- /.col -->
-	</div>
-	<!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="grid-table"></table>
+                    <div id="grid-pager"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 
 </div>
 <!-- /.page-content -->
@@ -309,9 +302,9 @@ $usine = $_COOKIE['usine'];
 
     function style_edit_form(form) {
         //enable datepicker on "sdate" field and switches for "stock" field
-      //  form.find('input[name=sdate]').datepicker({format: 'yyyy-mm-dd', autoclose: true})
+        //  form.find('input[name=sdate]').datepicker({format: 'yyyy-mm-dd', autoclose: true})
 
-      //  form.find('input[name=stock]').addClass('ace ace-switch ace-switch-5').after('<span class="lbl"></span>');
+        //  form.find('input[name=stock]').addClass('ace ace-switch ace-switch-5').after('<span class="lbl"></span>');
         //don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
         //.addClass('ace ace-switch ace-switch-5').wrap('<label class="inline" />').after('<span class="lbl"></span>');
 
@@ -376,8 +369,8 @@ $usine = $_COOKIE['usine'];
          $(table).find('input:checkbox').addClass('ace')
          .wrap('<label />')
          .after('<span class="lbl align-top" />')
-             
-             
+         
+         
          $('.ui-jqgrid-labels th[id*="_cb"]:first-child')
          .find('input.cbox[type=checkbox]').addClass('ace')
          .wrap('<label />').after('<span class="lbl align-top" />');
@@ -479,8 +472,9 @@ $usine = $_COOKIE['usine'];
                         class_name: 'gritter-error gritter-light'
                     });
 
-                };
-                
+                }
+                ;
+
             },
             error: function () {
                 alert("failure - controller");

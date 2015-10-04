@@ -23,14 +23,14 @@ class StockQueries {
     }
 
 
-    public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAll($usine, $user, $produitId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($produitId == '*') {
              $sql = 'select distinct(id), libelle, stock, seuil
-                    from produit ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from produit where utilisateur= "'.$user.'" and nomUsine="'.$usine.'" '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
             $sql = 'select distinct(id), libelle, stock, seuil
-                    from produit where familleProduit_id = '.$produitId . '' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from produit where familleProduit_id = "'.$produitId . '" and utilisateur="'.$user.'" and nomUsine="'.$usine.'" ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }    
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -47,16 +47,16 @@ class StockQueries {
         return $arrayStocks;
     }
 
-    public function count($produitId, $where="") {
+    public function count($usine, $user, $produitId, $where="") {
 //        if($where !="")
 //                    $where = " where" . $where;
         if($produitId == '*') {
                 $sql = 'select count(id) as nbStocks
-                    from produit  ' . $where . '';
+                    from produit where utilisateur= "'.$user.'" and nomUsine="'.$usine.'" ' . $where . '';
         }
         else {
             $sql = 'select count(id) as nbStocks
-                    from produit where familleProduit_id  = '.$produitId . ' ' . $where . '';
+                    from produit where familleProduit_id  = '.$produitId . ' and utilisateur= "'.$user.'" and nomUsine="'.$usine.'" ' . $where . '';
         }
             
        

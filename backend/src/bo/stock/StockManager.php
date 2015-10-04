@@ -30,17 +30,17 @@ class StockManager {
     
 
     
-    public function retrieveAll($produitId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->stockQuery->retrieveAll($produitId, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($usine, $user, $produitId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->stockQuery->retrieveAll($usine, $user, $produitId, $offset, $rowCount, $sOrder, $sWhere);
     }
 
-    public function count($where="") {
-        return $this->stockQuery->count($where);
+    public function count($usine, $user, $where="") {
+        return $this->stockQuery->count($usine, $user, $where);
     }
     
   public function findStats($nomUsine,$nomUser) {
         $stockQueries = new StockQueries();
-    	return $stockQueries->findStats($$nomUsine,$nomUser);
+    	return $stockQueries->findStats($nomUsine,$nomUser);
 	}
 
 }

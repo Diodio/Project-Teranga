@@ -429,7 +429,7 @@ $usine = $_COOKIE['usine'];
 				
 				
 				<li id="MNU_ACHATS" class=""><a id="ACHATS" href="#"> <i
-						class="menu-icon fa fa-list-alt"></i> <span class="menu-text"> Achat
+						class="menu-icon fa fa-list-alt"></i> <span class="menu-text"> Bon d'Achat
 							<span class="badge badge-transparent tooltip-error"
 							title="2 Important Events"> </span>
 					</span>
