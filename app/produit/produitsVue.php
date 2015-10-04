@@ -623,7 +623,7 @@ $("#MNU_PRODUIT_EDIT").click(function()
             }
     });
     
-        $("#prixUnit").bind("focus", function () {
+        $("#prixUnit").bind("mouseenter mouseleave", function () {
             var pn;
            if($("#pourcentage").val() !=="") {
               var pourcentage = $("#pourcentage").val();
