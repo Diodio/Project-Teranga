@@ -43,6 +43,11 @@ class Usine {
      * */
     protected $codePostal;
     
+    /**
+     * @Column(type="string", length=60, nullable=true)
+     * */
+    protected $couleur;
+    
     
     /** @OneToMany(targetEntity="Utilisateur\Utilisateur", mappedBy="utilisateur", cascade={"persist"}) */
     protected $utilisateur;

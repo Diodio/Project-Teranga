@@ -1,6 +1,11 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
-$userId = 1;
+$userId = $_COOKIE['userId'];
+$etatCompte = $_COOKIE['etatCompte'];
+$nomUser = $_COOKIE['nomUser'];
+$profil = $_COOKIE['profil'];
+$status = $_COOKIE['status'];
+$usine = $_COOKIE['usine'];
 ?>
 <div class="page-content">
     <div class="page-header">
@@ -84,42 +89,7 @@ $userId = 1;
                         </h5>
 
                         <div class="widget-toolbar no-border">
-                            <div class="inline dropdown-hover">
-                                <button class="btn btn-minier btn-primary">
-                                    This Week
-                                    <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
-                                    <li class="active">
-                                        <a href="#" class="blue">
-                                            <i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>
-                                            This Week
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
-                                            Last Week
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
-                                            This Month
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
-                                            Last Month
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
 
@@ -129,39 +99,9 @@ $userId = 1;
 
                             <div class="hr hr8 hr-double"></div>
 
-                            <div class="clearfix">
-                                <div class="grid3">
-                                    <span class="grey">
-                                        <i class="ace-icon fa fa-square fa-2x green"></i>
-                                       &nbsp; Dakar
-                                    </span>
-                                    <h4 class="bigger pull-right">1250</h4>
-                                </div>
+                        <div class="clearfix" id="NB_STATS">
 
-                                <div class="grid3">
-                                    <span class="grey">
-                                        <i class="ace-icon fa fa-square fa-2x" style="color:#2091CF"></i>
-                                         Rufisque
-                                    </span>
-                                    <h4 class="bigger pull-right">941</h4>
-                                </div>
-
-                                <div class="grid3">
-                                    <span class="grey">
-                                        <i class="ace-icon fa fa-square fa-2x purple"></i>
-                                        Yarakh
-                                    </span>
-                                    <h4 class="bigger pull-right">1050</h4>
-                                </div>
-                                
-                                 <div class="grid3">
-                                    <span class="grey">
-                                        <i class="ace-icon fa fa-square fa-2x" style="color:#FEE074"></i>
-                                        &nbsp; St Louis
-                                    </span>
-                                    <h4 class="bigger pull-right">600</h4>
-                                </div>
-                            </div>
+                      </div>    
                         </div><!-- /.widget-main -->
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
@@ -171,28 +111,35 @@ $userId = 1;
     
     <script type="text/javascript">
             jQuery(function ($) {
-                
+            var oTableStock= null;
+        var familleId="";
             $("#GRP_CMB").select2();  
 
-           loadStocks = function() {
+           loadStocks = function(typeProduit) {
              rowCount = 0;
             var url;
-            url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
-            if (oTableProduit != null)
-                oTableProduit.fnDestroy();
-            oTableProduit = $('#LIST_PRODUITS').dataTable({
+            url = '<?php echo App::getBoPath(); ?>/stock/StockController.php';
+            if (oTableStock != null)
+                oTableStock.fnDestroy();
+            oTableStock = $('#LIST_STOCKS').dataTable({
                
-                "aoColumnDefs": [{
-                        "aTargets": [0],
+               "aoColumnDefs": [{
+                        "aTargets": [2],
                         "bSortable": false,
                         "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                             $(nTd).css('text-align', 'center');
                         },
                         "mRender": function(data, type, full) {
-                            return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
+                            var src="";
+                            if(data <= full[1])
+                                src+= '<td><span class="label label-danger arrowed">seuil atteint</span></td>';
+                            else
+                               src+= '<td><span class="label label-success arrowed-in arrowed-in-right">disponible</span></td>'; 
+                           return src;
                         }
                     }
                 ],
+                
                 "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 //                    
                 },
@@ -209,7 +156,7 @@ $userId = 1;
                 "fnServerData": function ( sSource, aoData, fnCallback ) {
                         /* Add some extra data to the sender */
                     aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
-                    aoData.push({"name": "familleId", "value": familleId});
+                    aoData.push({"name": "typeProduit", "value": typeProduit});
                     aoData.push({"name": "offset", "value": "1"});
                     aoData.push({"name": "rowCount", "value": "10"});
                    
@@ -235,7 +182,7 @@ $userId = 1;
             });
         };
         
-     //   loadProduit($("#GRP_CMB").val());
+       
 
 
     loadFamilleProduit = function(){
@@ -254,19 +201,19 @@ $userId = 1;
             }
             loadFamilleProduit();
 
-
+            loadStocks($("#GRP_CMB").val());
             //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
 			  //but sometimes it brings up errors with normal resize event handlers
 			  $.resize.throttleWindow = false;
 			
 			  var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});
-			  var data = [
-				{ label: "Dakar",  data: 40, color: "#68BC31"},
-				{ label: "Rufisque",  data: 25, color: "#2091CF"},
-				{ label: "Yarah",  data: 15, color: "#AF4E96"},
-				{ label: "St Louis",  data: 20, color: "#FEE074"},
-// 				{ label: "other",  data: 10, color: "#FEE074"}
-			  ]
+//			  var data = [
+//				{ label: "Dakar",  data: 40, color: "#68BC31"},
+//				{ label: "Rufisque",  data: 25, color: "#2091CF"},
+//				{ label: "Yarah",  data: 15, color: "#AF4E96"},
+//				{ label: "St Louis",  data: 20, color: "#FEE074"},
+//// 				{ label: "other",  data: 10, color: "#FEE074"}
+//			  ]
 			  function drawPieChart(placeholder, data, position) {
 			 	  $.plot(placeholder, data, {
 					series: {
@@ -296,16 +243,46 @@ $userId = 1;
 					}
 				 })
 			 }
-			 drawPieChart(placeholder, data)
+			// drawPieChart(placeholder, data)
 
 			 /**
 			 we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
 			 so that's not needed actually.
 			 */
-			 placeholder.data('chart', data);
-			 placeholder.data('draw', drawPieChart);
+			// placeholder.data('chart', data);
+			// placeholder.data('draw', drawPieChart);
+        loadStats = function(nomUsine, nomUser)
+            {
+              var map = [];
+              var color = '';
+                $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",nomUser: nomUser,nomUsine:nomUsine, ACTION: "<?php echo App::ACTION_STAT; ?>"}, function(data) {
+                 data = $.parseJSON(data);
+                    if(data.rc==-1){
+                        $.gritter.add({
+                                title: 'Notification',
+                                text: data.error,
+                                class_name: 'gritter-error gritter-light'
+                            });
+                    }else {
+                        var dataUsine='';
+                        $('#NB_STATS').empty();
+                        $.each(data, function () {
+                            map.push({label: this.nomUsine, data: this.nbStocks, color: this.couleur, operator: this.nomUsine});
+                            dataUsine += '{"value":"'+this.nomUsine+'","text":"'+this.nomUsine+'"},';
+                            $('#NB_STATS').append(' <div class="grid3"> <span class="grey"><i class="icon-user"></i><small>&nbsp; '+this.nomUsine+'</span><span  class="bigger pull-right" >'+this.nbStocks+'</small> </span>   </div>');
+
+                        });
+                        dataUsine = dataUsine.substr(0, dataUsine.length-1);
+                        dataUsine ='['+dataUsine+']';
+                        console.log('{"usine":' + dataUsine + '}');	
+                        drawPieChart(placeholder, map);
+
+                    }
+                       
+                    }).error(function(error) { alert("failure"); });;
+            };
 			
-			
+                        loadStats("<?php echo $nomUser?>", "<?php echo $usine?>");
 			  //pie chart tooltip example
 			  var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
 			  var previousPoint = null;
@@ -324,6 +301,15 @@ $userId = 1;
 				}
 				
 			 });
+                         
+            $("#GRP_CMB").change(function() {
+                if($("#GRP_CMB").val()!==null){
+                    loadStocks($("#GRP_CMB").val());
+                }
+                else{
+                 loadStocks('*');
+                }
+            });
 
             });
         </script>

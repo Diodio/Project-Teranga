@@ -50,6 +50,16 @@ class Produit {
 /** @ManyToOne(targetEntity="Produit\FamilleProduit", inversedBy="familleProduit", cascade={"persist"}) */
     protected $familleProduit;
     
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $nomUsine;
+   
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $utilisateur;
+   
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
 
