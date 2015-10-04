@@ -623,23 +623,36 @@ $("#MNU_PRODUIT_EDIT").click(function()
             }
     });
     
-        $("#prixUnit").bind("mouseenter mouseleave", function () {
-            var pn;
+        $("#winModalProduit").bind("click", function () {
+            calculPoidsNet();
+            calculSeuil();
+            
+        });
+        
+        $("#seuil").bind("focus", function () {
+            calculSeuil();
+            
+        });
+        function calculPoidsNet(){
+           var pn;
            if($("#pourcentage").val() !=="") {
               var pourcentage = $("#pourcentage").val();
               var poidsBrut = $("#poidsBrut").val();
               pn = (parseInt(poidsBrut) * pourcentage)/100;
-              $("#poidsNet").val(pn);
-            }    
-        });
-        
-        $("#seuil").bind("focus", function () {
-            var stock = $("#stock").val();
+              if(!isNaN(pn))
+                $("#poidsNet").val(pn);
+              
+            }  
+       }
+       
+       function calculSeuil(){
+           var stock = $("#stock").val();
             var seuil;
            if(stock !=="") {
               seuil = (parseInt(stock) * 25)/100;
-              $("#seuil").val(seuil);
-            }    
-        });
+              if(!isNaN(seuil))
+                $("#seuil").val(seuil);
+            }  
+       }
     });
 </script>
