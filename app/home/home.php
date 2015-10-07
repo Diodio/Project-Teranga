@@ -2,7 +2,6 @@
 require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
-$nomUser = $_COOKIE['nomUser'];
 $login = $_COOKIE['login'];
 $profil = $_COOKIE['profil'];
 $status = $_COOKIE['status'];
@@ -124,7 +123,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#GRP_CMB").select2();  
             if("<?php echo $profil ?>" === "admin") {
                 $('#STAT_OTHER').addClass("hide");
-                $('#STAT_OTHER').removeClass("hide");
+                $('#STAT_ADMIN').removeClass("hide");
                 $('#STAT_ADMIN').addClass("show");
             }
             else {
