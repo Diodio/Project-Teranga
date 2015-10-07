@@ -323,8 +323,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 							<li class="divider"></li>
 
-							<li><a href="#" id="US_LOGOUT"> <i
-									class="ace-icon fa fa-power-off"></i> Déconnexion
+							<li><a href="#" id="US_LOGOUT"> <i class="ace-icon fa fa-power-off"></i> Déconnexion
 							</a>
 							</li>
 						</ul>
@@ -382,41 +381,54 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div> /.sidebar-shortcuts -->
 
 			<ul class="nav nav-list">
-
+				
 				<li class="active"><a id="MNU_BORD" href="" class=""> <i
 						class="menu-icon fa fa-tachometer"></i> <span class="menu-text">
 							Tableau de bord </span>
 				</a> <b class="arrow"></b>
 				</li>
 
-				<li class=""><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-cogs"></i> <span class="menu-text">
-							Parametrage </span> <b class="arrow fa fa-angle-down"></b>
+				<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-cogs"></i>
+							<span class="menu-text"> Parametrage </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li id="MNU_MAREYEURS" class="">
+								<a id="MAREYEURS" href="#">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Mareyeur
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li id="MNU_CLIENTS" class=""><a id="CLIENTS" href="#"
+					class=""> <i class="menu-icon fa fa-desktop"></i> <span
+						class="menu-text"> Client </span>
 				</a> <b class="arrow"></b>
-
-					<ul class="submenu">
-						<li id="MNU_MAREYEURS" class=""><a id="MAREYEURS" href="#"> <i
-								class="menu-icon fa fa-caret-right"></i> Mareyeur
-						</a> <b class="arrow"></b>
-						</li>
-
-						<li id="MNU_CLIENTS" class=""><a id="CLIENTS" href="#"> <i
-								class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-									Client </span>
-						</a> <b class="arrow"></b>
-						</li>
-
-						<li id="MNU_PRODUITS" class=""><a id="PRODUITS" href="#"> <i
-								class="menu-icon fa fa-caret-right"></i> Produit
-						</a> <b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
+							
+							<li id="MNU_PRODUITS" class="">
+								<a id="PRODUITS" href="#">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Produit
+								</a>
 
-
+								<b class="arrow"></b>
+							</li>
+						</ul>
+				</li>
+				
+				
 				<li id="MNU_ACHATS" class=""><a id="ACHATS" href="#"> <i
-						class="menu-icon fa fa-list-alt"></i> <span class="menu-text"> Bon
-							d'Achat <span class="badge badge-transparent tooltip-error"
+						class="menu-icon fa fa-list-alt"></i> <span class="menu-text"> Bon d'Achat
+							<span class="badge badge-transparent tooltip-error"
 							title="2 Important Events"> </span>
 					</span>
 				</a> <b class="arrow"></b>
@@ -589,7 +601,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 	<script src="assets/js/jquery.cookie.js"></script>
 	<script src="assets/js/jquery.jqGrid.min.js"></script>
 	<script src="assets/js/grid.locale-en.js"></script>
-	<script src="assets/js/jchart.js"></script>
+        <script src="assets/js/jchart.js"></script>
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
             jQuery(function ($) {
@@ -601,7 +613,6 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                 $("#MNU_PRODUITS").click(function(e){
                     $("#MNU_PRODUITS").attr("Class", "active");
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
-                    $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function() {
                     });
@@ -610,20 +621,17 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 
 
                 $("#MNU_MAREYEURS").click(function(e){
-                    // mnu_selected_id = "#MNU_DBD";
-                    // mnu_selected_parent_id = "";
-                    // $("#MNU_MAREYEURS").attr("Class", "active");
-//                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/mareyeur/mareyeursVue.php", function() {
+                	$("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MNU_MAREYEURS").attr("Class", "active");
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/mareyeur/mareyeursVue.php", function() {
 //                         
-//                     });
+                    });
                  });     
 
                 $("#MNU_CLIENTS").click(function(e){
-                    // mnu_selected_id = "#MNU_DBD";
-                    // mnu_selected_parent_id = "";
                      $("#MNU_CLIENTS").attr("Class", "active");
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
-                     $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_PRODUITS").attr("Class", "no-active");
                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/client/clientsVue.php", function() {
                          
