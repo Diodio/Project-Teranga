@@ -7,9 +7,10 @@
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
 $nomUser = $_COOKIE['nomUser'];
+$login = $_COOKIE['login'];
 $profil = $_COOKIE['profil'];
 $status = $_COOKIE['status'];
-$usine = $_COOKIE['usine'];
+$codeUsine = $_COOKIE['codeUsine'];
 ?>
 
 

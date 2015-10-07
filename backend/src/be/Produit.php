@@ -53,12 +53,12 @@ class Produit {
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $nomUsine;
+    protected $codeUsine;
    
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $utilisateur;
+    protected $login;
    
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;

@@ -3,9 +3,10 @@ require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
 $nomUser = $_COOKIE['nomUser'];
+$login = $_COOKIE['login'];
 $profil = $_COOKIE['profil'];
 $status = $_COOKIE['status'];
-$usine = $_COOKIE['usine'];
+$codeUsine = $_COOKIE['codeUsine'];
 ?>
 <div class="page-content">
     <div class="page-header">
@@ -95,17 +96,24 @@ $usine = $_COOKIE['usine'];
 
                     <div class="widget-body">
                         <div class="widget-main">
+                            
+                            <div id="STAT_ADMIN" class="hide">
                             <div id="piechart-placeholder"></div>
 
                             <div class="hr hr8 hr-double"></div>
 
-                        <div class="clearfix" id="NB_STATS">
+                            <div class="clearfix" id="NB_STATS">
 
-                      </div>    
+                            </div>    
+                            </div>
+                            <div id="STAT_OTHER" class="hide" data-width="300"  >
+                                <div id="STAT_PRODUIT" ></div>
+ 
+                            </div>
                         </div><!-- /.widget-main -->
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
-            </div><!-- /.col -->
+            </div><!-- /.colz -->
         </div><!-- /.row -->
     </div>
     
@@ -114,7 +122,16 @@ $usine = $_COOKIE['usine'];
             var oTableStock= null;
         var familleId="";
             $("#GRP_CMB").select2();  
-
+            if("<?php echo $profil ?>" === "admin") {
+                $('#STAT_OTHER').addClass("hide");
+                $('#STAT_OTHER').removeClass("hide");
+                $('#STAT_ADMIN').addClass("show");
+            }
+            else {
+                $('#STAT_ADMIN').addClass("hide");
+                $('#STAT_OTHER').removeClass("hide");
+                $('#STAT_OTHER').addClass("show");
+            }
            loadStocks = function(typeProduit) {
              rowCount = 0;
             var url;
@@ -157,8 +174,10 @@ $usine = $_COOKIE['usine'];
                         /* Add some extra data to the sender */
                     aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                     aoData.push({"name": "typeProduit", "value": typeProduit});
-                    aoData.push({"name": "nomUsine", "value": "<?php echo $usine?>"});
-                    aoData.push({"name": "nomUser", "value": "<?php echo $nomUser?>"});
+                    aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine?>"});
+                    aoData.push({"name": "login","value": "<?php echo $login?>"});
+                    if("<?php echo $login?>" === "admin")
+                        aoData.push({"name": "profil", "value": "<?php echo $profil?>"});
                     aoData.push({"name": "offset", "value": "1"});
                     aoData.push({"name": "rowCount", "value": "10"});
                    
@@ -201,6 +220,8 @@ $usine = $_COOKIE['usine'];
                 }
             });
             }
+            
+         
             loadFamilleProduit();
 
             loadStocks($("#GRP_CMB").val());
@@ -253,11 +274,27 @@ $usine = $_COOKIE['usine'];
 			 */
 			// placeholder.data('chart', data);
 			// placeholder.data('draw', drawPieChart);
-        loadStats = function(nomUsine, nomUser)
+                      $("#STAT_OTHER").jChart({
+
+                        name: "Famille SOMPATE",
+
+                        headers: ["SOMPATE 1","SOMPATE 2","SOMPATE 3","SOMPATE 4","SOMPATE 5"],
+
+                        values: [250000,478000,88000,429000,423000],
+
+                        footers: [100000,200000,300000,400000,500000],
+
+                        colors: ["#1000ff","#006eff","#00b6ff","#00fff6","#00ff90"]
+
+                        });
+
+
+
+        loadStats = function(codeUsine, login)
             {
               var map = [];
               var color = '';
-                $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",nomUser: nomUser,nomUsine:nomUsine, ACTION: "<?php echo App::ACTION_STAT; ?>"}, function(data) {
+                $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",login: login,codeUsine:codeUsine, ACTION: "<?php echo App::ACTION_STAT; ?>"}, function(data) {
                  data = $.parseJSON(data);
                     if(data.rc==-1){
                         $.gritter.add({
@@ -284,7 +321,7 @@ $usine = $_COOKIE['usine'];
                     }).error(function(error) { alert("failure"); });;
             };
 			
-                        loadStats("<?php echo $nomUser?>", "<?php echo $usine?>");
+                        loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
 			  //pie chart tooltip example
 			  var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
 			  var previousPoint = null;

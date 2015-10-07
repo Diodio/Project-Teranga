@@ -1,6 +1,12 @@
 <?php
     require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
-    $userId = 1;
+    $userId = $_COOKIE['userId'];
+    $etatCompte = $_COOKIE['etatCompte'];
+    $nomUser = $_COOKIE['nomUser'];
+    $login = $_COOKIE['login'];
+    $profil = $_COOKIE['profil'];
+    $status = $_COOKIE['status'];
+    $codeUsine = $_COOKIE['codeUsine'];
 ?>
 <div class="page-content">
     <div class="page-header">

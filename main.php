@@ -61,6 +61,7 @@ $usine = $_COOKIE['usine'];
 		<![endif]-->
 <link rel="stylesheet" href="assets/css/jquery.gritter.css" />
 <link rel="stylesheet" href="assets/css/select2.css" />
+<link rel="stylesheet" href="assets/css/jchart.css" />
 </head>
 
 <body class="no-skin">
@@ -399,7 +400,7 @@ $usine = $_COOKIE['usine'];
 
 						<ul class="submenu">
 							<li id="MNU_MAREYEURS" class="">
-								<a href="tables.html">
+								<a href="">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Mareyeur
 								</a>
@@ -408,7 +409,7 @@ $usine = $_COOKIE['usine'];
 							</li>
 
 							<li id="MNU_CLIENTS" class="">
-								<a href="jqgrid.html">
+								<a href="">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Client
 								</a>
@@ -417,7 +418,7 @@ $usine = $_COOKIE['usine'];
 							</li>
 							
 							<li id="MNU_PRODUITS" class="">
-								<a href="jqgrid.html">
+								<a href="">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Produit
 								</a>
@@ -603,6 +604,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 	<script src="assets/js/jquery.cookie.js"></script>
 	<script src="assets/js/jquery.jqGrid.min.js"></script>
 	<script src="assets/js/grid.locale-en.js"></script>
+        <script src="assets/js/jchart.js"></script>
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
             jQuery(function ($) {
@@ -612,7 +614,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 
                 $("#MNU_PRODUITS").click(function(e){
-                	$("#MNU_PRODUITS").attr("Class", "active");
+                    $("#MNU_PRODUITS").attr("Class", "active");
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
@@ -625,10 +627,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                 $("#MNU_MAREYEURS").click(function(e){
                     // mnu_selected_id = "#MNU_DBD";
                     // mnu_selected_parent_id = "";
-                     $("#MNU_MAREYEURS").attr("Class", "active");
-                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/mareyeur/mareyeursVue.php", function() {
-                         
-                     });
+                    // $("#MNU_MAREYEURS").attr("Class", "active");
+//                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/mareyeur/mareyeursVue.php", function() {
+//                         
+//                     });
                  });     
 
                 $("#MNU_CLIENTS").click(function(e){

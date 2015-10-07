@@ -252,11 +252,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                 data=$.parseJSON(data);
                                 if(data.rc===1){
                                     $.cookie('userId', data.infos.id, { expires: heure, path: domainName });
-                                    $.cookie('nomUser', data.infos.nomUtilisateur, { expires: heure, path: domainName });
+                                    $.cookie('login', data.infos.login, { expires: heure, path: domainName });
                                     $.cookie('profil', data.infos.profil, { expires: heure, path: domainName});
                                     $.cookie('status', data.infos.status, { expires: heure, path: domainName });
                                     $.cookie('etatCompte', data.infos.etatCompte, { expires: heure, path: domainName });
-                                    $.cookie('usine', data.infos.nomUsine, { expires: heure, path: domainName});
+                                    $.cookie('codeUsine', data.infos.codeUsine, { expires: heure, path: domainName});
                                     
                                     var url = "<?php echo \App::getHome();?>/main.php";
                                     document.location.href=url;

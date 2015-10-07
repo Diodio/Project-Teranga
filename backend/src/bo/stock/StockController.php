@@ -76,9 +76,15 @@ class StockController extends BaseController {
                     }
                 }
                 // End filter from dataTable
-                $produits = $stockManager->retrieveAll($request['nomUsine'],$request['nomUser'],$request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                if(isset($request['profil']) && $request['profil'] == 'admin')
+                    $produits = $stockManager->retrieveAll($request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                else
+                    $produits = $stockManager->retrieveAllByUsine($request['codeUsine'],$request['login'],$request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($produits != null) {
-                    $nbProduits = $stockManager->count($request['nomUsine'],$request['nomUser'],$request['typeProduit'], $sWhere);
+                    if(isset($request['profil']) && $request['profil'] == 'admin')
+                        $nbProduits = $stockManager->countAll($request['typeProduit'], $sWhere);
+                    else
+                       $nbProduits = $stockManager->countByUsine($request['codeUsine'],$request['login'],$request['typeProduit'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -97,7 +103,7 @@ class StockController extends BaseController {
         try {
             if (isset($request['userId'])) {
                 $stockManager = new StockManager();
-                $infoStocks = $stockManager->findStats($request['nomUser'],$request['nomUsine']);
+                $infoStocks = $stockManager->findStats($request['login'],$request['codeUsine']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else

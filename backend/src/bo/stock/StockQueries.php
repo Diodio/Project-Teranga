@@ -21,16 +21,14 @@ class StockQueries {
         $this->entityManager = Bootstrap::$entityManager;
         $this->classString = 'Stock\Stock';
     }
-
-
-    public function retrieveAll($usine, $user, $produitId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($produitId == '*') {
              $sql = 'select distinct(id), libelle, stock, seuil
-                    from produit where utilisateur= "'.$user.'" and nomUsine="'.$usine.'" '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from produit  '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
             $sql = 'select distinct(id), libelle, stock, seuil
-                    from produit where familleProduit_id = "'.$produitId . '" and utilisateur="'.$user.'" and nomUsine="'.$usine.'" ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from produit where familleProduit_id = "'.$produitId . '" ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }    
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -46,17 +44,61 @@ class StockQueries {
         }
         return $arrayStocks;
     }
+    
 
-    public function count($usine, $user, $produitId, $where="") {
+    public function retrieveAllByUsine($codeUsine, $login, $produitId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($produitId == '*') {
+             $sql = 'select distinct(id), libelle, stock, seuil
+                    from produit where codeUsine="'.$codeUsine.'" '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }
+        else {
+            $sql = 'select distinct(id), libelle, stock, seuil
+                    from produit where familleProduit_id = "'.$produitId . '" and codeUsine="'.$codeUsine.'" ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }    
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        $arrayStocks = array();
+        $i = 0;
+        foreach ($products as $key => $value) {
+            $arrayStocks [$i] [] = $value ['libelle'];
+            $arrayStocks [$i] [] = $value ['stock'];
+            $arrayStocks [$i] [] = $value ['seuil'];
+            $i++;
+        }
+        return $arrayStocks;
+    }
+    
+    public function countAll($produitId, $where="") {
+        if($where !="")
+                $where = " where" . $where;
+        if($produitId == '*') {
+                $sql = 'select count(id) as nbStocks
+                    from produit ' . $where.'';
+        }
+        else {
+            $sql = 'select count(id) as nbStocks
+                    from produit where familleProduit_id  = '.$produitId . ' ' . $where . '';
+        }
+            
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbTypeStocks = $stmt->fetch();
+        return $nbTypeStocks['nbStocks'];
+    }
+
+    public function countByUsine($codeUsine, $login, $produitId, $where="") {
 //        if($where !="")
 //                    $where = " where" . $where;
         if($produitId == '*') {
                 $sql = 'select count(id) as nbStocks
-                    from produit where utilisateur= "'.$user.'" and nomUsine="'.$usine.'" ' . $where . '';
+                    from produit where codeUsine="'.$codeUsine.'" ' . $where . '';
         }
         else {
             $sql = 'select count(id) as nbStocks
-                    from produit where familleProduit_id  = '.$produitId . ' and utilisateur= "'.$user.'" and nomUsine="'.$usine.'" ' . $where . '';
+                    from produit where familleProduit_id  = '.$produitId . ' and codeUsine="'.$codeUsine.'" ' . $where . '';
         }
             
        
@@ -99,8 +141,8 @@ class StockQueries {
             return null;
     }
     
-     public function findStats($nomUsine,$nomUser) {
-                $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM produit p, usine u WHERE p.nomUsine=u.nomUsine GROUP BY nomUsine ORDER BY nomUsine DESC";  
+     public function findStats() {
+                $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM produit p, usine u WHERE p.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC";  
 		$stmt = Bootstrap::$entityManager->getConnection ()->prepare ( $sql );
 		$stmt->execute ();
 		$stock = $stmt->fetchAll ();
