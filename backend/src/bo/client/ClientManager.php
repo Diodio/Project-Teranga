@@ -1,7 +1,6 @@
 <?php
 
 namespace Client;
-require_once '../../common/app.php';
 use Client\ClientQueries as ClientQueries;
 
 

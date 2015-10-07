@@ -277,20 +277,27 @@ $codeUsine = $_COOKIE['codeUsine'];
 			 */
 			// placeholder.data('chart', data);
 			// placeholder.data('draw', drawPieChart);
-                       loadStats = function(codeUsine, login){
+                       loadStatsFamille = function(codeUsine, login){
+                           $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",login:login,codeUsine:codeUsine, ACTION: "<?php echo App::ACTION_STAT_FAMILLE; ?>"}, function(data) {
+                             data = $.parseJSON(data);
+                    if(data.rc==-1){
+                        $.gritter.add({
+                                title: 'Notification',
+                                text: data.error,
+                                class_name: 'gritter-error gritter-light'
+                            });
+                    }else {
                             $("#STAT_OTHER").jChart({
-
                               name: "Famille SOMPATE",
-
                               headers: ["SOMPATE 1","SOMPATE 2","SOMPATE 3","SOMPATE 4","SOMPATE 5"],
-
                               values: [250000,478000,88000,429000,423000],
-
                               footers: [100000,200000,300000,400000,500000],
-
                               colors: ["#1000ff","#006eff","#00b6ff","#00fff6","#00ff90"]
 
                               });
+                               }
+                       
+                            }).error(function(error) { alert("failure"); });;
                         };
 
         loadStats = function(codeUsine, login)
@@ -323,8 +330,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                        
                     }).error(function(error) { alert("failure"); });;
             };
-			
-                        loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
+			if("<?php echo $profil ?>" === "admin") {
+                            loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
+                        }
+                        else 
+                            loadStatsFamille("<?php echo $codeUsine?>","<?php echo $login?>");
 			  //pie chart tooltip example
 			  var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
 			  var previousPoint = null;

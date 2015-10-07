@@ -1,7 +1,6 @@
 <?php
 
 namespace Article;
-require_once '../../common/app.php';
 use Article\ArticleQueries as ArticleQueries;
 /**
  * Cette classe communique avec la classe ContactQueries

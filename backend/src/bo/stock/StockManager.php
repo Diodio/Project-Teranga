@@ -1,7 +1,6 @@
 <?php
 
 namespace Produit;
-require_once '../../common/app.php';
 use Stock\StockQueries as StockQueries;
 /**
  * Cette classe communique avec la classe ContactQueries
@@ -49,6 +48,11 @@ class StockManager {
   public function findStats() {
         $stockQueries = new StockQueries();
     	return $stockQueries->findStats();
-	}
+  }
+  
+  public function findStatsFamille($produitId, $codeUsine) {
+        $stockQueries = new StockQueries();
+    	return $stockQueries->findStatsFamille($produitId, $codeUsine);
+  }
 
 }

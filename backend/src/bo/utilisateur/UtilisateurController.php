@@ -11,7 +11,7 @@ session_start();
  * ----------------------------------------
  */
 
-require_once '../../common/app.php';
+require_once '../../../../common/app.php';
 require_once App::AUTOLOAD;  
     
 

@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../../common/app.php';
+require_once '../../../../common/app.php';
 require_once App::AUTOLOAD;         
 $lang='fr';
 
@@ -29,6 +29,9 @@ class StockController extends BaseController {
                                 break;
                         case \App::ACTION_STAT:
                                 $this->doGetStat($request);
+                                break;
+                        case \App::ACTION_STAT_FAMILLE:
+                                $this->doGetStatFamille($request);
                                 break;
                         
                     }
@@ -103,7 +106,27 @@ class StockController extends BaseController {
         try {
             if (isset($request['userId'])) {
                 $stockManager = new StockManager();
-                $infoStocks = $stockManager->findStats($request['login'],$request['codeUsine']);
+               // $request['login'],$request['codeUsine']
+                $infoStocks = $stockManager->findStats();
+                if ($infoStocks !== NULL) {
+                    $this->doSuccessO($infoStocks);
+                } else
+                    echo json_encode(array());
+            }
+            else {
+                throw new Exception('Données invalides');
+            }
+        
+        } catch (Exception $e) {
+           $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
+    
+     public function doGetStatFamille($request) {
+        try {
+            if (isset($request['userId'])) {
+                $stockManager = new StockManager();
+                $infoStocks = $stockManager->findStatsFamille($request['familleId'],$request['codeUsine']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else

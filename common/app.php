@@ -14,6 +14,14 @@ class App
     const APP_ROOT='websms';
     const BO='src/bo';
     const FILE_PARAMETERS="parameters.ini";
+    const FILE_PARAMETERS_IN_PROCESSINGMANAGER="../../../../portail/config/parameters.ini";
+    const LANG = "../../lang";
+    const I18N_CLASS = "../../../lib/i18n/class/l18n.class.php";
+    const AUTOLOAD = "../../../../lib/doctrine/vendor/autoload.php";
+    const MAILER = "../../../../lib/mail/class.phpmailer.php";
+    const XLSXCLASS = "../../../../lib/pexcel/simplexlsx.class.php";
+    const EXCELREADER = "../../../../lib/pexcel/excel_reader.php";
+    const UPLOADFILE="../../../../upload/";
      // Application actions
      const ACTION_INSERT='INSERT';
      const ACTION_UPDATE='UPDATE';
@@ -48,6 +56,7 @@ class App
      const ACTION_LIST_VALID='LIST_VALID';
      const ACTION_DRAFT='DRAFT';
      const ACTION_STAT='STAT';
+     const ACTION_STAT_FAMILLE='STAT_FAMILLE';
      const ACTION_VIEW_DETAILS='VIEW_DETAILS';
      const ACTION_SAVE='SAVE';
      const ACTION_START='START';

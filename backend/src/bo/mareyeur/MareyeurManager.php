@@ -1,7 +1,6 @@
 <?php
 
 namespace Mareyeur;
-require_once '../../common/app.php';
 use Mareyeur\MareyeurQueries as MareyeurQueries;
 
 

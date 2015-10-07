@@ -1,7 +1,6 @@
 <?php
 
 namespace Usine;
-require_once '../../common/app.php';
 use Usine\UsineQueries as UsineQueries;
 
 

@@ -1,7 +1,6 @@
 <?php
 
 namespace Fournisseur;
-require_once '../../common/app.php';
 use Fournisseur\FournisseurQueries as FournisseurQueries;
 /**
  * Cette classe communique avec la classe ContactQueries

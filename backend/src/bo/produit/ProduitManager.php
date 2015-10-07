@@ -1,7 +1,6 @@
 <?php
 
 namespace Produit;
-require_once '../../common/app.php';
 use Produit\ProduitQueries as ProduitQueries;
 /**
  * Cette classe communique avec la classe ContactQueries
