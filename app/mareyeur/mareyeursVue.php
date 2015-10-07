@@ -1,6 +1,6 @@
 <?php
-require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
-if(!isset($_COOKIE['userId'])){
+    require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
+    if(!isset($_COOKIE['userId'])){
     header('Location: '.\App::getHome());
     exit();
 }
