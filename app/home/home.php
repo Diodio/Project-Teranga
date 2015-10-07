@@ -277,8 +277,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 			 */
 			// placeholder.data('chart', data);
 			// placeholder.data('draw', drawPieChart);
-                       loadStatsFamille = function(codeUsine, login){
-                           $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",login:login,codeUsine:codeUsine, ACTION: "<?php echo App::ACTION_STAT_FAMILLE; ?>"}, function(data) {
+                       loadStatsFamille = function(familleId,codeUsine, login){
+                           $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>", familleId:familleId,login:login,codeUsine:codeUsine, ACTION: "<?php echo App::ACTION_STAT_FAMILLE; ?>"}, function(data) {
                              data = $.parseJSON(data);
                     if(data.rc==-1){
                         $.gritter.add({
@@ -334,7 +334,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
                         }
                         else 
-                            loadStatsFamille("<?php echo $codeUsine?>","<?php echo $login?>");
+                            loadStatsFamille($("#GRP_CMB").val(),"<?php echo $codeUsine?>","<?php echo $login?>");
 			  //pie chart tooltip example
 			  var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
 			  var previousPoint = null;
@@ -357,9 +357,11 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#GRP_CMB").change(function() {
                 if($("#GRP_CMB").val()!==null){
                     loadStocks($("#GRP_CMB").val());
+                     loadStatsFamille($("#GRP_CMB").val(),"<?php echo $codeUsine?>","<?php echo $login?>");
                 }
                 else{
                  loadStocks('*');
+                  loadStatsFamille('*',"<?php echo $codeUsine?>","<?php echo $login?>");
                 }
             });
 
