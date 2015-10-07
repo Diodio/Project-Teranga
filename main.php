@@ -323,7 +323,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 							<li class="divider"></li>
 
-							<li><a href="#"> <i class="ace-icon fa fa-power-off"></i> Logout
+							<li><a href="#" id="US_LOGOUT"> <i class="ace-icon fa fa-power-off"></i> Déconnexion
 							</a>
 							</li>
 						</ul>
@@ -655,6 +655,23 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function() {
                          
                      });
+                });
+                
+                
+                $("#US_LOGOUT").click(function(){
+                    //alert($.cookie('userId') );
+                    $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", { ACTION: "<?php echo App::ACTION_SIGNOUT; ?>"}, function(data) {
+                        if(data==='0'){
+                            alert('Utilisateur dejadeconnecté');
+                        }else{
+                            var cookies=$.cookie();
+                            $.each(cookies, function(k){
+                                $.removeCookie(k, { path: '/' });
+                            });
+                        }
+
+                        window.location.replace("<?php echo App::getHome(); ?>");
+                    });
                 });
 
 

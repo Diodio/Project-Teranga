@@ -105,9 +105,9 @@ class UtilisateurManager {
      * Sign user by id
      * @param type $id
      */
-    public function signIn($login, $password, $usine) {
+    public function signIn($login, $password, $usineId) {
         try {
-            $utilisateur = $this->utilisateurQueries->signin($login, $password, $usine);
+            $utilisateur = $this->utilisateurQueries->signin($login, $password, $usineId);
             $rslt = array();
             $rslt['rc'] = 0;
             $rslt['infos'] = -1;

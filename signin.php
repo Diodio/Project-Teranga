@@ -89,7 +89,7 @@
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <select id="LISTE_USINE" class="width-100">
-                                                                <option value="*" class="usines">Selectionnez usine<option>
+                                                                <option value="*" class="usineIds">Selectionnez usine<option>
                                                             </select>
                                                             
                                                             
@@ -223,7 +223,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         });
                 }else{
 //                 
-                    $("#LISTE_USINE").loadJSON('{"usines":' + data + '}');
+                    $("#LISTE_USINE").loadJSON('{"usineIds":' + data + '}');
                 }
             });
         };
@@ -232,8 +232,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                  seConnecter=function(){
                       var username=$('#username').val();
                       var password=$('#password').val();
-                      var usine=$('#LISTE_USINE').val();
-                      if(username!=='' && password!=='' && usine!=="*"){
+                      var usineId=$('#LISTE_USINE').val();
+                      if(username!=='' && password!=='' && usineId!=="*"){
                           var domainName='';
                          
                           var heure = new Date();
@@ -245,7 +245,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                             data: {
                                 login: username,
                                 password: password,
-                                usine:usine,
+                                usineId:usineId,
                                 ACTION: 'SIGNIN'
                             },
                             success: function(data) {

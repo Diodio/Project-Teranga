@@ -462,9 +462,9 @@ private $langageManager;
     public function doSignin($request){
         $this->userManager =  new UtilisateurManager();
         try {
-            if(isset($request['ACTION']) && isset($request['login']) && isset($request['password']) && isset($request['usine']) ){
+            if(isset($request['ACTION']) && isset($request['login']) && isset($request['password']) && isset($request['usineId']) ){
             try{
-                $rslt=  $this->userManager->signin($request['login'], $request['password'], isset($request['usine']));
+                $rslt=  $this->userManager->signin($request['login'], $request['password'], $request['usineId']);
                 if($rslt['rc']!=0){
                 //le client existe
                 // retourner json

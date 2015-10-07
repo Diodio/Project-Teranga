@@ -1,5 +1,9 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
+if(!isset($_COOKIE['userId'])){
+	header('Location: '.\App::getHome());
+	exit();
+}
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
 $login = $_COOKIE['login'];
@@ -273,21 +277,21 @@ $codeUsine = $_COOKIE['codeUsine'];
 			 */
 			// placeholder.data('chart', data);
 			// placeholder.data('draw', drawPieChart);
-                      $("#STAT_OTHER").jChart({
+                       loadStats = function(codeUsine, login){
+                            $("#STAT_OTHER").jChart({
 
-                        name: "Famille SOMPATE",
+                              name: "Famille SOMPATE",
 
-                        headers: ["SOMPATE 1","SOMPATE 2","SOMPATE 3","SOMPATE 4","SOMPATE 5"],
+                              headers: ["SOMPATE 1","SOMPATE 2","SOMPATE 3","SOMPATE 4","SOMPATE 5"],
 
-                        values: [250000,478000,88000,429000,423000],
+                              values: [250000,478000,88000,429000,423000],
 
-                        footers: [100000,200000,300000,400000,500000],
+                              footers: [100000,200000,300000,400000,500000],
 
-                        colors: ["#1000ff","#006eff","#00b6ff","#00fff6","#00ff90"]
+                              colors: ["#1000ff","#006eff","#00b6ff","#00fff6","#00ff90"]
 
-                        });
-
-
+                              });
+                        };
 
         loadStats = function(codeUsine, login)
             {

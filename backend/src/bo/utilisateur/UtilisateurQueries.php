@@ -153,9 +153,9 @@ class UtilisateurQueries {
         }
     }
 
-    public function signin($login, $password, $usine) {
+    public function signin($login, $password, $usineId) {
         $dql = "SELECT u.id, u.login as login, u.nomUtilisateur  as nomUtilisateur, u.status status, u.etatCompte etatCompte, p.libelle as profil, us.code codeUsine from Utilisateur\Utilisateur u JOIN u.profil p JOIN u.usine us
-            where u.login='$login' and u.password='$password' and u.status=1 AND us.id='$usine' ";
+            where u.login='$login' and u.password='$password' and u.status=1 AND us.id='$usineId' ";
         try {
             $query = Bootstrap::$entityManager->createQuery($dql);
             return $query->getOneOrNullResult();
@@ -215,99 +215,6 @@ class UtilisateurQueries {
             B::$entityManager = $b->getEntityManager();
             return null;
         }
-    }
-    /**
-     * Remove user
-     * @param type $utilisateurId
-     */
-    public function del($utilisateurId) {
-        
-    }
-
-    /**
-     * Restore user from trash
-     * @param type $id
-     */
-    public function restore($id) {
-        
-    }
-     public function activateBirthday($listId) {
-        $query=B::$entityManager->createQuery('update Utilisateur/Utilisateur u set u.activateBirthday=1 WHERE u.id=('.$listId.') and u.activateBirthday=0' );
-        return $query->getResult();
-    }
-     public function desactivateBirthday($listId) {
-        $query=B::$entityManager->createQuery('update Utilisateur/Utilisateur u set u.activateBirthday=0 WHERE u.id=('.$listId.') and u.activateBirthday=1' );
-        return $query->getResult();
-    }
-     public function getStatusBirthday($listId) {
-        $query='select u.activateBirthday as status from user u where u.id=('.$listId.') AND u.status = 1';
-        $stmt = B::$entityManager->getConnection()->prepare($query);
-        $stmt->execute();
-        $StatusAnniv = $stmt->fetch();
-        return $StatusAnniv['status'];
-        }
-     public function getidmsgBirthday($listId) {
-        $query="Select user_id as iduser, content, signature, groups, DATE_FORMAT(notSendBefore, '%H:%i') as NotSendBefore , DATE_FORMAT(notSendAfter, '%H:%i') as NotSendAfter FROM birthdayparameter where user_id=$listId";
-        $stmt = B::$entityManager->getConnection()->prepare($query);
-        $stmt->execute();
-        $birthdayparameter = $stmt->fetch();
-        return $birthdayparameter;
-        }
-        
-        
-        public function loadOtherParameters($utilisateurId){
-    	$this->logger->log->trace('return email address');
-        $sql = 'SELECT u.alertMail, u.activeMailSending, u.activeSMSTest from user u WHERE u.id=' . $utilisateurId;
-        try {
-            $stmt = B::$entityManager->getConnection()->prepare($sql);
-            $stmt->execute();
-            $rslt= $stmt->fetchAll();
-            $array = array();
-            foreach ($rslt as $key => $value) {
-                $utilisateurInfo= array();
-                $utilisateurInfo['alertMail'] = $value['alertMail'];
-                $utilisateurInfo['activeMailSending'] = $value['activeMailSending'];
-                $utilisateurInfo['activeSMSTest'] = $value['activeSMSTest'];
-                $array[] = $utilisateurInfo;
-            }
-           return $array[0];
-        } catch (Exception $e) {
-            $this->logger->log->trace($e->getMessage());
-            throw $e;
-        }
-   	
-    }
-    
-    //permet d'enregistrer l'(les)adresse(s) e-mail d'envoi des rapports et d'activer parallèlement cet envoi
-    public function saveMailAddress($utilisateurId,$mail) {
-    	$this->logger->log->trace('Save mail address for sending reporting');
-        $query = B::$entityManager->createQuery ("update Utilisateur/Utilisateur p set p.alertMail='" . $mail . "', p.activeMailSending=1 WHERE p.id=" . $utilisateurId );
-	return $query->getResult ();
-    }
-    
-    //permet d'activer l'envoi de mail à (aux) l'(les)adresse(s) $mail à la fin de chaque campagne
-    public function activeAlertMail($utilisateurId) {
-    	$this->logger->log->trace('Activate Alert mail');
-        $query = B::$entityManager->createQuery ( "UPDATE Utilisateur/Utilisateur P set P.activeMailSending=1 WHERE P.id=" . $utilisateurId);
-	return $query->getResult ();
-    }
-    
-    public function deactiveAlertMail($utilisateurId){
-    	$this->logger->log->trace('Deactivate Alert mail');
-        $query = B::$entityManager->createQuery ( "UPDATE Utilisateur/Utilisateur P set P.activeMailSending=0 WHERE P.id=" . $utilisateurId);
-	return $query->getResult ();
-    }
-    
-    public function activeCampaignTest($utilisateurId) {
-    	$this->logger->log->trace('Activate campagn message test');
-        $query = B::$entityManager->createQuery ( "UPDATE Utilisateur/Utilisateur P set P.activeSMSTest=1 WHERE P.id=" . $utilisateurId);
-	return $query->getResult ();
-    }
-    
-    public function deactiveCampaignTest($utilisateurId){
-    	$this->logger->log->trace('Deactivate campagn message test');
-        $query = B::$entityManager->createQuery ( "UPDATE Utilisateur/Utilisateur P set P.activeSMSTest=0 WHERE P.id=" . $utilisateurId);
-	return $query->getResult ();
     }
 }
 
