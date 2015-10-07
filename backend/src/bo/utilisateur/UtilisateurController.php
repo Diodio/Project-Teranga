@@ -116,8 +116,6 @@ private $langageManager;
             } else
                 throw new Exception($this->parameters['NO_ACTION']);
         } catch (Exception $e) {
-            $logger = new Logger(__CLASS__);
-            $logger->log->trace($e->getMessage());
             $this->doError('-1', $e->getMessage());
         }
     }
