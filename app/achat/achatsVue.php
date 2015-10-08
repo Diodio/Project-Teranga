@@ -34,47 +34,46 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <label> Mareyeur</label>
                     </div>
                     <div class="col-sm-6">
-                        <select id="GRP_NEW_CMB" data-placeholder=""
-                                style="width: 225px">
+                        <select id="GRP_NEW_CMB" data-placeholder=""  style="width:100%"     >
                             <option value="*" class="groups">Nom Mareyeur</option>
                         </select>
                     </div>
                 </div>
                <div class="space-6"></div>
-                <div class="row">
+                <div class="row" >
                         <div class="col-sm-2">
                             <label> Reference</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
+                                <input type="text" id="reference" placeholder="" style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
                <div class="space-6"></div>
                  <div class="row">
                         <div class="col-sm-2">
-                            <label> Reference</label>
+                            <label> Adresse</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="adresse" placeholder=""
+                                <input type="text" id="adresse" placeholder=""  style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
                  <div class="space-6"></div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
                             <label class="col-sm-2 control-label no-padding-right"
                                    for="form-field-1"> Numero Commande</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
                             <label class="col-sm-2 control-label no-padding-right"
                                    for="form-field-1"> Date Commande</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
