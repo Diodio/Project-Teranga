@@ -43,7 +43,9 @@ class ProduitManager {
         return $this->produitQuery->delete($clientId);
     }
 
-   
+   public function findById($produitId) {
+       return $this->produitQuery->findById($produitId);
+    }
     public function view($produitId) {
         $produit = $this->produitQuery->view($produitId);
         return $produit;
@@ -82,5 +84,7 @@ public function retrieveTypes()
     public function findProduitsByName($name){
         return $this->produitQuery->findProduitsByName($name);
     }
+    
+    
 
 }

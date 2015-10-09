@@ -162,5 +162,29 @@ class Produit {
         date_default_timezone_set('GMT');
         $this->updatedDate = new \DateTime("now");
     }
+    function getPoidsBrut() {
+        return $this->poidsBrut;
+    }
+
+    function getCodeUsine() {
+        return $this->codeUsine;
+    }
+
+    function getLogin() {
+        return $this->login;
+    }
+
+    function setPoidsBrut($poidsBrut) {
+        $this->poidsBrut = $poidsBrut;
+    }
+
+    function setCodeUsine($codeUsine) {
+        $this->codeUsine = $codeUsine;
+    }
+
+    function setLogin($login) {
+        $this->login = $login;
+    }
+
 
     }

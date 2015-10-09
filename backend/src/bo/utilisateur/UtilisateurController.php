@@ -860,17 +860,5 @@ private $langageManager;
 
 }
 
-if(isset($_REQUEST['ACTION']) && $_REQUEST['ACTION']!='SIGNIN'){
-    if(isset($_COOKIE['userId'])){
-        Common\Common::setCookies($_COOKIE['userId'], $_COOKIE['customerId'],
-                $_COOKIE['userLogin'],
-                $_COOKIE['userContactName'], $_COOKIE['userLanguage'], $_COOKIE['userProfil']);
-        $oUserController = new UserController($_REQUEST);
-    }else if($_REQUEST['ACTION']=='SET_PASSWORD' || $_REQUEST['ACTION']=='GET_PASSWORD'){
-        $oUserController = new UserController($_REQUEST);
-    }else{
-        header('Location:'.App::getHome());
-    }
-}else{
+
     $oUtilisateurController = new UtilisateurController($_REQUEST);
-}

@@ -159,19 +159,18 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
     
     public function findStatsFamille($produitId, $codeUsine ) {
         if($produitId == '*') {
-            $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM produit p, usine u WHERE p.codeUsine=u.code AND codeUsine = '".$codeUsine."' GROUP BY nomUsine ORDER BY nomUsine DESC";
+            $sql = "SELECT libelle, SUM(stock) AS nbStocks  FROM produit p, usine u WHERE p.codeUsine=u.code AND codeUsine = '".$codeUsine."' GROUP BY libelle";
         }else {
             $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM produit p, usine u WHERE p.codeUsine=u.code AND familleProduit_id = $produitId AND codeUsine = '".$codeUsine."' GROUP BY nomUsine ORDER BY nomUsine DESC";
         }
-        var_dump($sql);
+        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
         $arrayStock = array();
         $i = 0;
         foreach ($stock as $key => $value) {
-            $arrayStock [$i]['nomUsine'] = $value ['nomUsine'];
-            $arrayStock [$i]['couleur'] = $value ['couleur'];
+            $arrayStock [$i]['libelle'] = $value ['libelle'];
             $arrayStock [$i]['nbStocks'] = $value ['nbStocks'];
             $i++;
         }

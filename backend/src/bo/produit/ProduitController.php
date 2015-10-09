@@ -42,6 +42,9 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_GET_PRODUCT:
                                 $this->doGetInfoProduct($request);
                                 break;
+                        case \App::ACTION_SEARCH:
+                                $this->doSearch($request);
+                                break;
                         
                     }
             } else {
@@ -54,25 +57,36 @@ class ProduitController extends BaseController implements BaseAction {
 
     public function doInsert($request) {
         try {
-                $produit = new Produit();
+            if ($request['familleId'] != "" && $request['designation'] != "") {
                 $produitManager = new ProduitManager();
-                $familleProduitManager = new FamilleProduitManager();
-                $famille = $familleProduitManager->findById($request['familleId']);
-                $produit->setLibelle($request['designation']);
-                $produit->setPoidsNet($request['poidsNet']);
-                $produit->setPrixUnitaire($request['prixUnitaire']);
-                $produit->setStock($request['stock']);
-                $produit->setSeuil($request['seuil']);
-                $produit->setFamilleProduit($famille);
-                $produitAdded = $produitManager->insert($produit);
-                if ($produitAdded->getId() != null) {
+                $checkProduit = $produitManager->findProduitsByName($request['designation']);
+                if ($checkProduit == NULL) {
+                    $produit = new Produit();
+                    $familleProduitManager = new FamilleProduitManager();
+                    $famille = $familleProduitManager->findById($request['familleId']);
+                    $produit->setLibelle($request['designation']);
+                    $produit->setPoidsBrut($request['poidsBrut']);
+                    $produit->setPoidsNet($request['poidsNet']);
+                    $produit->setPrixUnitaire($request['prixUnitaire']);
+                    $produit->setStock($request['stock']);
+                    $produit->setSeuil($request['seuil']);
+                    $produit->setCodeUsine($request['codeUsine']);
+                    $produit->setLogin($request['login']);
+                    $produit->setFamilleProduit($famille);
+                    $produitAdded = $produitManager->insert($produit);
+                    if ($produitAdded->getId() != null) {
                         $this->doSuccess($produitAdded->getId(), 'Produit enregistré avec succes');
+                    } else {
+                        $this->doError('-1', 'Impossible d\'inserer ce produit');
+                    }
                 } else {
-                    throw new Exception('impossible d\'inserer ce produit');
+                    $this->doError('-1', 'Ce produit éxiste déja');
                 }
-            
+            } else {
+                $this->doError('-1', 'Veuillez vérifier vos parametres');
+            }
         } catch (Exception $e) {
-            throw new Exception('ERREUR SERVEUR');
+            $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
 
@@ -194,7 +208,26 @@ class ProduitController extends BaseController implements BaseAction {
         }
     }
     
-    
+    public function doSearch($request) {
+        try {
+            if (isset($request['term'])) {
+                $produitManager = new ProduitManager ();
+                $term = trim(strip_tags($request['term']));
+                $produits = $produitManager->findAllProduits($term);
+                if ($produits != null)
+                    $this->doSuccessO($this->listObjectToArray($produits));
+                else
+                    echo json_encode(array());
+            }
+            else {
+                throw new ConstraintException($this->parameters['PARAM_NOT_ENOUGH']);
+            }
+        } catch (ConstraintException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception($this->parameters['ERREUR_SERVEUR']);
+        }
+    }
 
 }
 

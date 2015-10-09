@@ -25,7 +25,7 @@ class ProduitQueries {
    
     public function insert($produit) {
         if ($produit != null) {
-            Bootstrap::$entityManager->persist($produit);
+                Bootstrap::$entityManager->persist($produit);
             Bootstrap::$entityManager->flush();
             return $produit;
         }
@@ -94,7 +94,15 @@ class ProduitQueries {
         }
     }
 
-    
+     public function findById($produitId) {
+            $query = Bootstrap::$entityManager->createQuery("select p from Produit\Produit p where p.id = :produitId");
+            $query->setParameter('familleId', $produitId);
+            $produit = $query->getResult();
+            if ($produit != null)
+                return $produit[0];
+            else
+                return null;
+        }
     public function count($sWhere = "") {
        if($sWhere !== "")
             $sWhere = " where " . $sWhere;
@@ -164,7 +172,7 @@ class ProduitQueries {
    
     
      public function findProduitsByName($name) {
-        $sql = 'SELECT id, stock, seuil FROM produit where libelle = "'.$name.'"';
+        $sql = 'SELECT id, stock, seuil FROM produit where libelle = "'. $name .'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $produit = $stmt->fetchAll();

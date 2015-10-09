@@ -1,5 +1,9 @@
 <?php
     require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
+    if(!isset($_COOKIE['userId'])){
+        header('Location: '.\App::getHome());
+        exit();
+    }
     $userId = $_COOKIE['userId'];
     $etatCompte = $_COOKIE['etatCompte'];
     $login = $_COOKIE['login'];
@@ -91,7 +95,7 @@
                                             <span class="lbl"></span>
                                         </label>
                                     </th>
-                                    <th>Designation</th>
+                                    <th>Désignation</th>
                                     <th>Poids Net</th>
                                     <th>Prix de vente</th>
                                     <th>Stock</th>
@@ -156,17 +160,17 @@
                         <div class="modal-body" style="height: 340px;">
                             <form id="FRM_PRODUIT" class="form-horizontal" role="form">
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille de produit</label>
                                     <div class="col-sm-9">
                                         <select id="GRP_NEW_CMB" data-placeholder="" style="width: 225px">
-                                            <option value="*" class="groups">Famille de produit</option>
+                                            <option value="*" class="groups">Sélectionnez</option>
                                         </select>
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Designation </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
                                     <div class="col-sm-9">
-                                            <input type="text" id="designation" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="designation" name="designation" placeholder="" class="col-xs-10 col-sm-8">
                                     </div>
                             </div>
                             <div class="form-group">
@@ -233,6 +237,7 @@
         var familleId="";
     $("#GRP_CMB").select2
     $("#GRP_NEW_CMB").select2();
+    
      // Add checked item to the array
         checkedProduitAdd = function(item) {
             if (!checkedProduitContains(item)) {
@@ -540,21 +545,27 @@
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
-            var familleproduit= $('#familleProduitId').val();
+            var familleproduit= $('#GRP_NEW_CMB').val();
             var designation = $("#designation").val();
+            var poidsBrut = $("#poidsBrut").val();
             var poidsNet = $("#poidsNet").val();
             var prixUnit = $("#prixUnit").val();
             var stock = $("#stock").val();
             var seuil = $("#seuil").val();
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('familleId', familleproduit);
             formData.append('designation', designation);
+            formData.append('poidsBrut', poidsBrut);
             formData.append('poidsNet', poidsNet);
             formData.append('prixUnitaire', prixUnit);
             formData.append('stock', stock);
             formData.append('seuil', seuil);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
             $.ajax({
                 url: '<?php echo App::getBoPath(); ?>/produit/ProduitController.php',
                 type: 'POST',
@@ -571,7 +582,7 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       
+                       loadProduit();
                     } 
                     else
                     {
@@ -582,7 +593,7 @@
                         });
                         
                     };
-                    loadProduits();
+                    
                 },
                 error: function () {
                     alert("failure - controller");
@@ -643,7 +654,7 @@ $("#MNU_PRODUIT_EDIT").click(function()
            if($("#pourcentage").val() !=="") {
               var pourcentage = $("#pourcentage").val();
               var poidsBrut = $("#poidsBrut").val();
-              pn = (parseInt(poidsBrut) * pourcentage)/100;
+              pn = parseInt(poidsBrut) - ((parseInt(poidsBrut) * pourcentage)/100);
               if(!isNaN(pn))
                 $("#poidsNet").val(pn);
               

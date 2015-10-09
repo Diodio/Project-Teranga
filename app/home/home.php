@@ -287,10 +287,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 class_name: 'gritter-error gritter-light'
                             });
                     }else {
+                        console.log(data);
+                        var head = [];
+                        var value = [];
+                        $.each(data, function(idx, obj) {
+                                head.push(obj.libelle);
+                                value.push(obj.nbStocks);
+                        });
+                        
+                        console.log(value);
                             $("#STAT_OTHER").jChart({
                               name: "Famille SOMPATE",
-                              headers: ["SOMPATE 1","SOMPATE 2","SOMPATE 3","SOMPATE 4","SOMPATE 5"],
-                              values: [250000,478000,88000,429000,423000],
+                              headers: head,
+                              values: value,
                               footers: [100000,200000,300000,400000,500000],
                               colors: ["#1000ff","#006eff","#00b6ff","#00fff6","#00ff90"]
 
