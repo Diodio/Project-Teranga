@@ -45,6 +45,10 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_SEARCH:
                                 $this->doSearch($request);
                                 break;
+                                break;
+                        case \App::ACTION_LIST_PAR_USINE:
+                                $this->doGetProduitParUsine($request);
+                                break;
                         
                     }
             } else {
@@ -226,6 +230,25 @@ class ProduitController extends BaseController implements BaseAction {
             throw $e;
         } catch (Exception $e) {
             throw new Exception($this->parameters['ERREUR_SERVEUR']);
+        }
+    }
+    
+    public function doGetProduitParUsine($request) {
+        try {
+            if (isset($request['codeUsine'])) {
+                $produitManager = new ProduitManager();
+                $produit = $produitManager->retrieveAllByUsine($request['codeUsine']);
+                if($produit !=null)
+                    $this->doSuccessO($produit);
+                else
+                   echo json_encode(array());  
+            } else {
+                throw new Exception('PARAM_NOT_ENOUGH');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
         }
     }
 

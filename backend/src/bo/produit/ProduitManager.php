@@ -85,6 +85,16 @@ public function retrieveTypes()
         return $this->produitQuery->findProduitsByName($name);
     }
     
-    
+    public function retrieveAllByUsine($codeUsine){
+        $produits = $this->produitQuery->retrieveAllByUsine($codeUsine);
+        $list = array();
+        $i = 0;
+        foreach ($produits as $key => $value) {
+            $list [$i]['value'] = $value ['value'];
+            $list [$i]['text'] = $value ['text'].' ('.$value ['nbStock'].')';
+            $i++;
+        }
+        return $list;
+    }
 
 }

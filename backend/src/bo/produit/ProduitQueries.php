@@ -181,4 +181,13 @@ class ProduitQueries {
         else
             return null;
     }
+    
+    public function retrieveAllByUsine($codeUsine) {
+        $query = Bootstrap::$entityManager->createQuery("select p.id as value, p.libelle as text, p.stock as nbStock from Produit\Produit p where p.codeUsine='$codeUsine' group by p.libelle");
+        $types = $query->getResult();
+        if ($types != null)
+            return $types;
+        else
+            return null;
+    }
 }
