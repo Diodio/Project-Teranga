@@ -421,18 +421,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</span>
 				</a> <b class="arrow"></b>
 				</li>
-
-
-                    <li id="MNU_ACHATS" class=""><a id="ACHATS" href="#"> <i
-                                class="menu-icon fa fa-list-alt"></i> <span class="menu-text"> Bon d'Achat
-                                <span class="badge badge-transparent tooltip-error"
-                                      title="2 Important Events"> </span>
-                            </span>
-                        </a> <b class="arrow"></b>
-                    </li>
-
-
-                    <li class=""><a id="BON" href="#"> <i
+                                <li class=""><a id="BON" href="#"> <i
                                 class="menu-icon fa fa-calendar"></i> <span class="menu-text"> Bon
                                 de sortie <span class="badge badge-transparent tooltip-error"
                                                 title="2 Important Events"> </span>
