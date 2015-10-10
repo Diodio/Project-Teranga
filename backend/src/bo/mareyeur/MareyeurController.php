@@ -38,7 +38,9 @@ class MareyeurController extends BaseController implements BaseAction {
                         case \App::ACTION_REMOVE:
                                 $this->doRemove($request);
                                 break;
-                        
+                        case \App::ACTION_LIST_VALID:
+                                $this->doGetMareyeurs($request);
+                                break;
                     }
             } else {
                 throw new Exception($this->parameters['NO_ACTION']);
@@ -157,9 +159,19 @@ class MareyeurController extends BaseController implements BaseAction {
             throw new Exception('ERREUR SERVEUR');
         }
     }
-
     
+    public function doGetMareyeurs($request) {
+        try {
+            $mareyeurManager = new MareyeurManager();
+            $mareyeurs = $mareyeurManager->retrieveAllMareyeur();
+            if ($mareyeurs != null)
+                $this->doSuccessO($mareyeurs);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
 
 }
-
-        $oMareyeurController = new MareyeurController($_REQUEST);
+$oMareyeurController = new MareyeurController($_REQUEST);

@@ -34,8 +34,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <label> Mareyeur</label>
                     </div>
                     <div class="col-sm-6">
-                        <select id="GRP_NEW_CMB" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="groups">Nom Mareyeur</option>
+                        <select id="CMB_MAREYEURS" data-placeholder=""  style="width:100%"     >
+                            <option value="*" class="mareyeurs">Nom Mareyeur</option>
                         </select>
                     </div>
                 </div>
@@ -204,6 +204,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 <script type="text/javascript">
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
+    $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
     loadProduit = function(index){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
@@ -220,6 +221,22 @@ $(document).ready(function () {
             }
         });
     };
+    loadMareyeurs = function(){
+        $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
+                ; ?>"}, function(data) {
+            sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#CMB_MAREYEURS").loadJSON('{"mareyeurs":' + data + '}');
+            }
+        });
+    };
+    loadMareyeurs();
     loadProduit(0);
     var i=1;
      $("#add_row").click(function(){

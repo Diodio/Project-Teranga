@@ -195,7 +195,15 @@ class MareyeurQueries {
             return $mareyeur;
         else
             return null;
-        
-        
+    }
+    
+    public function retrieveAllMareyeur() {
+        $query = Bootstrap::$entityManager->createQuery("select m.id as value, m.nom as text from Mareyeur\Mareyeur m");
+        $types = $query->getResult();
+        if ($types != null)
+            return $types;
+        else
+            return null;
+
     }
 }

@@ -89,4 +89,7 @@ public function retrieveTypes()
         return $list;
     }
 
+    public function retrieveAllMareyeur() {
+        return $this->mareyeurQuery->retrieveAllMareyeur();
+    }
 }
