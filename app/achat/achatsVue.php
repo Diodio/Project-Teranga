@@ -157,6 +157,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
             </div>
         </div>
+        <div class="space-6"></div>
         <div class="row">
             <div class="col-md-12 column">
                 <div class="col-sm-6">
@@ -178,8 +179,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                      </div>
                      </div>
                 </div>
-            </div>
+            </div><br/>
+            <div class="space-6"></div>
+            <div class="space-6"></div>
+            
         </div>
+        <div class="row" style="margin-top: 12px;">
+                <div class="col-md-12 column">
+                    <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                </div>
+            </div>
         </div>
         <!-- /.col -->
     </div>
