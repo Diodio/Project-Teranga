@@ -412,6 +412,27 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </li>
                         </ul>
                     </li>
+                    
+                    <li class=""><a href="#" class="dropdown-toggle"> <i
+                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                Commande </span> <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li id="CMD_MAREYEURS" class=""><a id="MAREYEURS" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Mareyeur
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                            <li id="CMD_CLIENTS" class=""><a id="CLIENTS" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Client </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                        </ul>
+                    </li>
+                    
 
 
                     <li id="MNU_ACHATS" class=""><a id="ACHATS" href="#"> <i
@@ -654,6 +675,26 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                             });
                         }
                         window.location.replace("<?php echo App::getHome(); ?>");
+                    });
+                });
+
+                $("#CMD_CLIENTS").click(function (e) {
+                    $("#CMD_CLIENTS").attr("Class", "active");
+                    $("#CMD_MAREYEURS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/commande/commandeClientVue.php", function () {
+
+                    });
+                });
+
+                $("#CMD_MAREYEURS").click(function (e) {
+                    $("#CMD_MAREYEURS").attr("Class", "active");
+                    $("#CMD_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/commande/commandeMareyeurVue.php", function () {
+
                     });
                 });
 
