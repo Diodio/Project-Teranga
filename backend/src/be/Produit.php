@@ -69,6 +69,8 @@ class Produit {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
+    /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="achat", cascade={"persist"}) */
+    protected $achat;
     function getId() {
         return $this->id;
     }

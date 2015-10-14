@@ -195,11 +195,11 @@ class ProduitController extends BaseController implements BaseAction {
 
      public function doGetInfoProduct($request) {
         try {
-            if (isset($request['libelle'])) {
+            if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $produit = $produitManager->findProduitsByName($request['libelle']);
-                if($produit !=null)
-                    $this->doSuccessO($produit);
+                $prix = $produitManager->findPrixById($request['produitId']);
+                if($prix !=null)
+                    $this->doSuccessO($prix);
                 else
                    echo json_encode(array());  
             } else {

@@ -106,6 +106,15 @@ $codeUsine = $_COOKIE['codeUsine'];
 							Prix Unitaire
 						</th>
 						<th class="text-center">
+							Poids brut
+						</th>
+						<th class="text-center">
+							Pourcentage
+						</th>
+						<th class="text-center">
+							Poids Net
+						</th>
+						<th class="text-center">
 							Quantite
 						</th>
 						<th class="text-center">
@@ -119,70 +128,101 @@ $codeUsine = $_COOKIE['codeUsine'];
 						1
 						</td>
 						<td>
-                                                    <select id="designation0" name="designation0" class="col-xs-10 col-sm-10">
-                                                        <option value="-1" class="designations">sélectionnez un produit</option>
+                                                    <select id="designation1" name="designation1" class="col-xs-10 col-sm-10">
+                                                        <option value="-1" class="designations1">sélectionnez un produit</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="pu0" name='pu0' class="form-control"/>
+                                                    <input type="text" id="pu1" name='pu0' class="form-control"/>
+						</td>
+                                                <td>
+                                                    <input type="text" id="pdB1" name='pu0' class="form-control"/>
+						</td>
+                                                <td>
+                                                    <input type="text" id="perc1" name='pu0' class="form-control"/>
+						</td>
+                                                <td>
+                                                    <input type="text" id="pdN1" name='pu0' class="form-control"/>
 						</td>
 						<td>
-                                                    <input type="text" id="qte0" name='qte0'  class="form-control"/>
+                                                    <input type="text" id="qte1" name='qte0'  class="form-control"/>
 						</td>
 						<td>
-                                                    <input type="text" id="montant0" name='montant0' class="form-control"/>
+                                                    <input type="text" id="montant1" name='montant0' class="form-control"/>
 						</td>
 					</tr>
-                    <tr id='addr1'></tr>
+                    <tr id='addr2'></tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<div class="space-6"></div>
         <div class="row">
             <div class="col-md-12 column">
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                 </div>
-                 <div class="col-sm-6" >
-                     <div class="col-sm-4" style="margin-left: 5%;">
-                        <label> Poids Total (kg)</label>
-                        <input type="text" id="reference" placeholder=""
-                                           class="col-xs-12 col-sm-12">
-                     </div>
-                     <div class="col-sm-4" style="margin-left: 15%;">
-                    <label> Montant Total (FCFA)</label>
-                    <input type="text" id="reference" placeholder=""
-                                       class="col-xs-12 col-sm-12">
-                     </div>
+                <div class="col-sm-3">
                 </div>
+                 
+                     <div class="col-sm-3" >
+                     <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Poids Total </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-12">
+                            </div>
+                    </div>
+                     </div>
+                     <div class="col-sm-3" >
+                    <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Montant total </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="montantTotal" name="montantTotal" placeholder="" class="col-xs-12 col-sm-12">
+                            </div>
+                    </div>
+                     </div>
+                
             </div>
         </div>
         <div class="space-6"></div>
         <div class="row">
             <div class="col-md-12 column">
-                <div class="col-sm-6">
-                </div>
-                 <div class="col-sm-6" >
-                     <div class="col-sm-4" style="margin-left: 5%;">
-                        <label> Mode de paiement</label>
-                        <select id="modePaiement">
+                <div class="col-sm-3" >
+                        <div class="form-group">
+                               <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
+                               <div class="col-sm-8">
+                                   <select id="modePaiement" class="col-xs-12 col-sm-12">
                             <option value="Esp">Espèces</option>
                             <option value="ch">Chèque</option>
                             <option value="vir">Virement</option>
                         </select>
+                               </div>
+                       </div>
                      </div>
-                     <div class="col-sm-4" style="margin-left: 15%;">
-                         <div id="chDiv" class="hide">
-                        <label> N° Chèque </label>
+                     <div class="col-sm-3" >
+                        <div class="form-group">
+                               <label class="col-sm-4 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
+                               <div class="col-sm-8">
                         <input type="text" id="numCheque" placeholder=""
                                            class="col-xs-12 col-sm-12">
+                               </div>
+                       </div>
                      </div>
+                     <div class="col-sm-3" >
+                        <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Avance </label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-12">
+                                </div>
+                        </div>
                      </div>
-                </div>
-            </div><br/>
-            <div class="space-6"></div>
-            <div class="space-6"></div>
-            
+                     <div class="col-sm-3" >
+                        <div class="form-group">
+                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Reliquat </label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-12">
+                                </div>
+                        </div>
+                     </div>
+            </div>
         </div>
         <div class="row" style="margin-top: 12px;">
                 <div class="col-md-12 column">
@@ -205,7 +245,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
-    $('#designation0').select2();
+    $('#designation1').select2();
     loadProduit = function(index){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
                 ; ?>"}, function(data) {
@@ -217,7 +257,7 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#designation"+index).loadJSON('{"designations":' + data + '}');
+                $("#designation"+index).loadJSON('{"designations'+index+'":' + data + '}');
             }
         });
     };
@@ -238,16 +278,28 @@ $(document).ready(function () {
     };
     loadMareyeurs();
     loadProduit(0);
-    var i=1;
+    var i=2;
      $("#add_row").click(function(){
 //      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
 
 
-$('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'><option value='-1' class='designations'>sélectionnez un produit</option></select></td><td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td><td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td><td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
+$('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
+<option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
+</td>\n\
+<td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='pdB"+i+"' name='pdB"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='perc"+i+"' name='perc"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
+<td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
       loadProduit(i);
-      i++; 
+      alert('#designation'+i);
+     $('#designation'+i).change(function() {
+        loadPrix('designation'+i,'pu'+i);
+        });
+      i++;
   });
      $("#delete_row").click(function(){
     	 if(i>1){
@@ -265,5 +317,19 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             $("#chDiv").addClass("hide");
         }
     });
+    $('#designation0').change(function() {
+        loadPrix('designation0','pu0');
+        });
+    loadPrix = function(cmbDesignation, champPrix){
+        alert('#'+cmbDesignation);
+                if($('#'+cmbDesignation).val()!==null){
+                    $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: $("#designation0").val(), ACTION: "<?php echo App::ACTION_GET_PRODUCT; ?>"}, function(data) {
+                    data = $.parseJSON(data);
+                    $("#" + champPrix).val(data);
+                
+                });
+            }
+            }
+           
    });
 </script>

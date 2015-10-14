@@ -81,8 +81,9 @@ public function retrieveTypes()
             return $this->produitQuery->findAllProduits($term);
     }
 
-    public function findProduitsByName($name){
-        return $this->produitQuery->findProduitsByName($name);
+    public function findPrixById($produitId){
+        $produit = $this->produitQuery->findPrixById($produitId);
+        return $produit['prixUnitaire'];
     }
     
     public function retrieveAllByUsine($codeUsine){

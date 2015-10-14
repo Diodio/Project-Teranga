@@ -171,8 +171,8 @@ class ProduitQueries {
     }
    
     
-     public function findProduitsByName($name) {
-        $sql = 'SELECT id, stock, seuil FROM produit where libelle = "'. $name .'"';
+     public function findPrixById($produitId) {
+        $sql = 'SELECT prixUnitaire FROM produit where id = "'. $produitId .'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $produit = $stmt->fetchAll();

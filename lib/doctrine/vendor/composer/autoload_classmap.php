@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname(dirname($vendorDir))).'/config';
 
 return array(
+    'Achat\\Achat' => $baseDir . '/../backend/src/be/Achat.php',
+    'Achat\\LigneAchat' => $baseDir . '/../backend/src/be/LigneAchat.php',
     'ArticleController' => $baseDir . '/../backend/src/bo/article/ArticleController.php',
     'Article\\ArticleManager' => $baseDir . '/../backend/src/bo/article/ArticleManager.php',
     'Article\\ArticleQueries' => $baseDir . '/../backend/src/bo/article/ArticleQueries.php',
