@@ -143,13 +143,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     %
 						</td>
                                                 <td>
-                                                    <input type="text" id="pdN0" name='pdN0' class="form-control"/>
+                                                    <input type="text" id="pdN0" name='pdN0' class="form-control poidsNet"/>
 						</td>
 						<td>
                                                     <input type="text" id="qte0" name='qte0'  class="form-control"/>
 						</td>
 						<td>
-                                                    <input type="text" id="montant0" name='montant0' class="form-control"/>
+                                                    <input type="text" id="montant0" name='montant0' class="form-control montant"/>
 						</td>
 					</tr>
                     <tr id='addr1'></tr>
@@ -247,6 +247,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
+    var prixT;
     loadProduit = function(index){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
                 ; ?>"}, function(data) {
@@ -290,9 +291,9 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 <td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='pdB"+i+"' name='pdB"+i+"' class='form-control'/></td>\n\
 <td><input type='number' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
-<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control poidsNet'/></td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
-<td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
+<td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
       loadProduit(i);
@@ -315,7 +316,9 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         var counter = id.slice(-1);
        //$('#designation'+counter).change(function() {
           loadPrix('designation'+counter,'pu'+counter);
-          calculPoidsNet(counter)
+          calculPoidsNet(counter);
+          calculMontant(counter);
+          calculMontantTotal();
       //});
     });
     
@@ -344,6 +347,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         }
             };
             
+            $("#montantTotal").bind("focus", function () {
+            calculMontantTotal();
+            
+        });
+            
         function calculPoidsNet(index){
            var pn;
            if($("#perc"+index).val() !=="") {
@@ -355,6 +363,36 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
               
             }  
        }
+       
+           
+       function calculMontant(index){
+           var mt;
+           if($("#qte"+index).val() !=="") {
+              var qte = $("#qte"+index).val();
+              var pu = $("#pu"+index).val();
+              mt = parseInt(qte) * parseInt(pu);
+              if(!isNaN(mt)){
+                $("#montant"+index).val(mt);
+                prixT += mt; 
+                if(!isNaN(prixT))
+                    $("#montantTotal").val(prixT);
+              }
+            }  
+       }
+       function calculMontantTotal(){
+           var pt=0;
+           var pd=0;
+          $('#tab_logic .montant').each(function () {
+                pt += parseInt($(this).val());
+            });
+            $('#tab_logic .poidsNet').each(function () {
+                pd+= parseFloat($(this).val());
+            });
+                if(!isNaN(pt))
+                    $("#montantTotal").val(pt);
+                if(!isNaN(pd))
+                    $("#poidsTotal").val(pd);
+        }
            
    });
 </script>
