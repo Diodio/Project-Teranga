@@ -315,6 +315,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         var counter = id.slice(-1);
        //$('#designation'+counter).change(function() {
           loadPrix('designation'+counter,'pu'+counter);
+          calculPoidsNet(counter)
       //});
     });
     
@@ -342,6 +343,18 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         });
         }
             };
+            
+        function calculPoidsNet(index){
+           var pn;
+           if($("#perc"+index).val() !=="") {
+              var pourcentage = $("#perc"+index).val();
+              var poidsBrut = $("#pdB"+index).val();
+              pn = parseInt(poidsBrut) - ((parseInt(poidsBrut) * pourcentage)/100);
+              if(!isNaN(pn))
+                $("#pdN"+index).val(pn);
+              
+            }  
+       }
            
    });
 </script>
