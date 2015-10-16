@@ -450,7 +450,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </a> <b class="arrow"></b>
                     </li>
 
-                    <li class=""><a href="calendar.html"> <i
+                    <li id="MNU_COLISAGE" class=""><a id="COLISAGE" href="#"> <i
                                 class="menu-icon fa fa-calendar"></i> <span class="menu-text">
                                 Colisage <span class="badge badge-transparent tooltip-error"
                                                title="2 Important Events"> </span>
@@ -694,6 +694,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/commande/commandeMareyeurVue.php", function () {
+
+                    });
+                });
+
+                $("#MNU_COLISAGE").click(function (e) {
+                    $("#CMD_MAREYEURS").attr("Class", "active");
+                    $("#CMD_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/colisage/colisagesVue.php", function () {
 
                     });
                 });
