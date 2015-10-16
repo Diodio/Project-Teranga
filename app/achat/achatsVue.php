@@ -128,30 +128,31 @@ $codeUsine = $_COOKIE['codeUsine'];
 						1
 						</td>
 						<td>
-                                                    <select id="designation1" name="designation1" class="col-xs-10 col-sm-10">
-                                                        <option value="-1" class="designations1">sélectionnez un produit</option>
+                                                    <select id="designation0" name="designation0" class="col-xs-10 col-sm-10">
+                                                        <option value="-1" class="designations0">sélectionnez un produit</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="pu1" name='pu0' class="form-control"/>
+                                                    <input type="text" id="pu0" name='pu0' class="form-control"/>
 						</td>
                                                 <td>
-                                                    <input type="text" id="pdB1" name='pu0' class="form-control"/>
+                                                    <input type="text" id="pdB0" name='pdB0' class="form-control"/>
 						</td>
                                                 <td>
-                                                    <input type="text" id="perc1" name='pu0' class="form-control"/>
+                                                    <input type="number" id="perc0" name='perc0' class="col-xs-9"/>
+                                                    %
 						</td>
                                                 <td>
-                                                    <input type="text" id="pdN1" name='pu0' class="form-control"/>
+                                                    <input type="text" id="pdN0" name='pdN0' class="form-control"/>
 						</td>
 						<td>
-                                                    <input type="text" id="qte1" name='qte0'  class="form-control"/>
+                                                    <input type="text" id="qte0" name='qte0'  class="form-control"/>
 						</td>
 						<td>
-                                                    <input type="text" id="montant1" name='montant0' class="form-control"/>
+                                                    <input type="text" id="montant0" name='montant0' class="form-control"/>
 						</td>
 					</tr>
-                    <tr id='addr2'></tr>
+                    <tr id='addr1'></tr>
 				</tbody>
 			</table>
 		</div>
@@ -245,7 +246,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
-    $('#designation1').select2();
+    $('#designation0').select2();
     loadProduit = function(index){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
                 ; ?>"}, function(data) {
@@ -278,7 +279,7 @@ $(document).ready(function () {
     };
     loadMareyeurs();
     loadProduit(0);
-    var i=2;
+    var i=1;
      $("#add_row").click(function(){
 //      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
 
@@ -288,17 +289,14 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 </td>\n\
 <td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='pdB"+i+"' name='pdB"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='perc"+i+"' name='perc"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
 <td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
 <td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
       loadProduit(i);
-      alert('#designation'+i);
-     $('#designation'+i).change(function() {
-        loadPrix('designation'+i,'pu'+i);
-        });
+      
       i++;
   });
      $("#delete_row").click(function(){
@@ -307,6 +305,20 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 		 i--;
 		 }
 	 });
+         
+ 
+  
+ 
+    
+    $(document).delegate('#tab_logic tr td', 'click', function (event) {
+        var id = $(this).closest('tr').attr('id');
+        var counter = id.slice(-1);
+       //$('#designation'+counter).change(function() {
+          loadPrix('designation'+counter,'pu'+counter);
+      //});
+    });
+    
+
     $("#modePaiement").change(function() {
         if($("#modePaiement").val() ==='ch') {
             $("#chDiv").removeClass("hide");
@@ -321,15 +333,15 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         loadPrix('designation0','pu0');
         });
     loadPrix = function(cmbDesignation, champPrix){
-        alert('#'+cmbDesignation);
-                if($('#'+cmbDesignation).val()!==null){
-                    $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: $("#designation0").val(), ACTION: "<?php echo App::ACTION_GET_PRODUCT; ?>"}, function(data) {
-                    data = $.parseJSON(data);
-                    $("#" + champPrix).val(data);
-                
-                });
-            }
-            }
+        //$('#tab_logic').click();
+        if($("#"+cmbDesignation).val()!==null){
+            $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: $("#"+cmbDesignation).val(), ACTION: "<?php echo App::ACTION_GET_PRODUCT; ?>"}, function(data) {
+            data = $.parseJSON(data);
+            $("#" + champPrix).val(data);
+
+        });
+        }
+            };
            
    });
 </script>
