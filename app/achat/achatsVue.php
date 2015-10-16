@@ -289,7 +289,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 </td>\n\
 <td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='pdB"+i+"' name='pdB"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
+<td><input type='number' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
 <td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
 <td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
