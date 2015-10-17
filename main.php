@@ -413,25 +413,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </ul>
                     </li>
                     
-                    <li class=""><a href="#" class="dropdown-toggle"> <i
-                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
-                                Commande </span> <b class="arrow fa fa-angle-down"></b>
-                        </a> <b class="arrow"></b>
+<!--                     <li class=""><a href="#" class="dropdown-toggle"> <i -->
+<!--                                 class="fa fa-pencil fa-fw"></i> <span class="menu-text"> -->
+<!--                                 Commande </span> <b class="arrow fa fa-angle-down"></b> -->
+<!--                         </a> <b class="arrow"></b> -->
 
-                        <ul class="submenu">
-                            <li id="CMD_MAREYEURS" class=""><a id="MAREYEURS" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Mareyeur
-                                </a> <b class="arrow"></b>
-                            </li>
+<!--                         <ul class="submenu"> -->
+<!--                             <li id="CMD_MAREYEURS" class=""><a id="MAREYEURS" href="#"> <i -->
+<!--                                         class="menu-icon fa fa-caret-right"></i> Mareyeur -->
+<!--                                 </a> <b class="arrow"></b> -->
+<!--                             </li> -->
 
-                            <li id="CMD_CLIENTS" class=""><a id="CLIENTS" href="#"> <i
-                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Client </span>
-                                </a> <b class="arrow"></b>
-                            </li>
+<!--                             <li id="CMD_CLIENTS" class=""><a id="CLIENTS" href="#"> <i -->
+<!--                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text"> -->
+<!--                                         Client </span> -->
+<!--                                 </a> <b class="arrow"></b> -->
+<!--                             </li> -->
 
-                        </ul>
-                    </li>
+<!--                         </ul> -->
+<!--                     </li> -->
                     
 
 
@@ -444,22 +444,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </li>
                      <li id="MNU_COLISAGE" class=""><a id="COLISAGE" href="#"> <i
                                 class="menu-icon fa fa-calendar"></i> <span class="menu-text">
-                                Colisage <span class="badge badge-transparent tooltip-error"
+                                Bon de Sortie <span class="badge badge-transparent tooltip-error"
                                                title="2 Important Events"> </span>
                             </span>
                         </a> <b class="arrow"></b>
                     </li>
-                    <li class=""><a id="BON" href="#"> <i
-                                class="menu-icon fa fa-calendar"></i> <span class="menu-text"> Bon
-                                de sortie <span class="badge badge-transparent tooltip-error"
-                                                title="2 Important Events"> </span>
-                            </span>
-                        </a> <b class="arrow"></b>
-                    </li>
-
 
                     <li class=""><a href="calendar.html"> <i
-                                class="menu-icon fa fa-calendar"></i> <span class="menu-text">
+                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
                                 Facture <span class="badge badge-transparent tooltip-error"
                                               title="2 Important Events"> </span>
                             </span>
@@ -703,7 +695,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#CMD_CLIENTS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/colisage/colisagesVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieVue.php", function () {
 
                     });
                 });
