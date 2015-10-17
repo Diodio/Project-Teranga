@@ -1,8 +1,8 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
 if (!isset($_COOKIE['userId'])) {
-    header('Location: ' . \App::getHome());
-    exit();
+	header('Location: ' . \App::getHome());
+	exit();
 }
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
@@ -14,248 +14,193 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 
 <div class="page-content">
-    <div class="page-header">
-        <h1>
-            Bon de Sortie <small> <i
-                    class="ace-icon fa fa-angle-double-right"></i> Destockage
-            </small>
-        </h1>
-    </div>
-    <!-- /.page-header -->
+	<div class="page-header">
+		<h1>
+			Bon de Sortie <small> <i class="ace-icon fa fa-angle-double-right"></i>
+				Destockage
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
 
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<!-- PAGE CONTENT BEGINS -->
 
 
-           <div class="col-sm-6">
-           
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label> Client </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <select id="CMB_MAREYEURS" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="mareyeurs">Nom Client </option>
-                        </select>
-                    </div>
-                </div>
-               <div class="space-6"></div>
-                <div class="row" >
-                        <div class="col-sm-2">
-                            <label> Destination </label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder="" style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
-                 <div class="space-6"></div>
-                 <div class="row" >
-                        <div class="col-sm-2">
-                            <label> Numero Containers</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder="" style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
-                 <div class="space-6"></div>
-                <div class="row" >
-                        <div class="col-sm-2">
-                            <label> Numero Plomb</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder="" style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
-               <div class="space-6"></div>
-                 <div class="row">
-                        <div class="col-sm-2">
-                            <label> Capacite</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="adresse" placeholder=""  style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
-                 <div class="space-6"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Bon </label>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Date Bon de sortie</label>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                        </div>
-                        <div class="space-6"></div>
-                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Camion</label>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Nom Chauffeur</label>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                        </div>
-                        <div class="space-6"></div>
-                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Destination Chauffeur </label>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                        </div>
-                    </div>
+			<div class="col-sm-5">
 
-                </div>
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <a id="add_row" class="btn btn-primary btn-sm"><i class="ace-icon fa fa-plus-square"></i></a>
-                <a id='delete_row' class="btn btn-danger btn-sm" title="Supprimer une ligne" alt="Supprimer une ligne">
-                        <i class="ace-icon fa fa-minus-square"></i>
-                </a>
-            </div>
-        </div>
-        <div class="space-6"></div>
-            <div class="row clearfix">
-		<div class="col-md-12 column">
-			<table class="table table-bordered table-hover" id="tab_logic">
-				<thead>
-					<tr >
-						<th class="text-center">
-							No
-						</th>
-						<th class="text-center">
-							Désination
-						</th>
-						<th class="text-center">
-							Quantite
-						</th>
-						<th class="text-center">
-							Quantite totale
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id='addr0'>
-						<td>
-						1
-						</td>
-						<td>
-                                                    <select id="designation0" name="designation0" class="col-xs-10 col-sm-10">
-                                                        <option value="-1" class="designations0">sélectionnez un produit</option>
-                                                    </select>
-                                                </td>
-						<td>
-                                                    <input type="text" id="qte0" name='qte0'  class="form-control"/>
-						</td>
-						<td>
-                                                    <input type="text" id="montant0" name='montant0' class="form-control"/>
-						</td>
-					</tr>
-                    <tr id='addr1'></tr>
-				</tbody>
-			</table>
+				<div class="row">
+					<div class="col-sm-4">
+						<label> Client </label>
+					</div>
+					<div class="col-sm-6">
+						<select id="CMB_MAREYEURS" data-placeholder="" style="width: 100%">
+							<option value="*" class=clients>Nom Client</option>
+						</select>
+					</div>
+				</div>
+				<div class="space-6"></div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label> Destination </label>
+					</div>
+					<div class="col-sm-6">
+						<input type="text" id="adresse" placeholder=""
+							style="width: 100%" class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+				<div style="    margin: 0px 0px 12px;
+    border-bottom: 1px dotted #E2E2E2;
+    padding-bottom: 16px;
+    padding-top: 7px;"></div>
+				<div class="space-6"></div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label> Numero Container</label>
+					</div>
+					<div class="col-sm-6">
+						<input type="text" id="reference" placeholder=""
+							style="width: 100%" class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+				<div class="space-6"></div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label> Numero Plomb</label>
+					</div>
+					<div class="col-sm-6">
+						<input type="text" id="numeroPlomb" placeholder=""
+							style="width: 100%" class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+
+				<div class="space-6"></div>
+			</div>
+			<div class="col-sm-5" style="margin-left: 12%">
+				<div class="form-group" style="margin-bottom: 45px; width: 173%;">
+					<label class="col-sm-4 control-label no-padding-right"
+						for="form-field-1"> Numero Bon de sortie </label>
+					<div class="col-sm-6">
+						<input type="text" id="numeroBonSortie" placeholder=""
+							class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+				<div class="form-group" style="margin-bottom: 56px; width: 173%;">
+					<label class="col-sm-4 control-label no-padding-right"
+						for="form-field-1"> Date Bon de sortie</label>
+					<div class="col-sm-6">
+						<input type="text" id="dateBonSortie" placeholder=""
+							class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+				<div class="space-8"></div>
+				<div class="form-group" style="margin-bottom: 56px; width: 173%;">
+					<label class="col-sm-4 control-label no-padding-right"
+						for="form-field-1"> Numero Camion</label>
+					<div class="col-sm-6">
+						<input type="text" id="numeroCamion" placeholder=""
+							class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+				
+				<div class="form-group" style="margin-bottom: 56px; width: 173%;">
+					<label class="col-sm-4 control-label no-padding-right"
+						for="form-field-1"> Nom Chauffeur</label>
+					<div class="col-sm-6">
+						<input type="text" id="nomChauffeur" placeholder=""
+							class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+				<div class="space-6"></div>
+				<div class="form-group" style="margin-bottom: 56px; width: 173%;">
+					<label class="col-sm-4 control-label no-padding-right"
+						for="form-field-1"> Destination Chauffeur </label>
+					<div class="col-sm-6">
+						<input type="text" id="destinationChauffeur" placeholder=""
+							class="col-xs-10 col-sm-7">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<a id="add_row" class="btn btn-primary btn-sm"><i
+					class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+					class="btn btn-danger btn-sm" title="Supprimer une ligne"
+					alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
+				</a>
+			</div>
+		</div>
+		<div class="space-6"></div>
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<table class="table table-bordered table-hover" id="tab_logic">
+					<thead>
+						<tr>
+							<th class="text-center">No</th>
+							<th class="text-center">Désination</th>
+							<th class="text-center">Quantite</th>
+							<th class="text-center">Quantite totale</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id='addr0'>
+							<td>1</td>
+							<td><select id="designation0" name="designation0"
+								class="col-xs-10 col-sm-10">
+									<option value="-1" class="designations0">sélectionnez un
+										produit</option>
+							</select>
+							</td>
+							<td><input type="text" id="qte0" name='qte0' class="form-control" />
+							</td>
+							<td><input type="text" id="montant0" name='montant0'
+								class="form-control" />
+							</td>
+						</tr>
+						<tr id='addr1'></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 column">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3"></div>
+
+				<div class="col-sm-3" style="margin-left: 76%;">
+					<div class="form-group">
+						<label class="col-sm-4 control-label no-padding-right"
+							for="form-field-1"> Poids Total </label>
+						<div class="col-sm-8">
+							<input type="text" id="poidsTotal" name="poidsTotal"
+								placeholder="" class="col-xs-12 col-sm-12">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row" style="margin-top: 12px;">
+<!-- 			<div class="col-md-6 column"> -->
+<!-- 				<button id="SAVE" class="btn btn-small btn-info pull-right" -->
+<!-- 					data-dismiss="modal"> -->
+<!-- 					<i class="fa fa-plus-square "></i> Valider -->
+<!-- 				</button> -->
+<!-- 			</div> -->
+			<div class="col-md-12 column">
+				<button id="SAVE" class="btn btn-small btn-info pull-right"
+					data-dismiss="modal">
+					<i class="fa fa-plus-square "></i> Enregistrer
+				</button>
+			</div>
 		</div>
 	</div>
-        <div class="row">
-            <div class="col-md-12 column">
-                <div class="col-sm-3">
-                </div>
-                <div class="col-sm-3">
-                </div>
-                 
-                     <div class="col-sm-3" >
-                     <div class="form-group">
-                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Poids Total </label>
-                            <div class="col-sm-8">
-                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-12">
-                            </div>
-                    </div>
-                     </div>
-            </div>
-            
-        </div>
-<!--         <div class="space-6"></div> -->
-<!--         <div class="row"> -->
-<!--             <div class="col-md-12 column"> -->
-<!--                 <div class="col-sm-3" > -->
-<!--                         <div class="form-group"> -->
-<!--                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mode de paiement </label> -->
-<!--                                <div class="col-sm-8"> -->
-<!--                                    <select id="modePaiement" class="col-xs-12 col-sm-12"> -->
-<!--                             <option value="Esp">Espèces</option> -->
-<!--                             <option value="ch">Chèque</option> -->
-<!--                             <option value="vir">Virement</option> -->
-<!--                         </select> -->
-<!--                                </div> -->
-<!--                        </div> -->
-<!--                      </div> -->
-<!--                      <div class="col-sm-3" > -->
-<!--                         <div class="form-group"> -->
-<!--                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">  N° Chèque </label> -->
-<!--                                <div class="col-sm-8"> -->
-<!--                         <input type="text" id="numCheque" placeholder="" -->
-<!--                                            class="col-xs-12 col-sm-12"> -->
-<!--                                </div> -->
-<!--                        </div> -->
-<!--                      </div> -->
-<!--                      <div class="col-sm-3" > -->
-<!--                         <div class="form-group"> -->
-<!--                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Avance </label> -->
-<!--                                 <div class="col-sm-8"> -->
-<!--                                     <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-12"> -->
-<!--                                 </div> -->
-<!--                         </div> -->
-<!--                      </div> -->
-<!--                      <div class="col-sm-3" > -->
-<!--                         <div class="form-group"> -->
-<!--                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Reliquat </label> -->
-<!--                                 <div class="col-sm-8"> -->
-<!--                                     <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-12"> -->
-<!--                                 </div> -->
-<!--                         </div> -->
-<!--                      </div> -->
-<!--             </div> -->
-<!--         </div> -->
-        <div class="row" style="margin-top: 12px;">
-                <div class="col-md-12 column">
-                    <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
-                                <i class="fa fa-plus-square "></i>
-                                Valider
-                            </button>
-                </div>
-                <div class="col-md-10 column">
-                    <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
-                                <i class="fa fa-plus-square "></i>
-                                Enregistrer
-                            </button>
-                </div>
-            </div>
-        </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
+	<!-- /.col -->
+</div>
+<!-- /.row -->
 
 </div>
 <!-- /.page-content -->
