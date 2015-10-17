@@ -50,10 +50,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
-				<div style="    margin: 0px 0px 12px;
-    border-bottom: 1px dotted #E2E2E2;
-    padding-bottom: 16px;
-    padding-top: 7px;"></div>
 				<div class="space-6"></div>
 				<div class="row">
 					<div class="col-sm-4">
@@ -126,9 +122,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 		</div>
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-				<a id="add_row" class="btn btn-primary btn-sm"><i
-					class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
-					class="btn btn-danger btn-sm" title="Supprimer une ligne"
+				<a id="add_row" class="btn btn-primary btn-sm" title="Ajouter un produit">
+				<i	class="ace-icon fa fa-plus-square"></i> </a>
+					 <a id='delete_row'
+					class="btn btn-danger btn-sm" title="Supprimer un produit"
 					alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 				</a>
 			</div>
@@ -139,7 +136,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 				<table class="table table-bordered table-hover" id="tab_logic">
 					<thead>
 						<tr>
-							<th class="text-center">No</th>
+							<th class="text-center">N°</th>
 							<th class="text-center">DÃ©sination</th>
 							<th class="text-center">Quantite</th>
 							<th class="text-center">Quantite totale</th>
