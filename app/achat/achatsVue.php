@@ -64,17 +64,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="col-sm-6">
                         <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Commande</label>
+                                   for="form-field-1"> Numero Achat</label>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
+                                <input type="text" id="numAchat" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom: 56px;width: 173%;">
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Date Commande</label>
+                                   for="form-field-1"> Date Achat</label>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder=""
+                                <input type="text" id="dateAchat" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
@@ -247,7 +247,15 @@ $codeUsine = $_COOKIE['codeUsine'];
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
-    var prixT;
+    var today = new Date();
+    var dateAchat = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
+    $('#dateAchat').attr('value', today);
+
     loadProduit = function(index){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
                 ; ?>"}, function(data) {
@@ -318,7 +326,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
           loadPrix('designation'+counter,'pu'+counter);
           calculPoidsNet(counter);
           calculMontant(counter);
-          calculMontantTotal();
+          calculMontantPoids();
       //});
     });
     
@@ -348,7 +356,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             };
             
             $("#montantTotal").bind("focus", function () {
-            calculMontantTotal();
+            calculMontantPoids();
             
         });
             
@@ -373,13 +381,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
               mt = parseInt(qte) * parseInt(pu);
               if(!isNaN(mt)){
                 $("#montant"+index).val(mt);
-                prixT += mt; 
-                if(!isNaN(prixT))
-                    $("#montantTotal").val(prixT);
+                
               }
             }  
        }
-       function calculMontantTotal(){
+       function calculMontantPoids(){
            var pt=0;
            var pd=0;
           $('#tab_logic .montant').each(function () {
@@ -393,6 +399,76 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                 if(!isNaN(pd))
                     $("#poidsTotal").val(pd);
         }
+        
+        AchatProcess = function ()
+        {
+            
+            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            var frmData;
+            var numAchat= $('#numAchat').val();
+           // var dateAchat = dateAchat;
+            var mareyeur = $("#CMB_MAREYEURS").val();
+            var poidsTotal = $("#poidsTotal").val();
+            var MontantTotal = $("#montantTotal").val();
+            var modePaiement = $("#modePaiement").val();
+            var numCheque = $("#numCheque").val();
+            var avance = $("#avance").val();
+            var reliquat = $("#reliquat").val();
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('numAchat', numAchat);
+            formData.append('dateAchat', dateAchat);
+            formData.append('mareyeur', mareyeur);
+            formData.append('poidsTotal', poidsTotal);
+            formData.append('montantTotal', MontantTotal);
+            formData.append('modePaiement', modePaiement);
+            formData.append('numCheque', numCheque);
+            formData.append('avance', avance);
+            formData.append('reliquat', reliquat);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/achat/achatController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                       loadProduit();
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                    };
+                    
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
+
+        };
+        $("#SAVE").bind("click", function () {
+            AchatProcess();
+           
+        });
            
    });
 </script>
