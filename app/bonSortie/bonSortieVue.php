@@ -16,7 +16,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Colisage <small> <i
+            Bon de Sortie <small> <i
                     class="ace-icon fa fa-angle-double-right"></i> Destockage
             </small>
         </h1>
@@ -29,20 +29,41 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 
            <div class="col-sm-6">
+           
                 <div class="row">
                     <div class="col-sm-2">
-                        <label> containers </label>
+                        <label> Client </label>
                     </div>
                     <div class="col-sm-6">
                         <select id="CMB_MAREYEURS" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="mareyeurs">Nom containers </option>
+                            <option value="*" class="mareyeurs">Nom Client </option>
                         </select>
                     </div>
                 </div>
                <div class="space-6"></div>
                 <div class="row" >
                         <div class="col-sm-2">
-                            <label> Reference</label>
+                            <label> Destination </label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" placeholder="" style="width:100%" 
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
+                 <div class="space-6"></div>
+                 <div class="row" >
+                        <div class="col-sm-2">
+                            <label> Numero Containers</label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" placeholder="" style="width:100%" 
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
+                 <div class="space-6"></div>
+                <div class="row" >
+                        <div class="col-sm-2">
+                            <label> Numero Plomb</label>
                         </div>
                             <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder="" style="width:100%" 
@@ -64,7 +85,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="col-sm-6">
                         <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Colisage</label>
+                                   for="form-field-1"> Numero Bon </label>
                             <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder=""
                                        class="col-xs-10 col-sm-7">
@@ -72,13 +93,38 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                         <div class="form-group" style="margin-bottom: 56px;width: 173%;">
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Date Colisage</label>
+                                   for="form-field-1"> Date Bon de sortie</label>
                             <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
-                       
+                        <div class="space-6"></div>
+                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
+                            <label class="col-sm-2 control-label no-padding-right"
+                                   for="form-field-1"> Numero Camion</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
+                            <label class="col-sm-2 control-label no-padding-right"
+                                   for="form-field-1"> Nom Chauffeur</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                        </div>
+                        <div class="space-6"></div>
+                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
+                            <label class="col-sm-2 control-label no-padding-right"
+                                   for="form-field-1"> Destination Chauffeur </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" placeholder=""
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -103,9 +149,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 							Désination
 						</th>
 						<th class="text-center">
-							Poids Net
-						</th>
-						<th class="text-center">
 							Quantite
 						</th>
 						<th class="text-center">
@@ -123,9 +166,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <option value="-1" class="designations0">sélectionnez un produit</option>
                                                     </select>
                                                 </td>
-                                                <td>
-                                                    <input type="text" id="pu0" name='pu0' class="form-control"/>
-						</td>
 						<td>
                                                     <input type="text" id="qte0" name='qte0'  class="form-control"/>
 						</td>
@@ -205,6 +245,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 Valider
                             </button>
                 </div>
+                <div class="col-md-10 column">
+                    <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
+                                <i class="fa fa-plus-square "></i>
+                                Enregistrer
+                            </button>
+                </div>
             </div>
         </div>
         <!-- /.col -->
@@ -260,7 +306,6 @@ $(document).ready(function () {
 $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
-<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
 <td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
