@@ -442,6 +442,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </span>
                         </a> <b class="arrow"></b>
                     </li>
+                     <li id="MNU_COLISAGE" class=""><a id="COLISAGE" href="#"> <i
+                                class="menu-icon fa fa-calendar"></i> <span class="menu-text">
+                                Colisage <span class="badge badge-transparent tooltip-error"
+                                               title="2 Important Events"> </span>
+                            </span>
+                        </a> <b class="arrow"></b>
+                    </li>
                     <li class=""><a id="BON" href="#"> <i
                                 class="menu-icon fa fa-calendar"></i> <span class="menu-text"> Bon
                                 de sortie <span class="badge badge-transparent tooltip-error"
@@ -450,13 +457,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </a> <b class="arrow"></b>
                     </li>
 
-                    <li id="MNU_COLISAGE" class=""><a id="COLISAGE" href="#"> <i
-                                class="menu-icon fa fa-calendar"></i> <span class="menu-text">
-                                Colisage <span class="badge badge-transparent tooltip-error"
-                                               title="2 Important Events"> </span>
-                            </span>
-                        </a> <b class="arrow"></b>
-                    </li>
 
                     <li class=""><a href="calendar.html"> <i
                                 class="menu-icon fa fa-calendar"></i> <span class="menu-text">

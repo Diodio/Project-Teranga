@@ -17,7 +17,7 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="page-header">
         <h1>
             Colisage <small> <i
-                    class="ace-icon fa fa-angle-double-right"></i> Colisage
+                    class="ace-icon fa fa-angle-double-right"></i> Destockage
             </small>
         </h1>
     </div>
@@ -31,11 +31,11 @@ $codeUsine = $_COOKIE['codeUsine'];
            <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label> Client</label>
+                        <label> containers </label>
                     </div>
                     <div class="col-sm-6">
                         <select id="CMB_MAREYEURS" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="mareyeurs">Nom Mareyeur</option>
+                            <option value="*" class="mareyeurs">Nom containers </option>
                         </select>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                <div class="space-6"></div>
                  <div class="row">
                         <div class="col-sm-2">
-                            <label> Adresse</label>
+                            <label> Capacite</label>
                         </div>
                             <div class="col-sm-6">
                                 <input type="text" id="adresse" placeholder=""  style="width:100%" 
@@ -64,7 +64,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="col-sm-6">
                         <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Commande</label>
+                                   for="form-field-1"> Numero Colisage</label>
                             <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder=""
                                        class="col-xs-10 col-sm-7">
@@ -72,7 +72,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                         <div class="form-group" style="margin-bottom: 56px;width: 173%;">
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Date Commande</label>
+                                   for="form-field-1"> Date Colisage</label>
                             <div class="col-sm-6">
                                 <input type="text" id="reference" placeholder=""
                                        class="col-xs-10 col-sm-7">
@@ -97,19 +97,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 				<thead>
 					<tr >
 						<th class="text-center">
-							#
+							No
 						</th>
 						<th class="text-center">
 							Désination
-						</th>
-						<th class="text-center">
-							Prix Unitaire
-						</th>
-						<th class="text-center">
-							Poids brut
-						</th>
-						<th class="text-center">
-							Pourcentage
 						</th>
 						<th class="text-center">
 							Poids Net
@@ -118,7 +109,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 							Quantite
 						</th>
 						<th class="text-center">
-							Montant
+							Quantite totale
 						</th>
 					</tr>
 				</thead>
@@ -134,16 +125,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 </td>
                                                 <td>
                                                     <input type="text" id="pu0" name='pu0' class="form-control"/>
-						</td>
-                                                <td>
-                                                    <input type="text" id="pdB0" name='pdB0' class="form-control"/>
-						</td>
-                                                <td>
-                                                    <input type="number" id="perc0" name='perc0' class="col-xs-9"/>
-                                                    %
-						</td>
-                                                <td>
-                                                    <input type="text" id="pdN0" name='pdN0' class="form-control"/>
 						</td>
 						<td>
                                                     <input type="text" id="qte0" name='qte0'  class="form-control"/>
@@ -172,59 +153,51 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                     </div>
                      </div>
-                     <div class="col-sm-3" >
-                    <div class="form-group">
-                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Montant total </label>
-                            <div class="col-sm-8">
-                                <input type="text" id="montantTotal" name="montantTotal" placeholder="" class="col-xs-12 col-sm-12">
-                            </div>
-                    </div>
-                     </div>
-                
             </div>
+            
         </div>
-        <div class="space-6"></div>
-        <div class="row">
-            <div class="col-md-12 column">
-                <div class="col-sm-3" >
-                        <div class="form-group">
-                               <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
-                               <div class="col-sm-8">
-                                   <select id="modePaiement" class="col-xs-12 col-sm-12">
-                            <option value="Esp">Espèces</option>
-                            <option value="ch">Chèque</option>
-                            <option value="vir">Virement</option>
-                        </select>
-                               </div>
-                       </div>
-                     </div>
-                     <div class="col-sm-3" >
-                        <div class="form-group">
-                               <label class="col-sm-4 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
-                               <div class="col-sm-8">
-                        <input type="text" id="numCheque" placeholder=""
-                                           class="col-xs-12 col-sm-12">
-                               </div>
-                       </div>
-                     </div>
-                     <div class="col-sm-3" >
-                        <div class="form-group">
-                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Avance </label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-12">
-                                </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-3" >
-                        <div class="form-group">
-                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Reliquat </label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-12">
-                                </div>
-                        </div>
-                     </div>
-            </div>
-        </div>
+<!--         <div class="space-6"></div> -->
+<!--         <div class="row"> -->
+<!--             <div class="col-md-12 column"> -->
+<!--                 <div class="col-sm-3" > -->
+<!--                         <div class="form-group"> -->
+<!--                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mode de paiement </label> -->
+<!--                                <div class="col-sm-8"> -->
+<!--                                    <select id="modePaiement" class="col-xs-12 col-sm-12"> -->
+<!--                             <option value="Esp">Espèces</option> -->
+<!--                             <option value="ch">Chèque</option> -->
+<!--                             <option value="vir">Virement</option> -->
+<!--                         </select> -->
+<!--                                </div> -->
+<!--                        </div> -->
+<!--                      </div> -->
+<!--                      <div class="col-sm-3" > -->
+<!--                         <div class="form-group"> -->
+<!--                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">  N° Chèque </label> -->
+<!--                                <div class="col-sm-8"> -->
+<!--                         <input type="text" id="numCheque" placeholder="" -->
+<!--                                            class="col-xs-12 col-sm-12"> -->
+<!--                                </div> -->
+<!--                        </div> -->
+<!--                      </div> -->
+<!--                      <div class="col-sm-3" > -->
+<!--                         <div class="form-group"> -->
+<!--                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Avance </label> -->
+<!--                                 <div class="col-sm-8"> -->
+<!--                                     <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-12"> -->
+<!--                                 </div> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                      <div class="col-sm-3" > -->
+<!--                         <div class="form-group"> -->
+<!--                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Reliquat </label> -->
+<!--                                 <div class="col-sm-8"> -->
+<!--                                     <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-12"> -->
+<!--                                 </div> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--             </div> -->
+<!--         </div> -->
         <div class="row" style="margin-top: 12px;">
                 <div class="col-md-12 column">
                     <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
@@ -287,9 +260,6 @@ $(document).ready(function () {
 $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
-<td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='pdB"+i+"' name='pdB"+i+"' class='form-control'/></td>\n\
-<td><input type='number' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
 <td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
 <td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control'/>");
