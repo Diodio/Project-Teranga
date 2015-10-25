@@ -64,10 +64,10 @@ class Mareyeur extends \Mareyeur\Mareyeur implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'nom', 'adresse', 'telephone', 'montantFinancement', 'achat', 'paiement');
+            return array('__isInitialized__', 'id', 'nom', 'adresse', 'telephone', 'montantFinancement');
         }
 
-        return array('__isInitialized__', 'id', 'nom', 'adresse', 'telephone', 'montantFinancement', 'achat', 'paiement');
+        return array('__isInitialized__', 'id', 'nom', 'adresse', 'telephone', 'montantFinancement');
     }
 
     /**
@@ -285,50 +285,6 @@ class Mareyeur extends \Mareyeur\Mareyeur implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMontantFinancement', array($montantFinancement));
 
         return parent::setMontantFinancement($montantFinancement);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAchat()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAchat', array());
-
-        return parent::getAchat();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPaiement()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPaiement', array());
-
-        return parent::getPaiement();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAchat($achat)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAchat', array($achat));
-
-        return parent::setAchat($achat);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPaiement($paiement)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPaiement', array($paiement));
-
-        return parent::setPaiement($paiement);
     }
 
 }

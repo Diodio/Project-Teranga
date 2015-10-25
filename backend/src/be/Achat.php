@@ -52,6 +52,9 @@ class Achat {
     /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="produit") */
     public $produit;
     
+    /** @OneToMany(targetEntity="Achat\AchatPaiement", mappedBy="paiement") */
+    public $paiement;
+    
     /**
      * @Column(type="integer", options={"default":0}) 
      **/
@@ -65,6 +68,9 @@ class Achat {
 
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
+    
+    /** @ManyToOne(targetEntity="Mareyeur\Mareyeur", inversedBy="mareyeur") */
+    protected $mareyeur;
     
     function getId() {
         return $this->id;
@@ -160,5 +166,45 @@ class Achat {
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
+    public function getPaiement() {
+        return $this->paiement;
+    }
+
+    public function getCreatedDate() {
+        return $this->createdDate;
+    }
+
+    public function getUpdatedDate() {
+        return $this->updatedDate;
+    }
+
+    public function getDeletedDate() {
+        return $this->deletedDate;
+    }
+
+    public function getMareyeur() {
+        return $this->mareyeur;
+    }
+
+    public function setPaiement($paiement) {
+        $this->paiement = $paiement;
+    }
+
+    public function setCreatedDate($createdDate) {
+        $this->createdDate = $createdDate;
+    }
+
+    public function setUpdatedDate($updatedDate) {
+        $this->updatedDate = $updatedDate;
+    }
+
+    public function setDeletedDate($deletedDate) {
+        $this->deletedDate = $deletedDate;
+    }
+
+    public function setMareyeur($mareyeur) {
+        $this->mareyeur = $mareyeur;
+    }
+
 
     }

@@ -23,11 +23,11 @@ class AchatQueries {
     }
 
    
-    public function insert($produit) {
-        if ($produit != null) {
-                Bootstrap::$entityManager->persist($produit);
+    public function insert($achat) {
+        if ($achat != null) {
+            Bootstrap::$entityManager->persist($achat);
             Bootstrap::$entityManager->flush();
-            return $produit;
+            return $achat;
         }
     }
 

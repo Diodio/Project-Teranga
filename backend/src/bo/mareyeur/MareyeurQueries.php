@@ -116,7 +116,7 @@ class MareyeurQueries {
 
     public function findById($mareyeurId) {
         if ($mareyeurId != null) {
-            return Bootstrap::$entityManager->find($this->classString, $mareyeurId);
+            return Bootstrap::$entityManager->find('Mareyeur\Mareyeur', $mareyeurId);
         }
     }
 
@@ -159,7 +159,7 @@ class MareyeurQueries {
 
     public function findTypeMareyeurById($typemareyeurId) {
             if ($typemareyeurId != null) {
-                return Bootstrap::$entityManager->find( 'Mareyeur\TypeMareyeur', $typemareyeurId );
+                return Bootstrap::$entityManager->find('Mareyeur\TypeMareyeur', $typemareyeurId );
             }
         }
 //    public function findAllMareyeurs($term) {
@@ -198,12 +198,13 @@ class MareyeurQueries {
     }
     
     public function retrieveAllMareyeur() {
-        $query = Bootstrap::$entityManager->createQuery("select m.id as value, m.nom as text from Mareyeur\Mareyeur m");
-        $types = $query->getResult();
-        if ($types != null)
-            return $types;
+        $sql = 'select m.id as value, m.nom as text from mareyeur m';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $mareyeur = $stmt->fetchAll();
+        if ($mareyeur != null)
+            return $mareyeur;
         else
             return null;
-
     }
 }

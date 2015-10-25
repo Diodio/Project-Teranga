@@ -29,6 +29,11 @@ class Mareyeur {
      * */
     protected $montantFinancement;
    
+    /** @OneToMany(targetEntity="Achat\Achat", mappedBy="achat") */
+    protected $achat;
+    
+    /** @OneToMany(targetEntity="Achat\AchatPaiement", mappedBy="paiement", cascade={"persist"}) */
+    protected $paiement;
     
     public function getId() {
         return $this->id;
@@ -64,11 +69,27 @@ class Mareyeur {
     public function setTelephone($telephone) {
         $this->telephone = $telephone;
     }
-    
+     
     public function setMontantFinancement($montantFinancement) {
     	$this->montantFinancement = $montantFinancement;
     }
     
-    
+    public function getAchat() {
+        return $this->achat;
+    }
+
+    public function getPaiement() {
+        return $this->paiement;
+    }
+
+    public function setAchat($achat) {
+        $this->achat = $achat;
+    }
+
+    public function setPaiement($paiement) {
+        $this->paiement = $paiement;
+    }
+
+
 
     }

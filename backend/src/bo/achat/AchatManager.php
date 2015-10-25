@@ -18,9 +18,9 @@ class AchatManager {
         $this->achatQuery = new AchatQueries();
     }
     
-    public function insert($produit) {
-        $this->achatQuery->insert($produit);
-    	return $produit;
+    public function insert($achat) {
+        $this->achatQuery->insert($achat);
+    	return $achat;
     }
     
     public function listAll() {

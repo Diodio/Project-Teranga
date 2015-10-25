@@ -161,9 +161,11 @@ class MareyeurController extends BaseController implements BaseAction {
     }
     
     public function doGetMareyeurs($request) {
-        try {
             $mareyeurManager = new MareyeurManager();
+            
+        try {
             $mareyeurs = $mareyeurManager->retrieveAllMareyeur();
+            
             if ($mareyeurs != null)
                 $this->doSuccessO($mareyeurs);
             else

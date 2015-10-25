@@ -36,7 +36,7 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('dateAchat' => NULL, 'produit' => NULL, 'paiement' => NULL);
+    public static $lazyPropertiesDefaults = array('dateAchat' => NULL, 'produit' => NULL);
 
 
 
@@ -46,7 +46,7 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->dateAchat, $this->produit, $this->paiement);
+        unset($this->dateAchat, $this->produit);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'numero', 'dateAchat', 'poidsTotal', 'montantTotal', 'modePaiement', 'numCheque', 'codeUsine', 'login', 'produit', 'paiement', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'mareyeur');
+            return array('__isInitialized__', 'id', 'numero', 'dateAchat', 'poidsTotal', 'montantTotal', 'modePaiement', 'numCheque', 'codeUsine', 'login', 'produit');
         }
 
-        return array('__isInitialized__', 'id', 'numero', 'poidsTotal', 'montantTotal', 'modePaiement', 'numCheque', 'codeUsine', 'login', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'mareyeur');
+        return array('__isInitialized__', 'id', 'numero', 'poidsTotal', 'montantTotal', 'modePaiement', 'numCheque', 'codeUsine', 'login');
     }
 
     /**
@@ -133,7 +133,7 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->dateAchat, $this->produit, $this->paiement);
+            unset($this->dateAchat, $this->produit);
         }
     }
 
@@ -401,28 +401,6 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getStatus()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
-
-        return parent::getStatus();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setStatus($status)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
-
-        return parent::setStatus($status);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getCodeUsine()
     {
 
@@ -462,127 +440,6 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLogin', array($login));
 
         return parent::setLogin($login);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function doPrePersist()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'doPrePersist', array());
-
-        return parent::doPrePersist();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPaiement()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPaiement', array());
-
-        return parent::getPaiement();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCreatedDate()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedDate', array());
-
-        return parent::getCreatedDate();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getUpdatedDate()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedDate', array());
-
-        return parent::getUpdatedDate();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDeletedDate()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDeletedDate', array());
-
-        return parent::getDeletedDate();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMareyeur()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMareyeur', array());
-
-        return parent::getMareyeur();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPaiement($paiement)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPaiement', array($paiement));
-
-        return parent::setPaiement($paiement);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCreatedDate($createdDate)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedDate', array($createdDate));
-
-        return parent::setCreatedDate($createdDate);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setUpdatedDate($updatedDate)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedDate', array($updatedDate));
-
-        return parent::setUpdatedDate($updatedDate);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setDeletedDate($deletedDate)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDeletedDate', array($deletedDate));
-
-        return parent::setDeletedDate($deletedDate);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMareyeur($mareyeur)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMareyeur', array($mareyeur));
-
-        return parent::setMareyeur($mareyeur);
     }
 
 }

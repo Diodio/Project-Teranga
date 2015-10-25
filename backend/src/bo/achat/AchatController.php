@@ -9,15 +9,16 @@ use Achat\Achat as Achat;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use Achat\AchatManager as AchatManager;
+use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
                         
 class AchatController extends BaseController implements BaseAction {
-
+private $logger;
     
     private $parameters;
             function __construct($request) {
-       
+       $this->logger = new Logger(__CLASS__);
        // $this->parameters = parse_ini_file("../../../../lang/trad_fr.ini");
         try {
             if(isset($request['ACTION'])) 
@@ -60,7 +61,9 @@ class AchatController extends BaseController implements BaseAction {
 
     public function doInsert($request) {
         try {
+            $this->logger->log->trace("tesst1");
                 $achatManager = new AchatManager();
+                
                 $achat = new Achat();
                 $achat->setNumero($request['numAchat']);
                 $achat->setDateAchat(new \DateTime("now"));
@@ -70,7 +73,14 @@ class AchatController extends BaseController implements BaseAction {
                 $achat->setNumCheque($request['numCheque']);
                 $achat->setCodeUsine($request['codeUsine']);
                 $achat->setLogin($request['login']);
+                $mareyeurManager = new \Mareyeur\MareyeurManager();
+                $mareyeur = $mareyeurManager->findById($request['mareyeur']);
+                
+               // var_dump($request['mareyeur']);
+               $achat->setMareyeur($mareyeur);
+                
                 $achatAdded = $achatManager->insert($achat);
+           //     var_dump("fgf");
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonAchat as $key => $ligneachat) {
@@ -86,7 +96,10 @@ class AchatController extends BaseController implements BaseAction {
                                 $ligneAchat->setMontant($ligneachat['Montant']);
                                 $ligneAchat->setPoids($ligneachat['Poids Net (kg)']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
+                                
+                
                                 $achatInserted = $ligneAchatManager->insert($ligneAchat); 
+                                
                                 if ($achatInserted->getId() != null) {
                                        $stockManager = new \Produit\StockManager();
                                        if($ligneachat['Quantite (kg)'] !="")
