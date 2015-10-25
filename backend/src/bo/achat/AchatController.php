@@ -86,7 +86,15 @@ class AchatController extends BaseController implements BaseAction {
                                 $ligneAchat->setMontant($ligneachat['Montant']);
                                 $ligneAchat->setPoids($ligneachat['Poids Net (kg)']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
-                                $ligneAchatManager->insert($ligneAchat); 
+                                $achatInserted = $ligneAchatManager->insert($ligneAchat); 
+                                if ($achatInserted->getId() != null) {
+                                       $stockManager = new \Produit\StockManager();
+                                       if($ligneachat['Quantite (kg)'] !="")
+                                           $nbStock = $ligneachat['Quantite (kg)'];
+                                       if($ligneachat['Poids Net (kg)'] !="")
+                                           $nbStock = $ligneachat['Poids Net (kg)'];
+                                       $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
+                                }
                             }
                          }
                     $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');

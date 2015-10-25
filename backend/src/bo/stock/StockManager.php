@@ -57,5 +57,14 @@ class StockManager {
         $stockQueries = new StockQueries();
     	return $stockQueries->findStatsFamille($produitId, $codeUsine);
   }
+  
+  public function recupereNombreStockParProduit($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+    	return $stockQueries->recupereNombreStockParProduit($produitId, $codeUsine);
+  }
 
+  public function updateNbStock($produitId, $codeUsine, $nbStock ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->updateNbStock($produitId, $codeUsine, $nbStock);
+  }
 }

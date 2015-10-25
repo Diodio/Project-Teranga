@@ -28,6 +28,7 @@ class StockQueries {
             return $stock;
         }
     }
+    
 public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($produitId == '*') {
              $sql = 'select distinct(produit.id), libelle, stock, seuil
@@ -182,5 +183,23 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
         }
         return $arrayStock;
     }
+    
+    public function recupereNombreStockParProduit($produitId, $codeUsine ) {
+        $sql = "SELECT stock  FROM stock WHERE produit_id=$produitId and codeUsine='".$codeUsine."'";
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        $arrayStock = array();
+        $i = 0;
+        foreach ($stock as $key => $value) {
+            $arrayStock ['nbStocks'] = $value ['stock'];
+        }
+        return $arrayStock;
+    }
 
+    public function updateNbStock($produitId, $codeUsine, $nbStock ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        return $connexion->executeUpdate("UPDATE stock SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+		
+	}
 }
