@@ -27,15 +27,9 @@ class ProduitManager {
     	$this->produitQuery=$this->produitQuery->findAll();
     	return $this->produitQuery;
     }
-	//TODO:test pour savoir si customer donn� est null ou pas?
-    /**
-     * Mettre à jour le contact et les champs additionnels
-     * @param Contact $contact l'object contact 
-     * @param String $addChamp la liste des champs additionnels sous la forme IdChamp1, CodeCateg1, libelleChamp1, valeurChamp1|IdChamp2, CodeCateg2, libelleChamp2, valeurChamp2...
-     * Idchamp = 0 si c'est une insertion
-     */
-    public function update($contact, $addChamp = null) {
-       
+	
+    public function update($produit) {
+       return $this->produitQuery->update($produit);
     }
 
  
@@ -48,7 +42,11 @@ class ProduitManager {
     }
     public function view($produitId) {
         $produit = $this->produitQuery->view($produitId);
-        return $produit;
+        $produitTab =  array();
+            $produitTab ['id'] = $produit['id'];
+            $produitTab ['libelle'] = $produit['libelle'];
+            $produitTab ['prixUnitaire'] = $produit['prixUnitaire'];
+        return $produitTab;
     }
     
     
@@ -57,16 +55,16 @@ class ProduitManager {
     }
 
     
-    public function retrieveAll($offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->produitQuery->retrieveAll($offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($produitId) {
+        return $this->produitQuery->retrieveAll($produitId);
     }
 public function retrieveTypes()
     {
         return $this->produitQuery->retrieveTypes();
     }
    
-    public function count($where="") {
-        return $this->produitQuery->count($where);
+    public function count($produitId,$where="") {
+        return $this->produitQuery->count($produitId,$where);
     }
     
      public function retrieveAllTypeProduits($offset, $rowCount, $sOrder = "", $sWhere = "") {
@@ -96,6 +94,10 @@ public function retrieveTypes()
             $i++;
         }
         return $list;
+    }
+    
+    public function findProduitsByName($name) {
+        return $this->produitQuery->findProduitsByName($name);
     }
 
 }

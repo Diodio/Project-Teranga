@@ -18,7 +18,10 @@ class StockManager {
         $this->stockQuery = new StockQueries();
     }
     
-    
+    public function insert($stock) {
+        $this->stockQuery->insert($stock);
+    	return $stock;
+    }
     
     public function listAll() {
     	$this->stockQuery=$this->stockQuery->findAll();

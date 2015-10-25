@@ -10,6 +10,8 @@ use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use Produit\ProduitManager as ProduitManager;
 use Produit\FamilleProduitManager as FamilleProduitManager;
+use Produit\Stock as Stock;
+use Produit\StockManager as StockManager;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
                         
@@ -69,16 +71,18 @@ class ProduitController extends BaseController implements BaseAction {
                     $familleProduitManager = new FamilleProduitManager();
                     $famille = $familleProduitManager->findById($request['familleId']);
                     $produit->setLibelle($request['designation']);
-                    $produit->setPoidsBrut($request['poidsBrut']);
-                    $produit->setPoidsNet($request['poidsNet']);
                     $produit->setPrixUnitaire($request['prixUnitaire']);
-                    $produit->setStock($request['stock']);
-                    $produit->setSeuil($request['seuil']);
-                    $produit->setCodeUsine($request['codeUsine']);
-                    $produit->setLogin($request['login']);
                     $produit->setFamilleProduit($famille);
                     $produitAdded = $produitManager->insert($produit);
                     if ($produitAdded->getId() != null) {
+                        $stock = new Stock();
+                        $stock->setStock($request['stock']);
+                        $stock->setSeuil($request['seuil']);
+                        $stock->setCodeUsine($request['codeUsine']);
+                        $stock->setLogin($request['login']);
+                        $stock->setProduit($produit);
+                        $stockManger = new StockManager();
+                        $stockManger->insert($stock);
                         $this->doSuccess($produitAdded->getId(), 'Produit enregistré avec succes');
                     } else {
                         $this->doError('-1', 'Impossible d\'inserer ce produit');
@@ -95,60 +99,53 @@ class ProduitController extends BaseController implements BaseAction {
     }
 
     public function doUpdate($request) {
-       
+       try {
+           
+             $produitManager = new ProduitManager();
+             if($request['oper'] == 'edit') {
+                $produit = $produitManager->findById($request['id']);
+                
+                 var_dump("kk");
+                $produit->setLibelle($request['designation']);
+                $produit->setPrixUnitaire($request['prixUnitaire']);
+                $produitUpdated = $produitManager->update($produit);
+                if ($produitUpdated->getId() != null) {
+                        $this->doSuccess($produitUpdated->getId(), 'Produit mis à jour avec succes');
+                } else {
+                    throw new Exception('impossible d\'inserer ce produit');
+                }
+             }
+             else if($request['oper'] == 'del'){
+                 if($request['id'] !=null) {
+                     $nbLines = $produitManager->delete($request['id']);
+                     $this->doSuccess($nbLines, 'REMOVED');
+                 }
+                 else {
+                     throw new Exception('impossible de supprimer ce mareyeur');
+                 }
+                     
+             }
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
+        }
     }
 
     public function doList($request) {
         try {
-            $produitManager = new ProduitManager();
-            if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
-                // Begin order from dataTable
-                $sOrder = "";
-                $aColumns = array('designation', 'poidsNet', 'prixUnitaire');
-                if (isset($request['iSortCol_0'])) {
-                    $sOrder = "ORDER BY  ";
-                    for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
-                        if ($request['bSortable_' . intval($request['iSortCol_' . $i])] == "true") {
-                            $sOrder .= "" . $aColumns[intval($request['iSortCol_' . $i])] . " " .
-                                    ($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
-                        }
-                    }
-
-                    $sOrder = substr_replace($sOrder, "", -2);
-                    if ($sOrder == "ORDER BY") {
-                        $sOrder = "";
-                    }
-                }
-                // End order from DataTable
-                // Begin filter from dataTable
-                $sWhere = "";
-                if (isset($request['sSearch']) && $request['sSearch'] != "") {
-                    $sSearchs = explode(" ", $request['sSearch']);
-                    for ($j = 0; $j < count($sSearchs); $j++) {
-                        $sWhere .= " ";
-                        for ($i = 0; $i < count($aColumns); $i++) {
-                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
-                            if ($i == count($aColumns) - 1)
-                                $sWhere = substr_replace($sWhere, "", -3);
-                        }
-                       // $sWhere = $sWhere .=")";
-                    }
-                }
-                // End filter from dataTable
-                $produits = $produitManager->retrieveAll($request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-                if ($produits != null) {
-                    $nbProduits = $produitManager->count($sWhere);
-                    $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));
-                } else {
-                    $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
-                }
-            } else {
-                 throw new Exception('list failed');
+            if (isset($request['familleId'])) {
+                $produitManager= new ProduitManager();
+                $produits = $produitManager->retrieveAll($request['familleId']);
+                if ($produits != NULL) {
+                    $this->doSuccessO($this->listObjectToArray($produits));
+                } else
+                    echo json_encode(array());
+            }else {
+                $this->doError('-1', 'Veuillez vérifier vos parametres');
             }
-        } catch (Exception $e) {
+        } catch (ConstraintException $e) {
             throw $e;
         } catch (Exception $e) {
-            throw new Exception('ERREUR SERVEUR');
+            $this->doError('-1', 'ERREUR_SERVEUR');
         }
     }
 
@@ -178,10 +175,9 @@ class ProduitController extends BaseController implements BaseAction {
     public function doView($request) {
        
         try {
-            if (isset($request['productId'])) {
-                $this->logger->log->info('View params : ' . $request['productId']);
+            if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $produit = $produitManager->view($request['productId']);
+                $produit = $produitManager->view($request['produitId']);
                 $this->doSuccessO($produit);
             } else {
                 throw new Exception('PARAM_NOT_ENOUGH');

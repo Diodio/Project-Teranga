@@ -41,6 +41,7 @@ return array(
     'Produit\\Produit' => $baseDir . '/../backend/src/be/Produit.php',
     'Produit\\ProduitManager' => $baseDir . '/../backend/src/bo/produit/ProduitManager.php',
     'Produit\\ProduitQueries' => $baseDir . '/../backend/src/bo/produit/ProduitQueries.php',
+    'Produit\\Stock' => $baseDir . '/../backend/src/be/Stock.php',
     'Produit\\StockManager' => $baseDir . '/../backend/src/bo/stock/StockManager.php',
     'Racine\\Bootstrap' => $baseDir . '/bootstrap.php',
     'StockController' => $baseDir . '/../backend/src/bo/stock/StockController.php',

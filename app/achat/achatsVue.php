@@ -100,22 +100,22 @@ $codeUsine = $_COOKIE['codeUsine'];
 							#
 						</th>
 						<th class="text-center">
-							Désination
+							Désignation
 						</th>
 						<th class="text-center">
 							Prix Unitaire
 						</th>
 						<th class="text-center">
-							Poids brut
+							Poids brut (kg)
 						</th>
 						<th class="text-center">
 							Pourcentage
 						</th>
 						<th class="text-center">
-							Poids Net
+							Poids Net (kg)
 						</th>
 						<th class="text-center">
-							Quantite
+							Quantite (kg)
 						</th>
 						<th class="text-center">
 							Montant
@@ -416,7 +416,35 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
-            
+            var $table = $("table")
+    rows = [],
+    header = [];
+
+$table.find("thead th").each(function () {
+    header.push($(this).html());
+});
+
+$table.find("tbody tr").each(function () {
+    var row = {};
+    
+    $(this).find("td").each(function (i) {
+        var key = header[i];
+        var value;
+            valueSelect = $(this).find('select').val();
+            valueInput = $(this).find('input').val();
+        if (typeof valueInput !== "undefined")
+            value=valueInput;
+        if (typeof valueSelect !== "undefined")
+            value=valueSelect;
+        row[key] = value;
+    });
+    
+    rows.push(row);
+});
+    
+    
+            var tbl=JSON.stringify(rows);
+            console.log(tbl);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('numAchat', numAchat);
@@ -427,6 +455,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
             formData.append('avance', avance);
+            formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
@@ -469,6 +498,22 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             AchatProcess();
            
         });
-           
+        
+        function html2json() {
+   var json = '{';
+   var otArr = [];
+   var tbl2 = $('#tab_logic tr').each(function(i) {        
+      x = $(this).children();
+      var itArr = [];
+      x.each(function() {
+         itArr.push('"' + $(this).text() + '"');
+      });
+      otArr.push('"' + i + '": [' + itArr.join(',') + ']');
+   });
+   json += otArr.join(",") + '}';
+
+   return json;
+}
+         
    });
 </script>

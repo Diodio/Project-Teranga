@@ -427,7 +427,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                             <li id="VALIDER_ACHAT" class=""><a id="CLIENTS" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Valider </span>
+                                        Liste des bons </span>
                                 </a> <b class="arrow"></b>
                             </li>
 
@@ -681,7 +681,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#CMD_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieListe.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
 
                     });
                 });

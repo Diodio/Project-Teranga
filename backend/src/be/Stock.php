@@ -3,8 +3,8 @@
 namespace Produit;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="produit") * */
-class Produit {
+ * @Table(name="stock") * */
+class Stock {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -12,19 +12,23 @@ class Produit {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="integer", nullable=true)
      * */
-    protected $libelle;
+    protected $stock;
+    /**
+     * @Column(type="integer", nullable=true)
+     * */
+    protected $seuil;
     
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $prixUnitaire;
-    
-/** @ManyToOne(targetEntity="Produit\FamilleProduit", inversedBy="familleProduit", cascade={"persist"}) */
-    protected $familleProduit;
-    
-    
+    protected $codeUsine;
+   
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $login;
    
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
@@ -35,26 +39,11 @@ class Produit {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
-    /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="achat", cascade={"persist"}) */
-    protected $achat;
-    
-    /** @OneToMany(targetEntity="Produit\Stock", mappedBy="stock", cascade={"persist"}) */
-    protected $stock;
+    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
+    protected $produit;
     
     function getId() {
         return $this->id;
-    }
-
-    function getLibelle() {
-        return $this->libelle;
-    }
-
-    function getPoidsNet() {
-        return $this->poidsNet;
-    }
-
-    function getPrixUnitaire() {
-        return $this->prixUnitaire;
     }
 
     function getStock() {
@@ -63,6 +52,14 @@ class Produit {
 
     function getSeuil() {
         return $this->seuil;
+    }
+
+    function getCodeUsine() {
+        return $this->codeUsine;
+    }
+
+    function getLogin() {
+        return $this->login;
     }
 
     function getCreatedDate() {
@@ -81,24 +78,20 @@ class Produit {
         $this->id = $id;
     }
 
-    function setLibelle($libelle) {
-        $this->libelle = $libelle;
-    }
-
-    function setPoidsNet($poidsNet) {
-        $this->poidsNet = $poidsNet;
-    }
-
-    function setPrixUnitaire($prixUnitaire) {
-        $this->prixUnitaire = $prixUnitaire;
-    }
-
     function setStock($stock) {
         $this->stock = $stock;
     }
 
     function setSeuil($seuil) {
         $this->seuil = $seuil;
+    }
+
+    function setCodeUsine($codeUsine) {
+        $this->codeUsine = $codeUsine;
+    }
+
+    function setLogin($login) {
+        $this->login = $login;
     }
 
     function setCreatedDate($createdDate) {
@@ -112,16 +105,15 @@ class Produit {
     function setDeleteDate($deleteDate) {
         $this->deleteDate = $deleteDate;
     }
-    function getFamilleProduit() {
-        return $this->familleProduit;
+    function getProduit() {
+        return $this->produit;
     }
 
-    function setFamilleProduit($familleProduit) {
-        $this->familleProduit = $familleProduit;
+    function setProduit($produit) {
+        $this->produit = $produit;
     }
 
         
-
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');
@@ -134,18 +126,6 @@ class Produit {
         date_default_timezone_set('GMT');
         $this->updatedDate = new \DateTime("now");
     }
-    function getPoidsBrut() {
-        return $this->poidsBrut;
-    }
-
     
-
-    function setPoidsBrut($poidsBrut) {
-        $this->poidsBrut = $poidsBrut;
-    }
-
-   
-
-  
 
     }

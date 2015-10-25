@@ -31,8 +31,8 @@ class Bootstrap{
             )
         );
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
-       // $config->setProxyDir('lib');
-        //$config->setProxyNamespace('DoctrineORM\Proxies');
+        $config->setProxyDir('lib');
+        $config->setProxyNamespace('DoctrineORM\Proxies');
         $config->addCustomStringFunction('DATE_FORMAT', 'UVd\DoctrineFunction\DateFormat');
         Bootstrap::$entityManager = EntityManager::create($dbParams, $config);
         
