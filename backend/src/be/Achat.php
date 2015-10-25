@@ -52,6 +52,20 @@ class Achat {
     /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="produit") */
     public $produit;
     
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $status;
+    
+    /** @Column(type="datetime", nullable=true) */
+    protected $createdDate;
+
+    /** @Column(type="datetime", nullable=true) */
+    protected $updatedDate;
+
+    /** @Column(type="datetime", nullable=true) */
+    protected $deletedDate;
+    
     function getId() {
         return $this->id;
     }
@@ -116,8 +130,15 @@ class Achat {
         $this->numCheque = $numCheque;
     }
 
+    public function getStatus() {
+        return $this->status;
+    }
 
-    function getCodeUsine() {
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+        function getCodeUsine() {
         return $this->codeUsine;
     }
 
@@ -133,6 +154,11 @@ class Achat {
         $this->login = $login;
     }
 
-
+     /** @PrePersist */
+    public function doPrePersist() {
+        $this->status = 0;
+        $this->createdDate = new \DateTime("now");
+        $this->updatedDate = new \DateTime("now");
+    }
 
     }

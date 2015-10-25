@@ -19,17 +19,12 @@ class LigneAchat {
     /**
      * @Column(type="integer", nullable=false)
      * */
+    protected $poids;
+    
+    /**
+     * @Column(type="integer", nullable=false)
+     * */
     protected $montant;
-    
-    /**
-     * @Column(type="integer", nullable=false)
-     * */
-    protected $poidsTotal;
-    
-    /**
-     * @Column(type="integer", nullable=false)
-     * */
-    protected $montantTotal;
 
     /**
      *  @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit") 
@@ -51,86 +46,79 @@ class LigneAchat {
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
 
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getProduit() {
-        return $this->produit;
-    }
-
-    function getAchat() {
-        return $this->achat;
-    }
-
-    function getCreatedDate() {
-        return $this->createdDate;
-    }
-
-    function getUpdatedDate() {
-        return $this->updatedDate;
-    }
-
-    function getDeletedDate() {
-        return $this->deletedDate;
-    }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setProduit($produit) {
-        $this->produit = $produit;
-    }
-
-    function setAchat($achat) {
-        $this->achat = $achat;
-    }
-
-    function setCreatedDate($createdDate) {
-        $this->createdDate = $createdDate;
-    }
-
-    function setUpdatedDate($updatedDate) {
-        $this->updatedDate = $updatedDate;
-    }
-
-    function setDeletedDate($deletedDate) {
-        $this->deletedDate = $deletedDate;
-    }
-
-    function getQuantite() {
+    public function getQuantite() {
         return $this->quantite;
     }
 
-    function getMontant() {
+    public function getPoids() {
+        return $this->poids;
+    }
+
+    public function getMontant() {
         return $this->montant;
     }
 
-    function getPoidsTotal() {
-        return $this->poidsTotal;
+    public function getProduit() {
+        return $this->produit;
     }
 
-    function getMontantTotal() {
-        return $this->montantTotal;
+    public function getAchat() {
+        return $this->achat;
     }
 
-    function setQuantite($quantite) {
+    public function getCreatedDate() {
+        return $this->createdDate;
+    }
+
+    public function getUpdatedDate() {
+        return $this->updatedDate;
+    }
+
+    public function getDeletedDate() {
+        return $this->deletedDate;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setQuantite($quantite) {
         $this->quantite = $quantite;
     }
 
-    function setMontant($montant) {
+    public function setPoids($poids) {
+        $this->poids = $poids;
+    }
+
+    public function setMontant($montant) {
         $this->montant = $montant;
     }
 
-    function setPoidsTotal($poidsTotal) {
-        $this->poidsTotal = $poidsTotal;
+    public function setProduit($produit) {
+        $this->produit = $produit;
     }
 
-    function setMontantTotal($montantTotal) {
-        $this->montantTotal = $montantTotal;
+    public function setAchat($achat) {
+        $this->achat = $achat;
     }
 
+    public function setCreatedDate($createdDate) {
+        $this->createdDate = $createdDate;
+    }
+
+    public function setUpdatedDate($updatedDate) {
+        $this->updatedDate = $updatedDate;
+    }
+
+    public function setDeletedDate($deletedDate) {
+        $this->deletedDate = $deletedDate;
+    }
+
+    
         /** @PrePersist */
     public function doPrePersist() {
         $this->createdDate = new \DateTime("now");

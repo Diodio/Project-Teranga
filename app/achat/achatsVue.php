@@ -421,7 +421,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     header = [];
 
 $table.find("thead th").each(function () {
-    header.push($(this).html());
+    header.push($(this).html().trim());
 });
 
 $table.find("tbody tr").each(function () {

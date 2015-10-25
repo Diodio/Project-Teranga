@@ -72,6 +72,23 @@ class AchatController extends BaseController implements BaseAction {
                 $achat->setLogin($request['login']);
                 $achatAdded = $achatManager->insert($achat);
                 if ($achatAdded->getId() != null) {
+                    $jsonAchat = json_decode($_POST['jsonProduit'], true);
+                         foreach ($jsonAchat as $key => $ligneachat) {
+//                            /$ligne = json_decode($ligneachat, TRUE);
+                            if(isset($ligneachat["Désignation"])) {
+                                $ligneAchat = new \Achat\LigneAchat();
+                                $ligneAchat->setAchat($achat);
+                                $produitId = $ligneachat["Désignation"];
+                                $produitManager = new Produit\ProduitManager();
+                                $produit= $produitManager->findById($produitId);
+                                $ligneAchat->setProduit($produit);
+                                $ligneAchat->setQuantite($ligneachat['Quantite (kg)']);
+                                $ligneAchat->setMontant($ligneachat['Montant']);
+                                $ligneAchat->setPoids($ligneachat['Poids Net (kg)']);
+                                $ligneAchatManager = new \Achat\LigneAchatManager();
+                                $ligneAchatManager->insert($ligneAchat); 
+                            }
+                         }
                     $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'inserer cet achat');
