@@ -45,9 +45,11 @@ private $logger;
                         case \App::ACTION_SEARCH:
                                 $this->doSearch($request);
                                 break;
-                                break;
                         case \App::ACTION_LIST_PAR_USINE:
                                 $this->doGetAchatParUsine($request);
+                                break;
+                        case \App::ACTION_ACTIVER:
+                                $this->doValidAchat($request);
                                 break;
                         
                     }
@@ -186,6 +188,20 @@ private $logger;
 
     public function doView($request) {
         
+    }
+     public function doValidAchat($request) {
+        try {
+            if ($request['achatId'] != null) {
+                $achatManager = new AchatManager();
+                $achatManager->validAchat($request['achatId']);
+                $this->doSuccess($request['messageId'], 'Validation effectué avec succes');
+            } else {
+                $this->doError('-1', 'Params not enough');
+                throw new ConstraintException('');
+            }
+        }  catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
     }
 
 }

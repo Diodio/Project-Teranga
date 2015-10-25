@@ -101,4 +101,9 @@ class AchatQueries {
         $nbClients = $stmt->fetch();
         return $nbClients['nbAchats'];
     }
+    
+    public function validAchat($achatId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id = '$achatId'");
+        return $query->getResult();
+    }
 }

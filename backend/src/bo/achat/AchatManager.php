@@ -47,7 +47,9 @@ class AchatManager {
     public function count($codeUsine,$where="") {
         return $this->achatQuery->count($codeUsine,$where);
     }
-    
+    public function validAchat($achatId) {
+        $this->achatQuery->pause($achatId);
+    }
     
 
 

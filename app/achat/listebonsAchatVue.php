@@ -41,10 +41,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_GRP_NEW'><a href="#" id="GRP_NEW">Valider </a></li>
+                                        <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_GRP_EDIT'><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                        <li id='MNU_GRP_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
+                                        <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li id='MNU_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -380,5 +380,34 @@ $codeUsine = $_COOKIE['codeUsine'];
 //
 //                }).error(function(error) {  });
 //            };
+
+$("#MNU_VALIDATION").click(function()
+            {
+                if (checkedAchat.length == 0)
+                    bootbox.alert("Veuillez selectionnez un achat");
+                else if (checkedAchat.length > 1)
+                      
+                {
+                     bootbox.confirm("Voulez vous vraiment valider cet achat","Non","Oui", function(result) {
+                    if(result){
+                    var achatId = checkedAchat[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+                    {
+                        if (data.rc == 0)
+                        {
+                            bootbox.alert("Achat validé");
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                        $.loader.close(true);
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                        });
+                         }
+                    });
+                }
+            });
             });
         </script>
