@@ -39,13 +39,13 @@ class AchatManager {
     }
 
     
-    public function retrieveAll($offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->achatQuery->retrieveAll($offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->achatQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
 
    
-    public function count($where="") {
-        return $this->achatQuery->count($where);
+    public function count($codeUsine,$where="") {
+        return $this->achatQuery->count($codeUsine,$where);
     }
     
     

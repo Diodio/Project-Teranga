@@ -41,12 +41,19 @@ class AchatQueries {
     }
 
    
-    public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($codeUsine !=='*') {
+            if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+            $sql = 'select distinct(id), status,dateAchat, numero
+                    from achat where codeUsine="'.$codeUsine.'" ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }
+        else {
         if($sWhere !== "")
             $sWhere = " where " . $sWhere;
-            $sql = 'select distinct(id), libelle, poidsNet, prixUnitaire,stock,seuil
-                    from produit' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-            
+            $sql = 'select distinct(id), status,dateAchat, numero
+                    from achat' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -55,11 +62,9 @@ class AchatQueries {
         $i = 0;
         foreach ($products as $key => $value) {
             $arrayAchats [$i] [] = $value ['id'];
-            $arrayAchats [$i] [] = $value ['libelle'];
-            $arrayAchats [$i] [] = $value ['poidsNet'];
-            $arrayAchats [$i] [] = $value ['prixUnitaire'];
-            $arrayAchats [$i] [] = $value ['stock'];
-            $arrayAchats [$i] [] = $value ['seuil'];
+            $arrayAchats [$i] [] = $value ['status'];
+            $arrayAchats [$i] [] = $value ['dateAchat'];
+            $arrayAchats [$i] [] = $value ['numero'];
             $i++;
         }
         return $arrayAchats;
@@ -77,11 +82,19 @@ class AchatQueries {
             else
                 return null;
         }
-    public function count($sWhere = "") {
-       if($sWhere !== "")
+    public function count($codeUsine, $sWhere = "") {
+        if($codeUsine !=='*') {
+            if($sWhere !== "")
+                $sWhere = " and " . $sWhere;
+            $sql = 'select count(id) as nbAchats
+                    from achat where codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+        }
+        else {
+            if($sWhere !== "")
             $sWhere = " where " . $sWhere;
              $sql = 'select count(id) as nbAchats
-                    from produit ' . $sWhere . '';
+                    from achat ' . $sWhere . '';
+        }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();

@@ -124,11 +124,11 @@ private $logger;
     
     public function doList($request) {
         try {
-            $produitManager = new AchatManager();
+            $achatManager = new AchatManager();
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('designation', 'poidsNet', 'prixUnitaire');
+                $aColumns = array('dateAchat', 'numero');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -159,10 +159,10 @@ private $logger;
                     }
                 }
                 // End filter from dataTable
-                $produits = $produitManager->retrieveAll($request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-                if ($produits != null) {
-                    $nbAchats = $produitManager->count($sWhere);
-                    $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbAchats));
+                $achats = $achatManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                if ($achats != null) {
+                    $nbAchats = $achatManager->count($request['codeUsine'],$sWhere);
+                    $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }

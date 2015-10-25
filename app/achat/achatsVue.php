@@ -475,7 +475,8 @@ $table.find("tbody tr").each(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       loadProduit();
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                        });
                     } 
                     else
                     {
