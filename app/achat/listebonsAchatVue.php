@@ -102,10 +102,6 @@ $codeUsine = $_COOKIE['codeUsine'];
             </div><!-- /.col -->
 
 
-
-
-            <div class="vspace-12-sm"></div>
-
             <div class="col-sm-8">
                 <div class="profile-user-info">
                     <div class="profile-info-row">
@@ -221,7 +217,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             {
                 if (checkedAchat.length == 1){
                    // loadSelectedMessage(checkedAchat[0]);
-                    
+                    alert(checkedAchat[0]);
                 }
                 if(checkedAchat.length==nbTotalAchatChecked){
                     $('table th input:checkbox').prop('checked', true);
@@ -254,6 +250,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                 }
             };
+            checkedMessageContains = function(item) {
+                for (var i = 0; i < checkedAchat.length; i++) {
+                    if (checkedAchat[i] == item)
+                        return true;
+                }
+                return false;
+            };
              loadAchats = function() {
                 nbTotalAchatChecked = 0;
                 checkedAchat = new Array();
@@ -263,12 +266,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                     oTableAchats.fnDestroy();
 
                 oTableAchats = $('#LIST_ACHATS').dataTable({
-                    
-                   
+                    "oLanguage": {
+                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
+                    },
+                    "sDom": '<"top"i>rt<"bottom"lp><"clear">',
                     "aoColumnDefs": [
                         {
                             "aTargets": [0],
-                            "bSortable": false,
+                            "bSort": false,
                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                                 $(nTd).css('text-align', 'center');
                             },
@@ -284,9 +289,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                               if (data == 0)
+                               if (data === 0)
                                     src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
-                                else if (data == 1)
+                                else if (data === 1)
                                     src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check green bigger-130 icon-only"></i></span>';
                                 return src;
                             }
