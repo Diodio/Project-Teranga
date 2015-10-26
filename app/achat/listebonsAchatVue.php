@@ -26,8 +26,8 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="row">
         <div class="space-6"></div>
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-8">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
                     <div class="col-lg-1">
                         <div class="btn-group">
                                     <button data-toggle="dropdown"
@@ -36,6 +36,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             height: 32px;
                                             width: 80px;
                                             margin-top: -1px;
+                                            margin-left: -40%;
                                         ">
                                         <i class="icon-group icon-only icon-on-right"></i> Action
                                     </button>
@@ -321,7 +322,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bFilter": true,
                     "bInfo": false,
                     "sAjaxSource": url,
-                    "sPaginationType": "full_numbers",
+                    "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
