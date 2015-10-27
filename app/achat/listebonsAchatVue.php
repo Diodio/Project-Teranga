@@ -100,10 +100,91 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
-
-
             <div class="col-sm-8">
-                <div class="profile-user-info">
+                <div class="widget-container-span">
+                    <div class="widget-box transparent">
+                        <div class="widget-header">
+
+                            <h4 class="lighter"></h4>
+                            <div class="widget-toolbar no-border">
+                                <ul class="nav nav-tabs" id="TAB_GROUP">
+
+                                    <li id="TAB_INFO_VIEW" class="active">
+                                        <a id="TAB_INFO_LINK" data-toggle="tab" href="#TAB_INFO">
+                                            <i class="green icon-dashboard bigger-110"></i>
+                                            Statistique
+                                        </a>
+                                    </li>
+                                    <li id="TAB_MSG_VIEW">
+                                        <a id="TAB_MSG_LINK" data-toggle="tab" href="#TAB_MSG">
+                                            <i class="red icon-comments-alt bigger-110"></i>
+                                            <span id="TAB_MSG_TITLE">...</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main padding-12 no-padding-left no-padding-right">
+                                <div class="tab-content padding-4">
+                                    <div id="TAB_INFO" class="tab-pane in active">
+                                        <div>
+
+                                            <div class="span12 infobox-container">
+                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon fa-play"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data" >
+                                                            <div class="infobox-content" id="INDIC_CPG_INPROCESS">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon-pause"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data">
+                                                            <div class="infobox-content" id="INDIC_CPG_PAUSE">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats validé</div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon-calendar"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data">
+                                                            <div class="infobox-content" id="INDIC_CPG_SCHEDULED">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="space-6"></div>
+                                                    <br/>
+
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                    <div id="TAB_MSG" class="tab-pane">
+                        <div class="slim-scroll" data-height="100">
+                            <div class="span12">
+
+                              <div class="profile-user-info">
                     <div class="profile-info-row">
                         <div class="profile-info-name">Date achat </div>
                         <div class="profile-info-value">
@@ -186,7 +267,20 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</tr>
 				</tbody>
 			</table>
-            </div><!-- /.colz -->
+                                            </div>
+                                        </div>
+
+                                    </div><!--End TAB_MSG -->
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/.span6-->
+            </div>
         </div><!-- /.row -->
     </div>
     
@@ -213,11 +307,39 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                 });
             };
+             $('table th input:checkbox').on('click', function() {
+                var that = this;
+                $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
+                    this.checked = that.checked;
+                    if (this.checked)
+                    {
+                        checkedAchatAdd($(this).val());
+                        //MessageSelected();
+                        $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+			$('#TAB_MSG_VIEW').hide();
+                        nbTotalAchatChecked=checkedAchat.length;
+                    }
+                    else
+                    {
+                        checkedAchatRemove($(this).val());
+//                        MessageUnSelected();
+                        $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+			$('#TAB_MSG_VIEW').hide();
+                    }
+                    $(this).closest('tr').toggleClass('selected');
+                });
+            });
             MessageSelected = function(click)
             {
                 if (checkedAchat.length == 1){
-                   // loadSelectedMessage(checkedAchat[0]);
-                    alert(checkedAchat[0]);
+                    loadAchatSelected(checkedAchat[0]);
+                    $('#TAB_MSG_VIEW').show();
+		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+                }else
+                {
+                    $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_MSG_VIEW').hide();
+                    
                 }
                 if(checkedAchat.length==nbTotalAchatChecked){
                     $('table th input:checkbox').prop('checked', true);
@@ -225,11 +347,18 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             MessageUnSelected = function()
             {
-                if (checkedAchat.length == 1){
-                   // loadSelectedMessage(checkedAchat[0]);
-					
+               if (checkedAchat.length === 1){
+                    loadAchatSelected(checkedAchat[0]);
+		    $('#TAB_MSG_VIEW').show();
+                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
-                
+                else
+                {
+                    $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_MSG_VIEW').hide();
+                    $("#BTN_MSG_GROUP").popover('destroy');
+                    $("#BTN_MSG_CONTENT").popover('destroy');
+                }
                 $('table th input:checkbox').removeAttr('checked');
             };
 
@@ -306,7 +435,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 checkedAchatAdd(aData[0]);
                                 MessageSelected();
                                 
-                                
                             }else{
                                 checkbox.removeAttr('checked');
                                 
@@ -363,29 +491,12 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             
             loadAchats();
-//            loadAchatMessage = function(achatId)
-//            {
-//                var url;
-//
-//                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-//
-//                $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
-//
-//                    data = $.parseJSON(data);
-//                   // $('#TAB_MSG_TITLE').text(" " + data.updatedDate);
-//                    $('#MsgDate').text(data.updatedDate);
-//                    if(data.subject !=='') $('#MsgSubject').text(data.subject);
-//                    else $('#MsgSubject').text('');
-//                    if(data.signature !=='') $('#MsgSignature').text(data.signature);
-//                    else $('#MsgSignature').text('');
-//                    $('#MsgContent').text(data.content);
-//                    $('#MsgGroup').text(data.groups);
-//                    
-//                    
-//                    
-//
-//                }).error(function(error) {  });
-//            };
+            loadAchatSelected = function(achatId)
+            {
+              $('#TAB_MSG_TITLE').text("Numero achat: num");
+              $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+              $('#TAB_MSG_VIEW').show();
+            };
 
 $("#MNU_VALIDATION").click(function()
             {
