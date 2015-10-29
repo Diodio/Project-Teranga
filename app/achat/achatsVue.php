@@ -181,23 +181,43 @@ $codeUsine = $_COOKIE['codeUsine'];
         <div class="space-6"></div>
         <div class="row">
             <div class="col-md-12">
-                <div class="col-sm-9 right"  >
+                <div class="col-sm-8">
                     
                 </div>
-                <div class="col-sm-3 right" style=""  >
+                <div class="col-sm-4" >
+                    <form class="form-horizontal">
                         <div class="form-group">
-                               <label class="col-sm-7 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
-                               <div class="col-sm-5">
-                                   <select id="modePaiement" class="col-xs-12 col-sm-12">
+                               <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
+                               <div class="col-sm-7">
+                                   <select id="modePaiement" class="col-xs-12 col-sm-10">
                                         <option value="Esp">Espèces</option>
                                         <option value="ch">Chèque</option>
                                         <option value="vir">Virement</option>
                                     </select>
                                </div>
                        </div>
-                     </div>
+                        <div class="form-group">
+                               <label class="col-sm-5 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
+                               <div class="col-sm-7">
+                        <input type="text" id="numCheque" placeholder=""
+                                           class="col-xs-12 col-sm-10">
+                               </div>
+                       </div>
+                        <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Avance </label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Reliquat </label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10">
+                                </div>
+                        </div>
+                    </form>
+                 </div>
             </div>
-        </div>
         <div class="row" style="margin-top: 12px;">
                 <div class="col-md-12 column">
                     <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
