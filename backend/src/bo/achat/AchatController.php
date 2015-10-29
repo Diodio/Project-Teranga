@@ -51,6 +51,9 @@ private $logger;
                         case \App::ACTION_ACTIVER:
                                 $this->doValidAchat($request);
                                 break;
+                        case \App::ACTION_GET_LAST_NUMBER:
+                                $this->doGetLastNumberAchat($request);
+                                break;
                         
                     }
             } else {
@@ -199,6 +202,16 @@ private $logger;
                 $this->doError('-1', 'Params not enough');
                 throw new ConstraintException('');
             }
+        }  catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
+    }
+    
+    public function doGetLastNumberAchat($request) {
+        try {
+                $achatManager = new AchatManager();
+                $lastAchat = $achatManager->getLastNumberAchat();
+                $this->doSuccess($lastAchat,'Dernier bon d\'achat');
         }  catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }

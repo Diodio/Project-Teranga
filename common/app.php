@@ -110,6 +110,7 @@ class App
       const ACTION_GET_CUSTOMER_NAME='ACTION_GET_CUSTOMER_NAME';
      const ACTION_LIST_PENDING_MESSAGE='LIST_PENDING_MESSAGE';
      const ACTION_LIST_PAR_USINE='LIST_PAR_USINE';
+     const ACTION_GET_LAST_NUMBER='GET_LAST_NUMBER';
 
      static function getBoPath() {
          

@@ -290,6 +290,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var nbTotalAchatChecked=0;
             var checkedAchat = new Array();
             // Check if an item is in the array
+            
             checkedAchatContains = function(item) {
                 for (var i = 0; i < checkedAchat.length; i++) {
                     if (checkedAchat[i] == item)
@@ -418,9 +419,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                               if (data === 0)
+                                console.log(data);
+                                if (data == 0)
                                     src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
-                                else if (data === 1)
+                                else if (data == 1)
                                     src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check green bigger-130 icon-only"></i></span>';
                                 return src;
                             }

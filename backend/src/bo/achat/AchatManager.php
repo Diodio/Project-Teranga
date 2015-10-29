@@ -51,6 +51,13 @@ class AchatManager {
         $this->achatQuery->pause($achatId);
     }
     
-
+public function getLastNumberAchat() {
+    $lastAchatId=$this->achatQuery->getLastNumberAchat();
+    if(strlen($lastAchatId)==1) $lastAchatId="0000".$lastAchatId;
+    else if(strlen($lastAchatId)==2) $lastAchatId="000".$lastAchatId;
+    else if(strlen($lastAchatId)==3) $lastAchatId="00".$lastAchatId;
+    else if(strlen($lastAchatId)==4) $lastAchatId="0".$lastAchatId;
+    return $lastAchatId;
+}
 
 }

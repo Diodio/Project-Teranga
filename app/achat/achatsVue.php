@@ -106,16 +106,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 							Prix Unitaire
 						</th>
 						<th class="text-center">
-							Poids brut (kg)
+							Quantite (kg)
 						</th>
 						<th class="text-center">
 							Pourcentage
 						</th>
 						<th class="text-center">
 							Poids Net (kg)
-						</th>
-						<th class="text-center">
-							Quantite (kg)
 						</th>
 						<th class="text-center">
 							Montant
@@ -136,7 +133,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <input type="text" id="pu0" name='pu0' class="form-control"/>
 						</td>
                                                 <td>
-                                                    <input type="text" id="pdB0" name='pdB0' class="form-control"/>
+                                                    <input type="text" id="qte0" name='qte0'  class="form-control qte"/>
 						</td>
                                                 <td>
                                                     <input type="number" id="perc0" name='perc0' class="col-xs-9"/>
@@ -144,9 +141,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 						</td>
                                                 <td>
                                                     <input type="text" id="pdN0" name='pdN0' class="form-control poidsNet"/>
-						</td>
-						<td>
-                                                    <input type="text" id="qte0" name='qte0'  class="form-control"/>
 						</td>
 						<td>
                                                     <input type="text" id="montant0" name='montant0' class="form-control montant"/>
@@ -163,20 +157,21 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
                 <div class="col-sm-3">
                 </div>
-                 
-                     <div class="col-sm-3" >
-                     <div class="form-group">
-                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Poids Total </label>
+                <div class="col-sm-3" style="margin-left: 35.5%;;margin-top: -10px;">
+                    <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Total </label>
                             <div class="col-sm-8">
-                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-12">
+                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-10">
                             </div>
                     </div>
-                     </div>
-                     <div class="col-sm-3" >
+                </div>
+                 
+                     
+                    <div class="col-sm-3" style="margin-left: 82.5%;margin-top: -35px;">
                     <div class="form-group">
-                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Montant total </label>
+                            <label class="col-sm-2 control-label no-padding-right" for="form-field-1">  total </label>
                             <div class="col-sm-8">
-                                <input type="text" id="montantTotal" name="montantTotal" placeholder="" class="col-xs-12 col-sm-12">
+                                <input type="text" id="montantTotal" name="montantTotal" placeholder="" class="col-xs-12 col-sm-10">
                             </div>
                     </div>
                      </div>
@@ -185,43 +180,21 @@ $codeUsine = $_COOKIE['codeUsine'];
         </div>
         <div class="space-6"></div>
         <div class="row">
-            <div class="col-md-12 column">
-                <div class="col-sm-3" >
+            <div class="col-md-12">
+                <div class="col-sm-9 right"  >
+                    
+                </div>
+                <div class="col-sm-3 right" style=""  >
                         <div class="form-group">
-                               <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
-                               <div class="col-sm-8">
+                               <label class="col-sm-7 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
+                               <div class="col-sm-5">
                                    <select id="modePaiement" class="col-xs-12 col-sm-12">
-                            <option value="Esp">Espèces</option>
-                            <option value="ch">Chèque</option>
-                            <option value="vir">Virement</option>
-                        </select>
+                                        <option value="Esp">Espèces</option>
+                                        <option value="ch">Chèque</option>
+                                        <option value="vir">Virement</option>
+                                    </select>
                                </div>
                        </div>
-                     </div>
-                     <div class="col-sm-3" >
-                        <div class="form-group">
-                               <label class="col-sm-4 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
-                               <div class="col-sm-8">
-                        <input type="text" id="numCheque" placeholder=""
-                                           class="col-xs-12 col-sm-12">
-                               </div>
-                       </div>
-                     </div>
-                     <div class="col-sm-3" >
-                        <div class="form-group">
-                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Avance </label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-12">
-                                </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-3" >
-                        <div class="form-group">
-                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Reliquat </label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-12">
-                                </div>
-                        </div>
                      </div>
             </div>
         </div>
@@ -247,6 +220,18 @@ $codeUsine = $_COOKIE['codeUsine'];
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
+    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#numAchat").val(sData.oId);
+            }
+    });
     var today = new Date();
     var dateAchat = new Date();
     var dd = today.getDate();
@@ -297,15 +282,14 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
 <td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='pdB"+i+"' name='pdB"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
 <td><input type='number' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
-<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control poidsNet'/></td>\n\
-<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
+<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
       loadProduit(i);
-      
+       
       i++;
   });
      $("#delete_row").click(function(){
@@ -322,12 +306,16 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     $(document).delegate('#tab_logic tr td', 'click', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
-       //$('#designation'+counter).change(function() {
           loadPrix('designation'+counter,'pu'+counter);
           calculPoidsNet(counter);
           calculMontant(counter);
           calculMontantPoids();
-      //});
+      $( "#qte"+counter ).keyup(function() {
+            calculMontant(counter);
+         });
+         $( "#perc"+counter ).keyup(function() {
+            calculPoidsNet(counter);
+         });  
     });
     
 
@@ -364,26 +352,35 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            var pn;
            if($("#perc"+index).val() !=="") {
               var pourcentage = $("#perc"+index).val();
-              var poidsBrut = $("#pdB"+index).val();
-              pn = parseInt(poidsBrut) - ((parseInt(poidsBrut) * pourcentage)/100);
+              var quantite = $("#qte"+index).val();
+              pn = parseInt(quantite) - ((parseInt(quantite) * pourcentage)/100);
               if(!isNaN(pn))
                 $("#pdN"+index).val(pn);
               
             }  
        }
        
-           
+
+         $( "#qte0" ).keyup(function() {
+            calculMontant(0);
+         }); 
+         $( "#perc0" ).keyup(function() {
+            calculPoidsNet(0);
+         });  
        function calculMontant(index){
            var mt;
-           if($("#qte"+index).val() !=="") {
-              var qte = $("#qte"+index).val();
+           var qte=parseInt($("#qte"+index).val());
+           if(!isNaN(qte)) {
               var pu = $("#pu"+index).val();
               mt = parseInt(qte) * parseInt(pu);
               if(!isNaN(mt)){
                 $("#montant"+index).val(mt);
-                
               }
-            }  
+            }
+            else {
+                $("#montant"+index).val("");
+            }
+            calculMontantPoids();
        }
        function calculMontantPoids(){
            var pt=0;
@@ -391,7 +388,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
           $('#tab_logic .montant').each(function () {
                 pt += parseInt($(this).val());
             });
-            $('#tab_logic .poidsNet').each(function () {
+            $('#tab_logic .qte').each(function () {
                 pd+= parseFloat($(this).val());
             });
                 if(!isNaN(pt))

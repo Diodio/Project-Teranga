@@ -102,6 +102,14 @@ class AchatQueries {
         return $nbClients['nbAchats'];
     }
     
+    public function getLastNumberAchat() {
+        $sql = 'select max(id)+1 as lastAchats from achat';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $lastAchat = $stmt->fetch();
+        return $lastAchat['lastAchats'];
+    }
+    
     public function validAchat($achatId) {
         $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id = '$achatId'");
         return $query->getResult();
