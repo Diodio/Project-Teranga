@@ -15,6 +15,12 @@ class Mareyeur {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $nom;
+    
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $reference;
+    
     /**
      * @Column(type="string", length=60, nullable=false)
      * */

@@ -207,4 +207,15 @@ class MareyeurQueries {
         else
             return null;
     }
+    
+    public function findInfoMareyeurs($mareyeurId) {
+        $sql = 'select reference,adresse from mareyeur where id='.$mareyeurId;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $mareyeur = $stmt->fetchAll();
+        if ($mareyeur != null)
+            return $mareyeur;
+        else
+            return null;
+    }
 }

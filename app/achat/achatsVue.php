@@ -358,11 +358,29 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: $("#"+cmbDesignation).val(), ACTION: "<?php echo App::ACTION_GET_PRODUCT; ?>"}, function(data) {
             data = $.parseJSON(data);
             $("#" + champPrix).val(data);
-
-        });
+            });
         }
-            };
-            
+    };
+    
+     loadInfoMareyeur = function(mareyeurId){
+        //$('#tab_logic').click();
+        if(mareyeurId!==''){
+            $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {mareyeurId: mareyeurId, ACTION: "<?php echo App::ACTION_GET_MAREYEURS; ?>"}, function(data) {
+            data = $.parseJSON(data);
+            $("#adresse").val(data.adresse);
+            $('#reference').val(data.reference);
+            });
+        }
+    };
+    
+    $('#CMB_MAREYEURS').change(function() {
+        if($('#CMB_MAREYEURS').val()!=='*')
+            loadInfoMareyeur($('#CMB_MAREYEURS').val());
+        else {
+            $('#adresse').val("");
+            $('#reference').val("");
+        }
+        });
             $("#montantTotal").bind("focus", function () {
             calculMontantPoids();
             

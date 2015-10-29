@@ -111,6 +111,7 @@ class App
      const ACTION_LIST_PENDING_MESSAGE='LIST_PENDING_MESSAGE';
      const ACTION_LIST_PAR_USINE='LIST_PAR_USINE';
      const ACTION_GET_LAST_NUMBER='GET_LAST_NUMBER';
+     const ACTION_GET_MAREYEURS='GET_MAREYEURS';
 
      static function getBoPath() {
          

@@ -92,4 +92,14 @@ public function retrieveTypes()
     public function retrieveAllMareyeur() {
         return $this->mareyeurQuery->retrieveAllMareyeur();
     }
+    
+    public function findInfoMareyeurs($mareyeurId) {
+        $mareyeurs = $this->mareyeurQuery->findInfoMareyeurs($mareyeurId);
+        $list = array();
+        foreach ($mareyeurs as $key => $value) {
+            $list ['adresse'] = $value ['adresse'];
+            $list ['reference'] = $value ['reference'];
+        }
+        return $list;
+    }
 }
