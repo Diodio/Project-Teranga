@@ -699,7 +699,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 });
 
-                $("#MNU_COLISAGE").click(function (e) {
+                $("#MNU_SORTIE").click(function (e) {
                     $("#CMD_MAREYEURS").attr("Class", "active");
                     $("#VALIDER_ACHAT").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
