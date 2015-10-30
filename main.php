@@ -62,6 +62,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         <link rel="stylesheet" href="assets/css/select2.css" />
         <link rel="stylesheet" href="assets/css/jchart.css" />
         <link rel="stylesheet" href="assets/css/all.min.css" />
+        <link rel="stylesheet" href="assets/css/bootstrap-timepicker.min.css" />
     </head>
 
     <body class="no-skin">
@@ -609,6 +610,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <script src="assets/js/jchart.js"></script>
         <script src="assets/js/shieldui-lite-all.min.js"></script>
         <script src="assets/js/shortGridData.js"></script>
+        
+	<script src="assets/js/bootstrap-timepicker.min.js"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {

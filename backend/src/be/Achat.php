@@ -19,6 +19,9 @@ class Achat {
    /** @Column(type="datetime", nullable=true) */
     public $dateAchat;
     
+    
+   /** @Column(type="datetime", nullable=true) */
+    public $heureReception;
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
@@ -205,6 +208,14 @@ class Achat {
     public function setMareyeur($mareyeur) {
         $this->mareyeur = $mareyeur;
     }
+    public function getHeureReception() {
+        return $this->heureReception;
+    }
+
+    public function setHeureReception($heureReception) {
+        $this->heureReception = $heureReception;
+    }
+
 
 
     }

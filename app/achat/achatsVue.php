@@ -52,7 +52,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                <div class="space-6"></div>
                  <div class="row">
                         <div class="col-sm-2">
-                            <label> Adresse</label>
+                            <label> Origine</label>
                         </div>
                             <div class="col-sm-6">
                                 <input type="text" id="adresse" placeholder=""  style="width:100%" 
@@ -76,6 +76,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="col-sm-6">
                                 <input type="text" id="dateAchat" placeholder=""
                                        class="col-xs-10 col-sm-7">
+                            </div>
+                        </div>
+                        <div class="input-append bootstrap-timepicker form-group" style="margin-top: 88px;" >
+                            <label class="col-sm-4 control-label no-padding-right"
+                                   for="form-field-1"> Heure de réception</label>
+                            <div class="bootstrap-timepicker col-sm-6" style="margin-left: -22px;;width: 70%;">
+                                <input name="heureReception" id="heureReception" type="text" class="col-xs-10 col-sm-7" />
                             </div>
                         </div>
                        
@@ -260,7 +267,14 @@ $(document).ready(function () {
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
     $('#dateAchat').attr('value', today);
-
+    
+    $('#heureReception').timepicker({
+            minuteStep: 1,
+            defaultTime: '08:00',
+            showSeconds: false,
+            showMeridian: false
+        });
+        
     loadProduit = function(index){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
                 ; ?>"}, function(data) {
