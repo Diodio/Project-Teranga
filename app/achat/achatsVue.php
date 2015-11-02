@@ -22,7 +22,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         </h1>
     </div>
     <!-- /.page-header -->
-     <form  id="validation-form" method="get">
+     <form  id="validation-form">
     <div class="row">
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
@@ -34,19 +34,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <label> Mareyeur</label>
                     </div>
                     <div class="col-sm-6">
-                        <select id="CMB_MAREYEURS" data-placeholder=""  style="width:100%"     >
+                      <div class="clearfix">
+                        <select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""  style="width:100%"     >
                             <option value="*" class="mareyeurs">Nom Mareyeur</option>
                         </select>
+                      </div>
                     </div>
                 </div>
                <div class="space-6"></div>
                 <div class="row" >
                         <div class="col-sm-2">
-                            <label> Reference</label>
+                            <label> Reférence</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder="" style="width:100%" 
+                                <div class="clearfix">
+                                <input type="text" id="reference" name="reference" placeholder="" style="width:100%" 
                                        class="col-xs-10 col-sm-7">
+                                </div>
                             </div>
                  </div>
                <div class="space-6"></div>
@@ -55,8 +59,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Origine</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="adresse" placeholder=""  style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
+                                <div class="clearfix">
+                                    <input type="text" id="adresse" name="adresse" placeholder=""  style="width:100%" 
+                                           class="col-xs-10 col-sm-7">
+                                </div>
                             </div>
                  </div>
                  <div class="space-6"></div>
@@ -66,23 +72,29 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label class="col-sm-2 control-label no-padding-right"
                                    for="form-field-1"> Numero Achat</label>
                             <div class="col-sm-6">
-                                <input type="text" id="numAchat" placeholder=""
-                                       class="col-xs-10 col-sm-7">
+                                <div class="clearfix">
+                                    <input type="text" id="numAchat" placeholder=""
+                                           class="col-xs-10 col-sm-7">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom: 56px;width: 173%;">
                             <label class="col-sm-2 control-label no-padding-right"
                                    for="form-field-1"> Date Achat</label>
                             <div class="col-sm-6">
-                                <input type="text" id="dateAchat" placeholder=""
-                                       class="col-xs-10 col-sm-7">
+                                <div class="clearfix">
+                                    <input type="text" id="dateAchat" name="dateAchat" placeholder=""
+                                           class="col-xs-10 col-sm-7">
+                                </div>
                             </div>
                         </div>
                         <div class="input-append bootstrap-timepicker form-group" style="margin-top: 88px;" >
                             <label class="col-sm-4 control-label no-padding-right"
                                    for="form-field-1"> Heure de réception</label>
                             <div class="bootstrap-timepicker col-sm-6" style="margin-left: -22px;;width: 70%;">
+                                <div class="clearfix">
                                 <input name="heureReception" id="heureReception" type="text" class="col-xs-10 col-sm-7" />
+                                </div>
                             </div>
                         </div>
                        
@@ -192,45 +204,51 @@ $codeUsine = $_COOKIE['codeUsine'];
                     
                 </div>
                 <div class="col-sm-4" >
-                    <form class="form-horizontal">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 40px;">
                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
                                <div class="col-sm-7">
+                                <div class="clearfix">
                                    <select id="modePaiement" class="col-xs-12 col-sm-10">
                                         <option value="Esp">Espèces</option>
                                         <option value="ch">Chèque</option>
                                         <option value="vir">Virement</option>
                                     </select>
+                                </div>
                                </div>
                        </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 86px;">
                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
                                <div class="col-sm-7">
-                        <input type="text" id="numCheque" placeholder=""
-                                           class="col-xs-12 col-sm-10">
+                                <div class="clearfix">
+                                    <input type="text" readonly id="numCheque" placeholder=""
+                                                       class="col-xs-12 col-sm-10">
+                                </div>
                                </div>
                        </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 132px;">
                                 <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Avance </label>
                                 <div class="col-sm-7">
+                                <div class="clearfix">
                                     <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
+                                </div>
                                 </div>
                         </div>
                         <div class="form-group">
                                 <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Reliquat </label>
                                 <div class="col-sm-7">
+                                <div class="clearfix">
                                     <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10">
                                 </div>
+                                </div>
                         </div>
-                    </form>
                  </div>
             </div>
-        <div class="row" style="margin-top: 12px;">
-                <div class="col-md-12 column">
+        <div class="row">
+                <div class="col-md-12 column" style="margin-top: 20px;">
                     <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
-                                <i class="fa fa-plus-square "></i>
-                                Valider
-                            </button>
+                        <i class="fa fa-plus-square "></i>
+                        Valider
+                    </button>
                 </div>
             </div>
         </div>
@@ -356,12 +374,10 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 
     $("#modePaiement").change(function() {
         if($("#modePaiement").val() ==='ch') {
-            $("#chDiv").removeClass("hide");
-            $("#chDiv").addClass("show");
+            $("#numCheque").prop("readOnly", false);
         }
         else {
-            $("#chDiv").removeClass("show");
-            $("#chDiv").addClass("hide");
+            $("#numCheque").prop("readOnly", true);
         }
     });
     $('#designation0').change(function() {
@@ -456,6 +472,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
             var numAchat= $('#numAchat').val();
+            var heureReception= $('#heureReception').val();
            // var dateAchat = dateAchat;
             var mareyeur = $("#CMB_MAREYEURS").val();
             var poidsTotal = $("#poidsTotal").val();
@@ -499,6 +516,7 @@ $table.find("tbody tr").each(function () {
             formData.append('ACTION', ACTION);
             formData.append('numAchat', numAchat);
             formData.append('dateAchat', dateAchat);
+            formData.append('heureReception', heureReception);
             formData.append('mareyeur', mareyeur);
             formData.append('poidsTotal', poidsTotal);
             formData.append('montantTotal', MontantTotal);
@@ -574,62 +592,32 @@ $table.find("tbody tr").each(function () {
 			ignore: "",
 			rules: {
 				reference: {
-					required: true,
-					email:true
-				},
-				password: {
-					required: true,
-					minlength: 5
-				},
-				password2: {
-					required: true,
-					minlength: 5,
-					equalTo: "#password"
-				},
-				name: {
 					required: true
 				},
-				phone: {
-					required: true,
-					phone: 'required'
-				},
-				url: {
-					required: true,
-					url: true
-				},
-				comment: {
+				adresse: {
 					required: true
 				},
-				state: {
+				dateAchat: {
 					required: true
 				},
-				platform: {
+				heureReception: {
 					required: true
-				},
-				subscription: {
-					required: true
-				},
-				gender: {
-					required: true,
-				},
-				agree: {
-					required: true,
 				}
 			},
 	
 			messages: {
 				reference: {
-					required: "Please provide a valid email.",
-					email: "Please provide a valid email."
+					required: "Champ obligatoire."
 				},
-				password: {
-					required: "Please specify a password.",
-					minlength: "Please specify a secure password."
+				adresse: {
+					required: "Champ obligatoire."
 				},
-				state: "Please choose state",
-				subscription: "Please choose at least one option",
-				gender: "Please choose gender",
-				agree: "Please accept our policy"
+				dateAchat: {
+					required: "Champ obligatoire."
+				},
+				heureReception: {
+					required: "Champ obligatoire."
+				}
 			},
 	
 	
@@ -643,18 +631,7 @@ $table.find("tbody tr").each(function () {
 			},
 	
 			errorPlacement: function (error, element) {
-				if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
-					var controls = element.closest('div[class*="col-"]');
-					if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-					else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-				}
-				else if(element.is('.select2')) {
-					error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-				}
-				else if(element.is('.chosen-select')) {
-					error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
-				}
-				else error.insertAfter(element.parent());
+				 error.insertAfter(element);
 			},
 	
 			submitHandler: function (form) {

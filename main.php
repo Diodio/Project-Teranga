@@ -614,8 +614,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 	<script src="assets/js/bootstrap-timepicker.min.js"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
+            var gStatTimer;
             jQuery(function ($) {
-
                 $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/home/home.php", function () {
 
                 });
@@ -684,6 +684,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#CMD_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
+                    clearTimeout(gStatTimer);
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
 
                     });

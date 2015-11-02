@@ -60,4 +60,28 @@ public function getLastNumberAchat() {
     return $lastAchatId;
 }
 
+public function findStatisticByUsine($codeUsine) {
+        if ($codeUsine != null) {
+            $validAchat = $this->achatQuery->findValidAchatByUsine($codeUsine);
+            $nonValidAchat = $this->achatQuery->findNonValidAchatByUsine($codeUsine);
+            $achatAnnuler = $this->achatQuery->findAchatAnnulerByUsine($codeUsine);
+            $achatTab = array();
+                if ($validAchat != null)
+                    $achatTab['nbValid'] = $validAchat;
+                else
+                    $achatTab['nbValid'] = 0;
+                if ($nonValidAchat != null)
+                    $achatTab['nbNonValid'] = $nonValidAchat;
+                else
+                    $achatTab['nbNonValid']= 0;
+                if ($achatAnnuler != null)
+                    $achatTab['nbAnnule'] = $achatAnnuler;
+                else
+                    $achatTab['nbAnnule'] = 0;
+                
+               
+            return $achatTab;
+        } else
+            return 0;
+    }
 }

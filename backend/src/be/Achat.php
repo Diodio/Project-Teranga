@@ -20,7 +20,7 @@ class Achat {
     public $dateAchat;
     
     
-   /** @Column(type="datetime", nullable=true) */
+   /** @Column(type="time", nullable=true) */
     public $heureReception;
     /**
      * @Column(type="string", length=60, nullable=false)

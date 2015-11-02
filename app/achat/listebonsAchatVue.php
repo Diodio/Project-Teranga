@@ -139,7 +139,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_CPG_INPROCESS">0</div>
+                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats non validés </div>
                                                         </div>
@@ -151,7 +151,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_CPG_PAUSE">0</div>
+                                                            <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats validé</div>
 
@@ -164,7 +164,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_CPG_SCHEDULED">0</div>
+                                                            <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats annulés</div>
 
@@ -290,7 +290,33 @@ $codeUsine = $_COOKIE['codeUsine'];
             var nbTotalAchatChecked=0;
             var checkedAchat = new Array();
             // Check if an item is in the array
-            
+           // var interval = 500;
+            getIndicator = function() {
+                var url;
+                var user;
+                clearTimeout(gStatTimer);
+                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+                userProfil=$.cookie('profil');
+                if(userProfil==='admin')
+                   user = 'login=<?php echo $login; ?>';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
+                    cache: false,
+                    success: function(data) {
+                        $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
+                        $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
+                        $('#INDIC_ACHAT_ANNULES').text(data.nbAnnule);
+
+//                        gStatTimer = setTimeout(function() {
+//                            getIndicator();
+//                        }, interval);
+                    }
+                });
+            };
+            getIndicator();
             checkedAchatContains = function(item) {
                 for (var i = 0; i < checkedAchat.length; i++) {
                     if (checkedAchat[i] == item)
@@ -403,7 +429,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "aoColumnDefs": [
                         {
                             "aTargets": [0],
-                            "bSort": false,
+                            "bSortable": false,
                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                                 $(nTd).css('text-align', 'center');
                             },

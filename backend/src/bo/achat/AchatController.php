@@ -6,6 +6,7 @@ require_once App::AUTOLOAD;
 $lang='fr';
 
 use Achat\Achat as Achat;
+use Achat\AchatPaiement as AchatPaiement;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use Achat\AchatManager as AchatManager;
@@ -54,6 +55,9 @@ private $logger;
                         case \App::ACTION_GET_LAST_NUMBER:
                                 $this->doGetLastNumberAchat($request);
                                 break;
+                        case \App::ACTION_STAT:
+                                $this->doStat($request);
+                                break;
                         
                     }
             } else {
@@ -67,10 +71,12 @@ private $logger;
     public function doInsert($request) {
         try {
             $this->logger->log->trace("tesst1");
+            
                 $achatManager = new AchatManager();
                 
                 $achat = new Achat();
                 $achat->setNumero($request['numAchat']);
+                $achat->setHeureReception(new \DateTime($request['heureReception']));
                 $achat->setDateAchat(new \DateTime("now"));
                 $achat->setPoidsTotal($request['poidsTotal']);
                 $achat->setMontantTotal($request['montantTotal']);
@@ -101,10 +107,7 @@ private $logger;
                                 $ligneAchat->setMontant($ligneachat['Montant']);
                                 $ligneAchat->setPoids($ligneachat['Poids Net (kg)']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
-                                
-                
                                 $achatInserted = $ligneAchatManager->insert($ligneAchat); 
-                                
                                 if ($achatInserted->getId() != null) {
                                        $stockManager = new \Produit\StockManager();
                                        if($ligneachat['Quantite (kg)'] !="")
@@ -113,6 +116,10 @@ private $logger;
                                            $nbStock = $ligneachat['Poids Net (kg)'];
                                        $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
                                 }
+//                                $achatPaiement = new AchatPaiement();
+//                                $achatPaiement->setAchat($achat);
+//                                $achatPaiement->setMontant($request['avance']);
+//                                $achatPaiement->setDatePaiement(new \DateTime("now"));
                             }
                          }
                     $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');
@@ -145,7 +152,7 @@ private $logger;
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder = "";
+                        $sOrder .= " dateAchat desc";
                     }
                 }
                 // End order from DataTable
@@ -215,6 +222,25 @@ private $logger;
         }  catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
+    }
+    
+    public function doStat($request) {
+    	try {
+    		if (isset($request['codeUsine'])) {
+    			$AchatManager = new AchatManager();
+    			$achat = $AchatManager->findStatisticByUsine($request['codeUsine']);
+    			if($achat != null)
+    				$this->doSuccessO($achat);
+    			else
+    				echo json_encode(array());
+    		} else {
+    			$this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
+    			$this->logger->log->error('View : Params not enough');
+    		}
+    	} catch (Exception $e) {
+    		$this -> doError('-1', $this->parameters['CANNOT_GET_MSG']);
+    		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+    	}
     }
 
 }

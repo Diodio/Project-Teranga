@@ -114,4 +114,28 @@ class AchatQueries {
         $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id = '$achatId'");
         return $query->getResult();
     }
+    
+    public function findValidAchatByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
+    public function findNonValidAchatByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    public function findAchatAnnulerByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=2 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
 }
