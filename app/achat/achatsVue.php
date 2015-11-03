@@ -1,8 +1,8 @@
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
 if (!isset($_COOKIE['userId'])) {
-    header('Location: ' . \App::getHome());
-    exit();
+	header('Location: ' . \App::getHome());
+	exit();
 }
 $userId = $_COOKIE['userId'];
 $etatCompte = $_COOKIE['etatCompte'];
@@ -14,248 +14,243 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 
 <div class="page-content">
-    <div class="page-header">
-        <h1>
-            Achat de produits <small> <i
-                    class="ace-icon fa fa-angle-double-right"></i> Achat
-            </small>
-        </h1>
-    </div>
-    <!-- /.page-header -->
-     <form  id="validation-form">
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- PAGE CONTENT BEGINS -->
-
-
-           <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label> Mareyeur</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="clearfix">
-                        <select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="mareyeurs">Nom Mareyeur</option>
-                        </select>
-                      </div>
-                    </div>
-                </div>
-               <div class="space-6"></div>
-                <div class="row" >
-                        <div class="col-sm-2">
-                            <label> Reférence</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <div class="clearfix">
-                                <input type="text" id="reference" name="reference" placeholder="" style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                                </div>
-                            </div>
-                 </div>
-               <div class="space-6"></div>
-                 <div class="row">
-                        <div class="col-sm-2">
-                            <label> Origine</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <div class="clearfix">
-                                    <input type="text" id="adresse" name="adresse" placeholder=""  style="width:100%" 
-                                           class="col-xs-10 col-sm-7">
-                                </div>
-                            </div>
-                 </div>
-                 <div class="space-6"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Achat</label>
-                            <div class="col-sm-6">
-                                <div class="clearfix">
-                                    <input type="text" id="numAchat" placeholder=""
-                                           class="col-xs-10 col-sm-7">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 56px;width: 173%;">
-                            <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Date Achat</label>
-                            <div class="col-sm-6">
-                                <div class="clearfix">
-                                    <input type="text" id="dateAchat" name="dateAchat" placeholder=""
-                                           class="col-xs-10 col-sm-7">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-append bootstrap-timepicker form-group" style="margin-top: 88px;" >
-                            <label class="col-sm-4 control-label no-padding-right"
-                                   for="form-field-1"> Heure de réception</label>
-                            <div class="bootstrap-timepicker col-sm-6" style="margin-left: -22px;;width: 70%;">
-                                <div class="clearfix">
-                                <input name="heureReception" id="heureReception" type="text" class="col-xs-10 col-sm-7" />
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
-
-                </div>
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <a id="add_row" class="btn btn-primary btn-sm"><i class="ace-icon fa fa-plus-square"></i></a>
-                <a id='delete_row' class="btn btn-danger btn-sm" title="Supprimer une ligne" alt="Supprimer une ligne">
-                        <i class="ace-icon fa fa-minus-square"></i>
-                </a>
-            </div>
-        </div>
-        <div class="space-6"></div>
-            <div class="row clearfix">
-		<div class="col-md-12 column">
-			<table class="table table-bordered table-hover" id="tab_logic">
-				<thead>
-					<tr >
-						<th class="text-center">
-							#
-						</th>
-						<th class="text-center">
-							Désignation
-						</th>
-						<th class="text-center">
-							Prix Unitaire
-						</th>
-						<th class="text-center">
-							Quantite (kg)
-						</th>
-						<th class="text-center">
-							Pourcentage
-						</th>
-						<th class="text-center">
-							Poids Net (kg)
-						</th>
-						<th class="text-center">
-							Montant
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id='addr0'>
-						<td>
-						1
-						</td>
-						<td>
-                                                    <select id="designation0" name="designation0" class="col-xs-10 col-sm-10">
-                                                        <option value="-1" class="designations0">sélectionnez un produit</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="pu0" name='pu0' class="form-control"/>
-						</td>
-                                                <td>
-                                                    <input type="text" id="qte0" name='qte0'  class="form-control qte"/>
-						</td>
-                                                <td>
-                                                    <input type="number" id="perc0" name='perc0' class="col-xs-9"/>
-                                                    %
-						</td>
-                                                <td>
-                                                    <input type="text" id="pdN0" name='pdN0' class="form-control poidsNet"/>
-						</td>
-						<td>
-                                                    <input type="text" id="montant0" name='montant0' class="form-control montant"/>
-						</td>
-					</tr>
-                    <tr id='addr1'></tr>
-				</tbody>
-			</table>
-		</div>
+	<div class="page-header">
+		<h1>
+			Achat de produits <small> <i
+				class="ace-icon fa fa-angle-double-right"></i> Achat
+			</small>
+		</h1>
 	</div>
-        <div class="row">
-            <div class="col-md-12 column">
-                <div class="col-sm-3">
-                </div>
-                <div class="col-sm-3">
-                </div>
-                <div class="col-sm-3" style="margin-left: 35.5%;;margin-top: -10px;">
-                    <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Total </label>
-                            <div class="col-sm-8">
-                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-10">
-                            </div>
-                    </div>
-                </div>
-                 
-                     
-                    <div class="col-sm-3" style="margin-left: 82.5%;margin-top: -35px;">
-                    <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="form-field-1">  total </label>
-                            <div class="col-sm-8">
-                                <input type="text" id="montantTotal" name="montantTotal" placeholder="" class="col-xs-12 col-sm-10">
-                            </div>
-                    </div>
-                     </div>
-                
-            </div>
-        </div>
-        <div class="space-6"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-sm-8">
-                    
-                </div>
-                <div class="col-sm-4" >
-                        <div class="form-group" style="margin-bottom: 40px;">
-                               <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
-                               <div class="col-sm-7">
-                                <div class="clearfix">
-                                   <select id="modePaiement" class="col-xs-12 col-sm-10">
-                                        <option value="Esp">Espèces</option>
-                                        <option value="ch">Chèque</option>
-                                        <option value="vir">Virement</option>
-                                    </select>
-                                </div>
-                               </div>
-                       </div>
-                        <div class="form-group" style="margin-bottom: 86px;">
-                               <label class="col-sm-5 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
-                               <div class="col-sm-7">
-                                <div class="clearfix">
-                                    <input type="text" readonly id="numCheque" placeholder=""
-                                                       class="col-xs-12 col-sm-10">
-                                </div>
-                               </div>
-                       </div>
-                        <div class="form-group" style="margin-bottom: 132px;">
-                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Avance </label>
-                                <div class="col-sm-7">
-                                <div class="clearfix">
-                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
-                                </div>
-                                </div>
-                        </div>
-                        <div class="form-group">
-                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Reliquat </label>
-                                <div class="col-sm-7">
-                                <div class="clearfix">
-                                    <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10">
-                                </div>
-                                </div>
-                        </div>
-                 </div>
-            </div>
-        <div class="row">
-                <div class="col-md-12 column" style="margin-top: 20px;">
-                    <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
-                        <i class="fa fa-plus-square "></i>
-                        Valider
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
-    </form>
+	<!-- /.page-header -->
+	<form id="validation-form">
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+
+
+				<div class="col-sm-6">
+					<div class="row">
+						<div class="col-sm-2">
+							<label> Mareyeur</label>
+						</div>
+						<div class="col-sm-6">
+							<div class="clearfix">
+								<select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""
+									style="width: 100%">
+									<option value="*" class="mareyeurs">Nom Mareyeur</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="space-6"></div>
+					<div class="row">
+						<div class="col-sm-2">
+							<label> Reférence</label>
+						</div>
+						<div class="col-sm-6">
+							<div class="clearfix">
+								<input type="text" id="reference" name="reference"
+									placeholder="" style="width: 100%" class="col-xs-10 col-sm-7">
+							</div>
+						</div>
+					</div>
+					<div class="space-6"></div>
+					<div class="row">
+						<div class="col-sm-2">
+							<label> Origine</label>
+						</div>
+						<div class="col-sm-6">
+							<div class="clearfix">
+								<input type="text" id="adresse" name="adresse" placeholder=""
+									style="width: 100%" class="col-xs-10 col-sm-7">
+							</div>
+						</div>
+					</div>
+					<div class="space-6"></div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group" style="margin-bottom: 45px; width: 173%;">
+						<label class="col-sm-2 control-label no-padding-right"
+							for="form-field-1"> Numero Achat</label>
+						<div class="col-sm-6">
+							<div class="clearfix">
+								<input type="text" id="numAchat" placeholder=""
+									class="col-xs-10 col-sm-7">
+							</div>
+						</div>
+					</div>
+					<div class="form-group" style="margin-bottom: 56px; width: 173%;">
+						<label class="col-sm-2 control-label no-padding-right"
+							for="form-field-1"> Date Achat</label>
+						<div class="col-sm-6">
+							<div class="clearfix">
+								<input type="text" id="dateAchat" name="dateAchat"
+									placeholder="" class="col-xs-10 col-sm-7">
+							</div>
+						</div>
+					</div>
+					<div class="input-append bootstrap-timepicker form-group"
+						style="margin-top: 88px;">
+						<label class="col-sm-4 control-label no-padding-right"
+							for="form-field-1"> Heure de réception</label>
+						<div class="bootstrap-timepicker col-sm-6"
+							style="margin-left: -22px;; width: 70%;">
+							<div class="clearfix">
+								<input name="heureReception" id="heureReception" type="text"
+									class="col-xs-10 col-sm-7" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<a id="add_row" class="btn btn-primary btn-sm"><i
+						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+						class="btn btn-danger btn-sm" title="Supprimer une ligne"
+						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
+					</a>
+				</div>
+			</div>
+			<div class="space-6"></div>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+								<th class="text-center">Designation</th>
+								<th class="text-center">Prix Unitaire</th>
+								<th class="text-center">Quantite (kg)</th>
+								<th class="text-center">Pourcentage</th>
+								<th class="text-center">Poids Net (kg)</th>
+								<th class="text-center">Montant</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='addr0'>
+								<td>1</td>
+								<td><select id="designation0" name="designation0"
+									class="col-xs-10 col-sm-10">
+										<option value="-1" id="designationSelect"
+											class="designations0">selectionnez un produit</option>
+								</select>
+								</td>
+								<td><input type="text" id="pu0" name='pu0' class="form-control" />
+								</td>
+								<td><input type="text" id="qte0" name='qte0'
+									class="form-control qte" />
+								</td>
+								<td><input type="number" id="perc0" name='perc0'
+									class="col-xs-9" /> %</td>
+								<td><input type="text" id="pdN0" name='pdN0'
+									class="form-control poidsNet" />
+								</td>
+								<td><input type="text" id="montant0" name='montant0'
+									class="form-control montant" />
+								</td>
+							</tr>
+							<tr id='addr1'></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 column">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-3"></div>
+					<div class="col-sm-3"
+						style="margin-left: 35.5%;; margin-top: -10px;">
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right"
+								for="form-field-1"> Total </label>
+							<div class="col-sm-8">
+								<input type="text" id="poidsTotal" name="poidsTotal"
+									placeholder="" class="col-xs-12 col-sm-10">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-sm-3"
+						style="margin-left: 82.5%; margin-top: -35px;">
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right"
+								for="form-field-1"> total </label>
+							<div class="col-sm-8">
+								<input type="text" id="montantTotal" name="montantTotal"
+									placeholder="" class="col-xs-12 col-sm-10">
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="space-6"></div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-8"></div>
+					<div class="col-sm-4">
+						<div class="form-group" style="margin-bottom: 40px;">
+							<label class="col-sm-5 control-label no-padding-right"
+								for="form-field-1"> Mode de paiement </label>
+							<div class="col-sm-7">
+								<div class="clearfix">
+									<select id="modePaiement" class="col-xs-12 col-sm-10">
+										<option value="Esp">Especes</option>
+										<option value="ch">Cheque</option>
+										<option value="vir">Virement</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" style="margin-bottom: 86px;">
+							<label class="col-sm-5 control-label no-padding-right"
+								for="form-field-1"> No Cheque </label>
+							<div class="col-sm-7">
+								<div class="clearfix">
+									<input type="text" readonly id="numCheque" placeholder=""
+										class="col-xs-12 col-sm-10">
+								</div>
+							</div>
+						</div>
+						<div class="form-group" style="margin-bottom: 132px;">
+							<label class="col-sm-5 control-label no-padding-right"
+								for="form-field-1"> Avance </label>
+							<div class="col-sm-7">
+								<div class="clearfix">
+									<input type="text" id="avance" name="avance" placeholder=""
+										class="col-xs-12 col-sm-10">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right"
+								for="form-field-1"> Reliquat </label>
+							<div class="col-sm-7">
+								<div class="clearfix">
+									<input type="text" id="reliquat" name="reliquat" placeholder=""
+										class="col-xs-12 col-sm-10">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 column" style="margin-top: 20px;">
+						<button id="SAVE" class="btn btn-small btn-info pull-right"
+							data-dismiss="modal">
+							<i class="fa fa-plus-square "></i> Valider
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</form>
 
 </div>
 <!-- /.page-content -->
@@ -602,7 +597,20 @@ $table.find("tbody tr").each(function () {
 				},
 				heureReception: {
 					required: true
-				}
+				},
+				poidsTotal: {
+                    required:true
+					},
+				montantTotal: {
+                    required:true
+					},
+				heureReception: {
+	                 required:true
+					},
+				designationSelect: {
+		             required:true
+					}
+				
 			},
 	
 			messages: {
@@ -617,7 +625,19 @@ $table.find("tbody tr").each(function () {
 				},
 				heureReception: {
 					required: "Champ obligatoire."
-				}
+				},
+				poidsTotal: {
+                    required:"Champ obligatoire."
+					},
+				montantTotal: {
+	                required:"Champ obligatoire."
+					},
+				heureReception: {
+		            required:"Champ obligatoire."
+					},
+				designationSelect: {
+					required:"Champ obligatoire."
+					}
 			},
 	
 	

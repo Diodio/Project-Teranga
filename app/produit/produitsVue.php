@@ -127,7 +127,7 @@
                 
                             </form>
             </div>
-            
+            <form id="validation-form">
             <div id="winModalProduit" class="modal fade" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -187,6 +187,7 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
+            </form>
         </div><!-- /.col -->
     </div><!-- /.row -->
  
@@ -757,11 +758,11 @@
             });
 
         };
-     $("#SAVE").bind("click", function () {
-            produitProcess();
-            $('#winModalProduit').addClass('hide');
-            $('#winModalProduit').modal('hide');
-        });
+//      $("#SAVE").bind("click", function () {
+//             produitProcess();
+//             $('#winModalProduit').addClass('hide');
+//             $('#winModalProduit').modal('hide');
+//         });
 $("#MNU_PRODUIT_EDIT").click(function()
         {
             if (!$(this).hasClass('disabled')) {
@@ -813,6 +814,98 @@ $("#MNU_PRODUIT_EDIT").click(function()
                  loadProduit($("#GRP_CMB").val());
                 }
             });
+
+       //Validate
+       $("#SAVE").bind("click", function () {
+       $('#validation-form').validate({
+           
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				designation: {
+					required: true
+				},
+				adresse: {
+					required: true
+				},
+				dateAchat: {
+					required: true
+				},
+				heureReception: {
+					required: true
+				},
+				poidsTotal: {
+                   required:true
+					},
+				montantTotal: {
+                   required:true
+					},
+				heureReception: {
+	                 required:true
+					},
+				designationSelect: {
+		             required:true
+					}
+				
+			},
+	
+			messages: {
+				designation: {
+					required: "Champ obligatoire."
+				},
+				adresse: {
+					required: "Champ obligatoire."
+				},
+				dateAchat: {
+					required: "Champ obligatoire."
+				},
+				heureReception: {
+					required: "Champ obligatoire."
+				},
+				poidsTotal: {
+                   required:"Champ obligatoire."
+					},
+				montantTotal: {
+	                required:"Champ obligatoire."
+					},
+				heureReception: {
+		            required:"Champ obligatoire."
+					},
+				designationSelect: {
+					required:"Champ obligatoire."
+					}
+			},
+	
+	
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+				 produitProcess();
+				 $('#winModalProduit').addClass('hide');
+		            $('#winModalProduit').modal('hide');
+			},
+			invalidHandler: function (form) {
+			}
+		});
+
+
+       });
+
+       
+       
        function calculSeuil(){
            var stock = parseInt($("#stock").val());
             var seuil;
