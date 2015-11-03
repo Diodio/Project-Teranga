@@ -42,17 +42,16 @@ class AchatQueries {
 
    
     public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
-        if($codeUsine !=='*') {
-            if($sWhere !== "")
+        if($sWhere !== "")
             $sWhere = " and " . $sWhere;
-            $sql = 'select distinct(id), status,dateAchat, numero
-                    from achat where codeUsine="'.$codeUsine.'" ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        if($codeUsine !=='*') {
+            
+            $sql = 'select achat.id,status,dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-        if($sWhere !== "")
-            $sWhere = " where " . $sWhere;
-            $sql = 'select distinct(id), status,dateAchat, numero
-                    from achat' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'select achat.id, status,dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -65,6 +64,7 @@ class AchatQueries {
             $arrayAchats [$i] [] = $value ['status'];
             $arrayAchats [$i] [] = $value ['dateAchat'];
             $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['nom'];
             $i++;
         }
         return $arrayAchats;
@@ -83,17 +83,15 @@ class AchatQueries {
                 return null;
         }
     public function count($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            if($sWhere !== "")
-                $sWhere = " and " . $sWhere;
-            $sql = 'select count(id) as nbAchats
-                    from achat where codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-            if($sWhere !== "")
-            $sWhere = " where " . $sWhere;
-             $sql = 'select count(id) as nbAchats
-                    from achat ' . $sWhere . '';
+             $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -137,5 +135,29 @@ class AchatQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
+     public function findAchatDetails($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
     
+    public function findAllProduitByAchact($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
 }

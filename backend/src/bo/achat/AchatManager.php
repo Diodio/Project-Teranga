@@ -84,4 +84,24 @@ public function findStatisticByUsine($codeUsine) {
         } else
             return 0;
     }
+    
+    public function findAchatDetails($achatId) {
+        if ($achatId != null) {
+            $achat = $this->achatQuery->findAchatDetails($achatId);
+            $ligneAchat = $this->achatQuery->findAllProduitByAchact($achatId);
+            $achatDetail = array();
+            foreach ($achat as $key => $value) {
+                $achatDetail ['id'] = $value ['achat.id'];
+                $achatDetail ['numero'] = $value ['numero'];
+                $achatDetail ['dateAchat']  = date_format(date_create($value ['dateAchat']), 'd/m/Y');
+                $achatDetail ['nomMareyeur']  = $value ['nom'];
+                $achatDetail ['adresse']  =  $value ['adresse'];
+                $achatDetail ['user']  =  $value ['login'];
+                $achatDetail['ligneAchat'] = $ligneAchat;
+            }
+            return $achatDetail;
+        }
+        else
+            return null;
+    }
 }

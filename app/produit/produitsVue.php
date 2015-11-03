@@ -137,7 +137,6 @@
                         </div>
 
                         <div class="modal-body" style="height: 340px;">
-                            <form id="FRM_PRODUIT" class="form-horizontal" role="form">
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille de produit</label>
                                     <div class="col-sm-9">
@@ -170,7 +169,6 @@
                                             <input type="text" id="seuil" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
-                            </form>
                         </div>
 
                         <div class="modal-footer">
@@ -826,59 +824,14 @@ $("#MNU_PRODUIT_EDIT").click(function()
 			rules: {
 				designation: {
 					required: true
-				},
-				adresse: {
-					required: true
-				},
-				dateAchat: {
-					required: true
-				},
-				heureReception: {
-					required: true
-				},
-				poidsTotal: {
-                   required:true
-					},
-				montantTotal: {
-                   required:true
-					},
-				heureReception: {
-	                 required:true
-					},
-				designationSelect: {
-		             required:true
-					}
-				
+				}
 			},
 	
 			messages: {
 				designation: {
 					required: "Champ obligatoire."
-				},
-				adresse: {
-					required: "Champ obligatoire."
-				},
-				dateAchat: {
-					required: "Champ obligatoire."
-				},
-				heureReception: {
-					required: "Champ obligatoire."
-				},
-				poidsTotal: {
-                   required:"Champ obligatoire."
-					},
-				montantTotal: {
-	                required:"Champ obligatoire."
-					},
-				heureReception: {
-		            required:"Champ obligatoire."
-					},
-				designationSelect: {
-					required:"Champ obligatoire."
-					}
+				}
 			},
-	
-	
 			highlight: function (e) {
 				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
 			},

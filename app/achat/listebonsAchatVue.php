@@ -51,7 +51,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-flat">
@@ -83,8 +83,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     Date
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-
                                     Numero Achat
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Mareyeur
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
@@ -100,7 +102,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div class="widget-container-span">
                     <div class="widget-box transparent">
                         <div class="widget-header">
@@ -192,79 +194,47 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Numero Achat </div>
-                        <div class="profile-info-value">
-                            <span id="AchatNumero"></span>
-                        </div>
-                    </div>
-                    <div class="profile-info-row">
                         <div class="profile-info-name">Nom Mareyeur </div>
                         <div class="profile-info-value">
                             <span id="AchatNomMareyeur"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Adresse </div>
+                        <div class="profile-info-name">Origine </div>
                         <div class="profile-info-value">
                             <span id="achatAdresseMareyeur"></span>
                         </div>
                     </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Créé par </div>
+                        <div class="profile-info-value">
+                            <span id="achatUser"></span>
+                        </div>
+                    </div>
                 </div>
-                
-                    <table class="table table-bordered table-hover"id="tab_logic">
-				<thead>
-					<tr >
-						<th class="text-center">
-							#
-						</th>
-						<th class="text-center">
-							Désignation
-						</th>
-						<th class="text-center">
-							Prix Unitaire
-						</th>
-						<th class="text-center">
-							Poids brut (kg)
-						</th>
-						<th class="text-center">
-							Pourcentage
-						</th>
-						<th class="text-center">
-							Poids Net (kg)
-						</th>
-						<th class="text-center">
-							Quantite (kg)
-						</th>
-						<th class="text-center">
-							Montant
-						</th>
-					</tr>
-				</thead>
+                <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des produits
+                        </h4>
+                    <table class="table table-bordered table-hover"id="TABLE_ACHATS">
+                        <thead>
+                            <tr>
+                                    <th class="text-center">
+                                            Désignation
+                                    </th>
+                                    <th class="text-center">
+                                            Prix Unitaire
+                                    </th>
+                                    <th class="text-center">
+                                            Quantite (kg)
+                                    </th>
+                                    <th class="text-center">
+                                            Montant
+                                    </th>
+                            </tr>
+                        </thead>
 				<tbody>
-					<tr id='addr0'>
-						<td>
-						1
-						</td>
-						<td> Poisson
-                                                </td>
-                                                <td>
-                                                    2000
-						</td>
-                                                <td>300
-						</td>
-                                                <td>
-                                                    10
-						</td>
-                                                <td>
-                                                    240
-						</td>
-						<td>
-                                                     30
-                                                </td>
-						<td>
-                                                    14000
-    						</td>
-					</tr>
+				
 				</tbody>
 			</table>
                                             </div>
@@ -423,9 +393,14 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                 oTableAchats = $('#LIST_ACHATS').dataTable({
                     "oLanguage": {
-                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
+                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
+                    "oPaginate": {
+                        "sNext": "",
+                        "sLast": "",
+                        "sFirst": null,
+                        "sPrevious": null
+                      }
                     },
-                    "sDom": '<"top"i>rt<"bottom"lp><"clear">',
                     "aoColumnDefs": [
                         {
                             "aTargets": [0],
@@ -521,12 +496,30 @@ $codeUsine = $_COOKIE['codeUsine'];
             loadAchats();
             loadAchatSelected = function(achatId)
             {
-              $('#TAB_MSG_TITLE').text("Numero achat: num");
-              $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
-              $('#TAB_MSG_VIEW').show();
+                 var url;
+                 url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+
+                $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                    data = $.parseJSON(data);
+                    $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
+                    $('#AchatDate').text(data.dateAchat);
+                    $('#AchatNomMareyeur').text(data.nomMareyeur);
+                    $('#achatAdresseMareyeur').text(data.adresse);
+                    $('#achatUser').text(data.user);
+                    $('#TABLE_ACHATS tbody').html("");
+                    var table = data.ligneAchat;
+                    var trHTML='';
+                    $(table).each(function(index, element){
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                    });
+                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    trHTML='';
+                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+                    $('#TAB_MSG_VIEW').show();
+               }).error(function(error) { });
             };
 
-$("#MNU_VALIDATION").click(function()
+            $("#MNU_VALIDATION").click(function()
             {
                 if (checkedAchat.length == 0)
                     bootbox.alert("Veuillez selectionnez un achat");

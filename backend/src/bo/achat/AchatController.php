@@ -58,6 +58,9 @@ private $logger;
                         case \App::ACTION_STAT:
                                 $this->doStat($request);
                                 break;
+                    case \App::ACTION_VIEW_DETAILS:
+                        $this->doViewDetails($request);
+                        break;
                         
                     }
             } else {
@@ -140,7 +143,7 @@ private $logger;
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateAchat', 'numero');
+                $aColumns = array('dateAchat', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -242,7 +245,24 @@ private $logger;
     		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
     	}
     }
-
+    
+    public function doViewDetails($request) {
+        try {
+            if (isset($request['achatId'])) {
+                $achatManager = new AchatManager();
+                $achatDetails = $achatManager->findAchatDetails($request['achatId']);
+                if ($achatDetails != null)
+                    $this->doSuccessO($achatDetails);
+                else
+                    echo json_encode(array());
+            } else {
+                $this -> doError('-1', 'Chargement detail achat impossible');
+            }
+        
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR_SERVEUR');
+        }
+    }
 }
 
         $oAchatController = new AchatController($_REQUEST);
