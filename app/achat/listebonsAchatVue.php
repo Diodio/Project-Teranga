@@ -237,6 +237,20 @@ $codeUsine = $_COOKIE['codeUsine'];
 				
 				</tbody>
 			</table>
+                        <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Poids Total </div>
+                                <div class="profile-info-value">
+                                    <span id="PoidsTotal"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Montant Total </div>
+                                <div class="profile-info-value">
+                                    <span id="MontantTotal"></span>
+                                </div>
+                            </div>
+                        </div>
                                             </div>
                                         </div>
 
@@ -506,6 +520,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#AchatNomMareyeur').text(data.nomMareyeur);
                     $('#achatAdresseMareyeur').text(data.adresse);
                     $('#achatUser').text(data.user);
+                    $('#PoidsTotal').text(data.poidsTotal);
+                    $('#MontantTotal').text(data.montantTotal);
                     $('#TABLE_ACHATS tbody').html("");
                     var table = data.ligneAchat;
                     var trHTML='';

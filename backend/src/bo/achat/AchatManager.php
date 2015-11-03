@@ -101,6 +101,8 @@ public function findStatisticByUsine($codeUsine) {
                 $achatDetail ['nomMareyeur']  = $value ['nom'];
                 $achatDetail ['adresse']  =  $value ['adresse'];
                 $achatDetail ['user']  =  $value ['login'];
+                $achatDetail ['poidsTotal']  =  $value ['poidsTotal'];
+                $achatDetail ['montantTotal']  =  $value ['montantTotal'];
                 $achatDetail['ligneAchat'] = $ligneAchat;
             }
             return $achatDetail;
