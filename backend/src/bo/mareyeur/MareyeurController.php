@@ -45,6 +45,9 @@ class MareyeurController extends BaseController implements BaseAction {
                         case \App::ACTION_GET_MAREYEURS:
                                 $this->doGetInfoMareyeurs($request);
                                 break;
+                        case \App::ACTION_GET_LAST_NUMBER:
+                                $this->doGetLastNumberMareyeur($request);
+                                break;
                     }
             } else {
                 throw new Exception($this->parameters['NO_ACTION']);
@@ -58,6 +61,7 @@ class MareyeurController extends BaseController implements BaseAction {
         try {
                 $mareyeur = new Mareyeur();
                 $mareyeurManager = new MareyeurManager();
+                $mareyeur->setReference($request['reference']);
                 $mareyeur->setNom($request['nom']);
                 $mareyeur->setAdresse($request['adresse']);
                 $mareyeur->setTelephone($request['telephone']);
@@ -192,6 +196,15 @@ class MareyeurController extends BaseController implements BaseAction {
             $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
-
+    
+     public function doGetLastNumberMareyeur($request) {
+        try {
+                $mareyeurManager = new MareyeurManager();
+                $lastMareyeur = $mareyeurManager->getLastMareyeurNumber();
+                $this->doSuccess($lastMareyeur,'Dernier mareyeur');
+        }  catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
+    }
 }
 $oMareyeurController = new MareyeurController($_REQUEST);

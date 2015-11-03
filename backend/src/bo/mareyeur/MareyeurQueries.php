@@ -218,4 +218,12 @@ class MareyeurQueries {
         else
             return null;
     }
+    
+    public function getLastMareyeurNumber() {
+        $sql = 'select max(id)+1 as lastMareyeur from mareyeur';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $lastMareyeur = $stmt->fetch();
+        return $lastMareyeur['lastMareyeur'];
+    }
 }

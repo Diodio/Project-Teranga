@@ -56,7 +56,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                         <div class="modal-body" style="height: 300px;">
                             <form id="FRM_MAREYEUR" class="form-horizontal" role="form">
-
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="reference" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
                                     <div class="col-sm-9">
@@ -111,6 +116,19 @@ $codeUsine = $_COOKIE['codeUsine'];
     //    var grid;
 
     loadMareyeurs = function () {
+        
+        $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#reference").val(sData.oId);
+            }
+    });
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {userId: "<?php echo $userId; ?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
 
             grid_data = $.parseJSON(data);
@@ -441,6 +459,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         var ACTION = '<?php echo App::ACTION_INSERT; ?>';
         var frmData;
         //             var familleproduit= $('#familleMareyeurId').val();
+        var reference = $("#reference").val();
         var nom = $("#nom").val();
         var adresse = $("#adresse").val();
         var telephone = $("#telephone").val();
@@ -448,7 +467,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
         var formData = new FormData();
         formData.append('ACTION', ACTION);
-        //             formData.append('familleId', familleproduit);
+        formData.append('reference', reference);
         formData.append('nom', nom);
         formData.append('adresse', adresse);
         formData.append('telephone', telephone);

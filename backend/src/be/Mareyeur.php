@@ -96,6 +96,14 @@ class Mareyeur {
         $this->paiement = $paiement;
     }
 
+    public function getReference() {
+        return $this->reference;
+    }
+
+    public function setReference($reference) {
+        $this->reference = $reference;
+    }
+
 
 
     }

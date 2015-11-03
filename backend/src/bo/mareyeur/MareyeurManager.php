@@ -102,4 +102,14 @@ public function retrieveTypes()
         }
         return $list;
     }
+    
+    public function getLastMareyeurNumber() {
+    $lastMareyeurId=$this->mareyeurQuery->getLastMareyeurNumber();
+    if($lastMareyeurId !=null){
+        $lastMareyeurId="MR".$lastMareyeurId;
+    }
+    else
+        $lastMareyeurId="MR1";
+    return $lastMareyeurId;
+}
 }
