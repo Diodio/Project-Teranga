@@ -123,9 +123,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 								<th class="text-center">#</th>
 								<th class="text-center">Designation</th>
 								<th class="text-center">Prix Unitaire</th>
-								<th class="text-center">Quantite (kg)</th>
+								<th class="text-center">Quantite(kg)</th>
 								<th class="text-center">Pourcentage</th>
-								<th class="text-center">Poids Net (kg)</th>
+								<th class="text-center">Poids Net(kg)</th>
 								<th class="text-center">Montant</th>
 							</tr>
 						</thead>
@@ -242,7 +242,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 					<div class="col-md-12 column" style="margin-top: 20px;">
 						<button id="SAVE" class="btn btn-small btn-info pull-right"
 							data-dismiss="modal">
-							<i class="fa fa-plus-square "></i> Valider
+							<i class="fa fa-plus-square "></i> Enregistrer
 						</button>
 					</div>
 				</div>

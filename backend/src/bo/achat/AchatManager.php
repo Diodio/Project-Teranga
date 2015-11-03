@@ -95,7 +95,7 @@ public function findStatisticByUsine($codeUsine) {
             $ligneAchat = $this->achatQuery->findAllProduitByAchact($achatId);
             $achatDetail = array();
             foreach ($achat as $key => $value) {
-                $achatDetail ['id'] = $value ['achat.id'];
+               // $achatDetail ['id'] = $value ['achat.id'];
                 $achatDetail ['numero'] = $value ['numero'];
                 $achatDetail ['dateAchat']  = date_format(date_create($value ['dateAchat']), 'd/m/Y');
                 $achatDetail ['nomMareyeur']  = $value ['nom'];

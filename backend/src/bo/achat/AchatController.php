@@ -98,25 +98,24 @@ private $logger;
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonAchat as $key => $ligneachat) {
-//                            /$ligne = json_decode($ligneachat, TRUE);
-                            if(isset($ligneachat["Désignation"])) {
+                            if(isset($ligneachat["Designation"])) {
                                 $ligneAchat = new \Achat\LigneAchat();
                                 $ligneAchat->setAchat($achat);
-                                $produitId = $ligneachat["Désignation"];
+                                $produitId = $ligneachat["Designation"];
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
                                 $ligneAchat->setProduit($produit);
-                                $ligneAchat->setQuantite($ligneachat['Quantite (kg)']);
+                                $ligneAchat->setQuantite($ligneachat['Quantite(kg)']);
                                 $ligneAchat->setMontant($ligneachat['Montant']);
-                                $ligneAchat->setPoids($ligneachat['Poids Net (kg)']);
+                                $ligneAchat->setPoids($ligneachat['Poids Net(kg)']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
                                 $achatInserted = $ligneAchatManager->insert($ligneAchat); 
                                 if ($achatInserted->getId() != null) {
                                        $stockManager = new \Produit\StockManager();
-                                       if($ligneachat['Quantite (kg)'] !="")
-                                           $nbStock = $ligneachat['Quantite (kg)'];
-                                       if($ligneachat['Poids Net (kg)'] !="")
-                                           $nbStock = $ligneachat['Poids Net (kg)'];
+                                       if($ligneachat['Quantite(kg)'] !="")
+                                           $nbStock = $ligneachat['Quantite(kg)'];
+                                       if($ligneachat['Poids Net(kg)'] !="")
+                                           $nbStock = $ligneachat['Poids Net(kg)'];
                                        $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
                                 }
 //                                $achatPaiement = new AchatPaiement();
