@@ -564,9 +564,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 <![endif]-->
 
         <!--[if !IE]> -->
-        <script type="text/javascript">
+<!--        <script type="text/javascript">
                             window.jQuery || document.write("<script src='assets/js/jquery.min.js'>" + "<" + "/script>");
-        </script>
+        </script>-->
 
         <!-- <![endif]-->
 

@@ -26,8 +26,8 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="row">
         <div class="space-6"></div>
         <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-9">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
                     <div class="col-lg-1">
                         <div class="btn-group">
                                     <button data-toggle="dropdown"
@@ -445,6 +445,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         persistChecked();
+                        $(nRow).css('cursor','pointer');
                         $(nRow).on('click', 'td:not(:first-child)', function(){
                             checkbox=$(this).parent().find('input:checkbox:first');
                             if(!checkbox.is(':checked')){
@@ -537,31 +538,30 @@ $codeUsine = $_COOKIE['codeUsine'];
 
             $("#MNU_VALIDATION").click(function()
             {
-                if (checkedAchat.length == 0)
+                //if (checkedAchat.length == 0)
                     bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedAchat.length > 1)
-                      
-                {
-                     bootbox.confirm("Voulez vous vraiment valider cet achat","Non","Oui", function(result) {
-                    if(result){
-                    var achatId = checkedAchat[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
-                    {
-                        if (data.rc == 0)
-                        {
-                            bootbox.alert("Achat validé");
-                        }
-                        else
-                        {
-                            bootbox.alert(data.error);
-                        }
-                        $.loader.close(true);
-                    }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
-                        });
-                         }
-                    });
-                }
+//                else if (checkedAchat.length > 1)
+//                {
+//                     bootbox.confirm("Voulez vous vraiment valider cet achat","Non","Oui", function(result) {
+//                    if(result){
+//                    var achatId = checkedAchat[0];
+//                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+//                    {
+//                        if (data.rc == 0)
+//                        {
+//                            bootbox.alert("Achat validé");
+//                        }
+//                        else
+//                        {
+//                            bootbox.alert(data.error);
+//                        }
+//                        $.loader.close(true);
+//                    }, "json");
+//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+//                        });
+//                         }
+//                    });
+//                }
             });
             });
         </script>
