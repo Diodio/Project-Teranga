@@ -421,14 +421,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </a> <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li id="MNU_ACHATS" class=""><a id="ACHATS" href="#"> <i
+                            <li id="AJOUTER_ACHATS" class=""><a id="ACHATS" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Ajouter
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="VALIDER_ACHAT" class=""><a id="CLIENTS" href="#"> <i
+                            <li id="LISTE_ACHATS" class=""><a id="CLIENTS" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Liste des bons </span>
+                                        Consulter liste </span>
                                 </a> <b class="arrow"></b>
                             </li>
 
@@ -436,33 +436,41 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </li>
                     
 
-                                          <li class=""><a href="#" class="dropdown-toggle"> <i
+                     <li class=""><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
                                 Bon de Sortie </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
-
                         <ul class="submenu">
-                            <li id="MNU_SORTIE" class=""><a id="ACHATS" href="#"> <i
+                            <li id="AJOUTER_SORTIE" class=""><a id="SORTIE" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Ajouter
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="VALIDER_SORTIE" class=""><a id="CLIENTS" href="#"> <i
+                            <li id="LISTE_SORTIE" class=""><a id="LISTESORTIE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Valider </span>
+                                        Consulter Liste </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li>
+                      
+                    <li class=""><a href="#" class="dropdown-toggle"> <i
+                                class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                Facture  </span>  <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li id="AJOUTER_FACTURE" class=""><a id="FACTURE" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Ajouter
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                            <li id="LISTE_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Consulter Liste </span>
                                 </a> <b class="arrow"></b>
                             </li>
 
                         </ul>
-                    </li>
-                      
-
-                    <li class=""><a href="calendar.html"> <i
-                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
-                                Facture <span class="badge badge-transparent tooltip-error"
-                                              title="2 Important Events"> </span>
-                            </span>
-                        </a> <b class="arrow"></b>
                     </li>
 
 
@@ -614,8 +622,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 	<script src="assets/js/bootstrap-timepicker.min.js"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
-            var gStatTimer;
             jQuery(function ($) {
+
                 $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/home/home.php", function () {
 
                 });
@@ -651,7 +659,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 });
 
-                $("#MNU_ACHATS").click(function (e) {
+                $("#AJOUTER_ACHATS").click(function (e) {
                     // mnu_selected_id = "#MNU_DBD";
                     // mnu_selected_parent_id = "";
                     $("#MNU_CLIENTS").attr("Class", "active");
@@ -679,12 +687,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 });
 
-                $("#VALIDER_ACHAT").click(function (e) {
-                    $("#VALIDER_ACHAT").attr("Class", "active");
+                $("#LISTE_ACHATS").click(function (e) {
+                    $("#LISTE_ACHATS").attr("Class", "active");
                     $("#CMD_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
-                    clearTimeout(gStatTimer);
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
 
                     });
@@ -692,7 +699,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 
                 $("#CMD_MAREYEURS").click(function (e) {
                     $("#CMD_MAREYEURS").attr("Class", "active");
-                    $("#VALIDER_ACHAT").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/commande/commandeMareyeurVue.php", function () {
@@ -700,15 +707,40 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 });
 
-                $("#MNU_SORTIE").click(function (e) {
+                $("#AJOUTER_SORTIE").click(function (e) {
                     $("#CMD_MAREYEURS").attr("Class", "active");
-                    $("#VALIDER_ACHAT").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieVue.php", function () {
 
                     });
                 });
+
+                $("#AJOUTER_FACTURE").click(function (e) {
+                	$("#AJOUTER_FACTURE").attr("Class", "active");
+                    $("#CMD_MAREYEURS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/facturesVue.php", function () {
+
+                    });
+                });
+
+
+                $("#LISTE_FACTURE").click(function (e) {
+                	$("#LISTE_FACTURE").attr("Class", "active");
+                	$("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#CMD_MAREYEURS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/app/facture/listeFactures.php", function () {
+
+                    });
+                });
+                
 
 
             });
