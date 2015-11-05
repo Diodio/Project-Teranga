@@ -215,18 +215,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
                 
                   <div class="col-sm-4" style="margin-left: -770px">
-                    <form class="form-horizontal">
                         <div class="form-group">
                                 <label class="col-sm-6 control-label no-padding-right" for="form-field-1"> Port de Dechargement </label>
-                                <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
-                                <i class="fa fa-plus-square "></i>
-                                Ajouter
-                            </button>
+<!--                                 <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal"> -->
+<!--                                 <i class="fa fa-plus-square "></i> -->
+<!--                                 Ajouter -->
+<!--                                 </button> -->
 <!--                                 <div class="col-sm-6"> -->
 <!--                                     <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10"> -->
 <!--                                 </div> -->
                         </div>
-                    </form>
+                      <div class="col-sm-4" style="margin-left: -770px"
+                        <div class="form-group">
+                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Numero Conteneur </label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
+                                </div>
+                        </div>
+                        
+                    
                  </div>
                  
                 <div class="col-sm-4" >
