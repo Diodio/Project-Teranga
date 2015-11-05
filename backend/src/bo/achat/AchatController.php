@@ -52,6 +52,9 @@ private $logger;
                         case \App::ACTION_ACTIVER:
                                 $this->doValidAchat($request);
                                 break;
+                        case \App::ACTION_DESACTIVER:
+                                $this->doAnnuleAchat($request);
+                                break;
                         case \App::ACTION_GET_LAST_NUMBER:
                                 $this->doGetLastNumberAchat($request);
                                 break;
@@ -206,16 +209,28 @@ private $logger;
             if ($request['achatId'] != null) {
                 $achatManager = new AchatManager();
                 $achatManager->validAchat($request['achatId']);
-                $this->doSuccess($request['messageId'], 'Validation effectué avec succes');
+                $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
-                throw new ConstraintException('');
             }
         }  catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
     }
     
+    public function doAnnuleAchat($request) {
+        try {
+            if ($request['achatId'] != null) {
+                $achatManager = new AchatManager();
+                $achatManager->annulerAchat($request['achatId']);
+                $this->doSuccess($request['achatId'], 'Annulation effectuée avec succes');
+            } else {
+                $this->doError('-1', 'Params not enough');
+            }
+        }  catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
+    }
     public function doGetLastNumberAchat($request) {
         try {
                 $achatManager = new AchatManager();

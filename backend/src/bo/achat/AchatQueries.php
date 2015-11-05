@@ -109,10 +109,13 @@ class AchatQueries {
     }
     
     public function validAchat($achatId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id = '$achatId'");
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id IN( '$achatId')");
         return $query->getResult();
     }
-    
+    public function annulerAchat($achatId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=2 WHERE a.id IN( '$achatId')");
+        return $query->getResult();
+    }
     public function findValidAchatByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

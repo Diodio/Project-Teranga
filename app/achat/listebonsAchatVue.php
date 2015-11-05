@@ -45,7 +45,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                        <li id='MNU_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -309,6 +308,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                 return false;
             };
             // Persist checked Message when navigating
+            
+            
             persistChecked = function() {
                 $('input[type="checkbox"]', "#LIST_ACHATS").each(function() {
                     if (checkedAchatContains($(this).val())) {
@@ -438,7 +439,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 if (data == 0)
                                     src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check green bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                else if (data == 2)
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }
@@ -538,30 +541,56 @@ $codeUsine = $_COOKIE['codeUsine'];
 
             $("#MNU_VALIDATION").click(function()
             {
-                //if (checkedAchat.length == 0)
+                if (checkedAchat.length == 0)
                     bootbox.alert("Veuillez selectionnez un achat");
-//                else if (checkedAchat.length > 1)
-//                {
-//                     bootbox.confirm("Voulez vous vraiment valider cet achat","Non","Oui", function(result) {
-//                    if(result){
-//                    var achatId = checkedAchat[0];
-//                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
-//                    {
-//                        if (data.rc == 0)
-//                        {
-//                            bootbox.alert("Achat validé");
-//                        }
-//                        else
-//                        {
-//                            bootbox.alert(data.error);
-//                        }
-//                        $.loader.close(true);
-//                    }, "json");
-//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
-//                        });
-//                         }
-//                    });
-//                }
+                else if (checkedAchat.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment valider cet achat", function(result) {
+                    if(result){
+                    var achatId = checkedAchat[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+                    {
+                        if (data.rc == 0)
+                        {
+                            bootbox.alert("Achat(s) validé(s)");
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                        $.loader.close(true);
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                        });
+                         }
+                    });
+                }
+            });
+            $("#MNU_ANNULATION").click(function()
+            {
+                if (checkedAchat.length == 0)
+                    bootbox.alert("Veuillez selectionnez un achat");
+                else if (checkedAchat.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
+                    if(result){
+                    var achatId = checkedAchat[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Achat(s) annulés(s)");
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                        });
+                         }
+                    });
+                }
             });
             });
         </script>

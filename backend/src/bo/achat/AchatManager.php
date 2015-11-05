@@ -48,9 +48,11 @@ class AchatManager {
         return $this->achatQuery->count($codeUsine,$where);
     }
     public function validAchat($achatId) {
-        $this->achatQuery->pause($achatId);
+        return $this->achatQuery->validAchat($achatId);
     }
-    
+    public function annulerAchat($achatId) {
+        return $this->achatQuery->annulerAchat($achatId);
+    }
 public function getLastNumberAchat() {
     $lastAchatId=$this->achatQuery->getLastNumberAchat();
     if($lastAchatId !=null){
