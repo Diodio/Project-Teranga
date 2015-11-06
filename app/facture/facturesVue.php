@@ -248,20 +248,20 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </select>
                                </div>
                        </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 11%;">
                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
                                <div class="col-sm-7">
                         <input type="text" id="numCheque" placeholder=""
                                            class="col-xs-12 col-sm-10">
                                </div>
                        </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 11%;">
                                 <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Avance </label>
                                 <div class="col-sm-7">
                                     <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
                                 </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 11%;">
                                 <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Reliquat </label>
                                 <div class="col-sm-7">
                                     <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10">

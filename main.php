@@ -475,12 +475,23 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 
 
-                    <li class=""><a href="calendar.html"> <i
-                                class="menu-icon fa fa-calendar"></i> <span class="menu-text">
-                                Paiement <span class="badge badge-transparent tooltip-error"
-                                               title="2 Important Events"> </span>
-                            </span>
+                      <li class=""><a href="#" class="dropdown-toggle"> <i
+                                class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                Reglement  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li id="RGL_ACHAT" class=""><a id="FACTURE" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Achat
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                            <li id="RGL_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Facture </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                        </ul>
                     </li>
 
 

@@ -94,7 +94,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label class="col-sm-4 control-label no-padding-right"
 							for="form-field-1"> Heure de réception</label>
 						<div class="bootstrap-timepicker col-sm-6"
-							style="margin-left: -22px;; width: 70%;">
+							style="margin-left: -22px; width: 20%;">
 							<div class="clearfix">
 								<input name="heureReception" id="heureReception" type="text"
 									class="col-xs-10 col-sm-7" />
@@ -206,7 +206,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 								</div>
 							</div>
 						</div>
-						<div class="form-group" style="margin-bottom: 86px;">
+						<div class="form-group" style="margin-bottom: 86px;margin-top: 11%;">
 							<label class="col-sm-5 control-label no-padding-right"
 								for="form-field-1"> No Cheque </label>
 							<div class="col-sm-7">
@@ -216,7 +216,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 								</div>
 							</div>
 						</div>
-						<div class="form-group" style="margin-bottom: 132px;">
+						<div class="form-group" style="margin-bottom: 132px;margin-top: 11%;">
 							<label class="col-sm-5 control-label no-padding-right"
 								for="form-field-1"> Avance </label>
 							<div class="col-sm-7">
