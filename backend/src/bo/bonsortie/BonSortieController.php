@@ -8,6 +8,7 @@ $lang='fr';
 use BonSortie\BonSortie as BonSortie;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
+use BonSortie\LigneBonSortie as LigneBonSortie;
 use BonSortie\BonSortieManager as BonSortieManager;
 use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
@@ -78,65 +79,55 @@ private $logger;
 
     public function doInsert($request) {
         try {
-            $this->logger->log->trace("tesst1");
-            
-                $achatManager = new BonSortieManager();
-                
-                $achat = new BonSortie();
-                $achat->setNumero($request['numBonSortie']);
-                $achat->setHeureReception(new \DateTime($request['heureReception']));
-                $achat->setDateBonSortie(new \DateTime("now"));
-                $achat->setPoidsTotal($request['poidsTotal']);
-                $achat->setMontantTotal($request['montantTotal']);
-                $achat->setModePaiement($request['modePaiement']);
-                $achat->setNumCheque($request['numCheque']);
-                $achat->setCodeUsine($request['codeUsine']);
-                $achat->setLogin($request['login']);
-                $mareyeurManager = new \Mareyeur\MareyeurManager();
-                $mareyeur = $mareyeurManager->findById($request['mareyeur']);
-                
-               // var_dump($request['mareyeur']);
-               $achat->setMareyeur($mareyeur);
-                
-                $achatAdded = $achatManager->insert($achat);
+                $this->logger->log->trace("tesst1");
+                $bonSortieManager = new BonSortieManager();
+                $bonSortie = new BonSortie();
+                $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
+                $bonSortie->setDateBonSortie(new \DateTime("now"));
+                $bonSortie->setNumeroCamion($request['numeroCamion']);
+                $bonSortie->setNomChauffeur($request['nomChauffeur']);
+                $bonSortie->setOrigine($request['origine']);
+                $bonSortie->setNumeroContainer($request['numContainer']);
+                $bonSortie->setNumeroPlomb($request['numeroPlomb']);
+                $bonSortie->setDestination($request['destination']);
+                $bonSortie->setCodeUsine($request['codeUsine']);
+                $bonSortie->setLogin($request['login']);
+                $bonSortie->setStatus(0);
+                $bonSortie->setPoidsTotal($request['poidsTotal']);
+                $clientManager = new Client\ClientManager();
+                $client = $clientManager->findById($request['client']);
+                $bonSortie->setClient($client);
+                $Added = $bonSortieManager->insert($bonSortie);
            //     var_dump("fgf");
-                if ($achatAdded->getId() != null) {
+                if ($Added->getId() != null) {
                     $jsonBonSortie = json_decode($_POST['jsonProduit'], true);
-                         foreach ($jsonBonSortie as $key => $ligneachat) {
-                            if(isset($ligneachat["Designation"])) {
-                                $ligneBonSortie = new \BonSortie\LigneBonSortie();
-                                $ligneBonSortie->setBonSortie($achat);
-                                $produitId = $ligneachat["Designation"];
+                         foreach ($jsonBonSortie as $key => $ligne) {
+                            if(isset($ligne["Désignation"])) {
+                                $ligneBonSortie = new LigneBonSortie();
+                                $ligneBonSortie->setBonSortie($bonSortie);
+                                $produitId = $ligne["Désignation"];
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
                                 $ligneBonSortie->setProduit($produit);
-                                $ligneBonSortie->setQuantite($ligneachat['Quantite(kg)']);
-                                $ligneBonSortie->setMontant($ligneachat['Montant']);
-                                $ligneBonSortie->setPoids($ligneachat['Poids Net(kg)']);
+                                $ligneBonSortie->setQuantite($ligne['Quantité(kg)']);
                                 $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
-                                $achatInserted = $ligneBonSortieManager->insert($ligneBonSortie); 
-                                if ($achatInserted->getId() != null) {
+                                $Inserted = $ligneBonSortieManager->insert($ligneBonSortie); 
+                                if ($Inserted->getId() != null) {
                                        $stockManager = new \Produit\StockManager();
-                                       if($ligneachat['Quantite(kg)'] !="")
-                                           $nbStock = $ligneachat['Quantite(kg)'];
-                                       if($ligneachat['Poids Net(kg)'] !="")
-                                           $nbStock = $ligneachat['Poids Net(kg)'];
-                                       $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
+                                       if($ligne['Quantité(kg)'] !="")
+                                           $nbStock = $ligne['Quantité(kg)'];
+                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
                                 }
-//                                $achatPaiement = new BonSortiePaiement();
-//                                $achatPaiement->setBonSortie($achat);
-//                                $achatPaiement->setMontant($request['avance']);
-//                                $achatPaiement->setDatePaiement(new \DateTime("now"));
                             }
                          }
-                    $this->doSuccess($achatAdded->getId(), 'BonSortie enregistré avec succes');
+                    $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'inserer cet achat');
                 }
                 
             
         } catch (Exception $e) {
-            $this->doError('-1', 'ERREUR SERVEUR');
+            $this->doError('-1', 'ERREUR SERVEUR' . $e->getMessage());
         }
     }
 
@@ -235,9 +226,9 @@ private $logger;
     }
     public function doGetLastNumberBonSortie($request) {
         try {
-                $achatManager = new BonSortieManager();
-                $lastBonSortie = $achatManager->getLastNumberBonSortie();
-                $this->doSuccess($lastBonSortie,'Dernier bon d\'achat');
+                $bonSortieManager = new BonSortieManager();
+                $lastBonSortie = $bonSortieManager->getLastNumberBonSortie();
+                $this->doSuccess($lastBonSortie,'Dernier numero bon de sortie');
         }  catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }

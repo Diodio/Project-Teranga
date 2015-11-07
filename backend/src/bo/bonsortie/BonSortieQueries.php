@@ -100,12 +100,12 @@ class BonSortieQueries {
         return $nbClients['nbAchats'];
     }
     
-    public function getLastNumberBonBonSortie() {
-        $sql = 'select max(id)+1 as lastAchats from achat';
+    public function getLastNumberBonSortie() {
+        $sql = 'select max(id)+1 as lastNumber from bon_sortie';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
-        $lastAchat = $stmt->fetch();
-        return $lastAchat['lastAchats'];
+        $lastNumber = $stmt->fetch();
+        return $lastNumber['lastNumber'];
     }
     
     public function validAchat($sortieId) {

@@ -144,7 +144,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<tr>
 							<th class="text-center">N0</th>
 							<th class="text-center">Désignation</th>
-							<th class="text-center">Quantite</th>
+							<th class="text-center">Quantité(kg)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -219,7 +219,7 @@ $(document).ready(function () {
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
     $('#dateBonSortie').attr('value', today);
-    $.post("<?php echo App::getBoPath(); ?>/sortie/SortieController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+    $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -313,9 +313,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     
 
    
-    $('#designation0').change(function() {
-        loadPrix('designation0','pu0');
-        });
+  
    
             
         function calculTotalPoids(){
@@ -337,13 +335,13 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;            
             var clients = $("#CMB_CLIENTS").val();
-            var origine = $("#CMBORIGINES").val();
+            var origine = $('#CMBORIGINES').select2('data').text;
             var numContainer= $('#numContainer').val();
             var numeroPlomb= $('#numeroPlomb').val();
             var numeroBonSortie = $("#numeroBonSortie").val();
             var numeroCamion = $("#numeroCamion").val();
             var nomChauffeur = $("#nomChauffeur").val();
-            var destination = $("#CMBDESTINATIONS").val();
+            var destination = $('#CMBDESTINATIONS').select2('data').text;
             var poidsTotal = $("#poidsTotal").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
@@ -374,8 +372,8 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             console.log(tbl);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('clients', clients);
-            formData.append('dateAchat', dateAchat);
+            formData.append('client', clients);
+            formData.append('dateBonSortie', dateAchat);
             formData.append('origine', origine);
             formData.append('numContainer', numContainer);
             formData.append('numeroPlomb', numeroPlomb);
@@ -388,7 +386,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/achat/achatController.php',
+                url: '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -403,7 +401,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/bonSortieListe.php", function () {
                         });
                     } 
                     else
@@ -424,7 +422,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 
         };   
         $("#SAVE").bind("click", function () {
-             BonSortieProcess();
+           BonSortieProcess();
                    });
    });
 </script>

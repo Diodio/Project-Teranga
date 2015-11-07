@@ -58,7 +58,12 @@ class BonSortie {
 
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="produit") */
     public $produit;
+  
     
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $poidsTotal;
     /**
      * @Column(type="integer", options={"default":0}) 
      **/
@@ -210,6 +215,14 @@ class BonSortie {
 
     public function setClient($client) {
         $this->client = $client;
+    }
+
+    public function getPoidsTotal() {
+        return $this->poidsTotal;
+    }
+
+    public function setPoidsTotal($poidsTotal) {
+        $this->poidsTotal = $poidsTotal;
     }
 
 

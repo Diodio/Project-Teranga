@@ -202,4 +202,10 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
         return $connexion->executeUpdate("UPDATE stock SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
 	}
+        
+      public function destockage($produitId, $codeUsine, $nbStock ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        return $connexion->executeUpdate("UPDATE stock SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+		
+	}
 }

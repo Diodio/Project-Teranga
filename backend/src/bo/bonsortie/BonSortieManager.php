@@ -1,6 +1,6 @@
 <?php
 
-namespace BonBonSortie;
+namespace BonSortie;
 use BonSortie\BonSortieQueries as BonSortieQueries;
 /**
  * Cette classe communique avec la classe ContactQueries
@@ -53,8 +53,8 @@ class BonSortieManager {
     public function annulerBonSortie($bonSortieId) {
         return $this->bonSortieQuery->annulerBonSortie($bonSortieId);
     }
-public function getLastNumberBonBonSortie() {
-    $lastBonSortieId=$this->bonSortieQuery->getLastNumberBonBonSortie();
+public function getLastNumberBonSortie() {
+    $lastBonSortieId=$this->bonSortieQuery->getLastNumberBonSortie();
     if($lastBonSortieId !=null){
     if(strlen($lastBonSortieId)==1) $lastBonSortieId="0000".$lastBonSortieId;
     else if(strlen($lastBonSortieId)==2) $lastBonSortieId="000".$lastBonSortieId;

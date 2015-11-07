@@ -5,7 +5,7 @@ namespace BonSortie;
 use Racine\Bootstrap as Bootstrap;
 use Exception as Exception;
 
-class LigneSortieQueries {
+class LigneBonSortieQueries {
     /*
      *
      */
@@ -19,7 +19,7 @@ class LigneSortieQueries {
 
     public function __construct() {
         $this->entityManager = Bootstrap::$entityManager;
-        $this->classString = 'BonSortie\LigneSortie';
+        $this->classString = 'BonSortie\LigneBonSortie';
     }
 
    

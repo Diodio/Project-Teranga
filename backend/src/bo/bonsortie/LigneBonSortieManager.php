@@ -1,21 +1,21 @@
 <?php
 
 namespace BonSortie;
-use Sortie\LigneSortieQueries as LigneSortieQueries;
+use BonSortie\LigneBonSortieQueries as LigneBonSortieQueries;
 
 
 
-class LigneSortieManager {
+class LigneBonSortieManager {
 
-    private $ligneSortieQuery;
+    private $ligneBonSortieQuery;
    
 
     public function __construct() {
-        $this->ligneSortieQuery = new LigneSortieQueries();
+        $this->ligneBonSortieQuery = new LigneBonSortieQueries();
     }
     
     public function insert($ligneSortie) {
-        $this->ligneSortieQuery->insert($ligneSortie);
+        $this->ligneBonSortieQuery->insert($ligneSortie);
     	return $ligneSortie;
     }
     
