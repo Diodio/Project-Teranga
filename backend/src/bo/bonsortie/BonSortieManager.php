@@ -48,10 +48,10 @@ class BonSortieManager {
         return $this->bonSortieQuery->count($codeUsine,$where);
     }
     public function validBonSortie($bonSortieId) {
-        return $this->bonSortieQuery->validBonSortie($bonSortieId);
+        return $this->bonSortieQuery->validBon($bonSortieId);
     }
     public function annulerBonSortie($bonSortieId) {
-        return $this->bonSortieQuery->annulerBonSortie($bonSortieId);
+        return $this->bonSortieQuery->annulerBon($bonSortieId);
     }
 public function getLastNumberBonSortie() {
     $lastBonSortieId=$this->bonSortieQuery->getLastNumberBonSortie();
@@ -68,22 +68,22 @@ public function getLastNumberBonSortie() {
 
 public function findStatisticByUsine($codeUsine) {
         if ($codeUsine != null) {
-            $validBonSortie = $this->bonSortieQuery->findValidBonSortieByUsine($codeUsine);
-            $nonValidBonSortie = $this->bonSortieQuery->findNonValidBonSortieByUsine($codeUsine);
-            $bonSortieAnnuler = $this->bonSortieQuery->findBonSortieAnnulerByUsine($codeUsine);
+            $validBonSortie = $this->bonSortieQuery->findValidBonByUsine($codeUsine);
+            $nonValidBonSortie = $this->bonSortieQuery->findNonValidBonByUsine($codeUsine);
+            $bonSortieAnnuler = $this->bonSortieQuery->findBonAnnulerByUsine($codeUsine);
             $bonSortieTab = array();
                 if ($validBonSortie != null)
-                    $bonSortieTab['nbValid'] = $validBonSortie;
+                    $bonSortieTab['nb'] = $validBonSortie;
                 else
-                    $bonSortieTab['nbValid'] = 0;
+                    $bonSortieTab['nb'] = 0;
                 if ($nonValidBonSortie != null)
-                    $bonSortieTab['nbNonValid'] = $nonValidBonSortie;
+                    $bonSortieTab['nb'] = $nonValidBonSortie;
                 else
-                    $bonSortieTab['nbNonValid']= 0;
+                    $bonSortieTab['nb']= 0;
                 if ($bonSortieAnnuler != null)
-                    $bonSortieTab['nbAnnule'] = $bonSortieAnnuler;
+                    $bonSortieTab['nb'] = $bonSortieAnnuler;
                 else
-                    $bonSortieTab['nbAnnule'] = 0;
+                    $bonSortieTab['nb'] = 0;
                 
                
             return $bonSortieTab;

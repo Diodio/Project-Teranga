@@ -138,7 +138,7 @@ private $logger;
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateBonSortie', 'numero', 'nom');
+                $aColumns = array('dateBonSortie', 'numeroBonSortie', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {

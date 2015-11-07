@@ -46,12 +46,12 @@ class BonSortieQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'select achat.id,status,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie, nom
+                    from bon_sortie, client where client.id=bon_sortie.client_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'select achat.id, status,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie, nom
+                    from bon_sortie, client where client.id=bon_sortie.client_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -62,8 +62,8 @@ class BonSortieQueries {
         foreach ($products as $key => $value) {
             $arrayAchats [$i] [] = $value ['id'];
             $arrayAchats [$i] [] = $value ['status'];
-            $arrayAchats [$i] [] = $value ['dateAchat'];
-            $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['dateBonSortie'];
+            $arrayAchats [$i] [] = $value ['numeroBonSortie'];
             $arrayAchats [$i] [] = $value ['nom'];
             $i++;
         }
@@ -73,7 +73,7 @@ class BonSortieQueries {
  
   
 
-     public function findById($produitId) {
+     public function findById($bonId) {
             $query = Bootstrap::$entityManager->createQuery("select p from Achat\Achat p where p.id = :produitId");
             $query->setParameter('familleId', $produitId);
             $produit = $query->getResult();
@@ -86,18 +86,18 @@ class BonSortieQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'select count(bon_sortie.id) as nb
+                    from bon_sortie, client where client.id=bon_sortie.client_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
+             $sql = 'select count(bon_sortie.id) as nb
+                    from bon_sortie, client where client.id=bon_sortie.client_id ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
-        $nbClients = $stmt->fetch();
-        return $nbClients['nbAchats'];
+        $nbBon = $stmt->fetch();
+        return $nbBon['nb'];
     }
     
     public function getLastNumberBonSortie() {
@@ -108,39 +108,39 @@ class BonSortieQueries {
         return $lastNumber['lastNumber'];
     }
     
-    public function validAchat($sortieId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id IN( '$sortieId')");
+    public function validBon($sortieId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE BonSortie\BonSortie a set a.status=1 WHERE a.id IN( '$sortieId')");
         return $query->getResult();
     }
-    public function annulerAchat($sortieId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=2 WHERE a.id IN( '$sortieId')");
+    public function annulerBon($sortieId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE BonSortie\BonSortie a set a.status=2 WHERE a.id IN( '$sortieId')");
         return $query->getResult();
     }
-    public function findValidAchatByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
+    public function findValidBonByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM bon_sortie WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
     
-    public function findNonValidAchatByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+    public function findNonValidBonByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM bon_sortie WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
-    public function findAchatAnnulerByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=2 AND codeUsine="'.$codeUsine.'"';
+    public function findBonAnnulerByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM bon_sortie WHERE STATUS=2 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
-     public function findAchatDetails($sortieId) {
+     public function findBonDetails($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $sortieId;
+            $sql = 'SELECT * from bon_sortie, client where client.id=bon_sortie.client_id and bon_sortie.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();
@@ -151,9 +151,9 @@ class BonSortieQueries {
         }
     }
     
-    public function findAllProduitByAchact($sortieId) {
+    public function findAllProduitByBon($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=' . $sortieId;
+            $sql = 'SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM bon_sortie a, ligne_bon_sortie al, produit p WHERE a.id=al.bon_sortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();

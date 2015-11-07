@@ -741,17 +741,28 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 
 
                 $("#LISTE_FACTURE").click(function (e) {
-                	$("#LISTE_FACTURE").attr("Class", "active");
-                	$("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
                     $("#CMD_MAREYEURS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/app/facture/listeFactures.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listeFactures.php", function () {
 
                     });
                 });
                 
+                $("#LISTE_SORTIE").click(function (e) {
+                    $("#LISTE_SORTIE").attr("Class", "active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#CMD_MAREYEURS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieListe.php", function () {
+
+                    });
+                });
 
 
             });

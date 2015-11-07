@@ -11,525 +11,585 @@ $profil = $_COOKIE['profil'];
 $status = $_COOKIE['status'];
 $codeUsine = $_COOKIE['codeUsine'];
 ?>
-
-
 <div class="page-content">
-	<div class="page-header">
-		<h1>
-			Gestion des Bons de sortie <small> <i
-				class="ace-icon fa fa-angle-double-right"></i> Destockage
-			</small>
-		</h1>
-	</div>
-	<!-- /.page-header -->
-
-	<div class="row">
-		<div class="col-xs-12">
-		
-		<div class="col-sm-3">
-				<h4 class="pink">
-					<i
-						class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-					<a href="#modal-table" role="button" class="green"
-						data-toggle="modal"> Liste des bon de Sortie </a>
-				</h4>
-			</div>
-
-			<div class="col-lg-3">
-				<div class="control-group">
-					<div class="controls">
-						<select id="GRP_CMB" style="width: 225px">
-							<option value="*" class="groups">type</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- PAGE CONTENT BEGINS -->
-			
-<!-- 			<div class="col-sm-6" > -->
-<!-- 				<button id="MNU_MAREYEUR_NEW" class="btn btn-primary btn-xs" -->
-<!-- 					title="Mareyeur"> -->
-<!-- 					<i class="ace-icon fa fa-plus-square bigger-110"></i> Nouveau -->
-<!-- 				</button> -->
-<!-- 			</div> -->
-			<div class="row">
-				<div class="col-xs-12">
-					<table id="grid-table"></table>
-					<div id="grid-pager"></div>
-				</div>
-			</div>
+    <div class="page-header">
+        <h1>
+            Gestion des bons sortie
+            <small>
+                <i class="ace-icon fa fa-angle-double-right"></i>
+                Liste des bons de sortie
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
 
 
-			<div id="winModalMareyeur" class="modal fade" tabindex="-1">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h3 class="smaller lighter blue no-margin">Produit</h3>
-						</div>
+    <div class="row">
+        <div class="space-6"></div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+                    <div class="col-lg-1">
+                        <div class="btn-group">
+                                    <button data-toggle="dropdown"
+                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="
+                                            height: 32px;
+                                            width: 80px;
+                                            margin-top: -1px;
+                                            margin-left: -40%;
+                                        ">
+                                        <i class="icon-group icon-only icon-on-right"></i> Action
+                                    </button>
 
-						<div class="modal-body" style="height: 300px;">
-							<form id="FRM_MAREYEUR" class="form-horizontal" role="form">
+                                    <ul class="dropdown-menu dropdown-info">
+                                        <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
+                                        <li class="divider"></li>
+                                        <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                    </ul>
+                                </div>
+                    </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                
+                <div class="widget-box transparent">
+                    <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des bons de sortie
+                        </h4>
 
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right"
-										for="form-field-1"> Numero </label>
-									<div class="col-sm-9">
-										<input type="text" id="nom" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right"
-										for="form-field-1"> Date</label>
-									<div class="col-sm-9">
-										<input type="text" id="adresse" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
+                        <div class="widget-toolbar">
+                            <a href="#" data-action="collapse">
+                                <i class="ace-icon fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
 
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right"
-										for="form-field-1"> Quantit�</label>
-									<div class="col-sm-9">
-										<input type="text" id="telephone" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right"
-										for="form-field-1"> Client </label>
-									<div class="col-sm-9">
-										<input type="number" id="compte" placeholder=""
-											class="col-xs-10 col-sm-7">
-									</div>
-								</div>
+                    <div class="widget-body">
+                        <div class="widget-main no-padding">
+                          <table id="LIST_BONS" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center" style="border-right: 0px none;">
+                                    <label>
+                                        <input type="checkbox" value="*" name="allchecked"/>
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th class="center" style="border-left: 0px none;border-right: 0px none;"></th>                               
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Date
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Numero
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Client
+                                </th>
 
-							</form>
-						</div>
+                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
+                                </th>-->
+                            </tr>
+                        </thead>
 
-						<div class="modal-footer">
-							<button id="SAVE" class="btn btn-small btn-info"
-								data-dismiss="modal">
-								<i class="ace-icon fa fa-save"></i> Enregistrer
-							</button>
+                        <tbody>
 
-							<button id="CANCEL" class="btn btn-small btn-danger"
-								data-dismiss="modal">
-								<i class="fa fa-times"></i> Annuler
-							</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</div>
-		</div>
-		<!-- /.col -->
-	</div>
-	<!-- /.row -->
+                        </tbody>
+                    </table>
+                        </div><!-- /.widget-main -->
+                    </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
+            </div><!-- /.col -->
+            <div class="col-sm-7">
+                <div class="widget-container-span">
+                    <div class="widget-box transparent">
+                        <div class="widget-header">
 
-</div>
-<!-- /.page-content -->
+                            <h4 class="lighter"></h4>
+                            <div class="widget-toolbar no-border">
+                                <ul class="nav nav-tabs" id="TAB_GROUP">
 
-<script type="text/javascript">
+                                    <li id="TAB_INFO_VIEW" class="active">
+                                        <a id="TAB_INFO_LINK" data-toggle="tab" href="#TAB_INFO">
+                                            <i class="green icon-dashboard bigger-110"></i>
+                                            Statistique
+                                        </a>
+                                    </li>
+                                    <li id="TAB_MSG_VIEW">
+                                        <a id="TAB_MSG_LINK" data-toggle="tab" href="#TAB_MSG">
+                                            <i class="red icon-comments-alt bigger-110"></i>
+                                            <span id="TAB_MSG_TITLE">...</span>
+                                        </a>
+                                    </li>
 
-    var grid_data;
-    //    var grid;
+                                </ul>
+                            </div>
+                        </div>
 
-    loadMareyeurs = function () {
-        $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {userId: "<?php echo $userId; ?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
+                        <div class="widget-body">
+                            <div class="widget-main padding-12 no-padding-left no-padding-right">
+                                <div class="tab-content padding-4">
+                                    <div id="TAB_INFO" class="tab-pane in active">
+                                        <div>
 
-            grid_data = $.parseJSON(data);
-            jQuery(grid_selector).jqGrid({
-                //direction: "rtl",
+                                            <div class="span12 infobox-container">
+                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon fa-play"></i>
+                                                        </div>
 
-                //subgrid options
-                //subGrid : false,
-                //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
-                //datatype: "xml",
-                subGridOptions: {
-                    plusicon: "ace-icon fa fa-plus center bigger-110 blue",
-                    minusicon: "ace-icon fa fa-minus center bigger-110 blue",
-                    openicon: "ace-icon fa fa-chevron-right center orange"
-                },
-                //for this example we are using local data
+                                                        <div class="infobox-data" >
+                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon-pause"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data">
+                                                            <div class="infobox-content" id="INDIC_BON_VALIDES">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats validé</div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon-calendar"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data">
+                                                            <div class="infobox-content" id="INDIC_BON_ANNULES">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="space-6"></div>
+                                                    <br/>
+
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                    <div id="TAB_MSG" class="tab-pane">
+                        <div class="slim-scroll" data-height="100">
+                            <div class="span12">
+
+                              <div class="profile-user-info">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Date bonsortie </div>
+                        <div class="profile-info-value">
+                            <span id="AchatDate"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Nom Mareyeur </div>
+                        <div class="profile-info-value">
+                            <span id="AchatNomMareyeur"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Origine </div>
+                        <div class="profile-info-value">
+                            <span id="bonsortieAdresseMareyeur"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Créé par </div>
+                        <div class="profile-info-value">
+                            <span id="bonsortieUser"></span>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des produits
+                        </h4>
+                    <table class="table table-bordered table-hover"id="TABLE_ACHATS">
+                        <thead>
+                            <tr>
+                                    <th class="text-center">
+                                            Désignation
+                                    </th>
+                                    <th class="text-center">
+                                            Prix Unitaire
+                                    </th>
+                                    <th class="text-center">
+                                            Quantite (kg)
+                                    </th>
+                                    <th class="text-center">
+                                            Montant
+                                    </th>
+                            </tr>
+                        </thead>
+				<tbody>
+				
+				</tbody>
+			</table>
+                        <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Poids Total </div>
+                                <div class="profile-info-value">
+                                    <span id="PoidsTotal"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Montant Total </div>
+                                <div class="profile-info-value">
+                                    <span id="MontantTotal"></span>
+                                </div>
+                            </div>
+                        </div>
+                                            </div>
+                                        </div>
+
+                                    </div><!--End TAB_MSG -->
 
 
 
-                data: grid_data,
-                datatype: "local",
-                height: 250,
-                colNames: [' ', 'nom', 'adresse', 'telephone', 'montant Financement'],
-                colModel: [
-                    {name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
-                        formatter: 'actions',
-                        formatoptions: {
-                            keys: true,
-                            //delbutton: false,//disable delete button
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            delOptions: {recreateForm: true, beforeShowForm: beforeDeleteCallback},
-                            //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                        }
-                    },
-                    // 						{name:'id',index:'id', width:60, sorttype:"int", editable: true},
-                    {name: 'nom', index: 'nom', width: 90, editable: true, sorttype: "date", editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'adresse', index: 'adresse', width: 150, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'telephone', index: 'telephone', width: 70, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'montantFinancement', index: 'montantFinancement', width: 90, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                ],
-                viewrecords: true,
-                rowNum: 10,
-                rowList: [10, 20, 30],
-                pager: pager_selector,
-                altRows: true,
-                //toppager: true,
+                </div><!--/.span6-->
+            </div>
+        </div><!-- /.row -->
+    </div>
+    
+    <script type="text/javascript">
+            jQuery(function ($) {
+            var oTableBons= null;
+            var nbTotalBonChecked=0;
+            var checkedBon = new Array();
+            // Check if an item is in the array
+           // var interval = 500;
+            getIndicator = function() {
+                var url;
+                var user;
+                url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
+                userProfil=$.cookie('profil');
+                if(userProfil==='admin')
+                   user = 'login=<?php echo $login; ?>';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
+                    cache: false,
+                    success: function(data) {
+                        $('#INDIC_BON_VALIDES').text(data.nbValid);
+                        $('#INDIC_BON_NONVALIDES').text(data.nbNonValid);
+                        $('#INDIC_BON_ANNULES').text(data.nbAnnule);
 
-                multiselect: true,
-                //multikey: "ctrlKey",
-                multiboxonly: true,
-                loadComplete: function () {
-                    var table = this;
-                    setTimeout(function () {
-                        styleCheckbox(table);
-
-                        updateActionIcons(table);
-                        updatePagerIcons(table);
-                        enableTooltips(table);
-                    }, 0);
-                },
-                editurl: "<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php?ACTION=UPDATE", //nothing is saved
-                dataType: 'json',
-                caption: "Sortie"
-            });
-            $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
-
-
-            //switch element when editing inline
-            function aceSwitch(cellvalue, options, cell) {
-                setTimeout(function () {
-                    $(cell).find('input[type=checkbox]')
-                            .addClass('ace ace-switch ace-switch-5')
-                            .after('<span class="lbl"></span>');
-                }, 0);
-            }
-            //enable datepicker
-            function pickDate(cellvalue, options, cell) {
-                setTimeout(function () {
-                    $(cell).find('input[type=text]')
-                            .datepicker({format: 'yyyy-mm-dd', autoclose: true});
-                }, 0);
-            }
-
-
-            //navButtons
-            jQuery(grid_selector).jqGrid('navGrid', pager_selector,
-                    {//navbar options
-                        edit: true,
-                        editicon: 'ace-icon fa fa-pencil blue',
-                        add: true,
-                        addicon: 'ace-icon fa fa-plus-circle purple',
-                        del: true,
-                        delicon: 'ace-icon fa fa-trash-o red',
-                        search: true,
-                        searchicon: 'ace-icon fa fa-search orange',
-                        refresh: true,
-                        refreshicon: 'ace-icon fa fa-refresh green',
-                        view: true,
-                        viewicon: 'ace-icon fa fa-search-plus grey',
-                    },
-                    {
-                        //edit record form
-                        closeAfterEdit: true,
-                        width: 700,
-                        recreateForm: true,
-                        beforeShowForm: function (e) {
-                            var form = $(e[0]);
-                            form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                            style_edit_form(form);
-                        }
-                    },
-            {
-                //new record form
-                //width: 700,
-                closeAfterAdd: true,
-                recreateForm: true,
-                viewPagerButtons: false,
-                beforeShowForm: function (e) {
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
-                            .wrapInner('<div class="widget-header" />')
-                    style_edit_form(form);
-                }
-            },
-            {
-                //delete record form
-                recreateForm: true,
-                beforeShowForm: function (e) {
-                    var form = $(e[0]);
-                    if (form.data('styled'))
-                        return false;
-
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                    style_delete_form(form);
-
-                    form.data('styled', true);
-                },
-                onClick: function (e) {
-                    //alert(1);
-                }
-            },
-            {
-                //search form
-                recreateForm: true,
-                afterShowSearch: function (e) {
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                    style_search_form(form);
-                },
-                afterRedraw: function () {
-                    style_search_filters($(this));
-                }
-                ,
-                multipleSearch: true,
-                /**
-                 multipleGroup:true,
-                 showQuery: true
-                 */
-            },
-                    {
-                        //view record form
-                        recreateForm: true,
-                        beforeShowForm: function (e) {
-                            var form = $(e[0]);
-                            form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                        }
+//                        gStatTimer = setTimeout(function() {
+//                            getIndicator();
+//                        }, interval);
                     }
-            )
-        });
-
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
-
-        //resize to fit page size
-        $(window).on('resize.jqGrid', function () {
-            $(grid_selector).jqGrid('setGridWidth', $(".page-content").width());
-        })
-        //resize on sidebar collapse/expand
-        var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
-            if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
-                //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
-                setTimeout(function () {
-                    $(grid_selector).jqGrid('setGridWidth', parent_column.width());
-                }, 0);
-            }
-        });
-
-    };
-    loadMareyeurs();
-
-
-
-
-
-
-    function style_edit_form(form) {
-        //enable datepicker on "sdate" field and switches for "stock" field
-      //  form.find('input[name=sdate]').datepicker({format: 'yyyy-mm-dd', autoclose: true})
-
-      //  form.find('input[name=stock]').addClass('ace ace-switch ace-switch-5').after('<span class="lbl"></span>');
-        //don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
-        //.addClass('ace ace-switch ace-switch-5').wrap('<label class="inline" />').after('<span class="lbl"></span>');
-
-
-        //update buttons classes
-        var buttons = form.next().find('.EditButton .fm-button');
-        buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
-        buttons.eq(0).addClass('btn-primary').prepend('<i class="ace-icon fa fa-check"></i>');
-        buttons.eq(1).prepend('<i class="ace-icon fa fa-times"></i>')
-
-        buttons = form.next().find('.navButton a');
-        buttons.find('.ui-icon').hide();
-        buttons.eq(0).append('<i class="ace-icon fa fa-chevron-left"></i>');
-        buttons.eq(1).append('<i class="ace-icon fa fa-chevron-right"></i>');
-    }
-
-    function style_delete_form(form) {
-        var buttons = form.next().find('.EditButton .fm-button');
-        buttons.addClass('btn btn-sm btn-white btn-round').find('[class*="-icon"]').hide();//ui-icon, s-icon
-        buttons.eq(0).addClass('btn-danger').prepend('<i class="ace-icon fa fa-trash-o"></i>');
-        buttons.eq(1).addClass('btn-default').prepend('<i class="ace-icon fa fa-times"></i>')
-    }
-
-    function style_search_filters(form) {
-        form.find('.delete-rule').val('X');
-        form.find('.add-rule').addClass('btn btn-xs btn-primary');
-        form.find('.add-group').addClass('btn btn-xs btn-success');
-        form.find('.delete-group').addClass('btn btn-xs btn-danger');
-    }
-    function style_search_form(form) {
-        var dialog = form.closest('.ui-jqdialog');
-        var buttons = dialog.find('.EditTable')
-        buttons.find('.EditButton a[id*="_reset"]').addClass('btn btn-sm btn-info').find('.ui-icon').attr('class', 'ace-icon fa fa-retweet');
-        buttons.find('.EditButton a[id*="_query"]').addClass('btn btn-sm btn-inverse').find('.ui-icon').attr('class', 'ace-icon fa fa-comment-o');
-        buttons.find('.EditButton a[id*="_search"]').addClass('btn btn-sm btn-purple').find('.ui-icon').attr('class', 'ace-icon fa fa-search');
-    }
-
-    function beforeDeleteCallback(e) {
-        var form = $(e[0]);
-        if (form.data('styled'))
-            return false;
-
-        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-        style_delete_form(form);
-
-        form.data('styled', true);
-    }
-
-    function beforeEditCallback(e) {
-        var form = $(e[0]);
-        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-        style_edit_form(form);
-    }
-
-
-
-    //it causes some flicker when reloading or navigating grid
-    //it may be possible to have some custom formatter to do this as the grid is being created to prevent this
-    //or go back to default browser checkbox styles for the grid
-    function styleCheckbox(table) {
-        /**
-         $(table).find('input:checkbox').addClass('ace')
-         .wrap('<label />')
-         .after('<span class="lbl align-top" />')
-             
-             
-         $('.ui-jqgrid-labels th[id*="_cb"]:first-child')
-         .find('input.cbox[type=checkbox]').addClass('ace')
-         .wrap('<label />').after('<span class="lbl align-top" />');
-         */
-    }
-
-
-    //unlike navButtons icons, action icons in rows seem to be hard-coded
-    //you can change them like this in here if you want
-    function updateActionIcons(table) {
-        /**
-         var replacement =
-         {
-         'ui-ace-icon fa fa-pencil' : 'ace-icon fa fa-pencil blue',
-         'ui-ace-icon fa fa-trash-o' : 'ace-icon fa fa-trash-o red',
-         'ui-icon-disk' : 'ace-icon fa fa-check green',
-         'ui-icon-cancel' : 'ace-icon fa fa-times red'
-         };
-         $(table).find('.ui-pg-div span.ui-icon').each(function(){
-         var icon = $(this);
-         var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
-         if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
-         })
-         */
-    }
-
-    //replace icons with FontAwesome icons like above
-    function updatePagerIcons(table) {
-        var replacement =
-                {
-                    'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
-                    'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
-                    'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
-                    'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
-                };
-        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
-            var icon = $(this);
-            var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
-
-            if ($class in replacement)
-                icon.attr('class', 'ui-icon ' + replacement[$class]);
-        })
-    }
-
-    function enableTooltips(table) {
-        $('.navtable .ui-pg-button').tooltip({container: 'body'});
-        $(table).find('.ui-pg-div').tooltip({container: 'body'});
-    }
-
-    //var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
-
-    $(document).one('ajaxloadstart.page', function (e) {
-        $(grid_selector).jqGrid('GridUnload');
-        $('.ui-jqdialog').remove();
-    });
-
-
-    SaveMareyeurProcess = function ()
-    {
-
-        var ACTION = '<?php echo App::ACTION_INSERT; ?>';
-        var frmData;
-        //             var familleproduit= $('#familleMareyeurId').val();
-        var nom = $("#nom").val();
-        var adresse = $("#adresse").val();
-        var telephone = $("#telephone").val();
-        var compte = $("#compte").val();
-
-        var formData = new FormData();
-        formData.append('ACTION', ACTION);
-        //             formData.append('familleId', familleproduit);
-        formData.append('nom', nom);
-        formData.append('adresse', adresse);
-        formData.append('telephone', telephone);
-        formData.append('compte', compte);
-        $.ajax({
-            url: '<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php',
-            type: 'POST',
-            processData: false,
-            contentType: false,
-            dataType: 'JSON',
-            data: formData,
-            success: function (data)
+                });
+            };
+            getIndicator();
+            checkedBonContains = function(item) {
+                for (var i = 0; i < checkedBon.length; i++) {
+                    if (checkedBon[i] == item)
+                        return true;
+                }
+                return false;
+            };
+            // Persist checked Message when navigating
+            
+            
+            persistChecked = function() {
+                $('input[type="checkbox"]', "#LIST_BONS").each(function() {
+                    if (checkedBonContains($(this).val())) {
+                        $(this).attr('checked', 'checked');
+                    } else {
+                        $(this).removeAttr('checked');
+                    }
+                });
+            };
+             $('table th input:checkbox').on('click', function() {
+                var that = this;
+                $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
+                    this.checked = that.checked;
+                    if (this.checked)
+                    {
+                        checkedBonAdd($(this).val());
+                        //MessageSelected();
+                        $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+			$('#TAB_MSG_VIEW').hide();
+                        nbTotalBonChecked=checkedBon.length;
+                    }
+                    else
+                    {
+                        checkedBonRemove($(this).val());
+//                        MessageUnSelected();
+                        $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+			$('#TAB_MSG_VIEW').hide();
+                    }
+                    $(this).closest('tr').toggleClass('selected');
+                });
+            });
+            MessageSelected = function(click)
             {
-                if (data.rc == 0)
+                if (checkedBon.length == 1){
+                    loadAchatSelected(checkedBon[0]);
+                    $('#TAB_MSG_VIEW').show();
+		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+                }else
                 {
-                    $.gritter.add({
-                        title: 'Notification',
-                        text: data.action,
-                        class_name: 'gritter-success gritter-light'
-                    });
-
+                    $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_MSG_VIEW').hide();
+                    
+                }
+                if(checkedBon.length==nbTotalBonChecked){
+                    $('table th input:checkbox').prop('checked', true);
+                }
+            };
+            MessageUnSelected = function()
+            {
+               if (checkedBon.length === 1){
+                    loadAchatSelected(checkedBon[0]);
+		    $('#TAB_MSG_VIEW').show();
+                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
                 else
                 {
-                    $.gritter.add({
-                        title: 'Notification',
-                        text: data.error,
-                        class_name: 'gritter-error gritter-light'
+                    $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_MSG_VIEW').hide();
+                    $("#BTN_MSG_GROUP").popover('destroy');
+                    $("#BTN_MSG_CONTENT").popover('destroy');
+                }
+                $('table th input:checkbox').removeAttr('checked');
+            };
+
+            // Add checked item to the array
+            checkedBonAdd = function(item) {
+                if (!checkedMessageContains(item)) {
+                    checkedBon.push(item);
+                }
+            };
+            // Remove unchecked items from the array
+            checkedBonRemove = function(item) {
+                var i = 0;
+                while (i < checkedBon.length) {
+                    if (checkedBon[i] == item) {
+                        checkedBon.splice(i, 1);
+                    } else {
+                        i++;
+                    }
+                }
+            };
+            checkedMessageContains = function(item) {
+                for (var i = 0; i < checkedBon.length; i++) {
+                    if (checkedBon[i] == item)
+                        return true;
+                }
+                return false;
+            };
+             loadAchats = function() {
+                nbTotalBonChecked = 0;
+                checkedBon = new Array();
+                var url =  '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
+
+                if (oTableBons != null)
+                    oTableBons.fnDestroy();
+
+                oTableBons = $('#LIST_BONS').dataTable({
+                    "oLanguage": {
+                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
+                    "oPaginate": {
+                        "sNext": "",
+                        "sLast": "",
+                        "sFirst": null,
+                        "sPrevious": null
+                      }
+                    },
+                    "aoColumnDefs": [
+                        {
+                            "aTargets": [0],
+                            "bSortable": false,
+                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                $(nTd).css('text-align', 'center');
+                            },
+                            "mRender": function(data, type, full) {
+                                return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
+                            }
+                        },
+                        {
+                            "aTargets": [1],
+                            "bSortable": false,
+                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                $(nTd).css('text-align', 'center');
+                            },
+                            "mRender": function(data, type, full) {
+                               var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
+                                console.log(data);
+                                if (data == 0)
+                                    src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
+                                else if (data == 1)
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                else if (data == 2)
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                return src;
+                            }
+                        }
+                    ],
+                    "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                        persistChecked();
+                        $(nRow).css('cursor','pointer');
+                        $(nRow).on('click', 'td:not(:first-child)', function(){
+                            checkbox=$(this).parent().find('input:checkbox:first');
+                            if(!checkbox.is(':checked')){
+                                checkbox.prop('checked', true);;
+                                checkedBonAdd(aData[0]);
+                                MessageSelected();
+                                
+                            }else{
+                                checkbox.removeAttr('checked');
+                                
+                                checkedBonRemove(aData[0]);
+                                MessageUnSelected();
+                            }
+                        });
+                    },
+                    "fnDrawCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                       
+                    },
+                    "preDrawCallback": function( settings ) {
+                       
+                    },
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bInfo": false,
+                    "sAjaxSource": url,
+                    "sPaginationType": "simple",
+                    "fnServerData": function ( sSource, aoData, fnCallback ) {
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
+                        aoData.push({"name": "offset", "value": "1"});
+                        aoData.push({"name": "rowCount", "value": "10"});
+                        userProfil=$.cookie('profil');
+                        if(userProfil==='admin'){
+                            aoData.push({"name": "codeUsine", "value": "*"});
+                        }
+                        else
+                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                        $.ajax( {
+                          "dataType" : 'json',
+                          "type" : "POST",
+                          "url" : sSource,
+                          "data" : aoData,
+                          "success" : function(json) {
+                              if(json.rc==-1){
+                                 $.gritter.add({
+                                    title: 'Notification',
+                                    text: json.error,
+                                    class_name: 'gritter-error gritter-light'
+                                }); 
+                              }else{
+                                  $('table th input:checkbox').removeAttr('checked');
+                                  fnCallback(json);
+                                  nbTotalBonChecked=json.iTotalRecords;
+                              }
+                                
+                           }
+                        });
+                    }
+                });
+            };
+            
+            loadAchats();
+            loadAchatSelected = function(bonsortieId)
+            {
+                 var url;
+                 url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
+
+                $.post(url, {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                    data = $.parseJSON(data);
+                    $('#TAB_MSG_TITLE').text("Numero bonsortie: "+ data.numero);
+                    $('#AchatDate').text(data.dateAchat);
+                    $('#AchatNomMareyeur').text(data.nomMareyeur);
+                    $('#bonsortieAdresseMareyeur').text(data.adresse);
+                    $('#bonsortieUser').text(data.user);
+                    $('#PoidsTotal').text(data.poidsTotal);
+                    $('#MontantTotal').text(data.montantTotal);
+                    $('#TABLE_ACHATS tbody').html("");
+                    var table = data.ligneAchat;
+                    var trHTML='';
+                    $(table).each(function(index, element){
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
+                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    trHTML='';
+                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+                    $('#TAB_MSG_VIEW').show();
+               }).error(function(error) { });
+            };
 
-                };
-                
-            },
-            error: function () {
-                alert("failure - controller");
-            }
-        });
-
-    };
-    $("#MNU_MAREYEUR_NEW").click(function ()
-    {
-        //$("#groupName").val('');
-
-        $('#winModalMareyeur .control-group').removeClass('error').addClass('info');
-        $('#winModalMareyeur span.help-block').remove();
-        $('#winModalMareyeur').modal('show');
-    });
-
-    $("#SAVE").bind("click", function () {
-        SaveMareyeurProcess();
-        $('#winModalMareyeur').addClass('hide');
-        $('#winModalMareyeur').modal('hide');
-        loadMareyeurs();
-    });
-
-</script>
+            $("#MNU_VALIDATION").click(function()
+            {
+                if (checkedBon.length == 0)
+                    bootbox.alert("Veuillez selectionnez un bonsortie");
+                else if (checkedBon.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment valider cet bonsortie", function(result) {
+                    if(result){
+                    var bonsortieId = checkedBon[0];
+                    $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+                    {
+                        if (data.rc == 0)
+                        {
+                            bootbox.alert("Achat(s) validé(s)");
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                        $.loader.close(true);
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/listebonsAchatVue.php", function () {
+                        });
+                         }
+                    });
+                }
+            });
+            $("#MNU_ANNULATION").click(function()
+            {
+                if (checkedBon.length == 0)
+                    bootbox.alert("Veuillez selectionnez un bonsortie");
+                else if (checkedBon.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment annuler cet bonsortie", function(result) {
+                    if(result){
+                    var bonsortieId = checkedBon[0];
+                    $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Achat(s) annulés(s)");
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/listebonsAchatVue.php", function () {
+                        });
+                         }
+                    });
+                }
+            });
+            });
+        </script>
