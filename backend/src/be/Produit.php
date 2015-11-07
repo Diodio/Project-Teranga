@@ -41,6 +41,9 @@ class Produit {
     /** @OneToMany(targetEntity="Produit\Stock", mappedBy="stock", cascade={"persist"}) */
     protected $stock;
     
+    /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="bonSortie", cascade={"persist"}) */
+    protected $bonSortie;
+    
     function getId() {
         return $this->id;
     }
@@ -120,7 +123,23 @@ class Produit {
         $this->familleProduit = $familleProduit;
     }
 
-        
+    public function getAchat() {
+        return $this->achat;
+    }
+
+    public function getBonSortie() {
+        return $this->bonSortie;
+    }
+
+    public function setAchat($achat) {
+        $this->achat = $achat;
+    }
+
+    public function setBonSortie($bonSortie) {
+        $this->bonSortie = $bonSortie;
+    }
+
+    
 
 /** @PrePersist */
     public function doPrePersist() {
