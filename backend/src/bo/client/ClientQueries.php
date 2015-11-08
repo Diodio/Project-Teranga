@@ -44,7 +44,7 @@ class ClientQueries {
 	}
 
 
-	public function findAllClients($userId) {
+	public function findAllClients() {
 		$sql = 'select id, nom, adresse, telephone from client';
 		$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
 		$stmt->execute();

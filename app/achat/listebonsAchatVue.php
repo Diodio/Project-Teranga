@@ -277,7 +277,6 @@ $codeUsine = $_COOKIE['codeUsine'];
             getIndicator = function() {
                 var url;
                 var user;
-                clearTimeout(gStatTimer);
                 url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
                 userProfil=$.cookie('profil');
                 if(userProfil==='admin')

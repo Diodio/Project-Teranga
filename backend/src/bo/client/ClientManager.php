@@ -73,8 +73,8 @@ public function retrieveTypes()
     public function findClientsByName($name){
         return $this->ClientQuery->findClientsByName($name);
     }
-    public function findAllClients($userId) {
-        $Clients = $this->ClientQuery->findAllClients($userId);
+    public function findAllClients() {
+        $Clients = $this->ClientQuery->findAllClients();
         $list = array();
         $i = 0;
         // $grp = new Group();
@@ -83,6 +83,18 @@ public function retrieveTypes()
             $list [$i]['nom'] = $value ['nom'];
             $list [$i]['adresse'] = $value ['adresse'];
             $list [$i]['telephone'] = $value ['telephone'];
+            $i++;
+        }
+        return $list;
+    }
+    
+    public function findListClients() {
+        $Clients = $this->ClientQuery->findAllClients();
+        $list = array();
+        $i = 0;
+        foreach ($Clients as $key => $value) {
+            $list [$i]['value'] = $value ['id'];
+            $list [$i]['text'] = $value ['nom'];
             $i++;
         }
         return $list;

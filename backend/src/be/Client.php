@@ -14,6 +14,11 @@ class Client {
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
+    protected $reference;
+    
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
     protected $nom;
     /**
      * @Column(type="string", length=60, nullable=false)
@@ -25,6 +30,9 @@ class Client {
      * */
     protected $telephone;
    
+    
+     /** @OneToMany(targetEntity="BonSortie\BonSortie", mappedBy="bonSortie") */
+    public $bonSortie;
     
     public function getId() {
         return $this->id;

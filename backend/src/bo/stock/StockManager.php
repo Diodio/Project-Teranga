@@ -67,4 +67,12 @@ class StockManager {
        $stockQueries = new StockQueries();
     	return $stockQueries->updateNbStock($produitId, $codeUsine, $nbStock);
   }
+  
+
+  public function destockage($produitId, $codeUsine, $nbStock ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->destockage($produitId, $codeUsine, $nbStock);
+  }
+  
+  
 }

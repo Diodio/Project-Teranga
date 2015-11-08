@@ -38,6 +38,9 @@ class ClientController extends BaseController implements BaseAction {
 					case \App::ACTION_REMOVE:
 						$this->doRemove($request);
 						break;
+                                        case \App::ACTION_LIST_VALID:
+                                                $this->doGetListClients($request);
+                                                break;
 
 				}
 			} else {
@@ -156,7 +159,20 @@ class ClientController extends BaseController implements BaseAction {
 			throw new Exception('ERREUR SERVEUR');
 		}
 	}
-
+         public function doGetListClients($request) {
+            $clientManager = new ClientManager();
+            
+        try {
+            $mareyeurs = $clientManager->findListClients();
+            
+            if ($mareyeurs != null)
+                $this->doSuccessO($mareyeurs);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
 
 
 }
