@@ -11236,3 +11236,336 @@
 (
 )
  
+08.11.2015 15:16:01,896 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.nomUsine AS nomUsine1 FROM usine u0_ 
+08.11.2015 15:16:01,898 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:07,150 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.login AS login1, u0_.nomUtilisateur AS nomUtilisateur2, u0_.status AS status3, u0_.etatCompte AS etatCompte4, p1_.libelle AS libelle5, u2_.code AS code6 FROM utilisateur u0_ INNER JOIN profil p1_ ON u0_.profil_id = p1_.id INNER JOIN usine u2_ ON u0_.usine_id = u2_.id WHERE u0_.login = 'admin' AND u0_.password = 'admin' AND u0_.status = 1 AND u2_.id = '1' 
+08.11.2015 15:16:07,151 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:08,800 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT f0_.id AS id0, f0_.libelle AS libelle1 FROM famille_produit f0_ 
+08.11.2015 15:16:08,802 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:08,827 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock s, usine u WHERE s.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC 
+08.11.2015 15:16:08,828 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:08,833 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select distinct(produit.id), libelle, stock, seuil
+                    from produit,stock where produit.id=produit_id  group by id ORDER BY  libelle asc LIMIT 0, 10 
+08.11.2015 15:16:08,834 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:08,839 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select count(produit.id) as nbStocks
+                    from produit,stock where produit.id=produit_id   
+08.11.2015 15:16:08,840 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:24,109 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select p.id as value, p.libelle as text, s.stock as nbStock from produit p,stock s where s.produit_id=p.id AND s.codeUsine='usine_dakar' group by p.libelle 
+08.11.2015 15:16:24,112 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:24,112 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select id, nom, adresse, telephone from client 
+08.11.2015 15:16:24,115 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:24,129 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select max(id)+1 as lastNumber from bon_sortie 
+08.11.2015 15:16:24,131 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:24,177 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.nomUsine AS nomUsine1 FROM usine u0_ 
+08.11.2015 15:16:24,179 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:16:25,766 [TRACE] [BonSortieController] C:\xampp\htdocs\macfish\backend\src\bo\bonsortie\BonSortieController.php 82 | tesst1 
+08.11.2015 15:16:25,890 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT t0.id AS id1, t0.reference AS reference2, t0.nom AS nom3, t0.adresse AS adresse4, t0.telephone AS telephone5 FROM client t0 WHERE t0.id = ? 
+08.11.2015 15:16:25,891 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [0] => *
+)
+ 
+08.11.2015 15:16:25,985 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "START TRANSACTION" 
+08.11.2015 15:16:25,987 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:16:25,997 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | INSERT INTO bon_sortie (numeroBonSortie, dateBonSortie, numeroContainer, numeroPlomb, numeroCamion, nomChauffeur, origine, destination, codeUsine, login, poidsTotal, status, createdDate, updatedDate, deletedDate, client_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+08.11.2015 15:16:25,998 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [1] => 00001
+    [2] => DateTime Object
+        (
+            [date] => 2015-11-08 15:16:25
+            [timezone_type] => 3
+            [timezone] => GMT
+        )
+
+    [3] => 
+    [4] => 
+    [5] => 
+    [6] => 
+    [7] => Usine
+    [8] => Usine
+    [9] => usine_dakar
+    [10] => admin
+    [11] => 
+    [12] => 0
+    [13] => 
+    [14] => 
+    [15] => 
+    [16] => 
+)
+ 
+08.11.2015 15:16:26,012 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "COMMIT" 
+08.11.2015 15:16:26,013 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:16:26,101 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT t0.id AS id1, t0.libelle AS libelle2, t0.prixUnitaire AS prixUnitaire3, t0.createdDate AS createdDate4, t0.updatedDate AS updatedDate5, t0.deleteDate AS deleteDate6, t0.familleProduit_id AS familleProduit_id7 FROM produit t0 WHERE t0.id = ? 
+08.11.2015 15:16:26,102 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [0] => -1
+)
+ 
+08.11.2015 15:16:26,122 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "START TRANSACTION" 
+08.11.2015 15:16:26,123 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:16:26,130 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | INSERT INTO ligne_bonsorie (quantite, createdDate, updatedDate, deletedDate, produit_id, bonSortie_id) VALUES (?, ?, ?, ?, ?, ?) 
+08.11.2015 15:16:26,132 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [1] => 
+    [2] => DateTime Object
+        (
+            [date] => 2015-11-08 15:16:26
+            [timezone_type] => 3
+            [timezone] => GMT
+        )
+
+    [3] => DateTime Object
+        (
+            [date] => 2015-11-08 15:16:26
+            [timezone_type] => 3
+            [timezone] => GMT
+        )
+
+    [4] => 
+    [5] => 
+    [6] => 1
+)
+ 
+08.11.2015 15:16:26,160 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "ROLLBACK" 
+08.11.2015 15:16:26,164 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:20:41,370 [TRACE] [BonSortieController] C:\xampp\htdocs\macfish\backend\src\bo\bonsortie\BonSortieController.php 82 | tesst1 
+08.11.2015 15:20:41,495 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT t0.id AS id1, t0.reference AS reference2, t0.nom AS nom3, t0.adresse AS adresse4, t0.telephone AS telephone5 FROM client t0 WHERE t0.id = ? 
+08.11.2015 15:20:41,496 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [0] => 1
+)
+ 
+08.11.2015 15:20:41,554 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "START TRANSACTION" 
+08.11.2015 15:20:41,555 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:20:41,560 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | INSERT INTO bon_sortie (numeroBonSortie, dateBonSortie, numeroContainer, numeroPlomb, numeroCamion, nomChauffeur, origine, destination, codeUsine, login, poidsTotal, status, createdDate, updatedDate, deletedDate, client_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+08.11.2015 15:20:41,561 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [1] => 00001
+    [2] => DateTime Object
+        (
+            [date] => 2015-11-08 15:20:41
+            [timezone_type] => 3
+            [timezone] => GMT
+        )
+
+    [3] => 76
+    [4] => 9
+    [5] => 125
+    [6] => DIO
+    [7] => Dakar
+    [8] => Dakar
+    [9] => usine_dakar
+    [10] => admin
+    [11] => 940
+    [12] => 0
+    [13] => 
+    [14] => 
+    [15] => 
+    [16] => 1
+)
+ 
+08.11.2015 15:20:41,566 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "COMMIT" 
+08.11.2015 15:20:41,567 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:20:41,649 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT t0.id AS id1, t0.libelle AS libelle2, t0.prixUnitaire AS prixUnitaire3, t0.createdDate AS createdDate4, t0.updatedDate AS updatedDate5, t0.deleteDate AS deleteDate6, t0.familleProduit_id AS familleProduit_id7 FROM produit t0 WHERE t0.id = ? 
+08.11.2015 15:20:41,651 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [0] => 10
+)
+ 
+08.11.2015 15:20:41,695 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "START TRANSACTION" 
+08.11.2015 15:20:41,697 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:20:41,706 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | INSERT INTO ligne_bonsorie (quantite, createdDate, updatedDate, deletedDate, produit_id, bonSortie_id) VALUES (?, ?, ?, ?, ?, ?) 
+08.11.2015 15:20:41,709 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+    [1] => 940
+    [2] => DateTime Object
+        (
+            [date] => 2015-11-08 15:20:41
+            [timezone_type] => 3
+            [timezone] => GMT
+        )
+
+    [3] => DateTime Object
+        (
+            [date] => 2015-11-08 15:20:41
+            [timezone_type] => 3
+            [timezone] => GMT
+        )
+
+    [4] => 
+    [5] => 10
+    [6] => 2
+)
+ 
+08.11.2015 15:20:41,721 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | "COMMIT" 
+08.11.2015 15:20:41,724 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 |  
+08.11.2015 15:20:41,784 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | UPDATE stock SET stock = stock - 940 WHERE produit_id = 10 AND codeUsine='usine_dakar' 
+08.11.2015 15:20:41,787 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:42,183 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT COUNT(STATUS) AS nb FROM bon_sortie WHERE STATUS=1 AND codeUsine="usine_dakar" 
+08.11.2015 15:20:42,184 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:42,188 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT COUNT(STATUS) AS nb FROM bon_sortie WHERE STATUS=0 AND codeUsine="usine_dakar" 
+08.11.2015 15:20:42,189 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:42,192 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT COUNT(STATUS) AS nb FROM bon_sortie WHERE STATUS=2 AND codeUsine="usine_dakar" 
+08.11.2015 15:20:42,193 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:42,270 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select bon_sortie.id,status,dateBonSortie, numeroBonSortie, nom
+                    from bon_sortie, client where client.id=bon_sortie.client_id ORDER BY dateBonSortie desc LIMIT 0, 10 
+08.11.2015 15:20:42,271 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:42,275 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select count(bon_sortie.id) as nb
+                    from bon_sortie, client where client.id=bon_sortie.client_id  
+08.11.2015 15:20:42,276 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:53,557 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select m.id as value, m.nom as text from mareyeur m 
+08.11.2015 15:20:53,559 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:53,563 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select max(id)+1 as lastAchats from achat 
+08.11.2015 15:20:53,565 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:20:53,572 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select p.id as value, p.libelle as text, s.stock as nbStock from produit p,stock s where s.produit_id=p.id AND s.codeUsine='usine_dakar' group by p.libelle 
+08.11.2015 15:20:53,574 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:22:30,888 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select p.id as value, p.libelle as text, s.stock as nbStock from produit p,stock s where s.produit_id=p.id AND s.codeUsine='usine_dakar' group by p.libelle 
+08.11.2015 15:22:30,890 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:22:30,889 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select id, nom, adresse, telephone from client 
+08.11.2015 15:22:30,892 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:22:30,908 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select max(id)+1 as lastNumber from bon_sortie 
+08.11.2015 15:22:30,909 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:22:30,961 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.nomUsine AS nomUsine1 FROM usine u0_ 
+08.11.2015 15:22:30,962 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:24:25,854 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select max(id)+1 as lastAchats from achat 
+08.11.2015 15:24:25,855 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:24:25,865 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select p.id as value, p.libelle as text, s.stock as nbStock from produit p,stock s where s.produit_id=p.id AND s.codeUsine='usine_dakar' group by p.libelle 
+08.11.2015 15:24:25,867 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:24:25,871 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select m.id as value, m.nom as text from mareyeur m 
+08.11.2015 15:24:25,872 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:24:29,996 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select reference,adresse from mareyeur where id=5 
+08.11.2015 15:24:29,997 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:58:23,493 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.nomUsine AS nomUsine1 FROM usine u0_ 
+08.11.2015 15:58:23,494 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:58:28,673 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.login AS login1, u0_.nomUtilisateur AS nomUtilisateur2, u0_.status AS status3, u0_.etatCompte AS etatCompte4, p1_.libelle AS libelle5, u2_.code AS code6 FROM utilisateur u0_ INNER JOIN profil p1_ ON u0_.profil_id = p1_.id INNER JOIN usine u2_ ON u0_.usine_id = u2_.id WHERE u0_.login = 'admin' AND u0_.password = 'admin' AND u0_.status = 1 AND u2_.id = '1' 
+08.11.2015 15:58:28,675 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:58:29,402 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select distinct(produit.id), libelle, stock, seuil
+                    from produit,stock where produit.id=produit_id  group by id ORDER BY  libelle asc LIMIT 0, 10 
+08.11.2015 15:58:29,404 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:58:29,410 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select count(produit.id) as nbStocks
+                    from produit,stock where produit.id=produit_id   
+08.11.2015 15:58:29,411 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:58:29,410 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock s, usine u WHERE s.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC 
+08.11.2015 15:58:29,412 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 15:58:29,453 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT f0_.id AS id0, f0_.libelle AS libelle1 FROM famille_produit f0_ 
+08.11.2015 15:58:29,454 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 16:00:17,513 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select m.id as value, m.nom as text from mareyeur m 
+08.11.2015 16:00:17,515 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 16:00:17,516 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select max(id)+1 as lastAchats from achat 
+08.11.2015 16:00:17,518 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+08.11.2015 16:00:17,527 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select p.id as value, p.libelle as text, s.stock as nbStock from produit p,stock s where s.produit_id=p.id AND s.codeUsine='usine_dakar' group by p.libelle 
+08.11.2015 16:00:17,529 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+09.11.2015 15:01:48,119 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.nomUsine AS nomUsine1 FROM usine u0_ 
+09.11.2015 15:01:48,146 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
