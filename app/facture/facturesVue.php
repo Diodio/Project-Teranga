@@ -111,18 +111,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
 
                 </div>
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <a id="add_row" class="btn btn-primary btn-sm"><i class="ace-icon fa fa-plus-square"></i></a>
-                <a id='delete_row' class="btn btn-danger btn-sm" title="Supprimer une ligne" alt="Supprimer une ligne">
-                        <i class="ace-icon fa fa-minus-square"></i>
-                </a>
-            </div>
-        </div>
         <div class="space-6"></div>
             <div class="row clearfix">
 		<div class="col-md-12 column">
-			<table class="table table-bordered table-hover" id="tab_logic">
+			<table class="table table-bordered table-hover" id="LISTESORTIE">
 				<thead>
 					<tr >
 						<th class="text-center">
@@ -138,44 +130,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 							Quantite (kg)
 						</th>
 						<th class="text-center">
-							Pourcentage
-						</th>
-						<th class="text-center">
-							Poids Net (kg)
-						</th>
-						<th class="text-center">
 							Montant
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr id='addr0'>
-						<td>
-						1
-						</td>
-						<td>
-                                                    <select id="designation0" name="designation0" class="col-xs-10 col-sm-10">
-                                                        <option value="-1" class="designations0">sélectionnez un produit</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="pu0" name='pu0' class="form-control"/>
-						</td>
-                                                <td>
-                                                    <input type="text" id="qte0" name='qte0'  class="form-control qte"/>
-						</td>
-                                                <td>
-                                                    <input type="number" id="perc0" name='perc0' class="col-xs-9"/>
-                                                    %
-						</td>
-                                                <td>
-                                                    <input type="text" id="pdN0" name='pdN0' class="form-control poidsNet"/>
-						</td>
-						<td>
-                                                    <input type="text" id="montant0" name='montant0' class="form-control montant"/>
-						</td>
-					</tr>
-                    <tr id='addr1'></tr>
+					
 				</tbody>
 			</table>
 		</div>
@@ -186,7 +146,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
                 <div class="col-sm-3">
                 </div>
-                <div class="col-sm-3" style="margin-left: 35.5%;;margin-top: -10px;">
+                <div class="col-sm-3" style="margin-left: 64.6%;;margin-top: -10px;">
                     <div class="form-group">
                             <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Total </label>
                             <div class="col-sm-8">
@@ -194,90 +154,146 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                     </div>
                 </div>
-                 
-                     
-                    <div class="col-sm-3" style="margin-left: 82.5%;margin-top: -35px;">
-                    <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="form-field-1">  total </label>
-                            <div class="col-sm-8">
-                                <input type="text" id="montantTotal" name="montantTotal" placeholder="" class="col-xs-12 col-sm-10">
-                            </div>
-                    </div>
-                     </div>
+                <div class="col-sm-3">
+                </div>
                 
             </div>
         </div>
         <div class="space-6"></div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-sm-8">
-                    
+                <div class="col-md-12">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right"
+                                            for="form-field-1"> Port de déchargement </label>
+                                    <div class="col-sm-5">
+                                            <div class="clearfix">
+                                                    <input type="text" id="avance" name="avance" placeholder=""
+                                                            class="col-xs-12 col-sm-7">
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                            
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<a id="add_row" class="btn btn-primary btn-sm"><i
+						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+						class="btn btn-danger btn-sm" title="Supprimer une ligne"
+						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
+					</a>
+				</div>
+			</div>
+			<div class="space-6"></div>
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+								<th class="text-center">N° conteneur</th>
+								<th class="text-center">N° plomb</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='addr0'>
+								<td>1</td>
+								<td><input type="text" id="cont0" name='cont0'
+									class="form-control" />
+								</td>
+								<td><input type="text" id="plb0" name='plb0'
+									class="form-control" />
+								</td>
+							</tr>
+							<tr id='addr1'></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="row"
+                                <label class="col-sm-4 control-label no-padding-right"
+                                        for="form-field-1"> Montant HT </label>
+                                <div class="col-sm-7">
+                                        <div class="clearfix">
+                                                <input type="text" readonly id="numCheque" placeholder=""
+                                                        class="col-xs-12 col-sm-10">
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="vspace-6"></div>
+                            <div class="row">
+                                <label class="col-sm-5 control-label no-padding-right"
+                                        for="form-field-1"> Montant TTC </label>
+                                <div class="col-sm-7">
+                                    <div class="clearfix">
+                                            <input type="text" readonly id="numCheque" placeholder=""
+                                                    class="col-xs-12 col-sm-10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vspace-6"></div>
+                            <div class="row">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Mode de paiement </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <select id="modePaiement" class="col-xs-12 col-sm-10">
+                                                                <option value="Esp">Especes</option>
+                                                                <option value="ch">Cheque</option>
+                                                                <option value="vir">Virement</option>
+                                                        </select>
+                                                </div>
+                                </div>
+                            </div>
+                            <div class="vspace-6"></div>
+                            <div class="row">
+                                <label class="col-sm-5 control-label no-padding-right"
+                                        for="form-field-1"> No Cheque </label>
+                                <div class="col-sm-7">
+                                        <div class="clearfix">
+                                                <input type="text" readonly id="numCheque" placeholder=""
+                                                        class="col-xs-12 col-sm-10">
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="vspace-6"></div>
+                            <div class="row"
+                                <label class="col-sm-5 control-label no-padding-right"
+                                        for="form-field-1"> Avance </label>
+                                <div class="col-sm-7">
+                                        <div class="clearfix">
+                                                <input type="text" id="avance" name="avance" placeholder=""
+                                                        class="col-xs-12 col-sm-10">
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="vspace-6"></div>
+                            <div class="row"
+                                <label class="col-sm-5 control-label no-padding-right"
+                                        for="form-field-1"> Reliquat </label>
+                                <div class="col-sm-7">
+                                        <div class="clearfix">
+                                                <input type="text" id="reliquat" name="reliquat" placeholder=""
+                                                        class="col-xs-12 col-sm-10">
+                                        </div>
+                                </div>
+                        </div>
+                        </div>
                 </div>
-                
-                  <div class="col-sm-4" style="margin-left: -770px">
-                        <div class="form-group">
-                                <label class="col-sm-6 control-label no-padding-right" for="form-field-1"> Port de Dechargement </label>
-<!--                                 <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal"> -->
-<!--                                 <i class="fa fa-plus-square "></i> -->
-<!--                                 Ajouter -->
-<!--                                 </button> -->
-<!--                                 <div class="col-sm-6"> -->
-<!--                                     <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10"> -->
-<!--                                 </div> -->
+                <div class="row">
+                        <div class="col-md-12 column" style="margin-top: 20px;">
+                                <button id="SAVE" class="btn btn-small btn-info pull-right"
+                                        data-dismiss="modal">
+                                        <i class="fa fa-plus-square "></i> Valider
+                                </button>
                         </div>
-                      <div class="col-sm-4" style="margin-left: -770px"
-                        <div class="form-group">
-                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Numero Conteneur </label>
-                                <div class="col-sm-7">
-                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
-                                </div>
-                        </div>
-                        
-                    
-                 </div>
-                 
-                <div class="col-sm-4" >
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                               <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Mode de paiement </label>
-                               <div class="col-sm-7">
-                                   <select id="modePaiement" class="col-xs-12 col-sm-10">
-                                        <option value="Esp">Espèces</option>
-                                        <option value="ch">Chèque</option>
-                                        <option value="vir">Virement</option>
-                                    </select>
-                               </div>
-                       </div>
-                        <div class="form-group" style="margin-top: 11%;">
-                               <label class="col-sm-5 control-label no-padding-right" for="form-field-1">  N° Chèque </label>
-                               <div class="col-sm-7">
-                        <input type="text" id="numCheque" placeholder=""
-                                           class="col-xs-12 col-sm-10">
-                               </div>
-                       </div>
-                        <div class="form-group" style="margin-top: 11%;">
-                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Avance </label>
-                                <div class="col-sm-7">
-                                    <input type="text" id="avance" name="avance" placeholder="" class="col-xs-12 col-sm-10">
-                                </div>
-                        </div>
-                        <div class="form-group" style="margin-top: 11%;">
-                                <label class="col-sm-5 control-label no-padding-right" for="form-field-1"> Reliquat </label>
-                                <div class="col-sm-7">
-                                    <input type="text" id="reliquat" name="reliquat" placeholder="" class="col-xs-12 col-sm-10">
-                                </div>
-                        </div>
-                    </form>
-                 </div>
-            </div>
-        <div class="row" style="margin-top: 12px;">
-                <div class="col-md-12 column">
-                    <button id="SAVE" class="btn btn-small btn-info pull-right" data-dismiss="modal">
-                                <i class="fa fa-plus-square "></i>
-                                Valider
-                            </button>
                 </div>
-            </div>
         </div>
         <!-- /.col -->
     </div>
@@ -293,7 +309,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
-    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+    $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -337,7 +353,7 @@ $(document).ready(function () {
         });
     };
     loadMareyeurs = function(){
-        $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
+        $.post("<?php echo App::getBoPath(); ?>/bonsortir/BController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -355,21 +371,9 @@ $(document).ready(function () {
     loadProduit(0);
     var i=1;
      $("#add_row").click(function(){
-//      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
-
-
-$('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
-<option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
-</td>\n\
-<td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
-<td><input type='number' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
-<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
+    $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='text' id='cont"+i+"' name='cont"+i+"' class='form-control'/></td>\n\
+    <td><input type='text' id='plb"+i+"' name='plb"+i+"'  class='form-control'/></td>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      $('#designation'+i).select2();
-      loadProduit(i);
-       
       i++;
   });
      $("#delete_row").click(function(){
@@ -555,7 +559,7 @@ $table.find("tbody tr").each(function () {
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/achat/achatController.php',
+                url: '<?php echo App::getBoPath(); ?>/facture/factureController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -570,7 +574,7 @@ $table.find("tbody tr").each(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsAchatVue.php", function () {
                         });
                     } 
                     else

@@ -10,11 +10,11 @@
  * isset($_GET['vuehtml']) is not mandatory
  * it allow to display the result in the HTML format
  */
-
+ require_once('../../html2pdf.class.php');
     // get the HTML
     ob_start();
-    include(dirname(__FILE__).'/res/exemple07a.php');
-    include(dirname(__FILE__).'/res/exemple07b.php');
+    include(dirname(__FILE__).'/bonachat.php');
+   // include(dirname(__FILE__).'/res/exemple07b.php');
     $content = ob_get_clean();
 
     // convert to PDF
@@ -31,3 +31,32 @@
         echo $e;
         exit;
     }
+    
+    ?>
+<script type="text/javascript">
+       
+  alert("ok");
+     getIndicator = function() {
+                var url;
+                var user;
+                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: 'ACTION=<?php echo App::ACTION_VIEW_DETAILS; ?>&achatId=70',
+                    cache: false,
+                    success: function(data) {
+                        $('#ACHATS').text(data.id);
+                        $('#PRENOMCLIENT').text(data.nom);
+                        $('#NOMCLIENT').text(data.prenom);
+                      
+
+                    }
+                });
+            };
+            
+            getIndicator();
+            
+            
+        </script>

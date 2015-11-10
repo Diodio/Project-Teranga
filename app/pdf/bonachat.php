@@ -3,18 +3,19 @@
 table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; }
-}
+
 -->
 </style>
-<page backcolor="#FEFEFE" backimg="./res/bas_page.png" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
+<page backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
     <bookmark title="Lettre" level="0" ></bookmark>
     <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td style="width: 75%;">
             </td>
             <td style="width: 25%; color: #444444;">
-                <img style="width: 100%;" src="./res/logo.gif" alt="Logo"><br>
+<!--                <img style="width: 100%;" src="" alt="Logo"><br>-->
                 RELATION CLIENT
+               
             </td>
         </tr>
     </table>
@@ -23,12 +24,12 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; text-align: left; font-size: 11pt;">
         <tr>
             <td style="width:50%;"></td>
-            <td style="width:14%; ">Client :</td>
-            <td style="width:36%">M. Albert Dupont</td>
+            <td style="width:14%; "> <span id="NOMCLIENT"></span></td>
+            <td style="width:36%"> <span id="PRENOMCLIENT"></span></td>
         </tr>
         <tr>
             <td style="width:50%;"></td>
-            <td style="width:14%; ">Adresse :</td>
+            <td style="width:14%; "> <span id="ADRESSE"></span> :</td>
             <td style="width:36%">
                 Résidence perdue<br>
                 1, rue sans nom<br>
@@ -130,3 +131,4 @@ td    { vertical-align: top; }
         </table>
     </nobreak>
 </page>
+
