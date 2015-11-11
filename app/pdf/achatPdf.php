@@ -10,6 +10,7 @@
  * isset($_GET['vuehtml']) is not mandatory
  * it allow to display the result in the HTML format
  */
+
  require_once('../../html2pdf.class.php');
     // get the HTML
     ob_start();
@@ -34,29 +35,28 @@
     
     ?>
 <script type="text/javascript">
-       
-  alert("ok");
-     getIndicator = function() {
-                var url;
-                var user;
-                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: 'ACTION=<?php echo App::ACTION_VIEW_DETAILS; ?>&achatId=70',
-                    cache: false,
-                    success: function(data) {
-                        $('#ACHATS').text(data.id);
-                        $('#PRENOMCLIENT').text(data.nom);
-                        $('#NOMCLIENT').text(data.prenom);
-                      
-
-                    }
-                });
-            };
+       alert("og");
+//     getIndicator = function() {
+//                var url;
+//                var user;
+//                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+//                $.ajax({
+//                    url: url,
+//                    type: 'POST',
+//                    dataType: 'JSON',
+//                    data: 'ACTION=<?php echo App::ACTION_VIEW_DETAILS; ?>&achatId=70',
+//                    cache: false,
+//                    success: function(data) {~
+//                        $('#ACHATS').text(data.id);
+//                        $('#PRENOMCLIENT').text(data.nom);
+//                        $('#NOMCLIENT').text(data.prenom);
+//                      
+//
+//                    }
+//                });
+//            };
+//            
+//            getIndicator();
             
-            getIndicator();
             
-            
-        </script>
+ </script>
