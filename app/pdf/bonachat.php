@@ -24,71 +24,46 @@ td    { vertical-align: top; }
     <bookmark title="Lettre" level="0" ></bookmark>
     <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
         <tr>
-            <td style="width: 75%;">
+            <td style="width: 35%;">
+                <span style="font-size: 25px;" >MACFISH PRODUCTION Surl</span>
+                <br><br>
+                <span >TEL : 338218470 / 338363512</span>
+            </td>
+            <td style="width: 40%;">
+                <span style="margin-left:30px;"></span>
             </td>
             <td style="width: 25%; color: #444444;">
-<!--                <img style="width: 100%;" src="" alt="Logo"><br>-->
-                RELATION CLIENT
+                Dakar, le <?php echo date("d-m-Y");  ;?>
                
             </td>
         </tr>
     </table>
     <br>
     <br>
-    <table cellspacing="0" style="width: 100%; text-align: left; font-size: 11pt;">
-        <tr>
-            <td style="width:50%;"></td>
-            <td style="width:14%; "> <?php echo $row['nom']?></td>
-            <td style="width:36%"> <?php echo $row['adresse']?></td>
-        </tr>
-        <tr>
-            <td style="width:50%;"></td>
-            <td style="width:14%; "> <span id="ADRESSE"></span> :</td>
-            <td style="width:36%">
-                Résidence perdue<br>
-                1, rue sans nom<br>
-                00 000 - Pas de Ville<br>
-            </td>
-        </tr>
-        <tr>
-            <td style="width:50%;"></td>
-            <td style="width:14%; ">Email :</td>
-            <td style="width:36%">nomail@domain.com</td>
-        </tr>
-        <tr>
-            <td style="width:50%;"></td>
-            <td style="width:14%; ">Tel :</td>
-            <td style="width:36%">33 (0) 1 00 00 00 00</td>
-        </tr>
-    </table>
     <br>
     <br>
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:50%;"></td>
-            <td style="width:50%; ">Spipu Ville, le <?php echo date('d/m/Y'); ?></td>
+            <td style="width:40%;"></td>
+            <td style="width:50%; "><span  style="font-size: 25px;" >BON D'ACHAT</span></td>
+        </tr>
+    </table>
+    <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
+        <tr>
+            <td style="width: 35%;">Nç_</td>
+            <td style="width: 40%;"></td>
+            <td style="width: 25%;"></td>
+            <td style="width: 25%;"></td>
         </tr>
     </table>
     <br>
-    <i>
-        <b><u>Objet </u>: &laquo; Bon de Retour &raquo;</b><br>
-        Compte client : 00C4520100A<br>
-        Référence du Dossier : 71326<br>
-    </i>
-    <br>
-    <br>
-    Madame, Monsieur, Cher Client,<br>
-    <br>
-    <br>
-    Nous souhaitons vous informer que le dossier <b>71326</b> concernant un &laquo; Bon de Retour &raquo; pour les articles suivants a été accepté.<br>
     <br>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
-            <th style="width: 12%">Produit</th>
             <th style="width: 52%">Désignation</th>
             <th style="width: 13%">Prix Unitaire</th>
             <th style="width: 10%">Quantité</th>
-            <th style="width: 13%">Prix Net</th>
+            <th style="width: 25%">Montant</th>
         </tr>
     </table>
 <?php
@@ -105,11 +80,10 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: center; font-size: 10pt;">
         <tr>
-            <td style="width: 12%; text-align: left"><?php echo $num; ?></td>
             <td style="width: 52%; text-align: left"><?php echo $nom; ?></td>
             <td style="width: 13%; text-align: right"><?php echo number_format($prix, 2, ',', ' '); ?> &euro;</td>
             <td style="width: 10%"><?php echo $qua; ?></td>
-            <td style="width: 13%; text-align: right;"><?php echo number_format($prix*$qua, 2, ',', ' '); ?> &euro;</td>
+            <td style="width: 25%; text-align: right;"><?php echo number_format($prix*$qua, 2, ',', ' '); ?> &euro;</td>
         </tr>
     </table>
 <?php
@@ -122,25 +96,15 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <br>
-    Cette reprise concerne la quantité et les matériels dont la référence figure sur le <a href="#document_reprise">document de reprise joint</a>.<br>
-    Nous vous demandons de nous retourner ces produits en parfait état et dans leur emballage d'origine.<br>
-    <br>
-    Nous vous demandons également de coller impérativement l'autorisation de reprise jointe, sur le colis à reprendre afin de faciliter le traitement à l'entrepôt.<br>
-    <br>
-    Notre Service Clients ne manquera pas de revenir vers vous dès que l'avoir de ces matériels sera établi.<br>
+    
     <nobreak>
-        <br>
-        Dans cette attente, nous vous prions de recevoir, Madame, Monsieur, Cher Client, nos meilleures salutations.<br>
         <br>
         <table cellspacing="0" style="width: 100%; text-align: left;">
             <tr>
-                <td style="width:50%;"></td>
-                <td style="width:50%; ">
-                    Mle Jesuis CELIBATAIRE<br>
-                    Service Relation Client<br>
-                    Tel : 33 (0) 1 00 00 00 00<br>
-                    Email : on_va@chez.moi<br>
-                </td>
+                <td style="width:25%;">Le peseur</td>
+                <td style="width:25%"></td>
+                <td style="width:38%"></td>
+                <td style="width:25%"> Le Mareyeur</td>
             </tr>
         </table>
     </nobreak>
