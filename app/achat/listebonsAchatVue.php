@@ -44,6 +44,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <ul class="dropdown-menu dropdown-info">
                                         <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
+                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
+                                        <li class="divider"></li>
                                         <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
                                     </ul>
                                 </div>
@@ -565,6 +567,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                 }
             });
+
+            $("#MNU_IMPRIMER").click(function()
+                    {
+                        if (checkedAchat.length == 0)
+                            bootbox.alert("Veuillez selectionnez un achat");
+                        else if (checkedAchat.length >= 1)
+                        {
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                            
+                        }
+                    });
+            
             $("#MNU_ANNULATION").click(function()
             {
                 if (checkedAchat.length == 0)
