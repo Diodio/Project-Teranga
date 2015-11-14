@@ -73,17 +73,17 @@ public function findStatisticByUsine($codeUsine) {
             $bonSortieAnnuler = $this->bonSortieQuery->findBonAnnulerByUsine($codeUsine);
             $bonSortieTab = array();
                 if ($validBonSortie != null)
-                    $bonSortieTab['nb'] = $validBonSortie;
+                    $bonSortieTab['nbValid'] = $validBonSortie;
                 else
-                    $bonSortieTab['nb'] = 0;
+                    $bonSortieTab['nbValid'] = 0;
                 if ($nonValidBonSortie != null)
-                    $bonSortieTab['nb'] = $nonValidBonSortie;
+                    $bonSortieTab['nbNonValid'] = $nonValidBonSortie;
                 else
-                    $bonSortieTab['nb']= 0;
+                    $bonSortieTab['nbNonValid']= 0;
                 if ($bonSortieAnnuler != null)
-                    $bonSortieTab['nb'] = $bonSortieAnnuler;
+                    $bonSortieTab['nbAnnule'] = $bonSortieAnnuler;
                 else
-                    $bonSortieTab['nb'] = 0;
+                    $bonSortieTab['nbAnnule'] = 0;
                 
                
             return $bonSortieTab;

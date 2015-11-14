@@ -140,9 +140,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_BON_NONVALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
+                                                            <div class="infobox-content" style="width:150px">Bons de sortie non validés </div>
                                                         </div>
                                                     </div>
 
@@ -154,7 +154,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_BON_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats validé</div>
+                                                            <div class="infobox-content" style="width:150px">Bons de sortie validé</div>
 
                                                         </div>
                                                     </div>
@@ -167,7 +167,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_BON_ANNULES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
+                                                            <div class="infobox-content" style="width:150px">Bons de sortie annulés</div>
 
                                                         </div>
                                                     </div>
@@ -284,6 +284,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             </div>
         </div><!-- /.row -->
     </div>
+    </div>
     
     <script type="text/javascript">
             jQuery(function ($) {
@@ -310,9 +311,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#INDIC_BON_NONVALIDES').text(data.nbNonValid);
                         $('#INDIC_BON_ANNULES').text(data.nbAnnule);
 
-//                        gStatTimer = setTimeout(function() {
-//                            getIndicator();
-//                        }, interval);
+//                        
                     }
                 });
             };
@@ -593,7 +592,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     {   
                         if (data.rc == 0)
                         {
-                            bootbox.alert("Achat(s) validé(s)");
+                            bootbox.alert("Bon(s) de sortie validé(s)");
                         }
                         else
                         {
@@ -620,7 +619,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     {
                         if (data.rc === 0)
                         {
-                            bootbox.alert("Achat(s) annulés(s)");
+                            bootbox.alert("Bon(s) de sortie annulés(s)");
                         }
                         else
                         {
