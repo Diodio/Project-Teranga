@@ -163,4 +163,22 @@ class BonSortieQueries {
                 return null;
         }
     }
+    
+    
+    
+    /***
+     * recuperer les infos de l'achat pour la validation
+     */
+    public function findInfoByBonSortie($sortieId) {
+        if ($sortieId != null) {
+            $sql = 'SELECT produit_id, codeUsine,quantite FROM ligne_bonsortie lb, bon_sortie b WHERE b.id=bonsortie_id  AND b.id=' . $sortieId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
 }

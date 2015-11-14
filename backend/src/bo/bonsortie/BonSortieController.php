@@ -199,12 +199,12 @@ private $logger;
     }
      public function doValidBonSortie($request) {
         try {
-            if ($request['achatId'] != null) {
-                $achatManager = new BonSortieManager();
-                $valid=$achatManager->validBonSortie($request['achatId']);
+            if ($request['bonsortieId'] != null) {
+                $sortieManager = new BonSortieManager();
+                $valid=$sortieManager->validBonSortie($request['bonsortieId']);
                 if($valid==1)
-                    $achatManager->ajoutStockParAchact ($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
+                    $sortieManager->dimunieStockParBonSortie($request['bonsortieId']);
+                $this->doSuccess($request['bonsortieId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }

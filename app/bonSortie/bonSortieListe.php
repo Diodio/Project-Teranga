@@ -583,14 +583,14 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_VALIDATION").click(function()
             {
                 if (checkedBon.length == 0)
-                    bootbox.alert("Veuillez selectionnez un bonsortie");
+                    bootbox.alert("Veuillez selectionnez un bon de sortie");
                 else if (checkedBon.length >= 1)
                 {
-                     bootbox.confirm("Voulez vous vraiment valider cet bonsortie", function(result) {
+                     bootbox.confirm("Voulez vous vraiment valider cet bon de sortie", function(result) {
                     if(result){
                     var bonsortieId = checkedBon[0];
                     $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
-                    {
+                    {   
                         if (data.rc == 0)
                         {
                             bootbox.alert("Achat(s) validé(s)");
@@ -601,7 +601,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                         $.loader.close(true);
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/bonSortieListe.php", function () {
                         });
                          }
                     });
@@ -613,7 +613,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     bootbox.alert("Veuillez selectionnez un bonsortie");
                 else if (checkedBon.length >= 1)
                 {
-                     bootbox.confirm("Voulez vous vraiment annuler cet bonsortie", function(result) {
+                     bootbox.confirm("Voulez vous vraiment annuler cet bon de sortie", function(result) {
                     if(result){
                     var bonsortieId = checkedBon[0];
                     $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
@@ -627,7 +627,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/bonSortieListe.php", function () {
                         });
                          }
                     });

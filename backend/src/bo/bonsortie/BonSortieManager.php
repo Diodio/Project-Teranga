@@ -116,4 +116,18 @@ public function findStatisticByUsine($codeUsine) {
         else
             return null;
     }
+    
+     /**
+     * 
+     * @param type $achatId
+     * @return type
+     * Cette fonction pernmet de recuperer les informations de l'achat pour la validation et la dimunition du stock
+     */
+    public function dimunieStockParBonSortie($sortieId) {
+        $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
+        foreach ($sortie as $key => $value) {
+            $stockManager = new \Produit\StockManager();
+            $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+        }
+    }
 }
