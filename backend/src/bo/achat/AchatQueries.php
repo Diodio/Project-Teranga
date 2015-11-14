@@ -163,4 +163,20 @@ class AchatQueries {
                 return null;
         }
     }
+    
+    /***
+     * recuperer les infos de l'achat pour la validation
+     */
+    public function findInfoByAchact($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT produit_id, codeUsine,quantite FROM ligne_achat, achat WHERE achat.id=achat_id AND achat.id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
 }

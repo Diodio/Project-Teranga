@@ -112,4 +112,18 @@ public function findStatisticByUsine($codeUsine) {
         else
             return null;
     }
+    /**
+     * 
+     * @param type $achatId
+     * @return type
+     * Cette fonction pernmet de recuperer les informations de l'achat pour la validation et l'ajout du stock
+     */
+    public function ajoutStockParAchact($achatId) {
+        $achat = $this->achatQuery->findInfoByAchact($achatId);
+        foreach ($achat as $key => $value) {
+            $stockManager = new \Produit\StockManager();
+            $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+        }
+    }
+
 }
