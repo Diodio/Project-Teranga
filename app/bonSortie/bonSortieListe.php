@@ -187,27 +187,57 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                               <div class="profile-user-info">
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Date bonsortie </div>
+                        <div class="profile-info-name">Date </div>
                         <div class="profile-info-value">
-                            <span id="AchatDate"></span>
+                            <span id="Date"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Nom Mareyeur </div>
+                        <div class="profile-info-name">Nom Client </div>
                         <div class="profile-info-value">
-                            <span id="AchatNomMareyeur"></span>
+                            <span id="NomClient"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
                         <div class="profile-info-name">Origine </div>
                         <div class="profile-info-value">
-                            <span id="bonsortieAdresseMareyeur"></span>
+                            <span id="Origine"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Numéro Container </div>
+                        <div class="profile-info-value">
+                            <span id="NumeroContainer"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Numéro plomb </div>
+                        <div class="profile-info-value">
+                            <span id="NumeroPlomb"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Numéro camion </div>
+                        <div class="profile-info-value">
+                            <span id="NumeroCamion"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Chauffeur </div>
+                        <div class="profile-info-value">
+                            <span id="Chauffeur"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Destination </div>
+                        <div class="profile-info-value">
+                            <span id="Destination"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
                         <div class="profile-info-name">Créé par </div>
                         <div class="profile-info-value">
-                            <span id="bonsortieUser"></span>
+                            <span id="User"></span>
                         </div>
                     </div>
                 </div>
@@ -215,20 +245,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des produits
                         </h4>
-                    <table class="table table-bordered table-hover"id="TABLE_ACHATS">
+                    <table class="table table-bordered table-hover"id="TABLE_BONS">
                         <thead>
                             <tr>
                                     <th class="text-center">
                                             Désignation
                                     </th>
                                     <th class="text-center">
-                                            Prix Unitaire
-                                    </th>
-                                    <th class="text-center">
                                             Quantite (kg)
-                                    </th>
-                                    <th class="text-center">
-                                            Montant
                                     </th>
                             </tr>
                         </thead>
@@ -241,12 +265,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="profile-info-name">Poids Total </div>
                                 <div class="profile-info-value">
                                     <span id="PoidsTotal"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Montant Total </div>
-                                <div class="profile-info-value">
-                                    <span id="MontantTotal"></span>
                                 </div>
                             </div>
                         </div>
@@ -417,7 +435,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 return false;
             };
-             loadAchats = function() {
+             loadBons = function() {
                 nbTotalBonChecked = 0;
                 checkedBon = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
@@ -530,7 +548,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
             
-            loadAchats();
+            loadBons();
             loadBonSelected = function(bonsortieId)
             {
                  var url;
@@ -539,19 +557,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $.post(url, {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero bonsortie: "+ data.numero);
-                    $('#AchatDate').text(data.dateAchat);
-                    $('#AchatNomMareyeur').text(data.nomMareyeur);
-                    $('#bonsortieAdresseMareyeur').text(data.adresse);
-                    $('#bonsortieUser').text(data.user);
+                    $('#Date').text(data.date);
+                    $('#NomClient').text(data.nomClient);
+                    $('#Origine').text(data.origine);
+                    $('#NumeroContainer').text(data.numContainer);
+                    $('#NumeroPlomb').text(data.numPlomb);
+                    $('#NumeroCamion').text(data.numCamion);
+                    $('#Chauffeur').text(data.chauffeur);
+                    $('#Destination').text(data.destination);
+                    $('#User').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
-                    $('#MontantTotal').text(data.montantTotal);
-                    $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneAchat;
+                    $('#TABLE_BONS tbody').html("");
+                    var table = data.ligneBonSortie;
                     var trHTML='';
                     $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.quantite + '</td></tr>';
                     });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    $('#TABLE_BONS tbody').append(trHTML);
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();

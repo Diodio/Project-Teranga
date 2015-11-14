@@ -111,13 +111,13 @@ private $logger;
                                 $ligneBonSortie->setProduit($produit);
                                 $ligneBonSortie->setQuantite($ligne['Quantité(kg)']);
                                 $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
-                                $Inserted = $ligneBonSortieManager->insert($ligneBonSortie); 
-                                if ($Inserted->getId() != null) {
-                                       $stockManager = new \Produit\StockManager();
-                                       if($ligne['Quantité(kg)'] !="")
-                                           $nbStock = $ligne['Quantité(kg)'];
-                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
-                                }
+                                $ligneBonSortieManager->insert($ligneBonSortie); 
+//                                if ($Inserted->getId() != null) {
+//                                       $stockManager = new \Produit\StockManager();
+//                                       if($ligne['Quantité(kg)'] !="")
+//                                           $nbStock = $ligne['Quantité(kg)'];
+//                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
+//                                }
                             }
                          }
                     $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
@@ -201,7 +201,9 @@ private $logger;
         try {
             if ($request['achatId'] != null) {
                 $achatManager = new BonSortieManager();
-                $achatManager->validBonSortie($request['achatId']);
+                $valid=$achatManager->validBonSortie($request['achatId']);
+                if($valid==1)
+                    $achatManager->ajoutStockParAchact ($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');

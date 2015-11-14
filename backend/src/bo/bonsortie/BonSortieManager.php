@@ -99,11 +99,16 @@ public function findStatisticByUsine($codeUsine) {
             foreach ($bonSortie as $key => $value) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
                 $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
-                $bonSortieDetail ['dateBonSortie']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
-                $bonSortieDetail ['nomMareyeur']  = $value ['nom'];
-                $bonSortieDetail ['adresse']  =  $value ['adresse'];
-                $bonSortieDetail ['user']  =  $value ['login'];
+                $bonSortieDetail ['date']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
+                $bonSortieDetail ['nomClient']  = $value ['nom'];
+                $bonSortieDetail ['numContainer']  =  $value ['numeroContainer'];
+                $bonSortieDetail ['numPlomb']  =  $value ['numeroPlomb'];
+                $bonSortieDetail ['numCamion']  =  $value ['numeroCamion'];
+                $bonSortieDetail ['chauffeur']  =  $value ['nomChauffeur'];
+                $bonSortieDetail ['origine']  =  $value ['origine'];
+                $bonSortieDetail ['destination']  =  $value ['destination'];
                 $bonSortieDetail ['poidsTotal']  =  $value ['poidsTotal'];
+                $bonSortieDetail ['user']  =  $value ['login'];
                 $bonSortieDetail['ligneBonSortie'] = $ligneBonSortie;
             }
             return $bonSortieDetail;
