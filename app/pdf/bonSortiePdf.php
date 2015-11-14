@@ -14,7 +14,7 @@
  require_once('../../html2pdf.class.php');
     // get the HTML
     ob_start();
-    include(dirname(__FILE__).'/bonAchat.php');
+    include(dirname(__FILE__).'/bonSortie.php');
    // include(dirname(__FILE__).'/res/exemple07b.php');
     $content = ob_get_clean();
 
@@ -39,7 +39,7 @@
 //     getIndicator = function() {
 //                var url;
 //                var user;
-//                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+//                url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
 //                $.ajax({
 //                    url: url,
 //                    type: 'POST',
