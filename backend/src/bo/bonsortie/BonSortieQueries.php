@@ -153,7 +153,7 @@ class BonSortieQueries {
     
     public function findAllProduitByBon($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM bon_sortie a, ligne_bon_sortie al, produit p WHERE a.id=al.bon_sortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
+            $sql = 'SELECT p.libelle designation,al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();
@@ -162,5 +162,43 @@ class BonSortieQueries {
             else
                 return null;
         }
+    }
+    
+    
+    
+    /***
+     * recuperer les infos de l'achat pour la validation
+     */
+    public function findInfoByBonSortie($sortieId) {
+        if ($sortieId != null) {
+            $sql = 'SELECT produit_id, codeUsine,quantite FROM ligne_bonsortie lb, bon_sortie b WHERE b.id=bonsortie_id  AND b.id=' . $sortieId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
+    
+    public function listbonValid() {
+		$query = Bootstrap::$entityManager->createQuery("select b.id as value, b.numeroBonSortie as text from BonSortie\BonSortie b where b.status=1");
+		$types = $query->getResult();
+		if ($types != null)
+			return $types;
+		else
+			return null;
+	}
+        
+        public function findInfoColisages($colisageId) {
+        $sql = 'SELECT nom, origine FROM bon_sortie b, CLIENT c WHERE b.client_id=c.id AND b.id='.$colisageId;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $colisages = $stmt->fetchAll();
+        if ($colisages != null)
+            return $colisages;
+        else
+            return null;
     }
 }

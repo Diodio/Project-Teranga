@@ -12,12 +12,12 @@ class LigneAchat {
     protected $id;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="integer", nullable=true)
      * */
     protected $quantite;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="integer", nullable=true)
      * */
     protected $poids;
     

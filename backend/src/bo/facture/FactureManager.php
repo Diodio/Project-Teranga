@@ -1,6 +1,6 @@
 <?php
 
-namespace Achat;
+namespace Facture;
 use Achat\AchatQueries as AchatQueries;
 /**
  * Cette classe communique avec la classe ContactQueries
@@ -9,7 +9,7 @@ use Achat\AchatQueries as AchatQueries;
  */
 
 
-class AchatManager {
+class FactureManager {
 
     private $achatQuery;
    

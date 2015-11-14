@@ -37,6 +37,9 @@ private $logger;
                         case \App::ACTION_LIST:
                                 $this->doList($request);
                                 break;
+                        case \App::ACTION_LIST_VALID:
+                                $this->doListValidBon($request);
+                                break;
                         case \App::ACTION_REMOVE:
                                 $this->doRemove($request);
                                 break;
@@ -65,7 +68,10 @@ private $logger;
                         $this->doViewDetails($request);
                         break;
                         case \App::ACTION_GET_LAST_NUMBER:
-                                $this->doGetLastNumberMareyeur($request);
+                            $this->doGetLastNumberMareyeur($request);
+                        break;
+                        case \App::ACTION_GET_COLISAGES:
+                                $this->doGetInfoColisages($request);
                                 break;
                         
                     }
@@ -111,13 +117,13 @@ private $logger;
                                 $ligneBonSortie->setProduit($produit);
                                 $ligneBonSortie->setQuantite($ligne['Quantité(kg)']);
                                 $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
-                                $Inserted = $ligneBonSortieManager->insert($ligneBonSortie); 
-                                if ($Inserted->getId() != null) {
-                                       $stockManager = new \Produit\StockManager();
-                                       if($ligne['Quantité(kg)'] !="")
-                                           $nbStock = $ligne['Quantité(kg)'];
-                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
-                                }
+                                $ligneBonSortieManager->insert($ligneBonSortie); 
+//                                if ($Inserted->getId() != null) {
+//                                       $stockManager = new \Produit\StockManager();
+//                                       if($ligne['Quantité(kg)'] !="")
+//                                           $nbStock = $ligne['Quantité(kg)'];
+//                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
+//                                }
                             }
                          }
                     $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
@@ -199,10 +205,12 @@ private $logger;
     }
      public function doValidBonSortie($request) {
         try {
-            if ($request['achatId'] != null) {
-                $achatManager = new BonSortieManager();
-                $achatManager->validBonSortie($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
+            if ($request['bonsortieId'] != null) {
+                $sortieManager = new BonSortieManager();
+                $valid=$sortieManager->validBonSortie($request['bonsortieId']);
+                if($valid==1)
+                    $sortieManager->dimunieStockParBonSortie($request['bonsortieId']);
+                $this->doSuccess($request['bonsortieId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
@@ -255,11 +263,11 @@ private $logger;
     
     public function doViewDetails($request) {
         try {
-            if (isset($request['achatId'])) {
-                $achatManager = new BonSortieManager();
-                $achatDetails = $achatManager->findBonSortieDetails($request['achatId']);
-                if ($achatDetails != null)
-                    $this->doSuccessO($achatDetails);
+            if (isset($request['bonsortieId'])) {
+                $sortieManager = new BonSortieManager();
+                $sotieDetails = $sortieManager->findBonSortieDetails($request['bonsortieId']);
+                if ($sotieDetails != null)
+                    $this->doSuccessO($sotieDetails);
                 else
                     echo json_encode(array());
             } else {
@@ -282,6 +290,33 @@ private $logger;
         }
     }
 
+     public function doListValidBon($request) {
+            $sortieManager = new BonSortieManager();
+            
+        try {
+            $colisages = $sortieManager->listbonValid();
+            
+            if ($colisages != null)
+                $this->doSuccessO($colisages);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
+    
+    public function doGetInfoColisages($request) {
+            $sortieManager = new BonSortieManager();
+        try {
+            $colisages = $sortieManager->findInfoColisages($request['colisageId']);
+            if ($colisages != null)
+                $this->doSuccessO($colisages);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
 }
 
         $oBonSortieController = new BonSortieController($_REQUEST);

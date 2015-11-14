@@ -16,8 +16,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Achat de produits <small> <i
-                    class="ace-icon fa fa-angle-double-right"></i> Achat
+            Bon de sortie <small> <i
+                    class="ace-icon fa fa-angle-double-right"></i> Facture
             </small>
         </h1>
     </div>
@@ -31,11 +31,11 @@ $codeUsine = $_COOKIE['codeUsine'];
            <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label> Colisgae</label>
+                        <label> Colisage</label>
                     </div>
                     <div class="col-sm-6">
-                        <select id="CMB_MAREYEURS" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="mareyeurs">Numero</option>
+                        <select id="CMB_COLISAGES" data-placeholder=""  style="width:100%"     >
+                            <option value="*" class="colisages">Numéro</option>
                         </select>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Client</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder="" style="width:100%" 
+                                <input type="text" id="nomClient" placeholder="" style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -55,7 +55,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Origine</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="adresse" placeholder=""  style="width:100%" 
+                                <input type="text" id="origine" placeholder=""  style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -65,7 +65,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Pays</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" placeholder="" style="width:100%" 
+                                <input type="text" id="pays" placeholder="" style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -76,7 +76,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label class="col-sm-2 control-label no-padding-right"
                                    for="form-field-1"> Numero Facture</label>
                             <div class="col-sm-6">
-                                <input type="text" id="numAchat" placeholder=""
+                                <input type="text" id="numFacture" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
@@ -84,7 +84,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label class="col-sm-2 control-label no-padding-right"
                                    for="form-field-1"> Date Facture</label>
                             <div class="col-sm-6">
-                                <input type="text" id="dateAchat" placeholder=""
+                                <input type="text" id="dateFacture" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
@@ -92,7 +92,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label class="col-sm-4 control-label no-padding-right"
                                    for="form-field-1"> Heure de Facture</label>
                             <div class="bootstrap-timepicker col-sm-6" style="margin-left: -22px;;width: 70%;">
-                                <input name="heureReception" id="heureReception" type="text" class="col-xs-10 col-sm-7" />
+                                <input name="heureReception" id="heureFacture" type="text" class="col-xs-10 col-sm-7" />
                             </div>
                         </div>
                         <div class="row" style="margin-top: 132px;">
@@ -101,9 +101,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
                     <div class="col-sm-6" style="margin-left: 74px;">
                         <select id="devise" data-placeholder=""      >
-                            <option value="*" class="mareyeurs">Euro</option>
-                            <option value="*" class="mareyeurs">FCFA</option>
-                            <option value="*" class="mareyeurs">US$</option>
+                            <option value="EURO">Euro</option>
+                            <option value="FCFA">FCFA</option>
+                            <option value="US">US$</option>
                         </select>
                     </div>
                 </div>
@@ -216,8 +216,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="row"
-                                <label class="col-sm-4 control-label no-padding-right"
+                            <div class="row">
+                                <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Montant HT </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
@@ -226,7 +226,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
+                            <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Montant TTC </label>
@@ -237,7 +237,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
+                            <div class="space-6"></div>
                             <div class="row">
                                         <label class="col-sm-5 control-label no-padding-right"
                                                 for="form-field-1"> Mode de paiement </label>
@@ -251,7 +251,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
+                            <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> No Cheque </label>
@@ -262,8 +262,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
-                            <div class="row"
+                            <div class="space-6"></div>
+                            <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Avance </label>
                                 <div class="col-sm-7">
@@ -273,8 +273,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
-                            <div class="row"
+                            <div class="space-6"></div>
+                            <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Reliquat </label>
                                 <div class="col-sm-7">
@@ -307,8 +307,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 <script type="text/javascript">
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
-    $('#CMB_MAREYEURS').select2();
-    $('#designation0').select2();
+    $('#CMB_COLISAGES').select2();
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -318,7 +317,7 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#numAchat").val(sData.oId);
+                $("#num").val(sData.oId);
             }
     });
     var today = new Date();
@@ -328,17 +327,17 @@ $(document).ready(function () {
 
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
-    $('#dateAchat').attr('value', today);
+    $('#dateFacture').attr('value', today);
     
-    $('#heureReception').timepicker({
+    $('#heureFacture').timepicker({
             minuteStep: 1,
-            defaultTime: '08:00',
             showSeconds: false,
             showMeridian: false
         });
         
-    loadProduit = function(index){
-        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
+    
+    loadColisages = function(){
+        $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -348,27 +347,28 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#designation"+index).loadJSON('{"designations'+index+'":' + data + '}');
+                $("#CMB_COLISAGES").loadJSON('{"colisages":' + data + '}');
             }
         });
     };
-    loadMareyeurs = function(){
-        $.post("<?php echo App::getBoPath(); ?>/bonsortir/BController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
-                ; ?>"}, function(data) {
-            sData=$.parseJSON(data);
-            if(sData.rc==-1){
-                $.gritter.add({
-                        title: 'Notification',
-                        text: sData.error,
-                        class_name: 'gritter-error gritter-light'
-                    });
-            }else{
-                $("#CMB_MAREYEURS").loadJSON('{"mareyeurs":' + data + '}');
-            }
-        });
+    loadColisages();
+    loadInfoColisage = function(colisageId){
+        if(colisageId!==''){
+            $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {colisageId: colisageId, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
+            data = $.parseJSON(data);
+            $("#nomClient").val(data.nomClient);
+            $('#origine').val(data.origine);
+            });
+        }
     };
-    loadMareyeurs();
-    loadProduit(0);
+    $('#CMB_COLISAGES').change(function() {
+        if($('#CMB_COLISAGES').val()!=='*')
+            loadInfoColisage($('#CMB_COLISAGES').val());
+        else {
+            $('#nomClient').val("");
+            $('#origine').val("");
+        }
+        });
     var i=1;
      $("#add_row").click(function(){
     $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='text' id='cont"+i+"' name='cont"+i+"' class='form-control'/></td>\n\

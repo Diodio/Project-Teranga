@@ -327,7 +327,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     if (this.checked)
                     {
                         checkedAchatAdd($(this).val());
-                        //MessageSelected();
+                      //  MessageSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
                         nbTotalAchatChecked=checkedAchat.length;
@@ -335,13 +335,33 @@ $codeUsine = $_COOKIE['codeUsine'];
                     else
                     {
                         checkedAchatRemove($(this).val());
-//                        MessageUnSelected();
+                   //    MessageUnSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
                     }
                     $(this).closest('tr').toggleClass('selected');
                 });
             });
+            
+             $('#LIST_ACHATS tbody').on('click', 'input[type="checkbox"]', function() {
+                context=$(this);
+                if ($(this).is(':checked') && $(this).val() != '*') {
+                    checkedAchatAdd($(this).val());
+                    MessageSelected();
+                } else {
+                    checkedAchatRemove($(this).val());
+                    MessageUnSelected();
+                }
+                ;
+                if(!context.is(':checked')){
+                    $('table th input:checkbox').removeAttr('checked');
+                }else{
+                    if(checkedAchat.length==nbTotalAchatChecked){
+                        $('table th input:checkbox').prop('checked', true);
+                    }
+                }
+            });
+            
             MessageSelected = function(click)
             {
                 if (checkedAchat.length == 1){

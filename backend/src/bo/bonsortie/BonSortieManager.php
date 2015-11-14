@@ -73,17 +73,17 @@ public function findStatisticByUsine($codeUsine) {
             $bonSortieAnnuler = $this->bonSortieQuery->findBonAnnulerByUsine($codeUsine);
             $bonSortieTab = array();
                 if ($validBonSortie != null)
-                    $bonSortieTab['nb'] = $validBonSortie;
+                    $bonSortieTab['nbValid'] = $validBonSortie;
                 else
-                    $bonSortieTab['nb'] = 0;
+                    $bonSortieTab['nbValid'] = 0;
                 if ($nonValidBonSortie != null)
-                    $bonSortieTab['nb'] = $nonValidBonSortie;
+                    $bonSortieTab['nbNonValid'] = $nonValidBonSortie;
                 else
-                    $bonSortieTab['nb']= 0;
+                    $bonSortieTab['nbNonValid']= 0;
                 if ($bonSortieAnnuler != null)
-                    $bonSortieTab['nb'] = $bonSortieAnnuler;
+                    $bonSortieTab['nbAnnule'] = $bonSortieAnnuler;
                 else
-                    $bonSortieTab['nb'] = 0;
+                    $bonSortieTab['nbAnnule'] = 0;
                 
                
             return $bonSortieTab;
@@ -93,23 +93,63 @@ public function findStatisticByUsine($codeUsine) {
     
     public function findBonSortieDetails($bonSortieId) {
         if ($bonSortieId != null) {
-            $bonSortie = $this->bonSortieQuery->findBonSortieDetails($bonSortieId);
-            $ligneBonSortie = $this->bonSortieQuery->findAllProduitByAchact($bonSortieId);
+            $bonSortie = $this->bonSortieQuery->findBonDetails($bonSortieId);
+            $ligneBonSortie = $this->bonSortieQuery->findAllProduitByBon($bonSortieId);
             $bonSortieDetail = array();
             foreach ($bonSortie as $key => $value) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
-                $bonSortieDetail ['numero'] = $value ['numero'];
-                $bonSortieDetail ['dateBonSortie']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
-                $bonSortieDetail ['nomMareyeur']  = $value ['nom'];
-                $bonSortieDetail ['adresse']  =  $value ['adresse'];
-                $bonSortieDetail ['user']  =  $value ['login'];
+                $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
+                $bonSortieDetail ['date']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
+                $bonSortieDetail ['nomClient']  = $value ['nom'];
+                $bonSortieDetail ['numContainer']  =  $value ['numeroContainer'];
+                $bonSortieDetail ['numPlomb']  =  $value ['numeroPlomb'];
+                $bonSortieDetail ['numCamion']  =  $value ['numeroCamion'];
+                $bonSortieDetail ['chauffeur']  =  $value ['nomChauffeur'];
+                $bonSortieDetail ['origine']  =  $value ['origine'];
+                $bonSortieDetail ['destination']  =  $value ['destination'];
                 $bonSortieDetail ['poidsTotal']  =  $value ['poidsTotal'];
-                $bonSortieDetail ['montantTotal']  =  $value ['montantTotal'];
+                $bonSortieDetail ['user']  =  $value ['login'];
                 $bonSortieDetail['ligneBonSortie'] = $ligneBonSortie;
             }
             return $bonSortieDetail;
         }
         else
             return null;
+    }
+    
+     /**
+     * 
+     * @param type $achatId
+     * @return type
+     * Cette fonction pernmet de recuperer les informations de l'achat pour la validation et la dimunition du stock
+     */
+    public function dimunieStockParBonSortie($sortieId) {
+        $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
+        foreach ($sortie as $key => $value) {
+            $stockManager = new \Produit\StockManager();
+            $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+        }
+    }
+    
+    public function listbonValid() {
+        $sorties = $this->bonSortieQuery->listbonValid();
+//        $list = array();
+//        $i = 0;
+//        foreach ($sorties as $key => $value) {
+//            $list [$i]['value'] = $value ['id'];
+//            $list [$i]['text'] = $value ['numero'];
+//            $i++;
+//        }
+        return $sorties;
+    }
+    
+     public function findInfoColisages($colisageId) {
+        $colisages = $this->bonSortieQuery->findInfoColisages($colisageId);
+        $list = array();
+        foreach ($colisages as $key => $value) {
+            $list ['nomClient'] = $value ['nom'];
+            $list ['origine'] = $value ['origine'];
+        }
+        return $list;
     }
 }

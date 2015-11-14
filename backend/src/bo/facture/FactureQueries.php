@@ -1,11 +1,11 @@
 <?php
 
-namespace Achat;
+namespace Facture;
 
 use Racine\Bootstrap as Bootstrap;
 use Exception as Exception;
 
-class AchatQueries {
+class FactureQueries {
     /*
      *
      */

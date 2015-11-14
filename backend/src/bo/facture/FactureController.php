@@ -284,4 +284,4 @@ private $logger;
     }
 }
 
-        $oAchatController = new AchatController($_REQUEST);
+        $oFactureController = new FactureController($_REQUEST);
