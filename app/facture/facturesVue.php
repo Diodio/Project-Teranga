@@ -216,8 +216,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="row"
-                                <label class="col-sm-4 control-label no-padding-right"
+                            <div class="row">
+                                <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Montant HT </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
@@ -226,7 +226,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
+                            <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Montant TTC </label>
@@ -237,7 +237,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
+                            <div class="space-6"></div>
                             <div class="row">
                                         <label class="col-sm-5 control-label no-padding-right"
                                                 for="form-field-1"> Mode de paiement </label>
@@ -251,7 +251,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
+                            <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> No Cheque </label>
@@ -262,8 +262,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
-                            <div class="row"
+                            <div class="space-6"></div>
+                            <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Avance </label>
                                 <div class="col-sm-7">
@@ -273,8 +273,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </div>
                                 </div>
                             </div>
-                            <div class="vspace-6"></div>
-                            <div class="row"
+                            <div class="space-6"></div>
+                            <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Reliquat </label>
                                 <div class="col-sm-7">
