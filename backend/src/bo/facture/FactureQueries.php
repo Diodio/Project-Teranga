@@ -19,7 +19,7 @@ class FactureQueries {
 
     public function __construct() {
         $this->entityManager = Bootstrap::$entityManager;
-        $this->classString = 'Achat\Achat';
+        $this->classString = 'Facture\Facture';
     }
 
    
@@ -46,35 +46,35 @@ class FactureQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'select achat.id,status,dateAchat, numero, nom
+            $sql = 'select achat.id,status,dateFacture, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'select achat.id, status,dateAchat, numero, nom
+            $sql = 'select achat.id, status,dateFacture, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
-        $arrayAchats = array();
+        $arrayFactures = array();
         $i = 0;
         foreach ($products as $key => $value) {
-            $arrayAchats [$i] [] = $value ['id'];
-            $arrayAchats [$i] [] = $value ['status'];
-            $arrayAchats [$i] [] = $value ['dateAchat'];
-            $arrayAchats [$i] [] = $value ['numero'];
-            $arrayAchats [$i] [] = $value ['nom'];
+            $arrayFactures [$i] [] = $value ['id'];
+            $arrayFactures [$i] [] = $value ['status'];
+            $arrayFactures [$i] [] = $value ['dateFacture'];
+            $arrayFactures [$i] [] = $value ['numero'];
+            $arrayFactures [$i] [] = $value ['nom'];
             $i++;
         }
-        return $arrayAchats;
+        return $arrayFactures;
     }
 
  
   
 
      public function findById($produitId) {
-            $query = Bootstrap::$entityManager->createQuery("select p from Achat\Achat p where p.id = :produitId");
+            $query = Bootstrap::$entityManager->createQuery("select p from Facture\Facture p where p.id = :produitId");
             $query->setParameter('familleId', $produitId);
             $produit = $query->getResult();
             if ($produit != null)
@@ -86,59 +86,59 @@ class FactureQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'select count(achat.id) as nbAchats
+            $sql = 'select count(achat.id) as nbFactures
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'select count(achat.id) as nbAchats
+             $sql = 'select count(achat.id) as nbFactures
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbClients = $stmt->fetch();
-        return $nbClients['nbAchats'];
+        return $nbClients['nbFactures'];
     }
     
-    public function getLastNumberAchat() {
-        $sql = 'select max(id)+1 as lastAchats from achat';
+    public function getLastNumberFacture() {
+        $sql = 'select max(id)+1 as last from facture';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
-        $lastAchat = $stmt->fetch();
-        return $lastAchat['lastAchats'];
+        $lastFacture = $stmt->fetch();
+        return $lastFacture['last'];
     }
     
-    public function validAchat($achatId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=1 WHERE a.id IN( '$achatId')");
+    public function validFacture($achatId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Facture\Facture a set a.status=1 WHERE a.id IN( '$achatId')");
         return $query->getResult();
     }
-    public function annulerAchat($achatId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=2 WHERE a.id IN( '$achatId')");
+    public function annulerFacture($achatId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Facture\Facture a set a.status=2 WHERE a.id IN( '$achatId')");
         return $query->getResult();
     }
-    public function findValidAchatByUsine($codeUsine) {
+    public function findValidFactureByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
-        $Achat = $stmt->fetch();
-        return $Achat['nb'];
+        $Facture = $stmt->fetch();
+        return $Facture['nb'];
     }
     
-    public function findNonValidAchatByUsine($codeUsine) {
+    public function findNonValidFactureByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
-        $Achat = $stmt->fetch();
-        return $Achat['nb'];
+        $Facture = $stmt->fetch();
+        return $Facture['nb'];
     }
-    public function findAchatAnnulerByUsine($codeUsine) {
+    public function findFactureAnnulerByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=2 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
-        $Achat = $stmt->fetch();
-        return $Achat['nb'];
+        $Facture = $stmt->fetch();
+        return $Facture['nb'];
     }
-     public function findAchatDetails($achatId) {
+     public function findFactureDetails($achatId) {
         if ($achatId != null) {
             $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $achatId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

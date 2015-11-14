@@ -5,16 +5,16 @@ require_once '../../../../common/app.php';
 require_once App::AUTOLOAD;         
 $lang='fr';
 
-use Achat\Achat as Achat;
-use Achat\AchatPaiement as AchatPaiement;
+use Facture\Facture as Facture;
+use Facture\FacturePaiement as FacturePaiement;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
-use Achat\AchatManager as AchatManager;
+use Facture\FactureManager as FactureManager;
 use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
                         
-class AchatController extends BaseController implements BaseAction {
+class FactureController extends BaseController implements BaseAction {
 private $logger;
     
     private $parameters;
@@ -47,16 +47,16 @@ private $logger;
                                 $this->doSearch($request);
                                 break;
                         case \App::ACTION_LIST_PAR_USINE:
-                                $this->doGetAchatParUsine($request);
+                                $this->doGetFactureParUsine($request);
                                 break;
                         case \App::ACTION_ACTIVER:
-                                $this->doValidAchat($request);
+                                $this->doValidFacture($request);
                                 break;
                         case \App::ACTION_DESACTIVER:
-                                $this->doAnnuleAchat($request);
+                                $this->doAnnuleFacture($request);
                                 break;
                         case \App::ACTION_GET_LAST_NUMBER:
-                                $this->doGetLastNumberAchat($request);
+                                $this->doGetLastNumber($request);
                                 break;
                         case \App::ACTION_STAT:
                                 $this->doStat($request);
@@ -78,12 +78,12 @@ private $logger;
         try {
             $this->logger->log->trace("tesst1");
             
-                $achatManager = new AchatManager();
+                $factureManager = new FactureManager();
                 
-                $achat = new Achat();
-                $achat->setNumero($request['numAchat']);
+                $achat = new Facture();
+                $achat->setNumero($request['numFacture']);
                 $achat->setHeureReception(new \DateTime($request['heureReception']));
-                $achat->setDateAchat(new \DateTime("now"));
+                $achat->setDateFacture(new \DateTime("now"));
                 $achat->setPoidsTotal($request['poidsTotal']);
                 $achat->setMontantTotal($request['montantTotal']);
                 $achat->setModePaiement($request['modePaiement']);
@@ -96,26 +96,26 @@ private $logger;
                // var_dump($request['mareyeur']);
                $achat->setMareyeur($mareyeur);
                 
-                $achatAdded = $achatManager->insert($achat);
+                $achatAdded = $factureManager->insert($achat);
            //     var_dump("fgf");
                 if ($achatAdded->getId() != null) {
-                    $jsonAchat = json_decode($_POST['jsonProduit'], true);
-                         foreach ($jsonAchat as $key => $ligneachat) {
+                    $jsonFacture = json_decode($_POST['jsonProduit'], true);
+                         foreach ($jsonFacture as $key => $ligneachat) {
                             if(isset($ligneachat["Designation"])) {
-                                $ligneAchat = new \Achat\LigneAchat();
-                                $ligneAchat->setAchat($achat);
+                                $ligneFacture = new \Facture\LigneFacture();
+                                $ligneFacture->setFacture($achat);
                                 $produitId = $ligneachat["Designation"];
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
-                                $ligneAchat->setProduit($produit);
+                                $ligneFacture->setProduit($produit);
                                 if($ligneachat['Poids Net(kg)']!=="")
-                                    $ligneAchat->setQuantite($ligneachat['Poids Net(kg)']);
+                                    $ligneFacture->setQuantite($ligneachat['Poids Net(kg)']);
                                 else
-                                    $ligneAchat->setQuantite($ligneachat['Quantite(kg)']);
-                                $ligneAchat->setMontant($ligneachat['Montant']);
-                               // $ligneAchat->setPoids($ligneachat['Poids Net(kg)']);
-                                $ligneAchatManager = new \Achat\LigneAchatManager();
-                                $ligneAchatManager->insert($ligneAchat); 
+                                    $ligneFacture->setQuantite($ligneachat['Quantite(kg)']);
+                                $ligneFacture->setMontant($ligneachat['Montant']);
+                               // $ligneFacture->setPoids($ligneachat['Poids Net(kg)']);
+                                $ligneFactureManager = new \Facture\LigneFactureManager();
+                                $ligneFactureManager->insert($ligneFacture); 
 //                                if ($achatInserted->getId() != null) {
 //                                       $stockManager = new \Produit\StockManager();
 //                                       if($ligneachat['Quantite(kg)'] !="")
@@ -124,13 +124,13 @@ private $logger;
 //                                           $nbStock = $ligneachat['Poids Net(kg)'];
 //                                       $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
 //                                }
-//                                $achatPaiement = new AchatPaiement();
-//                                $achatPaiement->setAchat($achat);
+//                                $achatPaiement = new FacturePaiement();
+//                                $achatPaiement->setFacture($achat);
 //                                $achatPaiement->setMontant($request['avance']);
 //                                $achatPaiement->setDatePaiement(new \DateTime("now"));
                             }
                          }
-                    $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');
+                    $this->doSuccess($achatAdded->getId(), 'Facture enregistré avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'inserer cet achat');
                 }
@@ -144,11 +144,11 @@ private $logger;
     
     public function doList($request) {
         try {
-            $achatManager = new AchatManager();
+            $factureManager = new FactureManager();
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateAchat', 'numero', 'nom');
+                $aColumns = array('dateFacture', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -160,7 +160,7 @@ private $logger;
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder .= " dateAchat desc";
+                        $sOrder .= " dateFacture desc";
                     }
                 }
                 // End order from DataTable
@@ -179,10 +179,10 @@ private $logger;
                     }
                 }
                 // End filter from dataTable
-                $achats = $achatManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $achats = $factureManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbAchats = $achatManager->count($request['codeUsine'],$sWhere);
-                    $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
+                    $nbFactures = $factureManager->count($request['codeUsine'],$sWhere);
+                    $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbFactures));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }
@@ -207,13 +207,13 @@ private $logger;
     public function doView($request) {
         
     }
-     public function doValidAchat($request) {
+     public function doValidFacture($request) {
         try {
             if ($request['achatId'] != null) {
-                $achatManager = new AchatManager();
-                $valid = $achatManager->validAchat($request['achatId']);
+                $factureManager = new FactureManager();
+                $valid = $factureManager->validFacture($request['achatId']);
                 if($valid==1)
-                    $achatManager->ajoutStockParAchact ($request['achatId']);
+                    $factureManager->ajoutStockParAchact ($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
@@ -223,11 +223,11 @@ private $logger;
         }
     }
     
-    public function doAnnuleAchat($request) {
+    public function doAnnuleFacture($request) {
         try {
             if ($request['achatId'] != null) {
-                $achatManager = new AchatManager();
-                $achatManager->annulerAchat($request['achatId']);
+                $factureManager = new FactureManager();
+                $factureManager->annulerFacture($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Annulation effectuée avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
@@ -236,11 +236,11 @@ private $logger;
             $this->doError('-1', $e->getMessage());
         }
     }
-    public function doGetLastNumberAchat($request) {
+    public function doGetLastNumber($request) {
         try {
-                $achatManager = new AchatManager();
-                $lastAchat = $achatManager->getLastNumberAchat();
-                $this->doSuccess($lastAchat,'Dernier bon d\'achat');
+                $factureManager = new FactureManager();
+                $lastFacture = $factureManager->getLastNumberFacture();
+                $this->doSuccess($lastFacture,'Dernier bon de sortie');
         }  catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
@@ -249,8 +249,8 @@ private $logger;
     public function doStat($request) {
     	try {
     		if (isset($request['codeUsine'])) {
-    			$AchatManager = new AchatManager();
-    			$achat = $AchatManager->findStatisticByUsine($request['codeUsine']);
+    			$FactureManager = new FactureManager();
+    			$achat = $FactureManager->findStatisticByUsine($request['codeUsine']);
     			if($achat != null)
     				$this->doSuccessO($achat);
     			else
@@ -268,14 +268,14 @@ private $logger;
     public function doViewDetails($request) {
         try {
             if (isset($request['achatId'])) {
-                $achatManager = new AchatManager();
-                $achatDetails = $achatManager->findAchatDetails($request['achatId']);
+                $factureManager = new FactureManager();
+                $achatDetails = $factureManager->findFactureDetails($request['achatId']);
                 if ($achatDetails != null)
                     $this->doSuccessO($achatDetails);
                 else
                     echo json_encode(array());
             } else {
-                $this -> doError('-1', 'Chargement detail achat impossible');
+                $this -> doError('-1', 'Chargement detail impossible');
             }
         
         } catch (Exception $e) {

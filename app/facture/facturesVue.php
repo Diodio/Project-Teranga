@@ -117,9 +117,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			<table class="table table-bordered table-hover" id="LISTESORTIE">
 				<thead>
 					<tr >
-						<th class="text-center">
-							#
-						</th>
+						
 						<th class="text-center">
 							Désignation
 						</th>
@@ -308,6 +306,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
     $('#CMB_COLISAGES').select2();
+    var bonsortieId;
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -317,7 +316,7 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#num").val(sData.oId);
+                $("#numFacture").val(sData.oId);
             }
     });
     var today = new Date();
@@ -356,8 +355,17 @@ $(document).ready(function () {
         if(colisageId!==''){
             $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {colisageId: colisageId, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
             data = $.parseJSON(data);
+           //bonsortieId=data.id;
             $("#nomClient").val(data.nomClient);
             $('#origine').val(data.origine);
+            $('#LISTESORTIE tbody').html("");
+            var table = data.ligneBonSortie;
+            var trHTML='';
+            $(table).each(function(index, element){
+                trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+            });
+            $('#LISTESORTIE tbody').append(trHTML);
+            trHTML='';
             });
         }
     };

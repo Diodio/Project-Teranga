@@ -1,7 +1,7 @@
 <?php
 
 namespace Facture;
-use Achat\AchatQueries as AchatQueries;
+use Facture\FactureQueries as FactureQueries;
 /**
  * Cette classe communique avec la classe ContactQueries
  * Elle sert d'intermédiaire entre le controleur ContactControleur et les queries 
@@ -11,116 +11,116 @@ use Achat\AchatQueries as AchatQueries;
 
 class FactureManager {
 
-    private $achatQuery;
+    private $factureQuery;
    
 
     public function __construct() {
-        $this->achatQuery = new AchatQueries();
+        $this->factureQuery = new FactureQueries();
     }
     
-    public function insert($achat) {
-        $this->achatQuery->insert($achat);
-    	return $achat;
+    public function insert($facture) {
+        $this->factureQuery->insert($facture);
+    	return $facture;
     }
     
     public function listAll() {
-    	$this->achatQuery=$this->achatQuery->findAll();
-    	return $this->achatQuery;
+    	$this->factureQuery=$this->factureQuery->findAll();
+    	return $this->factureQuery;
     }
 
 
    public function findById($produitId) {
-       return $this->achatQuery->findById($produitId);
+       return $this->factureQuery->findById($produitId);
     }
    
     
-    public function findTypeAchatById($typeproduitId) {
-        return $this->achatQuery->findTypeAchatById($typeproduitId);
+    public function findTypeFactureById($typeproduitId) {
+        return $this->factureQuery->findTypeFactureById($typeproduitId);
     }
 
     
     public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->achatQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+        return $this->factureQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
 
    
     public function count($codeUsine,$where="") {
-        return $this->achatQuery->count($codeUsine,$where);
+        return $this->factureQuery->count($codeUsine,$where);
     }
-    public function validAchat($achatId) {
-        return $this->achatQuery->validAchat($achatId);
+    public function validFacture($factureId) {
+        return $this->factureQuery->validFacture($factureId);
     }
-    public function annulerAchat($achatId) {
-        return $this->achatQuery->annulerAchat($achatId);
+    public function annulerFacture($factureId) {
+        return $this->factureQuery->annulerFacture($factureId);
     }
-public function getLastNumberAchat() {
-    $lastAchatId=$this->achatQuery->getLastNumberAchat();
-    if($lastAchatId !=null){
-    if(strlen($lastAchatId)==1) $lastAchatId="0000".$lastAchatId;
-    else if(strlen($lastAchatId)==2) $lastAchatId="000".$lastAchatId;
-    else if(strlen($lastAchatId)==3) $lastAchatId="00".$lastAchatId;
-    else if(strlen($lastAchatId)==4) $lastAchatId="0".$lastAchatId;
+public function getLastNumberFacture() {
+    $lastFactureId=$this->factureQuery->getLastNumberFacture();
+    if($lastFactureId !=null){
+    if(strlen($lastFactureId)==1) $lastFactureId="0000".$lastFactureId;
+    else if(strlen($lastFactureId)==2) $lastFactureId="000".$lastFactureId;
+    else if(strlen($lastFactureId)==3) $lastFactureId="00".$lastFactureId;
+    else if(strlen($lastFactureId)==4) $lastFactureId="0".$lastFactureId;
     }
     else
-        $lastAchatId="00001";
-    return $lastAchatId;
+        $lastFactureId="00001";
+    return $lastFactureId;
 }
 
 public function findStatisticByUsine($codeUsine) {
         if ($codeUsine != null) {
-            $validAchat = $this->achatQuery->findValidAchatByUsine($codeUsine);
-            $nonValidAchat = $this->achatQuery->findNonValidAchatByUsine($codeUsine);
-            $achatAnnuler = $this->achatQuery->findAchatAnnulerByUsine($codeUsine);
-            $achatTab = array();
-                if ($validAchat != null)
-                    $achatTab['nbValid'] = $validAchat;
+            $validFacture = $this->factureQuery->findValidFactureByUsine($codeUsine);
+            $nonValidFacture = $this->factureQuery->findNonValidFactureByUsine($codeUsine);
+            $factureAnnuler = $this->factureQuery->findFactureAnnulerByUsine($codeUsine);
+            $factureTab = array();
+                if ($validFacture != null)
+                    $factureTab['nbValid'] = $validFacture;
                 else
-                    $achatTab['nbValid'] = 0;
-                if ($nonValidAchat != null)
-                    $achatTab['nbNonValid'] = $nonValidAchat;
+                    $factureTab['nbValid'] = 0;
+                if ($nonValidFacture != null)
+                    $factureTab['nbNonValid'] = $nonValidFacture;
                 else
-                    $achatTab['nbNonValid']= 0;
-                if ($achatAnnuler != null)
-                    $achatTab['nbAnnule'] = $achatAnnuler;
+                    $factureTab['nbNonValid']= 0;
+                if ($factureAnnuler != null)
+                    $factureTab['nbAnnule'] = $factureAnnuler;
                 else
-                    $achatTab['nbAnnule'] = 0;
+                    $factureTab['nbAnnule'] = 0;
                 
                
-            return $achatTab;
+            return $factureTab;
         } else
             return 0;
     }
     
-    public function findAchatDetails($achatId) {
-        if ($achatId != null) {
-            $achat = $this->achatQuery->findAchatDetails($achatId);
-            $ligneAchat = $this->achatQuery->findAllProduitByAchact($achatId);
-            $achatDetail = array();
-            foreach ($achat as $key => $value) {
-               // $achatDetail ['id'] = $value ['achat.id'];
-                $achatDetail ['numero'] = $value ['numero'];
-                $achatDetail ['dateAchat']  = date_format(date_create($value ['dateAchat']), 'd/m/Y');
-                $achatDetail ['nomMareyeur']  = $value ['nom'];
-                $achatDetail ['adresse']  =  $value ['adresse'];
-                $achatDetail ['user']  =  $value ['login'];
-                $achatDetail ['poidsTotal']  =  $value ['poidsTotal'];
-                $achatDetail ['montantTotal']  =  $value ['montantTotal'];
-                $achatDetail['ligneAchat'] = $ligneAchat;
+    public function findFactureDetails($factureId) {
+        if ($factureId != null) {
+            $facture = $this->factureQuery->findFactureDetails($factureId);
+            $ligneFacture = $this->factureQuery->findAllProduitByAchact($factureId);
+            $factureDetail = array();
+            foreach ($facture as $key => $value) {
+               // $factureDetail ['id'] = $value ['achat.id'];
+                $factureDetail ['numero'] = $value ['numero'];
+                $factureDetail ['dateFacture']  = date_format(date_create($value ['dateFacture']), 'd/m/Y');
+                $factureDetail ['nomMareyeur']  = $value ['nom'];
+                $factureDetail ['adresse']  =  $value ['adresse'];
+                $factureDetail ['user']  =  $value ['login'];
+                $factureDetail ['poidsTotal']  =  $value ['poidsTotal'];
+                $factureDetail ['montantTotal']  =  $value ['montantTotal'];
+                $factureDetail['ligneFacture'] = $ligneFacture;
             }
-            return $achatDetail;
+            return $factureDetail;
         }
         else
             return null;
     }
     /**
      * 
-     * @param type $achatId
+     * @param type $factureId
      * @return type
      * Cette fonction pernmet de recuperer les informations de l'achat pour la validation et l'ajout du stock
      */
-    public function ajoutStockParAchact($achatId) {
-        $achat = $this->achatQuery->findInfoByAchact($achatId);
-        foreach ($achat as $key => $value) {
+    public function ajoutStockParAchact($factureId) {
+        $facture = $this->factureQuery->findInfoByAchact($factureId);
+        foreach ($facture as $key => $value) {
             $stockManager = new \Produit\StockManager();
             $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
         }

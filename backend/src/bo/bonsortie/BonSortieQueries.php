@@ -192,7 +192,7 @@ class BonSortieQueries {
 	}
         
         public function findInfoColisages($colisageId) {
-        $sql = 'SELECT nom, origine FROM bon_sortie b, CLIENT c WHERE b.client_id=c.id AND b.id='.$colisageId;
+        $sql = 'SELECT b.id as bid, nom, origine FROM bon_sortie b, CLIENT c WHERE b.client_id=c.id AND b.id='.$colisageId;
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $colisages = $stmt->fetchAll();

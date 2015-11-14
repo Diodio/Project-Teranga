@@ -147,8 +147,10 @@ public function findStatisticByUsine($codeUsine) {
         $colisages = $this->bonSortieQuery->findInfoColisages($colisageId);
         $list = array();
         foreach ($colisages as $key => $value) {
+            $ligneBonSortie = $this->bonSortieQuery->findAllProduitByBon($value ['bid']);
             $list ['nomClient'] = $value ['nom'];
             $list ['origine'] = $value ['origine'];
+            $list ['ligneBonSortie'] = $ligneBonSortie;
         }
         return $list;
     }
