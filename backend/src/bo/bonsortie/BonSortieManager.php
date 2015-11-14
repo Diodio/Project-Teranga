@@ -130,4 +130,26 @@ public function findStatisticByUsine($codeUsine) {
             $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
         }
     }
+    
+    public function listbonValid() {
+        $sorties = $this->bonSortieQuery->listbonValid();
+//        $list = array();
+//        $i = 0;
+//        foreach ($sorties as $key => $value) {
+//            $list [$i]['value'] = $value ['id'];
+//            $list [$i]['text'] = $value ['numero'];
+//            $i++;
+//        }
+        return $sorties;
+    }
+    
+     public function findInfoColisages($colisageId) {
+        $colisages = $this->bonSortieQuery->findInfoColisages($colisageId);
+        $list = array();
+        foreach ($colisages as $key => $value) {
+            $list ['nomClient'] = $value ['nom'];
+            $list ['origine'] = $value ['origine'];
+        }
+        return $list;
+    }
 }

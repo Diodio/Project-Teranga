@@ -37,6 +37,9 @@ private $logger;
                         case \App::ACTION_LIST:
                                 $this->doList($request);
                                 break;
+                        case \App::ACTION_LIST_VALID:
+                                $this->doListValidBon($request);
+                                break;
                         case \App::ACTION_REMOVE:
                                 $this->doRemove($request);
                                 break;
@@ -65,7 +68,10 @@ private $logger;
                         $this->doViewDetails($request);
                         break;
                         case \App::ACTION_GET_LAST_NUMBER:
-                                $this->doGetLastNumberMareyeur($request);
+                            $this->doGetLastNumberMareyeur($request);
+                        break;
+                        case \App::ACTION_GET_COLISAGES:
+                                $this->doGetInfoColisages($request);
                                 break;
                         
                     }
@@ -284,6 +290,33 @@ private $logger;
         }
     }
 
+     public function doListValidBon($request) {
+            $sortieManager = new BonSortieManager();
+            
+        try {
+            $colisages = $sortieManager->listbonValid();
+            
+            if ($colisages != null)
+                $this->doSuccessO($colisages);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
+    
+    public function doGetInfoColisages($request) {
+            $sortieManager = new BonSortieManager();
+        try {
+            $colisages = $sortieManager->findInfoColisages($request['colisageId']);
+            if ($colisages != null)
+                $this->doSuccessO($colisages);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
 }
 
         $oBonSortieController = new BonSortieController($_REQUEST);

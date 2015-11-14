@@ -181,4 +181,24 @@ class BonSortieQueries {
                 return null;
         }
     }
+    
+    public function listbonValid() {
+		$query = Bootstrap::$entityManager->createQuery("select b.id as value, b.numeroBonSortie as text from BonSortie\BonSortie b where b.status=1");
+		$types = $query->getResult();
+		if ($types != null)
+			return $types;
+		else
+			return null;
+	}
+        
+        public function findInfoColisages($colisageId) {
+        $sql = 'SELECT nom, origine FROM bon_sortie b, CLIENT c WHERE b.client_id=c.id AND b.id='.$colisageId;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $colisages = $stmt->fetchAll();
+        if ($colisages != null)
+            return $colisages;
+        else
+            return null;
+    }
 }
