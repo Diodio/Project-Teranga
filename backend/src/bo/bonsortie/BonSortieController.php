@@ -255,11 +255,11 @@ private $logger;
     
     public function doViewDetails($request) {
         try {
-            if (isset($request['achatId'])) {
-                $achatManager = new BonSortieManager();
-                $achatDetails = $achatManager->findBonSortieDetails($request['achatId']);
-                if ($achatDetails != null)
-                    $this->doSuccessO($achatDetails);
+            if (isset($request['bonsortieId'])) {
+                $sortieManager = new BonSortieManager();
+                $sotieDetails = $sortieManager->findBonSortieDetails($request['bonsortieId']);
+                if ($sotieDetails != null)
+                    $this->doSuccessO($sotieDetails);
                 else
                     echo json_encode(array());
             } else {

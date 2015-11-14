@@ -356,7 +356,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 if(!context.is(':checked')){
                     $('table th input:checkbox').removeAttr('checked');
                 }else{
-                    if(checkedMessage.length==nbTotalMsgChecked){
+                    if(checkedAchat.length==nbTotalAchatChecked){
                         $('table th input:checkbox').prop('checked', true);
                     }
                 }

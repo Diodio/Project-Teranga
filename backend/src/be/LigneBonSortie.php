@@ -3,7 +3,7 @@
 namespace BonSortie;
 
 /** @Entity @HasLifecycleCallbacks
- * @Table(name="ligne_bonsorie") * */
+ * @Table(name="ligne_bonsortie") * */
 class LigneBonSortie {
 
     /** @Id

@@ -93,18 +93,17 @@ public function findStatisticByUsine($codeUsine) {
     
     public function findBonSortieDetails($bonSortieId) {
         if ($bonSortieId != null) {
-            $bonSortie = $this->bonSortieQuery->findBonSortieDetails($bonSortieId);
-            $ligneBonSortie = $this->bonSortieQuery->findAllProduitByAchact($bonSortieId);
+            $bonSortie = $this->bonSortieQuery->findBonDetails($bonSortieId);
+            $ligneBonSortie = $this->bonSortieQuery->findAllProduitByBon($bonSortieId);
             $bonSortieDetail = array();
             foreach ($bonSortie as $key => $value) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
-                $bonSortieDetail ['numero'] = $value ['numero'];
+                $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
                 $bonSortieDetail ['dateBonSortie']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
                 $bonSortieDetail ['nomMareyeur']  = $value ['nom'];
                 $bonSortieDetail ['adresse']  =  $value ['adresse'];
                 $bonSortieDetail ['user']  =  $value ['login'];
                 $bonSortieDetail ['poidsTotal']  =  $value ['poidsTotal'];
-                $bonSortieDetail ['montantTotal']  =  $value ['montantTotal'];
                 $bonSortieDetail['ligneBonSortie'] = $ligneBonSortie;
             }
             return $bonSortieDetail;

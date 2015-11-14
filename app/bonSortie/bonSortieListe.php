@@ -340,10 +340,30 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $(this).closest('tr').toggleClass('selected');
                 });
             });
+            
+            $('#LIST_BONS tbody').on('click', 'input[type="checkbox"]', function() {
+                context=$(this);
+                if ($(this).is(':checked') && $(this).val() != '*') {
+                    checkedBonAdd($(this).val());
+                    MessageSelected();
+                } else {
+                    checkedBonRemove($(this).val());
+                    MessageUnSelected();
+                }
+                ;
+                if(!context.is(':checked')){
+                    $('table th input:checkbox').removeAttr('checked');
+                }else{
+                    if(checkedBon.length==nbTotalBonChecked){
+                        $('table th input:checkbox').prop('checked', true);
+                    }
+                }
+            });
+            
             MessageSelected = function(click)
             {
                 if (checkedBon.length == 1){
-                    loadAchatSelected(checkedBon[0]);
+                    loadBonSelected(checkedBon[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -359,7 +379,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             MessageUnSelected = function()
             {
                if (checkedBon.length === 1){
-                    loadAchatSelected(checkedBon[0]);
+                    loadBonSelected(checkedBon[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -511,7 +531,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             
             loadAchats();
-            loadAchatSelected = function(bonsortieId)
+            loadBonSelected = function(bonsortieId)
             {
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
