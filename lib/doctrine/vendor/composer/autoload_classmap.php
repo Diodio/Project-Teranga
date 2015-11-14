@@ -48,6 +48,8 @@ return array(
     'DoctrineORM\\Proxies\\__CG__\\Utilisateur\\Profil' => $baseDir . '/../backend/src/bo/achat/lib/__CG__UtilisateurProfil.php',
     'DoctrineORM\\Proxies\\__CG__\\Utilisateur\\Utilisateur' => $baseDir . '/../backend/src/bo/achat/lib/__CG__UtilisateurUtilisateur.php',
     'Facture\\Facture' => $baseDir . '/../backend/src/be/Facture.php',
+    'Facture\\FactureManager' => $baseDir . '/../backend/src/bo/facture/FactureManager.php',
+    'Facture\\FactureQueries' => $baseDir . '/../backend/src/bo/facture/FactureQueries.php',
     'FamilleProduitController' => $baseDir . '/../backend/src/bo/produit/FamilleProduitController.php',
     'FournisseurController' => $baseDir . '/../backend/src/bo/fournisseur/FournisseurController.php',
     'Fournisseur\\Fournisseur' => $baseDir . '/../backend/src/be/Fournisseur.php',
