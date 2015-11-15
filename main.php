@@ -480,12 +480,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 Reglement  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                            <li id="RGL_ACHAT" class=""><a id="FACTURE" href="#"> <i
+                            <li id="REGLEMENT_ACHAT" class=""><a id="FACTURE" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Achat
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="RGL_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i
+                            <li id="REGLEMENT_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Facture </span>
                                 </a> <b class="arrow"></b>
@@ -703,7 +703,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#CMD_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
 
                     });
                 });
@@ -760,6 +760,30 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieListe.php", function () {
+
+                    });
+                });
+
+                $("#REGLEMENT_FACTURE").click(function (e) {
+                    $("#LISTE_SORTIE").attr("Class", "active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#CMD_MAREYEURS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementFacture.php", function () {
+
+                    });
+                });
+
+                $("#REGLEMENT_ACHAT").click(function (e) {
+                    $("#LISTE_SORTIE").attr("Class", "active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#CMD_MAREYEURS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementAchat.php", function () {
 
                     });
                 });

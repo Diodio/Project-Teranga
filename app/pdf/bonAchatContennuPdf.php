@@ -44,7 +44,7 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
             <td style="width:40%;"></td>
-            <td style="width:50%; "><span  style="font-size: 25px;" >BON D'ACHAT</span></td>
+            <td style="width:30%; "><span  style="font-size: 25px;" >BON D'ACHAT</span></td>
             <td >Numero: <?php echo $row['numero']; ?></td>
         </tr>
     </table>
@@ -112,7 +112,7 @@ td    { vertical-align: top; }
         <br>
         <table cellspacing="0" style="width: 100%; text-align: left;">
             <tr>
-                <td style="width:25%;">Le Peseur</td>
+                <td style="width:25%;">Le Comptable</td>
                 <td style="width:25%"></td>
                 <td style="width:38%"></td>
                 <td style="width:25%"> Le Mareyeur</td>
