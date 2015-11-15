@@ -7,7 +7,7 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM mareyeur,achat WHERE mareyeur.id=mareyeur_id AND achat.id=75";
+$sql = "SELECT * FROM client,bon_sortie WHERE client.id=client_id AND client.id=1";
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 ?>
@@ -44,10 +44,11 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
             <td style="width:40%;"></td>
-            <td style="width:50%; "><span  style="font-size: 25px;" >BON DE SORTIE</span></td>
-            <td >Numero: <?php echo $row['numero']; ?></td>
+            <td style="width:30%; "><span  style="font-size: 25px;" >BON DE SORTIE</span></td>
+            <td >Numero: <?php echo $row['numeroBonSortie']; ?></td>
         </tr>
     </table>
+    
     <table cellspacing="0" style="color:#444444";width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td >
@@ -61,10 +62,29 @@ td    { vertical-align: top; }
         </tr>
         <tr>
         <td >
-                Heure de reception: <?php echo $row['heureReception']; ?>
+                Chauffeur: <?php echo $row['nomChauffeur']; ?>
         </td>
         </tr>
     </table>
+    <br>
+    <table cellspacing="0" style="color:#444444;width: 100%; text-align: left; font-size: 14px">
+        <tr>
+        <td >
+                Chauffeur: <?php echo $row['nomChauffeur']; ?>
+        </td>
+        </tr>
+        <tr>
+        <td >
+                Numero Container: <?php echo $row['numeroContainer']; ?>
+        </td>
+        </tr>
+        <tr>
+        <td >
+                Numero Plomb: <?php echo $row['numeroPlomb']; ?>
+        </td>
+        </tr>
+    </table>
+       
     
     <br>
     <br>
