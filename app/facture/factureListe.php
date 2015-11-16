@@ -45,7 +45,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                        <li id='MNU_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -84,7 +83,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
 
-                                    Numero Achat
+                                    Numero Client
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+
+                                    Nom Client
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">

@@ -136,7 +136,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon fa-play"></i>
                                                         </div>
@@ -148,7 +148,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -156,12 +156,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats validé</div>
+                                                            <div class="infobox-content" style="width:150px">Achats validés</div>
 
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-calendar"></i>
                                                         </div>
@@ -613,13 +613,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Achat(s) annulés(s)");
+                            
                         }
                         else
                         {
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
                         });
                          }
                     });

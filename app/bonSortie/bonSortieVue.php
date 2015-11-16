@@ -192,7 +192,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			<div class="col-md-12 column">
 				<button id="SAVE" class="btn btn-small btn-info pull-right"
 					data-dismiss="modal">
-					<i class="fa fa-plus-square "></i> Enregistrer
+					<i class="fa fa-plus-square "></i> Valider
 				</button>
 			</div>
 		</div>

@@ -747,7 +747,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_PRODUITS").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listeFactures.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
 
                     });
                 });

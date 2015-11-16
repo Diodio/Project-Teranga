@@ -47,6 +47,7 @@ return array(
     'DoctrineORM\\Proxies\\__CG__\\Usine\\Usine' => $baseDir . '/../backend/src/bo/achat/lib/__CG__UsineUsine.php',
     'DoctrineORM\\Proxies\\__CG__\\Utilisateur\\Profil' => $baseDir . '/../backend/src/bo/achat/lib/__CG__UtilisateurProfil.php',
     'DoctrineORM\\Proxies\\__CG__\\Utilisateur\\Utilisateur' => $baseDir . '/../backend/src/bo/achat/lib/__CG__UtilisateurUtilisateur.php',
+    'FactureController' => $baseDir . '/../backend/src/bo/facture/FactureController.php',
     'Facture\\Facture' => $baseDir . '/../backend/src/be/Facture.php',
     'Facture\\FactureManager' => $baseDir . '/../backend/src/bo/facture/FactureManager.php',
     'Facture\\FactureQueries' => $baseDir . '/../backend/src/bo/facture/FactureQueries.php',
