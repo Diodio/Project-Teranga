@@ -219,7 +219,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         for="form-field-1"> Montant HT </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
-                                                <input type="text" readonly id="numCheque" placeholder=""
+                                                <input type="text" readonly id="momtantHt" placeholder=""
                                                         class="col-xs-12 col-sm-10">
                                         </div>
                                 </div>
@@ -230,7 +230,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         for="form-field-1"> Montant TTC </label>
                                 <div class="col-sm-7">
                                     <div class="clearfix">
-                                            <input type="text" readonly id="numCheque" placeholder=""
+                                            <input type="text" readonly id="montantTtc" placeholder=""
                                                     class="col-xs-12 col-sm-10">
                                     </div>
                                 </div>
@@ -361,12 +361,18 @@ $(document).ready(function () {
             $('#LISTESORTIE tbody').html("");
             var table = data.ligneBonSortie;
             var trHTML='';
+            var tot=0;
             $(table).each(function(index, element){
-                trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                var montant=element.prixUnitaire * element.quantite;
+                tot = tot+montant;
+                trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + montant + '</td></tr>';
             });
             $('#LISTESORTIE tbody').append(trHTML);
             trHTML='';
+            $('#poidsTotal').val(data.poidsTotal);
+            $('#momtantHt').val(tot);
             });
+            
         }
     };
     $('#CMB_COLISAGES').change(function() {
