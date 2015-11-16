@@ -14,7 +14,7 @@
  require_once('../../html2pdf.class.php');
     // get the HTML
     ob_start();
-    include(dirname(__FILE__).'/bonAchat.php');
+    include(dirname(__FILE__).'/bonAchatContennuPdf.php');
    // include(dirname(__FILE__).'/res/exemple07b.php');
     $content = ob_get_clean();
 

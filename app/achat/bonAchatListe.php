@@ -581,7 +581,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                         $.loader.close(true);
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
                         });
                          }
                     });
