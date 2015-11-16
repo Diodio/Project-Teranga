@@ -18643,3 +18643,8 @@
 (
 )
  
+16.11.2015 12:29:48,611 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT u0_.id AS id0, u0_.nomUsine AS nomUsine1 FROM usine u0_ 
+16.11.2015 12:29:48,613 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
