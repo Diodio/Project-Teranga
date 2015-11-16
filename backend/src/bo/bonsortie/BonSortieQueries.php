@@ -153,7 +153,7 @@ class BonSortieQueries {
     
     public function findAllProduitByBon($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT p.libelle designation,al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
+            $sql = 'SELECT p.libelle designation, p.prixUnitaire,al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();
@@ -192,6 +192,17 @@ class BonSortieQueries {
 	}
         
         public function findInfoColisages($colisageId) {
+        $sql = 'SELECT b.id as bid, nom, origine, poidsTotal FROM bon_sortie b, CLIENT c WHERE b.client_id=c.id AND b.id='.$colisageId;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $colisages = $stmt->fetchAll();
+        if ($colisages != null)
+            return $colisages;
+        else
+            return null;
+    }
+    
+    public function retrouveInfoProduitParBon($colisageId) {
         $sql = 'SELECT b.id as bid, nom, origine FROM bon_sortie b, CLIENT c WHERE b.client_id=c.id AND b.id='.$colisageId;
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();

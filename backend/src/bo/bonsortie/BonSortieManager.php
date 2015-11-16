@@ -150,6 +150,7 @@ public function findStatisticByUsine($codeUsine) {
             $ligneBonSortie = $this->bonSortieQuery->findAllProduitByBon($value ['bid']);
             $list ['nomClient'] = $value ['nom'];
             $list ['origine'] = $value ['origine'];
+            $list ['poidsTotal'] = $value ['poidsTotal'];
             $list ['ligneBonSortie'] = $ligneBonSortie;
         }
         return $list;

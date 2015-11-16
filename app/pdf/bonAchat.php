@@ -17,7 +17,6 @@ $row = mysqli_fetch_array($Result);
 table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; }
-
 -->
 </style>
 <page backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
@@ -120,4 +119,3 @@ td    { vertical-align: top; }
         </table>
     </nobreak>
 </page>
-
