@@ -18441,3 +18441,13 @@
 (
 )
  
+16.11.2015 10:11:03,617 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | select max(id)+1 as last from facture 
+16.11.2015 10:11:03,618 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
+16.11.2015 10:11:03,753 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 22 | SELECT b0_.id AS id0, b0_.numeroBonSortie AS numeroBonSortie1 FROM bon_sortie b0_ WHERE b0_.status = 1 
+16.11.2015 10:11:03,754 [DEBUG] [Common\DoctrineLogger] C:\xampp\htdocs\macfish\backend\src\bo\common\DoctrineLogger.php 23 | Array
+(
+)
+ 
