@@ -12,6 +12,7 @@
  */
 
  require_once('../../html2pdf.class.php');
+$achatId = $_GET['achatId'];
     // get the HTML
     ob_start();
     include(dirname(__FILE__).'/bonAchatContennuPdf.php');

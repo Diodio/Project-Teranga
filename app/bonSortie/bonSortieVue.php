@@ -43,7 +43,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 				<div class="space-6"></div>
 				<div class="row">
 					<div class="col-sm-4">
-						<label> Origine </label>
+						<label> Adresse </label>
 					</div>
 					<div class="col-sm-6">
 						<select id="CMBORIGINES" data-placeholder="" style="width: 100%">
@@ -192,7 +192,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			<div class="col-md-12 column">
 				<button id="SAVE" class="btn btn-small btn-info pull-right"
 					data-dismiss="modal">
-					<i class="fa fa-plus-square "></i> Valider
+					<i class="fa fa-check "></i> Valider
 				</button>
 			</div>
 		</div>

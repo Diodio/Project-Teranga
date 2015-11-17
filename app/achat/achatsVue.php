@@ -541,7 +541,7 @@ $table.find("tbody tr").each(function () {
 //                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/pdf/achatPdf.php", function () {
 //                        });
                     //   window.location.href("<?php echo App::getHome(); ?>/app/pdf/achatPdf.php");
-                    window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                    window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
                        // window.open("<?php echo App::getHome(); ?>/app/pdf/achatPdf.php", "_blank");
 //                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/pdf/achatPdf.php", function () {
 //                        });

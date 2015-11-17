@@ -131,6 +131,14 @@ public function findStatisticByUsine($codeUsine) {
         }
     }
     
+    public function ajourStockParBonSortie($sortieId) {
+        $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
+        foreach ($sortie as $key => $value) {
+            $stockManager = new \Produit\StockManager();
+            $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+        }
+    }
+    
     public function listbonValid() {
         $sorties = $this->bonSortieQuery->listbonValid();
 //        $list = array();

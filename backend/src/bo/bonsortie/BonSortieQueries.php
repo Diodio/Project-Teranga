@@ -113,7 +113,7 @@ class BonSortieQueries {
         return $query->getResult();
     }
     public function annulerBon($sortieId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE BonSortie\BonSortie a set a.status=2 WHERE a.id IN( '$sortieId')");
+        $query = Bootstrap::$entityManager->createQuery("UPDATE BonSortie\BonSortie a set a.status=2 WHERE a.status=1 and a.id IN( '$sortieId')");
         return $query->getResult();
     }
     public function findValidBonByUsine($codeUsine) {

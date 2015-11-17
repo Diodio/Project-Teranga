@@ -363,13 +363,17 @@ $(document).ready(function () {
             var trHTML='';
             var tot=0;
             $(table).each(function(index, element){
-                var montant=element.prixUnitaire * element.quantite;
+                var montant=parseInt(element.prixUnitaire) * parseFloat(element.quantite);
+                if(typeof montant==='undefined')
+                    montant = 0;
                 tot = tot+montant;
                 trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + montant + '</td></tr>';
             });
             $('#LISTESORTIE tbody').append(trHTML);
             trHTML='';
             $('#poidsTotal').val(data.poidsTotal);
+            if(typeof tot==='undefined')
+                tot=0;
             $('#momtantHt').val(tot);
             });
             

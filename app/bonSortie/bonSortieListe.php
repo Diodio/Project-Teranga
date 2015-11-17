@@ -42,8 +42,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
-                                        <li class="divider"></li>
                                         <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>

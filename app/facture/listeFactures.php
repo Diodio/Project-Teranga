@@ -26,8 +26,8 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="row">
         <div class="space-6"></div>
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-8">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
                     <div class="col-lg-1">
                         <div class="btn-group">
                                     <button data-toggle="dropdown"
@@ -44,15 +44,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <ul class="dropdown-menu dropdown-info">
                                         <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
-                                        <li class="divider"></li>
                                         <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li id='MNU_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
         </div>
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-flat">
@@ -84,10 +83,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     Date
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
+
                                     Numero Achat
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Mareyeur
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
@@ -103,7 +100,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
-            <div class="col-sm-7">
+            <div class="col-sm-8">
                 <div class="widget-container-span">
                     <div class="widget-box transparent">
                         <div class="widget-header">
@@ -136,38 +133,38 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon fa-play"></i>
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_CPG_INPROCESS">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats non validés </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_CPG_PAUSE">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats validés</div>
+                                                            <div class="infobox-content" style="width:150px">Achats validé</div>
 
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-calendar"></i>
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
+                                                            <div class="infobox-content" id="INDIC_CPG_SCHEDULED">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats annulés</div>
 
@@ -195,63 +192,81 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
+                        <div class="profile-info-name">Numero Achat </div>
+                        <div class="profile-info-value">
+                            <span id="AchatNumero"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
                         <div class="profile-info-name">Nom Mareyeur </div>
                         <div class="profile-info-value">
                             <span id="AchatNomMareyeur"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Origine </div>
+                        <div class="profile-info-name">Adresse </div>
                         <div class="profile-info-value">
                             <span id="achatAdresseMareyeur"></span>
                         </div>
                     </div>
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Créé par </div>
-                        <div class="profile-info-value">
-                            <span id="achatUser"></span>
-                        </div>
-                    </div>
                 </div>
-                <h4 class="widget-title lighter">
-                            <i class="ace-icon fa fa-star orange"></i>
-                            Liste des produits
-                        </h4>
-                    <table class="table table-bordered table-hover"id="TABLE_ACHATS">
-                        <thead>
-                            <tr>
-                                    <th class="text-center">
-                                            Désignation
-                                    </th>
-                                    <th class="text-center">
-                                            Prix Unitaire
-                                    </th>
-                                    <th class="text-center">
-                                            Quantite (kg)
-                                    </th>
-                                    <th class="text-center">
-                                            Montant
-                                    </th>
-                            </tr>
-                        </thead>
+                
+                    <table class="table table-bordered table-hover"id="tab_logic">
+				<thead>
+					<tr >
+						<th class="text-center">
+							#
+						</th>
+						<th class="text-center">
+							Désignation
+						</th>
+						<th class="text-center">
+							Prix Unitaire
+						</th>
+						<th class="text-center">
+							Poids brut (kg)
+						</th>
+						<th class="text-center">
+							Pourcentage
+						</th>
+						<th class="text-center">
+							Poids Net (kg)
+						</th>
+						<th class="text-center">
+							Quantite (kg)
+						</th>
+						<th class="text-center">
+							Montant
+						</th>
+					</tr>
+				</thead>
 				<tbody>
-				
+					<tr id='addr0'>
+						<td>
+						1
+						</td>
+						<td> Poisson
+                                                </td>
+                                                <td>
+                                                    2000
+						</td>
+                                                <td>300
+						</td>
+                                                <td>
+                                                    10
+						</td>
+                                                <td>
+                                                    240
+						</td>
+						<td>
+                                                     30
+                                                </td>
+						<td>
+                                                    14000
+    						</td>
+					</tr>
 				</tbody>
 			</table>
-                        <div class="profile-user-info">
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Poids Total </div>
-                                <div class="profile-info-value">
-                                    <span id="PoidsTotal"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Montant Total </div>
-                                <div class="profile-info-value">
-                                    <span id="MontantTotal"></span>
-                                </div>
-                            </div>
-                        </div>
                                             </div>
                                         </div>
 
@@ -275,32 +290,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var nbTotalAchatChecked=0;
             var checkedAchat = new Array();
             // Check if an item is in the array
-           // var interval = 500;
-            getIndicator = function() {
-                var url;
-                var user;
-                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-                userProfil=$.cookie('profil');
-                if(userProfil==='admin')
-                   user = 'login=<?php echo $login; ?>';
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
-                    cache: false,
-                    success: function(data) {
-                        $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
-                        $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
-                        $('#INDIC_ACHAT_ANNULES').text(data.nbAnnule);
-
-//                        gStatTimer = setTimeout(function() {
-//                            getIndicator();
-//                        }, interval);
-                    }
-                });
-            };
-            getIndicator();
+            
             checkedAchatContains = function(item) {
                 for (var i = 0; i < checkedAchat.length; i++) {
                     if (checkedAchat[i] == item)
@@ -309,8 +299,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                 return false;
             };
             // Persist checked Message when navigating
-            
-            
             persistChecked = function() {
                 $('input[type="checkbox"]', "#LIST_ACHATS").each(function() {
                     if (checkedAchatContains($(this).val())) {
@@ -327,7 +315,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     if (this.checked)
                     {
                         checkedAchatAdd($(this).val());
-                      //  MessageSelected();
+                        //MessageSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
                         nbTotalAchatChecked=checkedAchat.length;
@@ -335,33 +323,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     else
                     {
                         checkedAchatRemove($(this).val());
-                   //    MessageUnSelected();
+//                        MessageUnSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
                     }
                     $(this).closest('tr').toggleClass('selected');
                 });
             });
-            
-             $('#LIST_ACHATS tbody').on('click', 'input[type="checkbox"]', function() {
-                context=$(this);
-                if ($(this).is(':checked') && $(this).val() != '*') {
-                    checkedAchatAdd($(this).val());
-                    MessageSelected();
-                } else {
-                    checkedAchatRemove($(this).val());
-                    MessageUnSelected();
-                }
-                ;
-                if(!context.is(':checked')){
-                    $('table th input:checkbox').removeAttr('checked');
-                }else{
-                    if(checkedAchat.length==nbTotalAchatChecked){
-                        $('table th input:checkbox').prop('checked', true);
-                    }
-                }
-            });
-            
             MessageSelected = function(click)
             {
                 if (checkedAchat.length == 1){
@@ -429,18 +397,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                 oTableAchats = $('#LIST_ACHATS').dataTable({
                     "oLanguage": {
-                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
-                    "oPaginate": {
-                        "sNext": "",
-                        "sLast": "",
-                        "sFirst": null,
-                        "sPrevious": null
-                      }
+                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
                     },
+                    "sDom": '<"top"i>rt<"bottom"lp><"clear">',
                     "aoColumnDefs": [
                         {
                             "aTargets": [0],
-                            "bSortable": false,
+                            "bSort": false,
                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                                 $(nTd).css('text-align', 'center');
                             },
@@ -460,16 +423,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 if (data == 0)
                                     src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
-                                else if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check green bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }
                     ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         persistChecked();
-                        $(nRow).css('cursor','pointer');
                         $(nRow).on('click', 'td:not(:first-child)', function(){
                             checkbox=$(this).parent().find('input:checkbox:first');
                             if(!checkbox.is(':checked')){
@@ -535,45 +495,26 @@ $codeUsine = $_COOKIE['codeUsine'];
             loadAchats();
             loadAchatSelected = function(achatId)
             {
-                 var url;
-                 url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-
-                $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
-                    data = $.parseJSON(data);
-                    $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
-                    $('#AchatDate').text(data.dateAchat);
-                    $('#AchatNomMareyeur').text(data.nomMareyeur);
-                    $('#achatAdresseMareyeur').text(data.adresse);
-                    $('#achatUser').text(data.user);
-                    $('#PoidsTotal').text(data.poidsTotal);
-                    $('#MontantTotal').text(data.montantTotal);
-                    $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneAchat;
-                    var trHTML='';
-                    $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
-                    });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
-                    trHTML='';
-                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
-                    $('#TAB_MSG_VIEW').show();
-               }).error(function(error) { });
+              $('#TAB_MSG_TITLE').text("Numero achat: num");
+              $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+              $('#TAB_MSG_VIEW').show();
             };
 
-            $("#MNU_VALIDATION").click(function()
+$("#MNU_VALIDATION").click(function()
             {
                 if (checkedAchat.length == 0)
                     bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedAchat.length >= 1)
+                else if (checkedAchat.length > 1)
+                      
                 {
-                     bootbox.confirm("Voulez vous vraiment valider cet achat", function(result) {
+                     bootbox.confirm("Voulez vous vraiment valider cet achat","Non","Oui", function(result) {
                     if(result){
                     var achatId = checkedAchat[0];
                     $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
                     {
                         if (data.rc == 0)
                         {
-                            bootbox.alert("Achat(s) validé(s)");
+                            bootbox.alert("Achat validé");
                         }
                         else
                         {
@@ -581,46 +522,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                         $.loader.close(true);
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
-                        });
-                         }
-                    });
-                }
-            });
-
-            $("#MNU_IMPRIMER").click(function()
-                    {
-                        if (checkedAchat.length == 0)
-                            bootbox.alert("Veuillez selectionnez un achat");
-                        else if (checkedAchat.length >= 1)
-                        {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedAchat[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
-                            
-                        }
-                    });
-            
-            $("#MNU_ANNULATION").click(function()
-            {
-                if (checkedAchat.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedAchat.length >= 1)
-                {
-                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
-                    if(result){
-                    var achatId = checkedAchat[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
-                    {
-                        if (data.rc === 0)
-                        {
-                            bootbox.alert("Achat(s) annulés(s)");
-                            
-                        }
-                        else
-                        {
-                            bootbox.alert(data.error);
-                        }
-                    }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
                         });
                          }
                     });

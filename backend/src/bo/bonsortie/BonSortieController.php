@@ -98,7 +98,7 @@ private $logger;
                 $bonSortie->setDestination($request['destination']);
                 $bonSortie->setCodeUsine($request['codeUsine']);
                 $bonSortie->setLogin($request['login']);
-                $bonSortie->setStatus(0);
+                $bonSortie->setStatus(1);
                 $bonSortie->setPoidsTotal($request['poidsTotal']);
                 $clientManager = new Client\ClientManager();
                 $client = $clientManager->findById($request['client']);
@@ -117,13 +117,13 @@ private $logger;
                                 $ligneBonSortie->setProduit($produit);
                                 $ligneBonSortie->setQuantite($ligne['Quantité(kg)']);
                                 $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
-                                $ligneBonSortieManager->insert($ligneBonSortie); 
-//                                if ($Inserted->getId() != null) {
-//                                       $stockManager = new \Produit\StockManager();
-//                                       if($ligne['Quantité(kg)'] !="")
-//                                           $nbStock = $ligne['Quantité(kg)'];
-//                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
-//                                }
+                                $Inserted = $ligneBonSortieManager->insert($ligneBonSortie); 
+                                if ($Inserted->getId() != null) {
+                                       $stockManager = new \Produit\StockManager();
+                                       if($ligne['Quantité(kg)'] !="")
+                                           $nbStock = $ligne['Quantité(kg)'];
+                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
+                                }
                             }
                          }
                     $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
@@ -207,9 +207,9 @@ private $logger;
         try {
             if ($request['bonsortieId'] != null) {
                 $sortieManager = new BonSortieManager();
-                $valid=$sortieManager->validBonSortie($request['bonsortieId']);
-                if($valid==1)
-                    $sortieManager->dimunieStockParBonSortie($request['bonsortieId']);
+                $sortieManager->validBonSortie($request['bonsortieId']);
+//                if($valid==1)
+//                    $sortieManager->dimunieStockParBonSortie($request['bonsortieId']);
                 $this->doSuccess($request['bonsortieId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
@@ -221,17 +221,23 @@ private $logger;
     
     public function doAnnuleBonSortie($request) {
         try {
-            if ($request['achatId'] != null) {
-                $achatManager = new BonSortieManager();
-                $achatManager->annulerBonSortie($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Annulation effectuée avec succes');
+            if ($request['bonsortieId'] != null) {
+                $sortieManager = new BonSortieManager();
+                $annul = $sortieManager->annulerBonSortie($request['bonsortieId']);
+                if ($annul == 1) {
+                    $sortieManager->ajourStockParBonSortie($request['bonsortieId']);
+                    $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                } else {
+                    $this->doError('-1', 'Impossible d\'annuler ce bon de sortie');
+                }
             } else {
                 $this->doError('-1', 'Params not enough');
             }
-        }  catch (Exception $e) {
+        } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
     }
+
     public function doGetLastNumberBonSortie($request) {
         try {
                 $bonSortieManager = new BonSortieManager();

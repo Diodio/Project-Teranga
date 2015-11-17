@@ -1,5 +1,6 @@
 <?php
 $paramsConnexion = parse_ini_file("../../config/parameters.ini");
+$achatId = $_GET['achatId'];
 $hostname = $paramsConnexion['host'];
 $database = $paramsConnexion['dbname'];
 $username = $paramsConnexion['user'];
@@ -7,7 +8,7 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM mareyeur,achat WHERE mareyeur.id=mareyeur_id AND achat.id=75";
+$sql = "SELECT * FROM mareyeur,achat WHERE mareyeur.id=mareyeur_id AND achat.id=" . $achatId;
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 ?>
