@@ -236,6 +236,17 @@ $codeUsine = $_COOKIE['codeUsine'];
 								</div>
 							</div>
 						</div>
+                                            <div class="space-12"></div>
+						<div class="form-group" style="margin-top: 43px;">
+							<label class="col-sm-5 control-label no-padding-right"
+								for="form-field-1"> Reglé </label>
+							<div class="col-sm-7">
+								<div class="clearfix">
+                                                                    <input type="checkbox" id="regleAchat" name="regleAchat" placeholder=""
+										>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -476,6 +487,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var numCheque = $("#numCheque").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
+            var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
+            var regle=false;
+            if(Aregle === 'on')
+                 regle=true;
+             
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             var $table = $("table")
@@ -520,6 +536,7 @@ $table.find("tbody tr").each(function () {
             formData.append('avance', avance);
             formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
+            formData.append('regle', regle);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
