@@ -144,11 +144,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data" >
                                                             <div class="infobox-content" id="INDIC_BON_NONVALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Bons de sortie non validés </div>
+                                                            <div class="infobox-content" style="width:150px">Facturés </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -156,12 +156,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_BON_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Bons de sortie validé</div>
+                                                            <div class="infobox-content" style="width:150px">Non facturés</div>
 
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-calendar"></i>
                                                         </div>
@@ -169,7 +169,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_BON_ANNULES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Bons de sortie annulés</div>
+                                                            <div class="infobox-content" style="width:150px">Annulés</div>
 
                                                         </div>
                                                     </div>
