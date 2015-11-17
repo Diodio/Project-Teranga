@@ -63,6 +63,11 @@ class Achat {
      **/
     protected $status;
     
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $achatRegle;
+    
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
 
@@ -214,6 +219,14 @@ class Achat {
 
     public function setHeureReception($heureReception) {
         $this->heureReception = $heureReception;
+    }
+
+    public function getAchatRegle() {
+        return $this->achatRegle;
+    }
+
+    public function setAchatRegle($achatRegle) {
+        $this->achatRegle = $achatRegle;
     }
 
 

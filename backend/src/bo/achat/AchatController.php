@@ -90,6 +90,10 @@ private $logger;
                 $achat->setNumCheque($request['numCheque']);
                 $achat->setCodeUsine($request['codeUsine']);
                 $achat->setLogin($request['login']);
+                if($request['regle']=="true")
+                    $achat->setAchatRegle(1);
+                else
+                    $achat->setAchatRegle(0);
                 $mareyeurManager = new \Mareyeur\MareyeurManager();
                 $mareyeur = $mareyeurManager->findById($request['mareyeur']);
                 
