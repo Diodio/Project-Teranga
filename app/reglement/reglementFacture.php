@@ -49,6 +49,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                     </div>
         </div>
+     
         <div class="row">
             <div class="col-sm-5">
                 
@@ -65,6 +66,65 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </a>
                         </div>
                     </div>
+                    
+                    <div id="winModalReglement" class="modal fade" tabindex="-1">
+                 <form id="FRM_GROUP" class="form-horizontal" action="#" onsubmit="return false;" style="margin-bottom: 0px">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Réglement Facture</h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <form id="FRM_REGLEMENT" class="form-horizontal" role="form">
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="date" name="date" placeholder="" class="col-xs-10 col-sm-6">
+                                    </div>
+<!--                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label> -->
+<!--                                     <div class="col-sm-9"> -->
+<!--                                         <input type="text" data-date-format="dd-mm-yyyy" id="date" name="date" placeholder="" class="span10 date-picker"> -->
+<!--                                     </div> -->
+<!--                                     <span class="add-on"> <i class="icon-calendar"></i></span -->
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Montant (TTC)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="montant" name="montant" placeholder="" class="col-xs-10 col-sm-6">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Avance (TTC)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
+                                    </div>
+                            </div>
+                              <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Reliquat (TTC)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="FRM_REGLEMENT_SAVE" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Régler
+                            </button>
+                            
+                            <button class="btn btn-small btn-danger" data-dismiss="modal">
+                                <i class="ace-icon fa fa-times"></i>
+                                Annuler
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+                
+                            </form>
+            </div>
 
                     <div class="widget-body">
                         <div class="widget-main no-padding">
@@ -559,32 +619,23 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
 
             $("#MNU_REGLEMENT").click(function()
-            {
-                if (checkedAchat.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedAchat.length >= 1)
-                {
-                     bootbox.confirm("Voulez vous vraiment valider cet achat", function(result) {
-                    if(result){
-                    var achatId = checkedAchat[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
                     {
-                        if (data.rc == 0)
+                        if (checkedAchat.length == 0)
+                            bootbox.alert("Veuillez selectionnez une facture");
+                        else if (checkedAchat.length >= 1)
                         {
-                            bootbox.alert("Achat(s) validé(s)");
+                             bootbox.confirm("Voulez vous vraiment régler cette facture", function(result) {
+                            if(result){
+                            	 $('#winModalReglement').addClass('show');
+             		            $('#winModalReglement').modal('show');
+                            var achatId = checkedAchat[0];
+                           
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                                });
+                                 }
+                            });
                         }
-                        else
-                        {
-                            bootbox.alert(data.error);
-                        }
-                        $.loader.close(true);
-                    }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
-                        });
-                         }
                     });
-                }
-            });
 
             $("#MNU_IMPRIMER").click(function()
                     {
