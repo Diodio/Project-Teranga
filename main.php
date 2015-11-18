@@ -32,8 +32,6 @@ $codeUsine = $_COOKIE['codeUsine'];
         <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
         <link rel="stylesheet" href="assets/css/datepicker.min.css" />
         <link rel="stylesheet" href="assets/css/ui.jqgrid.min.css" />
-        form-elements.html
-
         <!-- text fonts -->
         <link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
 

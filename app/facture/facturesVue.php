@@ -285,7 +285,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                 </div>
                 <div class="row">
-                        <div class="col-md-12 column" style="margin-top: 20px;">
+                    <div class="col-sm-8">
+                    </div>
+                        <div class="col-sm-2" style="margin-top: 20px;">
+                                <button id="FACTURE_PROFORMA" class="btn btn-small btn-info pull-right"
+                                        data-dismiss="modal">
+                                        <i class="fa fa-plus-square "></i> Facture ProForma
+                                </button>
+                        </div>
+                        <div class="col-sm-2" style="margin-top: 20px;">
                                 <button id="SAVE" class="btn btn-small btn-info pull-right"
                                         data-dismiss="modal">
                                         <i class="fa fa-plus-square "></i> Valider
@@ -615,6 +623,12 @@ $table.find("tbody tr").each(function () {
         $("#SAVE").bind("click", function () {
             AchatProcess();
            
+        });
+        
+        $("#FACTURE_PROFORMA").click(function()
+        {
+             window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+
         });
         
         function html2json() {
