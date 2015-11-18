@@ -42,7 +42,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_VALIDATION' class="disabled"><a href="#" id="GRP_NEW">Valider </a></li>
+                                        <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
@@ -301,24 +301,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
             getIndicator();
-            enableRelevantAchatMenu = function()
-	{   
-            if (checkedAchat.length == 1)
-            {
-                    var state = $('#stag' + checkedAchat[0]).val();
-                  //  console.log(state);
-                    //$('#MNU_').removeClass('disabled');
-                    if (state === 1) {
-                            $('#MNU_VALIDATION').removeClass('disabled');
-                            $('#MNU_VALIDATION').addClass('enable');
-                     } 
-                     else{
-                            $('#MNU_VALIDATION').removeClass('enable');
-                            $('#MNU_VALIDATION').addClass('disabled');
-                         
-                     }
-            }
-            };
             checkedAchatContains = function(item) {
                 for (var i = 0; i < checkedAchat.length; i++) {
                     if (checkedAchat[i] == item)
@@ -380,9 +362,28 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
             
+            enableRelevantAchatMenu = function()
+	{   
+            if (checkedAchat.length == 1)
+            {
+                    var state = $('#stag' + checkedAchat[0]).val();
+                  //  console.log(state);
+                    //$('#MNU_').removeClass('disabled');
+                    if (state === 1) {
+                            $('#MNU_VALIDATION').removeClass('disabled');
+                            $('#MNU_VALIDATION').addClass('enable');
+                     } 
+                     else{
+                            $('#MNU_VALIDATION').removeClass('enable');
+                            $('#MNU_VALIDATION').addClass('disabled');
+                         
+                     }
+            }
+            };
+            
             MessageSelected = function(click)
             {
-                enableRelevantAchatMenu();
+                 enableRelevantAchatMenu();
                 if (checkedAchat.length == 1){
                     loadAchatSelected(checkedAchat[0]);
                     $('#TAB_MSG_VIEW').show();
@@ -600,7 +601,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                         $.loader.close(true);
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
                         });
                          }
                     });
@@ -639,7 +640,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/bonAchatListe.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
                         });
                          }
                     });
