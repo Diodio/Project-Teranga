@@ -29,8 +29,8 @@ class BonSortieManager {
     }
 
 
-   public function findById($produitId) {
-       return $this->bonSortieQuery->findById($produitId);
+   public function findById($colisageId) {
+       return $this->bonSortieQuery->findById($colisageId);
     }
    
     

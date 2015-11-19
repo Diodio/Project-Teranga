@@ -6,10 +6,10 @@ require_once App::AUTOLOAD;
 $lang='fr';
 
 use Facture\Facture as Facture;
-use Facture\FacturePaiement as FacturePaiement;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use Facture\FactureManager as FactureManager;
+use BonSortie\BonSortieManager as BonSortieManager;
 use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
@@ -79,63 +79,29 @@ private $logger;
             $this->logger->log->trace("tesst1");
             
                 $factureManager = new FactureManager();
-                
-                $achat = new Facture();
-                $achat->setNumero($request['numFacture']);
-                $achat->setHeureReception(new \DateTime($request['heureReception']));
-                $achat->setDateFacture(new \DateTime("now"));
-                $achat->setPoidsTotal($request['poidsTotal']);
-                $achat->setMontantTotal($request['montantTotal']);
-                $achat->setModePaiement($request['modePaiement']);
-                $achat->setNumCheque($request['numCheque']);
-                $achat->setCodeUsine($request['codeUsine']);
-                $achat->setLogin($request['login']);
-                $mareyeurManager = new \Mareyeur\MareyeurManager();
-                $mareyeur = $mareyeurManager->findById($request['mareyeur']);
-                
-               // var_dump($request['mareyeur']);
-               $achat->setMareyeur($mareyeur);
-                
-                $achatAdded = $factureManager->insert($achat);
-           //     var_dump("fgf");
-                if ($achatAdded->getId() != null) {
-                    $jsonFacture = json_decode($_POST['jsonProduit'], true);
-                         foreach ($jsonFacture as $key => $ligneachat) {
-                            if(isset($ligneachat["Designation"])) {
-                                $ligneFacture = new \Facture\LigneFacture();
-                                $ligneFacture->setFacture($achat);
-                                $produitId = $ligneachat["Designation"];
-                                $produitManager = new Produit\ProduitManager();
-                                $produit= $produitManager->findById($produitId);
-                                $ligneFacture->setProduit($produit);
-                                if($ligneachat['Poids Net(kg)']!=="")
-                                    $ligneFacture->setQuantite($ligneachat['Poids Net(kg)']);
-                                else
-                                    $ligneFacture->setQuantite($ligneachat['Quantite(kg)']);
-                                $ligneFacture->setMontant($ligneachat['Montant']);
-                               // $ligneFacture->setPoids($ligneachat['Poids Net(kg)']);
-                                $ligneFactureManager = new \Facture\LigneFactureManager();
-                                $ligneFactureManager->insert($ligneFacture); 
-//                                if ($achatInserted->getId() != null) {
-//                                       $stockManager = new \Produit\StockManager();
-//                                       if($ligneachat['Quantite(kg)'] !="")
-//                                           $nbStock = $ligneachat['Quantite(kg)'];
-//                                       if($ligneachat['Poids Net(kg)'] !="")
-//                                           $nbStock = $ligneachat['Poids Net(kg)'];
-//                                       $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
-//                                }
-//                                $achatPaiement = new FacturePaiement();
-//                                $achatPaiement->setFacture($achat);
-//                                $achatPaiement->setMontant($request['avance']);
-//                                $achatPaiement->setDatePaiement(new \DateTime("now"));
-                            }
-                         }
-                    $this->doSuccess($achatAdded->getId(), 'Facture enregistré avec succes');
+                $facture = new Facture();
+                $facture->setNumero($request['numFacture']);
+                $facture->setDateFacture(new \DateTime("now"));
+                $facture->setHeureFacture(new \DateTime($request['heureFacture']));
+                $facture->setDevise($request['devise']);
+                $facture->setPortDechargement($request['portDechargement']);
+                $facture->setMontantHt($request['montantHt']);
+                $facture->setMontantTtc($request['montantTtc']);
+                $facture->setModePaiement($request['modePaiement']);
+                $facture->setNumCheque($request['numCheque']);
+                $facture->setAvance($request['avance']);
+                $facture->setReliquat($request['reliquat']);
+                $facture->setCodeUsine($request['codeUsine']);
+                $facture->setLogin($request['login']);
+                $bonSortieManager = new BonSortieManager();
+                $colisage = $bonSortieManager->findById($request['colisage']);
+                $facture->setBonsortie($colisage);
+                $factureAdded = $factureManager->insert($facture);
+                if ($factureAdded->getId() != null) {
+                    $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
                 } else {
-                    $this->doError('-1', 'Impossible d\'inserer cet achat');
+                    $this->doError('-1', 'Impossible d\'inserer ce facture');
                 }
-                
-            
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
         }

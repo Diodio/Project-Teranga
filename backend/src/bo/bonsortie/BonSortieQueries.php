@@ -74,11 +74,11 @@ class BonSortieQueries {
   
 
      public function findById($bonId) {
-            $query = Bootstrap::$entityManager->createQuery("select p from Achat\Achat p where p.id = :produitId");
-            $query->setParameter('familleId', $produitId);
-            $produit = $query->getResult();
-            if ($produit != null)
-                return $produit[0];
+            $query = Bootstrap::$entityManager->createQuery("select b from BonSortie\BonSortie b where b.id = :bonSortieId");
+            $query->setParameter('bonSortieId', $bonId);
+            $bonSortie = $query->getResult();
+            if ($bonSortie != null)
+                return $bonSortie[0];
             else
                 return null;
         }

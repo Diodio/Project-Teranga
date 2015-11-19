@@ -167,7 +167,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             for="form-field-1"> Port de déchargement </label>
                                     <div class="col-sm-5">
                                             <div class="clearfix">
-                                                    <input type="text" id="avance" name="avance" placeholder=""
+                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
                                                             class="col-xs-12 col-sm-7">
                                             </div>
                                     </div>
@@ -219,9 +219,20 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         for="form-field-1"> Montant HT </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
-                                                <input type="text" readonly id="momtantHt" placeholder=""
+                                                <input type="text" id="montantHt" placeholder=""
                                                         class="col-xs-12 col-sm-10">
                                         </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <label class="col-sm-5 control-label no-padding-right"
+                                        for="form-field-1"> Tva </label>
+                                <div class="col-sm-7">
+                                    <div class="clearfix">
+                                        <input type="text" id="tva" placeholder=""
+                                               class="col-xs-12 col-sm-3" value="18">  &nbsp;%
+                                    </div>
                                 </div>
                             </div>
                             <div class="space-6"></div>
@@ -230,7 +241,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         for="form-field-1"> Montant TTC </label>
                                 <div class="col-sm-7">
                                     <div class="clearfix">
-                                            <input type="text" readonly id="montantTtc" placeholder=""
+                                            <input type="text" id="montantTtc" placeholder=""
                                                     class="col-xs-12 col-sm-10">
                                     </div>
                                 </div>
@@ -284,28 +295,27 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                         </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-8">
-                    </div>
-                        <div class="col-sm-2" style="margin-top: 20px;">
-                                <button id="FACTURE_PROFORMA" class="btn btn-small btn-info pull-right"
-                                        data-dismiss="modal">
-                                        <i class="fa fa-plus-square "></i> Facture ProForma
-                                </button>
-                        </div>
-                        <div class="col-sm-2" style="margin-top: 20px;">
-                                <button id="SAVE" class="btn btn-small btn-info pull-right"
-                                        data-dismiss="modal">
-                                        <i class="fa fa-plus-square "></i> Valider
-                                </button>
-                        </div>
-                </div>
         </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
     </form>
 
+    <div class="row">
+        <div class="col-sm-8">
+        </div>
+            <div class="col-sm-2" style="margin-top: 20px;">
+                    <button id="FACTURE_PROFORMA" class="btn btn-small btn-info pull-right">
+                            <i class="fa fa-plus-square "></i> Facture ProForma
+                    </button>
+            </div>
+            <div class="col-sm-2" style="margin-top: 20px;">
+                    <button id="SAVE" class="btn btn-small btn-info pull-right">
+                            <i class="fa fa-plus-square "></i> Valider
+                    </button>
+            </div>
+    </div>
+    
 </div>
 <!-- /.page-content -->
 
@@ -379,10 +389,17 @@ $(document).ready(function () {
             });
             $('#LISTESORTIE tbody').append(trHTML);
             trHTML='';
-            $('#poidsTotal').val(data.poidsTotal);
+            var poidsTotal=data.poidsTotal;
+             if(poidsTotal==="")
+                poidsTotal=0;
+            $('#poidsTotal').val(poidsTotal);
             if(typeof tot==='undefined')
                 tot=0;
-            $('#momtantHt').val(tot);
+            $('#montantHt').val(tot);
+            var montantTtc = tot + (tot * 0.18);
+            if(typeof montantTtc==='undefined')
+                montantTtc=0;
+            $('#montantTtc').val(montantTtc);
             });
             
         }
@@ -525,62 +542,38 @@ $(document).ready(function () {
                     $("#poidsTotal").val(pd);
         }
         
-        AchatProcess = function ()
+        factureProcess = function ()
         {
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
-            var frmData;
-            var numAchat= $('#numAchat').val();
-           // var dateAchat = dateAchat;
-            var mareyeur = $("#CMB_MAREYEURS").val();
-            var poidsTotal = $("#poidsTotal").val();
-            var MontantTotal = $("#montantTotal").val();
+            var colisage = $("#CMB_COLISAGES").val();
+            var numFacture= $('#numFacture').val();
+            var heureFacture= $('#heureFacture').val();
+            var devise= $('#devise').val();
+            var pays= $('#pays').val();
+            var portDechargement = $("#portDechargement").val();
+            var montantHt = $("#montantHt").val();
+            var montantTtc = $("#montantTtc").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
-            var $table = $("table")
-    rows = [],
-    header = [];
-
-$table.find("thead th").each(function () {
-    header.push($(this).html().trim());
-});
-
-$table.find("tbody tr").each(function () {
-    var row = {};
-    
-    $(this).find("td").each(function (i) {
-        var key = header[i];
-        var value;
-            valueSelect = $(this).find('select').val();
-            valueInput = $(this).find('input').val();
-        if (typeof valueInput !== "undefined")
-            value=valueInput;
-        if (typeof valueSelect !== "undefined")
-            value=valueSelect;
-        row[key] = value;
-    });
-    
-    rows.push(row);
-});
-    
-    
-            var tbl=JSON.stringify(rows);
-            console.log(tbl);
+            
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('numAchat', numAchat);
-            formData.append('dateAchat', dateAchat);
-            formData.append('mareyeur', mareyeur);
-            formData.append('poidsTotal', poidsTotal);
-            formData.append('montantTotal', MontantTotal);
+            formData.append('colisage', colisage);
+            formData.append('numFacture', numFacture);
+            formData.append('heureFacture', heureFacture);
+            formData.append('devise', devise);
+            formData.append('pays', pays);
+            formData.append('portDechargement', portDechargement);
+            formData.append('montantHt', montantHt);
+            formData.append('montantTtc', montantTtc);
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
             formData.append('avance', avance);
-            formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
@@ -600,7 +593,7 @@ $table.find("tbody tr").each(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsAchatVue.php", function () {
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listeFactures.php", function () {
                         });
                     } 
                     else
@@ -620,8 +613,9 @@ $table.find("tbody tr").each(function () {
             });
 
         };
-        $("#SAVE").bind("click", function () {
-            AchatProcess();
+        $("#SAVE").click(function()
+        {
+          factureProcess();
            
         });
         

@@ -43,17 +43,17 @@ class Facture {
     protected $modePaiement;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=true)
      * */
     protected $numCheque;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=true)
      * */
     protected $avance;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=true)
      * */
     protected $reliquat;
     
