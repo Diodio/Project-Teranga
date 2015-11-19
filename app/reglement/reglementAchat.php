@@ -194,19 +194,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
+
                                                     <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon fa-play"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Achats non réglées </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -219,7 +208,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-calendar"></i>
                                                         </div>
@@ -227,8 +216,20 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Reliquat</div>
+                                                            <div class="infobox-content" style="width:150px">Reliquat a verser</div>
 
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon fa-play"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data" >
+                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Achats non réglées </div>
                                                         </div>
                                                     </div>
 
@@ -516,11 +517,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 console.log(data);
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
+                                    src += '<span class=" tooltip-error" title="Reliquat a verser"><i class="ace-icon fa fa-check-square-o orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="réglé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
                                 else if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Non réglé"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }
