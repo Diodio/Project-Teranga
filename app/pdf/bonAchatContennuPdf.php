@@ -11,6 +11,9 @@ mysqli_select_db($connexion, $database);
 $sql = "SELECT * FROM mareyeur,achat WHERE mareyeur.id=mareyeur_id AND achat.id=" . $achatId;
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
+//Cette requete permet de recuperer les produits d'un achat
+$sqlProduit="SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=" . $achatId;
+$ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 ?>
 
 <style type="text/css">
@@ -79,23 +82,16 @@ td    { vertical-align: top; }
     </table>
     
 <?php
-    $nb = rand(5, 11);
-    $produits = array();
-    $total = 0;
-    for ($k=0; $k<$nb; $k++) {
-        $num = rand(100000, 999999);
-        $nom = "le produit n°".rand(1, 100);
-        $qua = rand(1, 20);
-        $prix = rand(100, 9999)/100.;
-        $total+= $prix*$qua;
-        $produits[] = array($num, $nom, $qua, $prix, rand(0, $qua));
+    $total =0;
+   while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
+       $total =$total+ $rowProduit['montant'];
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
-            <td style="width: 52%; text-align: left"><?php echo $nom; ?></td>
-            <td style="width: 13%; text-align: left"><?php echo number_format($prix, 2, ',', ' '); ?> &euro;</td>
-            <td style="width: 10%; text-align: center"><?php echo $qua; ?></td>
-            <td style="width: 25%; text-align: right;"><?php echo number_format($prix*$qua, 2, ',', ' '); ?> &euro;</td>
+            <td style="width: 52%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
+            <td style="width: 13%; text-align: left"><?php echo $rowProduit['prixUnitaire']; ?> </td>
+            <td style="width: 10%; text-align: center"><?php echo $rowProduit['quantite']; ?></td>
+            <td style="width: 25%; text-align: right;"><?php echo $rowProduit['montant']; ?> </td>
         </tr>
     </table>
 <?php
@@ -104,7 +100,7 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
             <th style="width: 87%; text-align: right;">Total : </th>
-            <th style="width: 13%; text-align: right;"><?php echo number_format($total, 2, ',', ' '); ?> &euro;</th>
+            <th style="width: 13%; text-align: right;"><?php echo $total; ?></th>
         </tr>
     </table>
     <br>
