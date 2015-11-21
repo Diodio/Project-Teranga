@@ -38,7 +38,7 @@ class Facture {
     protected $montantTtc;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=true)
      * */
     protected $modePaiement;
     

@@ -425,123 +425,20 @@ $(document).ready(function () {
 		 i--;
 		 }
 	 });
-         
- 
-  
- 
-    
-    $(document).delegate('#tab_logic tr td', 'click', function (event) {
-        var id = $(this).closest('tr').attr('id');
-        var counter = id.slice(-1);
-          loadPrix('designation'+counter,'pu'+counter);
-          calculPoidsNet(counter);
-          calculMontant(counter);
-          calculMontantPoids();
-      $( "#qte"+counter ).keyup(function() {
-            calculMontant(counter);
-         });
-         $( "#perc"+counter ).keyup(function() {
-            calculPoidsNet(counter);
-         });  
-    });
-    
 
     $("#modePaiement").change(function() {
         if($("#modePaiement").val() ==='ch') {
-            $("#chDiv").removeClass("hide");
-            $("#chDiv").addClass("show");
+            $("#numCheque").removeAttr("readOnly");
+            
         }
         else {
-            $("#chDiv").removeClass("show");
-            $("#chDiv").addClass("hide");
+            $("#numCheque").attr("readOnly");
         }
     });
-    $('#designation0').change(function() {
-        loadPrix('designation0','pu0');
-        });
-    loadPrix = function(cmbDesignation, champPrix){
-        //$('#tab_logic').click();
-        if($("#"+cmbDesignation).val()!==null){
-            $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: $("#"+cmbDesignation).val(), ACTION: "<?php echo App::ACTION_GET_PRODUCT; ?>"}, function(data) {
-            data = $.parseJSON(data);
-            $("#" + champPrix).val(data);
-            });
-        }
-    };
     
-     loadInfoMareyeur = function(mareyeurId){
-        //$('#tab_logic').click();
-        if(mareyeurId!==''){
-            $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {mareyeurId: mareyeurId, ACTION: "<?php echo App::ACTION_GET_MAREYEURS; ?>"}, function(data) {
-            data = $.parseJSON(data);
-            $("#adresse").val(data.adresse);
-            $('#reference').val(data.reference);
-            });
-        }
-    };
-    
-    $('#CMB_MAREYEURS').change(function() {
-        if($('#CMB_MAREYEURS').val()!=='*')
-            loadInfoMareyeur($('#CMB_MAREYEURS').val());
-        else {
-            $('#adresse').val("");
-            $('#reference').val("");
-        }
-        });
-            $("#montantTotal").bind("focus", function () {
-            calculMontantPoids();
-            
-        });
-            
-        function calculPoidsNet(index){
-           var pn;
-           if($("#perc"+index).val() !=="") {
-              var pourcentage = $("#perc"+index).val();
-              var quantite = $("#qte"+index).val();
-              pn = parseInt(quantite) - ((parseInt(quantite) * pourcentage)/100);
-              if(!isNaN(pn))
-                $("#pdN"+index).val(pn);
-              
-            }  
-       }
-       
+      
 
-         $( "#qte0" ).keyup(function() {
-            calculMontant(0);
-         }); 
-         $( "#perc0" ).keyup(function() {
-            calculPoidsNet(0);
-         });  
-       function calculMontant(index){
-           var mt;
-           var qte=parseInt($("#qte"+index).val());
-           if(!isNaN(qte)) {
-              var pu = $("#pu"+index).val();
-              mt = parseInt(qte) * parseInt(pu);
-              if(!isNaN(mt)){
-                $("#montant"+index).val(mt);
-              }
-            }
-            else {
-                $("#montant"+index).val("");
-            }
-            calculMontantPoids();
-       }
-       function calculMontantPoids(){
-           var pt=0;
-           var pd=0;
-          $('#tab_logic .montant').each(function () {
-                pt += parseInt($(this).val());
-            });
-            $('#tab_logic .qte').each(function () {
-                pd+= parseFloat($(this).val());
-            });
-                if(!isNaN(pt))
-                    $("#montantTotal").val(pt);
-                if(!isNaN(pd))
-                    $("#poidsTotal").val(pd);
-        }
-        
+       
         factureProcess = function ()
         {
             

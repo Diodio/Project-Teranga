@@ -91,6 +91,7 @@ private $logger;
                 $facture->setNumCheque($request['numCheque']);
                 $facture->setAvance($request['avance']);
                 $facture->setReliquat($request['reliquat']);
+                $facture->setStatus(1);
                 $facture->setCodeUsine($request['codeUsine']);
                 $facture->setLogin($request['login']);
                 $bonSortieManager = new BonSortieManager();
