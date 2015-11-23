@@ -369,7 +369,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     var state = $('#stag' + checkedAchat[0]).val();
                   //  console.log(state);
                     //$('#MNU_').removeClass('disabled');
-                    if (state === 1) {
+                    if (state === 0) {
                             $('#MNU_VALIDATION').removeClass('disabled');
                             $('#MNU_VALIDATION').addClass('enable');
                      } 
@@ -614,7 +614,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert("Veuillez selectionnez un achat");
                         else if (checkedAchat.length >= 1)
                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedAchat[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedAchat[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
                             
                         }
                     });

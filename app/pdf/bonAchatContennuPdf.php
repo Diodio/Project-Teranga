@@ -99,7 +99,7 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
-            <th style="width: 87%; text-align: right;">Total : </th>
+            <th style="width: 87%; text-align: left;">Total : </th>
             <th style="width: 13%; text-align: right;"><?php echo $total; ?></th>
         </tr>
     </table>
