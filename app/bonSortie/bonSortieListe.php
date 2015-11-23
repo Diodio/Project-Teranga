@@ -639,7 +639,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert("Veuillez selectionnez un bon de sortie");
                         else if (checkedBon.length >= 1)
                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/bonSortiePdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/bonSortiePdf.php?bonSortieId='+checkedBon[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                             
                         }
                     });
