@@ -428,15 +428,24 @@ $(document).ready(function () {
 
     $("#modePaiement").change(function() {
         if($("#modePaiement").val() ==='ch') {
-            $("#numCheque").removeAttr("readOnly");
-            
+            $("#numCheque").attr("readonly", false); 
         }
         else {
-            $("#numCheque").attr("readOnly");
+            $("#numCheque").attr("readonly", true); 
         }
     });
     
-      
+      $("#avance").keyup(function() {
+        var reliquat=0;
+        if($("#avance").val() !=='') {
+            reliquat= parseFloat($("#montantTtc").val()) - parseFloat($("#avance").val());
+            if(!isNaN(reliquat) && reliquat >=0)
+                $("#reliquat").val(reliquat);
+        }
+        else {
+            $("#reliquat").val(0); 
+        }
+      });
 
        
         factureProcess = function ()
@@ -457,6 +466,32 @@ $(document).ready(function () {
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
+            var $table = $("#tab_logic");
+            rows = [],
+            header = [];
+
+            $table.find("thead th").each(function () {
+                header.push($(this).html().trim());
+            });
+
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                        valueSelect = $(this).find('select').val();
+                        valueInput = $(this).find('input').val();
+                    if (typeof valueInput !== "undefined")
+                        value=valueInput;
+                    if (typeof valueSelect !== "undefined")
+                        value=valueSelect;
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+            var tblConteneur=JSON.stringify(rows);
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
@@ -472,6 +507,7 @@ $(document).ready(function () {
             formData.append('numCheque', numCheque);
             formData.append('avance', avance);
             formData.append('reliquat', reliquat);
+            formData.append('jsonConteneur', tblConteneur);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
@@ -490,7 +526,7 @@ $(document).ready(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listeFactures.php", function () {
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
                         });
                     } 
                     else

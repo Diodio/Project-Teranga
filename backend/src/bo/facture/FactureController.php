@@ -76,39 +76,49 @@ private $logger;
 
     public function doInsert($request) {
         try {
-            $this->logger->log->trace("tesst1");
-            
-                $factureManager = new FactureManager();
-                $facture = new Facture();
-                $facture->setNumero($request['numFacture']);
-                $facture->setDateFacture(new \DateTime("now"));
-                $facture->setHeureFacture(new \DateTime($request['heureFacture']));
-                $facture->setDevise($request['devise']);
-                $facture->setPortDechargement($request['portDechargement']);
-                $facture->setMontantHt($request['montantHt']);
-                $facture->setMontantTtc($request['montantTtc']);
-                $facture->setModePaiement($request['modePaiement']);
-                $facture->setNumCheque($request['numCheque']);
-                $facture->setAvance($request['avance']);
-                $facture->setReliquat($request['reliquat']);
-                $facture->setStatus(1);
-                $facture->setCodeUsine($request['codeUsine']);
-                $facture->setLogin($request['login']);
-                $bonSortieManager = new BonSortieManager();
-                $colisage = $bonSortieManager->findById($request['colisage']);
-                $facture->setBonsortie($colisage);
-                $factureAdded = $factureManager->insert($facture);
-                if ($factureAdded->getId() != null) {
-                    $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
-                } else {
-                    $this->doError('-1', 'Impossible d\'inserer ce facture');
+            $factureManager = new FactureManager();
+            $facture = new Facture();
+            $facture->setNumero($request['numFacture']);
+            $facture->setDateFacture(new \DateTime("now"));
+            $facture->setHeureFacture(new \DateTime($request['heureFacture']));
+            $facture->setDevise($request['devise']);
+            $facture->setPortDechargement($request['portDechargement']);
+            $facture->setMontantHt($request['montantHt']);
+            $facture->setMontantTtc($request['montantTtc']);
+            $facture->setModePaiement($request['modePaiement']);
+            $facture->setNumCheque($request['numCheque']);
+            $facture->setAvance($request['avance']);
+            $facture->setReliquat($request['reliquat']);
+            $facture->setStatus(1);
+            $facture->setCodeUsine($request['codeUsine']);
+            $facture->setLogin($request['login']);
+            $bonSortieManager = new BonSortieManager();
+            $colisage = $bonSortieManager->findById($request['colisage']);
+            $facture->setBonsortie($colisage);
+            $factureAdded = $factureManager->insert($facture);
+            if ($factureAdded->getId() != null) {
+                $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
+                foreach ($jsonConteneur as $key => $ligneConteneur) {
+                    if (isset($ligneConteneur["N° conteneur"]) && $ligneConteneur["N° plomb"]) {
+                        if ($ligneConteneur["N° conteneur"] !== "" && $ligneConteneur["N° plomb"] !== "") {
+                            $conteneur = new \Facture\Conteneur();
+                            $conteneur->setFacture($facture);
+                            $conteneur->setNumConteneur($ligneConteneur["N° conteneur"]);
+                            $conteneur->setNumPlomb($ligneConteneur["N° plomb"]);
+                            $conteneurManager = new \Facture\ConteneurManager();
+                            $conteneurManager->insert($conteneur);
+                        }
+                    }
                 }
+                $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
+            } else {
+                $this->doError('-1', 'Impossible d\'inserer ce facture');
+            }
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
 
-    
     public function doList($request) {
         try {
             $factureManager = new FactureManager();

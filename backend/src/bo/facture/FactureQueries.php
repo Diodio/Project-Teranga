@@ -46,12 +46,10 @@ class FactureQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'select achat.id,status,dateFacture, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, bon_sortie, CLIENT WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'select achat.id, status,dateFacture, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, bon_sortie, CLIENT WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -86,12 +84,10 @@ class FactureQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'select count(achat.id) as nbFactures
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'SELECT count(*) as nbFactures FROM facture, bon_sortie, CLIENT WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id AND facture.codeUsine='.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'select count(achat.id) as nbFactures
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
+             $sql = 'SELECT count(*) as nbFactures  FROM facture, bon_sortie, CLIENT WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

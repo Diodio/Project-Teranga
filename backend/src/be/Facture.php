@@ -85,7 +85,10 @@ class Facture {
     /** @ManyToOne(targetEntity="BonSortie\BonSortie", inversedBy="bonsortie") */
     protected $bonsortie;
     
-   
+   /** @OneToMany(targetEntity="Facture\Conteneur", mappedBy="conteneur") */
+    public $conteneur;
+    
+    
     public function getId() {
         return $this->id;
     }
@@ -239,7 +242,15 @@ class Facture {
     }
 
 
-   
+    public function getConteneur() {
+        return $this->conteneur;
+    }
+
+    public function setConteneur($conteneur) {
+        $this->conteneur = $conteneur;
+    }
+
+
 
 
     }

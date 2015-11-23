@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des bons d'achat
+            Gestion des factures
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des bons d'achat
+                Liste des factures
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -42,7 +42,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_VALIDATION'><a href="#" id="GRP_NEW">Valider </a></li>
+                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer </a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
                                     </ul>
@@ -50,13 +50,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
-                
+            <div class="col-sm-5">
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des bons d'achat
+                            Liste des factures
                         </h4>
 
                         <div class="widget-toolbar">
@@ -68,7 +67,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                     <div class="widget-body">
                         <div class="widget-main no-padding">
-                          <table id="LIST_ACHATS" class="table table-striped table-bordered table-hover">
+                          <table id="LIST_FACTURES" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th class="center" style="border-right: 0px none;">
@@ -82,16 +81,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     Date
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-
-                                    Numero Client
+                                    Numéro Facture
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-
                                     Nom Client
                                 </th>
-
-                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
-                                </th>-->
                             </tr>
                         </thead>
 
@@ -103,7 +97,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div class="widget-container-span">
                     <div class="widget-box transparent">
                         <div class="widget-header">
@@ -136,19 +130,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon fa-play"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_CPG_INPROCESS">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
+                                                <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -156,7 +138,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_CPG_PAUSE">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats validé</div>
+                                                            <div class="infobox-content" style="width:150px">Factures validées</div>
 
                                                         </div>
                                                     </div>
@@ -169,7 +151,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_CPG_SCHEDULED">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
+                                                            <div class="infobox-content" style="width:150px">Factures annulées</div>
 
                                                         </div>
                                                     </div>
@@ -189,27 +171,33 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                               <div class="profile-user-info">
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Date achat </div>
+                        <div class="profile-info-name">Date facture </div>
                         <div class="profile-info-value">
-                            <span id="AchatDate"></span>
+                            <span id="FactureDate"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Numero Achat </div>
+                        <div class="profile-info-name">Numero facture </div>
                         <div class="profile-info-value">
-                            <span id="AchatNumero"></span>
+                            <span id="FactureNumero"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Nom Mareyeur </div>
+                        <div class="profile-info-name">Client </div>
                         <div class="profile-info-value">
-                            <span id="AchatNomMareyeur"></span>
+                            <span id="FactureClient"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Adresse </div>
+                        <div class="profile-info-name">Origine </div>
                         <div class="profile-info-value">
-                            <span id="achatAdresseMareyeur"></span>
+                            <span id="factureOrigine"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Pays </div>
+                        <div class="profile-info-value">
+                            <span id="facturePays"></span>
                         </div>
                     </div>
                 </div>
@@ -227,15 +215,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 							Prix Unitaire
 						</th>
 						<th class="text-center">
-							Poids brut (kg)
-						</th>
-						<th class="text-center">
-							Pourcentage
-						</th>
-						<th class="text-center">
-							Poids Net (kg)
-						</th>
-						<th class="text-center">
 							Quantite (kg)
 						</th>
 						<th class="text-center">
@@ -244,32 +223,48 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</tr>
 				</thead>
 				<tbody>
-					<tr id='addr0'>
-						<td>
-						1
-						</td>
-						<td> Poisson
-                                                </td>
-                                                <td>
-                                                    2000
-						</td>
-                                                <td>300
-						</td>
-                                                <td>
-                                                    10
-						</td>
-                                                <td>
-                                                    240
-						</td>
-						<td>
-                                                     30
-                                                </td>
-						<td>
-                                                    14000
-    						</td>
-					</tr>
+					
 				</tbody>
 			</table>
+                                
+                        <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Poids Total </div>
+                                <div class="profile-info-value">
+                                    <span id="PoidsTotal"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Montant HT </div>
+                                <div class="profile-info-value">
+                                    <span id="MontantHt"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Montant TTC </div>
+                                <div class="profile-info-value">
+                                    <span id="MontantTtc"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Mode de paiement </div>
+                                <div class="profile-info-value">
+                                    <span id="modePaiement"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Avance</div>
+                                <div class="profile-info-value">
+                                    <span id="avance"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Reliquat </div>
+                                <div class="profile-info-value">
+                                    <span id="reliquat"></span>
+                                </div>
+                            </div>
+                        </div>
                                             </div>
                                         </div>
 
@@ -286,25 +281,25 @@ $codeUsine = $_COOKIE['codeUsine'];
             </div>
         </div><!-- /.row -->
     </div>
-    
+    </div>
     <script type="text/javascript">
             jQuery(function ($) {
-            var oTableAchats= null;
-            var nbTotalAchatChecked=0;
-            var checkedAchat = new Array();
+            var oTableFactures= null;
+            var nbTotalFactureChecked=0;
+            var checkedFacture = new Array();
             // Check if an item is in the array
             
-            checkedAchatContains = function(item) {
-                for (var i = 0; i < checkedAchat.length; i++) {
-                    if (checkedAchat[i] == item)
+            checkedFactureContains = function(item) {
+                for (var i = 0; i < checkedFacture.length; i++) {
+                    if (checkedFacture[i] == item)
                         return true;
                 }
                 return false;
             };
             // Persist checked Message when navigating
             persistChecked = function() {
-                $('input[type="checkbox"]', "#LIST_ACHATS").each(function() {
-                    if (checkedAchatContains($(this).val())) {
+                $('input[type="checkbox"]', "#LIST_FACTURES").each(function() {
+                    if (checkedFactureContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
                         $(this).removeAttr('checked');
@@ -317,15 +312,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                     this.checked = that.checked;
                     if (this.checked)
                     {
-                        checkedAchatAdd($(this).val());
+                        checkedFactureAdd($(this).val());
                         //MessageSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
-                        nbTotalAchatChecked=checkedAchat.length;
+                        nbTotalFactureChecked=checkedFacture.length;
                     }
                     else
                     {
-                        checkedAchatRemove($(this).val());
+                        checkedFactureRemove($(this).val());
 //                        MessageUnSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
@@ -335,8 +330,8 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
             MessageSelected = function(click)
             {
-                if (checkedAchat.length == 1){
-                    loadAchatSelected(checkedAchat[0]);
+                if (checkedFacture.length == 1){
+                    loadFactureSelected(checkedFacture[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -345,14 +340,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#TAB_MSG_VIEW').hide();
                     
                 }
-                if(checkedAchat.length==nbTotalAchatChecked){
+                if(checkedFacture.length==nbTotalFactureChecked){
                     $('table th input:checkbox').prop('checked', true);
                 }
             };
             MessageUnSelected = function()
             {
-               if (checkedAchat.length === 1){
-                    loadAchatSelected(checkedAchat[0]);
+               if (checkedFacture.length === 1){
+                    loadFactureSelected(checkedFacture[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -367,38 +362,36 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
 
             // Add checked item to the array
-            checkedAchatAdd = function(item) {
+            checkedFactureAdd = function(item) {
                 if (!checkedMessageContains(item)) {
-                    checkedAchat.push(item);
+                    checkedFacture.push(item);
                 }
             };
             // Remove unchecked items from the array
-            checkedAchatRemove = function(item) {
+            checkedFactureRemove = function(item) {
                 var i = 0;
-                while (i < checkedAchat.length) {
-                    if (checkedAchat[i] == item) {
-                        checkedAchat.splice(i, 1);
+                while (i < checkedFacture.length) {
+                    if (checkedFacture[i] == item) {
+                        checkedFacture.splice(i, 1);
                     } else {
                         i++;
                     }
                 }
             };
             checkedMessageContains = function(item) {
-                for (var i = 0; i < checkedAchat.length; i++) {
-                    if (checkedAchat[i] == item)
+                for (var i = 0; i < checkedFacture.length; i++) {
+                    if (checkedFacture[i] == item)
                         return true;
                 }
                 return false;
             };
-             loadAchats = function() {
-                nbTotalAchatChecked = 0;
-                checkedAchat = new Array();
-                var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-
-                if (oTableAchats != null)
-                    oTableAchats.fnDestroy();
-
-                oTableAchats = $('#LIST_ACHATS').dataTable({
+             loadFactures = function() {
+                nbTotalFactureChecked = 0;
+                checkedFacture = new Array();
+                var url =  '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
+                if (oTableFactures != null)
+                    oTableFactures.fnDestroy();
+                oTableFactures = $('#LIST_FACTURES').dataTable({
                     "oLanguage": {
                     "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
                     },
@@ -437,13 +430,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             checkbox=$(this).parent().find('input:checkbox:first');
                             if(!checkbox.is(':checked')){
                                 checkbox.prop('checked', true);;
-                                checkedAchatAdd(aData[0]);
+                                checkedFactureAdd(aData[0]);
                                 MessageSelected();
                                 
                             }else{
                                 checkbox.removeAttr('checked');
                                 
-                                checkedAchatRemove(aData[0]);
+                                checkedFactureRemove(aData[0]);
                                 MessageUnSelected();
                             }
                         });
@@ -486,7 +479,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                               }else{
                                   $('table th input:checkbox').removeAttr('checked');
                                   fnCallback(json);
-                                  nbTotalAchatChecked=json.iTotalRecords;
+                                  nbTotalFactureChecked=json.iTotalRecords;
                               }
                                 
                            }
@@ -495,29 +488,29 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
             
-            loadAchats();
-            loadAchatSelected = function(achatId)
+            loadFactures();
+            loadFactureSelected = function(factureId)
             {
-              $('#TAB_MSG_TITLE').text("Numero achat: num");
+              $('#TAB_MSG_TITLE').text("Numero facture: num");
               $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
               $('#TAB_MSG_VIEW').show();
             };
 
 $("#MNU_VALIDATION").click(function()
             {
-                if (checkedAchat.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedAchat.length > 1)
+                if (checkedFacture.length == 0)
+                    bootbox.alert("Veuillez selectionnez un facture");
+                else if (checkedFacture.length > 1)
                       
                 {
-                     bootbox.confirm("Voulez vous vraiment valider cet achat","Non","Oui", function(result) {
+                     bootbox.confirm("Voulez vous vraiment valider cet facture","Non","Oui", function(result) {
                     if(result){
-                    var achatId = checkedAchat[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+                    var factureId = checkedFacture[0];
+                    $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
                     {
                         if (data.rc == 0)
                         {
-                            bootbox.alert("Achat validé");
+                            bootbox.alert("Facture validé");
                         }
                         else
                         {
@@ -525,7 +518,7 @@ $("#MNU_VALIDATION").click(function()
                         }
                         $.loader.close(true);
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsFactureVue.php", function () {
                         });
                          }
                     });

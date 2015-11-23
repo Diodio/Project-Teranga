@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/macfish/app/pdf/bonAchatContennuPdf.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatQueries.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/facture/factureListe.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/be/Facture.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/log/logFile.log</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/achat/achatListe.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/facture/FactureManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/facture/FactureController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/facture/facturesVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/facture/FactureQueries.php</file>
         </group>
     </open-files>
 </project-private>
