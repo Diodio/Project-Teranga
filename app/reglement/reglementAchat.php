@@ -17,7 +17,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             Réglement des achats
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des achats � Regler
+                Liste des achats à Regler
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -201,9 +201,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_REGLES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats réglées</div>
+                                                            <div class="infobox-content" style="width:150px">Achats réglés</div>
 
                                                         </div>
                                                     </div>
@@ -214,7 +214,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NON_REGLE">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Reliquat a verser</div>
 
@@ -227,7 +227,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NONVALIDES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats non réglées </div>
                                                         </div>
@@ -346,16 +346,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
+                    data: user+'&ACTION=<?php echo App::ACTION_STAT_REGLEMENTS; ?>&codeUsine=<?php echo $codeUsine; ?>',
                     cache: false,
                     success: function(data) {
-                        $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
-                        $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
-                        $('#INDIC_ACHAT_ANNULES').text(data.nbAnnule);
-
-//                        gStatTimer = setTimeout(function() {
-//                            getIndicator();
-//                        }, interval);
+                        $('#INDIC_REGLEMENT_REGLES').text(data.nbRegle);
+                        $('#INDIC_REGLEMENT_NON_REGLE').text(data.nbNonRegle);
+                        $('#INDIC_REGLEMENT_NONVALIDES').text(data.nbAnnule);
+                    
                     }
                 });
             };
@@ -404,7 +401,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             
              $('#LIST_ACHATS tbody').on('click', 'input[type="checkbox"]', function() {
                 context=$(this);
-                if ($(this).is(':checked') && $(this).val() != '*') {
+                if ($(this).is(':checked') && $(this).val() !== '*') {
                     checkedAchatAdd($(this).val());
                     MessageSelected();
                 } else {
@@ -558,7 +555,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_REGLEMENTS; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');

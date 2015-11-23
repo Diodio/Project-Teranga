@@ -43,10 +43,16 @@ class AchatManager {
         return $this->achatQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
 
+    
+    public function retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->achatQuery->retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    }
+
    
     public function count($codeUsine,$where="") {
         return $this->achatQuery->count($codeUsine,$where);
     }
+    
     public function validAchat($achatId) {
         return $this->achatQuery->validAchat($achatId);
     }
@@ -80,6 +86,31 @@ public function findStatisticByUsine($codeUsine) {
                     $achatTab['nbNonValid'] = $nonValidAchat;
                 else
                     $achatTab['nbNonValid']= 0;
+                if ($achatAnnuler != null)
+                    $achatTab['nbAnnule'] = $achatAnnuler;
+                else
+                    $achatTab['nbAnnule'] = 0;
+                
+               
+            return $achatTab;
+        } else
+            return 0;
+    }
+    
+    public function findStatisticReglementByUsine($codeUsine) {
+        if ($codeUsine != null) {
+            $regle = $this->achatQuery->findRegleByUsine($codeUsine);
+            $nonRegle = $this->achatQuery->findNonRegleByUsine($codeUsine);
+            $achatAnnuler = $this->achatQuery->findRegleAnnuleByUsine($codeUsine);
+            $achatTab = array();
+                if ($regle != null)
+                    $achatTab['nbRegle'] = $regle;
+                else
+                    $achatTab['nbRegle'] = 0;
+                if ($nonRegle != null)
+                    $achatTab['nbNonRegle'] = $nonRegle;
+                else
+                    $achatTab['nbNonRegle']= 0;
                 if ($achatAnnuler != null)
                     $achatTab['nbAnnule'] = $achatAnnuler;
                 else

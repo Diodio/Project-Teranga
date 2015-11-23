@@ -71,6 +71,35 @@ class AchatQueries {
     }
 
  
+    public function retrieveAllReglements($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            
+            $sql = 'select achat.id,regle,dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }
+        else {
+            $sql = 'select achat.id, regle,dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }   
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        $arrayAchats = array();
+        $i = 0;
+        foreach ($products as $key => $value) {
+            $arrayAchats [$i] [] = $value ['id'];
+            $arrayAchats [$i] [] = $value ['regle'];
+            $arrayAchats [$i] [] = $value ['dateAchat'];
+            $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['nom'];
+            $i++;
+        }
+        return $arrayAchats;
+    }
+
   
 
      public function findById($produitId) {
@@ -138,6 +167,31 @@ class AchatQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
+    
+    public function findRegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
+    public function findNonRegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=0 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
+    public function findRegleAnnuleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
      public function findAchatDetails($achatId) {
         if ($achatId != null) {
             $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $achatId;
