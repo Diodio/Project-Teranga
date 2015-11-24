@@ -17,7 +17,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             Reglement des factures
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des factures � Regler
+                Liste des factures à Regler
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -57,7 +57,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des bons d'achat
+                            Liste des factures
                         </h4>
 
                         <div class="widget-toolbar">
@@ -201,7 +201,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_FACTURE_REGLES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Factures réglées</div>
 
@@ -227,7 +227,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_FACTURE_NONREGLES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Factures non réglées </div>
                                                         </div>
@@ -346,11 +346,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
+                    data: user+'&ACTION=<?php echo App::ACTION_STAT_REGLEMENTS; ?>&codeUsine=<?php echo $codeUsine; ?>',
                     cache: false,
                     success: function(data) {
-                        $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
-                        $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
+                        $('#INDIC_FACTURE_REGLES').text(data.nbValid);
+                        $('#INDIC_FACTURE_NONREGLES').text(data.nbNonValid);
                         $('#INDIC_ACHAT_ANNULES').text(data.nbAnnule);
 
 //                        gStatTimer = setTimeout(function() {
@@ -558,7 +558,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_REGLEMENTS; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
