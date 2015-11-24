@@ -214,7 +214,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
+                                                            <div class="infobox-content" id="INDIC_FACTURE_ANNULES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Reliquat a verser</div>
 
@@ -248,7 +248,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                               <div class="profile-user-info">
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Date achat </div>
+                        <div class="profile-info-name">Date facture </div>
                         <div class="profile-info-value">
                             <span id="AchatDate"></span>
                         </div>
@@ -262,13 +262,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="profile-info-row">
                         <div class="profile-info-name">Origine </div>
                         <div class="profile-info-value">
-                            <span id="achatAdresseMareyeur"></span>
+                            <span id="factureAdresseMareyeur"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
                         <div class="profile-info-name">Créé par </div>
                         <div class="profile-info-value">
-                            <span id="achatUser"></span>
+                            <span id="factureUser"></span>
                         </div>
                     </div>
                 </div>
@@ -327,7 +327,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             </div>
         </div><!-- /.row -->
     </div>
-    
+    </div>
     <script type="text/javascript">
             jQuery(function ($) {
             var oTableAchats= null;
@@ -338,7 +338,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             getIndicator = function() {
                 var url;
                 var user;
-                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+                url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
                 userProfil=$.cookie('profil');
                 if(userProfil==='admin')
                    user = 'login=<?php echo $login; ?>';
@@ -349,8 +349,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     data: user+'&ACTION=<?php echo App::ACTION_STAT_REGLEMENTS; ?>&codeUsine=<?php echo $codeUsine; ?>',
                     cache: false,
                     success: function(data) {
-                        $('#INDIC_FACTURE_REGLES').text(data.nbValid);
-                        $('#INDIC_FACTURE_NONREGLES').text(data.nbNonValid);
+                        $('#INDIC_FACTURE_REGLES').text(data.nbRegle);
+                        $('#INDIC_FACTURE_NONREGLES').text(data.nbNonRegle);
                         $('#INDIC_ACHAT_ANNULES').text(data.nbAnnule);
 
 //                        gStatTimer = setTimeout(function() {
@@ -481,7 +481,7 @@ $codeUsine = $_COOKIE['codeUsine'];
              loadAchats = function() {
                 nbTotalAchatChecked = 0;
                 checkedAchat = new Array();
-                var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+                var url =  '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
 
                 if (oTableAchats != null)
                     oTableAchats.fnDestroy();
@@ -592,18 +592,18 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             
             loadAchats();
-            loadAchatSelected = function(achatId)
+            loadAchatSelected = function(factureId)
             {
                  var url;
-                 url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+                 url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
 
-                $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
-                    $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
+                    $('#TAB_MSG_TITLE').text("Numero facture: "+ data.numero);
                     $('#AchatDate').text(data.dateAchat);
                     $('#AchatNomMareyeur').text(data.nomMareyeur);
-                    $('#achatAdresseMareyeur').text(data.adresse);
-                    $('#achatUser').text(data.user);
+                    $('#factureAdresseMareyeur').text(data.adresse);
+                    $('#factureUser').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
                     $('#TABLE_ACHATS tbody').html("");
@@ -629,9 +629,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                             if(result){
                             	 $('#winModalReglement').addClass('show');
              		            $('#winModalReglement').modal('show');
-                            var achatId = checkedAchat[0];
+                            var factureId = checkedAchat[0];
                            
-                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsAchatVue.php", function () {
                                 });
                                  }
                             });
@@ -641,10 +641,10 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_IMPRIMER").click(function()
                     {
                         if (checkedAchat.length == 0)
-                            bootbox.alert("Veuillez selectionnez un achat");
+                            bootbox.alert("Veuillez selectionnez un facture");
                         else if (checkedAchat.length >= 1)
                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
                             
                         }
                     });
@@ -652,13 +652,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_ANNULATION").click(function()
             {
                 if (checkedAchat.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
+                    bootbox.alert("Veuillez selectionnez un facture");
                 else if (checkedAchat.length >= 1)
                 {
-                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
+                     bootbox.confirm("Voulez vous vraiment annuler cet facture", function(result) {
                     if(result){
-                    var achatId = checkedAchat[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    var factureId = checkedAchat[0];
+                    $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
                     {
                         if (data.rc === 0)
                         {
@@ -669,7 +669,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsAchatVue.php", function () {
                         });
                          }
                     });

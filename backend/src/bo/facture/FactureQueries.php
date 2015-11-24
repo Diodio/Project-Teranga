@@ -69,7 +69,32 @@ class FactureQueries {
     }
 
  
-  
+    public function retrieveAllReglements($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            
+            $sql = 'SELECT facture.id, facture.regle, dateFacture, numero, nom FROM facture, bon_sortie, CLIENT WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }
+        else {
+            $sql = 'SELECT facture.id, facture.regle, dateFacture, numero, nom FROM facture, bon_sortie, CLIENT WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }   
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        $arrayAchats = array();
+        $i = 0;
+        foreach ($products as $key => $value) {
+            $arrayAchats [$i] [] = $value ['id'];
+            $arrayAchats [$i] [] = $value ['regle'];
+            $arrayAchats [$i] [] = $value ['dateFacture'];
+            $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['nom'];
+            $i++;
+        }
+        return $arrayAchats;
+    }
 
      public function findById($produitId) {
             $query = Bootstrap::$entityManager->createQuery("select p from Facture\Facture p where p.id = :produitId");
@@ -133,6 +158,29 @@ class FactureQueries {
         $stmt->execute();
         $Facture = $stmt->fetch();
         return $Facture['nb'];
+    }
+     public function findRegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
+    public function findNonRegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=0 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
+    
+    public function findRegleAnnuleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
     }
      public function findFactureDetails($achatId) {
         if ($achatId != null) {
