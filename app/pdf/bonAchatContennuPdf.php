@@ -74,23 +74,27 @@ td    { vertical-align: top; }
     <br>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
         <tr>
-            <th style="width: 52%">Désignation</th>
-            <th style="width: 13%">Prix Unitaire</th>
-            <th style="width: 10%; text-align: right;">Quantité</th>
+            <th style="width: 42%">Désignation</th>
+            <th style="width: 18%;">Prix Unitaire</th>
+            <th style="width: 15%; text-align: right;">Quantité</th>
             <th style="width: 25%;text-align: right;">Montant</th>
         </tr>
     </table>
     
 <?php
     $total =0;
+    $totalPrix=0;
+    $totalQuantite=0;
    while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
        $total =$total+ $rowProduit['montant'];
+       $totalPrix =$totalPrix+ $rowProduit['prixUnitaire'];
+       $totalQuantite =$totalQuantite+ $rowProduit['quantite'];
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
-            <td style="width: 52%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
-            <td style="width: 13%; text-align: left"><?php echo $rowProduit['prixUnitaire']; ?> </td>
-            <td style="width: 10%; text-align: center"><?php echo $rowProduit['quantite']; ?></td>
+            <td style="width: 42%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
+            <td style="width: 18%; text-align: left"><?php echo $rowProduit['prixUnitaire']; ?> </td>
+            <td style="width: 15%; text-align: right"><?php echo $rowProduit['quantite']; ?></td>
             <td style="width: 25%; text-align: right;"><?php echo $rowProduit['montant']; ?> </td>
         </tr>
     </table>
@@ -99,8 +103,10 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
-            <th style="width: 87%; text-align: left;">Total : </th>
-            <th style="width: 13%; text-align: right;"><?php echo $total; ?></th>
+            <th style="width: 18%; text-align: left;">Total : </th>
+            <th style="width: 31%; text-align: right;"><?php echo number_format($totalPrix, 2, ',', ' '); ?> </th>
+            <th style="width: 26%; text-align: right;"><?php echo number_format($totalQuantite, 0, ',', ' '); ?>kg </th>
+            <th style="width: 25%; text-align: right;"><?php echo number_format($total, 2, ',', ' '); ?> </th>
         </tr>
     </table>
     <br>
