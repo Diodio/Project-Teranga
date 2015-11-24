@@ -46,9 +46,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Adresse </label>
 					</div>
 					<div class="col-sm-6">
-						<select id="CMBORIGINES" data-placeholder="" style="width: 100%">
-							<option value="*" class="usines">Usine</option>
-						</select>
+						<input type="text" id="adresse" placeholder=""
+							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
 				<div class="space-6"></div>
@@ -209,7 +208,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
-    $('#CMBORIGINES').select2();
     $('#CMBDESTINATIONS').select2();
     $('#designation0').select2();
     var today = new Date();
@@ -240,7 +238,6 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#CMBORIGINES").loadJSON('{"usines":' + data + '}');
                  $("#CMBDESTINATIONS").loadJSON('{"usines":' + data + '}');
             }
     });
@@ -335,7 +332,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;            
             var clients = $("#CMB_CLIENTS").val();
-            var origine = $('#CMBORIGINES').select2('data').text;
+            var origine = $('#adresse').val();
             var numContainer= $('#numContainer').val();
             var numeroPlomb= $('#numeroPlomb').val();
             var numeroBonSortie = $("#numeroBonSortie").val();
@@ -421,6 +418,22 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             });
 
         };   
+        loadAddress = function(clientId){
+        //$('#tab_logic').click();
+        if(clientId!==''){
+            $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {clientId: clientId, ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function(data) {
+            data = $.parseJSON(data);
+            $("#adresse").val(data.adresse);
+            });
+        }
+    };
+        $('#CMB_CLIENTS').change(function() {
+        if($('#CMB_CLIENTS').val()!=='*')
+            loadAddress($('#CMB_CLIENTS').val());
+        else {
+            $('#adresse').val("");
+        }
+        });
         $("#SAVE").bind("click", function () {
            BonSortieProcess();
                    });
