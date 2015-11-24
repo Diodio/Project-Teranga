@@ -64,30 +64,26 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="date" name="date" placeholder="" class="col-xs-10 col-sm-6">
+                                        <input type="text" id="rgl_date" name="date" placeholder="" class="col-xs-10 col-sm-6">
                                     </div>
-<!--                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label> -->
-<!--                                     <div class="col-sm-9"> -->
-<!--                                         <input type="text" data-date-format="dd-mm-yyyy" id="date" name="date" placeholder="" class="span10 date-picker"> -->
-<!--                                     </div> -->
-<!--                                     <span class="add-on"> <i class="icon-calendar"></i></span -->
+
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Montant (TTC)</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="montant" name="montant" placeholder="" class="col-xs-10 col-sm-6">
+                                        <input type="text" id="rgl_montantRestant" name="montant" placeholder="" class="col-xs-10 col-sm-6">
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Avance (TTC)</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
+                                        <input type="text" id="rgl_avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
                                     </div>
                             </div>
                               <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Reliquat (TTC)</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
+                                        <input type="text" id="rgl_reliquat" name="avance" placeholder="" class="col-xs-10 col-sm-6">
                                     </div>
                             </div>
                         </div>
@@ -616,6 +612,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                }).error(function(error) { });
             };
 
+            getInfoReglement = function(achatId) {
+                var url;
+                url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: 'ACTION=<?php echo App::ACTION_GET_INFOS; ?>&achatId='+achatId,
+                    cache: false,
+                    success: function(data) {
+                        $('#rgl_montantRestant').text(data.nbRegle);
+                        $('#rgl_avance').text(data.nbNonRegle);
+                        $('#rgl_reliquat').text(data.nbAnnule);
+                    
+                    }
+                });
+            };
             $("#MNU_REGLEMENT").click(function()
             {
                 if (checkedAchat.length == 0)
@@ -628,8 +641,8 @@ $codeUsine = $_COOKIE['codeUsine'];
      		            $('#winModalReglement').modal('show');
                     var achatId = checkedAchat[0];
                    
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
-                        });
+//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+//                        });
                          }
                     });
                 }
