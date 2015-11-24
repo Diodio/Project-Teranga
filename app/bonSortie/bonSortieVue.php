@@ -46,8 +46,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Adresse </label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" id="adresse" placeholder=""
-							style="width: 100%" class="col-xs-10 col-sm-7">
+						<select id="CMBORIGINES" data-placeholder="" style="width: 100%">
+							<option value="*" class="usines">Usine</option>
+						</select>
 					</div>
 				</div>
 				<div class="space-6"></div>
