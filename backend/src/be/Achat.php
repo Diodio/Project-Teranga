@@ -55,8 +55,8 @@ class Achat {
     /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="produit") */
     public $produit;
     
-    /** @OneToMany(targetEntity="Achat\AchatPaiement", mappedBy="paiement") */
-    public $paiement;
+    /** @OneToMany(targetEntity="Reglement\ReglementAchat", mappedBy="reglement") */
+    public $reglement;
     
     /**
      * @Column(type="integer", options={"default":0}) 

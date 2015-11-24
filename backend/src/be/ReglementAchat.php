@@ -1,25 +1,18 @@
 <?php
 
-namespace Achat;
+namespace Reglement;
 
 /** @Entity @HasLifecycleCallbacks 
  * @Table(name="reglement_achat") * */
-class AchatPaiement {
+class ReglementAchat {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
      */
     protected $id;
     
-    
-    
    /** @Column(type="datetime", nullable=true) */
     public $datePaiement;
-    
-    
-    
-    /** @ManyToOne(targetEntity="Mareyeur\Mareyeur", inversedBy="mareyeur", cascade={"persist"}) */
-    protected $mareyeur;
     
     /** @ManyToOne(targetEntity="Achat\Achat", inversedBy="achat", cascade={"persist"}) */
     protected $achat;
@@ -28,6 +21,16 @@ class AchatPaiement {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $montant;
+    
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $avance;
+    
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $reliquat;
     
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;

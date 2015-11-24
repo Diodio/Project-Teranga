@@ -38,8 +38,6 @@ class Mareyeur {
     /** @OneToMany(targetEntity="Achat\Achat", mappedBy="achat") */
     protected $achat;
     
-    /** @OneToMany(targetEntity="Achat\AchatPaiement", mappedBy="paiement", cascade={"persist"}) */
-    protected $paiement;
     
     public function getId() {
         return $this->id;
