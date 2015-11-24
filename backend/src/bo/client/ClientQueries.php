@@ -42,7 +42,17 @@ class ClientQueries {
 		$clients = $clientRepository->findAll();
 		return $clients;
 	}
-
+        
+        public function findAdress($clientId) {
+        $sql = 'select adresse from client where id='.$clientId;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        if ($client != null)
+            return $client;
+        else
+            return null;
+    }
 
 	public function findAllClients() {
 		$sql = 'select id, nom, adresse, telephone from client';

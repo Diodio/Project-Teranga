@@ -3,7 +3,7 @@
 namespace Achat;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="achat_paiement") * */
+ * @Table(name="reglement_achat") * */
 class AchatPaiement {
 
     /** @Id

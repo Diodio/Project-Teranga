@@ -28,7 +28,14 @@ class ClientManager {
     	return $this->ClientQuery;
     }
    
-
+    public function findAdress($clientId) {
+        $client = $this->ClientQuery->findAdress($clientId);
+        $list = array();
+        foreach ($client as $key => $value) {
+            $list ['adresse'] = $value ['adresse'];
+        }
+        return $list;
+    }
  
     public function delete($clientId) {
         return $this->ClientQuery->delete($clientId);

@@ -73,6 +73,11 @@ class Facture {
      **/
     protected $status;
     
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $regle;
+    
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
 

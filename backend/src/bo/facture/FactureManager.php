@@ -43,7 +43,10 @@ class FactureManager {
         return $this->factureQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
 
-   
+   public function retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->factureQuery->retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    }
+    
     public function count($codeUsine,$where="") {
         return $this->factureQuery->count($codeUsine,$where);
     }
@@ -91,6 +94,30 @@ public function findStatisticByUsine($codeUsine) {
             return 0;
     }
     
+    public function findStatisticReglementByUsine($codeUsine) {
+        if ($codeUsine != null) {
+            $regle = $this->factureQuery->findRegleByUsine($codeUsine);
+            $nonRegle = $this->factureQuery->findNonRegleByUsine($codeUsine);
+            $actureAnnuler = $this->factureQuery->findRegleAnnuleByUsine($codeUsine);
+            $achatTab = array();
+                if ($regle != null)
+                    $achatTab['nbRegle'] = $regle;
+                else
+                    $achatTab['nbRegle'] = 0;
+                if ($nonRegle != null)
+                    $achatTab['nbNonRegle'] = $nonRegle;
+                else
+                    $achatTab['nbNonRegle']= 0;
+                if ($actureAnnuler != null)
+                    $achatTab['nbAnnule'] = $actureAnnuler;
+                else
+                    $achatTab['nbAnnule'] = 0;
+                
+               
+            return $achatTab;
+        } else
+            return 0;
+    }
     public function findFactureDetails($factureId) {
         if ($factureId != null) {
             $facture = $this->factureQuery->findFactureDetails($factureId);

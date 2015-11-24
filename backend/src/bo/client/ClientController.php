@@ -41,6 +41,9 @@ class ClientController extends BaseController implements BaseAction {
                                         case \App::ACTION_LIST_VALID:
                                                 $this->doGetListClients($request);
                                                 break;
+                                        case \App::ACTION_GET_INFOS:
+                                                $this->doGetAdress($request);
+                                                break;
 
 				}
 			} else {
@@ -173,7 +176,19 @@ class ClientController extends BaseController implements BaseAction {
             $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
-
+    public function doGetAdress($request) {
+            $clientManager = new ClientManager();
+            
+        try {
+            $client = $clientManager->findAdress($request['clientId']);
+            if ($client != null)
+                $this->doSuccessO($client);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
 
 }
 
