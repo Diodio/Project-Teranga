@@ -1,6 +1,6 @@
 /*
 SQLyog Community v10.51 
-MySQL - 5.6.16 : Database - macfish
+MySQL - 5.1.26-rc-community : Database - macfish
 *********************************************************************
 */
 
@@ -18,12 +18,12 @@ USE `macfish`;
 
 /*Table structure for table `achat` */
 
-DROP TABLE IF EXISTS `achat`;
-
 CREATE TABLE `achat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mareyeur_id` int(11) DEFAULT NULL,
   `numero` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `dateAchat` datetime DEFAULT NULL,
+  `heureReception` time DEFAULT NULL,
   `poidsTotal` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `montantTotal` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `modePaiement` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -31,23 +31,24 @@ CREATE TABLE `achat` (
   `codeUsine` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `login` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
+  `regle` int(11) NOT NULL DEFAULT '0',
   `createdDate` datetime DEFAULT NULL,
   `updatedDate` datetime DEFAULT NULL,
   `deletedDate` datetime DEFAULT NULL,
-  `mareyeur_id` int(11) DEFAULT NULL,
-  `heureReception` time DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_26A98456C071508A` (`mareyeur_id`),
   CONSTRAINT `FK_26A98456C071508A` FOREIGN KEY (`mareyeur_id`) REFERENCES `mareyeur` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `achat` */
 
-insert  into `achat`(`id`,`numero`,`dateAchat`,`poidsTotal`,`montantTotal`,`modePaiement`,`numCheque`,`codeUsine`,`login`,`status`,`createdDate`,`updatedDate`,`deletedDate`,`mareyeur_id`,`heureReception`) values (75,'00001','2015-11-03 20:56:33','1200','2400000','Esp','','usine_dakar','admin',0,'2015-11-03 20:56:33','2015-11-03 20:56:33',NULL,5,'08:00:00'),(76,'00076','2015-11-03 21:02:47','500','1066600','Esp','','usine_dakar','admin',0,'2015-11-03 21:02:47','2015-11-03 21:02:47',NULL,5,'08:00:00'),(77,'00077','2015-11-03 21:06:07','200','400000','Esp','','usine_dakar','admin',0,'2015-11-03 21:06:08','2015-11-03 21:06:08',NULL,5,'08:00:00'),(78,'00078','2015-11-03 21:07:59','300','600000','Esp','','usine_dakar','admin',2,'2015-11-03 21:07:59','2015-11-03 21:07:59',NULL,5,'08:00:00'),(79,'00079','2015-11-03 21:09:23','200','400000','Esp','','usine_dakar','admin',2,'2015-11-03 21:09:23','2015-11-03 21:09:23',NULL,21,'08:00:00'),(80,'00080','2015-11-03 21:11:31','399','798000','Esp','','usine_dakar','admin',2,'2015-11-03 21:11:31','2015-11-03 21:11:31',NULL,5,'08:00:00'),(81,'00081','2015-11-03 21:14:41','300','600000','Esp','','usine_dakar','admin',1,'2015-11-03 21:14:41','2015-11-03 21:14:41',NULL,5,'08:00:00'),(82,'00082','2015-11-03 23:10:06','120','240000','Esp','','usine_dakar','admin',1,'2015-11-03 23:10:06','2015-11-03 23:10:06',NULL,5,'08:00:00'),(83,'00083','2015-11-04 14:14:32','200','400000','Esp','','usine_dakar','admin',1,'2015-11-04 14:14:32','2015-11-04 14:14:32',NULL,5,'08:00:00'),(84,'00084','2015-11-04 17:58:41','300','600000','Esp','','usine_dakar','admin',1,'2015-11-04 17:58:42','2015-11-04 17:58:42',NULL,5,'08:00:00'),(85,'00085','2015-11-09 21:54:55','23','46000','Esp','','usine_dakar','admin',0,'2015-11-09 21:54:55','2015-11-09 21:54:55',NULL,5,'08:00:00'),(86,'00086','2015-11-09 21:56:15','33','66000','Esp','','usine_dakar','admin',0,'2015-11-09 21:56:15','2015-11-09 21:56:15',NULL,5,'08:00:00'),(87,'00087','2015-11-09 22:16:54','22','44000','Esp','','usine_dakar','admin',0,'2015-11-09 22:16:55','2015-11-09 22:16:55',NULL,5,'08:00:00'),(88,'00088','2015-11-09 22:54:43','44','88000','Esp','','usine_dakar','admin',0,'2015-11-09 22:54:43','2015-11-09 22:54:43',NULL,5,'08:00:00'),(89,'00089','2015-11-10 15:51:45','23','46000','Esp','','usine_dakar','admin',0,'2015-11-10 15:51:45','2015-11-10 15:51:45',NULL,5,'08:00:00'),(90,'00089','2015-11-10 15:52:08','23','46000','Esp','','usine_dakar','admin',0,'2015-11-10 15:52:08','2015-11-10 15:52:08',NULL,5,'08:00:00'),(91,'00089','2015-11-10 16:01:51','23','46000','Esp','','usine_dakar','admin',0,'2015-11-10 16:01:51','2015-11-10 16:01:51',NULL,5,'08:00:00'),(92,'00089','2015-11-10 16:02:08','23','46000','Esp','','usine_dakar','admin',0,'2015-11-10 16:02:08','2015-11-10 16:02:08',NULL,5,'08:00:00'),(93,'00089','2015-11-10 16:02:23','23','46000','Esp','','usine_dakar','admin',0,'2015-11-10 16:02:23','2015-11-10 16:02:23',NULL,5,'08:00:00'),(94,'00094','2015-11-10 17:02:11','23','46000','Esp','','usine_dakar','admin',0,'2015-11-10 17:02:11','2015-11-10 17:02:11',NULL,5,'08:00:00'),(95,'00095','2015-11-10 17:20:21','2','4000','Esp','','usine_dakar','admin',0,'2015-11-10 17:20:21','2015-11-10 17:20:21',NULL,5,'08:00:00'),(96,'00096','2015-11-10 17:23:20','50','52044','Esp','','usine_dakar','admin',0,'2015-11-10 17:23:20','2015-11-10 17:23:20',NULL,5,'08:00:00'),(97,'00097','2015-11-10 17:23:52','2','4444','Esp','','usine_dakar','admin',0,'2015-11-10 17:23:52','2015-11-10 17:23:52',NULL,5,'08:00:00'),(98,'00098','2015-11-10 17:24:53','2','4000','Esp','','usine_dakar','admin',0,'2015-11-10 17:24:53','2015-11-10 17:24:53',NULL,5,'08:00:00'),(99,'00099','2015-11-10 17:30:12','66','141990','Esp','','usine_dakar','admin',0,'2015-11-10 17:30:12','2015-11-10 17:30:12',NULL,5,'08:00:00'),(100,'00099','2015-11-10 17:31:06','66','141990','Esp','','usine_dakar','admin',0,'2015-11-10 17:31:06','2015-11-10 17:31:06',NULL,5,'08:00:00'),(101,'00101','2015-11-10 17:31:29','7','14000','Esp','','usine_dakar','admin',0,'2015-11-10 17:31:29','2015-11-10 17:31:29',NULL,5,'08:00:00'),(102,'00102','2015-11-10 17:32:11','9','18000','Esp','','usine_dakar','admin',0,'2015-11-10 17:32:11','2015-11-10 17:32:11',NULL,5,'08:00:00'),(103,'00103','2015-11-10 17:33:06','63','139986','Esp','','usine_dakar','admin',0,'2015-11-10 17:33:07','2015-11-10 17:33:07',NULL,21,'08:00:00'),(104,'00104','2015-11-10 17:33:37','67','134000','Esp','','usine_dakar','admin',0,'2015-11-10 17:33:37','2015-11-10 17:33:37',NULL,5,'08:00:00'),(105,'00105','2015-11-10 17:34:39','56','124432','Esp','','usine_dakar','admin',0,'2015-11-10 17:34:39','2015-11-10 17:34:39',NULL,21,'08:00:00'),(106,'00106','2015-11-10 17:41:44','44','88000','Esp','','usine_dakar','admin',0,'2015-11-10 17:41:44','2015-11-10 17:41:44',NULL,21,'08:00:00'),(107,'00106','2015-11-10 17:45:48','44','88000','Esp','','usine_dakar','admin',0,'2015-11-10 17:45:49','2015-11-10 17:45:49',NULL,21,'08:00:00'),(108,'00108','2015-11-10 17:47:11','32','71104','Esp','','usine_dakar','admin',0,'2015-11-10 17:47:11','2015-11-10 17:47:11',NULL,5,'08:00:00'),(109,'00109','2015-11-10 17:51:28','22','44000','Esp','','usine_dakar','admin',0,'2015-11-10 17:51:28','2015-11-10 17:51:28',NULL,5,'08:00:00'),(110,'00110','2015-11-10 17:52:59','5','10000','Esp','','usine_dakar','admin',0,'2015-11-10 17:53:00','2015-11-10 17:53:00',NULL,5,'08:00:00'),(111,'00110','2015-11-10 17:53:09','5','10000','Esp','','usine_dakar','admin',0,'2015-11-10 17:53:09','2015-11-10 17:53:09',NULL,5,'08:00:00'),(112,'00112','2015-11-10 18:04:06','43','95546','Esp','','usine_dakar','admin',0,'2015-11-10 18:04:06','2015-11-10 18:04:06',NULL,5,'08:00:00');
+LOCK TABLES `achat` WRITE;
+
+insert  into `achat`(`id`,`mareyeur_id`,`numero`,`dateAchat`,`heureReception`,`poidsTotal`,`montantTotal`,`modePaiement`,`numCheque`,`codeUsine`,`login`,`status`,`regle`,`createdDate`,`updatedDate`,`deletedDate`) values (1,21,'00001','2015-11-23 23:15:49','08:00:00','46','26664','Esp','','usine_dakar','admin',0,0,'2015-11-23 23:15:49','2015-11-23 23:15:49',NULL),(2,5,'00002','2015-11-23 23:49:56','08:00:00','50','104440','Esp','','usine_dakar','admin',0,0,'2015-11-23 23:49:56','2015-11-23 23:49:56',NULL);
+
+UNLOCK TABLES;
 
 /*Table structure for table `achat_paiement` */
-
-DROP TABLE IF EXISTS `achat_paiement`;
 
 CREATE TABLE `achat_paiement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,9 +68,11 @@ CREATE TABLE `achat_paiement` (
 
 /*Data for the table `achat_paiement` */
 
-/*Table structure for table `bon_sortie` */
+LOCK TABLES `achat_paiement` WRITE;
 
-DROP TABLE IF EXISTS `bon_sortie`;
+UNLOCK TABLES;
+
+/*Table structure for table `bon_sortie` */
 
 CREATE TABLE `bon_sortie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -92,15 +95,17 @@ CREATE TABLE `bon_sortie` (
   PRIMARY KEY (`id`),
   KEY `IDX_2843ABC819EB6921` (`client_id`),
   CONSTRAINT `FK_2843ABC819EB6921` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `bon_sortie` */
 
-insert  into `bon_sortie`(`id`,`client_id`,`numeroBonSortie`,`dateBonSortie`,`numeroContainer`,`numeroPlomb`,`numeroCamion`,`nomChauffeur`,`origine`,`destination`,`codeUsine`,`login`,`status`,`createdDate`,`updatedDate`,`deletedDate`,`poidsTotal`) values (1,1,'00001','2015-11-07 17:56:42','2344','5443','33','Matgere','1','1','usine_dakar','admin',0,NULL,NULL,NULL,''),(2,1,'00002','2015-11-07 17:58:23','533','5445','54','milk','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(3,2,'00003','2015-11-07 18:15:50','re54','644','44','hhhh','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(4,1,'00004','2015-11-07 18:17:09','23344','5433','444','nat','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(5,1,'00004','2015-11-07 18:17:22','23344','5433','444','nat','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(6,1,'00004','2015-11-07 18:18:43','23344','5433','444','nat','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(7,1,'00004','2015-11-07 18:18:54','23344','5433','444','nat','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(8,1,'00004','2015-11-07 18:19:59','23344','5433','444','nat','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(9,1,'00009','2015-11-07 18:21:08','45454','55454','4545','pouu','\r\n							UsineDakarRufisque\r\n						','\r\n							UsineDakarRufisque\r\n						','usine_dakar','admin',0,NULL,NULL,NULL,''),(10,1,'00010','2015-11-07 18:39:33','543','543','5432','nht','[object Object]','[object Object]','usine_dakar','admin',0,NULL,NULL,NULL,'500'),(11,2,'00011','2015-11-07 18:44:26','45','546','5656','gdd','Dakar','Rufisque','usine_dakar','admin',0,NULL,NULL,NULL,'500'),(12,1,'00012','2015-11-09 21:49:32','4444','44','444','gfg','Dakar','Dakar','usine_dakar','admin',0,NULL,NULL,NULL,'400');
+LOCK TABLES `bon_sortie` WRITE;
+
+insert  into `bon_sortie`(`id`,`client_id`,`numeroBonSortie`,`dateBonSortie`,`numeroContainer`,`numeroPlomb`,`numeroCamion`,`nomChauffeur`,`origine`,`destination`,`codeUsine`,`login`,`status`,`createdDate`,`updatedDate`,`deletedDate`,`poidsTotal`) values (21,1,'00001','2015-11-23 15:29:20','','','','','Usine','Dakar','usine_dakar','admin',1,NULL,NULL,NULL,'20'),(22,2,'00022','2015-11-23 15:29:49','','','','','Dakar','Dakar','usine_dakar','admin',1,NULL,NULL,NULL,'100'),(23,1,'00023','2015-11-23 22:57:02','23','1','2','PAPE','Rufisque','Dakar','usine_dakar','admin',1,NULL,NULL,NULL,'54'),(24,1,'00024','2015-11-23 22:58:29','87','7','9','6','Usine','Dakar','usine_dakar','admin',1,NULL,NULL,NULL,'100'),(25,1,'00024','2015-11-23 22:58:30','87','7','9','6','Usine','Dakar','usine_dakar','admin',1,NULL,NULL,NULL,'100');
+
+UNLOCK TABLES;
 
 /*Table structure for table `client` */
-
-DROP TABLE IF EXISTS `client`;
 
 CREATE TABLE `client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -113,11 +118,64 @@ CREATE TABLE `client` (
 
 /*Data for the table `client` */
 
+LOCK TABLES `client` WRITE;
+
 insert  into `client`(`id`,`nom`,`adresse`,`telephone`,`reference`) values (1,'Demba BA','DAKAR','7777777',''),(2,'Alpha NDOYE','RUFISQUE','777777','');
 
-/*Table structure for table `famille_produit` */
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `famille_produit`;
+/*Table structure for table `conteneur` */
+
+CREATE TABLE `conteneur` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `facture_id` int(11) DEFAULT NULL,
+  `numConteneur` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `numPlomb` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_E9628FD27F2DEE08` (`facture_id`),
+  CONSTRAINT `FK_E9628FD27F2DEE08` FOREIGN KEY (`facture_id`) REFERENCES `facture` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `conteneur` */
+
+LOCK TABLES `conteneur` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `facture` */
+
+CREATE TABLE `facture` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bonsortie_id` int(11) DEFAULT NULL,
+  `numero` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `dateFacture` datetime DEFAULT NULL,
+  `heureFacture` time DEFAULT NULL,
+  `devise` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `portDechargement` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `montantHt` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `montantTtc` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `modePaiement` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `numCheque` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avance` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reliquat` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codeUsine` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `login` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `createdDate` datetime DEFAULT NULL,
+  `updatedDate` datetime DEFAULT NULL,
+  `deletedDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_FE86641099C5AF38` (`bonsortie_id`),
+  CONSTRAINT `FK_FE86641099C5AF38` FOREIGN KEY (`bonsortie_id`) REFERENCES `bon_sortie` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `facture` */
+
+LOCK TABLES `facture` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `famille_produit` */
 
 CREATE TABLE `famille_produit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -130,11 +188,13 @@ CREATE TABLE `famille_produit` (
 
 /*Data for the table `famille_produit` */
 
+LOCK TABLES `famille_produit` WRITE;
+
 insert  into `famille_produit`(`id`,`libelle`,`createdDate`,`updatedDate`,`deleteDate`) values (1,'test','2015-09-19 13:59:28','2015-09-19 13:59:28',NULL),(2,'Viande','2015-09-19 14:00:55','2015-09-19 18:50:18',NULL),(3,'msd555','2015-09-19 14:01:13','2015-09-19 18:50:00',NULL),(6,'ddfd','2015-09-19 18:37:22','2015-09-19 18:37:22',NULL),(7,'fdfd','2015-09-19 18:40:16','2015-09-19 18:40:16',NULL),(8,'fl','2015-09-20 13:28:40','2015-09-20 13:28:40',NULL),(9,'nest','2015-09-28 10:55:15','2015-09-28 10:55:15',NULL),(10,'montest','2015-10-17 16:44:08','2015-10-17 16:44:08',NULL);
 
-/*Table structure for table `fournisseur` */
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `fournisseur`;
+/*Table structure for table `fournisseur` */
 
 CREATE TABLE `fournisseur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -146,36 +206,40 @@ CREATE TABLE `fournisseur` (
 
 /*Data for the table `fournisseur` */
 
-/*Table structure for table `ligne_achat` */
+LOCK TABLES `fournisseur` WRITE;
 
-DROP TABLE IF EXISTS `ligne_achat`;
+UNLOCK TABLES;
+
+/*Table structure for table `ligne_achat` */
 
 CREATE TABLE `ligne_achat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `produit_id` int(11) DEFAULT NULL,
   `achat_id` int(11) DEFAULT NULL,
+  `quantite` int(11) DEFAULT NULL,
+  `poids` int(11) DEFAULT NULL,
+  `montant` int(11) NOT NULL,
   `createdDate` datetime DEFAULT NULL,
   `updatedDate` datetime DEFAULT NULL,
   `deletedDate` datetime DEFAULT NULL,
-  `quantite` int(11) NOT NULL,
-  `montant` int(11) NOT NULL,
-  `poids` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_25056E66F347EFB` (`produit_id`),
   KEY `IDX_25056E66FE95D117` (`achat_id`),
   CONSTRAINT `FK_25056E66F347EFB` FOREIGN KEY (`produit_id`) REFERENCES `produit` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_25056E66FE95D117` FOREIGN KEY (`achat_id`) REFERENCES `achat` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `ligne_achat` */
 
-insert  into `ligne_achat`(`id`,`produit_id`,`achat_id`,`createdDate`,`updatedDate`,`deletedDate`,`quantite`,`montant`,`poids`) values (1,10,81,'2015-11-03 21:14:41','2015-11-03 21:14:41',NULL,300,600000,0),(2,10,82,'2015-11-03 23:10:06','2015-11-03 23:10:06',NULL,120,240000,0),(3,10,83,'2015-11-04 14:14:33','2015-11-04 14:14:33',NULL,200,400000,0),(4,10,84,'2015-11-04 17:58:42','2015-11-04 17:58:42',NULL,300,600000,0),(5,10,85,'2015-11-09 21:54:56','2015-11-09 21:54:56',NULL,23,46000,0),(6,10,86,'2015-11-09 21:56:16','2015-11-09 21:56:16',NULL,33,66000,0),(7,10,87,'2015-11-09 22:16:55','2015-11-09 22:16:55',NULL,22,44000,0),(8,10,88,'2015-11-09 22:54:44','2015-11-09 22:54:44',NULL,44,88000,0),(9,10,89,'2015-11-10 15:51:46','2015-11-10 15:51:46',NULL,23,46000,0),(10,10,90,'2015-11-10 15:52:08','2015-11-10 15:52:08',NULL,23,46000,0),(11,10,91,'2015-11-10 16:01:51','2015-11-10 16:01:51',NULL,23,46000,0),(12,10,92,'2015-11-10 16:02:09','2015-11-10 16:02:09',NULL,23,46000,0),(13,10,93,'2015-11-10 16:02:23','2015-11-10 16:02:23',NULL,23,46000,0),(14,10,94,'2015-11-10 17:02:11','2015-11-10 17:02:11',NULL,23,46000,0),(15,10,95,'2015-11-10 17:20:21','2015-11-10 17:20:21',NULL,2,4000,0),(16,10,96,'2015-11-10 17:23:20','2015-11-10 17:23:20',NULL,26,52000,0),(17,NULL,96,'2015-11-10 17:23:20','2015-11-10 17:23:20',NULL,24,44,0),(18,9,97,'2015-11-10 17:23:52','2015-11-10 17:23:52',NULL,2,4444,0),(19,10,98,'2015-11-10 17:24:53','2015-11-10 17:24:53',NULL,2,4000,0),(20,10,99,'2015-11-10 17:30:12','2015-11-10 17:30:12',NULL,12,24000,0),(21,10,99,'2015-11-10 17:30:13','2015-11-10 17:30:13',NULL,9,18000,0),(22,9,99,'2015-11-10 17:30:13','2015-11-10 17:30:13',NULL,45,99990,0),(23,10,100,'2015-11-10 17:31:06','2015-11-10 17:31:06',NULL,12,24000,0),(24,10,100,'2015-11-10 17:31:07','2015-11-10 17:31:07',NULL,9,18000,0),(25,9,100,'2015-11-10 17:31:07','2015-11-10 17:31:07',NULL,45,99990,0),(26,10,101,'2015-11-10 17:31:30','2015-11-10 17:31:30',NULL,7,14000,0),(27,10,102,'2015-11-10 17:32:11','2015-11-10 17:32:11',NULL,9,18000,0),(28,9,103,'2015-11-10 17:33:07','2015-11-10 17:33:07',NULL,63,139986,0),(29,10,104,'2015-11-10 17:33:37','2015-11-10 17:33:37',NULL,67,134000,0),(30,9,105,'2015-11-10 17:34:40','2015-11-10 17:34:40',NULL,56,124432,0),(31,10,106,'2015-11-10 17:41:44','2015-11-10 17:41:44',NULL,44,88000,0),(32,10,107,'2015-11-10 17:45:49','2015-11-10 17:45:49',NULL,44,88000,0),(33,9,108,'2015-11-10 17:47:11','2015-11-10 17:47:11',NULL,32,71104,0),(34,10,109,'2015-11-10 17:51:28','2015-11-10 17:51:28',NULL,22,44000,0),(35,10,110,'2015-11-10 17:53:00','2015-11-10 17:53:00',NULL,5,10000,0),(36,10,111,'2015-11-10 17:53:10','2015-11-10 17:53:10',NULL,5,10000,0),(37,9,112,'2015-11-10 18:04:06','2015-11-10 18:04:06',NULL,43,95546,0);
+LOCK TABLES `ligne_achat` WRITE;
 
-/*Table structure for table `ligne_bonsorie` */
+insert  into `ligne_achat`(`id`,`produit_id`,`achat_id`,`quantite`,`poids`,`montant`,`createdDate`,`updatedDate`,`deletedDate`) values (1,9,1,8,NULL,26664,'2015-11-23 23:15:50','2015-11-23 23:15:50',NULL),(2,NULL,1,34,NULL,40,'2015-11-23 23:15:50','2015-11-23 23:15:50',NULL),(3,9,2,20,NULL,44440,'2015-11-23 23:49:56','2015-11-23 23:49:56',NULL),(4,10,2,30,NULL,60000,'2015-11-23 23:49:56','2015-11-23 23:49:56',NULL);
 
-DROP TABLE IF EXISTS `ligne_bonsorie`;
+UNLOCK TABLES;
 
-CREATE TABLE `ligne_bonsorie` (
+/*Table structure for table `ligne_bonsortie` */
+
+CREATE TABLE `ligne_bonsortie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `produit_id` int(11) DEFAULT NULL,
   `quantite` int(11) NOT NULL,
@@ -184,19 +248,21 @@ CREATE TABLE `ligne_bonsorie` (
   `deletedDate` datetime DEFAULT NULL,
   `bonSortie_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_E4D3BFF2F347EFB` (`produit_id`),
-  KEY `IDX_E4D3BFF21B342D9B` (`bonSortie_id`),
-  CONSTRAINT `FK_E4D3BFF21B342D9B` FOREIGN KEY (`bonSortie_id`) REFERENCES `bon_sortie` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_E4D3BFF2F347EFB` FOREIGN KEY (`produit_id`) REFERENCES `produit` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `IDX_4C645FAF347EFB` (`produit_id`),
+  KEY `IDX_4C645FA1B342D9B` (`bonSortie_id`),
+  CONSTRAINT `FK_4C645FA1B342D9B` FOREIGN KEY (`bonSortie_id`) REFERENCES `bon_sortie` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_4C645FAF347EFB` FOREIGN KEY (`produit_id`) REFERENCES `produit` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-/*Data for the table `ligne_bonsorie` */
+/*Data for the table `ligne_bonsortie` */
 
-insert  into `ligne_bonsorie`(`id`,`produit_id`,`quantite`,`createdDate`,`updatedDate`,`deletedDate`,`bonSortie_id`) values (1,10,318,'2015-11-07 18:18:54','2015-11-07 18:18:54',NULL,7),(2,10,318,'2015-11-07 18:19:59','2015-11-07 18:19:59',NULL,8),(3,10,500,'2015-11-07 18:21:09','2015-11-07 18:21:09',NULL,9),(4,9,160,'2015-11-07 18:21:09','2015-11-07 18:21:09',NULL,9),(5,10,500,'2015-11-07 18:39:33','2015-11-07 18:39:33',NULL,10),(6,10,500,'2015-11-07 18:44:26','2015-11-07 18:44:26',NULL,11),(7,10,400,'2015-11-09 21:49:33','2015-11-09 21:49:33',NULL,12);
+LOCK TABLES `ligne_bonsortie` WRITE;
+
+insert  into `ligne_bonsortie`(`id`,`produit_id`,`quantite`,`createdDate`,`updatedDate`,`deletedDate`,`bonSortie_id`) values (4,9,20,'2015-11-23 15:29:21','2015-11-23 15:29:21',NULL,21),(5,10,1000,'2015-11-23 15:29:49','2015-11-23 15:29:49',NULL,22),(6,NULL,54,'2015-11-23 22:57:02','2015-11-23 22:57:02',NULL,23),(7,9,50,'2015-11-23 22:58:29','2015-11-23 22:58:29',NULL,24),(8,10,20,'2015-11-23 22:58:29','2015-11-23 22:58:29',NULL,24),(9,10,30,'2015-11-23 22:58:30','2015-11-23 22:58:30',NULL,24),(10,9,50,'2015-11-23 22:58:30','2015-11-23 22:58:30',NULL,25),(11,10,20,'2015-11-23 22:58:30','2015-11-23 22:58:30',NULL,25),(12,10,30,'2015-11-23 22:58:30','2015-11-23 22:58:30',NULL,25);
+
+UNLOCK TABLES;
 
 /*Table structure for table `mareyeur` */
-
-DROP TABLE IF EXISTS `mareyeur`;
 
 CREATE TABLE `mareyeur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -206,15 +272,17 @@ CREATE TABLE `mareyeur` (
   `montantFinancement` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `reference` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `mareyeur` */
 
-insert  into `mareyeur`(`id`,`nom`,`adresse`,`telephone`,`montantFinancement`,`reference`) values (5,'Pape CISSE','Dakar','5459454','4384783','MR5'),(21,'Abdoulaye','Dakar','777777','','MR6');
+LOCK TABLES `mareyeur` WRITE;
+
+insert  into `mareyeur`(`id`,`nom`,`adresse`,`telephone`,`montantFinancement`,`reference`) values (5,'Pape CISSE','Dakar','5459454','4384783','MR5'),(21,'Abdoulaye','Dakar','777777','','MR6'),(22,'','','','','MR22');
+
+UNLOCK TABLES;
 
 /*Table structure for table `produit` */
-
-DROP TABLE IF EXISTS `produit`;
 
 CREATE TABLE `produit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -231,11 +299,13 @@ CREATE TABLE `produit` (
 
 /*Data for the table `produit` */
 
-insert  into `produit`(`id`,`libelle`,`prixUnitaire`,`createdDate`,`updatedDate`,`deleteDate`,`familleProduit_id`) values (1,'prodtest','1299','2015-09-19 21:21:50','2015-09-19 21:21:50',NULL,1),(2,'Viande','2000',NULL,NULL,NULL,2),(3,'Poissons frais','3000',NULL,NULL,NULL,1),(4,'Dorade','2000','2015-10-09 18:34:45','2015-10-09 18:34:45',NULL,1),(5,'Poisson braise','3000','2015-10-09 18:36:29','2015-10-09 18:36:29',NULL,1),(6,'testppp','1600','2015-10-17 16:11:33','2015-10-17 16:11:33',NULL,1),(7,'vvr','1500','2015-10-17 16:59:40','2015-10-17 16:59:40',NULL,1),(8,'teee','1222','2015-10-17 20:52:57','2015-10-17 20:52:57',NULL,1),(9,'trtrt','2222','2015-10-17 20:54:52','2015-10-17 20:54:52',NULL,7),(10,'breww','2000','2015-10-17 21:15:55','2015-10-17 21:15:55',NULL,3);
+LOCK TABLES `produit` WRITE;
+
+insert  into `produit`(`id`,`libelle`,`prixUnitaire`,`createdDate`,`updatedDate`,`deleteDate`,`familleProduit_id`) values (9,'Sole','2222','2015-10-17 20:54:52','2015-11-20 23:02:30',NULL,7),(10,'Sompate','2000','2015-10-17 21:15:55','2015-11-20 23:02:28',NULL,3);
+
+UNLOCK TABLES;
 
 /*Table structure for table `profil` */
-
-DROP TABLE IF EXISTS `profil`;
 
 CREATE TABLE `profil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -249,11 +319,13 @@ CREATE TABLE `profil` (
 
 /*Data for the table `profil` */
 
+LOCK TABLES `profil` WRITE;
+
 insert  into `profil`(`id`,`libelle`,`description`,`createdDate`,`updatedDate`,`deleteDate`) values (1,'admin','Administrateur','2015-09-20 00:00:00',NULL,NULL),(2,'magasinier','Magasinier',NULL,NULL,NULL),(3,'comptable','Comptable',NULL,NULL,NULL);
 
-/*Table structure for table `stock` */
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `stock`;
+/*Table structure for table `stock` */
 
 CREATE TABLE `stock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -272,11 +344,13 @@ CREATE TABLE `stock` (
 
 /*Data for the table `stock` */
 
-insert  into `stock`(`id`,`produit_id`,`stock`,`seuil`,`codeUsine`,`login`,`createdDate`,`updatedDate`,`deleteDate`) values (1,9,2286,0,'usine_dakar','admin','2015-10-17 20:54:53','2015-10-17 20:54:53',NULL),(2,10,13635,0,'usine_dakar','admin','2015-10-17 21:15:56','2015-10-17 21:15:56',NULL);
+LOCK TABLES `stock` WRITE;
+
+insert  into `stock`(`id`,`produit_id`,`stock`,`seuil`,`codeUsine`,`login`,`createdDate`,`updatedDate`,`deleteDate`) values (1,9,1860,0,'usine_dakar','admin','2015-10-17 20:54:53','2015-10-17 20:54:53',NULL),(2,10,12309,0,'usine_dakar','admin','2015-10-17 21:15:56','2015-10-17 21:15:56',NULL);
+
+UNLOCK TABLES;
 
 /*Table structure for table `usine` */
-
-DROP TABLE IF EXISTS `usine`;
 
 CREATE TABLE `usine` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -297,11 +371,13 @@ CREATE TABLE `usine` (
 
 /*Data for the table `usine` */
 
+LOCK TABLES `usine` WRITE;
+
 insert  into `usine`(`id`,`code`,`nomUsine`,`emplacement`,`typeUsine`,`telephone`,`fax`,`codePostal`,`createdDate`,`updatedDate`,`deleteDate`,`couleur`) values (1,'usine_dakar','Dakar','Dakar','usine',NULL,NULL,NULL,'2015-09-20 00:00:00',NULL,NULL,'#68BC31'),(2,'usine_rufisque','Rufisque','Rufisque','usine',NULL,NULL,NULL,NULL,NULL,NULL,'#2091CF');
 
-/*Table structure for table `utilisateur` */
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `utilisateur`;
+/*Table structure for table `utilisateur` */
 
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -324,7 +400,11 @@ CREATE TABLE `utilisateur` (
 
 /*Data for the table `utilisateur` */
 
-insert  into `utilisateur`(`id`,`usine_id`,`profil_id`,`login`,`password`,`nomUtilisateur`,`status`,`etatCompte`,`createdDate`,`updatedDate`,`deleteDate`) values (1,1,1,'admin','passer','admin','1','1',NULL,NULL,NULL),(2,2,2,'matar','matar','Matar','1','1',NULL,NULL,NULL);
+LOCK TABLES `utilisateur` WRITE;
+
+insert  into `utilisateur`(`id`,`usine_id`,`profil_id`,`login`,`password`,`nomUtilisateur`,`status`,`etatCompte`,`createdDate`,`updatedDate`,`deleteDate`) values (1,1,1,'admin','admin','admin','1','1',NULL,NULL,NULL),(2,2,2,'matar','matar','Matar','1','1',NULL,NULL,NULL);
+
+UNLOCK TABLES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
