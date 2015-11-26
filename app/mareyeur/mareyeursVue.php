@@ -38,8 +38,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <i class="ace-icon fa fa-plus-square bigger-110" ></i> Nouveau
                 </button>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
+            <div class="row" >
+                <div class="col-xs-12" style="margin-top: 12px;">
                     <table id="grid-table"></table>
                     <div id="grid-pager"></div>
                 </div>

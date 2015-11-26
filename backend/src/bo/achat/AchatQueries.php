@@ -77,11 +77,11 @@ class AchatQueries {
         if($codeUsine !=='*') {
             
             $sql = 'select achat.id,regle,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status =1 and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
             $sql = 'select achat.id, regle,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status =1' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -121,6 +121,24 @@ class AchatQueries {
         else {
              $sql = 'select count(achat.id) as nbAchats
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
+        }
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return $nbClients['nbAchats'];
+    }
+    
+     public function countReglements($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=1 and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+        }
+        else {
+             $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=1 ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

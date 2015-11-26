@@ -64,6 +64,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         <link rel="stylesheet" href="assets/css/jchart.css" />
         <link rel="stylesheet" href="assets/css/all.min.css" />
         <link rel="stylesheet" href="assets/css/bootstrap-timepicker.min.css" />
+        <link href="assets/css/bootstrap-editable.min.css" rel="stylesheet">
     </head>
 
     <body class="no-skin">
@@ -306,9 +307,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </li>
 
                         <li class="light-blue"><a data-toggle="dropdown" href="#"
-                                                  class="dropdown-toggle"> <img class="nav-user-photo"
-                                                          src="assets/avatars/user.jpg" alt="Jason's Photo" /> <span
-                                                          class="user-info"> <small>Welcome,</small> Jason
+                                                  class="dropdown-toggle"> <img class="nav-user-photo" style="border-radius: 51% !important;
+    background-size: 32px 32px !important;
+     -webkit-border-radius: 50% !important; 
+    height: 28px !important;
+    width: 26px !important;"
+                                                          src="assets/avatars/default.png" alt="Administrateur" /> 
+                                <span
+                                                          class="user-info"> <small>Bienvenue,</small> Administrateur
                                 </span> <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
@@ -632,6 +638,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <script src="assets/js/shortGridData.js"></script>
         
 	<script src="assets/js/bootstrap-timepicker.min.js"></script>
+        <script src="assets/js/bootstrap-editable.min.js"></script>
+        <script src="assets/js/moment.min.js"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {

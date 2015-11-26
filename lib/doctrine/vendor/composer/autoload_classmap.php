@@ -74,6 +74,8 @@ return array(
     'Produit\\StockManager' => $baseDir . '/../backend/src/bo/stock/StockManager.php',
     'Racine\\Bootstrap' => $baseDir . '/bootstrap.php',
     'Reglement\\ReglementAchat' => $baseDir . '/../backend/src/be/ReglementAchat.php',
+    'Reglement\\ReglementManager' => $baseDir . '/../backend/src/bo/reglement/ReglementManager.php',
+    'Reglement\\ReglementQueries' => $baseDir . '/../backend/src/bo/reglement/ReglementQueries.php',
     'StockController' => $baseDir . '/../backend/src/bo/stock/StockController.php',
     'Stock\\StockQueries' => $baseDir . '/../backend/src/bo/stock/StockQueries.php',
     'TypeArticleController' => $baseDir . '/../backend/src/bo/article/TypeArticleController.php',

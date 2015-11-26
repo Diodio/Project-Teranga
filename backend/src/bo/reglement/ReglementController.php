@@ -85,6 +85,7 @@ private $logger;
             $this->logger->log->trace("tesst1");
             
                 $achatManager = new AchatManager();
+                
                 $achat = new Achat();
                 $achat->setNumero($request['numAchat']);
                 $achat->setHeureReception(new \DateTime($request['heureReception']));
@@ -97,22 +98,18 @@ private $logger;
                 $achat->setLogin($request['login']);
                 if($request['regle']=="true")
                     $achat->setRegle(2);
-                else {
+                else
                     if($request['avance']!="") {
                         $achat->setRegle(1);
                         $reliquat =  $request['montantTotal'] - $request['avance'];
                         $achat->setReliquat($reliquat);
                         $reglement=new Reglement\ReglementAchat();
                         $reglement->setAchat($achat);
-                        $reglement->setDatePaiement(new \DateTime("now"));
                         $reglement->setAvance($request['avance']);
-                        $reglementManager =new Reglement\ReglementManager();
-                        $reglementManager->insert($reglement);
                     }
                     else {
                         $achat->setRegle(0);
                     }
-                }
                 $mareyeurManager = new \Mareyeur\MareyeurManager();
                 $mareyeur = $mareyeurManager->findById($request['mareyeur']);
                 
@@ -259,7 +256,7 @@ private $logger;
                 // End filter from dataTable
                 $achats = $achatManager->retrieveAllReglements($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbAchats = $achatManager->countReglement($request['codeUsine'],$sWhere);
+                    $nbAchats = $achatManager->count($request['codeUsine'],$sWhere);
                     $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

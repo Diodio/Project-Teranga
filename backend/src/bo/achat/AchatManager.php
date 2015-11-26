@@ -52,6 +52,11 @@ class AchatManager {
     public function count($codeUsine,$where="") {
         return $this->achatQuery->count($codeUsine,$where);
     }
+
+   
+    public function countReglement($codeUsine,$where="") {
+        return $this->achatQuery->countReglements($codeUsine,$where);
+    }
     
     public function validAchat($achatId) {
         return $this->achatQuery->validAchat($achatId);
@@ -136,6 +141,8 @@ public function findStatisticByUsine($codeUsine) {
                 $achatDetail ['user']  =  $value ['login'];
                 $achatDetail ['poidsTotal']  =  $value ['poidsTotal'];
                 $achatDetail ['montantTotal']  =  $value ['montantTotal'];
+                $achatDetail ['regle']  =  $value ['regle'];
+                $achatDetail ['reliquat']  =  $value ['reliquat'];
                 $achatDetail['ligneAchat'] = $ligneAchat;
             }
             return $achatDetail;

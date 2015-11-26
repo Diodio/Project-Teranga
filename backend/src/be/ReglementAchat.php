@@ -20,17 +20,7 @@ class ReglementAchat {
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $montant;
-    
-    /**
-     * @Column(type="string", length=60, nullable=false)
-     * */
     protected $avance;
-    
-    /**
-     * @Column(type="string", length=60, nullable=false)
-     * */
-    protected $reliquat;
     
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
@@ -111,5 +101,13 @@ class ReglementAchat {
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
+    public function getAvance() {
+        return $this->avance;
+    }
+
+    public function setAvance($avance) {
+        $this->avance = $avance;
+    }
+
 
     }

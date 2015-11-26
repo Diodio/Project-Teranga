@@ -33,12 +33,17 @@ class Achat {
     protected $montantTotal;
     
     /**
+     * @Column(type="string", length=60, nullable=true)
+     * */
+    protected $reliquat;
+    
+    /**
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $modePaiement;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=true)
      * */
     protected $numCheque;
     
@@ -227,6 +232,22 @@ class Achat {
     public function setRegle($regle) {
         $this->regle = $regle;
     }
+    public function getReliquat() {
+        return $this->reliquat;
+    }
+
+    public function getReglement() {
+        return $this->reglement;
+    }
+
+    public function setReliquat($reliquat) {
+        $this->reliquat = $reliquat;
+    }
+
+    public function setReglement($reglement) {
+        $this->reglement = $reglement;
+    }
+
 
 
 

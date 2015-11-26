@@ -306,6 +306,30 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantTotal"></span>
                                 </div>
                             </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Status </div>
+                                <div class="profile-info-value">
+                                    <span id="status"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Reliquat </div>
+                                <div class="profile-info-value">
+                                    <span id="reliquat"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Date </div>
+                                <div class="profile-info-value">
+                                    <span><a href="#" id="dateAvance" data-type="date" data-pk="1"  data-title="Select date">15/05/1984</a></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">avance </div>
+                                <div class="profile-info-value">
+                                    <span id="avance"></span>
+                                </div>
+                            </div>
                         </div>
                                             </div>
                                         </div>
@@ -331,6 +355,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             var checkedAchat = new Array();
             // Check if an item is in the array
            // var interval = 500;
+           $('#dateAvance').editable({
+                type:'date'
+             });
+              $('#avance').editable({
+               type:'text'
+                
+             });
             getIndicator = function() {
                 var url;
                 var user;
@@ -510,11 +541,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 console.log(data);
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Reliquat a verser"><i class="ace-icon fa fa-check-square-o orange bigger-130 icon-only"></i></span>';
+                                     src += '<span class="badge badge-transparent tooltip-error" title="Non réglé"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="réglé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                    src += '<span class=" tooltip-error" title="Reliquat a verser"><i class="ace-icon fa fa-check-square-o orange bigger-130 icon-only"></i></span>';
                                 else if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Non réglé"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="réglé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+
                                 return src;
                             }
                         }
@@ -606,6 +638,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                         trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#TABLE_ACHATS tbody').append(trHTML);
+                    if(data.regle==0)
+                        $('#status').text('Non reglé');
+                    else if(data.regle==1)
+                        $('#status').text('Reliquat à verser');
+                    else if(data.regle==2)
+                        $('#status').text('Réglé');
+                    if(data.reliquat !==null)
+                        $('#reliquat').text(data.reliquat);
+                    else
+                        $('#reliquat').text('Non défini');
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();
