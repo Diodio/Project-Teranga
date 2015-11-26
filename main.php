@@ -442,6 +442,26 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </ul>
                     </li>
                     
+                     <li class=""><a href="#" class="dropdown-toggle"> <i
+                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                Demoulage </span> <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+
+                        <ul class="submenu">
+<!--                             <li id="AJOUTER_ACHATS" class=""><a id="ACHATS" href="#"> <i -->
+<!--                                         class="menu-icon fa fa-caret-right"></i> Ajouter -->
+<!--                                 </a> <b class="arrow"></b> -->
+<!--                             </li> -->
+
+                            <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Produit </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                        </ul>
+                    </li>
+                    
 
                      <li class=""><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
@@ -654,6 +674,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function () {
+                    });
+
+                });
+
+                $("#MNU_DEMOULAGE").click(function (e) {
+                    $("#MNU_PRODUITS").attr("Class", "active");
+                    $("#MNU_MAREYEURS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/demoulage.php", function () {
                     });
 
                 });
