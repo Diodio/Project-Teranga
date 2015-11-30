@@ -45,8 +45,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
             </div>
 
-            <form id="validation-form" class="form-horizontal" role="form">
             <div id="winModalMareyeur" class="modal fade" tabindex="-1">
+            <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -58,50 +58,52 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="reference" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="adresse" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="adresse" name="adresse" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
 
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
                                     <div class="col-sm-9">
-                                        <input type="text"  id="telephone" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Compte </label>
                                     <div class="col-sm-9">
-                                        <input type="number" id="compte" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="number" id="compte" name="compte" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                    <button id="SAVE" class="btn btn-small btn-info">
+                        <i class="ace-icon fa fa-save"></i>
+                        Enregistrer
+                    </button>
 
-                        <div class="modal-footer">
-                            <button id="SAVE" class="btn btn-small btn-info" data-dismiss="modal">
-                                <i class="ace-icon fa fa-save"></i>
-                                Enregistrer
-                            </button>
-
-                            <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
-                                <i class="fa fa-times"></i>
-                                Annuler
-                            </button>
-                        </div>
+                    <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        Annuler
+                    </button>
+                </div>
+                        
                     </div><!-- /.modal-content -->
+                
                 </div><!-- /.modal-dialog -->
-            </div>
             </form>
+            </div>
+            
         </div><!-- /.col -->
     </div><!-- /.row -->
 
@@ -513,19 +515,21 @@ $codeUsine = $_COOKIE['codeUsine'];
         $('#winModalMareyeur').modal('show');
     });
 
-    $("#SAVE").bind("click", function () {
+    $("#SAVE").click(function() {
     	 $('#validation-form').validate({
     			errorElement: 'div',
     			errorClass: 'help-block',
     			focusInvalid: false,
-    			ignore: "",
     			rules: {
     				reference: {
     					required: true
     				},
-    				adresse: {
+    				nom: {
     					required: true
     				},
+    				adresse: {
+    					required: true
+    				}
     				
     			},
 
@@ -533,9 +537,12 @@ $codeUsine = $_COOKIE['codeUsine'];
     				reference: {
     					required: "Champ obligatoire."
     				},
-    				adresse: {
+    				nom: {
     					required: "Champ obligatoire."
     				},
+    				adresse: {
+    					required: "Champ obligatoire."
+    				}
     			},
 
 
@@ -553,10 +560,10 @@ $codeUsine = $_COOKIE['codeUsine'];
     			},
 
     			submitHandler: function (form) {
-    				 SaveMareyeurProcess();
+    			SaveMareyeurProcess();
     		        $('#winModalMareyeur').addClass('hide');
     		        $('#winModalMareyeur').modal('hide');
-    		        loadMareyeurs();
+                        loadMareyeurs();
     			},
     			invalidHandler: function (form) {
     			}
