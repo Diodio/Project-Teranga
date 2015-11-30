@@ -45,7 +45,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
             </div>
 
-
+            <form id="validation-form" class="form-horizontal" role="form">
             <div id="winModalMareyeur" class="modal fade" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -54,8 +54,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <h3 class="smaller lighter blue no-margin">Mareyeur</h3>
                         </div>
 
-                        <div class="modal-body" style="height: 300px;">
-                            <form id="FRM_MAREYEUR" class="form-horizontal" role="form">
+                           
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
                                     <div class="col-sm-9">
@@ -88,9 +87,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </div>
                                 </div>
 
-                            </form>
-                        </div>
-
                         <div class="modal-footer">
                             <button id="SAVE" class="btn btn-small btn-info" data-dismiss="modal">
                                 <i class="ace-icon fa fa-save"></i>
@@ -105,6 +101,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
+            </form>
         </div><!-- /.col -->
     </div><!-- /.row -->
 
@@ -517,10 +514,56 @@ $codeUsine = $_COOKIE['codeUsine'];
     });
 
     $("#SAVE").bind("click", function () {
-        SaveMareyeurProcess();
-        $('#winModalMareyeur').addClass('hide');
-        $('#winModalMareyeur').modal('hide');
-        loadMareyeurs();
+    	 $('#validation-form').validate({
+    			errorElement: 'div',
+    			errorClass: 'help-block',
+    			focusInvalid: false,
+    			ignore: "",
+    			rules: {
+    				reference: {
+    					required: true
+    				},
+    				adresse: {
+    					required: true
+    				},
+    				
+    			},
+
+    			messages: {
+    				reference: {
+    					required: "Champ obligatoire."
+    				},
+    				adresse: {
+    					required: "Champ obligatoire."
+    				},
+    			},
+
+
+    			highlight: function (e) {
+    				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+    			},
+
+    			success: function (e) {
+    				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+    				$(e).remove();
+    			},
+
+    			errorPlacement: function (error, element) {
+    				 error.insertAfter(element);
+    			},
+
+    			submitHandler: function (form) {
+    				 SaveMareyeurProcess();
+    		        $('#winModalMareyeur').addClass('hide');
+    		        $('#winModalMareyeur').modal('hide');
+    		        loadMareyeurs();
+    			},
+    			invalidHandler: function (form) {
+    			}
+    		});
+    
     });
+
+  //Validate
 
 </script>

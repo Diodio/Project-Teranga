@@ -127,7 +127,7 @@
                 
                             </form>
             </div>
-            <form id="validation-form">
+            <form id="validation-form" class="form-horizontal" role="form">
             <div id="winModalProduit" class="modal fade" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -140,7 +140,7 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille de produit</label>
                                     <div class="col-sm-9">
-                                        <select id="GRP_NEW_CMB" data-placeholder="" style="width: 225px">
+                                        <select id="GRP_NEW_CMB" data-placeholder="" style="width: 228px">
                                             <option value="*" class="groups">Sélectionnez</option>
                                         </select>
                                     </div>
@@ -148,7 +148,7 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="designation" name="designation" placeholder="" class="col-xs-10 col-sm-8">
+                                        <input type="text" id="designation" name="designation" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                             </div>
                             <div class="form-group">
