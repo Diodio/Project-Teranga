@@ -45,8 +45,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
             </div>
     
+            
             <div id="winModalClient" class="modal fade" tabindex="-1">
-            <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -54,43 +54,46 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <h3 class="smaller lighter blue no-margin">Client</h3>
                         </div>
 
-                                <div class="form-group">
+                        <div class="modal-body" style="height: 200px;">
+                            <form id="FRM_CLIENT" class="form-horizontal" role="form">
+                          
+                            <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                            <input type="text" id="nom" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
-                                </div>
-                                <div class="form-group">
+                            </div>
+                            <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="adresse" name="adresse" placeholder="" class="col-xs-10 col-sm-7">
+                                            <input type="text" id="adresse" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
-
-                                </div>
-                                <div class="form-group">
+                                    
+                            </div>
+                            <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
                                     <div class="col-sm-9">
-                                        <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text"  id="telephone" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                    <button id="SAVE" class="btn btn-small btn-info">
-                        <i class="ace-icon fa fa-save"></i>
-                        Enregistrer
-                    </button>
+                            </div>
+                           
+                            </form>
+                        </div>
 
-                    <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
-                        <i class="fa fa-times"></i>
-                        Annuler
-                    </button>
-                </div>
-                        
+                        <div class="modal-footer">
+                            <button id="SAVE" class="btn btn-small btn-info" data-dismiss="modal">
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                            
+                            <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                                <i class="fa fa-times"></i>
+                                Annuler
+                            </button>
+                        </div>
                     </div><!-- /.modal-content -->
-                
                 </div><!-- /.modal-dialog -->
-            </form>
             </div>
-           
         </div><!-- /.col -->
     </div><!-- /.row -->
  
@@ -557,60 +560,12 @@ $codeUsine = $_COOKIE['codeUsine'];
             $('#winModalClient').modal('show');
         });
         
-//         $("#SAVE").bind("click", function () {
-//             SaveClientProcess();
-//             $('#winModalClient').addClass('hide');
-//             $('#winModalClient').modal('hide');
-//         });
-
-
-        $("#SAVE").click(function() {
-       	 $('#validation-form').validate({
-       			errorElement: 'div',
-       			errorClass: 'help-block',
-       			focusInvalid: false,
-       			rules: {
-       				adresse: {
-       					required: true
-       				},
-       				nom: {
-       					required: true
-       				}
-       				
-       			},
-
-       			messages: {
-       				adresse: {
-       					required: "Champ obligatoire."
-       				},
-       				nom: {
-       					required: "Champ obligatoire."
-       				}
-       			},
-
-
-       			highlight: function (e) {
-       				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-       			},
-
-       			success: function (e) {
-       				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-       				$(e).remove();
-       			},
-
-       			errorPlacement: function (error, element) {
-       				 error.insertAfter(element);
-       			},
-
-       			submitHandler: function (form) {
-       			 SaveClientProcess();
-                 $('#winModalClient').addClass('hide');
-                 $('#winModalClient').modal('hide');
-       			},
-       			invalidHandler: function (form) {
-       			}
-       		});
+        $("#SAVE").bind("click", function () {
+            SaveClientProcess();
+            $('#winModalClient').addClass('hide');
+            $('#winModalClient').modal('hide');
         });
+
         
         
 </script>

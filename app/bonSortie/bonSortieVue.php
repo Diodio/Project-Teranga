@@ -22,7 +22,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 		</h1>
 	</div>
 	<!-- /.page-header -->
-  <form id="validation-form">
+
 	<div class="row">
 		<div class="col-xs-12">
 			<!-- PAGE CONTENT BEGINS -->
@@ -46,7 +46,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Adresse </label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="adresse" id="adresse" placeholder=""
+						<input type="text" id="adresse" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -56,7 +56,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Numero Container</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numContainer" id="numContainer" placeholder=""
+						<input type="text" id="numContainer" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -66,7 +66,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Numero Plomb</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numeroPlomb" id="numeroPlomb" placeholder=""
+						<input type="text" id="numeroPlomb" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -77,7 +77,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Numero Bon de sortie</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numeroBonSortie" id="numeroBonSortie" placeholder=""
+						<input type="text" id="numeroBonSortie" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -107,7 +107,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label>Chauffeur</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
+						<input type="text" id="nomChauffeur" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -117,7 +117,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Destination</label>
 					</div>
 					<div class="col-sm-6">
-						<select name="myselect" id="CMBDESTINATIONS" data-placeholder="" style="width: 100%">
+						<select id="CMBDESTINATIONS" data-placeholder="" style="width: 100%">
 							<option value="*" class="usines">Usine</option>
 						</select>
 					</div>
@@ -196,7 +196,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</div>
 		</div>
 	</div>
-	</form>
 	<!-- /.col -->
 </div>
 <!-- /.row -->
@@ -435,82 +434,8 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             $('#adresse').val("");
         }
         });
-//         $("#SAVE").bind("click", function () {
-//            BonSortieProcess();
-//                    });
-
-
-        //Validate
         $("#SAVE").bind("click", function () {
-        $('#validation-form').validate({
-			errorElement: 'div',
-			errorClass: 'help-block',
-			focusInvalid: false,
-			ignore: "",
-			rules: {
-				numContainer: {
-					required: true
-				},
-				adresse: {
-					required: true
-				},
-				numeroPlomb: {
-					required: true
-				},
-				numeroCamion: {
-					required: true
-				},
-				poidsTotal: {
-                    required:true
-					},
-			    nomChauffeur: {
-                    required:true
-					}
-				
-			},
-	
-			messages: {
-				numContainer: {
-					required: "Champ obligatoire."
-				},
-				adresse: {
-					required: "Champ obligatoire."
-				},
-				numeroPlomb: {
-					required: "Champ obligatoire."
-				},
-				numeroCamion: {
-					required: "Champ obligatoire."
-				},
-				poidsTotal: {
-                    required:"Champ obligatoire."
-					},
-			    nomChauffeur: {
-                    required:"Champ obligatoire."
-					}
-			},
-	
-	
-			highlight: function (e) {
-				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-			},
-	
-			success: function (e) {
-				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-				$(e).remove();
-			},
-	
-			errorPlacement: function (error, element) {
-				 error.insertAfter(element);
-			},
-	
-			submitHandler: function (form) {
-				BonSortieProcess();
-			},
-			invalidHandler: function (form) {
-			}
-		});
-
-        });
+           BonSortieProcess();
+                   });
    });
 </script>
