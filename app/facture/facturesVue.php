@@ -22,7 +22,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         </h1>
     </div>
     <!-- /.page-header -->
-     <form  id="validation-form" method="get">
+    <form id="validation-form">
     <div class="row">
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
@@ -45,7 +45,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Client</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="nomClient" placeholder="" style="width:100%" 
+                                <input type="text" name="nomClient" id="nomClient" placeholder="" style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -178,7 +178,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
+					<a id="add_row" class="btn btn-primary btn-sm" title="Ajouter une ligne"><i
 						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
 						class="btn btn-danger btn-sm" title="Supprimer une ligne"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
@@ -298,8 +298,9 @@ $codeUsine = $_COOKIE['codeUsine'];
         </div>
         <!-- /.col -->
     </div>
-    <!-- /.row -->
     </form>
+    
+    <!-- /.row -->
 
     <div class="row">
         <div class="col-sm-8">
@@ -546,11 +547,11 @@ $(document).ready(function () {
             });
 
         };
-        $("#SAVE").click(function()
-        {
-          factureProcess();
+//         $("#SAVE").click(function()
+//         {
+//           factureProcess();
            
-        });
+//         });
         
         $("#FACTURE_PROFORMA").click(function()
         {
@@ -573,5 +574,78 @@ $(document).ready(function () {
 
    return json;
 }
+
+        //Validate
+        $("#SAVE").bind("click", function () {
+        $('#validation-form').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				nomClient: {
+					required: true
+				},
+				adresse: {
+					required: true
+				},
+				numeroPlomb: {
+					required: true
+				},
+				numeroCamion: {
+					required: true
+				},
+				poidsTotal: {
+                    required:true
+					},
+			    nomChauffeur: {
+                    required:true
+					}
+				
+			},
+	
+			messages: {
+				nomClient: {
+					required: "Champ obligatoire."
+				},
+				adresse: {
+					required: "Champ obligatoire."
+				},
+				numeroPlomb: {
+					required: "Champ obligatoire."
+				},
+				numeroCamion: {
+					required: "Champ obligatoire."
+				},
+				poidsTotal: {
+                    required:"Champ obligatoire."
+					},
+			    nomChauffeur: {
+                    required:"Champ obligatoire."
+					}
+			},
+	
+	
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+				factureProcess();
+			},
+			invalidHandler: function (form) {
+			}
+		});
+
+        });
 });
 </script>

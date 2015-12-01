@@ -58,7 +58,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group">
