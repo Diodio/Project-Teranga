@@ -154,7 +154,7 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Prix unitaire </label>
                                     <div class="col-sm-9">
-                                            <input type="text" id="prixUnit" placeholder="" class="col-xs-10 col-sm-7">
+                                            <input type="text" id="prixUnit" name="prixUnit" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                             </div>
                             <div class="form-group">
@@ -172,7 +172,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button id="SAVE" class="btn btn-small btn-info" data-dismiss="modal">
+                            <button id="SAVE" class="btn btn-small btn-info">
                                 <i class="ace-icon fa fa-save"></i>
                                 Enregistrer
                             </button>
@@ -824,13 +824,26 @@ $("#MNU_PRODUIT_EDIT").click(function()
 			rules: {
 				designation: {
 					required: true
-				}
+				},
+				prixUnit:  {
+					required: true
+				},
+// 				GRP_NEW_CMB:  {
+// 					valueNotEquals: "*" 
+// 				}
+				
 			},
 	
 			messages: {
 				designation: {
 					required: "Champ obligatoire."
-				}
+				},
+				prixUnit:  {
+					required: "Champ obligatoire."
+				},
+// 				GRP_NEW_CMB:  {
+// 					valueNotEquals: "Veuillez selectionner une famille de produit SVP!"
+// 				}
 			},
 			highlight: function (e) {
 				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -840,7 +853,6 @@ $("#MNU_PRODUIT_EDIT").click(function()
 				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
 				$(e).remove();
 			},
-	
 			errorPlacement: function (error, element) {
 				 error.insertAfter(element);
 			},
