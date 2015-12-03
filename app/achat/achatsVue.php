@@ -124,8 +124,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 								<th class="text-center">Designation</th>
 								<th class="text-center">Prix Unitaire</th>
 								<th class="text-center">Quantite(kg)</th>
-								<th class="text-center">Pourcentage</th>
-								<th class="text-center">Poids Net(kg)</th>
+<!-- 								<th class="text-center">Pourcentage</th> -->
+<!-- 								<th class="text-center">Poids Net(kg)</th> -->
 								<th class="text-center">Montant</th>
 							</tr>
 						</thead>
@@ -143,11 +143,11 @@ $codeUsine = $_COOKIE['codeUsine'];
 								<td><input type="text" id="qte0" name='qte0'
 									class="form-control qte" />
 								</td>
-								<td><input type="number" id="perc0" name='perc0'
-									class="col-xs-9" /> %</td>
-								<td><input type="text" id="pdN0" name='pdN0'
-									class="form-control poidsNet" />
-								</td>
+<!-- 								<td><input type="number" id="perc0" name='perc0' -->
+<!-- 									class="col-xs-9" /> %</td> -->
+<!-- 								<td><input type="text" id="pdN0" name='pdN0' -->
+<!-- 									class="form-control poidsNet" /> -->
+<!-- 								</td> -->
 								<td><input type="text" id="montant0" name='montant0'
 									class="form-control montant" />
 								</td>
