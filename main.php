@@ -440,8 +440,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </li>
 
                         </ul>
-                    </li>
-                    
+                  <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
+                                   class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Démoulage </span>
+                                </a> <b class="arrow"></b>
+                           </li>
 
                      <li class=""><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
@@ -796,6 +799,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 
                     });
                 });
+
+                $("#MNU_DEMOULAGE").click(function (e) {
+                	                   $("#MNU_DEMOULAGE").attr("Class", "active");
+                	                    $("#MNU_MAREYEURS").attr("Class", "no-active");
+                	                    $("#MNU_BORD").attr("Class", "no-active");
+                	                    $("#MNU_CLIENTS").attr("Class", "no-active");
+                	                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulage.php", function () {
+                	                    });
+                	
+                	});
 
 
             });
