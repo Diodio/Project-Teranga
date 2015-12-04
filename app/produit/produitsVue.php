@@ -154,13 +154,13 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock initial</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stock" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                        <input type="text" id="stockInitial" name="stockInitial" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock final</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stock" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                        <input type="text" id="stockFinal" name="stockFinal" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                             <div class="form-group">
