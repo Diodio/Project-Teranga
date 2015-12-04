@@ -130,7 +130,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             }
     });
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {userId: "<?php echo $userId; ?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
-
+             $.extend($.jgrid,$.jgrid.regional['fr']);
             grid_data = $.parseJSON(data);
             jQuery(grid_selector).jqGrid({
                 //direction: "rtl",

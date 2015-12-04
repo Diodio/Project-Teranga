@@ -383,7 +383,7 @@
 
     loadProduit = function (familleId) {
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {familleId: familleId, ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
-$.extend($.jgrid,$.jgrid.regional['fr']);
+            $.extend($.jgrid,$.jgrid.regional['fr']);
             grid_data = $.parseJSON(data);
             jQuery(grid_selector).jqGrid({
                 //direction: "rtl",
