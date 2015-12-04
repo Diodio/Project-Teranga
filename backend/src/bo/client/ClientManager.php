@@ -106,5 +106,15 @@ public function retrieveTypes()
         }
         return $list;
     }
+    
+    public function getLastNumber() {
+    $lastId=$this->ClientQuery->getLastNumber();
+    if($lastId !=null){
+        $lastId="CLI".$lastId;
+    }
+    else
+        $lastId="CLI";
+    return $lastId;
+}
 
 }

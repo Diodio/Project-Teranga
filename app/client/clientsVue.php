@@ -30,7 +30,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             <div class="col-sm-3">
                 <h4 class="pink">
                 <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-                <a href="#modal-table" role="button" class="green" data-toggle="modal"> Liste des clients </a>
+                <a href="#" role="button" class="green" data-toggle="modal"> Liste des clients </a>
             </h4>
             </div>
             <div class="col-sm-6" style="margin-left: -10%;margin-top: 0.5%;">
@@ -45,7 +45,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
             </div>
     
-            <div id="winModalClient" class="modal fade" tabindex="-1">
+            <div id="winModalClient" class="modal fade">
             <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -53,7 +53,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h3 class="smaller lighter blue no-margin">Client</h3>
                         </div>
-
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
                                     <div class="col-sm-9">
@@ -153,6 +158,24 @@ $codeUsine = $_COOKIE['codeUsine'];
     
    /// loadClients = function(){
    //     var grid;
+   
+   loadNumberReference = function () {
+        $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#reference").val(sData.oId);
+            }
+    });
+    };
+    
+    loadNumberReference();
+    
             $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {userId: "<?php echo $userId;?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
             
                 grid_data=$.parseJSON(data);
@@ -346,40 +369,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 				)
              });
            
-            //      
-      //      return grid;
-    //    };
-//   var grid_data = 
-//            [ 
-//                    {id:"1",name:"Desktop Computer",note:"note",stock:"Yes",ship:"FedEx", sdate:"2007-12-03"},
-//                    {id:"2",name:"Laptop",note:"Long text ",stock:"Yes",ship:"InTime",sdate:"2007-12-03"},
-//                    {id:"3",name:"LCD Monitor",note:"note3",stock:"Yes",ship:"TNT",sdate:"2007-12-03"},
-//                    {id:"4",name:"Speakers",note:"note",stock:"No",ship:"ARAMEX",sdate:"2007-12-03"},
-//                    {id:"5",name:"Laser Printer",note:"note2",stock:"Yes",ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"6",name:"Play Station",note:"note3",stock:"No", ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"7",name:"Mobile Telephone",note:"note",stock:"Yes",ship:"ARAMEX",sdate:"2007-12-03"},
-//                    {id:"8",name:"Server",note:"note2",stock:"Yes",ship:"TNT",sdate:"2007-12-03"},
-//                    {id:"9",name:"Matrix Printer",note:"note3",stock:"No", ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"10",name:"Desktop Computer",note:"note",stock:"Yes",ship:"FedEx", sdate:"2007-12-03"},
-//                    {id:"11",name:"Laptop",note:"Long text ",stock:"Yes",ship:"InTime",sdate:"2007-12-03"},
-//                    {id:"12",name:"LCD Monitor",note:"note3",stock:"Yes",ship:"TNT",sdate:"2007-12-03"},
-//                    {id:"13",name:"Speakers",note:"note",stock:"No",ship:"ARAMEX",sdate:"2007-12-03"},
-//                    {id:"14",name:"Laser Printer",note:"note2",stock:"Yes",ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"15",name:"Play Station",note:"note3",stock:"No", ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"16",name:"Mobile Telephone",note:"note",stock:"Yes",ship:"ARAMEX",sdate:"2007-12-03"},
-//                    {id:"17",name:"Server",note:"note2",stock:"Yes",ship:"TNT",sdate:"2007-12-03"},
-//                    {id:"18",name:"Matrix Printer",note:"note3",stock:"No", ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"19",name:"Matrix Printer",note:"note3",stock:"No", ship:"FedEx",sdate:"2007-12-03"},
-//                    {id:"20",name:"Desktop Computer",note:"note",stock:"Yes",ship:"FedEx", sdate:"2007-12-03"},
-//                    {id:"21",name:"Laptop",note:"Long text ",stock:"Yes",ship:"InTime",sdate:"2007-12-03"},
-//                    {id:"22",name:"LCD Monitor",note:"note3",stock:"Yes",ship:"TNT",sdate:"2007-12-03"},
-//                    {id:"23",name:"Speakers",note:"note",stock:"No",ship:"ARAMEX",sdate:"2007-12-03"}
-//            ];
-			
-		//grid = loadClients();
-                    
-			
-		//	jQuery(function($) {
+       
 				var grid_selector = "#grid-table";
 				var pager_selector = "#grid-pager";
 				
@@ -552,14 +542,14 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
-//             var familleproduit= $('#familleClientId').val();
+            var reference= $('#reference').val();
             var nom = $("#nom").val();
             var adresse = $("#adresse").val();
             var telephone = $("#telephone").val();
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-//             formData.append('familleId', familleproduit);
+            formData.append('reference', reference);
             formData.append('nom', nom);
             formData.append('adresse', adresse);
             formData.append('telephone', telephone);
@@ -579,7 +569,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       
                     } 
                     else
                     {

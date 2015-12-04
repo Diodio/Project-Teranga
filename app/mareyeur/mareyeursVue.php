@@ -58,7 +58,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7" disabled>
+                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -113,7 +113,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 
     var grid_data;
     //    var grid;
-
+        var grid_selector = "#grid-table";
+        var pager_selector = "#grid-pager";
     loadMareyeurs = function () {
         
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
@@ -150,7 +151,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 data: grid_data,
                 datatype: "local",
                 height: 250,
-                colNames: [' ', 'nom', 'adresse', 'telephone', 'montant Financement'],
+                colNames: [' ', 'Nom', 'Adresse', 'Téléphone', 'Montant Financement'],
                 colModel: [
                     {name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
                         formatter: 'actions',
@@ -298,8 +299,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             )
         });
 
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
+        
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
@@ -563,7 +563,8 @@ $codeUsine = $_COOKIE['codeUsine'];
     			SaveMareyeurProcess();
     		        $('#winModalMareyeur').addClass('hide');
     		        $('#winModalMareyeur').modal('hide');
-                        loadMareyeurs();
+                        $("#grid-table").trigger('reloadGrid');
+                       
     			},
     			invalidHandler: function (form) {
     			}

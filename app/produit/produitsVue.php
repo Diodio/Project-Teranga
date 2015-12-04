@@ -152,13 +152,13 @@
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Prix unitaire </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
                                     <div class="col-sm-9">
-                                            <input type="text" id="prixUnit" name="prixUnit" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="stock" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock réel</label>
                                     <div class="col-sm-9">
                                         <input type="text" id="stock" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>

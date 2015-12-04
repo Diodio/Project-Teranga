@@ -1,10 +1,10 @@
 <?php
 
-namespace Produit;
+namespace Stock;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="stock") * */
-class Stock {
+ * @Table(name="stock_reel") * */
+class StockReel {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue

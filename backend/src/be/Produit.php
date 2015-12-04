@@ -16,11 +16,6 @@ class Produit {
      * */
     protected $libelle;
     
-    /**
-     * @Column(type="string", length=60, nullable=false)
-     * */
-    protected $prixUnitaire;
-    
 /** @ManyToOne(targetEntity="Produit\FamilleProduit", inversedBy="familleProduit", cascade={"persist"}) */
     protected $familleProduit;
     
@@ -38,7 +33,7 @@ class Produit {
     /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="achat", cascade={"persist"}) */
     protected $achat;
     
-    /** @OneToMany(targetEntity="Produit\Stock", mappedBy="stock", cascade={"persist"}) */
+    /** @OneToMany(targetEntity="Stock\StockProvisoire", mappedBy="stock", cascade={"persist"}) */
     protected $stock;
     
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="bonSortie", cascade={"persist"}) */

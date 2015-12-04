@@ -44,6 +44,9 @@ class ClientController extends BaseController implements BaseAction {
                                         case \App::ACTION_GET_INFOS:
                                                 $this->doGetAdress($request);
                                                 break;
+                                        case \App::ACTION_GET_LAST_NUMBER:
+                                                $this->doGetLastNumber($request);
+                                                break;
 
 				}
 			} else {
@@ -58,12 +61,13 @@ class ClientController extends BaseController implements BaseAction {
 		try {
 			$client = new Client();
 			$clientManager = new ClientManager();
+			$client->setReference($request['reference']);
 			$client->setNom($request['nom']);
 			$client->setAdresse($request['adresse']);
 			$client->setTelephone($request['telephone']);
 			$clientAdded = $clientManager->insert($client);
 			if ($clientAdded->getId() != null) {
-				$this->doSuccess($clientAdded->getId(), 'Client enregistre avec succes');
+				$this->doSuccess($clientAdded->getId(), 'Client enregistré avec succes');
 			} else {
 				throw new Exception('impossible d\'inserer ce client');
 			}
@@ -187,6 +191,15 @@ class ClientController extends BaseController implements BaseAction {
                 echo json_encode(array());
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
+    public function doGetLastNumber($request) {
+        try {
+            $clientManager = new ClientManager();
+            $last = $clientManager->getLastNumber();
+            $this->doSuccess($last, 'Dernier client');
+        } catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
         }
     }
 

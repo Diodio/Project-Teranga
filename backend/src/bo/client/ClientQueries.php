@@ -161,6 +161,12 @@ class ClientQueries {
 		return $arrayContact;
 	}
 
-	 
+	 public function getLastNumber() {
+        $sql = 'select max(id)+1 as last from client';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $last = $stmt->fetch();
+        return $last['last'];
+    }
 	 
 }

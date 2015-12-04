@@ -10,30 +10,30 @@ class Client {
      * @Column(type="integer"), @GeneratedValue
      */
     protected $id;
-    
+
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $reference;
-    
+
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $nom;
+
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $adresse;
-    
+
     /**
      * @Column(type="string", length=32, nullable=false)
      * */
     protected $telephone;
-   
-    
-     /** @OneToMany(targetEntity="BonSortie\BonSortie", mappedBy="bonSortie") */
+
+    /** @OneToMany(targetEntity="BonSortie\BonSortie", mappedBy="bonSortie") */
     public $bonSortie;
-    
+
     public function getId() {
         return $this->id;
     }
@@ -41,7 +41,6 @@ class Client {
     public function getNom() {
         return $this->nom;
     }
-
 
     public function getAdresse() {
         return $this->adresse;
@@ -59,7 +58,6 @@ class Client {
         $this->nom = $nom;
     }
 
-
     public function setAdresse($adresse) {
         $this->adresse = $adresse;
     }
@@ -68,7 +66,20 @@ class Client {
         $this->telephone = $telephone;
     }
 
-
-
-
+    function getReference() {
+        return $this->reference;
     }
+
+    function getBonSortie() {
+        return $this->bonSortie;
+    }
+
+    function setReference($reference) {
+        $this->reference = $reference;
+    }
+
+    function setBonSortie($bonSortie) {
+        $this->bonSortie = $bonSortie;
+    }
+
+}
