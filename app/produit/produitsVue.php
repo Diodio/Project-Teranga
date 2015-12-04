@@ -383,7 +383,7 @@
 
     loadProduit = function (familleId) {
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {familleId: familleId, ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
-
+$.extend($.jgrid,$.jgrid.regional['fr']);
             grid_data = $.parseJSON(data);
             jQuery(grid_selector).jqGrid({
                 //direction: "rtl",
@@ -403,8 +403,8 @@
 
                 data: grid_data,
                 datatype: "local",
-                height: 250,
-                colNames: [' ', 'Designation', 'stock initial', 'stock final'],
+                height: 350,
+                colNames: [' ', 'Désignation', 'stock initial', 'stock final'],
                 colModel: [
                     {name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
                         formatter: 'actions',
@@ -446,7 +446,8 @@
                 caption: "Liste des produits"
             });
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
-
+            
+            
 
             //switch element when editing inline
             function aceSwitch(cellvalue, options, cell) {
@@ -470,16 +471,11 @@
                     {//navbar options
                         edit: true,
                         editicon: 'ace-icon fa fa-pencil blue',
-                        add: true,
-                        addicon: 'ace-icon fa fa-plus-circle purple',
                         del: true,
                         delicon: 'ace-icon fa fa-trash-o red',
-                        search: true,
-                        searchicon: 'ace-icon fa fa-search orange',
                         refresh: true,
                         refreshicon: 'ace-icon fa fa-refresh green',
-                        view: true,
-                        viewicon: 'ace-icon fa fa-search-plus grey',
+                        
                     },
                     {
                         //edit record form

@@ -634,6 +634,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <script src="assets/js/jquery.dataTables.min.js"></script>
         <script src="assets/js/jquery.dataTables.bootstrap.js"></script>
         <script src="assets/js/jquery.cookie.js"></script>
+        <script src="assets/js/grid.locale-fr.js"></script>
         <script src="assets/js/jquery.jqGrid.min.js"></script>
         <script src="assets/js/grid.locale-en.js"></script>
         <script src="assets/js/jchart.js"></script>
@@ -643,6 +644,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 	<script src="assets/js/bootstrap-timepicker.min.js"></script>
         <script src="assets/js/bootstrap-editable.min.js"></script>
         <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/grid.locale-fr.js"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {
