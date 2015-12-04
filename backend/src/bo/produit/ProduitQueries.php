@@ -91,7 +91,16 @@ class ProduitQueries {
             return $stock[0];
         else return null;
     }
- 
+    
+    public function retrieveStockFinalParUsine($produitId, $codeUsine){
+        $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if($stock!=null)
+            return $stock[0];
+        else return null;
+    }
   public function retrieveTypes() {
         $query = Bootstrap::$entityManager->createQuery("select t.id as value, t.libelle as text from Produit\TypeProduit t");
         $types = $query->getResult();
@@ -197,8 +206,8 @@ class ProduitQueries {
             return null;
     }
     
-    public function retrieveAllByUsine($codeUsine) {
-        $query = "select p.id as value, p.libelle as text, s.stock as nbStock from produit p,stock s where s.produit_id=p.id AND s.codeUsine='$codeUsine' group by p.libelle";
+    public function retrieveAllByUsine() {
+        $query = "select p.id as value, p.libelle as text from produit p  group by p.libelle";
         $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();

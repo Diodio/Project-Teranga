@@ -121,7 +121,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
-								<th class="text-center">Designation</th>
+								<th class="text-center">Désignation</th>
 								<th class="text-center">Prix Unitaire</th>
 								<th class="text-center">Quantite(kg)</th>
 <!-- 								<th class="text-center">Pourcentage</th> -->
@@ -162,7 +162,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 					<div class="col-sm-3"></div>
 					<div class="col-sm-3"></div>
 					<div class="col-sm-3"
-						style="margin-left: 35.5%;; margin-top: -10px;">
+						style="margin-left: 57.5%; margin-top: -10px;">
 						<div class="form-group">
 							<label class="col-sm-2 control-label no-padding-right"
 								for="form-field-1"> Total </label>
@@ -342,8 +342,6 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 </td>\n\
 <td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
-<td><input type='number' id='perc"+i+"' name='perc"+i+"' class='col-xs-9'/>%</td>\n\
-<td><input type='text' id='pdN"+i+"' name='pdN"+i+"' class='form-control'/></td>\n\
 <td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
@@ -365,16 +363,14 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     $(document).delegate('#tab_logic tr td', 'click', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
-          loadPrix('designation'+counter,'pu'+counter);
-          calculPoidsNet(counter);
-          calculMontant(counter);
-          calculMontantPoids();
+        // loadPrix('designation'+counter,'pu'+counter);
+       //   calculPoidsNet(counter);
+       //   calculMontant(counter);
+         // calculMontantPoids();
       $( "#qte"+counter ).keyup(function() {
             calculMontant(counter);
          });
-         $( "#perc"+counter ).keyup(function() {
-            calculPoidsNet(counter);
-         });  
+        
     });
     
 
@@ -386,9 +382,9 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             $("#numCheque").prop("readOnly", true);
         }
     });
-    $('#designation0').change(function() {
-        loadPrix('designation0','pu0');
-        });
+//    $('#designation0').change(function() {
+//        loadPrix('designation0','pu0');
+//        });
     loadPrix = function(cmbDesignation, champPrix){
         //$('#tab_logic').click();
         if($("#"+cmbDesignation).val()!==null){
@@ -439,9 +435,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
          $( "#qte0" ).keyup(function() {
             calculMontant(0);
          }); 
-         $( "#perc0" ).keyup(function() {
-            calculPoidsNet(0);
-         });  
+         
+          $( "#avance" ).keyup(function() {
+            calculReliquat();
+         }); 
+        
        function calculMontant(index){
            var mt;
            var qte=parseInt($("#qte"+index).val());
@@ -461,9 +459,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            var pt=0;
            var pd=0;
           $('#tab_logic .montant').each(function () {
+              if($(this).val()!=='')
                 pt += parseInt($(this).val());
             });
             $('#tab_logic .qte').each(function () {
+                if($(this).val()!=='')
                 pd+= parseFloat($(this).val());
             });
                 if(!isNaN(pt))
@@ -472,6 +472,16 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                     $("#poidsTotal").val(pd);
         }
         
+        function calculReliquat(){
+          var rel=0;
+           var mt=parseInt($("#montantTotal").val());
+           var avance=parseInt($("#avance").val());
+           rel=mt - avance;
+           if(!isNaN(rel) && rel>0) 
+              $("#reliquat").val(rel);
+          else
+              $("#reliquat").val(0);
+        }
         AchatProcess = function ()
         {
             

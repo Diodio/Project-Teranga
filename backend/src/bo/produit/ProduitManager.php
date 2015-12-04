@@ -103,12 +103,16 @@ public function retrieveTypes()
     }
     
     public function retrieveAllByUsine($codeUsine){
-        $produits = $this->produitQuery->retrieveAllByUsine($codeUsine);
+        $produits = $this->produitQuery->retrieveAllByUsine();
         $list = array();
         $i = 0;
         foreach ($produits as $key => $value) {
+            $stockInitial = 0;
             $list [$i]['value'] = $value ['value'];
-            $list [$i]['text'] = $value ['text'].' ('.$value ['nbStock'].')';
+            $stock = $this->produitQuery->retrieveStockFinalParUsine($value ['value'], $codeUsine);
+            if($stock !=null)
+                $stockInitial = $stock ['stock'];
+            $list [$i]['text'] = $value ['text'].' ('.$stockInitial.')';
             $i++;
         }
         return $list;
@@ -117,5 +121,6 @@ public function retrieveTypes()
     public function findProduitsByName($name) {
         return $this->produitQuery->findProduitsByName($name);
     }
-
+    
+    
 }
