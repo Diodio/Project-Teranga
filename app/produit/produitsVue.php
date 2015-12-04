@@ -152,13 +152,13 @@
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock initial</label>
                                     <div class="col-sm-9">
                                         <input type="text" id="stock" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock réel</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock final</label>
                                     <div class="col-sm-9">
                                         <input type="text" id="stock" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
@@ -404,7 +404,7 @@
                 data: grid_data,
                 datatype: "local",
                 height: 250,
-                colNames: [' ', 'Designation', 'Prix unitaire', 'stock'],
+                colNames: [' ', 'Designation', 'stock initial', 'stock final'],
                 colModel: [
                     {name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
                         formatter: 'actions',
@@ -417,9 +417,9 @@
                         }
                     },
                     // 						{name:'id',index:'id', width:60, sorttype:"int", editable: true},
-                    {name: 'designation', index: 'designation', width: 90, editable: true, sorttype: "date", editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'prixUnitaire', index: 'prixUnitaire', width: 150, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'stock', index: 'stock', width: 70, editable: false}
+                    {name: 'designation', index: 'designation', width: 90, editable: true, editoptions: {size: "20", maxlength: "30"}},
+                    {name: 'stockInitial', index: 'stockInitial', width: 150, editable: true, editoptions: {size: "20", maxlength: "30"}},
+                    {name: 'stockFinal', index: 'stockInitial', width: 70, editable: false}
                 ],
                 viewrecords: true,
                 rowNum: 10,
@@ -706,8 +706,8 @@
             var frmData;
             var familleproduit= $('#GRP_NEW_CMB').val();
             var designation = $("#designation").val();
-            var prixUnit = $("#prixUnit").val();
-            var stock = $("#stock").val();
+            var stockInitial = $("#stockInitial").val();
+            var stockFinal = $("#stockFinal").val();
             var seuil = $("#seuil").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
@@ -716,8 +716,8 @@
             formData.append('ACTION', ACTION);
             formData.append('familleId', familleproduit);
             formData.append('designation', designation);
-            formData.append('prixUnitaire', prixUnit);
-            formData.append('stock', stock);
+            formData.append('stockInitial', stockInitial);
+            formData.append('stockFinal', stockFinal);
             formData.append('seuil', seuil);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);

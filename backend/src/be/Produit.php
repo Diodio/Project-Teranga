@@ -12,7 +12,7 @@ class Produit {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=false, unique=true)
      * */
     protected $libelle;
     
@@ -33,8 +33,8 @@ class Produit {
     /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="achat", cascade={"persist"}) */
     protected $achat;
     
-    /** @OneToMany(targetEntity="Stock\StockProvisoire", mappedBy="stock", cascade={"persist"}) */
-    protected $stock;
+    /** @OneToMany(targetEntity="Stock\StockInitial", mappedBy="stockInitial", cascade={"persist"}) */
+    protected $stockInitial;
     
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="bonSortie", cascade={"persist"}) */
     protected $bonSortie;
@@ -46,18 +46,8 @@ class Produit {
     function getLibelle() {
         return $this->libelle;
     }
-
-    function getPoidsNet() {
-        return $this->poidsNet;
-    }
-
-    function getPrixUnitaire() {
-        return $this->prixUnitaire;
-    }
-
-    function getStock() {
-        return $this->stock;
-    }
+    
+    
 
     function getSeuil() {
         return $this->seuil;
@@ -83,18 +73,17 @@ class Produit {
         $this->libelle = $libelle;
     }
 
-    function setPoidsNet($poidsNet) {
-        $this->poidsNet = $poidsNet;
+    
+
+    function getStockInitial() {
+        return $this->stockInitial;
     }
 
-    function setPrixUnitaire($prixUnitaire) {
-        $this->prixUnitaire = $prixUnitaire;
+    function setStockInitial($stockInitial) {
+        $this->stockInitial = $stockInitial;
     }
 
-    function setStock($stock) {
-        $this->stock = $stock;
-    }
-
+    
     function setSeuil($seuil) {
         $this->seuil = $seuil;
     }
@@ -148,18 +137,6 @@ class Produit {
         date_default_timezone_set('GMT');
         $this->updatedDate = new \DateTime("now");
     }
-    function getPoidsBrut() {
-        return $this->poidsBrut;
-    }
-
-    
-
-    function setPoidsBrut($poidsBrut) {
-        $this->poidsBrut = $poidsBrut;
-    }
-
    
-
-  
 
     }

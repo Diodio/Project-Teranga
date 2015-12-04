@@ -3,8 +3,8 @@
 namespace Stock;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="stock_reel") * */
-class StockReel {
+ * @Table(name="stock_final") * */
+class StockFinal {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue

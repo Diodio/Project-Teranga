@@ -10,7 +10,7 @@ use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use Produit\ProduitManager as ProduitManager;
 use Produit\FamilleProduitManager as FamilleProduitManager;
-use Produit\Stock as Stock;
+use Stock\StockInitial as StockInitial;
 use Produit\StockManager as StockManager;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
@@ -71,12 +71,21 @@ class ProduitController extends BaseController implements BaseAction {
                     $familleProduitManager = new FamilleProduitManager();
                     $famille = $familleProduitManager->findById($request['familleId']);
                     $produit->setLibelle($request['designation']);
-                    $produit->setPrixUnitaire($request['prixUnitaire']);
                     $produit->setFamilleProduit($famille);
                     $produitAdded = $produitManager->insert($produit);
                     if ($produitAdded->getId() != null) {
-                        $stock = new Stock();
-                        $stock->setStock($request['stock']);
+                        if($request['stockInitial'] !==0 && $request['stockFinal'] ==0){
+                            $stock = new StockInitial();
+                            $stock->setStock($request['stockInitial']);
+                        }
+                        else if($request['stockInitial'] ==0 && $request['stockFinal'] !==0){ 
+                            $stock = new \Stock\StockFinal();
+                            $stock->setStock($request['stockFinal']);
+                        }
+                        else if($request['stockInitial'] ==0 && $request['stockFinal'] ==0){ 
+                            $stock = new \Stock\StockFinal();
+                            $stock->setStock($request['stockFinal']);
+                        }
                         $stock->setSeuil($request['seuil']);
                         $stock->setCodeUsine($request['codeUsine']);
                         $stock->setLogin($request['login']);

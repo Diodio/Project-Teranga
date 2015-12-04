@@ -3,8 +3,8 @@
 namespace Stock;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="stock_provisoire") * */
-class StockProvisoire {
+ * @Table(name="stock_initial") * */
+class StockInitial {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
