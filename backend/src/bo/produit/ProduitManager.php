@@ -56,7 +56,25 @@ class ProduitManager {
 
     
     public function retrieveAll($produitId) {
-        return $this->produitQuery->retrieveAll($produitId);
+        $produits = $this->produitQuery->retrieveAll($produitId);
+        $arrayProduits = array();
+        $i = 0;
+        foreach ($produits as $key => $value) {
+            $arrayProduits [$i] ['id'] = $value ['pid'];
+            $stockInitial =  $this->produitQuery->retrieveStockInitial($value ['pid']);
+            if($stockInitial !=null)
+                $arrayProduits [$i] ['stockInitial'] = $stockInitial ['stock'];
+            else
+                $arrayProduits [$i] ['stockInitial'] = 0;
+            $stockFinal =  $this->produitQuery->retrieveStockFinal($value ['pid']);
+            if($stockFinal !=null)
+                $arrayProduits [$i] ['stockFinal'] = $stockFinal['stock'];
+            else
+                $arrayProduits [$i] ['stockFinal'] = 0;
+            $arrayProduits [$i] ['designation'] = $value ['libelle'];
+            $i++;
+        }
+        return $arrayProduits;
     }
 public function retrieveTypes()
     {

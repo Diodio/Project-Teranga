@@ -61,29 +61,36 @@ class ProduitQueries {
    
     public function retrieveAll($produitId) {
            if($produitId !== '*')  {
-                $sql = 'select distinct(produit.id) as pid, libelle, prixUnitaire, sum(stock) as stock
-                        from produit, stock where produit.id=produit_id AND produit.id='.$produitId.' group by produit.id ';
+                $sql = 'select distinct(produit.id) as pid, libelle from produit where produit.id='.$produitId.' group by produit.id ';
            }
            else {
-               $sql = 'select distinct(produit.id) as pid, libelle, prixUnitaire, sum(stock) as stock
-                        from produit, stock where produit.id=produit_id  group by produit.id ';
+               $sql = 'select distinct(produit.id) as pid, libelle from produit group by produit.id ';
            }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
-        $arrayProduits = array();
-        $i = 0;
-        foreach ($products as $key => $value) {
-            $arrayProduits [$i] ['id'] = $value ['pid'];
-            $arrayProduits [$i] ['designation'] = $value ['libelle'];
-            $arrayProduits [$i] ['prixUnitaire'] = $value ['prixUnitaire'];
-            $arrayProduits [$i] ['stock'] = $value ['stock'];
-            $i++;
-        }
-        return $arrayProduits;
+        return $products;
+    }
+    public function retrieveStockInitial($produitId){
+        $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.'';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if($stock!=null)
+            return $stock[0];
+        else return null;
     }
 
+    public function retrieveStockFinal($produitId){
+        $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.'';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if($stock!=null)
+            return $stock[0];
+        else return null;
+    }
  
   public function retrieveTypes() {
         $query = Bootstrap::$entityManager->createQuery("select t.id as value, t.libelle as text from Produit\TypeProduit t");
