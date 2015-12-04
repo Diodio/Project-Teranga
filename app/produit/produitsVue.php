@@ -418,7 +418,7 @@
                     },
                     // 						{name:'id',index:'id', width:60, sorttype:"int", editable: true},
                     {name: 'designation', index: 'designation', width: 90, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'stockInitial', index: 'stockInitial', width: 150, editable: true, editoptions: {size: "20", maxlength: "30"}},
+                    {name: 'stockInitial', index: 'stockInitial', width: 150, editable: false, editoptions: {size: "20", maxlength: "30"}},
                     {name: 'stockFinal', index: 'stockInitial', width: 70, editable: false}
                 ],
                 viewrecords: true,

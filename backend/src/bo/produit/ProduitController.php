@@ -113,10 +113,7 @@ class ProduitController extends BaseController implements BaseAction {
              $produitManager = new ProduitManager();
              if($request['oper'] == 'edit') {
                 $produit = $produitManager->findById($request['id']);
-                
-                 var_dump("kk");
                 $produit->setLibelle($request['designation']);
-                $produit->setPrixUnitaire($request['prixUnitaire']);
                 $produitUpdated = $produitManager->update($produit);
                 if ($produitUpdated->getId() != null) {
                         $this->doSuccess($produitUpdated->getId(), 'Produit mis à jour avec succes');
