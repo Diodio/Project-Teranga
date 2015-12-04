@@ -35,7 +35,8 @@ class StockInitial {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
-    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
+    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit")
+     * @JoinColumn(name="produit_id", referencedColumnName="id", onDelete="CASCADE") */
     protected $produit;
     
     function getId() {

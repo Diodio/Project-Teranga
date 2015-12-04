@@ -36,6 +36,9 @@ class Produit {
     /** @OneToMany(targetEntity="Stock\StockInitial", mappedBy="stockInitial", cascade={"persist"}) */
     protected $stockInitial;
     
+    /** @OneToMany(targetEntity="Stock\StockFinal", mappedBy="stockFinal", cascade={"persist"}) */
+    protected $stockFinal;
+    
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="bonSortie", cascade={"persist"}) */
     protected $bonSortie;
     
@@ -123,8 +126,15 @@ class Produit {
         $this->bonSortie = $bonSortie;
     }
 
-    
+    function getStockFinal() {
+        return $this->stockFinal;
+    }
 
+    function setStockFinal($stockFinal) {
+        $this->stockFinal = $stockFinal;
+    }
+
+    
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');

@@ -33,8 +33,8 @@ class ProduitManager {
     }
 
  
-    public function delete($clientId) {
-        return $this->produitQuery->delete($clientId);
+    public function delete($produitId) {
+        return $this->produitQuery->delete($produitId);
     }
 
    public function findById($produitId) {

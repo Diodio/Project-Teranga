@@ -40,7 +40,7 @@ class ProduitQueries {
     }
     
     public function delete($produitId) {
-        $produit = $this->findAllById($produitId);
+        $produit = $this->findById($produitId);
         if ($produit != null) {
             Bootstrap::$entityManager->remove($produit);
             Bootstrap::$entityManager->flush();
@@ -112,7 +112,7 @@ class ProduitQueries {
 
      public function findById($produitId) {
             if ($produitId != null) {
-                return Bootstrap::$entityManager->find( $this->classString, $produitId );
+                return Bootstrap::$entityManager->find( 'Produit\Produit', $produitId );
             }
         }
     public function count($produitId, $sWhere = "") {
