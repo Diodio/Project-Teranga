@@ -492,7 +492,7 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        
+                        loadDemoulages();
                         $('#nombreCarton').val("");
                         $('#nombreParCarton').val("");
                     } 

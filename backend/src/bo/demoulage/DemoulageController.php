@@ -36,12 +36,18 @@ class DemoulageController extends BaseController  {
             if ($request['nombreParCarton'] !="" && $request['nombreCarton'] != "") {
                 $produitManager = new \Produit\ProduitManager();
                 $produit=$produitManager->findById($request['produitId']);
-                $demoulage = new Produit\Demoulage();
                 $demoulageManager = new Produit\DemoulageManager();
+                $demou = $demoulageManager->verifieDemoulage($request['produitId'], $request['codeUsine']);
+                $demoulage = new Produit\Demoulage();
+                if($demou == 0)
+                    $demoulage->setId ($demou);
                 $demoulage->setNombreCarton($request['nombreCarton']);
                 $demoulage->setNombreParCarton($request['nombreParCarton']);
                 $demoulage->setProduit($produit);
+                $demoulage->setCodeUsine($request['codeUsine']);
+                $demoulage->setLogin($request['login']);
                 $demoulageAdded = $demoulageManager->insert($demoulage);
+                  
                 if ($demoulageAdded->getId() != null) {
                     if($request['stockFinal'] !=""){
                       $stockManager = new \Stock\StockManager();

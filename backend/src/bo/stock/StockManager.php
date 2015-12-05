@@ -97,7 +97,7 @@ class StockManager {
     return 0;
   }
   public function ajoutStockFinalParProduit($produitId, $codeUsine, $login, $stock) {
-            $stockFinal = $this->findStockInitialByProduitId($produitId, $codeUsine);
+            $stockFinal = $this->findStockFinalByProduitId($produitId, $codeUsine);
             if ($stockFinal == 0) {
                 $stockFinal = new \Stock\StockFinal();
                 $stockFinal->setCodeUsine($codeUsine);

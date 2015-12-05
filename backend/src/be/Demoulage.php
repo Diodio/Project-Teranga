@@ -21,6 +21,16 @@ class Demoulage {
      * */
     protected $nombreCarton;
     
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $codeUsine;
+   
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $login;
+    
     /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
     protected $produit;
     
@@ -89,8 +99,23 @@ class Demoulage {
         $this->deletedDate = $deletedDate;
     }
 
-    
-         /** @PrePersist */
+    function getCodeUsine() {
+        return $this->codeUsine;
+    }
+
+    function getLogin() {
+        return $this->login;
+    }
+
+    function setCodeUsine($codeUsine) {
+        $this->codeUsine = $codeUsine;
+    }
+
+    function setLogin($login) {
+        $this->login = $login;
+    }
+
+             /** @PrePersist */
     public function doPrePersist() {
         $this->status = 0;
         $this->createdDate = new \DateTime("now");
