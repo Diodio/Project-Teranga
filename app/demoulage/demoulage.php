@@ -99,36 +99,33 @@
                                  <h4 class="widget-title lighter">
                                  <i class="ace-icon fa fa-star orange"></i>Produit: Sole
                                  </h4>
-                               <div class="form-group">
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock Intial (kg)</label>
                                     <div class="col-sm-9">
-                                        <input type="text"  id="telephone" placeholder="" class="col-xs-10 col-sm-4" disabled >
+                                        <input type="text"  id="stockInitial" name="stockInitial" placeholder="" class="col-xs-10 col-sm-4" disabled >
                                     </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Final (kg)</label>
-                                    <div class="col-sm-9">
-                                        <input type="number"  id="telephone" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Final (kg)</label>
-                                    <div class="col-sm-9">
-                                        <input type="number"  id="telephone" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                    </div>
-                            </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Final (kg)</label>
+                                        <div class="col-sm-9">
+                                            <input type="number"  id="stockFinal" name="stockFinal" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
+                                        </div>
+                                </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Nombre Kg / Carton</label>
                                     <div class="col-sm-9">
-                                        <input type="number"  id="telephone" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
+                                        <input type="number"  id="nombreParCarton" name="nombreParCarton" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Nombre Carton</label>
                                     <div class="col-sm-9">
-                                        <input type="number"  id="telephone" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
+                                        <input type="number"  id="nombreCarton" name="nombreCarton" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
                                     </div>
                             </div>
+                            <button id="SAVE" class="btn btn-small btn-info pull-right">
+                                    <i class="fa fa-plus-square "></i> Valider
+                            </button>
                             </div>
                         </div>
                     </div>

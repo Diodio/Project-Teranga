@@ -74,6 +74,8 @@ class ProduitQueries {
     }
 
    public function retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+       if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
            if($codeUsine !== '*')  {
                 $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_initial WHERE produit.id=produit_id AND stock > 0 AND codeUsine='.$codeUsine.' ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
            }

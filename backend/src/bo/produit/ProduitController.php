@@ -262,7 +262,7 @@ class ProduitController extends BaseController implements BaseAction {
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('id','libelle', 'stock');
+                $aColumns = array('libelle', 'stock');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
