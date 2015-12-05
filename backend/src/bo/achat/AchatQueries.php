@@ -225,7 +225,7 @@ class AchatQueries {
     
     public function findAllProduitByAchact($achatId) {
         if ($achatId != null) {
-            $sql = 'SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=' . $achatId;
+            $sql = 'SELECT p.libelle designation,la.prixUnitaire prixUnitaire,la.quantite quantite,la.montant montant FROM achat a, ligne_achat la, produit p WHERE a.id=la.achat_id AND la.produit_id=p.id AND a.id=' . $achatId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $achat = $stmt->fetchAll();

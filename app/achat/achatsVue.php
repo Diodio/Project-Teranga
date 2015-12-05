@@ -123,7 +123,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 								<th class="text-center">#</th>
 								<th class="text-center">Désignation</th>
 								<th class="text-center">Prix Unitaire</th>
-								<th class="text-center">Quantite(kg)</th>
+								<th class="text-center">Quantité(kg)</th>
 <!-- 								<th class="text-center">Pourcentage</th> -->
 <!-- 								<th class="text-center">Poids Net(kg)</th> -->
 								<th class="text-center">Montant</th>
@@ -508,10 +508,10 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     rows = [],
     header = [];
 
-$table.find("thead th").each(function () {
-    header.push($(this).html().trim());
-});
-
+//$table.find("thead th").each(function () {
+//    header.push($(this).html().trim());
+//});
+header = ["#","designation","pu","qte","montant"];
 $table.find("tbody tr").each(function () {
     var row = {};
     
@@ -532,7 +532,6 @@ $table.find("tbody tr").each(function () {
     
     
             var tbl=JSON.stringify(rows);
-            console.log(tbl);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('numAchat', numAchat);

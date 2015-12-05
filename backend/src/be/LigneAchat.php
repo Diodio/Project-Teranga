@@ -14,15 +14,15 @@ class LigneAchat {
     /**
      * @Column(type="integer", nullable=true)
      * */
-    protected $quantite;
+    protected $prixUnitaire;
     
     /**
      * @Column(type="integer", nullable=true)
      * */
-    protected $poids;
+    protected $quantite;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="integer", nullable=true)
      * */
     protected $montant;
 
@@ -54,10 +54,6 @@ class LigneAchat {
         return $this->quantite;
     }
 
-    public function getPoids() {
-        return $this->poids;
-    }
-
     public function getMontant() {
         return $this->montant;
     }
@@ -85,14 +81,19 @@ class LigneAchat {
     public function setId($id) {
         $this->id = $id;
     }
+    function getPrixUnitaire() {
+        return $this->prixUnitaire;
+    }
 
-    public function setQuantite($quantite) {
+    function setPrixUnitaire($prixUnitaire) {
+        $this->prixUnitaire = $prixUnitaire;
+    }
+
+        public function setQuantite($quantite) {
         $this->quantite = $quantite;
     }
 
-    public function setPoids($poids) {
-        $this->poids = $poids;
-    }
+   
 
     public function setMontant($montant) {
         $this->montant = $montant;

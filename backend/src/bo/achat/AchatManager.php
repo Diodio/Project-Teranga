@@ -163,5 +163,13 @@ public function findStatisticByUsine($codeUsine) {
             $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
         }
     }
+    
+    public function annulerStockParAchact($achatId) {
+        $achat = $this->achatQuery->findInfoByAchact($achatId);
+        foreach ($achat as $key => $value) {
+            $stockManager = new \Produit\StockManager();
+            $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+        }
+    }
 
 }

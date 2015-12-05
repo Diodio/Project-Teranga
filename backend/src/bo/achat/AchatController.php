@@ -124,33 +124,19 @@ private $logger;
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonAchat as $key => $ligneachat) {
-                            if(isset($ligneachat["Designation"])) {
+                            if(isset($ligneachat["designation"])) {
                                 $ligneAchat = new \Achat\LigneAchat();
                                 $ligneAchat->setAchat($achat);
-                                $produitId = $ligneachat["Designation"];
+                                $produitId = $ligneachat["designation"];
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
                                 $ligneAchat->setProduit($produit);
-                                if($ligneachat['Poids Net(kg)']!=="")
-                                    $ligneAchat->setQuantite($ligneachat['Poids Net(kg)']);
-                                else
-                                    $ligneAchat->setQuantite($ligneachat['Quantite(kg)']);
-                                $ligneAchat->setMontant($ligneachat['Montant']);
-                               // $ligneAchat->setPoids($ligneachat['Poids Net(kg)']);
+                                $ligneAchat->setPrixUnitaire($ligneachat['pu']);
+                                $ligneAchat->setQuantite($ligneachat['qte']);
+                                $ligneAchat->setMontant($ligneachat['montant']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
                                 $ligneAchatManager->insert($ligneAchat); 
-//                                if ($achatInserted->getId() != null) {
-//                                       $stockManager = new \Produit\StockManager();
-//                                       if($ligneachat['Quantite(kg)'] !="")
-//                                           $nbStock = $ligneachat['Quantite(kg)'];
-//                                       if($ligneachat['Poids Net(kg)'] !="")
-//                                           $nbStock = $ligneachat['Poids Net(kg)'];
-//                                       $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
-//                                }
-//                                $achatPaiement = new AchatPaiement();
-//                                $achatPaiement->setAchat($achat);
-//                                $achatPaiement->setMontant($request['avance']);
-//                                $achatPaiement->setDatePaiement(new \DateTime("now"));
+//                               
                             }
                          }
                     $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');
@@ -305,7 +291,9 @@ private $logger;
         try {
             if ($request['achatId'] != null) {
                 $achatManager = new AchatManager();
-                $achatManager->annulerAchat($request['achatId']);
+                $valid = $achatManager->annulerAchat($request['achatId']);
+                if($valid==1)
+                    $achatManager->ajoutStockParAchact ($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Annulation effectuée avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');

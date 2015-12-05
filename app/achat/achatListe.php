@@ -42,11 +42,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_VALIDATION' ><a href="#" id="GRP_NEW">Valider </a></li>
+                                        <li id='MNU_VALIDATION' class="disabled" ><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
+                                        <li id='MNU_IMPRIMER' class="disabled" ><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -366,18 +366,27 @@ $codeUsine = $_COOKIE['codeUsine'];
 	{   
             if (checkedAchat.length == 1)
             {
-                    var state = $('#stag' + checkedAchat[0]).val();
-                  //  console.log(state);
-                    //$('#MNU_').removeClass('disabled');
-//                     if (state === 0) {
-//                             $('#MNU_VALIDATION').removeClass('disabled');
-//                             $('#MNU_VALIDATION').addClass('enable');
-//                      } 
-//                      else{
-//                             $('#MNU_VALIDATION').removeClass('enable');
-//                             $('#MNU_VALIDATION').addClass('disabled');
-                         
-//                      }
+                $('#MNU_VALIDATION').removeClass('disabled');
+                $('#MNU_ANNULATION').removeClass('disabled');
+                $('#MNU_IMPRIMER').removeClass('disabled');
+                var state = $('#stag' + checkedAchat[0]).val();
+                 if (state == 1) {
+                         // $('#MNU_VALIDATION').removeClass('enable');
+                         $('#MNU_VALIDATION').addClass('disabled');
+                  } 
+                  else if (state == 2) {
+                      //$('#MNU_ANNULATION').removeClass('enable');
+                      $('#MNU_ANNULATION').addClass('disabled');
+                  }
+                          
+            }
+            else if (checkedAchat.length > 1){
+                $('#MNU_VALIDATION').removeClass('enable');
+                $('#MNU_ANNULATION').removeClass('enable');
+                $('#MNU_IMPRIMER').removeClass('enable');
+                $('#MNU_VALIDATION').addClass('disabled');
+                $('#MNU_ANNULATION').addClass('disabled');
+                $('#MNU_IMPRIMER').addClass('disabled');
             }
             };
             
@@ -400,6 +409,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             MessageUnSelected = function()
             {
+                 enableRelevantAchatMenu();
                if (checkedAchat.length === 1){
                     loadAchatSelected(checkedAchat[0]);
 		    $('#TAB_MSG_VIEW').show();
@@ -476,7 +486,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                                console.log(data);
                                 if (data == 0)
                                     src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
