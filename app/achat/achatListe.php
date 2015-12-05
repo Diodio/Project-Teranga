@@ -613,14 +613,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc == 0)
                         {
                             bootbox.alert("Achat(s) validé(s)");
+                             loadAchats();
                         }
                         else
                         {
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
-                        });
+                   
+//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
+//                        });
                          }
                     });
                 }
