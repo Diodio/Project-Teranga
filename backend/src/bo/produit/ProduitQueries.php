@@ -72,6 +72,36 @@ class ProduitQueries {
         $products = $stmt->fetchAll();
         return $products;
     }
+
+   public function retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+           if($codeUsine !== '*')  {
+                $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_initial WHERE produit.id=produit_id AND stock > 0 AND codeUsine='.$codeUsine.' ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+           }
+           else {
+               $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_initial WHERE produit.id=produit_id AND stock > 0 ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
+           }
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        return $products;
+    }
+    
+     public function countAllDemoulages($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            $sql = 'select count(*) as nb from produit, stock_initial where produit.id=produit_id and stock !=0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+        }
+        else {
+             $sql = 'select count(*) as nb from produit, stock_initial where produit.id=produit_id and stock !=0 ' . $sWhere . '';
+        }
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return $nbClients['nb'];
+    }
     public function retrieveStockInitial($produitId){
         $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -91,9 +121,27 @@ class ProduitQueries {
             return $stock[0];
         else return null;
     }
-    
+    public function retrieveStockInitialParUsine($produitId, $codeUsine){
+        if($codeUsine !=='*') {
+            $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
+        }
+        else {
+            $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.'';
+        }
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if($stock!=null)
+            return $stock[0];
+        else return null;
+    }
     public function retrieveStockFinalParUsine($produitId, $codeUsine){
-        $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
+        if($codeUsine !=='*') {
+            $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
+        }
+        else {
+            $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.'';
+        }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();

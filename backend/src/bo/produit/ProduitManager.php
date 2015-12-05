@@ -76,6 +76,27 @@ class ProduitManager {
         }
         return $arrayProduits;
     }
+    
+    public function retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        $produits = $this->produitQuery->retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+        $arrayProduits = array();
+        $i = 0;
+        foreach ($produits as $key => $value) {
+            $arrayProduits [$i] [] = $value ['id'];
+            $arrayProduits [$i] [] = $value ['libelle'];
+            $arrayProduits [$i] [] = $value ['stock'];
+            $stockFinal=$this->produitQuery->retrieveStockFinalParUsine($value ['id'], $codeUsine);
+            if($stockFinal !=null)
+                $arrayProduits [$i] []= $stockFinal['stock'];
+            else
+                $arrayProduits [$i] [] = 0;
+            $i++;
+        }
+        return $arrayProduits;
+    }
+    public function countAllDemoulages($codeUsine,$where="") {
+        return $this->produitQuery->countAllDemoulages($codeUsine,$where);
+    }
 public function retrieveTypes()
     {
         return $this->produitQuery->retrieveTypes();
