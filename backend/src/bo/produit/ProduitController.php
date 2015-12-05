@@ -53,6 +53,9 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_LIST_DEMOULAGES:
                                 $this->doListDemoulages($request);
                                 break;
+                        case \App::ACTION_VIEW_DETAILS:
+                                $this->doviewDetails($request);
+                                break;
                         
                     }
             } else {
@@ -307,6 +310,24 @@ class ProduitController extends BaseController implements BaseAction {
             throw $e;
         } catch (Exception $e) {
             throw new Exception('ERREUR SERVEUR');
+        }
+    }
+    
+     public function doViewDetails($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $produitManager = new ProduitManager();
+                $achatDetails = $produitManager->retrieveAll($request['produitId']);
+                if ($achatDetails != null)
+                    $this->doSuccessO($achatDetails);
+                else
+                    echo json_encode(array());
+            } else {
+                $this -> doError('-1', 'Chargement detail produit impossible');
+            }
+        
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR_SERVEUR');
         }
     }
 }

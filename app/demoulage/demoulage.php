@@ -97,7 +97,7 @@
                             <div class="widget-main padding-12 no-padding-left no-padding-right">
                                 <div class="tab-content padding-4">
                                  <h4 class="widget-title lighter">
-                                 <i class="ace-icon fa fa-star orange"></i>Produit: Sole
+                                     <i class="ace-icon fa fa-star orange"></i>Produit: <span id="nomProduit"></span>
                                  </h4>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock Intial (kg)</label>
@@ -240,16 +240,22 @@
                 $('#MNU_IMPRIMER').addClass('disabled');
             }
             };
-            
+            $('#SAVE').attr("disabled", true);
             MessageSelected = function(click)
             {
                  enableRelevantDemoulagesMenu();
                 if (checkedDemoulages.length == 1){
+                    $('#SAVE').attr("disabled", false);
                     loadDemoulagesSelected(checkedDemoulages[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
                 {
+                    $('#SAVE').attr("disabled", true);
+                    $('#nomProduit').text("");
+                    $('#stockInitial').val("");
+                    $('#stockFinal').val("");
+                    
                     $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_MSG_VIEW').hide();
                     
@@ -262,12 +268,19 @@
             {
                  enableRelevantDemoulagesMenu();
                if (checkedDemoulages.length === 1){
+                   $('#SAVE').attr("disabled", false);
                     loadDemoulagesSelected(checkedDemoulages[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
                 else
                 {
+                    $('#SAVE').attr("disabled", true);
+                    $('#nomProduit').text("");
+                    $('#stockInitial').val("");
+                    $('#stockFinal').val("");
+                    $('#SAVE').attr("disabled", false);
+                    
                     $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_MSG_VIEW').hide();
                     $("#BTN_MSG_GROUP").popover('destroy');
@@ -396,30 +409,18 @@
             };
             
             loadDemoulages();
-            loadDemoulagesSelected = function(achatId)
+            loadDemoulagesSelected = function(produitId)
             {
                  var url;
-                 url = '<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php';
+                 url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
 
-                $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
-                    data = $.parseJSON(data);
-                    $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
-                    $('#DemoulagesDate').text(data.dateDemoulages);
-                    $('#DemoulagesNomMareyeur').text(data.nomMareyeur);
-                    $('#achatAdresseMareyeur').text(data.adresse);
-                    $('#achatUser').text(data.user);
-                    $('#PoidsTotal').text(data.poidsTotal);
-                    $('#MontantTotal').text(data.montantTotal);
-                    $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneDemoulages;
-                    var trHTML='';
-                    $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
-                    });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
-                    trHTML='';
-                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
-                    $('#TAB_MSG_VIEW').show();
+                $.post(url, {produitId: produitId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                  data = $.parseJSON(data);
+                  data = data[0];
+                    $('#nomProduit').text(data.designation);
+                    $('#stockInitial').val(data.stockInitial);
+                    $('#stockFinal').val(data.stockFinal);
+                    
                }).error(function(error) { });
             };
 
@@ -431,8 +432,8 @@
                 {
                      bootbox.confirm("Voulez vous vraiment valider cet achat", function(result) {
                     if(result){
-                    var achatId = checkedDemoulages[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+                    var produitId = checkedDemoulages[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
                     {
                         if (data.rc == 0)
                         {
@@ -456,7 +457,7 @@
                             bootbox.alert("Veuillez selectionnez un achat");
                         else if (checkedDemoulages.length >= 1)
                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedDemoulages[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?produitId='+checkedDemoulages[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
                             
                         }
                     });
@@ -469,8 +470,8 @@
                 {
                      bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
                     if(result){
-                    var achatId = checkedDemoulages[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    var produitId = checkedDemoulages[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
                     {
                         if (data.rc === 0)
                         {
