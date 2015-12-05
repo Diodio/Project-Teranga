@@ -241,7 +241,7 @@ class AchatQueries {
      */
     public function findInfoByAchact($achatId) {
         if ($achatId != null) {
-            $sql = 'SELECT produit_id, codeUsine,quantite FROM ligne_achat, achat WHERE achat.id=achat_id AND achat.id=' . $achatId;
+            $sql = 'SELECT produit_id, codeUsine,quantite, login FROM ligne_achat, achat WHERE achat.id=achat_id AND achat.id=' . $achatId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $achat = $stmt->fetchAll();

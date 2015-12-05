@@ -373,14 +373,24 @@ $codeUsine = $_COOKIE['codeUsine'];
                  if (state == 1) {
                          // $('#MNU_VALIDATION').removeClass('enable');
                          $('#MNU_VALIDATION').addClass('disabled');
+                         $('#MNU_ANNULATION').addClass('disabled');
                   } 
                   else if (state == 2) {
                       //$('#MNU_ANNULATION').removeClass('enable');
+                      $('#MNU_VALIDATION').addClass('disabled');
                       $('#MNU_ANNULATION').addClass('disabled');
                   }
                           
             }
             else if (checkedAchat.length > 1){
+                $('#MNU_VALIDATION').removeClass('enable');
+                $('#MNU_ANNULATION').removeClass('enable');
+                $('#MNU_IMPRIMER').removeClass('enable');
+                $('#MNU_VALIDATION').addClass('disabled');
+                $('#MNU_ANNULATION').addClass('disabled');
+                $('#MNU_IMPRIMER').addClass('disabled');
+            }
+            else{
                 $('#MNU_VALIDATION').removeClass('enable');
                 $('#MNU_ANNULATION').removeClass('enable');
                 $('#MNU_IMPRIMER').removeClass('enable');
@@ -608,7 +618,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         {
                             bootbox.alert(data.error);
                         }
-                        $.loader.close(true);
                     }, "json");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
                         });

@@ -1,6 +1,6 @@
 <?php
 
-namespace Produit;
+namespace Stock;
 use Stock\StockQueries as StockQueries;
 /**
  * Cette classe communique avec la classe ContactQueries
@@ -74,5 +74,11 @@ class StockManager {
     	return $stockQueries->destockage($produitId, $codeUsine, $nbStock);
   }
   
-  
+  public function findStockInitialByProduitId($produitId, $codeUsine) {
+      $stockQueries = new StockQueries();
+      $stock=$stockQueries->findStockInitialByProduitId($produitId, $codeUsine);
+      if($stock!=null)
+        return $stock['id'];
+    return 0;
+  }
 }

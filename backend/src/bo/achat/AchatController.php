@@ -136,7 +136,7 @@ private $logger;
                                 $ligneAchat->setMontant($ligneachat['montant']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
                                 $ligneAchatManager->insert($ligneAchat); 
-//                               
+                               
                             }
                          }
                     $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');

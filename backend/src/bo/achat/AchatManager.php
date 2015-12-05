@@ -159,11 +159,23 @@ public function findStatisticByUsine($codeUsine) {
     public function ajoutStockParAchact($achatId) {
         $achat = $this->achatQuery->findInfoByAchact($achatId);
         foreach ($achat as $key => $value) {
-            $stockManager = new \Produit\StockManager();
-            $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+            $stockManager = new \Stock\StockManager();
+            $stock = $stockManager->findStockInitialByProduitId($value ['produit_id'], $value ['codeUsine']);
+            if ($stock == 0) {
+                $stockInitial = new \Stock\StockInitial();
+                $stockInitial->setCodeUsine($value ['codeUsine']);
+                $stockInitial->setLogin($value ['login']);
+                $produitManger = new \Produit\ProduitManager();
+                $produit= $produitManger->findById($value ['produit_id']);
+                $stockInitial->setProduit($produit);
+                $stockInitial->setStock($value ['quantite']);
+                $stockManager->insert($stockInitial);
+            } else {
+                $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+            }
         }
     }
-    
+
     public function annulerStockParAchact($achatId) {
         $achat = $this->achatQuery->findInfoByAchact($achatId);
         foreach ($achat as $key => $value) {

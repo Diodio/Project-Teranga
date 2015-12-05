@@ -485,6 +485,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         AchatProcess = function ()
         {
             
+           $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
             var numAchat= $('#numAchat').val();
@@ -576,6 +577,7 @@ $table.find("tbody tr").each(function () {
                             class_name: 'gritter-error gritter-light'
                         });
                         
+                        $('#SAVE').attr("disabled", false);
                     };
                     
                 },

@@ -12,7 +12,7 @@ $sql = "SELECT * FROM mareyeur,achat WHERE mareyeur.id=mareyeur_id AND achat.id=
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 //Cette requete permet de recuperer les produits d'un achat
-$sqlProduit="SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=" . $achatId;
+$sqlProduit="SELECT p.libelle designation,al.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=" . $achatId;
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 ?>
 

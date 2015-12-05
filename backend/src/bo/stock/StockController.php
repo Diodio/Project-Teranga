@@ -8,8 +8,7 @@ $lang='fr';
 use Produit\Produit as Produit;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
-use Produit\StockManager as StockManager;
-use Produit\FamilleStockManager as FamilleStockManager;
+use Stock\StockManager as StockManager;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
                         

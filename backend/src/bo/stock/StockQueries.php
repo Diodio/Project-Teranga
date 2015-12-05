@@ -148,6 +148,17 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
             return null;
     }
     
+    public function findStockInitialByProduitId($produitId, $codeUsine) {
+        $sql = 'SELECT id FROM stock_initial where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $produit = $stmt->fetchAll();
+        if ($produit != null)
+            return $produit[0];
+        else
+            return null;
+    }
+    
     public function findStats() {
         $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock s, usine u WHERE s.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
