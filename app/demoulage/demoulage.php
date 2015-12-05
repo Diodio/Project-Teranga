@@ -203,47 +203,10 @@
                 }
             });
             
-            enableRelevantDemoulagesMenu = function()
-	{   
-            if (checkedDemoulages.length == 1)
-            {
-                $('#MNU_VALIDATION').removeClass('disabled');
-                $('#MNU_ANNULATION').removeClass('disabled');
-                $('#MNU_IMPRIMER').removeClass('disabled');
-                var state = $('#stag' + checkedDemoulages[0]).val();
-                 if (state == 1) {
-                         // $('#MNU_VALIDATION').removeClass('enable');
-                         $('#MNU_VALIDATION').addClass('disabled');
-                         $('#MNU_ANNULATION').addClass('disabled');
-                  } 
-                  else if (state == 2) {
-                      //$('#MNU_ANNULATION').removeClass('enable');
-                      $('#MNU_VALIDATION').addClass('disabled');
-                      $('#MNU_ANNULATION').addClass('disabled');
-                  }
-                          
-            }
-            else if (checkedDemoulages.length > 1){
-                $('#MNU_VALIDATION').removeClass('enable');
-                $('#MNU_ANNULATION').removeClass('enable');
-                $('#MNU_IMPRIMER').removeClass('enable');
-                $('#MNU_VALIDATION').addClass('disabled');
-                $('#MNU_ANNULATION').addClass('disabled');
-                $('#MNU_IMPRIMER').addClass('disabled');
-            }
-            else{
-                $('#MNU_VALIDATION').removeClass('enable');
-                $('#MNU_ANNULATION').removeClass('enable');
-                $('#MNU_IMPRIMER').removeClass('enable');
-                $('#MNU_VALIDATION').addClass('disabled');
-                $('#MNU_ANNULATION').addClass('disabled');
-                $('#MNU_IMPRIMER').addClass('disabled');
-            }
-            };
+         
             $('#SAVE').attr("disabled", true);
             MessageSelected = function(click)
             {
-                 enableRelevantDemoulagesMenu();
                 if (checkedDemoulages.length == 1){
                     $('#SAVE').attr("disabled", false);
                     loadDemoulagesSelected(checkedDemoulages[0]);
@@ -255,6 +218,8 @@
                     $('#nomProduit').text("");
                     $('#stockInitial').val("");
                     $('#stockFinal').val("");
+                    $('#nombreCarton').val("");
+                    $('#nombreParCarton').val("");
                     
                     $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_MSG_VIEW').hide();
@@ -266,7 +231,6 @@
             };
             MessageUnSelected = function()
             {
-                 enableRelevantDemoulagesMenu();
                if (checkedDemoulages.length === 1){
                    $('#SAVE').attr("disabled", false);
                     loadDemoulagesSelected(checkedDemoulages[0]);
@@ -279,6 +243,8 @@
                     $('#nomProduit').text("");
                     $('#stockInitial').val("");
                     $('#stockFinal').val("");
+                    $('#nombreCarton').val("");
+                    $('#nombreParCarton').val("");
                     $('#SAVE').attr("disabled", false);
                     
                     $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
@@ -489,5 +455,119 @@
                     });
                 }
             });
+            
+        DemoulageProcess = function ()
+        {
+            
+           $('#SAVE').attr("disabled", true);
+            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            
+            var stockFinal= $('#stockFinal').val();
+            var nombreParCarton= $('#nombreParCarton').val();
+            var nombreCarton = $("#nombreCarton").val();
+             
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('produitId', checkedDemoulages[0]);
+            formData.append('stockFinal', stockFinal);
+            formData.append('nombreParCarton', nombreParCarton);
+            formData.append('nombreCarton', nombreCarton);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                        
+                        $('#nombreCarton').val("");
+                        $('#nombreParCarton').val("");
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                        $('#SAVE').attr("disabled", false);
+                    };
+                    
+                },
+                error: function () {
+                    alert("failure - controller");
+                    $('#SAVE').attr("disabled", false);
+                }
+            });
+
+        };
+        $("#SAVE").bind("click", function () {
+        $('#validation-form').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				stockFinal: {
+                                    required: true
+				},
+				nombreParCarton: {
+                                    required: true
+				},
+				nombreCarton: {
+                                    required: true
+				}
+				
+			},
+	
+			messages: {
+				stockFinal: {
+					required: "Champ obligatoire."
+				},
+				nombreParCarton: {
+					required: "Champ obligatoire."
+				},
+				nombreCarton: {
+					required: "Champ obligatoire."
+				}
+			},
+	
+	
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+				DemoulageProcess();
+			},
+			invalidHandler: function (form) {
+			}
+		});
+
+
+        });
             });
         </script>
