@@ -68,7 +68,14 @@ class StockManager {
     	return $stockQueries->updateNbStock($produitId, $codeUsine, $nbStock);
   }
   
-
+  public function updateNbStockFinal($produitId, $codeUsine, $nbStock ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->updateNbStockFinal($produitId, $codeUsine, $nbStock);
+  }
+    public function resetStockInitial($produitId, $codeUsine ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->resetStockInitial($produitId, $codeUsine);
+  }
   public function destockage($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
     	return $stockQueries->destockage($produitId, $codeUsine, $nbStock);
@@ -81,4 +88,29 @@ class StockManager {
         return $stock['id'];
     return 0;
   }
+  
+  public function findStockFinalByProduitId($produitId, $codeUsine) {
+      $stockQueries = new StockQueries();
+      $stock=$stockQueries->findStockFinalByProduitId($produitId, $codeUsine);
+      if($stock!=null)
+        return $stock['id'];
+    return 0;
+  }
+  public function ajoutStockFinalParProduit($produitId, $codeUsine, $login, $stock) {
+            $stockFinal = $this->findStockInitialByProduitId($produitId, $codeUsine);
+            if ($stockFinal == 0) {
+                $stockFinal = new \Stock\StockFinal();
+                $stockFinal->setCodeUsine($codeUsine);
+                $stockFinal->setLogin($login);
+                $produitManger = new \Produit\ProduitManager();
+                $produit= $produitManger->findById($produitId);
+                $stockFinal->setProduit($produit);
+                $stockFinal->setStock($stock);
+                $this->insert($stockFinal);
+            } else {
+                $this->updateNbStockFinal($produitId, $codeUsine, $stock);
+            }
+            $this->resetStockInitial($produitId, $codeUsine);
+        
+    }
 }

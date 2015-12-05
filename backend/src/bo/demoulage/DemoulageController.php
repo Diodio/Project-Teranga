@@ -43,6 +43,10 @@ class DemoulageController extends BaseController  {
                 $demoulage->setProduit($produit);
                 $demoulageAdded = $demoulageManager->insert($demoulage);
                 if ($demoulageAdded->getId() != null) {
+                    if($request['stockFinal'] !=""){
+                      $stockManager = new \Stock\StockManager();
+                       $stockManager->ajoutStockFinalParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockFinal']);
+                    }
                     $this->doSuccess($demoulageAdded->getId(), 'Produit demoulé avec succes');
                 } else {
                     throw new Exception('Insertion impossible');
