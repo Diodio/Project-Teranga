@@ -64,10 +64,10 @@ class LigneAchat extends \Achat\LigneAchat implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'quantite', 'poids', 'montant', 'produit', 'achat', 'createdDate', 'updatedDate', 'deletedDate');
+            return array('__isInitialized__', 'id', 'prixUnitaire', 'quantite', 'montant', 'produit', 'achat', 'createdDate', 'updatedDate', 'deletedDate');
         }
 
-        return array('__isInitialized__', 'id', 'quantite', 'poids', 'montant', 'produit', 'achat', 'createdDate', 'updatedDate', 'deletedDate');
+        return array('__isInitialized__', 'id', 'prixUnitaire', 'quantite', 'montant', 'produit', 'achat', 'createdDate', 'updatedDate', 'deletedDate');
     }
 
     /**
@@ -202,17 +202,6 @@ class LigneAchat extends \Achat\LigneAchat implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getPoids()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPoids', array());
-
-        return parent::getPoids();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getMontant()
     {
 
@@ -290,23 +279,34 @@ class LigneAchat extends \Achat\LigneAchat implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getPrixUnitaire()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPrixUnitaire', array());
+
+        return parent::getPrixUnitaire();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPrixUnitaire($prixUnitaire)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPrixUnitaire', array($prixUnitaire));
+
+        return parent::setPrixUnitaire($prixUnitaire);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setQuantite($quantite)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setQuantite', array($quantite));
 
         return parent::setQuantite($quantite);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPoids($poids)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPoids', array($poids));
-
-        return parent::setPoids($poids);
     }
 
     /**

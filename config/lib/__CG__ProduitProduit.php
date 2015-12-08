@@ -108,10 +108,10 @@ class Produit extends \Produit\Produit implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'libelle', 'prixUnitaire', 'familleProduit', 'createdDate', 'updatedDate', 'deleteDate', 'achat', 'stock');
+            return array('__isInitialized__', 'id', 'libelle', 'createdDate', 'updatedDate', 'deleteDate', 'achat', 'stockProvisoire', 'stockReel', 'bonSortie');
         }
 
-        return array('__isInitialized__', 'id', 'libelle', 'prixUnitaire', 'familleProduit', 'achat', 'stock');
+        return array('__isInitialized__', 'id', 'libelle', 'achat', 'stockProvisoire', 'stockReel', 'bonSortie');
     }
 
     /**
@@ -247,39 +247,6 @@ class Produit extends \Produit\Produit implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getPoidsNet()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPoidsNet', array());
-
-        return parent::getPoidsNet();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPrixUnitaire()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPrixUnitaire', array());
-
-        return parent::getPrixUnitaire();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getStock()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStock', array());
-
-        return parent::getStock();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getSeuil()
     {
 
@@ -346,39 +313,6 @@ class Produit extends \Produit\Produit implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setPoidsNet($poidsNet)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPoidsNet', array($poidsNet));
-
-        return parent::setPoidsNet($poidsNet);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPrixUnitaire($prixUnitaire)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPrixUnitaire', array($prixUnitaire));
-
-        return parent::setPrixUnitaire($prixUnitaire);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setStock($stock)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStock', array($stock));
-
-        return parent::setStock($stock);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setSeuil($seuil)
     {
 
@@ -423,23 +357,89 @@ class Produit extends \Produit\Produit implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getFamilleProduit()
+    public function getAchat()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFamilleProduit', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAchat', array());
 
-        return parent::getFamilleProduit();
+        return parent::getAchat();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setFamilleProduit($familleProduit)
+    public function getBonSortie()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFamilleProduit', array($familleProduit));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBonSortie', array());
 
-        return parent::setFamilleProduit($familleProduit);
+        return parent::getBonSortie();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAchat($achat)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAchat', array($achat));
+
+        return parent::setAchat($achat);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setBonSortie($bonSortie)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setBonSortie', array($bonSortie));
+
+        return parent::setBonSortie($bonSortie);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStockProvisoire()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStockProvisoire', array());
+
+        return parent::getStockProvisoire();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStockReel()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStockReel', array());
+
+        return parent::getStockReel();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStockProvisoire($stockProvisoire)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStockProvisoire', array($stockProvisoire));
+
+        return parent::setStockProvisoire($stockProvisoire);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStockReel($stockReel)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStockReel', array($stockReel));
+
+        return parent::setStockReel($stockReel);
     }
 
     /**
@@ -462,28 +462,6 @@ class Produit extends \Produit\Produit implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'doPreUpdate', array());
 
         return parent::doPreUpdate();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPoidsBrut()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPoidsBrut', array());
-
-        return parent::getPoidsBrut();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPoidsBrut($poidsBrut)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPoidsBrut', array($poidsBrut));
-
-        return parent::setPoidsBrut($poidsBrut);
     }
 
 }

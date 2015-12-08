@@ -9,8 +9,7 @@ use Produit\Produit as Produit;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use Produit\ProduitManager as ProduitManager;
-use Produit\FamilleProduitManager as FamilleProduitManager;
-use Stock\StockInitial as StockInitial;
+use Stock\StockProvisoire as StockProvisoire;
 use Produit\StockManager as StockManager;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
@@ -68,35 +67,32 @@ class ProduitController extends BaseController implements BaseAction {
 
     public function doInsert($request) {
         try {
-            if ($request['familleId'] != "" && $request['designation'] != "") {
+            if ($request['designation'] != "") {
                 $produitManager = new ProduitManager();
                 $checkProduit = $produitManager->findProduitsByName($request['designation']);
                 if ($checkProduit == NULL) {
                     $produit = new Produit();
-                    $familleProduitManager = new FamilleProduitManager();
-                    $famille = $familleProduitManager->findById($request['familleId']);
                     $produit->setLibelle($request['designation']);
-                    $produit->setFamilleProduit($famille);
                     $produitAdded = $produitManager->insert($produit);
                     if ($produitAdded->getId() != null) {
-                        if($request['stockInitial'] !==0 && $request['stockFinal'] ==0){
-                            $stock = new StockInitial();
-                            $stock->setStock($request['stockInitial']);
+                        if ($request['stockProvisoire'] !== 0 || $request['stockReel'] !== 0) {
+                            if ($request['stockProvisoire'] !== 0 && $request['stockReel'] == 0) {
+                                $stock = new StockProvisoire();
+                                $stock->setStock($request['stockProvisoire']);
+                            } else if ($request['stockProvisoire'] == 0 && $request['stockReel'] !== 0) {
+                                $stock = new \Stock\StockReel();
+                                $stock->setStock($request['stockReel']);
+                            } else if ($request['stockProvisoire'] !== 0 && $request['stockReel'] !== 0) {
+                                $stock = new \Stock\StockReel();
+                                $stock->setStock($request['stockReel']);
+                            }
+                            $stock->setSeuil($request['seuil']);
+                            $stock->setCodeUsine($request['codeUsine']);
+                            $stock->setLogin($request['login']);
+                            $stock->setProduit($produit);
+                            $stockManger = new \Stock\StockManager();
+                            $stockManger->insert($stock);
                         }
-                        else if($request['stockInitial'] ==0 && $request['stockFinal'] !==0){ 
-                            $stock = new \Stock\StockFinal();
-                            $stock->setStock($request['stockFinal']);
-                        }
-                        else if($request['stockInitial'] !=0 && $request['stockFinal'] !=0){ 
-                            $stock = new \Stock\StockFinal();
-                            $stock->setStock($request['stockFinal']);
-                        }
-                        //$stock->setSeuil($request['seuil']);
-                        $stock->setCodeUsine($request['codeUsine']);
-                        $stock->setLogin($request['login']);
-                        $stock->setProduit($produit);
-                        $stockManger = new \Stock\StockManager();
-                        $stockManger->insert($stock);
                         $this->doSuccess($produitAdded->getId(), 'Produit enregistré avec succes');
                     } else {
                         $this->doError('-1', 'Impossible d\'inserer ce produit');
@@ -143,16 +139,12 @@ class ProduitController extends BaseController implements BaseAction {
 
     public function doList($request) {
         try {
-            if (isset($request['familleId'])) {
-                $produitManager= new ProduitManager();
-                $produits = $produitManager->retrieveAll($request['familleId']);
-                if ($produits != NULL) {
-                    $this->doSuccessO($this->listObjectToArray($produits));
-                } else
-                    echo json_encode(array());
-            }else {
-                $this->doError('-1', 'Veuillez vérifier vos parametres');
-            }
+            $produitManager = new ProduitManager();
+            $produits = $produitManager->retrieveAll();
+            if ($produits != NULL) {
+                $this->doSuccessO($this->listObjectToArray($produits));
+            } else
+                echo json_encode(array());
         } catch (ConstraintException $e) {
             throw $e;
         } catch (Exception $e) {

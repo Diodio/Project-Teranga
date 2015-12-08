@@ -59,14 +59,8 @@ class ProduitQueries {
     }
 
    
-    public function retrieveAll($produitId) {
-           if($produitId !== '*')  {
-                $sql = 'select distinct(produit.id) as pid, libelle from produit where produit.id='.$produitId.' group by produit.id ';
-           }
-           else {
-               $sql = 'select distinct(produit.id) as pid, libelle from produit group by produit.id ';
-           }
-        $sql = str_replace("`", "", $sql);
+    public function retrieveAll() {
+        $sql = 'select distinct(produit.id) as pid, libelle from produit';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
@@ -77,10 +71,10 @@ class ProduitQueries {
        if($sWhere !== "")
             $sWhere = " and " . $sWhere;
            if($codeUsine !== '*')  {
-                $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_initial WHERE produit.id=produit_id AND stock > 0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+                $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND stock > 0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
            }
            else {
-               $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_initial WHERE produit.id=produit_id AND stock > 0 ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
+               $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND stock > 0 ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
            }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -93,10 +87,10 @@ class ProduitQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'select count(*) as nb from produit, stock_initial where produit.id=produit_id and stock !=0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'select count(*) as nb from produit, stock_provisoire where produit.id=produit_id and stock !=0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'select count(*) as nb from produit, stock_initial where produit.id=produit_id and stock !=0 ' . $sWhere . '';
+             $sql = 'select count(*) as nb from produit, stock_provisoire where produit.id=produit_id and stock !=0 ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -104,8 +98,8 @@ class ProduitQueries {
         $nbClients = $stmt->fetch();
         return $nbClients['nb'];
     }
-    public function retrieveStockInitial($produitId){
-        $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.'';
+    public function retrieveStockProvisoire($produitId){
+        $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -114,8 +108,8 @@ class ProduitQueries {
         else return null;
     }
 
-    public function retrieveStockFinal($produitId){
-        $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.'';
+    public function retrieveStockReel($produitId){
+        $sql = 'SELECT stock FROM stock_reel WHERE produit_id='.$produitId.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -125,10 +119,10 @@ class ProduitQueries {
     }
     public function retrieveStockInitialParUsine($produitId, $codeUsine){
         if($codeUsine !=='*') {
-            $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
+            $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
         }
         else {
-            $sql = 'SELECT stock FROM stock_initial WHERE produit_id='.$produitId.'';
+            $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.'';
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -137,12 +131,12 @@ class ProduitQueries {
             return $stock[0];
         else return null;
     }
-    public function retrieveStockFinalParUsine($produitId, $codeUsine){
+    public function retrieveStockReelParUsine($produitId, $codeUsine){
         if($codeUsine !=='*') {
-            $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
+            $sql = 'SELECT stock FROM stock_reel WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
         }
         else {
-            $sql = 'SELECT stock FROM stock_final WHERE produit_id='.$produitId.'';
+            $sql = 'SELECT stock FROM stock_reel WHERE produit_id='.$produitId.'';
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();

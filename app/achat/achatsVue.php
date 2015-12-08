@@ -550,7 +550,7 @@ $table.find("tbody tr").each(function () {
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/achat/achatController.php',
+                url: '<?php echo App::getBoPath(); ?>/achat/AchatController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,

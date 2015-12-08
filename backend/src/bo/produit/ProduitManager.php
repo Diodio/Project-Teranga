@@ -55,22 +55,22 @@ class ProduitManager {
     }
 
     
-    public function retrieveAll($produitId) {
-        $produits = $this->produitQuery->retrieveAll($produitId);
+    public function retrieveAll() {
+        $produits = $this->produitQuery->retrieveAll();
         $arrayProduits = array();
         $i = 0;
         foreach ($produits as $key => $value) {
             $arrayProduits [$i] ['id'] = $value ['pid'];
-            $stockInitial =  $this->produitQuery->retrieveStockInitial($value ['pid']);
-            if($stockInitial !=null)
-                $arrayProduits [$i] ['stockInitial'] = $stockInitial ['stock'];
+            $stockProvisoire =  $this->produitQuery->retrieveStockProvisoire($value ['pid']);
+            if($stockProvisoire !=null)
+                $arrayProduits [$i] ['stockProvisoire'] = $stockProvisoire ['stock'];
             else
-                $arrayProduits [$i] ['stockInitial'] = 0;
-            $stockFinal =  $this->produitQuery->retrieveStockFinal($value ['pid']);
-            if($stockFinal !=null)
-                $arrayProduits [$i] ['stockFinal'] = $stockFinal['stock'];
+                $arrayProduits [$i] ['stockProvisoire'] = 0;
+            $stockReel =  $this->produitQuery->retrieveStockReel($value ['pid']);
+            if($stockReel !=null)
+                $arrayProduits [$i] ['stockReel'] = $stockReel['stock'];
             else
-                $arrayProduits [$i] ['stockFinal'] = 0;
+                $arrayProduits [$i] ['stockReel'] = 0;
             $arrayProduits [$i] ['designation'] = $value ['libelle'];
             $i++;
         }
@@ -85,7 +85,7 @@ class ProduitManager {
             $arrayProduits [$i] [] = $value ['id'];
             $arrayProduits [$i] [] = $value ['libelle'];
             $arrayProduits [$i] [] = $value ['stock'];
-            $stockFinal=$this->produitQuery->retrieveStockFinalParUsine($value ['id'], $codeUsine);
+            $stockFinal=$this->produitQuery->retrieveStockReelParUsine($value ['id'], $codeUsine);
             if($stockFinal !=null)
                 $arrayProduits [$i] []= $stockFinal['stock'];
             else
@@ -128,12 +128,12 @@ public function retrieveTypes()
         $list = array();
         $i = 0;
         foreach ($produits as $key => $value) {
-            $stockInitial = 0;
+           // $stockFinal = 0;
             $list [$i]['value'] = $value ['value'];
-            $stock = $this->produitQuery->retrieveStockFinalParUsine($value ['value'], $codeUsine);
-            if($stock !=null)
-                $stockInitial = $stock ['stock'];
-            $list [$i]['text'] = $value ['text'].' ('.$stockInitial.')';
+            //$stock = $this->produitQuery->retrieveStockReelParUsine($value ['value'], $codeUsine);
+           // if($stock !=null)
+           //     $stockFinal = $stock ['stock'];
+            $list [$i]['text'] = $value ['text'];
             $i++;
         }
         return $list;

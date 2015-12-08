@@ -16,11 +16,6 @@ class Produit {
      * */
     protected $libelle;
     
-/** @ManyToOne(targetEntity="Produit\FamilleProduit", inversedBy="familleProduit", cascade={"persist"}) */
-    protected $familleProduit;
-    
-    
-   
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
 
@@ -33,11 +28,11 @@ class Produit {
     /** @OneToMany(targetEntity="Achat\LigneAchat", mappedBy="achat", cascade={"persist"}) */
     protected $achat;
     
-    /** @OneToMany(targetEntity="Stock\StockInitial", mappedBy="stockInitial", cascade={"persist"}) */
-    protected $stockInitial;
+    /** @OneToMany(targetEntity="Stock\StockProvisoire", mappedBy="stockProvisoire", cascade={"persist"}) */
+    protected $stockProvisoire;
     
-    /** @OneToMany(targetEntity="Stock\StockFinal", mappedBy="stockFinal", cascade={"persist"}) */
-    protected $stockFinal;
+    /** @OneToMany(targetEntity="Stock\StockReel", mappedBy="stockReel", cascade={"persist"}) */
+    protected $stockReel;
     
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="bonSortie", cascade={"persist"}) */
     protected $bonSortie;
@@ -75,18 +70,6 @@ class Produit {
     function setLibelle($libelle) {
         $this->libelle = $libelle;
     }
-
-    
-
-    function getStockInitial() {
-        return $this->stockInitial;
-    }
-
-    function setStockInitial($stockInitial) {
-        $this->stockInitial = $stockInitial;
-    }
-
-    
     function setSeuil($seuil) {
         $this->seuil = $seuil;
     }
@@ -102,13 +85,7 @@ class Produit {
     function setDeleteDate($deleteDate) {
         $this->deleteDate = $deleteDate;
     }
-    function getFamilleProduit() {
-        return $this->familleProduit;
-    }
-
-    function setFamilleProduit($familleProduit) {
-        $this->familleProduit = $familleProduit;
-    }
+   
 
     public function getAchat() {
         return $this->achat;
@@ -126,15 +103,24 @@ class Produit {
         $this->bonSortie = $bonSortie;
     }
 
-    function getStockFinal() {
-        return $this->stockFinal;
-    }
-
-    function setStockFinal($stockFinal) {
-        $this->stockFinal = $stockFinal;
-    }
-
     
+    function getStockProvisoire() {
+        return $this->stockProvisoire;
+    }
+
+    function getStockReel() {
+        return $this->stockReel;
+    }
+
+    function setStockProvisoire($stockProvisoire) {
+        $this->stockProvisoire = $stockProvisoire;
+    }
+
+    function setStockReel($stockReel) {
+        $this->stockReel = $stockReel;
+    }
+
+        
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');

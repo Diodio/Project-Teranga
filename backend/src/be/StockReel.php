@@ -1,21 +1,10 @@
 <?php
 
-/*
- * 2SMOBILE 
- * ----------------------------------------
- *  @author     Kiwi <pathe.gueye@kiwi.sn>
- *  @copyright  2006-2015 Kiwi/2SI Partner
- *  @version    2.0.0
- *  @link       http://www.kiwi.sn
- *  @link       http://www.ssi.sn
- * ----------------------------------------
- */
-
-namespace Produit;
+namespace Stock;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="famille_produit") * */
-class FamilleProduit {
+ * @Table(name="stock_reel") * */
+class StockReel {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -23,11 +12,24 @@ class FamilleProduit {
     protected $id;
     
     /**
+     * @Column(type="integer", nullable=true)
+     * */
+    protected $stock;
+    /**
+     * @Column(type="integer", nullable=true)
+     * */
+    protected $seuil;
+    
+    /**
      * @Column(type="string", length=60, nullable=false)
      * */
-    protected $libelle;
-    
-
+    protected $codeUsine;
+   
+    /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $login;
+   
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
 
@@ -37,15 +39,27 @@ class FamilleProduit {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
-    /** @OneToMany(targetEntity="Produit\Produit", mappedBy="produit", cascade={"persist"}) */
+    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
     protected $produit;
     
     function getId() {
         return $this->id;
     }
 
-    function getLibelle() {
-        return $this->libelle;
+    function getStock() {
+        return $this->stock;
+    }
+
+    function getSeuil() {
+        return $this->seuil;
+    }
+
+    function getCodeUsine() {
+        return $this->codeUsine;
+    }
+
+    function getLogin() {
+        return $this->login;
     }
 
     function getCreatedDate() {
@@ -64,8 +78,20 @@ class FamilleProduit {
         $this->id = $id;
     }
 
-    function setLibelle($libelle) {
-        $this->libelle = $libelle;
+    function setStock($stock) {
+        $this->stock = $stock;
+    }
+
+    function setSeuil($seuil) {
+        $this->seuil = $seuil;
+    }
+
+    function setCodeUsine($codeUsine) {
+        $this->codeUsine = $codeUsine;
+    }
+
+    function setLogin($login) {
+        $this->login = $login;
     }
 
     function setCreatedDate($createdDate) {
@@ -79,9 +105,15 @@ class FamilleProduit {
     function setDeleteDate($deleteDate) {
         $this->deleteDate = $deleteDate;
     }
+    function getProduit() {
+        return $this->produit;
+    }
 
-    
+    function setProduit($produit) {
+        $this->produit = $produit;
+    }
 
+        
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');
@@ -94,13 +126,6 @@ class FamilleProduit {
         date_default_timezone_set('GMT');
         $this->updatedDate = new \DateTime("now");
     }
-    function getArticle() {
-        return $this->article;
-    }
-
-    function setArticle($article) {
-        $this->article = $article;
-    }
-
+    
 
     }

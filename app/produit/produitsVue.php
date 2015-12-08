@@ -27,40 +27,12 @@
             <!-- PAGE CONTENT BEGINS -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="col-lg-3">
-                       <div class="control-group">
-                            <div class="controls">
-                                <select id="GRP_CMB" style="width: 225px">
-                                    <option value="*" class="groups"> Famille de produit </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div class="col-lg-1">
                         <div class="btn-group">
                                     <button data-toggle="dropdown"
                                             class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="
-                                            height: 32px;
-                                            width: 80px;
-                                            margin-top: -1px;
-                                        ">
-                                        <i class="icon-group icon-only icon-on-right"></i> Famille
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_GRP_NEW'><a href="#" id="GRP_NEW">Nouveau </a></li>
-                                        <li class="divider"></li>
-                                        <li id='MNU_GRP_EDIT'><a href="#" id="GRP_EDIT">Renommer</a></li>
-                                        <li id='MNU_GRP_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
-                                    </ul>
-                                </div>
-                    </div>
-                    <div class="col-lg-1">
-                        <div class="btn-group">
-                                    <button data-toggle="dropdown"
-                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="
+                                            data-rel="tooltip" data-placement="top" title="Produit" style="
                                             height: 32px;
                                             width: 80px;
                                             margin-top: -1px;
@@ -89,44 +61,6 @@
                     <div id="grid-pager"></div>
                 </div>
             </div>
-            <div id="winModalFamille" class="modal fade" tabindex="-1">
-                 <form id="FRM_GROUP" class="form-horizontal" action="#" onsubmit="return false;" style="margin-bottom: 0px">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Famille de produit</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="FRM_PRODUIT" class="form-horizontal" role="form">
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille </label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="FAMILLEPRODUIT" name="FAMILLEPRODUIT" placeholder="" class="col-xs-10 col-sm-6">
-                                        <input type="hidden" id="ACTION" value="INSERT">
-                                        <input type="hidden" id="nameFamilleProduit" value="">
-                                        <input type="hidden" id="familleProduitId" value="">
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button id="FRM_FAMILLE_SAVE" class="btn btn-small btn-info" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Enregistrer
-                            </button>
-                            
-                            <button class="btn btn-small btn-danger" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Annuler
-                            </button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-                
-                            </form>
-            </div>
             <form id="validation-form" class="form-horizontal" role="form">
             <div id="winModalProduit" class="modal fade" tabindex="-1">
                 <div class="modal-dialog">
@@ -136,15 +70,7 @@
                             <h3 class="smaller lighter blue no-margin">Produit</h3>
                         </div>
 
-                        <div class="modal-body" style="height: 340px;">
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Famille de produit</label>
-                                    <div class="col-sm-9">
-                                        <select id="GRP_NEW_CMB" data-placeholder="" style="width: 228px">
-                                            <option value="*" class="groups">Sélectionnez</option>
-                                        </select>
-                                    </div>
-                            </div>
+                        <div class="modal-body" style="height: 240px;">
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
                                     <div class="col-sm-9">
@@ -152,15 +78,15 @@
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock initial</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockInitial" name="stockInitial" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                        <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock final</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockFinal" name="stockFinal" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                             <div class="form-group">
@@ -194,197 +120,24 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        var nbTotalChecked=0;
-        var checkedProduit = new Array();
-        var oTableProduit = null;
-        var familleId="";
-    $("#GRP_CMB").select2();
-    $("#GRP_NEW_CMB").select2();
-        
-         
-    loadFamilleProduit = function(){
-            $.post("<?php echo App::getBoPath(); ?>/produit/FamilleProduitController.php", {userId: "<?php echo $userId;?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
-                sData=$.parseJSON(data);
-                if(sData.rc==-1){
-                    $.gritter.add({
-                            title: 'Notification',
-                            text: sData.error,
-                            class_name: 'gritter-error gritter-light'
-                        });
-                }else{
-                    $("#GRP_CMB").loadJSON('{"groups":' + data + '}');
-                }
-            });
-            }
-            
-           loadNewFamilleProduit = function(){
-            $.post("<?php echo App::getBoPath(); ?>/produit/FamilleProduitController.php", {userId: "<?php echo $userId;?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
-                sData=$.parseJSON(data);
-                if(sData.rc==-1){
-                    $.gritter.add({
-                            title: 'Notification',
-                            text: sData.error,
-                            class_name: 'gritter-error gritter-light'
-                        });
-                }else{
-                    $("#GRP_NEW_CMB").loadJSON('{"groups":' + data + '}');
-                }
-            });
-            }
-    loadFamilleProduit();
-    loadNewFamilleProduit();
-        $("#MNU_GRP_NEW").click(function()
-        {
-           $("#groupName").val('');
-            $('#winModalFamille .control-group').removeClass('error').addClass('info');
-            $('#winModalFamille span.help-block').remove();
-            $('#winModalFamille').modal('show');
-        });
-        
         $("#MNU_PRODUIT_NEW").click(function()
         {
            //$("#groupName").val('');
           
-            $('#winModalProduit .control-group').removeClass('error').addClass('info');
-            $('#winModalProduit span.help-block').remove();
+//            $('#winModalProduit .control-group').removeClass('error').addClass('info');
+//            $('#winModalProduit span.help-block').remove();
             $('#winModalProduit').modal('show');
         });
         
-        $("#FRM_FAMILLE_SAVE").click(function()
-        {
-            $.validator.addMethod(
-                "regexGroupName",
-                function(value, element, regexp) {
-                    return this.optional(element) || regexp.test(value);
-                },
-                "Les caracteres spéciaux ne sont pas autorisés"
-            );
-            context=$(this);
-            $("#FRM_GROUP").validate({
-                errorElement: 'span',
-                errorClass: 'help-block',
-                focusInvalid: false,
-                rules: {
-                    FAMILLEPRODUIT: {
-                        required: true,
-//                        regexGroupName: /^[&-_a-zA-Z0-9\u00E0-\u00FC ]+(&|\w)*$/
-                        regexGroupName: /[a-zA-Z0-9_&,\-\ ]/ // /^[a-zA-Z\u00E0-\u00FC ]+$/ //regexGroupName: /^[a-zA-Z0-9\u00E0-\u00FC ]+(&|\w)*$/
-                    }
-                },
-                messages: {
-                    FAMILLEPRODUIT: {
-                        required: "Champ obligatoire"
-                    }
-                },
-                errorPlacement: function(error, element) {
-                    var container = $('<div />');
-                    container.addClass('Ntooltip');
-                    error.insertAfter(element);
-                    error.wrap(container);
-                    $("<div class='errorImage'></div>").insertAfter(error);
-                },
-                highlight: function(e) {
-                    $(e).closest('.control-group').removeClass('info').addClass('help-block error');
-                },
-                success: function(e) {
-                    $(e).closest('.control-group').removeClass('error').addClass('info');
-                },
-                submitHandler: function(form) {
-                    var ACTION = $("#ACTION").val();
-                    var familleId = $("#familleProduitId").val();
-                    var libelle = $("#FAMILLEPRODUIT").val();
-//                    var frmData = 'userId=<?php echo $userId; ?>&ACTION=' + ACTION + '&groupId=' + groupId + '&groupName=' + groupName;
-                $.ajax({
-                    url: '<?php echo App::getBoPath(); ?>/produit/FamilleProduitController.php',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                      //  userId: <?php echo $userId; ?>,
-                        ACTION: ACTION,
-                        familleId: familleId,
-                        familleName: libelle
-                    },
-                success: function(data)
-                {
-                    $('#winModalFamille').modal('hide');
-                    if (data.rc == 0){
-                        //$("#GRP_CMB").val(familleId).change();
-                        //loadContact(groupId);
-                        $.gritter.add({
-                            title: 'Notification',
-                            text: data.action,
-                            class_name: 'gritter-success gritter-light'
-                        });
-                        if(familleId!==""){
-                            jsonText='{"value":'+familleId+', "text":"'+libelle+'"}';
-                            jsonText=JSON.parse(jsonText);
-                            familleId=familleId;
-                            $("#GRP_CMB").select2("data", jsonText, true);
-                        }
-                        loadFamilleProduit();
-                    }else{
-                        $.gritter.add({
-                            title: 'Notification',
-                            text: data.error,
-                            class_name: 'gritter-error gritter-light'
-                        });
-                    }
-                },
-                error: function() {
-                    alert("failure");
-                }
-            });
-                },
-                invalidHandler: function(form) {
-                }
-            });
-        });
-          
-          $("#MNU_GRP_EDIT").click(function()
-        {
-            var familleId = $("#GRP_CMB").val();
-            if (familleId !== "*")
-            {
-                $.post("<?php echo App::getBoPath(); ?>/produit/FamilleProduitController.php", {familleId: familleId, ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function(data) {
-                    data = $.parseJSON(data);
-                    $("#ACTION").val('<?php echo App::ACTION_UPDATE; ?>');
-                    $("#familleProduitId").val(data.familleId);
-                    $("#FAMILLEPRODUIT").val(data.familleName);
-                });
-                $('#winModalFamille .control-group').removeClass('error').addClass('info');
-                $('#winModalFamille span.help-block').remove();
-                $('#winModalFamille').modal('show');
-            }
-            else
-                bootbox.alert("Veuillez choisir une famille de produit");
-        });
-        
-        $("#MNU_GRP_REMOVE").click(function()
-        {
-            var familleId = $("#GRP_CMB").val();
-            if (familleId != "*")
-            {
-                bootbox.confirm("Etes vous sur de vouloir supprimer", function(result) {
-                    if (result) {
-                        $.post("<?php echo App::getBoPath(); ?>/produit/FamilleProduitController.php", {familleId: familleId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data) {
-                            bootbox.alert("Famille de produit supprimé");
-                            loadFamilleProduit();
-                            $('#GRP_CMB').val('*').change();
-                        });
-                    }
-                });
-            }
-            else
-                bootbox.alert("Veuillez choisir une famille de produit");
-        });
-        
+   
        var grid_data;
     //    var grid;
 
-    loadProduit = function (familleId) {
-        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {familleId: familleId, ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
+    loadProduit = function () {
+        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
             $.extend($.jgrid,$.jgrid.regional['fr']);
             grid_data = $.parseJSON(data);
+            
             jQuery(grid_selector).jqGrid({
                 //direction: "rtl",
 
@@ -404,7 +157,7 @@
                 data: grid_data,
                 datatype: "local",
                 height: 350,
-                colNames: [' ', 'Désignation', 'stock initial', 'stock final'],
+                colNames: [' ', 'Désignation', 'stock provisoire', 'stock reel'],
                 colModel: [
                     {name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
                         formatter: 'actions',
@@ -418,8 +171,8 @@
                     },
                     // 						{name:'id',index:'id', width:60, sorttype:"int", editable: true},
                     {name: 'designation', index: 'designation', width: 90, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'stockInitial', index: 'stockInitial', width: 150, editable: false, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'stockFinal', index: 'stockInitial', width: 70, editable: false}
+                    {name: 'stockProvisoire', index: 'stockProvisoire', width: 150, editable: false, editoptions: {size: "20", maxlength: "30"}},
+                    {name: 'stockReel', index: 'stockReel', width: 70, editable: false}
                 ],
                 viewrecords: true,
                 rowNum: 10,
@@ -547,8 +300,8 @@
             )
         });
 
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
+            var grid_selector = "#grid-table";
+            var pager_selector = "#grid-pager";
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
@@ -566,7 +319,7 @@
         });
 
     };
-    loadProduit($("#GRP_CMB").val());
+    loadProduit();
     
     function style_edit_form(form) {
         //enable datepicker on "sdate" field and switches for "stock" field
@@ -700,20 +453,18 @@
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
-            var familleproduit= $('#GRP_NEW_CMB').val();
             var designation = $("#designation").val();
-            var stockInitial = $("#stockInitial").val();
-            var stockFinal = $("#stockFinal").val();
+            var stockProvisoire = $("#stockProvisoire").val();
+            var stockReel = $("#stockReel").val();
             var seuil = $("#seuil").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('familleId', familleproduit);
             formData.append('designation', designation);
-            formData.append('stockInitial', stockInitial);
-            formData.append('stockFinal', stockFinal);
+            formData.append('stockProvisoire', stockProvisoire);
+            formData.append('stockReel', stockReel);
             formData.append('seuil', seuil);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
@@ -733,7 +484,7 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       loadProduit($("#GRP_CMB").val());
+                       loadProduit();
                     } 
                     else
                     {
@@ -752,44 +503,8 @@
             });
 
         };
-//      $("#SAVE").bind("click", function () {
-//             produitProcess();
-//             $('#winModalProduit').addClass('hide');
-//             $('#winModalProduit').modal('hide');
-//         });
-$("#MNU_PRODUIT_EDIT").click(function()
-        {
-            if (!$(this).hasClass('disabled')) {
-                if (checkedProduit.length > 1) {
-                    bootbox.alert("Veullez selectionnez un produit");
-                    loadProduit($("#GRP_CMB").val());
-                    checkedProduit = new Array();
-                    disableContactMenu();
-                }
-                else
-                {
-                    var produitId;
-                    produitId = checkedProduit[0];
-                    
-            if (produitId !== "*")
-            {
-                alert(produitId);
-                $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function(data) {
-                    data = $.parseJSON(data);
-                    console.log(data.libelle);
-                 //   $("#ACTION").val('<?php echo App::ACTION_UPDATE; ?>');
-                 //   $("#GRP_NEW_CMB").val(data.familleId);
-                    $("#designation").val(data.libelle);
-                    $("#prixUnit").val(data.prixUnitaire);
-                    
-                });
-                $('#winModalProduit .control-group').removeClass('error').addClass('info');
-                $('#winModalProduit span.help-block').remove();
-                $('#winModalProduit').modal('show');
-            }
-                }
-            }
-    });
+
+
     
         $("#winModalProduit").bind("click", function () {
             calculSeuil();
@@ -800,14 +515,7 @@ $("#MNU_PRODUIT_EDIT").click(function()
             calculSeuil();
             
         });
-       $("#GRP_CMB").change(function() {
-                if($("#GRP_CMB").val()!=='*'){
-                    loadProduit($("#GRP_CMB").val());
-                }
-                else{
-                 loadProduit($("#GRP_CMB").val());
-                }
-            });
+       
 
        //Validate
        $("#SAVE").bind("click", function () {
@@ -821,7 +529,10 @@ $("#MNU_PRODUIT_EDIT").click(function()
 				designation: {
 					required: true
 				},
-				prixUnit: {
+				stockProvisoire: {
+					required: true
+				},
+				stockReel: {
 					required: true
 				}
 			},
@@ -830,9 +541,13 @@ $("#MNU_PRODUIT_EDIT").click(function()
 				designation: {
 					required: "Champ obligatoire."
 				},
-			prixUnit: {
-				required: "Champ obligatoire."
-			}
+				stockProvisoire: {
+					required: "Champ obligatoire."
+				},
+				stockReel: {
+					required: "Champ obligatoire."
+				}
+			
 			},
 			highlight: function (e) {
 				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -850,7 +565,7 @@ $("#MNU_PRODUIT_EDIT").click(function()
 			submitHandler: function (form) {
 				 produitProcess();
 				 $('#winModalProduit').addClass('hide');
-		            $('#winModalProduit').modal('hide');
+                                 $('#winModalProduit').modal('hide');
 			},
 			invalidHandler: function (form) {
 			}

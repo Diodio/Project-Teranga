@@ -64,10 +64,10 @@ class Mareyeur extends \Mareyeur\Mareyeur implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'nom', 'adresse', 'telephone', 'montantFinancement', 'achat', 'paiement');
+            return array('__isInitialized__', 'id', 'nom', 'reference', 'adresse', 'telephone', 'montantFinancement', 'achat');
         }
 
-        return array('__isInitialized__', 'id', 'nom', 'adresse', 'telephone', 'montantFinancement', 'achat', 'paiement');
+        return array('__isInitialized__', 'id', 'nom', 'reference', 'adresse', 'telephone', 'montantFinancement', 'achat');
     }
 
     /**
@@ -329,6 +329,28 @@ class Mareyeur extends \Mareyeur\Mareyeur implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPaiement', array($paiement));
 
         return parent::setPaiement($paiement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getReference()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getReference', array());
+
+        return parent::getReference();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setReference($reference)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setReference', array($reference));
+
+        return parent::setReference($reference);
     }
 
 }
