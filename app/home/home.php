@@ -27,16 +27,6 @@ $codeUsine = $_COOKIE['codeUsine'];
         <div class="space-6"></div>
         <div class="row">
             <div class="col-sm-7">
-                <div>
-                    
-                       <div class="control-group">
-                            <div class="controls">
-                                <select id="GRP_CMB" style="width: 225px">
-                                    <option value="*" class="groups"> Type de produit </option>
-                                </select>
-                            </div>
-                        </div>
-                </div>
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
@@ -123,8 +113,6 @@ $codeUsine = $_COOKIE['codeUsine'];
     <script type="text/javascript">
             jQuery(function ($) {
             var oTableStock= null;
-        var familleId="";
-            $("#GRP_CMB").select2();  
             if("<?php echo $profil ?>" === "admin") {
                 $('#STAT_OTHER').addClass("hide");
                 $('#STAT_ADMIN').removeClass("hide");
@@ -135,7 +123,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $('#STAT_OTHER').removeClass("hide");
                 $('#STAT_OTHER').addClass("show");
             }
-           loadStocks = function(typeProduit) {
+           loadStocks = function() {
              rowCount = 0;
             var url;
             url = '<?php echo App::getBoPath(); ?>/stock/StockController.php';
@@ -176,7 +164,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                 "fnServerData": function ( sSource, aoData, fnCallback ) {
                         /* Add some extra data to the sender */
                     aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
-                    aoData.push({"name": "typeProduit", "value": typeProduit});
                     aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine?>"});
                     aoData.push({"name": "login","value": "<?php echo $login?>"});
                     if("<?php echo $login?>" === "admin")
@@ -206,28 +193,8 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
         };
         
-       
 
-
-    loadFamilleProduit = function(){
-            $.post("<?php echo App::getBoPath(); ?>/produit/FamilleProduitController.php", {userId: "<?php echo $userId;?>", ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
-                sData=$.parseJSON(data);
-                if(sData.rc==-1){
-                    $.gritter.add({
-                            title: 'Notification',
-                            text: sData.error,
-                            class_name: 'gritter-error gritter-light'
-                        });
-                }else{
-                    $("#GRP_CMB").loadJSON('{"groups":' + data + '}');
-                }
-            });
-            }
-            
-         
-            loadFamilleProduit();
-
-            loadStocks($("#GRP_CMB").val());
+            loadStocks();
             //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
 			  //but sometimes it brings up errors with normal resize event handlers
 			  $.resize.throttleWindow = false;
@@ -362,17 +329,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 				}
 				
 			 });
-                         
-            $("#GRP_CMB").change(function() {
-                if($("#GRP_CMB").val()!==null){
-                    loadStocks($("#GRP_CMB").val());
-                     loadStatsFamille($("#GRP_CMB").val(),"<?php echo $codeUsine?>","<?php echo $login?>");
-                }
-                else{
-                 loadStocks('*');
-                  loadStatsFamille('*',"<?php echo $codeUsine?>","<?php echo $login?>");
-                }
-            });
 
             });
         </script>
