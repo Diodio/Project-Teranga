@@ -70,7 +70,7 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
     
     public function countAll($where="") {
         $sql = 'select count(produit.id) as nbStocks
-                    from produit,stock where produit.id=produit_id ' . $where . '';
+                    from produit,stock_reel where produit.id=produit_id ' . $where . '';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbTypeStocks = $stmt->fetch();

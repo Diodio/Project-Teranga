@@ -84,7 +84,7 @@ class StockController extends BaseController {
                     $produits = $stockManager->retrieveAllByUsine($request['codeUsine'],$request['login'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($produits != null) {
                     if(isset($request['profil']) && $request['profil'] == 'admin')
-                        $nbProduits = $stockManager->countAll($request['typeProduit'], $sWhere);
+                        $nbProduits = $stockManager->countAll($sWhere);
                     else
                        $nbProduits = $stockManager->countByUsine($request['codeUsine'],$request['login'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));

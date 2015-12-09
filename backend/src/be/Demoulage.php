@@ -10,17 +10,7 @@ class Demoulage {
      * @Column(type="integer"), @GeneratedValue
      */
     protected $id;
-    
-    /**
-     * @Column(type="string", length=60, nullable=false)
-     * */
-    protected $nombreParCarton;
-    
-    /**
-     * @Column(type="string", length=60, nullable=false)
-     * */
-    protected $nombreCarton;
-    
+     
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
@@ -30,6 +20,9 @@ class Demoulage {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $login;
+    
+    /** @OneToMany(targetEntity="Produit\Carton", mappedBy="carton") */
+    public $carton;
     
     /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
     protected $produit;
@@ -47,12 +40,12 @@ class Demoulage {
         return $this->id;
     }
 
-    function getNombreParCarton() {
-        return $this->nombreParCarton;
+    function getCodeUsine() {
+        return $this->codeUsine;
     }
 
-    function getNombreCarton() {
-        return $this->nombreCarton;
+    function getLogin() {
+        return $this->login;
     }
 
     function getProduit() {
@@ -75,12 +68,12 @@ class Demoulage {
         $this->id = $id;
     }
 
-    function setNombreParCarton($nombreParCarton) {
-        $this->nombreParCarton = $nombreParCarton;
+    function setCodeUsine($codeUsine) {
+        $this->codeUsine = $codeUsine;
     }
 
-    function setNombreCarton($nombreCarton) {
-        $this->nombreCarton = $nombreCarton;
+    function setLogin($login) {
+        $this->login = $login;
     }
 
     function setProduit($produit) {
@@ -98,26 +91,17 @@ class Demoulage {
     function setDeletedDate($deletedDate) {
         $this->deletedDate = $deletedDate;
     }
-
-    function getCodeUsine() {
-        return $this->codeUsine;
+    function getCarton() {
+        return $this->carton;
     }
 
-    function getLogin() {
-        return $this->login;
+    function setCarton($carton) {
+        $this->carton = $carton;
     }
 
-    function setCodeUsine($codeUsine) {
-        $this->codeUsine = $codeUsine;
-    }
-
-    function setLogin($login) {
-        $this->login = $login;
-    }
-
+        
              /** @PrePersist */
     public function doPrePersist() {
-        $this->status = 0;
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }

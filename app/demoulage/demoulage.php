@@ -567,12 +567,39 @@
              
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
+            var $table = $("table");
+            rows = [],
+            header = [];
+
+        //$table.find("thead th").each(function () {
+        //    header.push($(this).html().trim());
+        //});
+        header = ["#","nbCarton","qte","total"];
+        $table.find("tbody tr").each(function () {
+            var row = {};
+
+            $(this).find("td").each(function (i) {
+                var key = header[i];
+                var value;
+                    valueSelect = $(this).find('select').val();
+                    valueInput = $(this).find('input').val();
+                if (typeof valueInput !== "undefined")
+                    value=valueInput;
+                if (typeof valueSelect !== "undefined")
+                    value=valueSelect;
+                row[key] = value;
+            });
+
+            rows.push(row);
+        });
+    
+    
+            var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('produitId', checkedDemoulages[0]);
             formData.append('stockReel', stockReel);
-            formData.append('nombreParCarton', nombreParCarton);
-            formData.append('nombreCarton', nombreCarton);
+            formData.append('jsonCarton', tbl);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
