@@ -32,20 +32,20 @@ class StockManager {
     
 
     
-    public function retrieveAll($produitId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->stockQuery->retrieveAll($produitId, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->stockQuery->retrieveAll($offset, $rowCount, $sOrder, $sWhere);
     }
 
-    public function retrieveAllByUsine($codeUsine, $login, $produitId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->stockQuery->retrieveAllByUsine($codeUsine, $login, $produitId, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->stockQuery->retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $sOrder, $sWhere);
     }
     
-    public function countAll($produitId, $where="") {
-        return $this->stockQuery->countAll($produitId, $where);
+    public function countAll($where="") {
+        return $this->stockQuery->countAll($where);
     }
     
-    public function countByUsine($usine, $user, $produitId, $where="") {
-        return $this->stockQuery->countByUsine($usine, $user, $produitId, $where);
+    public function countByUsine($usine, $user, $where="") {
+        return $this->stockQuery->countByUsine($usine, $user, $where);
     }
     
   public function findStats() {

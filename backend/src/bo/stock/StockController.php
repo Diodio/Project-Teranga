@@ -79,14 +79,14 @@ class StockController extends BaseController {
                 }
                 // End filter from dataTable
                 if(isset($request['profil']) && $request['profil'] == 'admin')
-                    $produits = $stockManager->retrieveAll($request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                    $produits = $stockManager->retrieveAll($request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 else
-                    $produits = $stockManager->retrieveAllByUsine($request['codeUsine'],$request['login'],$request['typeProduit'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                    $produits = $stockManager->retrieveAllByUsine($request['codeUsine'],$request['login'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($produits != null) {
                     if(isset($request['profil']) && $request['profil'] == 'admin')
                         $nbProduits = $stockManager->countAll($request['typeProduit'], $sWhere);
                     else
-                       $nbProduits = $stockManager->countByUsine($request['codeUsine'],$request['login'],$request['typeProduit'], $sWhere);
+                       $nbProduits = $stockManager->countByUsine($request['codeUsine'],$request['login'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
