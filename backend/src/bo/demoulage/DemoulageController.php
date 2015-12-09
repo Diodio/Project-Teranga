@@ -33,25 +33,36 @@ class DemoulageController extends BaseController  {
 
     public function doInsert($request) {
         try {
-            if ($request['nombreParCarton'] !="" && $request['nombreCarton'] != "") {
+            if ($request['produitId'] !="" && $request['stockReel'] != "") {
                 $produitManager = new \Produit\ProduitManager();
                 $produit=$produitManager->findById($request['produitId']);
                 $demoulageManager = new Produit\DemoulageManager();
-                $demou = $demoulageManager->verifieDemoulage($request['produitId'], $request['codeUsine']);
+               // $demou = $demoulageManager->verifieDemoulage($request['produitId'], $request['codeUsine']);
                 $demoulage = new Produit\Demoulage();
-                if($demou == 0)
-                    $demoulage->setId ($demou);
-                $demoulage->setNombreCarton($request['nombreCarton']);
-                $demoulage->setNombreParCarton($request['nombreParCarton']);
+                //if($demou == 0)
+                //    $demoulage->setId ($demou);
+              // $demoulage->setNombreCarton($request['nombreCarton']);
+              //  $demoulage->setNombreParCarton($request['nombreParCarton']);
                 $demoulage->setProduit($produit);
                 $demoulage->setCodeUsine($request['codeUsine']);
                 $demoulage->setLogin($request['login']);
                 $demoulageAdded = $demoulageManager->insert($demoulage);
-                  
                 if ($demoulageAdded->getId() != null) {
-                    if($request['stockFinal'] !=""){
+                    if($request['stockReel'] !=""){
                       $stockManager = new \Stock\StockManager();
-                       $stockManager->ajoutStockFinalParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockFinal']);
+                       $stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockReel']);
+                       $jsonCarton = json_decode($_POST['jsonCarton'], true);
+                         foreach ($jsonCarton as $key => $ligneCarton) {
+                            if(isset($ligneCarton["nbCarton"])) {
+                                $carton = new \Produit\Carton();
+                                $carton->setDemoulage($demoulage);
+                                $carton->setNombreCarton($ligneCarton['qte']);
+                                $carton->setQuantiteParCarton($ligneCarton['qte']);
+                                $carton->setTotal($ligneCarton['total']);
+                                $cartonManager = new Produit\CartonManager();
+                                $cartonManager->insert($carton); 
+                            }
+                         }
                     }
                     $this->doSuccess($demoulageAdded->getId(), 'Produit demoulé avec succes');
                 } else {

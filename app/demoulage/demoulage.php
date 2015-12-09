@@ -29,7 +29,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des produits a demouler
+                            Liste des produits à demouler
                         </h4>
 
                         <div class="widget-toolbar">
@@ -51,13 +51,13 @@
                                     </label>
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Designation
+                                    Désignation
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Initial
+                                    Stock Provisoire
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Final
+                                    Stock Réel
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
@@ -102,26 +102,56 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock Intial (kg)</label>
                                     <div class="col-sm-9">
-                                        <input type="text"  id="stockInitial" name="stockInitial" placeholder="" class="col-xs-10 col-sm-4" disabled >
+                                        <input type="text"  id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-4" disabled >
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Final (kg)</label>
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Reel (kg)</label>
                                         <div class="col-sm-9">
-                                            <input type="number"  id="stockFinal" name="stockFinal" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
+                                            <input type="number"  id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
                                         </div>
                                 </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Nombre Kg / Carton</label>
-                                    <div class="col-sm-9">
-                                        <input type="number"  id="nombreParCarton" name="nombreParCarton" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Nombre Carton</label>
-                                    <div class="col-sm-9">
-                                        <input type="number"  id="nombreCarton" name="nombreCarton" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                    </div>
+                                   <div class="row">
+                            
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<a id="add_row" class="btn btn-primary btn-sm"><i
+						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+						class="btn btn-danger btn-sm" title="Supprimer une ligne"
+						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
+					</a>
+				</div>
+			</div>
+			<div class="space-6"></div>
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">Nombre de carton</th>
+                                                        <th class="text-center">Quantité/Carton</th>
+                                                        <th class="text-center">Total</th>
+                                                    </tr>
+						</thead>
+						<tbody>
+                                                    <tr id='addr0'>
+                                                            <td>1</td>
+                                                            <td><input type="number" id="cart0" name='cart0'
+                                                                    class="form-control" />
+                                                            </td>
+                                                            <td><input type="number" id="qte0" name='qte0'
+                                                                    class="form-control" />
+                                                            </td>
+                                                            <td><input type="number" id="tot0" name='tot0'
+                                                                    class="form-control tot" />
+                                                            </td>
+                                                    </tr>
+                                                    <tr id='addr1'></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
                             </div>
                             <button id="SAVE" class="btn btn-small btn-info pull-right">
                                     <i class="fa fa-plus-square "></i> Valider
@@ -142,6 +172,75 @@
             // Check if an item is in the array
            // var interval = 500;
            
+      var i=1;
+     $("#add_row").click(function(){
+    $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='number' id='cart"+i+"' name='cart"+i+"' class='form-control'/></td>\n\
+    <td><input type='number' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
+    <td><input type='number' id='tot"+i+"' name='tot"+i+"'  class='form-control tot'/></td>");
+      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      i++;
+  });
+     $("#delete_row").click(function(){
+    	 if(i>1){
+		 $("#addr"+(i-1)).html('');
+		 i--;
+		 }
+	 });
+         function calculPoids(index){
+           var cart=parseInt($("#cart"+index).val());
+           var qte=parseInt($("#qte"+index).val());
+           var stockReel=parseInt($("#stockReel").val());
+           var sqte=0;
+           var tot = 0;
+           tot = cart*qte;
+           if(!isNaN(tot)) {
+               $("#tot"+index).val(tot);
+               $('#tab_logic .tot').each(function () {
+                if($(this).val()!=='')
+                  sqte += parseInt($(this).val());
+                });
+                if(sqte > stockReel){
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: 'La quantité totale définie est supérieure au stock réel',
+                        class_name: 'gritter-error gritter-light'
+                    }); 
+                    $("#qte"+index).val(""); 
+                   $("#tot"+index).val("0"); 
+               }
+            }
+            else {
+                $("#tot"+index).val("0");
+            }
+       }
+         $(document).delegate('#tab_logic tr td', 'click', function (event) {
+        var id = $(this).closest('tr').attr('id');
+        var counter = id.slice(-1);
+       
+      $( "#qte"+counter ).keyup(function() {
+            calculPoids(counter);
+         });
+        
+    });
+    
+           
+        $( "#stockReel" ).keyup(function() {
+            verifiePoidsReel();
+         });
+         
+         function verifiePoidsReel(index){
+           var stockProvisoire = parseInt($("#stockProvisoire").val());
+           var stockReel=parseInt($("#stockReel").val());
+         
+           if(stockReel>=stockProvisoire) {
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: 'Le stock réel défini doit etre inférieur au stock provisoire',
+                        class_name: 'gritter-error gritter-light'
+                    }); 
+                   $("#stockReel").val("0"); 
+               }
+       }
             checkedDemoulagesContains = function(item) {
                 for (var i = 0; i < checkedDemoulages.length; i++) {
                     if (checkedDemoulages[i] == item)
@@ -216,8 +315,8 @@
                 {
                     $('#SAVE').attr("disabled", true);
                     $('#nomProduit').text("");
-                    $('#stockInitial').val("");
-                    $('#stockFinal').val("");
+                    $('#stockProvisoire').val("");
+                    $('#stockReel').val("");
                     $('#nombreCarton').val("");
                     $('#nombreParCarton').val("");
                     
@@ -241,8 +340,8 @@
                 {
                     $('#SAVE').attr("disabled", true);
                     $('#nomProduit').text("");
-                    $('#stockInitial').val("");
-                    $('#stockFinal').val("");
+                    $('#stockProvisoire').val("");
+                    $('#stockReel').val("");
                     $('#nombreCarton').val("");
                     $('#nombreParCarton').val("");
                     $('#SAVE').attr("disabled", false);
@@ -382,10 +481,10 @@
 
                 $.post(url, {produitId: produitId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                   data = $.parseJSON(data);
-                  data = data[0];
+                 // data = data[0];
                     $('#nomProduit').text(data.designation);
-                    $('#stockInitial').val(data.stockInitial);
-                    $('#stockFinal').val(data.stockFinal);
+                    $('#stockProvisoire').val(data.stockProvisoire);
+                    //$('#stockReel').val(data.stockReel);
                     
                }).error(function(error) { });
             };
@@ -462,18 +561,45 @@
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             
-            var stockFinal= $('#stockFinal').val();
+            var stockReel= $('#stockReel').val();
             var nombreParCarton= $('#nombreParCarton').val();
             var nombreCarton = $("#nombreCarton").val();
              
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
+            var $table = $("table");
+            rows = [],
+            header = [];
+
+        //$table.find("thead th").each(function () {
+        //    header.push($(this).html().trim());
+        //});
+        header = ["#","nbCarton","qte","total"];
+        $table.find("tbody tr").each(function () {
+            var row = {};
+
+            $(this).find("td").each(function (i) {
+                var key = header[i];
+                var value;
+                    valueSelect = $(this).find('select').val();
+                    valueInput = $(this).find('input').val();
+                if (typeof valueInput !== "undefined")
+                    value=valueInput;
+                if (typeof valueSelect !== "undefined")
+                    value=valueSelect;
+                row[key] = value;
+            });
+
+            rows.push(row);
+        });
+    
+    
+            var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('produitId', checkedDemoulages[0]);
-            formData.append('stockFinal', stockFinal);
-            formData.append('nombreParCarton', nombreParCarton);
-            formData.append('nombreCarton', nombreCarton);
+            formData.append('stockReel', stockReel);
+            formData.append('jsonCarton', tbl);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
@@ -522,7 +648,7 @@
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				stockFinal: {
+				stockReel: {
                                     required: true
 				},
 				nombreParCarton: {
@@ -535,7 +661,7 @@
 			},
 	
 			messages: {
-				stockFinal: {
+				stockReel: {
 					required: "Champ obligatoire."
 				},
 				nombreParCarton: {

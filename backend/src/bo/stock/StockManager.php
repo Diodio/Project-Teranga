@@ -32,20 +32,20 @@ class StockManager {
     
 
     
-    public function retrieveAll($produitId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->stockQuery->retrieveAll($produitId, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->stockQuery->retrieveAll($offset, $rowCount, $sOrder, $sWhere);
     }
 
-    public function retrieveAllByUsine($codeUsine, $login, $produitId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->stockQuery->retrieveAllByUsine($codeUsine, $login, $produitId, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->stockQuery->retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $sOrder, $sWhere);
     }
     
-    public function countAll($produitId, $where="") {
-        return $this->stockQuery->countAll($produitId, $where);
+    public function countAll($where="") {
+        return $this->stockQuery->countAll($where);
     }
     
-    public function countByUsine($usine, $user, $produitId, $where="") {
-        return $this->stockQuery->countByUsine($usine, $user, $produitId, $where);
+    public function countByUsine($usine, $user, $where="") {
+        return $this->stockQuery->countByUsine($usine, $user, $where);
     }
     
   public function findStats() {
@@ -68,49 +68,49 @@ class StockManager {
     	return $stockQueries->updateNbStock($produitId, $codeUsine, $nbStock);
   }
   
-  public function updateNbStockFinal($produitId, $codeUsine, $nbStock ) {	
+  public function updateNbStockReel($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
-    	return $stockQueries->updateNbStockFinal($produitId, $codeUsine, $nbStock);
+    	return $stockQueries->updateNbStockReel($produitId, $codeUsine, $nbStock);
   }
-    public function resetStockInitial($produitId, $codeUsine ) {	
+    public function resetStockProvisoire($produitId, $codeUsine ) {	
        $stockQueries = new StockQueries();
-    	return $stockQueries->resetStockInitial($produitId, $codeUsine);
+    	return $stockQueries->resetStockProvisoire($produitId, $codeUsine);
   }
   public function destockage($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
     	return $stockQueries->destockage($produitId, $codeUsine, $nbStock);
   }
   
-  public function findStockInitialByProduitId($produitId, $codeUsine) {
+  public function findStockProvisoireByProduitId($produitId, $codeUsine) {
       $stockQueries = new StockQueries();
-      $stock=$stockQueries->findStockInitialByProduitId($produitId, $codeUsine);
+      $stock=$stockQueries->findStockProvisoireByProduitId($produitId, $codeUsine);
       if($stock!=null)
         return $stock['id'];
     return 0;
   }
   
-  public function findStockFinalByProduitId($produitId, $codeUsine) {
+  public function findStockReelByProduitId($produitId, $codeUsine) {
       $stockQueries = new StockQueries();
-      $stock=$stockQueries->findStockFinalByProduitId($produitId, $codeUsine);
+      $stock=$stockQueries->findStockReelByProduitId($produitId, $codeUsine);
       if($stock!=null)
         return $stock['id'];
     return 0;
   }
-  public function ajoutStockFinalParProduit($produitId, $codeUsine, $login, $stock) {
-            $stockFinal = $this->findStockFinalByProduitId($produitId, $codeUsine);
-            if ($stockFinal == 0) {
-                $stockFinal = new \Stock\StockFinal();
-                $stockFinal->setCodeUsine($codeUsine);
-                $stockFinal->setLogin($login);
+  public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $stock) {
+            $stockReel = $this->findStockReelByProduitId($produitId, $codeUsine);
+            if ($stockReel == 0) {
+                $stockReel = new \Stock\StockReel();
+                $stockReel->setCodeUsine($codeUsine);
+                $stockReel->setLogin($login);
                 $produitManger = new \Produit\ProduitManager();
                 $produit= $produitManger->findById($produitId);
-                $stockFinal->setProduit($produit);
-                $stockFinal->setStock($stock);
-                $this->insert($stockFinal);
+                $stockReel->setProduit($produit);
+                $stockReel->setStock($stock);
+                $this->insert($stockReel);
             } else {
-                $this->updateNbStockFinal($produitId, $codeUsine, $stock);
+                $this->updateNbStockReel($produitId, $codeUsine, $stock);
             }
-            $this->resetStockInitial($produitId, $codeUsine);
+            $this->resetStockProvisoire($produitId, $codeUsine);
         
     }
 }

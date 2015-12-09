@@ -115,12 +115,8 @@ private $logger;
                 }
                 $mareyeurManager = new \Mareyeur\MareyeurManager();
                 $mareyeur = $mareyeurManager->findById($request['mareyeur']);
-                
-               // var_dump($request['mareyeur']);
-               $achat->setMareyeur($mareyeur);
-                
+                $achat->setMareyeur($mareyeur);
                 $achatAdded = $achatManager->insert($achat);
-           //     var_dump("fgf");
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonAchat as $key => $ligneachat) {
@@ -136,7 +132,6 @@ private $logger;
                                 $ligneAchat->setMontant($ligneachat['montant']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
                                 $ligneAchatManager->insert($ligneAchat); 
-                               
                             }
                          }
                     $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');

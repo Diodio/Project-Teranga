@@ -29,25 +29,14 @@
                 <div class="col-xs-12">
                    
                     <div class="col-lg-1">
-                        <div class="btn-group">
-                                    <button data-toggle="dropdown"
-                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                            data-rel="tooltip" data-placement="top" title="Produit" style="
-                                            height: 32px;
-                                            width: 80px;
-                                            margin-top: -1px;
-                                            margin-left: 5px;
-">
-                                        <i class="icon-group icon-only icon-on-right"></i> Produit
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_PRODUIT_NEW'><a href="#" id="GRP_NEW">Nouveau </a></li>
-                                        <li class="divider"></li>
-                                        <li id='MNU_PRODUIT_EDIT'><a href="#" id="GRP_EDIT">Modifier</a></li>
-                                        <li id='MNU_PRODUIT_REMOVE'><a href="#" id="GRP_REMOVE">Supprimer</a></li>
-                                    </ul>
-                                </div>
+                         <button id="MNU_PRODUIT_NEW" data-toggle="dropdown"
+                                    class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+                                    data-rel="tooltip" data-placement="top" title="Produit" style="
+                                    height: 32px;
+                                    width: 80px;
+                                    margin-top: -1px;
+                                    margin-left: 5px;">Nouveau
+                            </button>
                     </div>
                 </div>
             </div>
