@@ -119,7 +119,7 @@ private $logger;
                                 $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
                                 $Inserted = $ligneBonSortieManager->insert($ligneBonSortie); 
                                 if ($Inserted->getId() != null) {
-                                       $stockManager = new \Produit\StockManager();
+                                       $stockManager = new \Stock\StockManager();
                                        if($ligne['Quantité(kg)'] !="")
                                            $nbStock = $ligne['Quantité(kg)'];
                                        $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
