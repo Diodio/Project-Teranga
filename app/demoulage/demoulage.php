@@ -29,7 +29,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des produits a demouler
+                            Liste des produits à demouler
                         </h4>
 
                         <div class="widget-toolbar">
