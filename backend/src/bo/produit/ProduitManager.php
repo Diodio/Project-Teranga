@@ -77,6 +77,21 @@ class ProduitManager {
         return $arrayProduits;
     }
     
+    public function retrieveDetailProduit($produitId) {
+        $produits = $this->produitQuery->retrieveDetailProduit($produitId);
+        $arrayProduits = array();
+        $i = 0;
+        foreach ($produits as $key => $value) {
+            $arrayProduits ['id'] = $value ['id'];
+            if ($value ['stock'] != null)
+                $arrayProduits ['stockProvisoire'] = $value ['stock'];
+            else
+                $arrayProduits ['stockProvisoire'] = 0;
+            $arrayProduits ['designation'] = $value ['libelle'];
+        }
+        return $arrayProduits;
+    }
+
     public function retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
         $produits = $this->produitQuery->retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
         $arrayProduits = array();
@@ -132,8 +147,8 @@ public function retrieveTypes()
             $list [$i]['value'] = $value ['value'];
             //$stock = $this->produitQuery->retrieveStockReelParUsine($value ['value'], $codeUsine);
            // if($stock !=null)
-           //     $stockFinal = $stock ['stock'];
-            $list [$i]['text'] = $value ['text'];
+           //    $stockFinal = $stock ['stock']; 
+            $list [$i]['text'] = $value ['text']; 
             $i++;
         }
         return $list;

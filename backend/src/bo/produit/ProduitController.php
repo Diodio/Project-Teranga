@@ -309,9 +309,9 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $achatDetails = $produitManager->retrieveAll($request['produitId']);
-                if ($achatDetails != null)
-                    $this->doSuccessO($achatDetails);
+                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId']);
+                if ($produitDetails != null)
+                    $this->doSuccessO($produitDetails);
                 else
                     echo json_encode(array());
             } else {

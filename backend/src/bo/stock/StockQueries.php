@@ -148,8 +148,8 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
             return null;
     }
     
-    public function findStockInitialByProduitId($produitId, $codeUsine) {
-        $sql = 'SELECT id FROM stock_initial where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
+    public function findStockProvisoireByProduitId($produitId, $codeUsine) {
+        $sql = 'SELECT id FROM stock_provisoire where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $produit = $stmt->fetchAll();
@@ -159,8 +159,8 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
             return null;
     }
     
-    public function findStockFinalByProduitId($produitId, $codeUsine) {
-        $sql = 'SELECT id FROM stock_final where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
+    public function findStockReelByProduitId($produitId, $codeUsine) {
+        $sql = 'SELECT id FROM stock_reel where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $produit = $stmt->fetchAll();
@@ -221,24 +221,24 @@ public function retrieveAll($produitId, $offset, $rowCount, $orderBy = "", $sWhe
 
     public function updateNbStock($produitId, $codeUsine, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_initial SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
     }
-    public function updateNbStockFinal($produitId, $codeUsine, $nbStock ) {			
+    public function updateNbStockReel($produitId, $codeUsine, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_final SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+        return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 
     }
-    public function resetStockInitial($produitId, $codeUsine ) {			
+    public function resetStockProvisoire($produitId, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_initial SET stock = 0 WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = 0 WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
     }
     
         
       public function destockage($produitId, $codeUsine, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_initial SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
 	}
 }

@@ -160,16 +160,16 @@ public function findStatisticByUsine($codeUsine) {
         $achat = $this->achatQuery->findInfoByAchact($achatId);
         foreach ($achat as $key => $value) {
             $stockManager = new \Stock\StockManager();
-            $stock = $stockManager->findStockInitialByProduitId($value ['produit_id'], $value ['codeUsine']);
+            $stock = $stockManager->findStockProvisoireByProduitId($value ['produit_id'], $value ['codeUsine']);
             if ($stock == 0) {
-                $stockInitial = new \Stock\StockInitial();
-                $stockInitial->setCodeUsine($value ['codeUsine']);
-                $stockInitial->setLogin($value ['login']);
+                $stockProvisoire = new \Stock\StockProvisoire();
+                $stockProvisoire->setCodeUsine($value ['codeUsine']);
+                $stockProvisoire->setLogin($value ['login']);
                 $produitManger = new \Produit\ProduitManager();
                 $produit= $produitManger->findById($value ['produit_id']);
-                $stockInitial->setProduit($produit);
-                $stockInitial->setStock($value ['quantite']);
-                $stockManager->insert($stockInitial);
+                $stockProvisoire->setProduit($produit);
+                $stockProvisoire->setStock($value ['quantite']);
+                $stockManager->insert($stockProvisoire);
             } else {
                 $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
             }

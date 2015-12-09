@@ -82,6 +82,13 @@ class ProduitQueries {
         $products = $stmt->fetchAll();
         return $products;
     }
+    public function retrieveDetailProduit($produitId) {
+        $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="'.$produitId.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        return $products;
+    }
     
      public function countAllDemoulages($codeUsine, $sWhere = "") {
         if($sWhere !== "")
@@ -117,7 +124,7 @@ class ProduitQueries {
             return $stock[0];
         else return null;
     }
-    public function retrieveStockInitialParUsine($produitId, $codeUsine){
+    public function retrieveStockProvisoireParUsine($produitId, $codeUsine){
         if($codeUsine !=='*') {
             $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.' and codeUsine="'. $codeUsine .'"';
         }
@@ -184,25 +191,7 @@ class ProduitQueries {
     }
 
    
-    public function retrieveAllTypeProduits($offset, $rowCount, $sOrder = "", $sWhere = "") {
-                if($sWhere !="")
-                    $sWhere = " where" . $sWhere;
-                $sql = 'select distinct(id),libelle
-                    from type_produit c  ' . $sWhere . ' group by c.id ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-            
-        
-        $sql = str_replace("`", "", $sql);
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $clients = $stmt->fetchAll();
-        $arrayContact = array();
-        $i = 0;
-        foreach ($clients as $key => $value) {
-            $arrayContact [$i] [] = $value ['libelle'];
-            $i ++;
-        }
-        return $arrayContact;
-    }
+    
 
    
     public function countAllTypeProduits($where="") {
@@ -239,16 +228,7 @@ class ProduitQueries {
     }
    
     
-     public function findPrixById($produitId) {
-        $sql = 'SELECT prixUnitaire FROM produit where id = "'. $produitId .'"';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $produit = $stmt->fetchAll();
-        if ($produit != null)
-            return $produit[0];
-        else
-            return null;
-    }
+     
     
     public function retrieveAllByUsine() {
         $query = "select p.id as value, p.libelle as text from produit p  group by p.libelle";
