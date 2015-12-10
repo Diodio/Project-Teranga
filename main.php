@@ -438,13 +438,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         Consulter liste </span>
                                 </a> <b class="arrow"></b>
                             </li>
-
+                           
                         </ul>
-                  <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
+                    </li>
+                    <li class=""><a href="#" class="dropdown-toggle"> <i
+                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                Démoulage </span> <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
                                    class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Démoulage </span>
+                                        Nouveau </span>
                                 </a> <b class="arrow"></b>
                            </li>
+                            <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Consulter Liste </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+                        </ul>
 
                      <li class=""><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
@@ -803,14 +815,23 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                 });
 
                 $("#MNU_DEMOULAGE").click(function (e) {
-                	                   $("#MNU_DEMOULAGE").attr("Class", "active");
-                	                    $("#MNU_MAREYEURS").attr("Class", "no-active");
-                	                    $("#MNU_BORD").attr("Class", "no-active");
-                	                    $("#MNU_CLIENTS").attr("Class", "no-active");
-                	                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulage.php", function () {
-                	                    });
+                    $("#MNU_DEMOULAGE").attr("Class", "active");
+                     $("#MNU_MAREYEURS").attr("Class", "no-active");
+                     $("#MNU_BORD").attr("Class", "no-active");
+                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulage.php", function () {
+                 });
+                 });
+                  $("#MNU_DEMOULAGE_LIST").click(function (e) {
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "active");
+                     $("#MNU_MAREYEURS").attr("Class", "no-active");
+                     $("#MNU_BORD").attr("Class", "no-active");
+                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
+                 });
+                 });
                 	
-                	});
+                	
 
 
             });

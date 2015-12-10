@@ -67,7 +67,27 @@ class ProduitQueries {
         return $products;
     }
 
-   public function retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+   public function retrieveAllProduitsDemoules($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+       if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+           if($codeUsine !== '*')  {
+                $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+                    WHERE produit.id=stock_reel.produit_id
+                    AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+           }
+           else {
+               $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage
+                         WHERE produit.id=stock_reel.produit_id
+                        AND produit.id=demoulage.produit_id  ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
+           }
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        return $products;
+    }
+    
+     public function retrieveAllDemoulages($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
        if($sWhere !== "")
             $sWhere = " and " . $sWhere;
            if($codeUsine !== '*')  {
@@ -82,6 +102,7 @@ class ProduitQueries {
         $products = $stmt->fetchAll();
         return $products;
     }
+    
     public function retrieveDetailProduit($produitId) {
         $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="'.$produitId.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -105,6 +126,27 @@ class ProduitQueries {
         $nbClients = $stmt->fetch();
         return $nbClients['nb'];
     }
+    
+    public function countAllProduitsDemoulages($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+                    WHERE produit.id=stock_reel.produit_id
+                    AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+        }
+        else {
+             $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+                    WHERE produit.id=stock_reel.produit_id
+                    AND produit.id=demoulage.produit_id  and stock_reel.codeUsine= ' . $sWhere . '';
+        }
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return count($nbClients);
+    }
+    
     public function retrieveStockProvisoire($produitId){
         $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
