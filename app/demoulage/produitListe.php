@@ -17,14 +17,13 @@
             Demoulage des produits
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Demoulage
+                Liste des produits
             </small>
         </h1>
     </div><!-- /.page-header -->
 
      <div class="row">
-            <div class="col-sm-5">
-                
+         
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
@@ -54,7 +53,7 @@
                                     Désignation
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Provisoire
+                                    Nombre de colis
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Stock Réel
@@ -73,94 +72,7 @@
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
-            <div class="col-sm-7">
-                <div class="widget-container-span">
-                    <div class="widget-box transparent">
-                        <div class="widget-header">
-
-                            <h4 class="lighter"></h4>
-                            <div class="widget-toolbar no-border">
-                                <ul class="nav nav-tabs" id="TAB_GROUP">
-
-                                    <li id="TAB_INFO_VIEW" class="active">
-                                        <a id="TAB_INFO_LINK" data-toggle="tab" href="#TAB_INFO">
-                                            <i class="green icon-dashboard bigger-110"></i>
-                                            Demoulage
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                     <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
-                        <div class="widget-body">
-                            <div class="widget-main padding-12 no-padding-left no-padding-right">
-                                <div class="tab-content padding-4">
-                                 <h4 class="widget-title lighter">
-                                     <i class="ace-icon fa fa-star orange"></i>Produit: <span id="nomProduit"></span>
-                                 </h4>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock Provisoire (kg)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text"  id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-4" disabled >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Reel (kg)</label>
-                                        <div class="col-sm-9">
-                                            <input type="number"  id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                        </div>
-                                </div>
-                            
-			<div class="row ">
-				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
-						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
-						class="btn btn-danger btn-sm" title="Supprimer une ligne"
-						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
-					</a>
-				</div>
-			</div>
-			<div class="space-6"></div>
-			<div class="row clearfix">
-				<div class="col-md-6 column">
-					<table class="table table-bordered table-hover" id="tab_logic">
-						<thead>
-                                                    <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th class="text-center">Nombre de carton</th>
-                                                        <th class="text-center">Quantité/Carton</th>
-                                                        <th class="text-center">Total</th>
-                                                    </tr>
-						</thead>
-						<tbody>
-                                                    <tr id='addr0'>
-                                                            <td>1</td>
-                                                            <td><input type="number" id="cart0" name='cart0'
-                                                                    class="form-control" />
-                                                            </td>
-                                                            <td><input type="number" id="qte0" name='qte0'
-                                                                    class="form-control" />
-                                                            </td>
-                                                            <td><input type="number" id="tot0" name='tot0'
-                                                                    class="form-control tot" />
-                                                            </td>
-                                                    </tr>
-                                                    <tr id='addr1'></tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-                            <button id="SAVE" class="btn btn-small btn-info pull-right">
-                                    <i class="fa fa-plus-square "></i> Valider
-                            </button>
-                            </div>
-                        </div>
-                    </div>
-                    </form>
-                </div><!--/.span6-->
-            </div>
-        </div><!-- /.row -->
+        
         
        <script type="text/javascript">
             jQuery(function ($) {
@@ -438,7 +350,7 @@
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULAGES; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_VALID; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
