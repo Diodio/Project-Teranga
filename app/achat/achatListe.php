@@ -600,10 +600,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#MontantTotal').text(data.montantTotal);
                     $('#Avance').text("0");
                     $('#Reliquat').text("0");
-                    if(data.avance!=null)
-                        $('#Reliquat').text(data.avance);
-                    if(data.reliquat!=null)
+                   
+                    if(data.reliquat!=null) {
                         $('#Reliquat').text(data.reliquat);
+                        var av=data.montantTotal - data.reliquat;
+                        $('#Avance').text(av);
+                    }
                     $('#TABLE_ACHATS tbody').html("");
                     var table = data.ligneAchat;
                     var trHTML='';
