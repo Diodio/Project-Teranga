@@ -242,7 +242,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 								for="form-field-1"> Reglé </label>
 							<div class="col-sm-7">
 								<div class="clearfix">
-                                                                    <input type="checkbox" id="regleAchat" name="regleAchat" placeholder=""
+                                                                    <input type="checkbox" disabled="disabled" id="regleAchat" name="regleAchat" placeholder=""
 										>
 								</div>
 							</div>
@@ -479,6 +479,10 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            rel=mt - avance;
            if(!isNaN(rel) && rel>0) 
               $("#reliquat").val(rel);
+          else if(!isNaN(rel) && rel===0) {
+              $('#regleAchat').attr("disabled", false);
+              $("#reliquat").val(0);
+          }  
           else
               $("#reliquat").val(0);
         }

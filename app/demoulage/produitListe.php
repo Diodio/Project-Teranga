@@ -53,10 +53,13 @@
                                     Désignation
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
+                                    Stock Réel
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
                                     Nombre de colis
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Réel
+                                    Action
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
@@ -288,6 +291,15 @@
                 }
                 return false;
             };
+            showPopover = function(idButton, colis){
+            $("#" + idButton).popover({
+                html: true,
+                trigger: 'focus',
+                placement: 'left',
+                title: '<i class="icon-group icon-"></i> Colis ',
+                content: colis
+            }).popover('toggle');
+         };
              loadDemoulages = function() {
                 nbTotalDemoulagesChecked = 0;
                 checkedDemoulages = new Array();
@@ -316,7 +328,45 @@
                             "mRender": function(data, type, full) {
                                 return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
                             }
+                        },
+                        {
+                        "aTargets": [4],
+                        "bSortable": false,
+                        "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                            $(nTd).css('text-align', 'center');
+                            $(nTd).text('');
+                            $(nTd).addClass('td-actions');
+                            action=$('<div></div>');
+                            action.addClass('hidden-phone pull-right visible-desktop action-buttons');
+                            
+                            btnGrps=$('<button id="colis'+oData[0]+'" class="center btn btn-warning btn-mini" href="#">'+
+                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
+                            '</button>');
+                            btnGrps.click(function(){
+                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+                                data=$.parseJSON(data);
+                                var htmlString="<div class='popover-medium' style='width: 550px;'> Gestion des colis<hr>";
+                                $.each(data , function(i) { 
+                                    str= data [i].toString();
+                                    var substr = str.split(',');
+                                    htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
+                                // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
+                                 
+                                    //console.log(data [i]); 
+                                  });
+                                  htmlString+="</div>";
+                                showPopover("colis"+oData[0], ""+htmlString+"");
+                                });
+                            });
+                            btnGrps.tooltip({
+                                title: 'Information colis'
+                            });
+                            btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
+                            action.append(btnGrps);
+                            $(nTd).append(action);
+                           
                         }
+                    }
                     ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         persistChecked();

@@ -24,7 +24,9 @@ public function verifieDemoulage($produitId, $codeUsine) {
         $this->demoulageQueries->insert($demoulage);
     	return $demoulage;
     }
-    
+    public function getAllColis($produitId) {
+        return $this->demoulageQueries->getAllColis($produitId);
+    }
   
 
    

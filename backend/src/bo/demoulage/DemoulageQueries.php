@@ -51,4 +51,19 @@ class DemoulageQueries {
         return $this->entityManager;
     }
     
+    public function getAllColis($produitId) {
+        $sql = 'select * from carton c, demoulage d where d.id=c.demoulage_id AND d.produit_id='.$produitId;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $clients = $stmt->fetchAll();
+        $arrayContact = array();
+        $i = 0;
+        foreach ($clients as $key => $value) {
+            $arrayContact [$i] [] = $value ['nombreCarton'];
+            $arrayContact [$i] [] = $value ['quantiteParCarton'];
+            $i ++;
+        }
+        return $arrayContact;
+    }
+
 }

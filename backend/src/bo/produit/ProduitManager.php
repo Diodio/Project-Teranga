@@ -116,11 +116,11 @@ class ProduitManager {
         foreach ($produits as $key => $value) {
             $arrayProduits [$i] [] = $value ['id'];
             $arrayProduits [$i] [] = $value ['libelle'];
-            if($value ['nbColis']!= null)
-                $arrayProduits [$i] [] = $value ['nbColis'];
-            else
-                $arrayProduits [$i] [] = 0;
             $arrayProduits [$i] [] = $value ['stock'];
+            if($value ['nbColis'] !=null)
+                $arrayProduits [$i] [] = $value ['nbColis'];
+            else $arrayProduits [$i] [] = 0;
+            $arrayProduits [$i] [] = $value ['id'];
             
             $i++;
         }

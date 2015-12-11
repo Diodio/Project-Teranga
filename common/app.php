@@ -117,6 +117,7 @@ class App
      const ACTION_STAT_REGLEMENTS='STAT_REGLEMENTS';
      const ACTION_GET_INFOS='GET_INFOS';
      const ACTION_LIST_DEMOULAGES='LIST_DEMOULAGES';
+     const ACTION_GET_COLIS='GET_COLIS';
 
      static function getBoPath() {
          
