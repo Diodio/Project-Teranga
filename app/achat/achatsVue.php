@@ -34,12 +34,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<label> Mareyeur</label>
 						</div>
 						<div class="col-sm-6">
-							<div class="clearfix">
-								<select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""
-									style="width: 100%">
-									<option value="*" class="mareyeurs">Nom Mareyeur</option>
-								</select>
-							</div>
+                                                        <select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""
+                                                                style="width: 82%">
+                                                                <option value="*" class="mareyeurs">Nom Mareyeur</option>
+                                                        </select>
+                                                        <a id="SAVEPRODUIT" class="btn btn-primary btn-sm"  title="Nouveau mareyeur"
+						alt="Nouveau mareyeur"><i
+						class="ace-icon fa fa-plus-square"></i>  </a>
 						</div>
 					</div>
 					<div class="space-6"></div>
@@ -107,11 +108,15 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</div>
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
-						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+						alt="Ajouter une ligne"><i
+						class="ace-icon fa fa-plus-square"></i> </a> 
+                                        <a id='delete_row'
 						class="btn btn-danger btn-sm" title="Supprimer une ligne"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 					</a>
+                                    <a id="NEW_PRODUIT" class="btn btn-primary btn-sm"><i
+						class="ace-icon fa fa-plus-square"></i> Nouveau produit</a> 
 				</div>
 			</div>
 			<div class="space-6"></div>
