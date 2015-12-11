@@ -251,6 +251,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantTotal"></span>
                                 </div>
                             </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Avance </div>
+                                <div class="profile-info-value">
+                                    <span id="Avance"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Reliquat </div>
+                                <div class="profile-info-value">
+                                    <span id="Reliquat"></span>
+                                </div>
+                            </div>
                         </div>
                                             </div>
                                         </div>
@@ -586,6 +598,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#achatUser').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
+                    $('#Avance').text("0");
+                    $('#Reliquat').text("0");
+                    if(data.avance!=null)
+                        $('#Reliquat').text(data.avance);
+                    if(data.reliquat!=null)
+                        $('#Reliquat').text(data.reliquat);
                     $('#TABLE_ACHATS tbody').html("");
                     var table = data.ligneAchat;
                     var trHTML='';
