@@ -50,8 +50,8 @@
                     <div id="grid-pager"></div>
                 </div>
             </div>
-            <form id="validation-form" class="form-horizontal" role="form">
             <div id="winModalProduit" class="modal fade" tabindex="-1">
+            <form id="validation-form" class="form-horizontal" role="form">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -99,8 +99,8 @@
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-            </div>
             </form>
+            </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
  

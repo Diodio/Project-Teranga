@@ -38,7 +38,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                                 style="width: 82%">
                                                                 <option value="*" class="mareyeurs">Nom Mareyeur</option>
                                                         </select>
-                                                        <a id="SAVEPRODUIT" class="btn btn-primary btn-sm"  title="Nouveau mareyeur"
+                                                        <a id="NEW_MAREYEUR" class="btn btn-primary btn-sm"  title="Nouveau mareyeur"
 						alt="Nouveau mareyeur"><i
 						class="ace-icon fa fa-plus-square"></i>  </a>
 						</div>
@@ -268,6 +268,115 @@ $codeUsine = $_COOKIE['codeUsine'];
 		<!-- /.row -->
 	</form>
 
+        <div id="winModalMareyeur" class="modal fade" tabindex="-1">
+            <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Mareyeur</h3>
+                        </div>
+
+                           
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="adresse" name="adresse" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Compte </label>
+                                    <div class="col-sm-9">
+                                        <input type="number" id="compte" name="compte" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                    <button id="SAVE" class="btn btn-small btn-info">
+                        <i class="ace-icon fa fa-save"></i>
+                        Enregistrer
+                    </button>
+
+                    <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        Annuler
+                    </button>
+                </div>
+                        
+                    </div><!-- /.modal-content -->
+                
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
+        <div id="winModalProduit" class="modal fade" tabindex="-1">
+            <form id="validation-form" class="form-horizontal" role="form">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Produit</h3>
+                        </div>
+
+                        <div class="modal-body" style="height: 240px;">
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="designation" name="designation" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Seuil </label>
+                                    <div class="col-sm-9">
+                                            <input type="text" id="seuil" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="SAVE" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                            
+                            <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                                <i class="fa fa-times"></i>
+                                Annuler
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
 </div>
 <!-- /.page-content -->
 
@@ -700,6 +809,17 @@ $table.find("tbody tr").each(function () {
 		});
 
 
+        });
+        
+        $("#NEW_MAREYEUR").click(function ()
+    {
+       
+        $('#winModalMareyeur').modal('show');
+    });
+    
+    $("#NEW_PRODUIT").click(function()
+        {
+            $('#winModalProduit').modal('show');
         });
 });
 </script>
