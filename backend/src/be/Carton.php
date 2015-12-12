@@ -27,6 +27,11 @@ class Carton {
     protected $total;
     
     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $produitId;
+    
+    /**
      * @Column(type="integer", options={"default":0}) 
      **/
     protected $status;
@@ -122,6 +127,14 @@ class Carton {
         $this->updatedDate = new \DateTime("now");
     }
    
+
+    function getProduitId() {
+        return $this->produitId;
+    }
+
+    function setProduitId($produitId) {
+        $this->produitId = $produitId;
+    }
 
 
     }

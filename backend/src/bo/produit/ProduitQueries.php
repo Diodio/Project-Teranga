@@ -71,12 +71,12 @@ class ProduitQueries {
        if($sWhere !== "")
             $sWhere = " and " . $sWhere;
            if($codeUsine !== '*')  {
-                $sql = 'SELECT DISTINCT produit.id id, libelle,stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+                $sql = 'SELECT DISTINCT produit.id id, libelle,stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId) as nbColis FROM produit, stock_reel, demoulage 
                     WHERE produit.id=stock_reel.produit_id
                     AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" group by produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
            }
            else {
-               $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage
+               $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId) as nbColis FROM produit, stock_reel, demoulage
                          WHERE produit.id=stock_reel.produit_id
                         AND produit.id=demoulage.produit_id group by produit.id ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
            }
@@ -131,12 +131,12 @@ class ProduitQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+            $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId) as nbColis FROM produit, stock_reel, demoulage 
                     WHERE produit.id=stock_reel.produit_id
                     AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" group by produit.id' . $sWhere . '';
         }
         else {
-             $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE demoulage.id=carton.demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+             $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId) as nbColis FROM produit, stock_reel, demoulage 
                     WHERE produit.id=stock_reel.produit_id
                     AND produit.id=demoulage.produit_id  group by produit.id' . $sWhere . '';
         }

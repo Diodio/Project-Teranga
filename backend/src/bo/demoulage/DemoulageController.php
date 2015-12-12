@@ -64,6 +64,7 @@ class DemoulageController extends BaseController  {
                                 $carton->setNombreCarton($ligneCarton['nbCarton']);
                                 $carton->setQuantiteParCarton($ligneCarton['qte']);
                                 $carton->setTotal($ligneCarton['total']);
+                                $carton->setProduitId($request['produitId']);
                                 $cartonManager = new Produit\CartonManager();
                                 $cartonManager->insert($carton); 
                             }
