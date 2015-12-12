@@ -613,7 +613,9 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        loadDemoulages();
+                       // loadDemoulages();
+                         $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
+                        });
                         $('#nombreCarton').val("");
                         $('#nombreParCarton').val("");
                     } 

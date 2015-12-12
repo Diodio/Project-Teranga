@@ -14,7 +14,7 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Demoulage des produits
+            Stock Réel  des produits
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
                 Liste des produits
@@ -28,7 +28,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des produits à demouler
+                            Liste des produits
                         </h4>
 
                         <div class="widget-toolbar">
@@ -296,7 +296,7 @@
                 html: true,
                 trigger: 'focus',
                 placement: 'left',
-                title: '<i class="icon-group icon-"></i> Colis ',
+                title: '<i class="icon-group icon-"></i> Détail colis ',
                 content: colis
             }).popover('toggle');
          };
@@ -345,7 +345,7 @@
                             btnGrps.click(function(){
                                 $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
                                 data=$.parseJSON(data);
-                                var htmlString="<div class='popover-medium' style='width: 550px;'> Gestion des colis<hr>";
+                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
                                 $.each(data , function(i) { 
                                     str= data [i].toString();
                                     var substr = str.split(',');
@@ -359,7 +359,7 @@
                                 });
                             });
                             btnGrps.tooltip({
-                                title: 'Information colis'
+                                title: 'Liste des colis disponible'
                             });
                             btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
                             action.append(btnGrps);

@@ -115,7 +115,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						class="btn btn-danger btn-sm" title="Supprimer une ligne"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 					</a>
-                                    <a id="NEW_PRODUIT" class="btn btn-primary btn-sm"><i
+                                    <a id="NEW_PRODUIT" class="btn btn-primary btn-sm" style="float: right"><i
 						class="ace-icon fa fa-plus-square"></i> Nouveau produit</a> 
 				</div>
 			</div>
@@ -327,7 +327,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             </form>
             </div>
         <div id="winModalProduit" class="modal fade" tabindex="-1">
-            <form id="validation-form" class="form-horizontal" role="form">
+            <form id="formProduit" class="form-horizontal" role="form">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -538,13 +538,16 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     };
     
     $('#CMB_MAREYEURS').change(function() {
+    if($('#CMB_MAREYEURS').val()!==null) {
         if($('#CMB_MAREYEURS').val()!=='*')
             loadInfoMareyeur($('#CMB_MAREYEURS').val());
         else {
             $('#adresse').val("");
             $('#reference').val("");
         }
+    }
         });
+    
             $("#montantTotal").bind("focus", function () {
             calculMontantPoids();
             
@@ -879,11 +882,12 @@ $table.find("tbody tr").each(function () {
                             jsonText=JSON.parse(jsonText);
                              //groupeId=groupId;
                             $("#CMB_MAREYEURS").select2("data", jsonText, true);
-                            $("#reference").val(adresse);
-                            $("#adresse").val(telephone);
+                           // $("#CMB_MAREYEURS").select2('val',data.oId);
+                            $("#reference").val(reference);
+                            $("#adresse").val(adresse);
+                            
+                            //alert($("#CMB_MAREYEURS").val());
                         }
-                                //  loadMareyeurs();
-
                 }
                 else
                 {
@@ -959,5 +963,117 @@ $table.find("tbody tr").each(function () {
                 
                
     });
+    
+     produitProcess = function ()
+        {
+            
+            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            var frmData;
+            var designation = $("#designation").val();
+            var stockProvisoire = $("#stockProvisoire").val();
+            var stockReel = $("#stockReel").val();
+            var seuil = $("#seuil").val();
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('designation', designation);
+            formData.append('stockProvisoire', stockProvisoire);
+            formData.append('stockReel', stockReel);
+            formData.append('seuil', seuil);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/produit/ProduitController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                       loadProduit(0);
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                    };
+                    
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
+
+        };
+        
+         //Validate
+       $("#SAVE_PRODUIT").bind("click", function () {
+       $('#formProduit').validate({
+           
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				designation: {
+					required: true
+				},
+				stockProvisoire: {
+					required: true
+				},
+				stockReel: {
+					required: true
+				}
+			},
+	
+			messages: {
+				designation: {
+					required: "Champ obligatoire."
+				},
+				stockProvisoire: {
+					required: "Champ obligatoire."
+				},
+				stockReel: {
+					required: "Champ obligatoire."
+				}
+			
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+				 produitProcess();
+				 $('#winModalProduit').addClass('hide');
+                                 $('#winModalProduit').modal('hide');
+			},
+			invalidHandler: function (form) {
+			}
+		});
+
+       });
 });
 </script>

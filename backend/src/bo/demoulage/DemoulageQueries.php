@@ -52,14 +52,14 @@ class DemoulageQueries {
     }
     
     public function getAllColis($produitId) {
-        $sql = 'select * from carton c, demoulage d where d.id=c.demoulage_id AND d.produit_id='.$produitId;
+        $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.produit_id='.$produitId.' GROUP BY quantiteParCarton';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $clients = $stmt->fetchAll();
         $arrayContact = array();
         $i = 0;
         foreach ($clients as $key => $value) {
-            $arrayContact [$i] [] = $value ['nombreCarton'];
+            $arrayContact [$i] [] = $value ['nbCarton'];
             $arrayContact [$i] [] = $value ['quantiteParCarton'];
             $i ++;
         }
