@@ -59,7 +59,7 @@
                                     Nombre de colis
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Action
+                                    Détail
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">

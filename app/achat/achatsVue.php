@@ -845,9 +845,9 @@ $table.find("tbody tr").each(function () {
         var ACTION = '<?php echo App::ACTION_INSERT; ?>';
         var frmData;
         //             var familleproduit= $('#familleMareyeurId').val();
-        var reference = $("#reference").val();
+        var reference = $("#new_reference").val();
         var nom = $("#nom").val();
-        var adresse = $("#adresse").val();
+        var adresse = $("#new_adresse").val();
         var telephone = $("#telephone").val();
         var compte = $("#compte").val();
 
@@ -874,6 +874,15 @@ $table.find("tbody tr").each(function () {
                         text: data.action,
                         class_name: 'gritter-success gritter-light'
                     });
+                     if(data.oId!==""){
+                            jsonText='{"value":'+data.oId+', "text":"'+nom+'"}';
+                            jsonText=JSON.parse(jsonText);
+                             //groupeId=groupId;
+                            $("#CMB_MAREYEURS").select2("data", jsonText, true);
+                            $("#reference").val(adresse);
+                            $("#adresse").val(telephone);
+                        }
+                                //  loadMareyeurs();
 
                 }
                 else
@@ -940,7 +949,7 @@ $table.find("tbody tr").each(function () {
 
     			submitHandler: function (form) {
     			SaveMareyeurProcess();
-    		        $('#winModalMareyeur').addClass('hide');
+    		        //$('#winModalMareyeur').addClass('hide');
     		        $('#winModalMareyeur').modal('hide');
                        
     			},
