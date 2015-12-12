@@ -29,9 +29,9 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td style="width: 40%; ">
-                <span style="font-size: 20px;color:blue" >MACFISH</span>
+                <span style="font-size: 20px;color:#68BC31" >MACFISH</span>
                 <br>
-                 <span style="font-size: 20px;color:blue" >PRODUCTION SUARL</span>
+                 <span style="font-size: 20px;color:#68BC31" >PRODUCTION SUARL</span>
                  <br><br>
                 <span >TEL : 338218470 / 338363512</span>
             </td>
