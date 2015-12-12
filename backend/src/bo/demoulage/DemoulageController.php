@@ -22,6 +22,11 @@ class DemoulageController extends BaseController  {
                     case \App::ACTION_INSERT:
                         $this->doInsert($request);
                         break;
+                    case \App::ACTION_GET_COLIS:
+                        $this->doGetColis($request);
+                        break;
+                    
+                    
                 }
             } else {
                 throw new Exception('NO ACTION');
@@ -76,7 +81,25 @@ class DemoulageController extends BaseController  {
         }
     }
 
-  
+  public function doGetColis($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $demoulageManager = new Produit\DemoulageManager();
+                $infoscolis = $demoulageManager->getAllColis($request['produitId']);
+                    if($infoscolis!= NULL){
+                        $this->doSuccessO($infoscolis);
+                    }  else {
+                         echo json_encode(array());
+                    }
+        } else{
+                $this->doError('-1', 'Données invalides');
+        }
+        
+        }catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+            $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
+    }
 }
 
 $oDemoulageController = new DemoulageController($_REQUEST);

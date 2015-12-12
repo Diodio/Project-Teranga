@@ -34,12 +34,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<label> Mareyeur</label>
 						</div>
 						<div class="col-sm-6">
-							<div class="clearfix">
-								<select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""
-									style="width: 100%">
-									<option value="*" class="mareyeurs">Nom Mareyeur</option>
-								</select>
-							</div>
+                                                        <select id="CMB_MAREYEURS" name="mareyeurs" data-placeholder=""
+                                                                style="width: 82%">
+                                                                <option value="*" class="mareyeurs">Nom Mareyeur</option>
+                                                        </select>
+                                                        <a id="NEW_MAREYEUR" class="btn btn-primary btn-sm"  title="Nouveau mareyeur"
+						alt="Nouveau mareyeur"><i
+						class="ace-icon fa fa-plus-square"></i>  </a>
 						</div>
 					</div>
 					<div class="space-6"></div>
@@ -107,11 +108,15 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</div>
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
-						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+						alt="Ajouter une ligne"><i
+						class="ace-icon fa fa-plus-square"></i> </a> 
+                                        <a id='delete_row'
 						class="btn btn-danger btn-sm" title="Supprimer une ligne"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 					</a>
+                                    <a id="NEW_PRODUIT" class="btn btn-primary btn-sm"><i
+						class="ace-icon fa fa-plus-square"></i> Nouveau produit</a> 
 				</div>
 			</div>
 			<div class="space-6"></div>
@@ -242,7 +247,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 								for="form-field-1"> Reglé </label>
 							<div class="col-sm-7">
 								<div class="clearfix">
-                                                                    <input type="checkbox" id="regleAchat" name="regleAchat" placeholder=""
+                                                                    <input type="checkbox" disabled="disabled" id="regleAchat" name="regleAchat" placeholder=""
 										>
 								</div>
 							</div>
@@ -263,6 +268,115 @@ $codeUsine = $_COOKIE['codeUsine'];
 		<!-- /.row -->
 	</form>
 
+        <div id="winModalMareyeur" class="modal fade" tabindex="-1">
+            <form id="formMareyeur" class="form-horizontal"  onsubmit="return false;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Mareyeur</h3>
+                        </div>
+
+                           
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="new_reference" name="new_reference" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="new_adresse" name="new_adresse" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Compte </label>
+                                    <div class="col-sm-9">
+                                        <input type="number" id="compte" name="compte" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                    <button id="SAVE_MAREYEUR" class="btn btn-small btn-info">
+                        <i class="ace-icon fa fa-save"></i>
+                        Enregistrer
+                    </button>
+
+                    <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        Annuler
+                    </button>
+                </div>
+                        
+                    </div><!-- /.modal-content -->
+                
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
+        <div id="winModalProduit" class="modal fade" tabindex="-1">
+            <form id="validation-form" class="form-horizontal" role="form">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Produit</h3>
+                        </div>
+
+                        <div class="modal-body" style="height: 240px;">
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="designation" name="designation" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Seuil </label>
+                                    <div class="col-sm-9">
+                                            <input type="text" id="seuil" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="SAVE_PRODUIT" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                            
+                            <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                                <i class="fa fa-times"></i>
+                                Annuler
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
 </div>
 <!-- /.page-content -->
 
@@ -315,6 +429,23 @@ $(document).ready(function () {
             }
         });
     };
+    
+     loadReferenceMareyeur = function () {
+                    $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+                    sData=$.parseJSON(data);
+                        if(sData.rc==-1){
+                            $.gritter.add({
+                                    title: 'Notification',
+                                    text: sData.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                        }else{
+                            $("#new_reference").val(sData.oId);
+                        }
+                });
+                };
+                loadReferenceMareyeur();
+                
     loadMareyeurs = function(){
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
                 ; ?>"}, function(data) {
@@ -479,6 +610,10 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            rel=mt - avance;
            if(!isNaN(rel) && rel>0) 
               $("#reliquat").val(rel);
+          else if(!isNaN(rel) && rel===0) {
+              $('#regleAchat').attr("disabled", false);
+              $("#reliquat").val(0);
+          }  
           else
               $("#reliquat").val(0);
         }
@@ -692,5 +827,128 @@ $table.find("tbody tr").each(function () {
 
 
         });
+        
+        $("#NEW_MAREYEUR").click(function ()
+    {
+       
+        $('#winModalMareyeur').modal('show');
+    });
+    
+    $("#NEW_PRODUIT").click(function()
+        {
+            $('#winModalProduit').modal('show');
+        });
+        
+        SaveMareyeurProcess = function ()
+    {
+
+        var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+        var frmData;
+        //             var familleproduit= $('#familleMareyeurId').val();
+        var reference = $("#reference").val();
+        var nom = $("#nom").val();
+        var adresse = $("#adresse").val();
+        var telephone = $("#telephone").val();
+        var compte = $("#compte").val();
+
+        var formData = new FormData();
+        formData.append('ACTION', ACTION);
+        formData.append('reference', reference);
+        formData.append('nom', nom);
+        formData.append('adresse', adresse);
+        formData.append('telephone', telephone);
+        formData.append('compte', compte);
+        $.ajax({
+            url: '<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php',
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            data: formData,
+            success: function (data)
+            {
+                if (data.rc == 0)
+                {
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: data.action,
+                        class_name: 'gritter-success gritter-light'
+                    });
+
+                }
+                else
+                {
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: data.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+
+                };
+                
+            },
+            error: function () {
+                alert("failure - controller");
+            }
+        });
+
+    };
+    
+    $("#SAVE_MAREYEUR").click(function() {
+    	 $('#formMareyeur').validate({
+    			errorElement: 'div',
+    			errorClass: 'help-block',
+    			focusInvalid: false,
+    			rules: {
+    				new_reference: {
+    					required: true
+    				},
+    				nom: {
+    					required: true
+    				},
+    				new_adresse: {
+    					required: true
+    				}
+    				
+    			},
+
+    			messages: {
+    				new_reference: {
+    					required: "Champ obligatoire."
+    				},
+    				nom: {
+    					required: "Champ obligatoire."
+    				},
+    				new_adresse: {
+    					required: "Champ obligatoire."
+    				}
+    			},
+
+
+    			highlight: function (e) {
+    				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+    			},
+
+    			success: function (e) {
+    				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+    				$(e).remove();
+    			},
+
+    			errorPlacement: function (error, element) {
+    				 error.insertAfter(element);
+    			},
+
+    			submitHandler: function (form) {
+    			SaveMareyeurProcess();
+    		        $('#winModalMareyeur').addClass('hide');
+    		        $('#winModalMareyeur').modal('hide');
+                       
+    			},
+    			invalidHandler: function (form) {
+    			}
+    		});
+                
+               
+    });
 });
 </script>

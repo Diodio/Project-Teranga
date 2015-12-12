@@ -448,7 +448,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <ul class="submenu">
                             <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
                                    class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Nouveau </span>
+                                        Ajouter </span>
                                 </a> <b class="arrow"></b>
                            </li>
                             <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
