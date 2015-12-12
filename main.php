@@ -429,7 +429,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                         <ul class="submenu">
                             <li id="AJOUTER_ACHATS" class=""><a id="ACHATS" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Ajouter
+                                        class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>
 
@@ -448,12 +448,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <ul class="submenu">
                             <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
                                    class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Ajouter </span>
+                                        Nouveau </span>
                                 </a> <b class="arrow"></b>
                            </li>
                             <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Consulter Liste </span>
+                                        Consulter Stock </span>
                                 </a> <b class="arrow"></b>
                             </li>
                         </ul>
@@ -463,8 +463,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 Bon de Sortie </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                            <li id="AJOUTER_SORTIE" class=""><a id="SORTIE" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Ajouter
+                            <li id="Nouveau_SORTIE" class=""><a id="SORTIE" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>
 
@@ -482,7 +482,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
                             <li id="AJOUTER_FACTURE" class=""><a id="FACTURE" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Ajouter
+                                        class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>
 
