@@ -48,9 +48,9 @@ class StockManager {
         return $this->stockQuery->countByUsine($usine, $user, $where);
     }
     
-  public function findStats() {
+  public function findStats($codeUsine) {
         $stockQueries = new StockQueries();
-    	return $stockQueries->findStats();
+    	return $stockQueries->findStats($codeUsine);
   }
   
   public function findStatsFamille($produitId, $codeUsine) {

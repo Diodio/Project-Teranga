@@ -90,19 +90,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="widget-body">
                         <div class="widget-main">
                             
-                            <div id="STAT_ADMIN" class="hide">
-                            <div id="piechart-placeholder"></div>
+                            <div id="STAT_ADMIN">
+                                <div id="piechart-placeholder"></div>
 
-                            <div class="hr hr8 hr-double"></div>
+                                <div class="hr hr8 hr-double"></div>
 
-                            <div class="clearfix" id="NB_STATS">
+                                <div class="clearfix" id="NB_STATS">
 
-                            </div>    
+                                </div>    
                             </div>
-                            <div id="STAT_OTHER" class="hide" data-width="300"  >
+<!--                            <div id="STAT_OTHER" class="hide" data-width="300"  >
                                 <div id="STAT_PRODUIT" ></div>
  
-                            </div>
+                            </div>-->
                         </div><!-- /.widget-main -->
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
@@ -113,16 +113,16 @@ $codeUsine = $_COOKIE['codeUsine'];
     <script type="text/javascript">
             jQuery(function ($) {
             var oTableStock= null;
-            if("<?php echo $profil ?>" === "admin") {
-                $('#STAT_OTHER').addClass("hide");
-                $('#STAT_ADMIN').removeClass("hide");
-                $('#STAT_ADMIN').addClass("show");
-            }
-            else {
-                $('#STAT_ADMIN').addClass("hide");
-                $('#STAT_OTHER').removeClass("hide");
-                $('#STAT_OTHER').addClass("show");
-            }
+//            if("<?php echo $profil ?>" === "admin") {
+//                $('#STAT_OTHER').addClass("hide");
+//                $('#STAT_ADMIN').removeClass("hide");
+//                $('#STAT_ADMIN').addClass("show");
+//            }
+//            else {
+//                $('#STAT_ADMIN').addClass("hide");
+//                $('#STAT_OTHER').removeClass("hide");
+//                $('#STAT_OTHER').addClass("show");
+//            }
            loadStocks = function() {
              rowCount = 0;
             var url;
@@ -292,6 +292,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         var dataUsine='';
                         $('#NB_STATS').empty();
                         $.each(data, function () {
+                            console.log(this.couleur)
                             map.push({label: this.nomUsine, data: this.nbStocks, color: this.couleur, operator: this.nomUsine});
                             dataUsine += '{"value":"'+this.nomUsine+'","text":"'+this.nomUsine+'"},';
                             $('#NB_STATS').append(' <div class="grid3"> <span class="grey"><i class="icon-user"></i><small>&nbsp; '+this.nomUsine+'</span><span  class="bigger pull-right" >'+this.nbStocks+'</small> </span>   </div>');
@@ -307,10 +308,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }).error(function(error) { alert("failure"); });;
             };
 			if("<?php echo $profil ?>" === "admin") {
-                            loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
+                            loadStats("*","<?php echo $login?>");
                         }
                         else 
-                            loadStatsFamille($("#GRP_CMB").val(),"<?php echo $codeUsine?>","<?php echo $login?>");
+                             loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
+                           // loadStatsFamille($("#GRP_CMB").val(),"<?php echo $codeUsine?>","<?php echo $login?>");
 			  //pie chart tooltip example
 			  var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
 			  var previousPoint = null;

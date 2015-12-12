@@ -51,7 +51,7 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
 
     public function retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $orderBy = "", $sWhere = "") {
              $sql = 'select distinct(produit.id), libelle, stock, seuil
-                    from produit,stock where produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
      
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -79,8 +79,8 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
 
     public function countByUsine($codeUsine, $login, $where="") {
 
-        $sql = 'select count(id) as nbStocks
-                from produit where codeUsine="'.$codeUsine.'" ' . $where . '';
+        $sql = 'select count(produit.id) as nbStocks
+                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" ' . $where . '';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbTypeStocks = $stmt->fetch();
@@ -142,8 +142,12 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
             return null;
     }
     
-    public function findStats() {
-        $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock_reel s, usine u WHERE s.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC";
+    public function findStats($codeUsine) {
+        if($codeUsine !='*')
+            $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock_reel s, usine u WHERE s.codeUsine=u.code AND s.codeUsine='".$codeUsine."' GROUP BY nomUsine ORDER BY nomUsine DESC";
+        else
+           $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock_reel s, usine u WHERE s.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC";
+
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
