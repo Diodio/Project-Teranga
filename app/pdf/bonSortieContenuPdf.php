@@ -142,5 +142,120 @@ td    { vertical-align: top; }
             </tr>
         </table>
     </nobreak>
+    
+    
+<!--     2e page -->
+    
+    <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
+        <tr>
+            <td style="width: 40%; ">
+                <span style="font-size: 20px;color:blue" >MACFISH</span>
+                <br>
+                 <span style="font-size: 20px;color:blue" >PRODUCTION SUARL</span>
+                 <br><br>
+                <span >TEL : 338218470 / 338363512</span>
+            </td>
+            <td style="width: 40%;">
+                <span style="margin-left:30px;"></span>
+            </td>
+            <td style="width: 25%; color: #444444;">
+                Dakar, le <?php echo date("d-m-Y");  ;?>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
+        <tr>
+            <td style="width:40%;"></td>
+            <td style="width:30%; "><span  style="font-size: 25px;" >BON DE SORTIE</span></td>
+            <td >Numero: <?php echo $row['numeroBonSortie']; ?></td>
+        </tr>
+    </table>
+    
+    <table cellspacing="0" style="color:#444444";width: 100%; text-align: center; font-size: 14px">
+        <tr>
+            <td >
+                Mareyeur: <?php echo $row['nom']; ?>
+            </td>
+        </tr>
+        <tr>
+        <td >
+                Origine: <?php echo $row['adresse']; ?>
+        </td>
+        </tr>
+        <tr>
+        <td >
+                Chauffeur: <?php echo $row['nomChauffeur']; ?>
+        </td>
+        </tr>
+    </table>
+    <br>
+    <table cellspacing="0" style="color:#444444;width: 100%; text-align: left; font-size: 14px">
+        <tr>
+        <td >
+                Chauffeur: <?php echo $row['nomChauffeur']; ?>
+        </td>
+        </tr>
+        <tr>
+        <td >
+                Numero Container: <?php echo $row['numeroContainer']; ?>
+        </td>
+        </tr>
+        <tr>
+        <td >
+                Numero Plomb: <?php echo $row['numeroPlomb']; ?>
+        </td>
+        </tr>
+    </table>
+       
+    
+    <br>
+    <br>
+    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
+        <tr>
+            <th style="width: 35%">Désignation</th>
+            <th style="width: 35%; text-align: right">Prix Unitaire</th>
+            <th style="width: 30%; text-align: right;">Quantité(kg)</th>
+        </tr>
+    </table>
+    
+<?php
+    $total =0;
+    $totalPrix=0;
+   while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
+       $total =$total+ $rowProduit['quantite'];
+       $totalPrix =$totalPrix+ $rowProduit['prixUnitaire'];
+?>
+    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
+        <tr>
+            <td style="width: 35%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
+            <td style="width: 35%; text-align: right"><?php echo $rowProduit['prixUnitaire']; ?></td>
+            <td style="width: 30%; text-align: right;"><?php echo $rowProduit['quantite']; ?> </td>
+        </tr>
+    </table>
+<?php
+    }
+?>
+    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
+        <tr>
+            <th style="width: 20%; text-align: left;">Total : </th>
+            <th style="width: 50%; text-align: right;"><?php echo number_format($totalPrix, 2, ',', ' '); ?> </th>
+            <th style="width: 30%; text-align: right;"><?php echo number_format($total); ?> kg</th>
+        </tr>
+    </table>
+    <br>
+    
+    <nobreak>
+        <br>
+        <table cellspacing="0" style="width: 100%; text-align: left;">
+            <tr>
+                <td style="width:25%;">Le Peseur</td>
+                <td style="width:25%"></td>
+                <td style="width:38%"></td>
+                <td style="width:25%"> Le Mareyeur</td>
+            </tr>
+        </table>
+    </nobreak>
 </page>
 
