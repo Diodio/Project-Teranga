@@ -123,7 +123,7 @@
 			</div>
 			<div class="space-6"></div>
 			<div class="row clearfix">
-				<div class="col-md-6 column">
+				<div class="col-md-8 column">
 					<table class="table table-bordered table-hover" id="tab_logic">
 						<thead>
                                                     <tr>
