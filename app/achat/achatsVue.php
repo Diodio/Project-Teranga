@@ -269,7 +269,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 	</form>
 
         <div id="winModalMareyeur" class="modal fade" tabindex="-1">
-            <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
+            <form id="formMareyeur" class="form-horizontal"  onsubmit="return false;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -281,7 +281,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="reference" name="reference" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="new_reference" name="new_reference" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -293,7 +293,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="adresse" name="adresse" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="new_adresse" name="new_adresse" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
 
                                 </div>
@@ -310,7 +310,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                    <button id="SAVE" class="btn btn-small btn-info">
+                    <button id="SAVE_MAREYEUR" class="btn btn-small btn-info">
                         <i class="ace-icon fa fa-save"></i>
                         Enregistrer
                     </button>
@@ -363,7 +363,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
 
                         <div class="modal-footer">
-                            <button id="SAVE" class="btn btn-small btn-info" >
+                            <button id="SAVE_PRODUIT" class="btn btn-small btn-info" >
                                 <i class="ace-icon fa fa-save"></i>
                                 Enregistrer
                             </button>
@@ -429,6 +429,23 @@ $(document).ready(function () {
             }
         });
     };
+    
+     loadReferenceMareyeur = function () {
+                    $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+                    sData=$.parseJSON(data);
+                        if(sData.rc==-1){
+                            $.gritter.add({
+                                    title: 'Notification',
+                                    text: sData.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                        }else{
+                            $("#new_reference").val(sData.oId);
+                        }
+                });
+                };
+                loadReferenceMareyeur();
+                
     loadMareyeurs = function(){
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
                 ; ?>"}, function(data) {
@@ -821,5 +838,117 @@ $table.find("tbody tr").each(function () {
         {
             $('#winModalProduit').modal('show');
         });
+        
+        SaveMareyeurProcess = function ()
+    {
+
+        var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+        var frmData;
+        //             var familleproduit= $('#familleMareyeurId').val();
+        var reference = $("#reference").val();
+        var nom = $("#nom").val();
+        var adresse = $("#adresse").val();
+        var telephone = $("#telephone").val();
+        var compte = $("#compte").val();
+
+        var formData = new FormData();
+        formData.append('ACTION', ACTION);
+        formData.append('reference', reference);
+        formData.append('nom', nom);
+        formData.append('adresse', adresse);
+        formData.append('telephone', telephone);
+        formData.append('compte', compte);
+        $.ajax({
+            url: '<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php',
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            data: formData,
+            success: function (data)
+            {
+                if (data.rc == 0)
+                {
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: data.action,
+                        class_name: 'gritter-success gritter-light'
+                    });
+
+                }
+                else
+                {
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: data.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+
+                };
+                
+            },
+            error: function () {
+                alert("failure - controller");
+            }
+        });
+
+    };
+    
+    $("#SAVE_MAREYEUR").click(function() {
+    	 $('#formMareyeur').validate({
+    			errorElement: 'div',
+    			errorClass: 'help-block',
+    			focusInvalid: false,
+    			rules: {
+    				new_reference: {
+    					required: true
+    				},
+    				nom: {
+    					required: true
+    				},
+    				new_adresse: {
+    					required: true
+    				}
+    				
+    			},
+
+    			messages: {
+    				new_reference: {
+    					required: "Champ obligatoire."
+    				},
+    				nom: {
+    					required: "Champ obligatoire."
+    				},
+    				new_adresse: {
+    					required: "Champ obligatoire."
+    				}
+    			},
+
+
+    			highlight: function (e) {
+    				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+    			},
+
+    			success: function (e) {
+    				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+    				$(e).remove();
+    			},
+
+    			errorPlacement: function (error, element) {
+    				 error.insertAfter(element);
+    			},
+
+    			submitHandler: function (form) {
+    			SaveMareyeurProcess();
+    		        $('#winModalMareyeur').addClass('hide');
+    		        $('#winModalMareyeur').modal('hide');
+                       
+    			},
+    			invalidHandler: function (form) {
+    			}
+    		});
+                
+               
+    });
 });
 </script>
