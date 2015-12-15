@@ -35,8 +35,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Origine </label>
 					</div>
 					<div class="col-sm-6">
-						 <input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
-                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
+						 <input type="text" name="Origine" id="nomChauffeur" placeholder=""
+                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="<?php echo $codeUsine;?>" readonly="readonly">
 					</div>
 				</div>
 				<div class="space-6"></div>
