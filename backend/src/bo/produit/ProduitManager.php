@@ -159,17 +159,29 @@ public function retrieveTypes()
         return $produit['prixUnitaire'];
     }
     
-    public function retrieveAllByUsine($codeUsine){
+    public function retrieveAllByUsine(){
         $produits = $this->produitQuery->retrieveAllByUsine();
         $list = array();
         $i = 0;
         foreach ($produits as $key => $value) {
-           // $stockFinal = 0;
             $list [$i]['value'] = $value ['value'];
-            //$stock = $this->produitQuery->retrieveStockReelParUsine($value ['value'], $codeUsine);
-           // if($stock !=null)
-           //    $stockFinal = $stock ['stock']; 
             $list [$i]['text'] = $value ['text']; 
+            $i++;
+        }
+        return $list;
+    }
+    // pour bon de sortie
+    public function listByUsine($codeUsine){
+        $produits = $this->produitQuery->retrieveAllByUsine();
+        $list = array();
+        $i = 0;
+        foreach ($produits as $key => $value) {
+            $stockFinal = 0;
+            $list [$i]['value'] = $value ['value'];
+            $stock = $this->produitQuery->retrieveStockReelParUsine($value ['value'], $codeUsine);
+            if($stock !=null)
+              $stockFinal = $stock ['stock']; 
+            $list [$i]['text'] = $value ['text'] . '(' .$stockFinal . ')'; 
             $i++;
         }
         return $list;

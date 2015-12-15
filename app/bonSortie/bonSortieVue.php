@@ -231,7 +231,7 @@ $(document).ready(function () {
             }
     });
     loadProduit = function(index){
-        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_PAR_USINE
+        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){

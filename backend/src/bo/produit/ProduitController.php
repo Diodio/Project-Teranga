@@ -49,6 +49,9 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_LIST_PAR_USINE:
                                 $this->doGetProduitParUsine($request);
                                 break;
+                        case \App::ACTION_LIST_REEL_PAR_USINE:
+                                $this->doGetProduitReelParUsine($request);
+                                break;
                         case \App::ACTION_LIST_DEMOULAGES:
                                 $this->doListDemoulages($request);
                                 break;
@@ -253,6 +256,25 @@ class ProduitController extends BaseController implements BaseAction {
             throw new Exception('ERREUR SERVEUR');
         }
     }
+    public function doGetProduitReelParUsine($request) {
+        try {
+            if (isset($request['codeUsine'])) {
+                $produitManager = new ProduitManager();
+                $produit = $produitManager->listByUsine($request['codeUsine']);
+                if($produit !=null)
+                    $this->doSuccessO($produit);
+                else
+                   echo json_encode(array());  
+            } else {
+                throw new Exception('PARAM_NOT_ENOUGH');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
+        }
+    }
+    
 
      public function doListDemoulages($request) {
         try {
