@@ -78,8 +78,7 @@ class BonSortie {
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
     
-    /** @ManyToOne(targetEntity="Client\Client", inversedBy="client") */
-    protected $client;
+  
     
     public function getId() {
         return $this->id;
@@ -145,9 +144,7 @@ class BonSortie {
         return $this->deletedDate;
     }
 
-    public function getClient() {
-        return $this->client;
-    }
+   
 
     public function setId($id) {
         $this->id = $id;
@@ -213,9 +210,7 @@ class BonSortie {
         $this->deletedDate = $deletedDate;
     }
 
-    public function setClient($client) {
-        $this->client = $client;
-    }
+    
 
     public function getPoidsTotal() {
         return $this->poidsTotal;

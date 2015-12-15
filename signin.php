@@ -257,6 +257,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                     $.cookie('status', data.infos.status, { expires: heure, path: domainName });
                                     $.cookie('etatCompte', data.infos.etatCompte, { expires: heure, path: domainName });
                                     $.cookie('codeUsine', data.infos.codeUsine, { expires: heure, path: domainName});
+                                    $.cookie('nomUsine', data.infos.nomUsine, { expires: heure, path: domainName});
                                     
                                     var url = "<?php echo \App::getHome();?>/main.php";
                                     document.location.href=url;

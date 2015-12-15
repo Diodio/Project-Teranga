@@ -100,7 +100,6 @@ public function findStatisticByUsine($codeUsine) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
                 $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
                 $bonSortieDetail ['date']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
-                $bonSortieDetail ['nomClient']  = $value ['nom'];
                 $bonSortieDetail ['numContainer']  =  $value ['numeroContainer'];
                 $bonSortieDetail ['numPlomb']  =  $value ['numeroPlomb'];
                 $bonSortieDetail ['numCamion']  =  $value ['numeroCamion'];

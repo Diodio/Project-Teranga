@@ -42,16 +42,17 @@ class BonSortieQueries {
 
    
     public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
-        if($sWhere !== "")
-            $sWhere = " and " . $sWhere;
+        
         if($codeUsine !=='*') {
             
-            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie, nom
-                    from bon_sortie, client where client.id=bon_sortie.client_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie
+                    from bon_sortie where codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie, nom
-                    from bon_sortie, client where client.id=bon_sortie.client_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+             if($sWhere !== "")
+                $sWhere = " where " . $sWhere;
+            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie
+                    from bon_sortie ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -64,7 +65,6 @@ class BonSortieQueries {
             $arrayAchats [$i] [] = $value ['status'];
             $arrayAchats [$i] [] = $value ['dateBonSortie'];
             $arrayAchats [$i] [] = $value ['numeroBonSortie'];
-            $arrayAchats [$i] [] = $value ['nom'];
             $i++;
         }
         return $arrayAchats;
@@ -83,15 +83,16 @@ class BonSortieQueries {
                 return null;
         }
     public function count($codeUsine, $sWhere = "") {
-        if($sWhere !== "")
-            $sWhere = " and " . $sWhere;
+       
         if($codeUsine !=='*') {
             $sql = 'select count(bon_sortie.id) as nb
-                    from bon_sortie, client where client.id=bon_sortie.client_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+                    from bon_sortie where codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
+             if($sWhere !== "")
+            $sWhere = " where " . $sWhere;
              $sql = 'select count(bon_sortie.id) as nb
-                    from bon_sortie, client where client.id=bon_sortie.client_id ' . $sWhere . '';
+                    from bon_sortie ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -138,9 +139,9 @@ class BonSortieQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
-     public function findBonDetails($sortieId) {
+    public function findBonDetails($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT * from bon_sortie, client where client.id=bon_sortie.client_id and bon_sortie.id=' . $sortieId;
+            $sql = 'SELECT * from bon_sortie where bon_sortie.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();
@@ -150,10 +151,10 @@ class BonSortieQueries {
                 return null;
         }
     }
-    
+
     public function findAllProduitByBon($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT p.libelle designation, p.prixUnitaire,al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
+            $sql = 'SELECT p.libelle designation, al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();

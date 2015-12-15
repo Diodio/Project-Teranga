@@ -100,29 +100,31 @@ private $logger;
                 $bonSortie->setLogin($request['login']);
                 $bonSortie->setStatus(1);
                 $bonSortie->setPoidsTotal($request['poidsTotal']);
-                $clientManager = new Client\ClientManager();
-                $client = $clientManager->findById($request['client']);
-                $bonSortie->setClient($client);
+//                $clientManager = new Client\ClientManager();
+//                $client = $clientManager->findById($request['client']);
+//                $bonSortie->setClient($client);
                 $Added = $bonSortieManager->insert($bonSortie);
-           //     var_dump("fgf");
                 if ($Added->getId() != null) {
                     $jsonBonSortie = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonBonSortie as $key => $ligne) {
-                            if(isset($ligne["Désignation"])) {
+                            if(isset($ligne["designation"])) {
                                 $ligneBonSortie = new LigneBonSortie();
                                 $ligneBonSortie->setBonSortie($bonSortie);
-                                $produitId = $ligne["Désignation"];
+                                $produitId = $ligne["designation"];
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
                                 $ligneBonSortie->setProduit($produit);
-                                $ligneBonSortie->setQuantite($ligne['Quantité(kg)']);
+                                $ligneBonSortie->setQuantite($ligne['qte']);
                                 $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
                                 $Inserted = $ligneBonSortieManager->insert($ligneBonSortie); 
                                 if ($Inserted->getId() != null) {
                                        $stockManager = new \Stock\StockManager();
-                                       if($ligne['Quantité(kg)'] !="")
-                                           $nbStock = $ligne['Quantité(kg)'];
-                                       $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
+                                       if($ligne['qte'] !="")
+                                           $nbStock = $ligne['qte'];
+                                       if($request['codeUsine']!='usine_dakar') {
+                                            $stockManager->destockage($produitId, $request['codeUsine'], $nbStock);
+                                            $stockManager->updateNbStock($produitId, 'usine_dakar', $nbStock);
+                                       }
                                 }
                             }
                          }
@@ -144,7 +146,7 @@ private $logger;
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateBonSortie', 'numeroBonSortie', 'nom');
+                $aColumns = array('dateBonSortie', 'numeroBonSortie');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {

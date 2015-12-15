@@ -10,6 +10,7 @@ $login = $_COOKIE['login'];
 $profil = $_COOKIE['profil'];
 $status = $_COOKIE['status'];
 $codeUsine = $_COOKIE['codeUsine'];
+$nomUsine = $_COOKIE['nomUsine'];
 ?>
 
 
@@ -35,8 +36,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Origine </label>
 					</div>
 					<div class="col-sm-6">
-						 <input type="text" name="Origine" id="nomChauffeur" placeholder=""
-                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="<?php echo $codeUsine;?>" readonly="readonly">
+						 <input type="text" name="origine" id="origine" placeholder=""
+                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="<?php echo $nomUsine;?>" readonly="readonly">
 					</div>
 				</div>
 				<div class="space-6"></div>
@@ -106,7 +107,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Destination</label>
 					</div>
 					<div class="col-sm-6">
-                                            <input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
+                                            <input type="text" name="destination" id="destination" placeholder=""
                                                        style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
 					</div>
 				</div>
@@ -319,23 +320,24 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;            
-            var clients = $("#CMB_CLIENTS").val();
-            var origine = $('#adresse').val();
+            var origine = '<?php echo $codeUsine?>';
             var numContainer= $('#numContainer').val();
             var numeroPlomb= $('#numeroPlomb').val();
             var numeroBonSortie = $("#numeroBonSortie").val();
             var numeroCamion = $("#numeroCamion").val();
             var nomChauffeur = $("#nomChauffeur").val();
-            var destination = $('#CMBDESTINATIONS').select2('data').text;
+            var destination = 'usine_dakar';
             var poidsTotal = $("#poidsTotal").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
-            var $table = $("table");
+            var $table = $("table")
             rows = [],
             header = [];
-            $table.find("thead th").each(function () {
-                header.push($(this).html().trim());
-            });
+
+            //$table.find("thead th").each(function () {
+            //    header.push($(this).html().trim());
+            //});
+            header = ["#","designation","qte"];
             $table.find("tbody tr").each(function () {
                 var row = {};
 
@@ -357,7 +359,6 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             console.log(tbl);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('client', clients);
             formData.append('dateBonSortie', dateAchat);
             formData.append('origine', origine);
             formData.append('numContainer', numContainer);

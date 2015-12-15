@@ -84,12 +84,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Numero
                                 </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Client
-                                </th>
-
-                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
-                                </th>-->
                             </tr>
                         </thead>
 
@@ -190,12 +184,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="profile-info-name">Date </div>
                         <div class="profile-info-value">
                             <span id="Date"></span>
-                        </div>
-                    </div>
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Nom Client </div>
-                        <div class="profile-info-value">
-                            <span id="NomClient"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
