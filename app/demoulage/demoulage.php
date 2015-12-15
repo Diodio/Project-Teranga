@@ -150,13 +150,13 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+                        </div>
                             <button id="SAVE" class="btn btn-small btn-info pull-right">
                                     <i class="fa fa-plus-square "></i> Valider
                             </button>
+                        </div>
                             </div>
                         </div>
-                    </div>
                     </form>
                 </div><!--/.span6-->
             </div>
@@ -206,7 +206,7 @@
                     $("#qte"+index).val(""); 
                    $("#tot"+index).val("0"); 
                }
-            }
+               }
             else {
                 $("#tot"+index).val("0");
             }

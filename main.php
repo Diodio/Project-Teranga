@@ -463,7 +463,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 Bon de Sortie </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                            <li id="Nouveau_SORTIE" class=""><a id="SORTIE" href="#"> <i
+                            <li id="AJOUTER_SORTIE" class=""><a id="SORTIE" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>

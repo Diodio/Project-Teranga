@@ -32,22 +32,11 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 				<div class="row">
 					<div class="col-sm-4">
-						<label> Client </label>
+						<label> Origine </label>
 					</div>
 					<div class="col-sm-6">
-						<select id="CMB_CLIENTS" data-placeholder="" style="width: 100%">
-							<option value="*" class="clients">Nom Client</option>
-						</select>
-					</div>
-				</div>
-				<div class="space-6"></div>
-				<div class="row">
-					<div class="col-sm-4">
-						<label> Adresse </label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" name="adresse" id="adresse" placeholder=""
-							style="width: 100%" class="col-xs-10 col-sm-7">
+						 <input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
+                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
 					</div>
 				</div>
 				<div class="space-6"></div>
@@ -117,9 +106,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<label> Destination</label>
 					</div>
 					<div class="col-sm-6">
-						<select name="myselect" id="CMBDESTINATIONS" data-placeholder="" style="width: 100%">
-							<option value="*" class="usines">Usine</option>
-						</select>
+                                            <input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
+                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
 					</div>
 				</div>
 			</div>
