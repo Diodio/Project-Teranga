@@ -81,6 +81,10 @@ class StockManager {
     	return $stockQueries->destockage($produitId, $codeUsine, $nbStock);
   }
   
+  public function destockageReel($produitId, $codeUsine, $nbStock ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->destockageReel($produitId, $codeUsine, $nbStock);
+  }
   public function findStockProvisoireByProduitId($produitId, $codeUsine) {
       $stockQueries = new StockQueries();
       $stock=$stockQueries->findStockProvisoireByProduitId($produitId, $codeUsine);
