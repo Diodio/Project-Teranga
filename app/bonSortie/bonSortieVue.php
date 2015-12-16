@@ -292,8 +292,15 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
           $( "#qte"+counter ).keyup(function() {
-            calculTotalPoids();
+           
+             verifierPoids('designation'+counter, counter);
          }); 
+          
+         
+//          $("#designation"+counter).change(function() {
+//              alert('designation'+counter);
+          // verifierPoids('designation'+counter, counter);
+//         }); 
       
     });
     
@@ -311,10 +318,42 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                 $("#poidsTotal").val(tot);
        };
        
-      $( "#qte0" ).keyup(function() {
-            calculTotalPoids();
+        $( "#qte0" ).keyup(function() {
+              calculTotalPoids();
          }); 
        
+//        $("#designation0").change(function() {
+//           verifierPoids('designation0');
+//         }); 
+         
+         function verifierPoids(id, counter){
+           var typ = $("#"+ id).select2('data').text;
+           var qte = parseInt($( "#qte"+counter ).val());
+           var sp1 = typ.indexOf( '(' );
+           var res = parseInt(typ.substring(sp1+1, typ.length-1));
+           console.log('res' +res);
+           console.log('qte' + $( "#qte"+counter ).val());
+           if(res<=0) {
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le produit selectionné est en rupture de stock',
+                    class_name: 'gritter-error gritter-light'
+                });
+                $("#"+ id).select2("val", "-1");
+           }
+           else if(qte>res){
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'La quantité ne doit pas etre superieure au stock',
+                    class_name: 'gritter-error gritter-light'
+                });
+               // $("#"+ id).select2("val", "-1");
+                //$( "#qte"+counter ).val("");
+           }
+           else
+                          calculTotalPoids();
+       };
+         
           BonSortieProcess = function ()
         {
             
