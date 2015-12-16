@@ -21,18 +21,18 @@ class StockQueries {
         $this->entityManager = Bootstrap::$entityManager;
         $this->classString = 'Stock\Stock';
     }
-    public function insert($stock) {
-        if ($stock != null) {
-                Bootstrap::$entityManager->persist($stock);
-            Bootstrap::$entityManager->flush();
-            return $stock;
-        }
+public function insert($stock) {
+    if ($stock != null) {
+            Bootstrap::$entityManager->persist($stock);
+        Bootstrap::$entityManager->flush();
+        return $stock;
     }
+}
     
 public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
         
-            $sql = 'select distinct(produit.id), libelle, stock, seuil
-                    from produit,stock_reel where produit.id=produit_id ' . $sWhere . ' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
+                    FROM produit,stock_reel WHERE produit.id=produit_id  ' . $sWhere . ' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
       
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -50,8 +50,8 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
     
 
     public function retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $orderBy = "", $sWhere = "") {
-             $sql = 'select distinct(produit.id), libelle, stock, seuil
-                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+             $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
+                    FROM produit,stock_reel WHERE produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
      
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
