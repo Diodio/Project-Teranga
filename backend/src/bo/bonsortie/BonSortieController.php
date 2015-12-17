@@ -236,7 +236,7 @@ private $logger;
                 $sortieManager = new BonSortieManager();
                 $annul = $sortieManager->annulerBonSortie($request['bonsortieId']);
                 if ($annul == 1) {
-                    $sortieManager->ajourStockParBonSortie($request['bonsortieId']);
+                    $sortieManager->remettreStockParBonSortie($request['bonsortieId']);
                     $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'annuler ce bon de sortie');

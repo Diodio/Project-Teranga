@@ -130,11 +130,12 @@ public function findStatisticByUsine($codeUsine) {
         }
     }
     
-    public function ajourStockParBonSortie($sortieId) {
+    public function remettreStockParBonSortie($sortieId) {
         $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
         foreach ($sortie as $key => $value) {
-            $stockManager = new \Produit\StockManager();
-            $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+            $stockManager = new \Stock\StockManager();
+            $stockManager->destockageReel($value ['produit_id'], 'usine_dakar', $value ['quantite']);
+            $stockManager->updateNbStockReel($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
         }
     }
     
