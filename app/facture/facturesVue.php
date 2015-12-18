@@ -510,6 +510,55 @@ $(document).ready(function () {
 	 });
 
 
+    
+    $(document).delegate('#tab_logic tr td', 'click', function (event) {
+        var id = $(this).closest('tr').attr('id');
+        var counter = id.slice(-1);
+          $( "#qte"+counter ).keyup(function() {
+           calculMontant(counter);
+           //  verifierPoids('designation'+counter, counter);
+         }); 
+         $( "#pu"+counter ).keyup(function() {
+           calculMontant(counter);
+           //  verifierPoids('designation'+counter, counter);
+         }); 
+          
+         
+
+      
+    });
+
+  function calculMontant(index){
+           var mt;
+           var qte=parseInt($("#qte"+index).val());
+           if(!isNaN(qte)) {
+              var pu = $("#pu"+index).val();
+              mt = parseInt(qte) * parseInt(pu);
+              if(!isNaN(mt)){
+                $("#montant"+index).val(mt);
+              }
+            }
+            else {
+                $("#montant"+index).val("");
+            }
+            calculMontantPoids();
+       }
+       function calculMontantPoids(){
+           var pt=0;
+           var pd=0;
+          $('#tab_logic .montant').each(function () {
+              if($(this).val()!=='')
+                pt += parseInt($(this).val());
+            });
+            $('#tab_logic .qte').each(function () {
+                if($(this).val()!=='')
+                pd+= parseFloat($(this).val());
+            });
+                if(!isNaN(pt))
+                    $("#montantTotal").val(pt);
+                if(!isNaN(pd))
+                    $("#poidsTotal").val(pd);
+        }
  var j=1;
      $("#add_row_cont").click(function(){
    $('#addrcont'+j).html("<td>"+ (j+1) +"</td><td><input type='text' id='cont"+j+"' name='cont"+j+"'  class='form-control'/></td>\n\
