@@ -555,7 +555,7 @@ $(document).ready(function () {
                 pd+= parseFloat($(this).val());
             });
                 if(!isNaN(pt))
-                    $("#montantTotal").val(pt);
+                    $("#montantHt").val(pt);
                 if(!isNaN(pd))
                     $("#poidsTotal").val(pd);
         }
