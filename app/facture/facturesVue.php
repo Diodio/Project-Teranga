@@ -145,7 +145,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<tr id='addr0'>
 								<td>1</td>
                                                                 <td><input type="number" id="ncolis0" name='ncolis0' 
- 									class="col-xs-9" /> </td> 
+ 									class="col-xs-9 ncolis" /> </td> 
 								<td><select id="designation0" name="designation0"
 									class="col-xs-10 col-sm-10">
 										<option value="-1" id="designationSelect"
@@ -490,7 +490,7 @@ $(document).ready(function () {
         });
     var i=1;
      $("#add_row").click(function(){
-   $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='ncolis"+i+"' name='ncolis"+i+"' class='form-control'/></td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
+   $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='ncolis"+i+"' name='ncolis"+i+"' class='form-control ncolis'/></td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
 <td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
@@ -546,6 +546,7 @@ $(document).ready(function () {
        function calculMontantPoids(){
            var pt=0;
            var pd=0;
+           var ncolis=0;
           $('#tab_logic .montant').each(function () {
               if($(this).val()!=='')
                 pt += parseInt($(this).val());
@@ -554,10 +555,16 @@ $(document).ready(function () {
                 if($(this).val()!=='')
                 pd+= parseFloat($(this).val());
             });
+          $('#tab_logic .ncolis').each(function () {
+              if($(this).val()!=='')
+                ncolis += parseInt($(this).val());
+            });
                 if(!isNaN(pt))
                     $("#montantHt").val(pt);
                 if(!isNaN(pd))
                     $("#poidsTotal").val(pd);
+                 if(!isNaN(ncolis))
+                    $("#nbTotalColis").val(ncolis);
         }
  var j=1;
      $("#add_row_cont").click(function(){
