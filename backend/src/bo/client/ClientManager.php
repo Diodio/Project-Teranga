@@ -56,9 +56,9 @@ class ClientManager {
     public function retrieveAll($offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->ClientQuery->retrieveAll($offset, $rowCount, $sOrder, $sWhere);
     }
-public function retrieveTypes()
+public function retrieveClients()
     {
-        return $this->ClientQuery->retrieveTypes();
+        return $this->ClientQuery->retrieveClients();
     }
    
     public function count($where="") {
@@ -91,6 +91,17 @@ public function retrieveTypes()
             $list [$i]['adresse'] = $value ['adresse'];
             $list [$i]['telephone'] = $value ['telephone'];
             $i++;
+        }
+        return $list;
+    }
+    
+    public function findInfosClient($clientId) {
+        $client = $this->ClientQuery->findInfosClient($clientId);
+        $list = array();
+        foreach ($client as $key => $value) {
+            $list ['nom'] = $value ['nom'];
+            $list ['origine'] = $value ['adresse'];
+            $list ['reference'] = $value ['reference'];
         }
         return $list;
     }

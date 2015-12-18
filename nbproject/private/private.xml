@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/macfish/app/produit/produitsVue.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/BaseController.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/app/mareyeur/mareyeursVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/client/ClientManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/bonSortie/bonSortieVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/stock/StockQueries.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/stock/StockManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/bonsortie/BonSortieQueries.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/bonsortie/BonSortieManager.php</file>
             <file>file:/C:/xampp/htdocs/macfish/app/achat/achatsVue.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/mareyeur/MareyeurController.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/app/achat/achatListe.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/bonsortie/BonSortieController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/facture/facturesVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/client/clientsVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/client/ClientController.php</file>
         </group>
     </open-files>
 </project-private>

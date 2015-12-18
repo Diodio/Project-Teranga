@@ -47,6 +47,12 @@ class ClientController extends BaseController implements BaseAction {
                                         case \App::ACTION_GET_LAST_NUMBER:
                                                 $this->doGetLastNumber($request);
                                                 break;
+                                        case \App::ACTION_LIST_VALID:
+                                                $this->doRetrieveClients($request);
+                                                break;
+                                        case \App::ACTION_GET_INFO_CLIENT:
+                                                $this->doGetInfosClient($request);
+                                                break;
 
 				}
 			} else {
@@ -202,7 +208,33 @@ class ClientController extends BaseController implements BaseAction {
             $this->doError('-1', $e->getMessage());
         }
     }
-
+    public function doRetrieveClients($request) {
+            $clientManager = new ClientManager();
+            
+        try {
+            $clients = $clientManager->retrieveClients();
+            
+            if ($clients != null)
+                $this->doSuccessO($clients);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
+    
+     public function doGetInfosClient($request) {
+            $clientManager = new ClientManager();
+        try {
+            $client = $clientManager->findInfosClient($request['clientId']);
+            if ($client != null)
+                $this->doSuccessO($client);
+            else
+                echo json_encode(array());
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
 }
 
 $oClientController = new ClientController($_REQUEST);
