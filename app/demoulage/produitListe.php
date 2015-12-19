@@ -37,17 +37,23 @@
                             </a>
                         </div>
                     </div>
-
+                      <div class="row clearfix">
+				<div class="col-md-12 column">
+                          <a id="MNU_IMPRIMER" class="btn btn-primary btn-sm" style="float: left"><i
+						class="ace-icon fa fa-plus-square"></i> Imprimer</a> 
+				</div>
+			</div>
                     <div class="widget-body">
                         <div class="widget-main no-padding">
                           <table id="LIST_DEMOULAGES" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th class="center" style="border-right: 0px none;">
-                                    <label>
-                                        <input type="checkbox" value="*" name="allchecked"/>
-                                        <span class="lbl"></span>
-                                    </label>
+                                Id
+<!--                                     <label> -->
+<!--                                         <input type="checkbox" value="*" name="allchecked"/> -->
+<!--                                         <span class="lbl"></span> -->
+<!--                                     </label> -->
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Désignation
@@ -320,14 +326,14 @@
                     },
                     "aoColumnDefs": [
                         {
-                            "aTargets": [0],
-                            "bSortable": false,
-                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-                                $(nTd).css('text-align', 'center');
-                            },
-                            "mRender": function(data, type, full) {
-                                return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
-                            }
+//                             "aTargets": [0],
+//                             "bSortable": false,
+//                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+//                                 $(nTd).css('text-align', 'center');
+//                             },
+//                             "mRender": function(data, type, full) {
+//                                 return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
+//                             }
                         },
                         {
                         "aTargets": [4],
@@ -476,16 +482,16 @@
                 }
             });
 
-            $("#MNU_IMPRIMER").click(function()
-                    {
-                        if (checkedDemoulages.length == 0)
-                            bootbox.alert("Veuillez selectionnez un achat");
-                        else if (checkedDemoulages.length >= 1)
-                        {
+//             $("#MNU_IMPRIMER").click(function()
+//                     {
+//                         if (checkedDemoulages.length == 0)
+//                             bootbox.alert("Veuillez selectionnez un achat");
+//                         else if (checkedDemoulages.length >= 1)
+//                         {
                         	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?produitId='+checkedDemoulages[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
                             
-                        }
-                    });
+//                         }
+//                     });
             
             $("#MNU_ANNULATION").click(function()
             {
@@ -649,8 +655,17 @@
 			invalidHandler: function (form) {
 			}
 		});
-
-
         });
+
+        $("#MNU_IMPRIMER").click(function()
+                {
+            alert("test");
+//                     if (checkedAchat.length == 0)
+//                         bootbox.alert("Veuillez selectionnez un achat");
+//                     else if (checkedAchat.length >= 1)
+//                     {
+                    	window.open('<?php echo App::getHome(); ?>/app/pdf/stockPdf?usineCode='+<?php echo $codeUsine?>,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+//                     }
+                });
             });
         </script>
