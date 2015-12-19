@@ -27,8 +27,8 @@ $codeUsine = $_COOKIE['codeUsine'];
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
 
-
-           <div class="col-sm-6">
+        
+           <div class="col-sm-6" >
                 <div class="row" >
                         <div class="col-sm-2">
                             <label> Client</label>
@@ -74,7 +74,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                  </div>
                  <div class="space-6"></div>
-                    </div>
+                </div>
                     <div class="col-sm-6">
                         <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
                             <label class="col-sm-2 control-label no-padding-right"
@@ -112,13 +112,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
                 </div>
                        
-                    </div>
+               </div>
 
                 </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                             <div class="row">
-                                <label class="col-sm-3 control-label no-padding-right"
+                                <label class="col-sm-3 control-label no-padding-left"
                                         for="form-field-1"> Designation </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
@@ -129,7 +129,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                              <div class="space-6"></div>
                             <div class="row">
-                                <label class="col-sm-3 control-label no-padding-right"
+                                <label class="col-sm-3 control-label no-padding-left"
                                         for="form-field-1"> Prix unitaire </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
@@ -140,7 +140,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
            
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                       <div class="row clearfix">
 				<div class="col-md-12 column">
 					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
@@ -179,19 +179,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</table>
 				</div>
 			</div>     
-                </div>
+           </div>
             
             <div class="col-sm-4">
-                <div class="row" style="margin-top:40px;">
-                        <label class="col-sm-3 control-label no-padding-right"
-                                for="form-field-1"> Montant </label>
-                        <div class="col-sm-7">
-                                <div class="clearfix">
-                                        <input type="text" id="montantHt" placeholder=""
-                                                class="col-xs-12 col-sm-10">
-                                </div>
-                        </div>
-                    </div>
+                
                 <div class="row" style="margin-top:40px;">
                     <button id="SAVE" class="btn btn-small btn-info pull-right">
                             <i class="fa fa-plus-square "></i> Ajouter
@@ -221,7 +212,18 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</table>
 				</div>
 			</div>
+			<div class="row" style="margin-top:40px;">
+                        <label class="col-sm-3 control-label no-padding-right"
+                                for="form-field-1"> Montant </label>
+                        <div class="col-sm-7">
+                                <div class="clearfix">
+                                        <input type="text" id="montantHt" placeholder=""
+                                                class="col-xs-12 col-sm-10">
+                                </div>
+                        </div>
+                    </div>
          </div>
+         
         <div class="col-sm-5">
              <div class="space-6"></div>
             <div class="row">
