@@ -115,12 +115,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                </div>
 
                 </div>
+        
         <div class="row">
+             <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Produits</h3>
             <div class="col-sm-6">
                             <div class="row">
-                                <label class="col-sm-3 control-label no-padding-left"
-                                        for="form-field-1"> Designation </label>
-                                <div class="col-sm-7">
+                                 <div class="col-sm-2">
+                                     <label>  Designation </label>
+                                </div>
+                                
+                                <div class="col-sm-5">
                                         <div class="clearfix">
                                                 <input type="text" id="montantHt" placeholder=""
                                                         class="col-xs-12 col-sm-10">
@@ -129,9 +133,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                              <div class="space-6"></div>
                             <div class="row">
-                                <label class="col-sm-3 control-label no-padding-left"
-                                        for="form-field-1"> Prix unitaire </label>
-                                <div class="col-sm-7">
+                                
+                                <div class="col-sm-2">
+                                     <label>  Prix </label>
+                                </div>
+                                <div class="col-sm-5">
                                         <div class="clearfix">
                                                 <input type="text" id="montantHt" placeholder=""
                                                         class="col-xs-12 col-sm-10">
@@ -154,7 +160,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</div>
 			<div class="space-6"></div>
 			<div class="row clearfix">
-				<div class="col-md-12 column">
+				<div class="col-md-8 column">
 					<table class="table table-bordered table-hover" id="tab_logic">
 						<thead>
 							<tr>
@@ -180,20 +186,18 @@ $codeUsine = $_COOKIE['codeUsine'];
 				</div>
 			</div>     
            </div>
-            
-            <div class="col-sm-4">
-                
-                <div class="row" style="margin-top:40px;">
+                <div class="row col-md-12">
                     <button id="SAVE" class="btn btn-small btn-info pull-right">
                             <i class="fa fa-plus-square "></i> Ajouter
                     </button>
             </div>
-            </div>
         </div>
         </div>
         <div class="space-6"></div>
+           <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Détails produit</h3>
+
          <div class="col-sm-7">
-			<div class="row clearfix">
+			<div class="row col-md-12 clearfix">
 				<div class="col-md-12 column">
 					<table class="table table-bordered table-hover" id="tab_logic">
 						<thead>
@@ -212,16 +216,42 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</table>
 				</div>
 			</div>
-			<div class="row" style="margin-top:40px;">
-                        <label class="col-sm-3 control-label no-padding-right"
-                                for="form-field-1"> Montant </label>
-                        <div class="col-sm-7">
-                                <div class="clearfix">
-                                        <input type="text" id="montantHt" placeholder=""
-                                                class="col-xs-12 col-sm-10">
+             
+        <div class="row">
+            <div class="col-md-12 column">
+                
+                <div class="col-sm-6">
+                    <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right"
+                                            for="form-field-1"> Total colis </label>
+                                    <div class="col-sm-6">
+                                            <div class="clearfix">
+                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
+                                                            class="col-xs-12 col-sm-9">
+                                            </div>
+                                    </div>
                                 </div>
-                        </div>
-                    </div>
+                            </div>
+                </div>
+                <div class="col-sm-6">
+                     <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right"
+                                            for="form-field-1"> Poids total </label>
+                                    <div class="col-sm-5">
+                                            <div class="clearfix">
+                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
+                                                            class="col-xs-12 col-sm-9">
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                
+                
+            </div>
+        </div>
          </div>
          
         <div class="col-sm-5">
@@ -275,42 +305,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 				</div>
 			</div>
             
-        </div>
-        <div class="row">
-            <div class="col-md-12 column">
-                <div class="col-sm-3">
-                    <div class="row">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label no-padding-right"
-                                            for="form-field-1"> Total Colis </label>
-                                    <div class="col-sm-5">
-                                            <div class="clearfix">
-                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
-                                                            class="col-xs-12 col-sm-9">
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                </div>
-                <div class="col-sm-3">
-                     <div class="row">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label no-padding-right"
-                                            for="form-field-1"> Poids total </label>
-                                    <div class="col-sm-5">
-                                            <div class="clearfix">
-                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
-                                                            class="col-xs-12 col-sm-9">
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                </div>
-                <div class="col-sm-6" style="">
-                   
-                </div>
-                
-            </div>
         </div>
         <div class="space-6"></div>
         <div class="row">
