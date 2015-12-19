@@ -29,6 +29,9 @@ class Facture {
    /** @Column(type="string", length=60, nullable=true) */
     public $portDechargement;
     
+   /** @Column(type="integer", nullable=true) */
+    public $nbTotalColis;
+    
     
    /** @Column(type="string", length=60, nullable=true) */
     public $montantHt;
@@ -87,8 +90,8 @@ class Facture {
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
     
-    /** @ManyToOne(targetEntity="BonSortie\BonSortie", inversedBy="bonsortie") */
-    protected $bonsortie;
+    /** @ManyToOne(targetEntity="Client\Client", inversedBy="client") */
+    protected $client;
     
    /** @OneToMany(targetEntity="Facture\Conteneur", mappedBy="conteneur") */
     public $conteneur;
@@ -253,6 +256,30 @@ class Facture {
 
     public function setConteneur($conteneur) {
         $this->conteneur = $conteneur;
+    }
+
+    function getNbTotalColis() {
+        return $this->nbTotalColis;
+    }
+
+    function getRegle() {
+        return $this->regle;
+    }
+
+    function setNbTotalColis($nbTotalColis) {
+        $this->nbTotalColis = $nbTotalColis;
+    }
+
+    function setRegle($regle) {
+        $this->regle = $regle;
+    }
+
+    function getClient() {
+        return $this->client;
+    }
+
+    function setClient($client) {
+        $this->client = $client;
     }
 
 

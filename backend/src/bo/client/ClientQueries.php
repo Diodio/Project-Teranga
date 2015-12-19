@@ -33,7 +33,7 @@ class ClientQueries {
 
 	public function findById($clientId) {
 		if ($clientId != null) {
-			return Bootstrap::$entityManager->find($this->classString, $clientId);
+			return Bootstrap::$entityManager->find('Client\Client', $clientId);
 		}
 	}
 
@@ -56,6 +56,17 @@ class ClientQueries {
 
 	public function findAllClients() {
 		$sql = 'select id, nom, adresse, telephone from client';
+		$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+		$stmt->execute();
+		$client = $stmt->fetchAll();
+		if ($client != null)
+			return $client;
+		else
+			return null;
+	}
+        
+        public function findInfosClient($clientId) {
+		$sql = 'select id, nom, adresse, reference from client where id='. $clientId;
 		$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
 		$stmt->execute();
 		$client = $stmt->fetchAll();
@@ -109,8 +120,8 @@ class ClientQueries {
 	}
 
 
-	public function retrieveTypes() {
-		$query = Bootstrap::$entityManager->createQuery("select t.id as value, t.libelle as text from Client\TypeClient t");
+	public function retrieveClients() {
+		$query = Bootstrap::$entityManager->createQuery("select t.id as value, t.libelle as text from Client\Client t");
 		$types = $query->getResult();
 		if ($types != null)
 			return $types;

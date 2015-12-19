@@ -95,12 +95,13 @@ private $logger;
             $facture->setNumCheque($request['numCheque']);
             $facture->setAvance($request['avance']);
             $facture->setReliquat($request['reliquat']);
+            $facture->setNbTotalColis($request['nbTotalColis']);
             $facture->setStatus(1);
             $facture->setCodeUsine($request['codeUsine']);
             $facture->setLogin($request['login']);
-            $bonSortieManager = new BonSortieManager();
-            $colisage = $bonSortieManager->findById($request['colisage']);
-            $facture->setBonsortie($colisage);
+            $clientManager = new \Client\ClientManager();
+            $client = $clientManager->findById($request['clientId']);
+            $facture->setClient($client);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
@@ -340,6 +341,7 @@ private $logger;
     		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
     	}
     }
+   
 }
 
         $oFactureController = new FactureController($_REQUEST);

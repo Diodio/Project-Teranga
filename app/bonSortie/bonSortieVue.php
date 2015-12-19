@@ -426,7 +426,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/bonSortieListe.php", function () {
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieListe.php", function () {
                         });
                     } 
                     else

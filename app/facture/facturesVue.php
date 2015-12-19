@@ -29,23 +29,27 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 
            <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label> Colisage</label>
-                    </div>
-                    <div class="col-sm-6">
-                        <select id="CMB_COLISAGES" data-placeholder=""  style="width:100%"     >
-                            <option value="*" class="colisages">Numéro</option>
-                        </select>
-                    </div>
-                </div>
-               <div class="space-6"></div>
                 <div class="row" >
                         <div class="col-sm-2">
                             <label> Client</label>
                         </div>
+                        <div class="col-sm-6">
+                             <select id="CMB_CLIENTS" data-placeholder=""  style="width:100%"     >
+                                <option value="*" class="clients"></option>
+                            </select>
+                        </div>
+                    <a id="NEW_CLIENT" class="btn btn-primary btn-sm"  title="Nouveau client"
+                        alt="Nouveau client"><i
+                        class="ace-icon fa fa-plus-square"></i>  
+                    </a>
+                 </div>
+               <div class="space-6"></div>
+                 <div class="row">
+                        <div class="col-sm-2">
+                            <label> Reference</label>
+                        </div>
                             <div class="col-sm-6">
-                                <input type="text" id="nomClient" placeholder="" style="width:100%" 
+                                <input type="text" id="reference" name="reference" placeholder=""  style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -55,7 +59,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Origine</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="origine" placeholder=""  style="width:100%" 
+                                <input type="text" id="origine" name="origine" placeholder=""  style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -113,46 +117,78 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
         <div class="space-6"></div>
             <div class="row clearfix">
-		<div class="col-md-12 column">
-			<table class="table table-bordered table-hover" id="LISTESORTIE">
-				<thead>
-					<tr >
-						
-						<th class="text-center">
-							Désignation
-						</th>
-						<th class="text-center">
-							Prix Unitaire
-						</th>
-						<th class="text-center">
-							Quantite (kg)
-						</th>
-						<th class="text-center">
-							Montant
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-				</tbody>
-			</table>
-		</div>
-	</div>
+				<div class="col-md-12 column">
+					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+						alt="Ajouter une ligne"><i
+						class="ace-icon fa fa-plus-square"></i> </a> 
+                                        <a id='delete_row'
+						class="btn btn-danger btn-sm" title="Supprimer une ligne"
+						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
+					</a>
+				</div>
+			</div>
+			<div class="space-6"></div>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+								<th class="text-center">Nombre de colis</th>
+								<th class="text-center">Désignation</th>
+								<th class="text-center">Poids net</th>
+								<th class="text-center">Prix unitaire</th>
+								<th class="text-center">Montant</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='addr0'>
+								<td>1</td>
+                                                                <td><input type="number" id="ncolis0" name='ncolis0' 
+ 									class="col-xs-9 ncolis" /> </td> 
+								<td><select id="designation0" name="designation0"
+									class="col-xs-10 col-sm-10">
+										<option value="-1" id="designationSelect"
+											class="designations0">selectionnez un produit</option>
+								</select>
+								</td>
+								<td><input type="text" id="qte0" name='qte0'
+									class="form-control qte" />
+								</td>
+								<td><input type="text" id="pu0" name='pu0' class="form-control" />
+								</td>
+								<td><input type="text" id="montant0" name='montant0'
+									class="form-control montant" />
+								</td>
+							</tr>
+							<tr id='addr1'></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
         <div class="row">
             <div class="col-md-12 column">
                 <div class="col-sm-3">
+                    
                 </div>
                 <div class="col-sm-3">
+                    
                 </div>
-                <div class="col-sm-3" style="margin-left: 64.6%;;margin-top: -10px;">
+                <div class="col-sm-3" style="">
                     <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Total </label>
+                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Total colis </label>
                             <div class="col-sm-8">
-                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-10">
+                                <input type="text" id="nbTotalColis" name="nbTotalColis" placeholder="" class="col-xs-12 col-sm-10">
                             </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
+                     <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Poids total </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="poidsTotal" name="poidsTotal" placeholder="" class="col-xs-12 col-sm-10">
+                            </div>
+                    </div>
                 </div>
                 
             </div>
@@ -178,8 +214,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
-						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
+					<a id="add_row_cont" class="btn btn-primary btn-sm"><i
+						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row_cont'
 						class="btn btn-danger btn-sm" title="Supprimer une ligne"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 					</a>
@@ -188,7 +224,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			<div class="space-6"></div>
 			<div class="row clearfix">
 				<div class="col-md-6 column">
-					<table class="table table-bordered table-hover" id="tab_logic">
+					<table class="table table-bordered table-hover" id="tab_conteneur">
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
@@ -197,7 +233,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 							</tr>
 						</thead>
 						<tbody>
-							<tr id='addr0'>
+							<tr id='addrcont0'>
 								<td>1</td>
 								<td><input type="text" id="cont0" name='cont0'
 									class="form-control" />
@@ -206,7 +242,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 									class="form-control" />
 								</td>
 							</tr>
-							<tr id='addr1'></tr>
+							<tr id='addrcont1'></tr>
 						</tbody>
 					</table>
 				</div>
@@ -316,6 +352,56 @@ $codeUsine = $_COOKIE['codeUsine'];
             </div>
     </div>
     
+     <div id="winModalClient" class="modal fade">
+            <form id="formClient" class="form-horizontal"  onsubmit="return false;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Client</h3>
+                        </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Refèrence </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="new_reference" name="new_reference" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="new_adresse" name="new_adresse" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="SAVE_CLIENT" class="btn btn-small btn-info">
+                                        <i class="ace-icon fa fa-save"></i>
+                                        Enregistrer
+                                    </button>
+
+                                    <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                                        <i class="fa fa-times"></i>
+                                        Annuler
+                                    </button>
+                                </div>
+                        
+                    </div><!-- /.modal-content -->
+                
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
 </div>
 <!-- /.page-content -->
 
@@ -323,8 +409,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 <script type="text/javascript">
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
-    $('#CMB_COLISAGES').select2();
-    var bonsortieId;
+    $('#CMB_CLIENTS').select2();
+     $('#designation0').select2();
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -352,9 +438,8 @@ $(document).ready(function () {
             showMeridian: false
         });
         
-    
-    loadColisages = function(){
-        $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
+    loadProduit = function(index){
+        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "usine_dakar", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -364,49 +449,40 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#CMB_COLISAGES").loadJSON('{"colisages":' + data + '}');
+                $("#designation"+index).loadJSON('{"designations'+index+'":' + data + '}');
             }
         });
     };
-    loadColisages();
-    loadInfoColisage = function(colisageId){
-        if(colisageId!==''){
-            $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {colisageId: colisageId, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
-            data = $.parseJSON(data);
-           //bonsortieId=data.id;
-            $("#nomClient").val(data.nomClient);
-            $('#origine').val(data.origine);
-            $('#LISTESORTIE tbody').html("");
-            var table = data.ligneBonSortie;
-            var trHTML='';
-            var tot=0;
-            $(table).each(function(index, element){
-                var montant=parseInt(element.prixUnitaire) * parseFloat(element.quantite);
-                if(typeof montant==='undefined')
-                    montant = 0;
-                tot = tot+montant;
-                trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + montant + '</td></tr>';
+    loadProduit(0);
+    loadClients = function(){
+        $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
+                ; ?>"}, function(data) {
+            sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#CMB_CLIENTS").loadJSON('{"clients":' + data + '}');
+            }
+        });
+    };
+    loadClients();
+    loadInfoClient = function(clientId){
+        if(clientId!=='*'){
+            $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {clientId: clientId, ACTION: "<?php echo App::ACTION_GET_INFO_CLIENT; ?>"}, function(data) {
+                data = $.parseJSON(data);
+               //bonsortieId=data.id;
+                $("#reference").val(data.reference);
+                $('#origine').val(data.origine);
             });
-            $('#LISTESORTIE tbody').append(trHTML);
-            trHTML='';
-            var poidsTotal=data.poidsTotal;
-             if(poidsTotal==="")
-                poidsTotal=0;
-            $('#poidsTotal').val(poidsTotal);
-            if(typeof tot==='undefined')
-                tot=0;
-            $('#montantHt').val(tot);
-            var montantTtc = tot + (tot * 0.18);
-            if(typeof montantTtc==='undefined')
-                montantTtc=0;
-            $('#montantTtc').val(montantTtc);
-            });
-            
         }
     };
-    $('#CMB_COLISAGES').change(function() {
-        if($('#CMB_COLISAGES').val()!=='*')
-            loadInfoColisage($('#CMB_COLISAGES').val());
+    $('#CMB_CLIENTS').change(function() {
+        if($('#CMB_CLIENTS').val()!=='*')
+            loadInfoClient($('#CMB_CLIENTS').val());
         else {
             $('#nomClient').val("");
             $('#origine').val("");
@@ -414,9 +490,16 @@ $(document).ready(function () {
         });
     var i=1;
      $("#add_row").click(function(){
-    $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='text' id='cont"+i+"' name='cont"+i+"' class='form-control'/></td>\n\
-    <td><input type='text' id='plb"+i+"' name='plb"+i+"'  class='form-control'/></td>");
+   $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='ncolis"+i+"' name='ncolis"+i+"' class='form-control ncolis'/></td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
+<option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
+</td>\n\
+<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
+<td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
+<td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      $('#designation'+i).select2();
+      loadProduit(i);
+       
       i++;
   });
      $("#delete_row").click(function(){
@@ -426,6 +509,78 @@ $(document).ready(function () {
 		 }
 	 });
 
+
+    
+    $(document).delegate('#tab_logic tr td', 'click', function (event) {
+        var id = $(this).closest('tr').attr('id');
+        var counter = id.slice(-1);
+          $( "#qte"+counter ).keyup(function() {
+           calculMontant(counter);
+           //  verifierPoids('designation'+counter, counter);
+         }); 
+         $( "#pu"+counter ).keyup(function() {
+           calculMontant(counter);
+           //  verifierPoids('designation'+counter, counter);
+         }); 
+          
+         
+
+      
+    });
+
+  function calculMontant(index){
+           var mt;
+           var qte=parseInt($("#qte"+index).val());
+           if(!isNaN(qte)) {
+              var pu = $("#pu"+index).val();
+              mt = parseInt(qte) * parseInt(pu);
+              if(!isNaN(mt)){
+                $("#montant"+index).val(mt);
+              }
+            }
+            else {
+                $("#montant"+index).val("");
+            }
+            calculMontantPoids();
+       }
+       function calculMontantPoids(){
+           var pt=0;
+           var pd=0;
+           var ncolis=0;
+          $('#tab_logic .montant').each(function () {
+              if($(this).val()!=='')
+                pt += parseInt($(this).val());
+            });
+            $('#tab_logic .qte').each(function () {
+                if($(this).val()!=='')
+                pd+= parseFloat($(this).val());
+            });
+          $('#tab_logic .ncolis').each(function () {
+              if($(this).val()!=='')
+                ncolis += parseInt($(this).val());
+            });
+                if(!isNaN(pt))
+                    $("#montantHt").val(pt);
+                if(!isNaN(pd))
+                    $("#poidsTotal").val(pd);
+                 if(!isNaN(ncolis))
+                    $("#nbTotalColis").val(ncolis);
+        }
+ var j=1;
+     $("#add_row_cont").click(function(){
+   $('#addrcont'+j).html("<td>"+ (j+1) +"</td><td><input type='text' id='cont"+j+"' name='cont"+j+"'  class='form-control'/></td>\n\
+<td><input type='text' id='plb"+j+"' name='plb"+j+"' class='form-control'/></td>");
+      $('#tab_conteneur').append('<tr id="addrcont'+(j+1)+'"></tr>');
+     
+       
+      j++;
+  });
+     $("#delete_row_cont").click(function(){
+    	 if(j>1){
+		 $("#addrcont"+(j-1)).html('');
+		 j--;
+		 }
+	 });
     $("#modePaiement").change(function() {
         if($("#modePaiement").val() ==='ch') {
             $("#numCheque").attr("readonly", false); 
@@ -452,7 +607,7 @@ $(document).ready(function () {
         {
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
-            var colisage = $("#CMB_COLISAGES").val();
+            var colisage = $("#CMB_CLIENTS").val();
             var numFacture= $('#numFacture').val();
             var heureFacture= $('#heureFacture').val();
             var devise= $('#devise').val();
@@ -460,6 +615,7 @@ $(document).ready(function () {
             var portDechargement = $("#portDechargement").val();
             var montantHt = $("#montantHt").val();
             var montantTtc = $("#montantTtc").val();
+            var nbTotalColis = $("#nbTotalColis").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
             var avance = $("#avance").val();
@@ -495,12 +651,13 @@ $(document).ready(function () {
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('colisage', colisage);
+            formData.append('clientId', colisage);
             formData.append('numFacture', numFacture);
             formData.append('heureFacture', heureFacture);
             formData.append('devise', devise);
             formData.append('pays', pays);
             formData.append('portDechargement', portDechargement);
+            formData.append('nbTotalColis', nbTotalColis);
             formData.append('montantHt', montantHt);
             formData.append('montantTtc', montantTtc);
             formData.append('modePaiement', modePaiement);
@@ -573,5 +730,124 @@ $(document).ready(function () {
 
    return json;
 }
+
+ $("#NEW_CLIENT").click(function()
+        {
+            $('#winModalClient').modal('show');
+        });
+        
+        SaveClientProcess = function ()
+        {
+            
+            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            var frmData;
+            var reference= $('#new_reference').val();
+            var nom = $("#nom").val();
+            var adresse = $("#new_adresse").val();
+            var telephone = $("#telephone").val();
+            
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('reference', reference);
+            formData.append('nom', nom);
+            formData.append('adresse', adresse);
+            formData.append('telephone', telephone);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/client/ClientController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                    };
+                  //  loadClients();
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
+
+        };
+        loadNumberReference = function () {
+        $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#new_reference").val(sData.oId);
+            }
+    });
+    };
+    
+    loadNumberReference();
+        $("#SAVE_CLIENT").click(function() {
+       	 $('#formClient').validate({
+       			errorElement: 'div',
+       			errorClass: 'help-block',
+       			focusInvalid: false,
+       			rules: {
+       				new_adresse: {
+       					required: true
+       				},
+       				nom: {
+       					required: true
+       				}
+       				
+       			},
+
+       			messages: {
+       				adresse: {
+       					required: "Champ obligatoire."
+       				},
+       				nom: {
+       					required: "Champ obligatoire."
+       				}
+       			},
+
+
+       			highlight: function (e) {
+       				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+       			},
+
+       			success: function (e) {
+       				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+       				$(e).remove();
+       			},
+
+       			errorPlacement: function (error, element) {
+       				 error.insertAfter(element);
+       			},
+
+       			submitHandler: function (form) {
+       			 SaveClientProcess();
+                            $('#winModalClient').addClass('hide');
+                                $('#winModalClient').modal('hide');
+       			},
+       			invalidHandler: function (form) {
+       			}
+       		});
+        });
 });
 </script>
