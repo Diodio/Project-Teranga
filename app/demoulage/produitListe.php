@@ -482,16 +482,7 @@
                 }
             });
 
-//             $("#MNU_IMPRIMER").click(function()
-//                     {
-//                         if (checkedDemoulages.length == 0)
-//                             bootbox.alert("Veuillez selectionnez un achat");
-//                         else if (checkedDemoulages.length >= 1)
-//                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?produitId='+checkedDemoulages[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
-                            
-//                         }
-//                     });
+
             
             $("#MNU_ANNULATION").click(function()
             {
@@ -658,14 +649,8 @@
         });
 
         $("#MNU_IMPRIMER").click(function()
-                {
-            alert("test");
-//                     if (checkedAchat.length == 0)
-//                         bootbox.alert("Veuillez selectionnez un achat");
-//                     else if (checkedAchat.length >= 1)
-//                     {
-                    	window.open('<?php echo App::getHome(); ?>/app/pdf/stockPdf?usineCode='+<?php echo $codeUsine?>,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
-//                     }
-                });
+        {
+          window.open('<?php echo App::getHome(); ?>/app/pdf/stockPdf.php?codeUsine='+"<?php echo $codeUsine?>",'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+         });
             });
         </script>
