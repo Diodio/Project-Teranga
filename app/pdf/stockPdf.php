@@ -11,6 +11,7 @@
  * it allow to display the result in the HTML format
  */
 
+
  require_once('../../html2pdf.class.php');
 $usineCode = $_GET['codeUsine'];
     // get the HTML
