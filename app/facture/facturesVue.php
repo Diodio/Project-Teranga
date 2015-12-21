@@ -46,7 +46,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                <div class="space-6"></div>
                  <div class="row">
                         <div class="col-sm-2">
-                            <label> Reference</label>
+                            <label> Refèrence</label>
                         </div>
                             <div class="col-sm-6">
                                 <input type="text" id="reference" name="reference" placeholder=""  style="width:100%" 
@@ -126,8 +126,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 
                                 <div class="col-sm-8">
                                         <div class="clearfix">
-                                                <input type="text" id="montantHt" placeholder=""
-                                                        class="col-xs-12 col-sm-12">
+                                                <select id="CMB_DESIGNATIONS" data-placeholder=""  style="width:100%"     >
+                                                    <option value="*" class="designations"></option>
+                                                </select>
                                         </div>
                                 </div>
                             </div>
@@ -149,10 +150,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                 <div class="col-sm-6">
                       <div class="row clearfix">
 				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+					<a id="add_row_colis" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
 						alt="Ajouter une ligne"><i
 						class="ace-icon fa fa-plus-square"></i> </a> 
-                                        <a id='delete_row'
+                                        <a id='delete_row_colis'
 						class="btn btn-danger btn-sm" title="Supprimer une ligne"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 					</a>
@@ -161,12 +162,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 			<div class="space-6"></div>
 			<div class="row clearfix">
 				<div class="col-md-8 column">
-					<table class="table table-bordered table-hover" id="tab_logic">
+					<table class="table table-bordered table-hover" id="tab_logic_colis">
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
 								<th class="text-center">Nombre de colis</th>
-								<th class="text-center">Quantite</th>
+								<th class="text-center">Quantité</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -486,6 +487,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
+     $('#CMB_DESIGNATIONS').select2();
      $('#designation0').select2();
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
@@ -514,7 +516,7 @@ $(document).ready(function () {
             showMeridian: false
         });
         
-    loadProduit = function(index){
+    loadProduit = function(){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "usine_dakar", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
@@ -525,11 +527,11 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#designation"+index).loadJSON('{"designations'+index+'":' + data + '}');
+                $("#CMB_DESIGNATIONS").loadJSON('{"designations":' + data + '}');
             }
         });
     };
-    loadProduit(0);
+    loadProduit();
     loadClients = function(){
         $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
                 ; ?>"}, function(data) {
