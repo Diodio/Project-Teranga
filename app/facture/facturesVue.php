@@ -171,17 +171,17 @@ $codeUsine = $_COOKIE['codeUsine'];
 							</tr>
 						</thead>
 						<tbody>
-							<tr id='addr0'>
+							<tr id='addrColis0'>
 								<td>1</td>
-                                                                <td><input type="number" id="ncolis0" name='ncolis0' 
- 									class="col-xs-9 ncolis" /> </td> 
+                                                                <td><input type="number" id="nColis0" name='nColis0' 
+ 									class="form-control nColis" /> </td> 
 								
-								<td><input type="text" id="qte0" name='qte0'
+								<td><input type="number" id="qteColis0" name='qteColis0'
 									class="form-control qte" />
 								</td>
 								
 							</tr>
-							<tr id='addr1'></tr>
+							<tr id='addrColis1'></tr>
 						</tbody>
 					</table>
 				</div>
@@ -566,23 +566,20 @@ $(document).ready(function () {
             $('#origine').val("");
         }
         });
-    var i=1;
-     $("#add_row").click(function(){
-   $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='ncolis"+i+"' name='ncolis"+i+"' class='form-control ncolis'/></td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
-<option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
-</td>\n\
-<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
-<td><input type='text' id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      $('#designation'+i).select2();
-      loadProduit(i);
+        //Gestion des colis
+     var i=1;
+     $("#add_row_colis").click(function(){
+     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='nColis"+i+"' name='nColis"+i+"' class='form-control nColis'/></td>\n\
+        <td><input type='text' id='qteColis"+i+"' name='qteColis"+i+"'  class='form-control qteColis'/>");
+      $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
+     
+      //loadProduit(i);
        
       i++;
   });
-     $("#delete_row").click(function(){
+     $("#delete_row_colis").click(function(){
     	 if(i>1){
-		 $("#addr"+(i-1)).html('');
+		 $("#addrColis"+(i-1)).html('');
 		 i--;
 		 }
 	 });
