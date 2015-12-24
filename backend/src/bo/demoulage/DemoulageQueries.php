@@ -66,4 +66,14 @@ class DemoulageQueries {
         return $arrayContact;
     }
 
+    public function verifieCarton($produitId,$quantite) {
+        $sql = 'SELECT id, SUM(nombreCarton) as nbCarton, quantiteParCarton FROM carton WHERE quantiteParCarton='.$quantite.' AND produitId='.$produitId.' GROUP BY quantiteParCarton';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $demoulage = $stmt->fetchAll();
+        if ($demoulage != null)
+            return $demoulage;
+        else
+            return null;
+    }
 }

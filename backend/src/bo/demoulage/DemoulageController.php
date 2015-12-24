@@ -24,7 +24,10 @@ class DemoulageController extends BaseController  {
                         break;
                     case \App::ACTION_GET_COLIS:
                         $this->doGetColis($request);
-                        break;
+                        break;   
+                    case \App::ACTION_GET_COLISAGES:
+                                $this->doVerifieColis($request);
+                                break;
                     
                     
                 }
@@ -92,6 +95,23 @@ class DemoulageController extends BaseController  {
                     }  else {
                          echo json_encode(array());
                     }
+        } else{
+                $this->doError('-1', 'Données invalides');
+        }
+        
+        }catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+            $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
+    }
+    
+    public function doVerifieColis($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $demoulageManager = new Produit\DemoulageManager();
+                $infoscolis = $demoulageManager->verificationColis($request['produitId'],$request['nbColis'],$request['quantite']);
+                $this->doSuccess($infoscolis, 'Produit demoulé avec succes');
+                   
         } else{
                 $this->doError('-1', 'Données invalides');
         }

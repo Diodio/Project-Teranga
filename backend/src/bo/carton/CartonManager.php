@@ -20,8 +20,4 @@ class CartonManager {
     	return $carton;
     }
     
-  
-
-   
-
 }

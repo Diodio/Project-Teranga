@@ -117,6 +117,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
         
         <div class="row">
+             <form  id="formProduit" method="get">
              <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Produits</h3>
             <div class="col-sm-4">
                             <div class="row">
@@ -140,7 +141,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                                 <div class="col-sm-8">
                                         <div class="clearfix">
-                                                <input type="text" id="montantHt" placeholder=""
+                                                <input type="text" id="prixUnitaire" placeholder=""
                                                         class="col-xs-12 col-sm-12">
                                         </div>
                                 </div>
@@ -173,8 +174,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<tbody>
 							<tr id='addrColis0'>
 								<td>1</td>
-                                                                <td><input type="number" id="nColis0" name='nColis0' 
- 									class="form-control nColis" /> </td> 
+                                                                <td><input type="number" id="nbColis0" name='nbColis0' 
+ 									class="form-control nbColis" /> </td> 
 								
 								<td><input type="number" id="qteColis0" name='qteColis0'
 									class="form-control qte" />
@@ -189,11 +190,17 @@ $codeUsine = $_COOKIE['codeUsine'];
            </div>
              <div class="col-sm-2" style="margin-top: 8%;margin-left: -9%;">
                     <div class="row">
-                        <button id="SAVE" class="btn btn-small btn-info">
+                        <div class="form-group">
+<!--                        <button id="AJOUT_PRODUIT" class="btn btn-small btn-info">
                                 <i class="fa fa-plus-square "></i> Ajouter
-                        </button>
+                        </button>-->
+                            <a id="AJOUT_PRODUIT" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+						alt="Ajouter une ligne"><i
+						class="ace-icon fa fa-plus-square"></i>Ajouter </a> 
+                        </div>
                     </div>
              </div>
+             </form>
         </div>
         </div>
         <div class="space-6"></div>
@@ -202,10 +209,9 @@ $codeUsine = $_COOKIE['codeUsine'];
          <div class="col-sm-7">
 			<div class="row col-md-12 clearfix">
 				<div class="col-md-12 column">
-					<table class="table table-bordered table-hover" id="tab_logic">
+					<table class="table table-bordered table-hover" id="tab_produit">
 						<thead>
 							<tr>
-								<th class="text-center">#</th>
 								<th class="text-center">Nombre de colis</th>
 								<th class="text-center">Désignation</th>
 								<th class="text-center">Poids net</th>
@@ -230,7 +236,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             for="form-field-1"> Total colis </label>
                                     <div class="col-sm-6">
                                             <div class="clearfix">
-                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
+                                                    <input type="text" id="totalColis" name="totalColis" placeholder=""
                                                             class="col-xs-12 col-sm-9">
                                             </div>
                                     </div>
@@ -244,7 +250,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             for="form-field-1"> Poids total </label>
                                     <div class="col-sm-5">
                                             <div class="clearfix">
-                                                    <input type="text" id="portDechargement" name="portDechargement" placeholder=""
+                                                    <input type="text" id="qteTotal" name="qteTotal" placeholder=""
                                                             class="col-xs-12 col-sm-9">
                                             </div>
                                     </div>
@@ -412,7 +418,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         <!-- /.col -->
     </div>
     <!-- /.row -->
-    </form>
+    
 
     <div class="row">
         <div class="col-sm-8">
@@ -428,6 +434,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </button>
             </div>
     </div>
+    </form>
     
      <div id="winModalClient" class="modal fade">
             <form id="formClient" class="form-horizontal"  onsubmit="return false;">
@@ -489,6 +496,10 @@ $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
      $('#CMB_DESIGNATIONS').select2();
      $('#designation0').select2();
+     var totalColis=0;
+     var qteTotal=0;
+     var mtTotal=0;
+     var montantTtc=0;
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -569,8 +580,8 @@ $(document).ready(function () {
         //Gestion des colis
      var i=1;
      $("#add_row_colis").click(function(){
-     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='nColis"+i+"' name='nColis"+i+"' class='form-control nColis'/></td>\n\
-        <td><input type='text' id='qteColis"+i+"' name='qteColis"+i+"'  class='form-control qteColis'/>");
+     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
+        <td><input type='text' id='qteColis"+i+"' name='qteColis"+i+"'  class='form-control qte'/>");
       $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
      
       //loadProduit(i);
@@ -585,24 +596,92 @@ $(document).ready(function () {
 	 });
 
 
-    
-    $(document).delegate('#tab_logic tr td', 'click', function (event) {
+     $(document).on('keyup', '#tab_logic_colis tr td:eq( 2 ) input', function () {
+    //$(document).delegate('#tab_logic_colis tr td input', 'click', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
-          $( "#qte"+counter ).keyup(function() {
-           calculMontant(counter);
-           //  verifierPoids('designation'+counter, counter);
-         }); 
-         $( "#pu"+counter ).keyup(function() {
-           calculMontant(counter);
-           //  verifierPoids('designation'+counter, counter);
-         }); 
-          
-         
-
-      
-    });
-
+          $( "#qteColis"+counter ).keyup(function() {
+                verifierPoids($("#CMB_DESIGNATIONS").val(), counter);
+            });
+            }); 
+            
+    
+    function ajoutLigne(){
+        var nbColis=1;
+        var pd=0;
+        var nbColis=0;
+        var mtTtc=0;
+            $('#tab_logic_colis .qte').each(function () {
+                if($(this).val()!=='')
+                    pd+= parseFloat($(this).val());
+            });
+          $('#tab_logic_colis .nbColis').each(function () {
+              if($(this).val()!=='')
+                nbColis += parseInt($(this).val());
+            });
+        var designation = $('#CMB_DESIGNATIONS').select2('data').text;
+        var prix = $('#prixUnitaire').val();
+        var montant = parseInt(prix) * pd;
+        totalColis+=nbColis;
+        qteTotal+=pd;
+        mtTotal+=montant;
+        var data="<tr><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pd+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
+        $('#tab_produit tbody').append(data);
+        $('#totalColis').val(totalColis);
+        $('#qteTotal').val(qteTotal);
+        $('#montantHt').val(mtTotal);
+         mtTtc = mtTotal+(mtTotal * parseFloat($("#tva").val())/100);
+         montantTtc +=mtTtc;
+        $('#montantTtc').val(montantTtc);
+        $('#CMB_DESIGNATIONS').val('*').change();
+        $('#prixUnitaire').val('');
+        var rowCount = $('#tab_logic_colis tr').length;
+        for (var i = 1; i<rowCount; i++) {
+            $("#addrColis"+(i)).html('');
+        }
+        $('#nbColis0').val('');
+        $('#qteColis0').val('');
+        
+    }
+    
+        
+       
+     $( "#AJOUT_PRODUIT" ).click(function(){
+        ajoutLigne();
+  });
+ function verifierPoids(designation, counter ){
+           var produitId = designation;
+           var nbColis=parseInt($("#nbColis"+counter).val());
+           var qte=parseInt($("#qteColis"+counter).val());
+           if(produitId==='*' ) {
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'Veuillez sélectionner un produit',
+                    class_name: 'gritter-error gritter-light'
+                });
+            }
+            else if(isNaN(nbColis)) {
+                    $.gritter.add({
+                    title: 'Notification',
+                    text: 'Veuillez saisir le nombre de colis',
+                    class_name: 'gritter-error gritter-light'
+                });
+                }
+            else{
+               $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, nbColis:nbColis,quantite:qte, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
+                data = $.parseJSON(data);
+               if(data.oId == 0){
+                    $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
+                    class_name: 'gritter-error gritter-light'
+                });
+               }
+              }); 
+                }
+            
+            
+       }
   function calculMontant(index){
            var mt;
            var qte=parseInt($("#qte"+index).val());
@@ -621,7 +700,7 @@ $(document).ready(function () {
        function calculMontantPoids(){
            var pt=0;
            var pd=0;
-           var ncolis=0;
+           var nbColis=0;
           $('#tab_logic .montant').each(function () {
               if($(this).val()!=='')
                 pt += parseInt($(this).val());
@@ -630,16 +709,16 @@ $(document).ready(function () {
                 if($(this).val()!=='')
                 pd+= parseFloat($(this).val());
             });
-          $('#tab_logic .ncolis').each(function () {
+          $('#tab_logic .nbColis').each(function () {
               if($(this).val()!=='')
-                ncolis += parseInt($(this).val());
+                nbColis += parseInt($(this).val());
             });
                 if(!isNaN(pt))
                     $("#montantHt").val(pt);
                 if(!isNaN(pd))
                     $("#poidsTotal").val(pd);
-                 if(!isNaN(ncolis))
-                    $("#nbTotalColis").val(ncolis);
+                 if(!isNaN(nbColis))
+                    $("#nbTotalColis").val(nbColis);
         }
  var j=1;
      $("#add_row_cont").click(function(){
@@ -677,7 +756,59 @@ $(document).ready(function () {
         }
       });
 
-       
+       function SimpletabToJson (tableId, head){
+           var $table = $("#"+tableId);
+            rows = [],
+            header = head;
+
+
+
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                    valueTd = $(this).text();
+                    if (typeof valueTd !== "undefined")
+                        value=valueTd;
+                   
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+            return JSON.stringify(rows);
+       }
+       function tabToJson (tableId, head){
+           var $table = $("#"+tableId);
+            rows = [],
+            header = head;
+
+//            $table.find("thead th").each(function () {
+//                header.push($(this).html().trim());
+//            });
+
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                        valueSelect = $(this).find('select').val();
+                        valueInput = $(this).find('input').val();
+                        valueTd = $(this).val();
+                    if (typeof valueInput !== "undefined")
+                        value=valueInput;
+                    if (typeof valueSelect !== "undefined")
+                        value=valueSelect;
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+            return JSON.stringify(rows);
+       }
         factureProcess = function ()
         {
             
@@ -690,39 +821,19 @@ $(document).ready(function () {
             var portDechargement = $("#portDechargement").val();
             var montantHt = $("#montantHt").val();
             var montantTtc = $("#montantTtc").val();
-            var nbTotalColis = $("#nbTotalColis").val();
+            var nbTotalColis = $("#totalColis").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
-            var $table = $("#tab_logic");
-            rows = [],
-            header = [];
-
-            $table.find("thead th").each(function () {
-                header.push($(this).html().trim());
-            });
-
-            $table.find("tbody tr").each(function () {
-                var row = {};
-
-                $(this).find("td").each(function (i) {
-                    var key = header[i];
-                    var value;
-                        valueSelect = $(this).find('select').val();
-                        valueInput = $(this).find('input').val();
-                    if (typeof valueInput !== "undefined")
-                        value=valueInput;
-                    if (typeof valueSelect !== "undefined")
-                        value=valueSelect;
-                    row[key] = value;
-                });
-
-                rows.push(row);
-            });
-            var tblConteneur=JSON.stringify(rows);
+            var headerColis = ["#","nColis","qteColis"];
+            var headerConteneur = ["#","nConteneur","nPlomb"];
+            var headerProduit = ["nColis","designation","pnet","pu","montant"];
+            //var tblColis=tabToJson('tab_logic_colis', headerColis );
+            var tblConteneur=tabToJson('tab_conteneur', headerConteneur );
+            var tblProduit=SimpletabToJson('tab_produit', headerProduit );
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
@@ -739,7 +850,9 @@ $(document).ready(function () {
             formData.append('numCheque', numCheque);
             formData.append('avance', avance);
             formData.append('reliquat', reliquat);
+           // formData.append('jsonColis', tblColis);
             formData.append('jsonConteneur', tblConteneur);
+            formData.append('jsonProduit', tblProduit);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({

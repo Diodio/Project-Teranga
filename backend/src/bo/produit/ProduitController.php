@@ -62,6 +62,7 @@ class ProduitController extends BaseController implements BaseAction {
                                 $this->doListProduitsDemoulages($request);
                                 break;
                         
+                        
                     }
             } else {
                 throw new Exception('NO_ACTION');
@@ -400,6 +401,8 @@ class ProduitController extends BaseController implements BaseAction {
             $this->doError('-1', 'ERREUR_SERVEUR');
         }
     }
+    
+    
 }
 
         $oProduitController = new ProduitController($_REQUEST);
