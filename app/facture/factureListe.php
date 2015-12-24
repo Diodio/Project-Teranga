@@ -177,51 +177,45 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Numero facture </div>
-                        <div class="profile-info-value">
-                            <span id="FactureNumero"></span>
-                        </div>
-                    </div>
-                    <div class="profile-info-row">
                         <div class="profile-info-name">Client </div>
                         <div class="profile-info-value">
-                            <span id="FactureClient"></span>
+                            <span id="nomClient"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
                         <div class="profile-info-name">Origine </div>
                         <div class="profile-info-value">
-                            <span id="factureOrigine"></span>
+                            <span id="origine"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
                         <div class="profile-info-name">Pays </div>
                         <div class="profile-info-value">
-                            <span id="facturePays"></span>
+                            <span id="pays"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Créé par  </div>
+                        <div class="profile-info-value">
+                            <span id="user"></span>
                         </div>
                     </div>
                 </div>
                 
-                    <table class="table table-bordered table-hover"id="tab_logic">
+                <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des produits
+                        </h4>
+                    <table class="table table-bordered table-hover"id="tab_produit">
 				<thead>
-					<tr >
-						<th class="text-center">
-							#
-						</th>
-						<th class="text-center">
-							Désignation
-						</th>
-						<th class="text-center">
-							Prix Unitaire
-						</th>
-						<th class="text-center">
-							Quantite (kg)
-						</th>
-						<th class="text-center">
-							Montant
-						</th>
-					</tr>
-				</thead>
+                                    <tr>
+                                            <th class="text-center">Nombre de colis</th>
+                                            <th class="text-center">Désignation</th>
+                                            <th class="text-center">Poids net</th>
+                                            <th class="text-center">Prix unitaire</th>
+                                            <th class="text-center">Montant</th>
+                                    </tr>
+                                </thead>
 				<tbody>
 					
 				</tbody>
@@ -244,12 +238,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="profile-info-name">Montant TTC </div>
                                 <div class="profile-info-value">
                                     <span id="MontantTtc"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Mode de paiement </div>
-                                <div class="profile-info-value">
-                                    <span id="modePaiement"></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
@@ -415,7 +403,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                                console.log(data);
                                 if (data == 0)
                                     src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
@@ -491,9 +478,40 @@ $codeUsine = $_COOKIE['codeUsine'];
             loadFactures();
             loadFactureSelected = function(factureId)
             {
-              $('#TAB_MSG_TITLE').text("Numero facture: num");
+              var url;
+                 url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
+
+                $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                    data = $.parseJSON(data);
+                    $('#TAB_MSG_TITLE').text("Numero facture: "+ data.numero);
+                    $('#FactureDate').text(data.dateFacture);
+                    $('#numFacture').text(data.numero);
+                    $('#nomClient').text(data.nomClient);
+                    $('#origine').text(data.adresse);
+                    $('#user').text(data.user);
+                    $('#PoidsTotal').text(data.poidsTotal);
+                    $('#MontantHt').text(data.montantHt);
+                    $('#MontantTtc').text(data.montantTtc);
+                    $('#Avance').text("0");
+                    $('#Reliquat').text("0");
+                   
+                    if(data.reliquat!=null) {
+                        $('#Reliquat').text(data.reliquat);
+                        var av=data.montantTotal - data.reliquat;
+                        $('#Avance').text(av);
+                    }
+                    $('#tab_produit tbody').html("");
+                    var table = data.ligneFacture;
+                    var trHTML='';
+                    $(table).each(function(index, element){
+                        trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
+                    });
+                    $('#tab_produit tbody').append(trHTML);
+                    trHTML='';   
+             
               $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
               $('#TAB_MSG_VIEW').show();
+              }).error(function(error) { });
             };
 
 $("#MNU_VALIDATION").click(function()

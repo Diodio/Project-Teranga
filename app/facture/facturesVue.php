@@ -827,6 +827,11 @@ $(document).ready(function () {
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
+            
+            var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
+            var regle=false;
+            if(Aregle === 'on')
+                 regle=true;
             var login = "<?php echo $login ?>";
             var headerColis = ["#","nColis","qteColis"];
             var headerConteneur = ["#","nConteneur","nPlomb"];
@@ -850,7 +855,7 @@ $(document).ready(function () {
             formData.append('numCheque', numCheque);
             formData.append('avance', avance);
             formData.append('reliquat', reliquat);
-           // formData.append('jsonColis', tblColis);
+            formData.append('regle', regle);
             formData.append('jsonConteneur', tblConteneur);
             formData.append('jsonProduit', tblProduit);
             formData.append('codeUsine', codeUsine);

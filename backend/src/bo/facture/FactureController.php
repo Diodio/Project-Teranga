@@ -97,6 +97,10 @@ private $logger;
             $facture->setReliquat($request['reliquat']);
             $facture->setNbTotalColis($request['nbTotalColis']);
             $facture->setStatus(1);
+            if($request['regle']=="true")
+                 $facture->setRegle(2);
+            else
+                $facture->setRegle(2);
             $facture->setCodeUsine($request['codeUsine']);
             $facture->setLogin($request['login']);
             $clientManager = new \Client\ClientManager();
@@ -106,14 +110,29 @@ private $logger;
             if ($factureAdded->getId() != null) {
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
                 foreach ($jsonConteneur as $key => $ligneConteneur) {
-                    if (isset($ligneConteneur["N° conteneur"]) && $ligneConteneur["N° plomb"]) {
-                        if ($ligneConteneur["N° conteneur"] !== "" && $ligneConteneur["N° plomb"] !== "") {
+                    if (isset($ligneConteneur["nConteneur"])) {
+                        if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
                             $conteneur = new \Facture\Conteneur();
                             $conteneur->setFacture($facture);
-                            $conteneur->setNumConteneur($ligneConteneur["N° conteneur"]);
-                            $conteneur->setNumPlomb($ligneConteneur["N° plomb"]);
+                            $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
+                            $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
                             $conteneurManager = new \Facture\ConteneurManager();
                             $conteneurManager->insert($conteneur);
+                        }
+                    }
+                }
+                $jsonProduit = json_decode($_POST['jsonProduit'], true);
+                foreach ($jsonProduit as $key => $ligne) {
+                    if (isset($ligne["nColis"])) {
+                        if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
+                            $ligneFacture= new \Facture\LigneFacture;
+                            $ligneFacture->setNbColis($ligne["nColis"]);
+                            $ligneFacture->setProduit($ligne["designation"]);
+                            $ligneFacture->setQuantite($ligne["pnet"]);
+                            $ligneFacture->setPrixUnitaire($ligne["pu"]);
+                            $ligneFacture->setMontant($ligne["montant"]);
+                            $ligneFactureManager = new \Facture\LigneFactureManager();
+                            $ligneFactureManager->insert($ligneFacture);
                         }
                     }
                 }
@@ -251,11 +270,11 @@ private $logger;
     
     public function doViewDetails($request) {
         try {
-            if (isset($request['achatId'])) {
+            if (isset($request['factureId'])) {
                 $factureManager = new FactureManager();
-                $achatDetails = $factureManager->findFactureDetails($request['achatId']);
-                if ($achatDetails != null)
-                    $this->doSuccessO($achatDetails);
+                $factureDetails = $factureManager->findFactureDetails($request['factureId']);
+                if ($factureDetails != null)
+                    $this->doSuccessO($factureDetails);
                 else
                     echo json_encode(array());
             } else {

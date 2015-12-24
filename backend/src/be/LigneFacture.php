@@ -35,6 +35,11 @@ class LigneFacture {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $produit;
+    
+      /** @ManyToOne(targetEntity="Facture\Facture", inversedBy="facture") 
+     * @JoinColumn(name="facture_id", referencedColumnName="id",
+      onDelete="CASCADE") */
+    protected $facture;
 
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;

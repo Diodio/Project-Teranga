@@ -49,7 +49,7 @@ class FactureQueries {
             $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE  facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, bon_sortie, client WHERE facture.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE facture.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -182,27 +182,27 @@ class FactureQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
-     public function findFactureDetails($achatId) {
-        if ($achatId != null) {
-            $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $achatId;
+     public function findFactureDetails($factureId) {
+        if ($factureId != null) {
+            $sql = 'SELECT * from facture, client where facture.client_id =client.id and facture.id=' . $factureId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
-            $achat = $stmt->fetchAll();
-            if ($achat != null)
-                return $achat;
+            $facture = $stmt->fetchAll();
+            if ($facture != null)
+                return $facture;
             else
                 return null;
         }
     }
     
-    public function findAllProduitByAchact($achatId) {
-        if ($achatId != null) {
-            $sql = 'SELECT p.libelle designation,p.prixUnitaire prixUnitaire,al.quantite quantite,al.montant montant FROM achat a, ligne_achat al, produit p WHERE a.id=al.achat_id AND al.produit_id=p.id AND a.id=' . $achatId;
+    public function findAllProduitByFacture($factureId) {
+        if ($factureId != null) {
+            $sql = 'SELECT nbColis, produit, quantite,prixUnitaire,montant FROM ligne_facture lf, facture f WHERE f.id=lf.facture_id AND f.id=' . $factureId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
-            $achat = $stmt->fetchAll();
-            if ($achat != null)
-                return $achat;
+            $facture = $stmt->fetchAll();
+            if ($facture != null)
+                return $facture;
             else
                 return null;
         }

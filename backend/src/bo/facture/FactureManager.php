@@ -121,17 +121,19 @@ public function findStatisticByUsine($codeUsine) {
     public function findFactureDetails($factureId) {
         if ($factureId != null) {
             $facture = $this->factureQuery->findFactureDetails($factureId);
-            $ligneFacture = $this->factureQuery->findAllProduitByAchact($factureId);
+             $ligneFacture = $this->factureQuery->findAllProduitByFacture($factureId);
             $factureDetail = array();
             foreach ($facture as $key => $value) {
                // $factureDetail ['id'] = $value ['achat.id'];
                 $factureDetail ['numero'] = $value ['numero'];
                 $factureDetail ['dateFacture']  = date_format(date_create($value ['dateFacture']), 'd/m/Y');
-                $factureDetail ['nomMareyeur']  = $value ['nom'];
+                $factureDetail ['nomClient']  = $value ['nom'];
                 $factureDetail ['adresse']  =  $value ['adresse'];
                 $factureDetail ['user']  =  $value ['login'];
-                $factureDetail ['poidsTotal']  =  $value ['poidsTotal'];
-                $factureDetail ['montantTotal']  =  $value ['montantTotal'];
+                $factureDetail ['nbTotalColis']  =  $value ['nbTotalColis'];
+                $factureDetail ['montantHt']  =  $value ['montantHt'];
+                $factureDetail ['montantTtc']  =  $value ['montantTtc'];
+                $factureDetail ['modePaiement']  =  $value ['modePaiement'];
                 $factureDetail['ligneFacture'] = $ligneFacture;
             }
             return $factureDetail;
