@@ -188,8 +188,8 @@ $codeUsine = $_COOKIE['codeUsine'];
              <div class="col-sm-2" style="margin-top: 4.3%;margin-left: -9%;">
                  <div class="row">
                       <div class="form-group">
-                      <a id="VOIR_COLISAGE" class="btn btn-primary btn-sm"  title="Voir le clisage"
-						alt="Voir le clisage"><i
+                      <a id="VOIR_COLISAGE" class="btn btn-primary btn-sm"  title="Voir le colisage"
+						alt="Voir le colisage"><i
 						class="ace-icon fa fa-plus-square"></i>Voir colisage </a> 
                      </div>
                  </div>
