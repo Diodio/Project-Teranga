@@ -23,9 +23,10 @@ $codeUsine = $_COOKIE['codeUsine'];
     </div>
     <!-- /.page-header -->
     
-    <div class="row">
+    <div class="row"><div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
          <form  id="validation-form" method="get">
+             
              <div class="row">
            <div class="col-sm-6" >
                 <div class="row" >
@@ -164,8 +165,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
-								<th class="text-center">Nombre de colis</th>
-								<th class="text-center">Quantité</th>
+                                                                <th class="text-center" style="width: 150px;">Nombre de colis</th>
+								<th class="text-center" style="width: 150px;">Quantité</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -174,8 +175,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                                 <td><input type="number" id="nbColis0" name='nbColis0' 
  									class="form-control nbColis" /> </td> 
 								
-								<td><input type="number" id="qteColis0" name='qteColis0'
-									class="form-control qte" />
+								<td>
+                                                                    <select id="qteColis0" name="qteColis0" class="form-control qte" >
+                                                                       <option value="*" class="qteColis0"></option> 
+                                                                    </select>
+<!--                                                                    <input type="number" id="qteColis0" name='qteColis0'
+									class="form-control qte" />-->
+                                                                     
 								</td>
 								
 							</tr>
@@ -490,6 +496,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div><!-- /.modal-dialog -->
             </form></div>
             </div>
+    </div>
 </div>
 <!-- /.page-content -->
 
@@ -499,7 +506,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
      $('#CMB_DESIGNATIONS').select2();
-     $('#designation0').select2();
+     $('#qteColis0').select2();
      var colisage = [];
      var totalColis=0;
      var qteTotal=0;
@@ -590,6 +597,28 @@ $(document).ready(function () {
             });
         }
     };
+    
+        //Gestion des colis
+        $('#CMB_DESIGNATIONS').change(function() {
+        if($('#CMB_DESIGNATIONS').val()!=='*')
+            loadQteColis($('#CMB_DESIGNATIONS').val(), 0);
+        
+        });
+     loadQteColis = function(produitId, index){
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_GET_INFOS
+                ; ?>"}, function(data) {
+            sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#qteColis"+index).loadJSON('{"qteColis'+index+'":' + data + '}');
+            }
+        });
+    };
     $('#CMB_CLIENTS').change(function() {
     if($('#CMB_CLIENTS').val()!==null) {
         if($('#CMB_CLIENTS').val()!=='')
@@ -600,13 +629,15 @@ $(document).ready(function () {
         }
     }
         });
-        //Gestion des colis
      var i=1;
      $("#add_row_colis").click(function(){
      $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
-        <td><input type='text' id='qteColis"+i+"' name='qteColis"+i+"'  class='form-control qte'/>");
+        <td><select id='qteColis"+i+"' name='qteColis"+i+"' class='form-control qte' ><option value='*' class='qteColis"+i+"'></option></select>");
       $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
-     
+        $('#qteColis'+i).select2();
+        if($('#CMB_DESIGNATIONS').val()!=='*')
+            loadQteColis($('#CMB_DESIGNATIONS').val(), i);
+        
       i++;
   });
      $("#delete_row_colis").click(function(){
@@ -617,13 +648,15 @@ $(document).ready(function () {
 	 });
 
 
-     $(document).on('keyup', '#tab_logic_colis tr td:eq( 2 ) input', function () {
-    //$(document).delegate('#tab_logic_colis tr td input', 'click', function (event) {
+    //$(document).on('keyup', '#tab_logic_colis tr td:eq(1) input', function () {
+    $(document).delegate('#tab_logic_colis tr td input', 'keyup', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
-          $( "#qteColis"+counter ).keyup(function() {
-                verifierPoids($("#CMB_DESIGNATIONS").val(), counter);
-            });
+         // $( "#nbColis"+counter ).keyup(function() {
+                verifierPoids($('#qteColis'+counter).val(), counter);
+                
+                
+           // });
             }); 
             
     
@@ -635,7 +668,7 @@ $(document).ready(function () {
         var i=0;
             $('#tab_logic_colis .qte').each(function () {
                 if($(this).val()!=='')
-                    pd+= parseFloat($(this).val());
+                    pd+= parseFloat($(this).select2('data').text);
             });
           $('#tab_logic_colis .nbColis').each(function () {
               if($(this).val()!==''){
@@ -699,7 +732,7 @@ $(document).ready(function () {
             $("#addrColis"+(i)).html('');
         }
         $('#nbColis0').val('');
-        $('#qteColis0').val('');
+        $('#qteColis0').val('*').change();
        }
     }
     
@@ -709,35 +742,46 @@ $(document).ready(function () {
          
         ajoutLigne();
   });
- function verifierPoids(designation, counter ){
-           var produitId = designation;
+ function verifierPoids(qte, counter ){
+           //var produitId = designation;
            var nbColis=parseInt($("#nbColis"+counter).val());
-           var qte=parseInt($("#qteColis"+counter).val());
-           if(produitId==='*' ) {
-               $.gritter.add({
-                    title: 'Notification',
-                    text: 'Veuillez sélectionner un produit',
-                    class_name: 'gritter-error gritter-light'
-                });
-            }
-            else if(isNaN(nbColis)) {
+          // var qte=parseInt($("#qteColis"+counter).val());
+          console.log('nbColis'+nbColis);
+          console.log('qte'+qte);
+           if(isNaN(qte)) {
                     $.gritter.add({
                     title: 'Notification',
-                    text: 'Veuillez saisir le nombre de colis',
+                    text: 'Veuillez choisir une quantité',
                     class_name: 'gritter-error gritter-light'
                 });
+                 $("#nbColis"+counter).val("");
+                    $('#qteColis'+counter).val('*').change();
                 }
             else{
-               $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, nbColis:nbColis,quantite:qte, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
-                data = $.parseJSON(data);
-               if(data.oId == 0){
-                    $.gritter.add({
+                if(nbColis > qte ){
+                  $.gritter.add({
                     title: 'Notification',
                     text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
                     class_name: 'gritter-error gritter-light'
-                });
-               }
-              }); 
+                });  
+                 $("#nbColis"+counter).val("");
+                    $('#qteColis'+counter).val('*').change();
+                }
+                else {
+                    $("#nbColis"+counter).val("");
+                    $('#qteColis'+counter).val('*').change();
+                }
+                    
+//               $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, nbColis:nbColis,quantite:qte, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
+//                data = $.parseJSON(data);
+//               if(data.oId == 0){
+//                    $.gritter.add({
+//                    title: 'Notification',
+//                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
+//                    class_name: 'gritter-error gritter-light'
+//                });
+//               }
+//              }); 
                 }
             
             

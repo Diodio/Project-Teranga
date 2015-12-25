@@ -378,9 +378,75 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $(this).prev().focus();
                 });
               $('#avance').editable({
-               type:'text'
-                
-             });
+                            type: 'text',
+                            name: 'avance',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            validate:function(value){
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var avance = editParams.value;
+                                //alert(code);
+                                function save() {
+                                    if(avance !== ""){
+                                        saveAvance(checkedAchat[0], avance);
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        
+                         
+           function saveAvance(achatId, avance)
+                {
+                    var ACTION = "<?php echo App::ACTION_UPDATE; ?>";
+                    $.ajax({
+                        url: '<?php echo App::getBoPath(); ?>/reglement/ReglementController.php',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            ACTION: ACTION,
+                            achatId: achatId,
+                            avance: avance
+                        },
+                        success: function(data)
+                        {
+                             $('#winModalINFO').modal('hide');
+                            if (data.rc == 0){
+                                $.gritter.add({
+                                    title: 'Server notification',
+                                    text: "<?php printf("Avance ajoute"); ?>",
+                                    class_name: 'gritter-success gritter-light'
+                                });
+                            }
+                            else{
+                                $.gritter.add({
+                                    title: 'Server notification',
+                                    text: data.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                            };
+                        },
+                        error: function() {
+                            alert("error");
+                        }
+                    });
+
+                }
             getIndicator = function() {
                 var url;
                 var user;

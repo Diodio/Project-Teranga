@@ -28,6 +28,9 @@ class DemoulageController extends BaseController  {
                     case \App::ACTION_GET_COLISAGES:
                                 $this->doVerifieColis($request);
                                 break;
+                    case \App::ACTION_GET_INFOS:
+                                $this->doGetQuantite($request);
+                                break;
                     
                     
                 }
@@ -119,6 +122,24 @@ class DemoulageController extends BaseController  {
         }catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
             $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
+    }
+    public function doGetQuantite($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $demoulageManager = new Produit\DemoulageManager();
+                $colis = $demoulageManager->getQuantiteColisage($request['produitId']);
+                if($colis !=null)
+                    $this->doSuccessO($colis);
+                else
+                   echo json_encode(array());  
+            } else {
+                throw new Exception('PARAM_NOT_ENOUGH');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
         }
     }
 }

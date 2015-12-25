@@ -82,10 +82,7 @@ private $logger;
 
     public function doInsert($request) {
         try {
-            $this->logger->log->trace("tesst1");
-            
                 $achatManager = new AchatManager();
-                
                 $achat = new Achat();
                 $achat->setNumero($request['numAchat']);
                 $achat->setHeureReception(new \DateTime($request['heureReception']));
