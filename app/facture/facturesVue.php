@@ -243,7 +243,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label no-padding-right"
                                             for="form-field-1"> Total colis </label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-5">
                                             <div class="clearfix">
                                                     <input type="text" id="totalColis" name="totalColis" placeholder=""
                                                             class="col-xs-12 col-sm-9">
@@ -755,7 +755,7 @@ $(document).ready(function () {
                     class_name: 'gritter-error gritter-light'
                 });
                  $("#nbColis"+counter).val("");
-                 $('#qteColis'+counter).val('*').change();
+                // $('#qteColis'+counter).val('*').change();
                 }
             else{
                 if(nbColis > qte ){
@@ -765,7 +765,7 @@ $(document).ready(function () {
                     class_name: 'gritter-error gritter-light'
                 });  
                  $("#nbColis"+counter).val("");
-                    $('#qteColis'+counter).val('*').change();
+                 //   $('#qteColis'+counter).val('*').change();
                 }
                     
 //               $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, nbColis:nbColis,quantite:qte, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
