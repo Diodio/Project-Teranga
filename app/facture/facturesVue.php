@@ -22,20 +22,19 @@ $codeUsine = $_COOKIE['codeUsine'];
         </h1>
     </div>
     <!-- /.page-header -->
-     <form  id="validation-form" method="get">
+    
     <div class="row">
-        <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
-
-        
+         <form  id="validation-form" method="get">
+             <div class="row">
            <div class="col-sm-6" >
                 <div class="row" >
                         <div class="col-sm-2">
                             <label> Client</label>
                         </div>
                         <div class="col-sm-6">
-                             <select id="CMB_CLIENTS" data-placeholder=""  style="width:100%"     >
-                                <option value="*" class="clients"></option>
+                            <select id="CMB_CLIENTS" name="nomClient" data-placeholder=""  style="width:100%"     >
+                                <option value="" class="clients"></option>
                             </select>
                         </div>
                     <a id="NEW_CLIENT" class="btn btn-primary btn-sm"  title="Nouveau client"
@@ -49,7 +48,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <label> Refèrence</label>
                         </div>
                             <div class="col-sm-6">
-                                <input type="text" id="reference" name="reference" placeholder=""  style="width:100%" 
+                                <input type="text" id="reference" name="reference"  style="width:100%" 
                                        class="col-xs-10 col-sm-7">
                             </div>
                  </div>
@@ -105,19 +104,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
                     <div class="col-sm-6" style="margin-left: 74px;">
                         <select id="devise" data-placeholder=""      >
-                            <option value="EURO">Euro</option>
                             <option value="FCFA">FCFA</option>
-                            <option value="US">US$</option>
+                            <option value="&euro;">&euro;</option>
+                            <option value="$">US$</option>
                         </select>
                     </div>
                 </div>
                        
                </div>
-
-                </div>
-        
+    </div>
         <div class="row">
-             <form  id="formProduit" method="get">
+<!--             <form  id="formProduit" method="get">-->
              <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Produits</h3>
             <div class="col-sm-4">
                             <div class="row">
@@ -137,7 +134,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="row">
                                 
                                 <div class="col-sm-3">
-                                     <label>  Prix </label>
+                                    <label>  Prix <span id="labeldevise"></span> </label>
                                 </div>
                                 <div class="col-sm-8">
                                         <div class="clearfix">
@@ -200,9 +197,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
              </div>
-             </form>
+<!--             </form>-->
         </div>
-        </div>
+        
         <div class="space-6"></div>
            <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Détails produit</h3>
 
@@ -212,6 +209,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 					<table class="table table-bordered table-hover" id="tab_produit">
 						<thead>
 							<tr>
+                                                                <th class="text-center hidden"></th>
 								<th class="text-center">Nombre de colis</th>
 								<th class="text-center">Désignation</th>
 								<th class="text-center">Poids net</th>
@@ -321,10 +319,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="col-sm-6">
                             <div class="row">
                                 <label class="col-sm-3 control-label no-padding-right"
-                                        for="form-field-1"> Montant HT </label>
+                                        for="form-field-1"> Montant HT <span id="labelmontantHt"></span> </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
-                                                <input type="text" id="montantHt" placeholder=""
+                                            <input type="text" id="montantHt" name="montantHt" placeholder=""
                                                         class="col-xs-12 col-sm-10">
                                         </div>
                                 </div>
@@ -335,7 +333,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         for="form-field-1"> Tva </label>
                                 <div class="col-sm-7">
                                     <div class="clearfix">
-                                        <input type="text" id="tva" placeholder=""
+                                        <input type="text" id="tva" name="tva" placeholder=""
                                                class="col-xs-12 col-sm-3" value="18">  &nbsp;%
                                     </div>
                                 </div>
@@ -343,10 +341,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-3 control-label no-padding-right"
-                                        for="form-field-1"> Montant TTC </label>
+                                        for="form-field-1"> Montant TTC <span id="labelmontantTtc"></span> </label>
                                 <div class="col-sm-7">
                                     <div class="clearfix">
-                                            <input type="text" id="montantTtc" placeholder=""
+                                        <input type="text" id="montantTtc" name="montantTtc" placeholder=""
                                                     class="col-xs-12 col-sm-10">
                                     </div>
                                 </div>
@@ -357,7 +355,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         for="form-field-1"> Reglé </label>
                                 <div class="col-sm-7">
                                     <div class="clearfix">
-                                           <input type="checkbox" disabled="disabled" id="regleAchat" name="regleFacture" placeholder="" />
+                                           <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder="" />
                                     </div>
                                 </div>
                             </div>
@@ -371,7 +369,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 for="form-field-1"> Mode de paiement </label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                        <select id="modePaiement" class="col-xs-12 col-sm-10">
+                                                    <select id="modePaiement" name="modePaiement" class="col-xs-12 col-sm-10">
                                                                 <option value="Esp">Especes</option>
                                                                 <option value="ch">Cheque</option>
                                                                 <option value="vir">Virement</option>
@@ -393,7 +391,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
-                                        for="form-field-1"> Avance </label>
+                                        for="form-field-1"> Avance <span id="labelavance"></span> </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
                                                 <input type="text" id="avance" name="avance" placeholder=""
@@ -404,7 +402,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="space-6"></div>
                             <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
-                                        for="form-field-1"> Reliquat </label>
+                                        for="form-field-1"> Reliquat <span id="labelreliquat"></span> </label>
                                 <div class="col-sm-7">
                                         <div class="clearfix">
                                                 <input type="text" id="reliquat" name="reliquat" placeholder=""
@@ -416,7 +414,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div>
         </div>
         <!-- /.col -->
-    </div>
+    
     <!-- /.row -->
     
 
@@ -434,9 +432,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </button>
             </div>
     </div>
+    
     </form>
     
-     <div id="winModalClient" class="modal fade">
+     <div id="winModalClient" class="modal fade" tabindex="-1">
             <form id="formClient" class="form-horizontal"  onsubmit="return false;">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -484,7 +483,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div><!-- /.modal-content -->
                 
                 </div><!-- /.modal-dialog -->
-            </form>
+            </form></div>
             </div>
 </div>
 <!-- /.page-content -->
@@ -496,6 +495,7 @@ $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
      $('#CMB_DESIGNATIONS').select2();
      $('#designation0').select2();
+     var colisage = [];
      var totalColis=0;
      var qteTotal=0;
      var mtTotal=0;
@@ -526,7 +526,23 @@ $(document).ready(function () {
             showSeconds: false,
             showMeridian: false
         });
-        
+     //devise
+     $('#labeldevise').text("("+$('#devise').val()+")");
+     $('#labelmontantHt').text("("+$('#devise').val()+")");
+     $('#labelmontantTtc').text("("+$('#devise').val()+")");
+     $('#labelavance').text("("+$('#devise').val()+")");
+     $('#labelreliquat').text("("+$('#devise').val()+")");
+     
+     $('#devise').change(function() {
+        if($('#devise').val()!==''){
+            $('#labeldevise').text("("+$('#devise').val()+")");
+            $('#labelmontantHt').text("("+$('#devise').val()+")");
+            $('#labelmontantTtc').text("("+$('#devise').val()+")");
+            $('#labelavance').text("("+$('#devise').val()+")");
+            $('#labelreliquat').text("("+$('#devise').val()+")");
+        }
+    
+        });
     loadProduit = function(){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "usine_dakar", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
@@ -570,12 +586,14 @@ $(document).ready(function () {
         }
     };
     $('#CMB_CLIENTS').change(function() {
-        if($('#CMB_CLIENTS').val()!=='*')
+    if($('#CMB_CLIENTS').val()!==null) {
+        if($('#CMB_CLIENTS').val()!=='')
             loadInfoClient($('#CMB_CLIENTS').val());
         else {
             $('#nomClient').val("");
             $('#origine').val("");
         }
+    }
         });
         //Gestion des colis
      var i=1;
@@ -584,8 +602,6 @@ $(document).ready(function () {
         <td><input type='text' id='qteColis"+i+"' name='qteColis"+i+"'  class='form-control qte'/>");
       $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
      
-      //loadProduit(i);
-       
       i++;
   });
      $("#delete_row_colis").click(function(){
@@ -611,21 +627,59 @@ $(document).ready(function () {
         var pd=0;
         var nbColis=0;
         var mtTtc=0;
+        var i=0;
             $('#tab_logic_colis .qte').each(function () {
                 if($(this).val()!=='')
                     pd+= parseFloat($(this).val());
             });
           $('#tab_logic_colis .nbColis').each(function () {
-              if($(this).val()!=='')
+              if($(this).val()!==''){
                 nbColis += parseInt($(this).val());
+                i++;
+              }
             });
+        var produitId = $('#CMB_DESIGNATIONS').val();
         var designation = $('#CMB_DESIGNATIONS').select2('data').text;
         var prix = $('#prixUnitaire').val();
+       //var rows=[];
+       var header=["#","nbColis","qte"]
+             var $table=$('#tab_logic_colis');
+            $table.find("tbody tr").each(function () {
+                var row = {};
+                
+                $(this).find("td").each(function (i) {
+                    row["produitId"] = produitId;
+                    var key = header[i];
+                    var value;
+                    valueInput = $(this).find('input').val();
+                     if (typeof valueInput !== "undefined")
+                        value=valueInput;
+                    
+                    row[key] = value;
+                });
+
+                colisage.push(row);
+            });
+            console.log( JSON.stringify(colisage));
+//        var item = new Array();
+//        item.push($("#CMB_DESIGNATIONS").val());
+//        item.push($('#nbColis'+(i)).val());
+//        item.push($('#qteColis'+(i)).val()); 
+//        colisage.push(item);
+//        console.log(colisage);
+        if(produitId==='*' || nbColis===0 || prix===''){
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'Les champs ne doivent pas etre vide',
+                    class_name: 'gritter-error gritter-light'
+                });
+        }
+        else {
         var montant = parseInt(prix) * pd;
         totalColis+=nbColis;
         qteTotal+=pd;
         mtTotal+=montant;
-        var data="<tr><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pd+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
+        var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pd+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
         $('#tab_produit tbody').append(data);
         $('#totalColis').val(totalColis);
         $('#qteTotal').val(qteTotal);
@@ -641,12 +695,13 @@ $(document).ready(function () {
         }
         $('#nbColis0').val('');
         $('#qteColis0').val('');
-        
+       }
     }
     
         
        
      $( "#AJOUT_PRODUIT" ).click(function(){
+         
         ajoutLigne();
   });
  function verifierPoids(designation, counter ){
@@ -682,6 +737,9 @@ $(document).ready(function () {
             
             
        }
+       
+       
+        
   function calculMontant(index){
            var mt;
            var qte=parseInt($("#qte"+index).val());
@@ -745,17 +803,35 @@ $(document).ready(function () {
     });
     
       $("#avance").keyup(function() {
-        var reliquat=0;
-        if($("#avance").val() !=='') {
-            reliquat= parseFloat($("#montantTtc").val()) - parseFloat($("#avance").val());
-            if(!isNaN(reliquat) && reliquat >=0)
-                $("#reliquat").val(reliquat);
-        }
-        else {
-            $("#reliquat").val(0); 
-        }
+          calculReliquat();
+//        var reliquat=0;
+//        if($("#avance").val() !=='') {
+//            reliquat= parseFloat($("#montantTtc").val()) - parseFloat($("#avance").val());
+//            if(!isNaN(reliquat) && reliquat >0)
+//                $("#reliquat").val(reliquat);
+//            else {
+//                $("#reliquat").val(0); 
+//            }
+//        }
+//        else {
+//            $("#reliquat").val(0); 
+//        }
       });
-
+ function calculReliquat(){
+          var rel=0;
+           var mt=parseInt($("#montantTtc").val());
+           var avance=parseInt($("#avance").val());
+           rel= mt - avance;
+           if(!isNaN(rel) && rel>0) 
+              $("#reliquat").val(rel);
+           else if(!isNaN(rel) && rel===0) {
+              $('#regleFacture').attr("disabled", false);
+              $("#reliquat").val(0);
+          }  
+          else
+              $("#reliquat").val("");
+          $('#regleFacture').attr("disabled", true);
+        }
        function SimpletabToJson (tableId, head){
            var $table = $("#"+tableId);
             rows = [],
@@ -822,6 +898,7 @@ $(document).ready(function () {
             var montantHt = $("#montantHt").val();
             var montantTtc = $("#montantTtc").val();
             var nbTotalColis = $("#totalColis").val();
+            var nbTotalPoids = $("#qteTotal").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
             var avance = $("#avance").val();
@@ -835,7 +912,7 @@ $(document).ready(function () {
             var login = "<?php echo $login ?>";
             var headerColis = ["#","nColis","qteColis"];
             var headerConteneur = ["#","nConteneur","nPlomb"];
-            var headerProduit = ["nColis","designation","pnet","pu","montant"];
+            var headerProduit = ["produitId","nColis","designation","pnet","pu","montant"];
             //var tblColis=tabToJson('tab_logic_colis', headerColis );
             var tblConteneur=tabToJson('tab_conteneur', headerConteneur );
             var tblProduit=SimpletabToJson('tab_produit', headerProduit );
@@ -849,6 +926,7 @@ $(document).ready(function () {
             formData.append('pays', pays);
             formData.append('portDechargement', portDechargement);
             formData.append('nbTotalColis', nbTotalColis);
+            formData.append('nbTotalPoids', nbTotalPoids);
             formData.append('montantHt', montantHt);
             formData.append('montantTtc', montantTtc);
             formData.append('modePaiement', modePaiement);
@@ -896,12 +974,107 @@ $(document).ready(function () {
             });
 
         };
-        $("#SAVE").click(function()
-        {
-          factureProcess();
-           
-        });
+//        $("#SAVE").click(function()
+//        {
+//          factureProcess();
+//           
+//        });
         
+        $("#SAVE").bind("click", function () {
+        $('#validation-form').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				nomClient: {
+					required: true
+				},
+				reference: {
+					required: true
+				},
+				origine: {
+					required: true
+				},
+				totalColis: {
+					required: true
+				},
+				qteTotal: {
+					required: true
+				},
+				portDechargement: {
+					required: true
+				},
+				montantHt: {
+					required: true
+				},
+				tva: {
+					required: true
+				},
+				montantTtc: {
+					required: true
+				},
+				modePaiement: {
+					required: true
+				}
+			},
+	
+			messages: {
+				nomClient: {
+					required: "Champ obligatoire."
+				},
+				reference: {
+					required: "Champ obligatoire."
+				},
+				origine: {
+					required: "Champ obligatoire."
+				},
+				totalColis: {
+					required: "Champ obligatoire."
+				},
+				qteTotal: {
+					required: "Champ obligatoire."
+				},
+				portDechargement: {
+					required: "Champ obligatoire."
+				},
+				montantHt: {
+					required: "Champ obligatoire."
+				},
+				tva: {
+					required: "Champ obligatoire."
+				},
+				montantTtc: {
+					required: "Champ obligatoire."
+				},
+				modePaiement: {
+					required: "Champ obligatoire."
+				}
+			},
+	
+	
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+				factureProcess();
+			},
+			invalidHandler: function (form) {
+			}
+		});
+
+
+        });
         $("#FACTURE_PROFORMA").click(function()
         {
              window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
@@ -961,6 +1134,15 @@ $(document).ready(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
+                        if(data.oId!==""){
+                            jsonText='{"value":'+data.oId+', "text":"'+nom+'"}';
+                            jsonText=JSON.parse(jsonText);
+                            $("#CMB_CLIENTS").select2("data", jsonText, true);
+                            $("#reference").val(reference);
+                            $("#origine").val(adresse);
+                            
+                            //alert($("#CMB_MAREYEURS").val());
+                        }
                     } 
                     else
                     {
@@ -1011,7 +1193,7 @@ $(document).ready(function () {
        			},
 
        			messages: {
-       				adresse: {
+       				new_adresse: {
        					required: "Champ obligatoire."
        				},
        				nom: {
@@ -1035,7 +1217,7 @@ $(document).ready(function () {
 
        			submitHandler: function (form) {
        			 SaveClientProcess();
-                            $('#winModalClient').addClass('hide');
+                          //$('#winModalClient').addClass('hide');
                                 $('#winModalClient').modal('hide');
        			},
        			invalidHandler: function (form) {

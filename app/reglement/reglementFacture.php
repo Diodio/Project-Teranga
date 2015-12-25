@@ -517,11 +517,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 console.log(data);
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Reliquat a verser"><i class="ace-icon fa fa-check-square-o orange bigger-130 icon-only"></i></span>';
+                                    src += '<span class="tooltip-error" title="Non réglé"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="réglée"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Reliquat a verser"><i class="ace-icon fa fa-check-square-o orange bigger-130 icon-only"></i></span>';
                                 else if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Non réglée"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Réglée"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }

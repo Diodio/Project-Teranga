@@ -31,8 +31,8 @@ class LigneFacture {
      * */
     protected $montant;
 
-     /**
-     * @Column(type="string", length=60, nullable=false)
+    /**
+     * @Column(type="integer", nullable=true)
      * */
     protected $produit;
     
@@ -121,8 +121,15 @@ class LigneFacture {
     function setDeletedDate($deletedDate) {
         $this->deletedDate = $deletedDate;
     }
+    function getFacture() {
+        return $this->facture;
+    }
 
-    
+    function setFacture($facture) {
+        $this->facture = $facture;
+    }
+
+        
     
         /** @PrePersist */
     public function doPrePersist() {

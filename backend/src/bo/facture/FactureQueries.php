@@ -74,10 +74,10 @@ class FactureQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'SELECT facture.id, facture.regle, dateFacture, numero, nom FROM facture, bon_sortie, client WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.regle, dateFacture, numero, nom FROM facture, client WHERE facture.client_id = client.id AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'SELECT facture.id, facture.regle, dateFacture, numero, nom FROM facture, bon_sortie, client WHERE facture.bonsortie_id =bon_sortie.id AND bon_sortie.client_id = client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.regle, dateFacture, numero, nom FROM facture,client WHERE facture.client_id = client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -197,7 +197,19 @@ class FactureQueries {
     
     public function findAllProduitByFacture($factureId) {
         if ($factureId != null) {
-            $sql = 'SELECT nbColis, produit, quantite,prixUnitaire,montant FROM ligne_facture lf, facture f WHERE f.id=lf.facture_id AND f.id=' . $factureId;
+            $sql = 'SELECT nbColis, libelle produit, quantite,prixUnitaire,montant FROM ligne_facture lf, facture f,produit p WHERE f.id=lf.facture_id AND p.id = lf.produit AND f.id=' . $factureId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $facture = $stmt->fetchAll();
+            if ($facture != null)
+                return $facture;
+            else
+                return null;
+        }
+    }
+    public function findReglementByFacture($factureId) {
+        if ($factureId != null) {
+            $sql = 'SELECT datePaiement, avance FROM reglement_facture WHERE facture_id=' . $factureId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $facture = $stmt->fetchAll();

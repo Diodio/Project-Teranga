@@ -81,6 +81,7 @@ return array(
     'Produit\\ProduitQueries' => $baseDir . '/../backend/src/bo/produit/ProduitQueries.php',
     'Racine\\Bootstrap' => $baseDir . '/bootstrap.php',
     'Reglement\\ReglementAchat' => $baseDir . '/../backend/src/be/ReglementAchat.php',
+    'Reglement\\ReglementFacture' => $baseDir . '/../backend/src/be/ReglementFacture.php',
     'Reglement\\ReglementManager' => $baseDir . '/../backend/src/bo/reglement/ReglementManager.php',
     'Reglement\\ReglementQueries' => $baseDir . '/../backend/src/bo/reglement/ReglementQueries.php',
     'StockController' => $baseDir . '/../backend/src/bo/stock/StockController.php',

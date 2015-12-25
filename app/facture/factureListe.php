@@ -240,12 +240,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantTtc"></span>
                                 </div>
                             </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Avance</div>
-                                <div class="profile-info-value">
-                                    <span id="avance"></span>
-                                </div>
-                            </div>
+                        </div>
+                           <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des avances
+                        </h4>
+                    <table class="table table-bordered table-hover"id="tab_avance">
+				<thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Montant</th>
+                                    </tr>
+                                </thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+                         <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Reliquat </div>
                                 <div class="profile-info-value">
@@ -492,14 +503,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantHt').text(data.montantHt);
                     $('#MontantTtc').text(data.montantTtc);
-                    $('#Avance').text("0");
-                    $('#Reliquat').text("0");
-                   
-                    if(data.reliquat!=null) {
-                        $('#Reliquat').text(data.reliquat);
-                        var av=data.montantTotal - data.reliquat;
-                        $('#Avance').text(av);
-                    }
+                    
                     $('#tab_produit tbody').html("");
                     var table = data.ligneFacture;
                     var trHTML='';
@@ -508,6 +512,22 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                     $('#tab_produit tbody').append(trHTML);
                     trHTML='';   
+                    
+                     $('#tab_avance tbody').html("");
+                    var tableAvance = data.reglement;
+                    var trHTMLAv='';
+                    var mtAv=0;
+                    $(tableAvance).each(function(index, element){
+                         mtAv += parseFloat(element.avance);
+                        trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
+                    });
+                    $('#tab_avance tbody').append(trHTMLAv);
+                    
+                    if(!isNaN(mtAv)) {
+                        var rel = data.montantTtc - mtAv;
+                        $('#reliquat').text(rel);
+                    }
+                    trHTMLAv='';   
              
               $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
               $('#TAB_MSG_VIEW').show();

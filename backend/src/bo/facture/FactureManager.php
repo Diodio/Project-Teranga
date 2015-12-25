@@ -122,6 +122,7 @@ public function findStatisticByUsine($codeUsine) {
         if ($factureId != null) {
             $facture = $this->factureQuery->findFactureDetails($factureId);
              $ligneFacture = $this->factureQuery->findAllProduitByFacture($factureId);
+             $reglement = $this->factureQuery->findReglementByFacture($factureId);
             $factureDetail = array();
             foreach ($facture as $key => $value) {
                // $factureDetail ['id'] = $value ['achat.id'];
@@ -134,7 +135,10 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['montantHt']  =  $value ['montantHt'];
                 $factureDetail ['montantTtc']  =  $value ['montantTtc'];
                 $factureDetail ['modePaiement']  =  $value ['modePaiement'];
+                $factureDetail ['regle']  =  $value ['regle'];
                 $factureDetail['ligneFacture'] = $ligneFacture;
+                $factureDetail['reglement'] = $reglement;
+                
             }
             return $factureDetail;
         }

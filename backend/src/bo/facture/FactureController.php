@@ -96,11 +96,27 @@ private $logger;
             $facture->setAvance($request['avance']);
             $facture->setReliquat($request['reliquat']);
             $facture->setNbTotalColis($request['nbTotalColis']);
+            $facture->setNbTotalPoids($request['nbTotalPoids']);
             $facture->setStatus(1);
-            if($request['regle']=="true")
-                 $facture->setRegle(2);
-            else
-                $facture->setRegle(2);
+             if($request['regle']=="true")
+                    $facture->setRegle(2);
+            else {
+                if($request['avance']!="") {
+                    $facture->setRegle(1);
+                    $reliquat =  $request['montantTtc'] - $request['avance'];
+                    if($reliquat==0)
+                        $facture->setRegle(2);
+                    $facture->setReliquat($reliquat);
+                    $reglement=new Reglement\ReglementFacture();
+                    $reglement->setFacture($facture);
+                    $reglement->setDatePaiement(new \DateTime("now"));
+                    $reglement->setAvance($request['avance']);
+                    
+                }
+                else {
+                    $facture->setRegle(0);
+                }
+            }
             $facture->setCodeUsine($request['codeUsine']);
             $facture->setLogin($request['login']);
             $clientManager = new \Client\ClientManager();
@@ -108,6 +124,10 @@ private $logger;
             $facture->setClient($client);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
+                if($request['avance']!="") {
+                    $reglementManager =new Reglement\ReglementManager();
+                    $reglementManager->insert($reglement);
+                }
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
                 foreach ($jsonConteneur as $key => $ligneConteneur) {
                     if (isset($ligneConteneur["nConteneur"])) {
@@ -126,13 +146,18 @@ private $logger;
                     if (isset($ligne["nColis"])) {
                         if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
                             $ligneFacture= new \Facture\LigneFacture;
+                            $ligneFacture->setFacture($facture);
                             $ligneFacture->setNbColis($ligne["nColis"]);
-                            $ligneFacture->setProduit($ligne["designation"]);
+                            $ligneFacture->setProduit($ligne["produitId"]);
                             $ligneFacture->setQuantite($ligne["pnet"]);
                             $ligneFacture->setPrixUnitaire($ligne["pu"]);
                             $ligneFacture->setMontant($ligne["montant"]);
                             $ligneFactureManager = new \Facture\LigneFactureManager();
-                            $ligneFactureManager->insert($ligneFacture);
+                            $inserted = $ligneFactureManager->insert($ligneFacture);
+                            if ($inserted->getId() != null) {
+                                 $stockManager = new \Stock\StockManager();
+                                 $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
+                            }
                         }
                     }
                 }
@@ -154,7 +179,7 @@ private $logger;
                 $aColumns = array('dateFacture', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
-                    for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
+                    for ($i = 1; $i < intval($request['iSortingCols']); $i++) {
                         if ($request['bSortable_' . intval($request['iSortCol_' . $i])] == "true") {
                             $sOrder .= "" . $aColumns[intval($request['iSortCol_' . $i])] . " " .
                                     ($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
@@ -182,10 +207,10 @@ private $logger;
                     }
                 }
                 // End filter from dataTable
-                $achats = $factureManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-                if ($achats != null) {
+                $facture = $factureManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                if ($facture != null) {
                     $nbFactures = $factureManager->count($request['codeUsine'],$sWhere);
-                    $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbFactures));
+                    $this->doSuccessO($this->dataTableFormat($facture, $request['sEcho'], $nbFactures));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }

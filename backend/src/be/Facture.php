@@ -32,6 +32,9 @@ class Facture {
    /** @Column(type="integer", nullable=true) */
     public $nbTotalColis;
     
+   /** @Column(type="integer", nullable=true) */
+    public $nbTotalPoids;
+    
     
    /** @Column(type="string", length=60, nullable=true) */
     public $montantHt;
@@ -281,6 +284,14 @@ class Facture {
     function setClient($client) {
         $this->client = $client;
     }
+    function getNbTotalPoids() {
+        return $this->nbTotalPoids;
+    }
+
+    function setNbTotalPoids($nbTotalPoids) {
+        $this->nbTotalPoids = $nbTotalPoids;
+    }
+
 
 
 

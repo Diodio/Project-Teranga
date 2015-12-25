@@ -321,7 +321,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Date </div>
                                 <div class="profile-info-value">
-                                    <span><a href="#" id="dateAvance" data-type="date" data-pk="1"  data-title="Select date">15/05/1984</a></span>
+                                    <span><a href="#" id="dateAvance" data-type="date" data-pk="1"  data-title="Select date"></a></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
@@ -355,6 +355,14 @@ $codeUsine = $_COOKIE['codeUsine'];
             var checkedAchat = new Array();
             // Check if an item is in the array
            // var interval = 500;
+            var today = new Date();
+    var dateAchat = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
+           $('#dateAvance').text(today);
            $('#dateAvance').editable({
                 type:'date'
              });
