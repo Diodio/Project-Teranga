@@ -755,7 +755,7 @@ $(document).ready(function () {
                     class_name: 'gritter-error gritter-light'
                 });
                  $("#nbColis"+counter).val("");
-                    $('#qteColis'+counter).val('*').change();
+                 $('#qteColis'+counter).val('*').change();
                 }
             else{
                 if(nbColis > qte ){
@@ -765,10 +765,6 @@ $(document).ready(function () {
                     class_name: 'gritter-error gritter-light'
                 });  
                  $("#nbColis"+counter).val("");
-                    $('#qteColis'+counter).val('*').change();
-                }
-                else {
-                    $("#nbColis"+counter).val("");
                     $('#qteColis'+counter).val('*').change();
                 }
                     
