@@ -321,8 +321,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Date </div>
                                 <div class="profile-info-value">
-                                    <span><a href="#" id="dateAvance" data-type="date" data-pk="1"  data-title="Select date"></a></span>
+                                    <div class="col-xs-8 col-sm-5">
+                                        <div class="input-group">
+                                            <input class="form-control date-picker" id="dateAvance" name="dateAvance" type="text" data-date-format="dd-mm-yyyy" />
+                                                <span class="input-group-addon">
+                                                        <i class="fa fa-calendar bigger-110"></i>
+                                                </span>
+                                        </div>
                                 </div>
+                            </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name">avance </div>
@@ -359,13 +366,17 @@ $codeUsine = $_COOKIE['codeUsine'];
     var dateAchat = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
-
+    
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
-           $('#dateAvance').text(today);
-           $('#dateAvance').editable({
-                type:'date'
-             });
+          $('.date-picker').datepicker({
+                        autoclose: true,
+                        todayHighlight: true
+                })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                });
               $('#avance').editable({
                type:'text'
                 
@@ -547,7 +558,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                                console.log(data);
+                                
                                 if (data == 0)
                                      src += '<span class="badge badge-transparent tooltip-error" title="Non réglé"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
