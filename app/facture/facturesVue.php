@@ -185,12 +185,17 @@ $codeUsine = $_COOKIE['codeUsine'];
 				</div>
 			</div>     
            </div>
-             <div class="col-sm-2" style="margin-top: 8%;margin-left: -9%;">
+             <div class="col-sm-2" style="margin-top: 4.3%;margin-left: -9%;">
+                 <div class="row">
+                      <div class="form-group">
+                      <a id="VOIR_COLISAGE" class="btn btn-primary btn-sm"  title="Voir le clisage"
+						alt="Voir le clisage"><i
+						class="ace-icon fa fa-plus-square"></i>Voir colisage </a> 
+                     </div>
+                 </div>
                     <div class="row">
                         <div class="form-group">
-<!--                        <button id="AJOUT_PRODUIT" class="btn btn-small btn-info">
-                                <i class="fa fa-plus-square "></i> Ajouter
-                        </button>-->
+                            
                             <a id="AJOUT_PRODUIT" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
 						alt="Ajouter une ligne"><i
 						class="ace-icon fa fa-plus-square"></i>Ajouter </a> 
@@ -738,8 +743,34 @@ $(document).ready(function () {
             
        }
        
+   showPopover = function(idButton, colis){
+            $("#" + idButton).popover({
+                html: true,
+                trigger: 'focus',
+                placement: 'top',
+                title: '<i class="icon-group icon-"></i> Détail colis ',
+                content: colis
+            }).popover('toggle');
+         };    
        
-        
+  $( "#VOIR_COLISAGE" ).click(function(){
+         $("#VOIR_COLISAGE").popover('destroy')
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: $('#CMB_DESIGNATIONS').val(), ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+        data=$.parseJSON(data);
+        var htmlString="";
+        htmlString+="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
+        $.each(data , function(i) { 
+            str= data [i].toString();
+            var substr = str.split(',');
+            htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
+        // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
+
+            //console.log(data [i]); 
+          });
+          htmlString+="</div>";
+        showPopover("VOIR_COLISAGE", ""+htmlString+"");
+        });
+    });      
   function calculMontant(index){
            var mt;
            var qte=parseInt($("#qte"+index).val());
