@@ -48,8 +48,8 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
             <td style="width:40%;"></td>
-            <td style="width:30%; "><span  style="font-size: 25px;" >Stock Réel de <?php echo $row['nomUsine']; ?></span></td>
-            <td >Numero: <?php echo $row['numero']; ?></td>
+            <td style="width:40%; "><span  style="font-size: 25px;" >Stock Réel de <?php echo $row['nomUsine']; ?></span></td>
+            <td ></td>
         </tr>
     </table>
     
