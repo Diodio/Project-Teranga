@@ -165,16 +165,14 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
     
     
     public function recupereNombreStockParProduit($produitId, $codeUsine ) {
-        $sql = "SELECT stock  FROM stock WHERE produit_id=$produitId and codeUsine='".$codeUsine."'";
+        $sql = "SELECT stock  FROM stock_reel WHERE produit_id=$produitId and codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
-        $arrayStock = array();
-        $i = 0;
-        foreach ($stock as $key => $value) {
-            $arrayStock ['nbStocks'] = $value ['stock'];
-        }
-        return $arrayStock;
+        if($stock!=null)
+            return $stock[0];
+         return null;
+        
     }
 
     public function updateNbStock($produitId, $codeUsine, $nbStock ) {			

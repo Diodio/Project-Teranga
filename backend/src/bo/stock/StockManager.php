@@ -60,7 +60,18 @@ class StockManager {
   
   public function recupereNombreStockParProduit($produitId, $codeUsine ) {
        $stockQueries = new StockQueries();
-    	return $stockQueries->recupereNombreStockParProduit($produitId, $codeUsine);
+        $stock = $stockQueries->recupereNombreStockParProduit($produitId, $codeUsine);
+       $arrayStock = array();
+        $stockReel = 0;
+        if($stock['stock']!=NULL)
+            $stockReel=$stock['stock'];
+        $arrayStock ['nbStocks'] =$stockReel;
+//        foreach ($stock as $key => $value) {
+//            
+//            $arrayStock ['nbStocks'] = $value ['stock'];
+//        }
+        return $arrayStock;
+       
   }
 
   public function updateNbStock($produitId, $codeUsine, $nbStock ) {	

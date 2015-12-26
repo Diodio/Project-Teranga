@@ -135,6 +135,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="row">
                                 
                                 <div class="col-sm-3">
+                                    <label>  Stock (kg)</label>
+                                </div>
+                                <div class="col-sm-8">
+                                        <div class="clearfix">
+                                            <input type="text" id="stockReel" readonly="readonly" placeholder=""
+                                                        class="col-xs-12 col-sm-12">
+                                        </div>
+                                </div>
+                            </div>
+                             <div class="space-6"></div>
+                            <div class="row">
+                                
+                                <div class="col-sm-3">
                                     <label>  Prix <span id="labeldevise"></span> </label>
                                 </div>
                                 <div class="col-sm-8">
@@ -556,7 +569,7 @@ $(document).ready(function () {
     
         });
     loadProduit = function(){
-        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "usine_dakar", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
+        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "usine_dakar", ACTION: "<?php echo App::ACTION_LIST_PRODUITS
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -599,9 +612,25 @@ $(document).ready(function () {
     };
     
         //Gestion des colis
+        loadQuantiteStock = function (produitId) {
+        $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {produitId:produitId, codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_STOCK; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#stockReel").val(sData.nbStocks);
+            }
+    });
+    };
         $('#CMB_DESIGNATIONS').change(function() {
-        if($('#CMB_DESIGNATIONS').val()!=='*')
+        if($('#CMB_DESIGNATIONS').val()!=='*') {
+            loadQuantiteStock($('#CMB_DESIGNATIONS').val());
             loadQteColis($('#CMB_DESIGNATIONS').val(), 0);
+        }
         
         });
      loadQteColis = function(produitId, index){
@@ -664,17 +693,45 @@ $(document).ready(function () {
         var nbColis=0;
         var mtTtc=0;
         var i=0;
-            $('#tab_logic_colis .qte').each(function () {
-                if($(this).val()!=='')
-                    pd+= parseFloat($(this).select2('data').text);
-            });
-          $('#tab_logic_colis .nbColis').each(function () {
-              if($(this).val()!==''){
-                nbColis += parseInt($(this).val());
-                i++;
-              }
-            });
+        var trouve=0;
         var produitId = $('#CMB_DESIGNATIONS').val();
+         var flag = false;
+            $('#tab_produit tbody').find('tr').each(function(){
+                var $this = $(this);
+                if(produitId == $('td:eq(0)', $this).text()){
+                    flag = true;
+                    return false;
+                }
+            });
+        if(flag){
+             $.gritter.add({
+                    title: 'Notification',
+                    text: 'Ce produit existe deja, Veuillez changer de produit',
+                    class_name: 'gritter-error gritter-light'
+                });
+                var rowCount = $('#tab_logic_colis tr').length;
+                for (var i = 1; i<rowCount; i++) {
+                    $("#addrColis"+(i)).html('');
+                }
+                $('#stockReel').val('');
+                $('#prixUnitaire').val('');
+                $('#nbColis0').val('');
+                $('#qteColis0').val('*').change();
+                $('#CMB_DESIGNATIONS').val('*').change();
+            return;
+        }
+        
+        $('#tab_logic_colis .qte').each(function () {
+            if($(this).val()!=='')
+                pd+= parseFloat($(this).select2('data').text);
+        });
+      $('#tab_logic_colis .nbColis').each(function () {
+          if($(this).val()!==''){
+            nbColis += parseInt($(this).val());
+            i++;
+          }
+        });
+      //  var produitId = $('#CMB_DESIGNATIONS').val();
         var designation = $('#CMB_DESIGNATIONS').select2('data').text;
         var prix = $('#prixUnitaire').val();
        //var rows=[];
@@ -731,6 +788,8 @@ $(document).ready(function () {
         }
         $('#nbColis0').val('');
         $('#qteColis0').val('*').change();
+        $('#prixUnitaire').val(''); 
+        $('#stockReel').val('');
        }
     }
     

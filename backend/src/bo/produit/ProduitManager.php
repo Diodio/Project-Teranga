@@ -187,6 +187,7 @@ public function retrieveTypes()
         return $list;
     }
     
+   
     public function findProduitsByName($name) {
         return $this->produitQuery->findProduitsByName($name);
     }
