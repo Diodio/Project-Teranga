@@ -487,6 +487,14 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                 </div>
                                 <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Pays</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="new_pays" name="new_pays" placeholder="" class="col-xs-10 col-sm-7">
+                                        </div>
+
+                                </div>
+                        
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
                                     <div class="col-sm-9">
                                         <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
@@ -607,6 +615,7 @@ $(document).ready(function () {
                //bonsortieId=data.id;
                 $("#reference").val(data.reference);
                 $('#origine').val(data.origine);
+                $('#pays').val(data.pays);
             });
         }
     };
@@ -628,6 +637,7 @@ $(document).ready(function () {
     };
         $('#CMB_DESIGNATIONS').change(function() {
         if($('#CMB_DESIGNATIONS').val()!=='*') {
+            $('#qteColis0').val("*").change();
             loadQuantiteStock($('#CMB_DESIGNATIONS').val());
             loadQteColis($('#CMB_DESIGNATIONS').val(), 0);
         }
@@ -1230,6 +1240,7 @@ $(document).ready(function () {
             var reference= $('#new_reference').val();
             var nom = $("#nom").val();
             var adresse = $("#new_adresse").val();
+            var pays = $("#new_pays").val();
             var telephone = $("#telephone").val();
             
             var formData = new FormData();
@@ -1237,6 +1248,7 @@ $(document).ready(function () {
             formData.append('reference', reference);
             formData.append('nom', nom);
             formData.append('adresse', adresse);
+            formData.append('pays', pays);
             formData.append('telephone', telephone);
             $.ajax({
                 url: '<?php echo App::getBoPath(); ?>/client/ClientController.php',
@@ -1260,6 +1272,7 @@ $(document).ready(function () {
                             $("#CMB_CLIENTS").select2("data", jsonText, true);
                             $("#reference").val(reference);
                             $("#origine").val(adresse);
+                            $("#pays").val(pays);
                             
                             //alert($("#CMB_MAREYEURS").val());
                         }
@@ -1308,6 +1321,9 @@ $(document).ready(function () {
        				},
        				nom: {
        					required: true
+       				},
+       				new_pays: {
+       					required: true
        				}
        				
        			},
@@ -1317,6 +1333,9 @@ $(document).ready(function () {
        					required: "Champ obligatoire."
        				},
        				nom: {
+       					required: "Champ obligatoire."
+       				},
+       				new_pays: {
        					required: "Champ obligatoire."
        				}
        			},

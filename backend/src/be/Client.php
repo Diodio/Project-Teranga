@@ -27,6 +27,11 @@ class Client {
     protected $adresse;
 
     /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $pays;
+
+    /**
      * @Column(type="string", length=32, nullable=false)
      * */
     protected $telephone;
@@ -81,5 +86,13 @@ class Client {
     function setBonSortie($bonSortie) {
         $this->bonSortie = $bonSortie;
     }
+    function getPays() {
+        return $this->pays;
+    }
+
+    function setPays($pays) {
+        $this->pays = $pays;
+    }
+
 
 }
