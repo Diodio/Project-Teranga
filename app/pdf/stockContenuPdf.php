@@ -86,18 +86,6 @@ td    { vertical-align: top; }
             <th style="width: 20%; text-align: left;"><?php echo number_format($totalQuantite, 0, ',', ' '); ?>kg </th>
         </tr>
     </table>
-    <br>
     
-    <nobreak>
-        <br>
-        <table cellspacing="0" style="width: 100%; text-align: left;">
-            <tr>
-                <td style="width:25%;">Le Comptable</td>
-                <td style="width:25%"></td>
-                <td style="width:38%"></td>
-                <td style="width:25%"> Le Mareyeur</td>
-            </tr>
-        </table>
-    </nobreak>
   
 </page>
