@@ -120,6 +120,8 @@ class App
      const ACTION_GET_COLIS='GET_COLIS';
      const ACTION_LIST_REEL_PAR_USINE='LIST_REEL_PAR_USINE';
      const ACTION_GET_INFO_CLIENT='GET_INFO_CLIENT';
+     const ACTION_GET_STOCK='GET_STOCK';
+     const ACTION_LIST_PRODUITS='LIST_PRODUITS';
 
      static function getBoPath() {
          

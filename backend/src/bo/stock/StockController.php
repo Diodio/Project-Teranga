@@ -32,6 +32,9 @@ class StockController extends BaseController {
                         case \App::ACTION_STAT_FAMILLE:
                                 $this->doGetStatFamille($request);
                                 break;
+                        case \App::ACTION_GET_STOCK:
+                                $this->doGetStockReel($request);
+                                break;
                         
                     }
             } else {
@@ -126,6 +129,25 @@ class StockController extends BaseController {
             if (isset($request['userId'])) {
                 $stockManager = new StockManager();
                 $infoStocks = $stockManager->findStatsFamille($request['familleId'],$request['codeUsine']);
+                if ($infoStocks !== NULL) {
+                    $this->doSuccessO($infoStocks);
+                } else
+                    echo json_encode(array());
+            }
+            else {
+                throw new Exception('Données invalides');
+            }
+        
+        } catch (Exception $e) {
+           $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
+    
+    public function doGetStockReel($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $stockManager = new StockManager();
+                $infoStocks = $stockManager->recupereNombreStockParProduit($request['produitId'],$request['codeUsine']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else
