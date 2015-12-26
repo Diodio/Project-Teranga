@@ -8,11 +8,11 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM stock_reel sr ,usine u WHERE sr.codeUsine=u.code AND u.code='.$usineCode.'";
+$sql = "SELECT nomUsine FROM usine WHERE code='$usineCode'";
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 //Cette requete permet de recuperer les produits d'une usine
-$sqlProduit="SELECT p.libelle designation, sr.stock stock FROM produit p, usine u, stock_reel sr WHERE p.id=sr.produit_id AND u.code='.$usineCode.'";
+$sqlProduit="SELECT p.libelle designation, sr.stock stock FROM produit p, usine u, stock_reel sr WHERE p.id=sr.produit_id AND u.code='$usineCode'";
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 ?>
 
