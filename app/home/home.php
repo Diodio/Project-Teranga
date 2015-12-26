@@ -199,7 +199,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			  //but sometimes it brings up errors with normal resize event handlers
 			  $.resize.throttleWindow = false;
 			
-			  var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});
+			  var placeholder = $('#piechart-placeholder').css({'width':'100%' , 'min-height':'150px'});
 //			  var data = [
 //				{ label: "Dakar",  data: 40, color: "#68BC31"},
 //				{ label: "Rufisque",  data: 25, color: "#2091CF"},
