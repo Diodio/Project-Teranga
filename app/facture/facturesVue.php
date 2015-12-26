@@ -648,17 +648,15 @@ $(document).ready(function () {
 	 });
 
 
-    //$(document).on('keyup', '#tab_logic_colis tr td:eq(1) input', function () {
-    $(document).delegate('#tab_logic_colis tr td input', 'keyup', function (event) {
+  
+       $(document).delegate('#tab_logic_colis tr td select', 'change', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
-         // $( "#nbColis"+counter ).keyup(function() {
+       // $( "#qteColis"+counter ).change(function() {
+            //alert("gg");
                 verifierPoids($('#qteColis'+counter).val(), counter);
-                
-                
-           // });
-            }); 
-            
+        //   });
+            });      
     
     function ajoutLigne(){
         var nbColis=1;
@@ -746,8 +744,9 @@ $(document).ready(function () {
            //var produitId = designation;
            var nbColis=parseInt($("#nbColis"+counter).val());
           // var qte=parseInt($("#qteColis"+counter).val());
-          console.log('nbColis'+nbColis);
-          console.log('qte'+qte);
+          console.log('counter'+counter);
+          //console.log('qte'+qte);
+          if(qte!=='*'){
            if(isNaN(qte)) {
                     $.gritter.add({
                     title: 'Notification',
@@ -755,7 +754,7 @@ $(document).ready(function () {
                     class_name: 'gritter-error gritter-light'
                 });
                  $("#nbColis"+counter).val("");
-                // $('#qteColis'+counter).val('*').change();
+                 $('#qteColis'+counter).val("*").change();
                 }
             else{
                 if(nbColis > qte ){
@@ -765,21 +764,12 @@ $(document).ready(function () {
                     class_name: 'gritter-error gritter-light'
                 });  
                  $("#nbColis"+counter).val("");
-                 //   $('#qteColis'+counter).val('*').change();
+                 $('#qteColis'+counter).val("*").change();
                 }
                     
-//               $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, nbColis:nbColis,quantite:qte, ACTION: "<?php echo App::ACTION_GET_COLISAGES; ?>"}, function(data) {
-//                data = $.parseJSON(data);
-//               if(data.oId == 0){
-//                    $.gritter.add({
-//                    title: 'Notification',
-//                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
-//                    class_name: 'gritter-error gritter-light'
-//                });
-//               }
-//              }); 
+
                 }
-            
+            }
             
        }
        
