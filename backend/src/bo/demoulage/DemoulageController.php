@@ -104,7 +104,6 @@ class DemoulageController extends BaseController  {
         
         }catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
-            $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
     

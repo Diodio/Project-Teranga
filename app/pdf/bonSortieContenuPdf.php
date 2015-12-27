@@ -7,12 +7,13 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM client,bon_sortie WHERE client.id=client_id AND client.id=1";
+$bonSortieId=$_GET['bonSortieId'];
+$sql = "SELECT * FROM bon_sortie b,usine u WHERE u.code=b.codeUsine and b.id=".$bonSortieId;
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 //Cette requete permet de recuperer les produits d'un achat
-$bonSortieId=$_GET['bonSortieId'];
-$sqlProduit="SELECT p.libelle designation,p.prixUnitaire prixUnitaire,
+
+$sqlProduit="SELECT p.libelle designation,
 							bsl.quantite quantite FROM bon_sortie bs, 
 							ligne_bonsortie bsl, produit p WHERE
 							 bs.id=bsl.bonSortie_id 
@@ -61,17 +62,17 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="color:#444444";width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td >
-                Mareyeur: <?php echo $row['nom']; ?>
+                Origine: <?php echo $row['origine']; ?>
             </td>
         </tr>
         <tr>
         <td >
-                Origine: <?php echo $row['adresse']; ?>
+                Numero container: <?php echo $row['numeroContainer']; ?>
         </td>
         </tr>
         <tr>
         <td >
-                Chauffeur: <?php echo $row['nomChauffeur']; ?>
+                Numero Plomb: <?php echo $row['numeroPlomb']; ?>
         </td>
         </tr>
     </table>
@@ -79,17 +80,17 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="color:#444444;width: 100%; text-align: left; font-size: 14px">
         <tr>
         <td >
+                Numero Camion: <?php echo $row['numeroCamion']; ?>
+        </td>
+        </tr>
+        <tr>
+        <td >
                 Chauffeur: <?php echo $row['nomChauffeur']; ?>
         </td>
         </tr>
         <tr>
         <td >
-                Numero Container: <?php echo $row['numeroContainer']; ?>
-        </td>
-        </tr>
-        <tr>
-        <td >
-                Numero Plomb: <?php echo $row['numeroPlomb']; ?>
+               Destination: <?php echo $row['destination']; ?>
         </td>
         </tr>
     </table>
@@ -110,12 +111,12 @@ td    { vertical-align: top; }
     $totalPrix=0;
    while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
        $total =$total+ $rowProduit['quantite'];
-       $totalPrix =$totalPrix+ $rowProduit['prixUnitaire'];
+      // $totalPrix =$totalPrix+ $rowProduit['prixUnitaire'];
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
             <td style="width: 35%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
-            <td style="width: 35%; text-align: right"><?php echo $rowProduit['prixUnitaire']; ?></td>
+            <td style="width: 35%; text-align: right"></td>
             <td style="width: 30%; text-align: right;"><?php echo $rowProduit['quantite']; ?> </td>
         </tr>
     </table>

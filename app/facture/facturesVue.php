@@ -845,7 +845,7 @@ $(document).ready(function () {
    showPopover = function(idButton, colis){
             $("#" + idButton).popover({
                 html: true,
-                trigger: 'focus',
+                trigger: 'auto',
                 placement: 'top',
                 title: '<i class="icon-group icon-"></i> Détail colis ',
                 content: colis
@@ -853,10 +853,12 @@ $(document).ready(function () {
          };    
        
   $( "#VOIR_COLISAGE" ).click(function(){
-         $("#VOIR_COLISAGE").popover('destroy')
+         if( $('#CMB_DESIGNATIONS').val() !=='*') {
+         $("#VOIR_COLISAGE").popover('destroy');
         $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: $('#CMB_DESIGNATIONS').val(), ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
         data=$.parseJSON(data);
-        var htmlString="";
+
+        var htmlString="<a class='close' id='closed' style='position: absolute; top: 0; right: 6px;'>&times;</a>";
         htmlString+="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
         $.each(data , function(i) { 
             str= data [i].toString();
@@ -869,7 +871,11 @@ $(document).ready(function () {
           htmlString+="</div>";
         showPopover("VOIR_COLISAGE", ""+htmlString+"");
         });
-    });      
+        }
+    }); 
+   $( "#closed" ).click(function(){
+    alert("fd");
+   }); 
   function calculMontant(index){
            var mt;
            var qte=parseInt($("#qte"+index).val());
