@@ -499,6 +499,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#numFacture').text(data.numero);
                     $('#nomClient').text(data.nomClient);
                     $('#origine').text(data.adresse);
+                    $('#pays').text(data.pays);
                     $('#user').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantHt').text(data.montantHt);
