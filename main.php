@@ -441,22 +441,22 @@ $codeUsine = $_COOKIE['codeUsine'];
                            
                         </ul>
                     </li>
-                    <li class=""><a href="#" class="dropdown-toggle"> <i
-                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
-                                Démoulage </span> <b class="arrow fa fa-angle-down"></b>
-                        </a> <b class="arrow"></b>
-                        <ul class="submenu">
+<!--                     <li class=""><a href="#" class="dropdown-toggle"> <i -->
+<!--                                 class="fa fa-pencil fa-fw"></i> <span class="menu-text"> -->
+<!--                                 Démoulage </span> <b class="arrow fa fa-angle-down"></b> -->
+<!--                         </a> <b class="arrow"></b> -->
+<!--                         <ul class="submenu"> -->
                             <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
-                                   class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Nouveau </span>
+                                   class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                        Démoulage </span>
                                 </a> <b class="arrow"></b>
                            </li>
                             <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
-                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Consulter Stock </span>
                                 </a> <b class="arrow"></b>
                             </li>
-                        </ul>
+<!--                         </ul> -->
 
                      <li class=""><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
