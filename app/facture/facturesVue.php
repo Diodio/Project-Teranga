@@ -210,7 +210,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 <!--                      <a id="VOIR_COLISAGE" class="btn btn-primary btn-sm"  title="Voir le colisage"
 						alt="Voir le colisage"><i
 						class="ace-icon fa fa-plus-square"></i>Voir colisage </a>-->
-                                                <button id="VOIR_COLISAGE" type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Voir le colisage" >Voir colisage</button>
+                                                <button id="VOIR_COLISAGE" type="button" class="btn btn-lg btn-warning" data-toggle="popover" title="Voir le colisage" >Voir colisage</button>
                      </div>
                      
                    
@@ -361,7 +361,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="col-sm-7">
                                     <div class="clearfix">
                                         <input type="text" id="tva" name="tva" placeholder=""
-                                               class="col-xs-12 col-sm-3" value="18">  &nbsp;%
+                                               class="col-xs-12 col-sm-3" value="0">  &nbsp;%
                                     </div>
                                 </div>
                             </div>
@@ -744,11 +744,22 @@ $(document).ready(function () {
             i++;
           }
         });
+        var pNet=0;
+        var it=0;
+        $('#tab_logic_colis tbody tr').find('td').each(function(){
+                var $this = $(this);
+                var ncolis=$('#nbColis'+it).val();
+                var qte = $('#qteColis'+it).select2('data').text;
+                if(typeof ncolis!=='undefined' && typeof qte!=='undefined')
+                    pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
+                 it++;
+            });
       //  var produitId = $('#CMB_DESIGNATIONS').val();
+      console.log("tota "+ pNet);
         var designation = $('#CMB_DESIGNATIONS').select2('data').text;
         var prix = $('#prixUnitaire').val();
        //var rows=[];
-       var header=["#","nbColis","qte"]
+       var header=["#","nbColis","qte"];
              var $table=$('#tab_logic_colis');
             $table.find("tbody tr").each(function () {
                 var row = {};
@@ -766,7 +777,6 @@ $(document).ready(function () {
 
                 colisage.push(row);
             });
-            console.log( JSON.stringify(colisage));
 //        var item = new Array();
 //        item.push($("#CMB_DESIGNATIONS").val());
 //        item.push($('#nbColis'+(i)).val());
@@ -781,11 +791,11 @@ $(document).ready(function () {
                 });
         }
         else {
-        var montant = parseInt(prix) * pd;
+        var montant = parseInt(prix) * pNet;
         totalColis+=nbColis;
-        qteTotal+=pd;
+        qteTotal+=pNet;
         mtTotal+=montant;
-        var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pd+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
+        var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pNet+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
         $('#tab_produit tbody').append(data);
         $('#totalColis').val(totalColis);
         $('#qteTotal').val(qteTotal);
@@ -805,18 +815,14 @@ $(document).ready(function () {
         $('#stockReel').val('');
        }
     }
-    
-        
-       
+    //ajout des lignes
      $( "#AJOUT_PRODUIT" ).click(function(){
-         
         ajoutLigne();
   });
  function verifierPoids(qte, counter ){
            //var produitId = designation;
            var nbColis=parseInt($("#nbColis"+counter).val());
           // var qte=parseInt($("#qteColis"+counter).val());
-          console.log('counter'+counter);
           //console.log('qte'+qte);
           if(qte!=='*'){
            if(isNaN(qte)) {
@@ -832,14 +838,12 @@ $(document).ready(function () {
                 if(nbColis > qte ){
                   $.gritter.add({
                     title: 'Notification',
-                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
-                    class_name: 'gritter-error gritter-light'
+                    text: 'Le nombre de colis ou la quantit saisi ne correspond pas au colisage du produit choisi',
+                    class_name: 'gritter-error gritter-light '
                 });  
                  $("#nbColis"+counter).val("");
-                 $('#qteColis'+counter).val("*").change();
+                 $('#qteColis0').select2() ;
                 }
-                    
-
                 }
             }
             
@@ -943,33 +947,40 @@ $(document).ready(function () {
     
       $("#avance").keyup(function() {
           calculReliquat();
-//        var reliquat=0;
-//        if($("#avance").val() !=='') {
-//            reliquat= parseFloat($("#montantTtc").val()) - parseFloat($("#avance").val());
-//            if(!isNaN(reliquat) && reliquat >0)
-//                $("#reliquat").val(reliquat);
-//            else {
-//                $("#reliquat").val(0); 
-//            }
-//        }
-//        else {
-//            $("#reliquat").val(0); 
-//        }
+      });
+      
+       $("#tva").keyup(function() {
+           var tva = parseFloat($("#tva").val());
+           if(!isNaN(tva) && tva >= 0){
+                $('#montantTtc').val('');
+                var mtHt=parseFloat($('#montantHt').val());
+                var mtTtc=0;
+                mtTtc = mtHt+(mtHt * (tva/100));
+                $('#montantTtc').val(mtTtc);
+            }
+//        
       });
  function calculReliquat(){
           var rel=0;
            var mt=parseInt($("#montantTtc").val());
            var avance=parseInt($("#avance").val());
            rel= mt - avance;
-           if(!isNaN(rel) && rel>0) 
+           if(!isNaN(rel) && rel>=0) 
               $("#reliquat").val(rel);
            else if(!isNaN(rel) && rel===0) {
               $('#regleFacture').attr("disabled", false);
               $("#reliquat").val(0);
           }  
-          else
+          else{
+              $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant saisi ne doit pas être supérieur au montant TTC',
+                    class_name: 'gritter-error gritter-light'
+                });
+              $("#avance").val("");
               $("#reliquat").val("");
-          $('#regleFacture').attr("disabled", true);
+              $('#regleFacture').attr("disabled", true);
+          }
         }
        function SimpletabToJson (tableId, head){
            var $table = $("#"+tableId);

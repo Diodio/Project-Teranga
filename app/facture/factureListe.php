@@ -503,7 +503,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantHt').text(data.montantHt);
                     $('#MontantTtc').text(data.montantTtc);
-                    
                     $('#tab_produit tbody').html("");
                     var table = data.ligneFacture;
                     var trHTML='';
@@ -511,8 +510,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#tab_produit tbody').append(trHTML);
-                    trHTML='';   
-                    
+                    trHTML=''; 
                      $('#tab_avance tbody').html("");
                     var tableAvance = data.reglement;
                     var trHTMLAv='';
@@ -554,7 +552,6 @@ $("#MNU_VALIDATION").click(function()
                         {
                             bootbox.alert(data.error);
                         }
-                        $.loader.close(true);
                     }, "json");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsFactureVue.php", function () {
                         });
