@@ -34,7 +34,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             Liste des produits en stock
                         </h4>
                         <div class="col-md-12 column">
-                          <a id="MNU_IMPRIMER" class="btn btn-primary btn-sm" style="float: left; margin-top: -5%;margin-left: 82%"><i
+                          <a id="MNU_IMPRIMER" class="btn btn-primary btn-sm" style="float: left; margin-top: -5%;margin-left: 86%"><i
 						     class="ace-icon fa fa-plus-square"></i> Imprimer</a> 
 						 </div>
                         <div class="widget-toolbar">
