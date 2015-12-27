@@ -53,15 +53,17 @@ td    { vertical-align: top; }
     <br>
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:40%;"></td>
+            <td style="width:30%;"></td>
             <td style="width:30%; "><span  style="font-size: 25px;" >BON DE SORTIE</span></td>
-            <td >Numero: <?php echo $row['numeroBonSortie']; ?></td>
+            <td style="width:30%;text-align: right">Numero: <?php echo $row['numeroBonSortie']; ?></td>
         </tr>
     </table>
     
-    <table cellspacing="0" style="color:#444444";width: 100%; text-align: center; font-size: 14px">
-        <tr>
-            <td >
+    <br>
+    <br>
+    <table cellspacing="0" style="color:#444444;width: 100%; text-align: left; font-size: 14px">
+        <tr >
+            <td style="width: 50%">
                 <?php 
                 $usine=$row['origine'];
                    $sql1 = "SELECT nomUsine FROM usine WHERE code='$usine'";
@@ -71,31 +73,22 @@ td    { vertical-align: top; }
                 ?>
                 Origine: <?php echo $row1['nomUsine']; ?>
             </td>
+            <td style="width: 50%">
+                    Numero Camion: <?php echo $row['numeroCamion']; ?>
+            </td>
         </tr>
         <tr>
         <td >
                 Numero container: <?php echo $row['numeroContainer']; ?>
+        </td>
+        <td >
+                Chauffeur: <?php echo $row['nomChauffeur']; ?>
         </td>
         </tr>
         <tr>
         <td >
                 Numero Plomb: <?php echo $row['numeroPlomb']; ?>
         </td>
-        </tr>
-    </table>
-    <br>
-    <table cellspacing="0" style="color:#444444;width: 100%; text-align: left; font-size: 14px">
-        <tr>
-        <td >
-                Numero Camion: <?php echo $row['numeroCamion']; ?>
-        </td>
-        </tr>
-        <tr>
-        <td >
-                Chauffeur: <?php echo $row['nomChauffeur']; ?>
-        </td>
-        </tr>
-        <tr>
         <td >
             <?php 
                  $usine1=$row['destination'];
@@ -114,9 +107,8 @@ td    { vertical-align: top; }
     <br>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
         <tr>
-            <th style="width: 35%">Désignation</th>
-            <th style="width: 35%; text-align: right">Prix Unitaire</th>
-            <th style="width: 30%; text-align: right;">Quantité(kg)</th>
+            <th style="width: 50%">Désignation</th>
+            <th style="width: 50%; text-align: right;">Quantité(kg)</th>
         </tr>
     </table>
     
@@ -129,9 +121,8 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
-            <td style="width: 35%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
-            <td style="width: 35%; text-align: right"></td>
-            <td style="width: 30%; text-align: right;"><?php echo $rowProduit['quantite']; ?> </td>
+            <td style="width: 50%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
+            <td style="width: 50%; text-align: right;"><?php echo $rowProduit['quantite']; ?> </td>
         </tr>
     </table>
 <?php
@@ -139,9 +130,8 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
-            <th style="width: 20%; text-align: left;">Total : </th>
-            <th style="width: 50%; text-align: right;"><?php echo number_format($totalPrix, 2, ',', ' '); ?> </th>
-            <th style="width: 30%; text-align: right;"><?php echo number_format($total); ?> kg</th>
+            <th style="width: 50%; text-align: left;">Total : </th>
+            <th style="width: 50%; text-align: right;"><?php echo number_format($total); ?> kg</th>
         </tr>
     </table>
     <br>
