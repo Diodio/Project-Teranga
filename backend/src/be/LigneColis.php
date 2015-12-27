@@ -22,9 +22,15 @@ class LigneColis {
     protected $quantiteParCarton;
 
      /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="integer", nullable=false)
      * */
-    protected $produit;
+    protected $produitId;
+
+     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $factureId;
+    
 
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
@@ -47,8 +53,12 @@ class LigneColis {
         return $this->quantiteParCarton;
     }
 
-    function getProduit() {
-        return $this->produit;
+    function getProduitId() {
+        return $this->produitId;
+    }
+
+    function getFactureId() {
+        return $this->factureId;
     }
 
     function getCreatedDate() {
@@ -75,8 +85,12 @@ class LigneColis {
         $this->quantiteParCarton = $quantiteParCarton;
     }
 
-    function setProduit($produit) {
-        $this->produit = $produit;
+    function setProduitId($produitId) {
+        $this->produitId = $produitId;
+    }
+
+    function setFactureId($factureId) {
+        $this->factureId = $factureId;
     }
 
     function setCreatedDate($createdDate) {
@@ -92,7 +106,7 @@ class LigneColis {
     }
 
     
-    
+        
         /** @PrePersist */
     public function doPrePersist() {
         $this->createdDate = new \DateTime("now");

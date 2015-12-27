@@ -145,15 +145,15 @@ private $logger;
                 foreach ($jsonProduit as $key => $ligne) {
                     if (isset($ligne["nColis"])) {
                         if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                            $ligneFacture= new \Facture\LigneFacture;
-                            $ligneFacture->setFacture($facture);
-                            $ligneFacture->setNbColis($ligne["nColis"]);
-                            $ligneFacture->setProduit($ligne["produitId"]);
-                            $ligneFacture->setQuantite($ligne["pnet"]);
-                            $ligneFacture->setPrixUnitaire($ligne["pu"]);
-                            $ligneFacture->setMontant($ligne["montant"]);
+                            $colis= new \Facture\LigneFacture;
+                            $colis->setFacture($facture);
+                            $colis->setNbColis($ligne["nColis"]);
+                            $colis->setProduit($ligne["produitId"]);
+                            $colis->setQuantite($ligne["pnet"]);
+                            $colis->setPrixUnitaire($ligne["pu"]);
+                            $colis->setMontant($ligne["montant"]);
                             $ligneFactureManager = new \Facture\LigneFactureManager();
-                            $inserted = $ligneFactureManager->insert($ligneFacture);
+                            $inserted = $ligneFactureManager->insert($colis);
                             if ($inserted->getId() != null) {
                                  $stockManager = new \Stock\StockManager();
                                  $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
@@ -161,6 +161,25 @@ private $logger;
                         }
                     }
                 }
+//                $jsonColis = json_decode($_POST['jsonColis'], true);
+//                foreach ($jsonColis as $key => $colis) {
+//                    if (isset($ligne["nColis"])) {
+//                        if ($ligne["nColis"] !== "" && $ligne["qteColis"] !== "") {
+//                            $colis= new \Facture\LigneColis();
+//                            $colis->setNombreCarton($ligne["nColis"]);
+//                            $colis->setQuantiteParCarton($ligne["qteColis"]);
+//                            $colis->setQuantite($ligne["pnet"]);
+//                            $colis->setProduitId($ligne["pu"]);
+//                            $colis->setFactureId($ligne["montant"]);
+//                            $ligneFactureManager = new \Facture\LigneFactureManager();
+//                            $inserted = $ligneFactureManager->insert($colis);
+//                            if ($inserted->getId() != null) {
+//                                 $stockManager = new \Stock\StockManager();
+//                                 $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
+//                            }
+//                        }
+//                    }
+//                }
                 $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
             } else {
                 $this->doError('-1', 'Impossible d\'inserer ce facture');

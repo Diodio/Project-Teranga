@@ -634,7 +634,17 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#stockReel").val(sData.nbStocks);
+                if(sData.nbStocks>0)
+                    $("#stockReel").val(sData.nbStocks);
+                else{
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: 'Ce produit est en rupture de stock',
+                        class_name: 'gritter-error gritter-light'
+                    });
+                     $('#CMB_DESIGNATIONS').val("*").change();
+                      $('#stockReel').val("");
+                }
             }
     });
     };
@@ -755,7 +765,6 @@ $(document).ready(function () {
                  it++;
             });
       //  var produitId = $('#CMB_DESIGNATIONS').val();
-      console.log("tota "+ pNet);
         var designation = $('#CMB_DESIGNATIONS').select2('data').text;
         var prix = $('#prixUnitaire').val();
        //var rows=[];
@@ -763,15 +772,16 @@ $(document).ready(function () {
              var $table=$('#tab_logic_colis');
             $table.find("tbody tr").each(function () {
                 var row = {};
-                
                 $(this).find("td").each(function (i) {
-                    row["produitId"] = produitId;
+                    //row["produitId"] = produitId;
                     var key = header[i];
                     var value;
                     valueInput = $(this).find('input').val();
                      if (typeof valueInput !== "undefined")
                         value=valueInput;
-                    
+                    valueSelect = $(this).find('select').select2('data').text;
+                     if (typeof valueSelect !== "undefined")
+                        value=valueSelect;
                     row[key] = value;
                 });
 
@@ -782,7 +792,7 @@ $(document).ready(function () {
 //        item.push($('#nbColis'+(i)).val());
 //        item.push($('#qteColis'+(i)).val()); 
 //        colisage.push(item);
-//        console.log(colisage);
+        console.log(JSON.stringify(colisage));
         if(produitId==='*' || nbColis===0 || prix===''){
                $.gritter.add({
                     title: 'Notification',
@@ -800,9 +810,9 @@ $(document).ready(function () {
         $('#totalColis').val(totalColis);
         $('#qteTotal').val(qteTotal);
         $('#montantHt').val(mtTotal);
-         mtTtc = mtTotal+(mtTotal * parseFloat($("#tva").val())/100);
-         montantTtc +=mtTtc;
-        $('#montantTtc').val(montantTtc);
+         var Ttc = mtTotal+(mtTotal * (parseFloat($("#tva").val())/100));
+         montantTtc +=Ttc;
+        $('#montantTtc').val(Ttc);
         $('#CMB_DESIGNATIONS').val('*').change();
         $('#prixUnitaire').val('');
         var rowCount = $('#tab_logic_colis tr').length;
@@ -820,10 +830,7 @@ $(document).ready(function () {
         ajoutLigne();
   });
  function verifierPoids(qte, counter ){
-           //var produitId = designation;
            var nbColis=parseInt($("#nbColis"+counter).val());
-          // var qte=parseInt($("#qteColis"+counter).val());
-          //console.log('qte'+qte);
           if(qte!=='*'){
            if(isNaN(qte)) {
                     $.gritter.add({
@@ -873,7 +880,6 @@ $(document).ready(function () {
             htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
         // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
 
-            //console.log(data [i]); 
           });
           htmlString+="</div>";
         showPopover("VOIR_COLISAGE", ""+htmlString+"");
@@ -962,13 +968,18 @@ $(document).ready(function () {
       });
  function calculReliquat(){
           var rel=0;
-           var mt=parseInt($("#montantTtc").val());
-           var avance=parseInt($("#avance").val());
+           var mt=parseFloat($("#montantTtc").val());
+           var avance=parseFloat($("#avance").val());
+           if(!isNaN(avance) && !isNaN(avance)) {
            rel= mt - avance;
-           if(!isNaN(rel) && rel>=0) 
+           if(!isNaN(rel) && rel>0) {
               $("#reliquat").val(rel);
+              $('#regleFacture').attr("disabled", true);
+              $('#regleFacture').prop('checked', false);
+          }
            else if(!isNaN(rel) && rel===0) {
               $('#regleFacture').attr("disabled", false);
+              $('#regleFacture').prop('checked', true);
               $("#reliquat").val(0);
           }  
           else{
@@ -980,7 +991,16 @@ $(document).ready(function () {
               $("#avance").val("");
               $("#reliquat").val("");
               $('#regleFacture').attr("disabled", true);
+              $('#regleFacture').prop('checked', false);
           }
+        }
+        else {
+             $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant avance ne doit pas être vide',
+                    class_name: 'gritter-error gritter-light'
+                });
+        }
         }
        function SimpletabToJson (tableId, head){
            var $table = $("#"+tableId);
@@ -1039,7 +1059,7 @@ $(document).ready(function () {
         {
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
-            var colisage = $("#CMB_CLIENTS").val();
+            var clientId = $("#CMB_CLIENTS").val();
             var numFacture= $('#numFacture').val();
             var heureFacture= $('#heureFacture').val();
             var devise= $('#devise').val();
@@ -1063,13 +1083,13 @@ $(document).ready(function () {
             var headerColis = ["#","nColis","qteColis"];
             var headerConteneur = ["#","nConteneur","nPlomb"];
             var headerProduit = ["produitId","nColis","designation","pnet","pu","montant"];
-            //var tblColis=tabToJson('tab_logic_colis', headerColis );
+            var tblColis=tabToJson('tab_logic_colis', headerColis );
             var tblConteneur=tabToJson('tab_conteneur', headerConteneur );
             var tblProduit=SimpletabToJson('tab_produit', headerProduit );
-            
+            console.log(colisage);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('clientId', colisage);
+            formData.append('clientId', clientId);
             formData.append('numFacture', numFacture);
             formData.append('heureFacture', heureFacture);
             formData.append('devise', devise);
@@ -1086,6 +1106,7 @@ $(document).ready(function () {
             formData.append('regle', regle);
             formData.append('jsonConteneur', tblConteneur);
             formData.append('jsonProduit', tblProduit);
+            formData.append('jsonColis', colisage);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({

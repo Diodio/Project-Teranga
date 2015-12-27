@@ -94,8 +94,9 @@ class UtilisateurManager {
     public function findById($utilisateurId) {
         return $this->userQueries->findById($utilisateurId);
     }
-    public function findByLogin($login) {
-        return $this->userQueries->findByLogin($login);
+    public function findByLogin($login, $codeUsine) {
+        $userQueries = new UtilisateurQueries();
+        return $userQueries->findByLogin($login, $codeUsine);
     }
     public function findUtilisateur($id) {
         return $this->userQueries->findUtilisateur($id);

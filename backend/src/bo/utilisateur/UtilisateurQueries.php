@@ -101,13 +101,14 @@ class UtilisateurQueries {
         $query = B::$entityManager->createQuery($dql);
         return $query->getOneOrNullResult();
     }
-    public function findByLogin($login) {
-        $dql = "select u from Utilisateur/Utilisateur u where u.login='$login'" ;
-        $query = B::$entityManager->createQuery($dql);
-        return $query->getOneOrNullResult();
+  
+    public function findByLogin($login, $codeUsine) {
+        $sql = 'SELECT nomUtilisateur FROM utilisateur,usine WHERE usine.id=usine_id AND code="'.$codeUsine.'" and login="'.$login.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nomUtilisateur'];
     }
-
-
     public function findUser($id) {
         $dql = "SELECT u.id as iduser, DATE_FORMAT(u.createdDate, '".\Common\Common::setFormatDate()."') as createdDate,u.fowarding_url, u.description, u.login, l.label as language,  u.contactName,c.companyName,  u.contactEmail as mail, p.id as profil, c.type, c.email from Utilisateur/Utilisateur u  JOIN u.customer c JOIN u.language l JOIN u.profil p where u.id=$id and u.status=1";
         try {
