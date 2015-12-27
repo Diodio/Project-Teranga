@@ -89,6 +89,7 @@ public function retrieveClients()
             $list [$i]['id'] = $value ['id'];
             $list [$i]['nom'] = $value ['nom'];
             $list [$i]['adresse'] = $value ['adresse'];
+            $list [$i]['pays'] = $value ['pays'];
             $list [$i]['telephone'] = $value ['telephone'];
             $i++;
         }
@@ -101,6 +102,7 @@ public function retrieveClients()
         foreach ($client as $key => $value) {
             $list ['nom'] = $value ['nom'];
             $list ['origine'] = $value ['adresse'];
+            $list ['pays'] = $value ['pays'];
             $list ['reference'] = $value ['reference'];
         }
         return $list;
@@ -124,7 +126,7 @@ public function retrieveClients()
         $lastId="CLI".$lastId;
     }
     else
-        $lastId="CLI";
+        $lastId="CLI1";
     return $lastId;
 }
 

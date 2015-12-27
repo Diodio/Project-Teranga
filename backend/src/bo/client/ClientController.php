@@ -70,6 +70,7 @@ class ClientController extends BaseController implements BaseAction {
 			$client->setReference($request['reference']);
 			$client->setNom($request['nom']);
 			$client->setAdresse($request['adresse']);
+			$client->setPays($request['pays']);
 			$client->setTelephone($request['telephone']);
 			$clientAdded = $clientManager->insert($client);
 			if ($clientAdded->getId() != null) {
@@ -90,6 +91,7 @@ class ClientController extends BaseController implements BaseAction {
 				$client = $clientManager->findById($request['id']);
 				$client->setNom($request['nom']);
 				$client->setAdresse($request['adresse']);
+                                $client->setPays($request['pays']);
 				$client->setTelephone($request['telephone']);
 				$clientAdded = $clientManager->update($client);
 				if ($clientAdded->getId() != null) {

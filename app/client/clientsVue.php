@@ -73,6 +73,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                 </div>
                                 <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Pays</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="pays" name="pays" placeholder="" class="col-xs-10 col-sm-7">
+                                        </div>
+
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
                                     <div class="col-sm-9">
                                         <input type="text"  id="telephone" name="telephone" placeholder="" class="col-xs-10 col-sm-7">
@@ -95,57 +102,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 </div><!-- /.modal-dialog -->
             </form>
             </div>
-            
-            <div id="winModalClient" class="modal fade" tabindex="-1">
-            <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Client</h3>
-                        </div>
-
-                        <div class="modal-body" style="height: 200px;">
-<!--                             <form id="FRM_CLIENT" class="form-horizontal" role="form"> -->
-                          
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
-                                    <div class="col-sm-9">
-                                            <input type="text" id="nom" placeholder="" class="col-xs-10 col-sm-7">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Adresse</label>
-                                    <div class="col-sm-9">
-                                            <input type="text" id="adresse" placeholder="" class="col-xs-10 col-sm-7">
-                                    </div>
-                                    
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Telephone</label>
-                                    <div class="col-sm-9">
-                                        <input type="text"  id="telephone" placeholder="" class="col-xs-10 col-sm-7">
-                                    </div>
-                            </div>
-                           
-<!--                             </form> -->
-                        </div>
-
-                        <div class="modal-footer">
-                            <button id="SAVE" class="btn btn-small btn-info" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Enregistrer
-                            </button>
-                            
-                            <button id="CANCEL" class="btn btn-small btn-danger" >
-                                <i class="fa fa-times"></i>
-                                Annuler
-                            </button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-                </form>
-            </div>
+         
         </div><!-- /.col -->
     </div><!-- /.row -->
  
@@ -198,7 +155,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 					data: grid_data,
 					datatype: "local",
 					height: 250,
-					colNames:[' ', 'nom','adresse', 'telephone'],
+					colNames:[' ', 'nom','adresse','pays', 'telephone'],
 					colModel:[
 						{name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
 							formatter:'actions', 
@@ -213,6 +170,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 // 						{name:'id',index:'id', width:60, sorttype:"int", editable: true},
 						{name:'nom',index:'nom',width:90, editable:true, sorttype:"date",editoptions:{size:"20",maxlength:"30"}},
 						{name:'adresse',index:'adresse', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
+						{name:'pays',index:'pays', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
 						{name:'telephone',index:'telephone', width:70, editable: true,editoptions:{size:"20",maxlength:"30"}},
 					], 
 			
@@ -545,6 +503,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var reference= $('#reference').val();
             var nom = $("#nom").val();
             var adresse = $("#adresse").val();
+            var pays = $("#pays").val();
             var telephone = $("#telephone").val();
             
             var formData = new FormData();
@@ -552,6 +511,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('reference', reference);
             formData.append('nom', nom);
             formData.append('adresse', adresse);
+            formData.append('pays', pays);
             formData.append('telephone', telephone);
             $.ajax({
                 url: '<?php echo App::getBoPath(); ?>/client/ClientController.php',
@@ -614,6 +574,9 @@ $codeUsine = $_COOKIE['codeUsine'];
        				},
        				nom: {
        					required: true
+       				},
+       				pays: {
+       					required: true
        				}
        				
        			},
@@ -623,6 +586,9 @@ $codeUsine = $_COOKIE['codeUsine'];
        					required: "Champ obligatoire."
        				},
        				nom: {
+       					required: "Champ obligatoire."
+       				},
+       				pays: {
        					required: "Champ obligatoire."
        				}
        			},

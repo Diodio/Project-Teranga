@@ -42,7 +42,7 @@ td    { vertical-align: top; }
                 <span style="margin-left:30px;"></span>
             </td>
             <td style="width: 25%; color: #444444;">
-                Dakar, le <?php echo date("d-m-Y");  ;?>
+                Dakar, le <?php echo date("d-m-Y");?>
             </td>
         </tr>
     </table>

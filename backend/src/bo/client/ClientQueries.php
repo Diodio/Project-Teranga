@@ -55,7 +55,7 @@ class ClientQueries {
     }
 
 	public function findAllClients() {
-		$sql = 'select id, nom, adresse, telephone from client';
+		$sql = 'select id, nom, adresse, pays,telephone from client';
 		$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
 		$stmt->execute();
 		$client = $stmt->fetchAll();
@@ -66,7 +66,7 @@ class ClientQueries {
 	}
         
         public function findInfosClient($clientId) {
-		$sql = 'select id, nom, adresse, reference from client where id='. $clientId;
+		$sql = 'select id, nom, adresse, pays, reference from client where id='. $clientId;
 		$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
 		$stmt->execute();
 		$client = $stmt->fetchAll();
