@@ -157,7 +157,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 					height: 250,
 					colNames:[' ', 'nom','adresse','pays', 'telephone'],
 					colModel:[
-						{name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
+						{name:'myac',index:'', width:90, fixed:true, sortable:false, resize:false,
 							formatter:'actions', 
 							formatoptions:{ 
 								keys:true,
