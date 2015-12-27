@@ -33,7 +33,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des produits en stock
                         </h4>
-
+                        <div class="col-md-12 column">
+                          <a id="MNU_IMPRIMER" class="btn btn-primary btn-sm" style="float: left; margin-top: -5%;margin-left: 82%"><i
+						     class="ace-icon fa fa-plus-square"></i> Imprimer</a> 
+						 </div>
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>
@@ -331,6 +334,11 @@ $codeUsine = $_COOKIE['codeUsine'];
 				}
 				
 			 });
+
+			   $("#MNU_IMPRIMER").click(function()
+				   {
+				   window.open('<?php echo App::getHome(); ?>/app/pdf/stockGlobalPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+				   });
 
             });
         </script>
