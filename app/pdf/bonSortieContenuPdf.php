@@ -62,7 +62,14 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="color:#444444";width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td >
-                Origine: <?php echo $row['origine']; ?>
+                <?php 
+                $usine=$row['origine'];
+                   $sql1 = "SELECT nomUsine FROM usine WHERE code='$usine'";
+                    $Result1 = mysqli_query($connexion, $sql1) or die(mysqli_error($connexion));
+                    $row1 = mysqli_fetch_array($Result1);
+                
+                ?>
+                Origine: <?php echo $row1['nomUsine']; ?>
             </td>
         </tr>
         <tr>
@@ -90,7 +97,14 @@ td    { vertical-align: top; }
         </tr>
         <tr>
         <td >
-               Destination: <?php echo $row['destination']; ?>
+            <?php 
+                 $usine1=$row['destination'];
+                   $sql2 = "SELECT nomUsine FROM usine WHERE code='$usine1'";
+                    $Result2 = mysqli_query($connexion, $sql2) or die(mysqli_error($connexion));
+                    $row2 = mysqli_fetch_array($Result2);
+                
+                ?>
+               Destination: <?php echo $row2['nomUsine']; ?>
         </td>
         </tr>
     </table>
