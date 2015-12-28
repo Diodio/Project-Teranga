@@ -536,6 +536,7 @@ $(document).ready(function () {
      var qteTotal=0;
      var mtTotal=0;
      var montantTtc=0;
+        var ch="[";
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -776,20 +777,39 @@ $(document).ready(function () {
         var it=0;
         var row={};
         $('#tab_logic_colis tbody tr').find('td').each(function(){
-            
                 var $this = $(this);
                 var ncolis=$('#nbColis'+it).val();
                 var qte = $('#qteColis'+it).select2('data').text;
                 if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
                     pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
-                    row["produitId"] = produitId;
-                    row["nbColis"] = ncolis;
-                    row["qte"] = qte;
+                    
+                    it++;
                 }
-            it++;
-            });
-            colisage.push(row);
-            console.log(JSON.stringify(colisage));
+        });
+        var iter=0;
+        $("#tab_logic_colis tbody tr").each(function() {
+            var row='{';
+           // $(this).find('td#nbColis'+iter).eq(1).val();
+            //$(this).find('select').val();
+            var colis=$(this).find('#nbColis'+iter).val();
+            var quantite = $(this).find('#qteColis'+iter).select2('data').text;
+             if(typeof colis!=='undefined' && typeof quantite!=='undefined'){
+                 row+='"produitId":'+produitId+',"nbColis":'+colis+',"qte":'+quantite+'';
+            }
+            row+='},';
+          //  console.log('colis'+row);
+//            console.log('quantite'+quantite);
+//            row["produitId"] = produitId;
+//            row["nbColis"] = ''+colis;
+//            row["qte"] = quantite;
+//            colisage.push(row);
+            ch+=''+row;
+            iter++;
+        });
+        
+       // colisage.push(tblColis);
+        //console.log(colisage);    
+      //  console.log(JSON.stringify(colisage));
         var montant = parseInt(prix) * pNet;
         totalColis+=nbColis;
         qteTotal+=pNet;
@@ -817,6 +837,10 @@ $(document).ready(function () {
     //ajout des lignes
      $( "#AJOUT_PRODUIT" ).click(function(){
         ajoutLigne();
+//        ch = ch.substr(0,ch.length-4); 
+//            ch+=']';
+//         var obj = $.parseJSON(ch);
+//        console.log('colis'+ch);
   });
  function verifierPoids(qte, counter ){
            var nbColis=parseInt($("#nbColis"+counter).val());
@@ -1103,7 +1127,10 @@ $(document).ready(function () {
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
-            
+            ch = ch.substr(0,ch.length-4); 
+            ch+=']';
+           // console.log('colis'+ch);
+           // var obj = $.parseJSON(ch);
             var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
             var regle=false;
             if(Aregle === 'on')
@@ -1135,7 +1162,7 @@ $(document).ready(function () {
             formData.append('regle', regle);
             formData.append('jsonConteneur', tblConteneur);
             formData.append('jsonProduit', tblProduit);
-            formData.append('jsonColis', JSON.stringify(colisage));
+            formData.append('jsonColis', ch);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
