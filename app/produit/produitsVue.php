@@ -78,12 +78,6 @@
                                         <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Seuil </label>
-                                    <div class="col-sm-9">
-                                            <input type="text" id="seuil" placeholder="" class="col-xs-10 col-sm-7" value="0">
-                                    </div>
-                            </div>
                         </div>
 
                         <div class="modal-footer">
