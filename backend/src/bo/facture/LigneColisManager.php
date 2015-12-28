@@ -11,12 +11,14 @@ class LigneColisManager {
    
 
     public function __construct() {
-        $this->ligneColisQuery = new ConteneurQueries();
+        $this->ligneColisQuery = new LigneColisQueries();
     }
     
     public function insert($ligneColis) {
         $this->ligneColisQuery->insert($ligneColis);
     	return $ligneColis;
     }
-   
+    public function dimunieNbColis($produitId, $quantite, $nbCarton) {	
+         return $this->ligneColisQuery->dimunieNbColis($produitId, $quantite, $nbCarton);
+    }
 }

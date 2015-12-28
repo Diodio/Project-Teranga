@@ -499,6 +499,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#numFacture').text(data.numero);
                     $('#nomClient').text(data.nomClient);
                     $('#origine').text(data.adresse);
+                    $('#pays').text(data.pays);
                     $('#user').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantHt').text(data.montantHt);
@@ -532,12 +533,11 @@ $codeUsine = $_COOKIE['codeUsine'];
               }).error(function(error) { });
             };
 
-$("#MNU_VALIDATION").click(function()
+        $("#MNU_VALIDATION").click(function()
             {
                 if (checkedFacture.length == 0)
                     bootbox.alert("Veuillez selectionnez un facture");
                 else if (checkedFacture.length > 1)
-                      
                 {
                      bootbox.confirm("Voulez vous vraiment valider cet facture","Non","Oui", function(result) {
                     if(result){
