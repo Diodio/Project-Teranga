@@ -180,10 +180,16 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
         return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
     }
+    
     public function updateNbStockReel($produitId, $codeUsine, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
         return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 
+    }
+    public function updateSeuilStock($produitId, $codeUsine, $nbSeuil ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        return $connexion->executeUpdate("UPDATE stock_reel SET seuil = $nbSeuil WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+		
     }
     public function resetStockProvisoire($produitId, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();

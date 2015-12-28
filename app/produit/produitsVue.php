@@ -436,7 +436,15 @@
         $(grid_selector).jqGrid('GridUnload');
         $('.ui-jqdialog').remove();
     });
-        
+       function calculSeuil(){
+           var stock = parseFloat($("#stockReel").val());
+           if(!isNaN(stock) && stock!==0) {
+            var seuil=0;
+           if(stock > 0)
+              seuil = (stock * 25)/100;
+           return seuil;
+       }
+   }
          produitProcess = function ()
         {
             
@@ -445,7 +453,7 @@
             var designation = $("#designation").val();
             var stockProvisoire = $("#stockProvisoire").val();
             var stockReel = $("#stockReel").val();
-            var seuil = $("#seuil").val();
+            var seuil = calculSeuil();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             
@@ -495,17 +503,9 @@
 
 
     
-        $("#winModalProduit").bind("click", function () {
-            calculSeuil();
-            
-        });
         
-        $("#seuil").bind("focus", function () {
-            calculSeuil();
-            
-        });
-       
-
+        
+      
        //Validate
        $("#SAVE").bind("click", function () {
        $('#validation-form').validate({
@@ -565,16 +565,6 @@
 
        
        
-       function calculSeuil(){
-           var stock = parseInt($("#stock").val());
-            var seuil;
-           if(stock > 0) {
-              seuil = (stock * 25)/100;
-              if(!isNaN(seuil))
-                $("#seuil").val(seuil);
-            }
-            else $("#seuil").val(0);
-                
-       }
+       
     });
 </script>

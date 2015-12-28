@@ -142,7 +142,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                         },
                         "mRender": function(data, type, full) {
                             var src="";
-                            if(data <= full[1])
+                            console.log('data'+data);
+                            console.log('ddd'+full[1]);
+                            if(data==null)
+                                var seuil=0;
+                            if(full[1] < seuil)
                                 src+= '<td><span class="label label-danger arrowed">seuil atteint</span></td>';
                             else
                                src+= '<td><span class="label label-success arrowed-in arrowed-in-right">disponible</span></td>'; 
@@ -257,7 +261,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 class_name: 'gritter-error gritter-light'
                             });
                     }else {
-                        console.log(data);
                         var head = [];
                         var value = [];
                         $.each(data, function(idx, obj) {
@@ -265,7 +268,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 value.push(obj.nbStocks);
                         });
                         
-                        console.log(value);
                             $("#STAT_OTHER").jChart({
                               name: "Famille SOMPATE",
                               headers: head,
@@ -295,7 +297,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         var dataUsine='';
                         $('#NB_STATS').empty();
                         $.each(data, function () {
-                            console.log(this.couleur)
                             map.push({label: this.nomUsine, data: this.nbStocks, color: this.couleur, operator: this.nomUsine});
                             dataUsine += '{"value":"'+this.nomUsine+'","text":"'+this.nomUsine+'"},';
                             $('#NB_STATS').append(' <div class="grid3"> <span class="grey"><i class="icon-user"></i><small>&nbsp; '+this.nomUsine+'</span><span  class="bigger pull-right" >'+this.nbStocks+'</small> </span>   </div>');
@@ -303,7 +304,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         });
                         dataUsine = dataUsine.substr(0, dataUsine.length-1);
                         dataUsine ='['+dataUsine+']';
-                        console.log('{"usine":' + dataUsine + '}');	
                         drawPieChart(placeholder, map);
 
                     }
