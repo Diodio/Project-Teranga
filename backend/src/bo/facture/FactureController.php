@@ -124,7 +124,7 @@ private $logger;
             $facture->setClient($client);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
-                if($request['avance']!="") {
+                if($request['avance']!="" && $request['regle']!="true") {
                     $reglementManager =new Reglement\ReglementManager();
                     $reglementManager->insert($reglement);
                 }
@@ -161,25 +161,23 @@ private $logger;
                         }
                     }
                 }
-//                $jsonColis = json_decode($_POST['jsonColis'], true);
-//                foreach ($jsonColis as $key => $colis) {
-//                    if (isset($ligne["nColis"])) {
-//                        if ($ligne["nColis"] !== "" && $ligne["qteColis"] !== "") {
-//                            $colis= new \Facture\LigneColis();
-//                            $colis->setNombreCarton($ligne["nColis"]);
-//                            $colis->setQuantiteParCarton($ligne["qteColis"]);
-//                            $colis->setQuantite($ligne["pnet"]);
-//                            $colis->setProduitId($ligne["pu"]);
-//                            $colis->setFactureId($ligne["montant"]);
-//                            $ligneFactureManager = new \Facture\LigneFactureManager();
-//                            $inserted = $ligneFactureManager->insert($colis);
-//                            if ($inserted->getId() != null) {
-//                                 $stockManager = new \Stock\StockManager();
-//                                 $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
-//                            }
-//                        }
-//                    }
-//                }
+              $jsonColis = json_decode($_POST['jsonColis'], true);
+                foreach ($jsonColis as $key => $ligneC) {
+                    if (isset($ligneC["nbColis"])) {
+                        if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
+                            $colis= new \Facture\LigneColis();
+                            $colis->setNombreCarton($ligneC["nbColis"]);
+                            $colis->setQuantiteParCarton($ligneC["qte"]);
+                            $colis->setProduitId($ligneC["produitId"]);
+                            $colis->setFactureId($factureAdded->getId());
+                            $ligneColisManager = new \Facture\LigneColisManager;
+                            $inserted = $ligneColisManager->insert($colis);
+                            if ($inserted->getId() != null) {
+                                 $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                            }
+                        }
+                    }
+                }
                 $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
             } else {
                 $this->doError('-1', 'Impossible d\'inserer ce facture');
