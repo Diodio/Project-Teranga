@@ -105,8 +105,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
                     <div class="col-sm-6" style="margin-left: 74px;">
                         <select id="devise" data-placeholder=""      >
-                            <option value="FCFA">FCFA</option>
                             <option value="&euro;">&euro;</option>
+                            <option value="FCFA">FCFA</option>
                             <option value="$">US$</option>
                         </select>
                     </div>
@@ -754,45 +754,14 @@ $(document).ready(function () {
             i++;
           }
         });
-        var pNet=0;
-        var it=0;
-        $('#tab_logic_colis tbody tr').find('td').each(function(){
-                var $this = $(this);
-                var ncolis=$('#nbColis'+it).val();
-                var qte = $('#qteColis'+it).select2('data').text;
-                if(typeof ncolis!=='undefined' && typeof qte!=='undefined')
-                    pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
-                 it++;
-            });
+        
       //  var produitId = $('#CMB_DESIGNATIONS').val();
         var designation = $('#CMB_DESIGNATIONS').select2('data').text;
         var prix = $('#prixUnitaire').val();
        //var rows=[];
-       var header=["#","nbColis","qte"];
-             var $table=$('#tab_logic_colis');
-            $table.find("tbody tr").each(function () {
-                var row = {};
-                $(this).find("td").each(function (i) {
-                    //row["produitId"] = produitId;
-                    var key = header[i];
-                    var value;
-                    valueInput = $(this).find('input').val();
-                     if (typeof valueInput !== "undefined")
-                        value=valueInput;
-                    valueSelect = $(this).find('select').select2('data').text;
-                     if (typeof valueSelect !== "undefined")
-                        value=valueSelect;
-                    row[key] = value;
-                });
+       
 
-                colisage.push(row);
-            });
-//        var item = new Array();
-//        item.push($("#CMB_DESIGNATIONS").val());
-//        item.push($('#nbColis'+(i)).val());
-//        item.push($('#qteColis'+(i)).val()); 
-//        colisage.push(item);
-        console.log(JSON.stringify(colisage));
+       
         if(produitId==='*' || nbColis===0 || prix===''){
                $.gritter.add({
                     title: 'Notification',
@@ -801,6 +770,26 @@ $(document).ready(function () {
                 });
         }
         else {
+            var header=["nbColis","qte"];
+       var tblColis=[];
+      var pNet=0;
+        var it=0;
+        var row={};
+        $('#tab_logic_colis tbody tr').find('td').each(function(){
+            
+                var $this = $(this);
+                var ncolis=$('#nbColis'+it).val();
+                var qte = $('#qteColis'+it).select2('data').text;
+                if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
+                    pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
+                    row["produitId"] = produitId;
+                    row["nbColis"] = ncolis;
+                    row["qte"] = qte;
+                }
+            it++;
+            });
+            colisage.push(row);
+            console.log(JSON.stringify(colisage));
         var montant = parseInt(prix) * pNet;
         totalColis+=nbColis;
         qteTotal+=pNet;
@@ -1055,6 +1044,46 @@ $(document).ready(function () {
             });
             return JSON.stringify(rows);
        }
+       
+       function tabToJsonProduit (tableId, head, produitId){
+           var $table = $("#"+tableId);
+            rows = [],
+            header = head;
+
+//            $table.find("thead th").each(function () {
+//                header.push($(this).html().trim());
+//            });
+
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td:not(:first)").each(function (i) {
+                    row["produitId"]=produitId;
+                    var key = header[i];
+                    var value;
+                     valueInput = $(this).find('input').val();
+                     valueSelect = $(this).find('select').select2('data').text;
+                     console.log(valueInput);
+                     row["key1"] = $(this).find('#nbColis0').val(); ;
+                     row["key2"] = $(this).find('select').select2('data').text;
+//                    if (typeof valueInput !== "undefined" ) {
+//                       // console.log(valueInput);
+//                        //value=valueInput; 
+//                        row[key] = valueInput;
+//                    }
+//                    if (typeof valueSelect !== "undefined"){
+//                        //value=valueSelect;
+//                        row[key] = valueSelect;
+//                    }
+                   
+                });
+
+                rows.push(row);
+            });
+            console.log(JSON.stringify(rows));
+            return JSON.stringify(rows);
+       }
+       
         factureProcess = function ()
         {
             
@@ -1086,7 +1115,7 @@ $(document).ready(function () {
             var tblColis=tabToJson('tab_logic_colis', headerColis );
             var tblConteneur=tabToJson('tab_conteneur', headerConteneur );
             var tblProduit=SimpletabToJson('tab_produit', headerProduit );
-            console.log(colisage);
+           
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('clientId', clientId);
@@ -1106,7 +1135,7 @@ $(document).ready(function () {
             formData.append('regle', regle);
             formData.append('jsonConteneur', tblConteneur);
             formData.append('jsonProduit', tblProduit);
-            formData.append('jsonColis', colisage);
+            formData.append('jsonColis', JSON.stringify(colisage));
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
