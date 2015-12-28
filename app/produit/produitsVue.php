@@ -59,7 +59,7 @@
                             <h3 class="smaller lighter blue no-margin">Produit</h3>
                         </div>
 
-                        <div class="modal-body" style="height: 240px;">
+                        <div class="modal-body" style="height: 200px;">
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
                                     <div class="col-sm-9">
