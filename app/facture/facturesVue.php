@@ -105,8 +105,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
                     <div class="col-sm-6" style="margin-left: 74px;">
                         <select id="devise" data-placeholder=""      >
-                            <option value="FCFA">FCFA</option>
                             <option value="&euro;">&euro;</option>
+                            <option value="FCFA">FCFA</option>
                             <option value="$">US$</option>
                         </select>
                     </div>
