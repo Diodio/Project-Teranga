@@ -3,17 +3,15 @@
 namespace Facture;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="conteneur_temp") * */
-class ConteneurTemp {
+ * @Table(name="conteneur") * */
+class Conteneur {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
      */
     protected $id;
   
-    /**
-     * @Column(type="integer", nullable=true)
-     * */
+    /** @ManyToOne(targetEntity="Facture\Facture", inversedBy="facture", cascade={"persist"}) */
     protected $facture;
     
     /**

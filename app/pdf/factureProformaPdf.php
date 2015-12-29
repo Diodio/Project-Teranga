@@ -12,7 +12,7 @@
  */
 
  require_once('../../html2pdf.class.php');
-$achatId = $_GET['achatId'];
+$facture = $_GET['factureId'];
     // get the HTML
     ob_start();
     include(dirname(__FILE__).'/factureProformaContennuPdf.php');

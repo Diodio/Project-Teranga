@@ -531,6 +531,7 @@ $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
      $('#CMB_DESIGNATIONS').select2();
      $('#qteColis0').select2();
+     var action = "<?php echo App::ACTION_INSERT; ?>"
      var colisage = [];
      var totalColis=0;
      var qteTotal=0;
@@ -1108,10 +1109,10 @@ $(document).ready(function () {
             return JSON.stringify(rows);
        }
        
-        factureProcess = function ()
+        factureProcess = function (Action)
         {
             
-            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            var ACTION = Action;
             var clientId = $("#CMB_CLIENTS").val();
             var numFacture= $('#numFacture').val();
             var heureFacture= $('#heureFacture').val();
@@ -1181,8 +1182,14 @@ $(document).ready(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
-                        });
+                        if(Action ==='INSERT') {
+                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
+                         });
+                        }
+                        else {
+                            window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                        }
+                            
                     } 
                     else
                     {
@@ -1208,6 +1215,7 @@ $(document).ready(function () {
 //        });
         
         $("#SAVE").bind("click", function () {
+        action="<?php echo App::ACTION_INSERT; ?>";
         $('#validation-form').validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
@@ -1294,7 +1302,8 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-				factureProcess();
+                           // alert(action);
+                            factureProcess(action);
 			},
 			invalidHandler: function (form) {
 			}
@@ -1302,9 +1311,100 @@ $(document).ready(function () {
 
 
         });
-        $("#FACTURE_PROFORMA").click(function()
-        {
-             window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+        $("#FACTURE_PROFORMA").bind("click", function () {
+        action="<?php echo App::ACTION_INSERT_TEMP; ?>";
+         $('#validation-form').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				nomClient: {
+					required: true
+				},
+				reference: {
+					required: true
+				},
+				origine: {
+					required: true
+				},
+				totalColis: {
+					required: true
+				},
+				qteTotal: {
+					required: true
+				},
+				portDechargement: {
+					required: true
+				},
+				montantHt: {
+					required: true
+				},
+				tva: {
+					required: true
+				},
+				montantTtc: {
+					required: true
+				},
+				modePaiement: {
+					required: true
+				}
+			},
+	
+			messages: {
+				nomClient: {
+					required: "Champ obligatoire."
+				},
+				reference: {
+					required: "Champ obligatoire."
+				},
+				origine: {
+					required: "Champ obligatoire."
+				},
+				totalColis: {
+					required: "Champ obligatoire."
+				},
+				qteTotal: {
+					required: "Champ obligatoire."
+				},
+				portDechargement: {
+					required: "Champ obligatoire."
+				},
+				montantHt: {
+					required: "Champ obligatoire."
+				},
+				tva: {
+					required: "Champ obligatoire."
+				},
+				montantTtc: {
+					required: "Champ obligatoire."
+				},
+				modePaiement: {
+					required: "Champ obligatoire."
+				}
+			},
+	
+	
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+                            factureProcess(action);
+			},
+			invalidHandler: function (form) {
+			}
+		});
+          
 
         });
         
