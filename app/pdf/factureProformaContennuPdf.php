@@ -51,7 +51,7 @@ td    { vertical-align: top; }
     </table>
     <br>
     <br>
-    <table cellspacing="0" border="1" style="border: solid 6px black;color:#444444;width: 100%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="border: solid 1px black;color:#444444;width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td style="width:50%;">
                 Information client 
@@ -69,6 +69,11 @@ td    { vertical-align: top; }
                     <tr>
                         <td >
                             Adresse: 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            Telephone: 
                         </td>
                     </tr>
                     <tr>
