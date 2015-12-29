@@ -248,9 +248,16 @@ $codeUsine = $_COOKIE['codeUsine'];
 							
 						</tbody>
 					</table>
+                                    
 				</div>
 			</div>
-             
+             <div class="row">
+                 <a id='delete_row_produit'
+                        class="btn btn-danger btn-sm" title="Supprimer une ligne"
+                        alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>Supprimer
+                </a>
+             </div>
+            <div class="space-6"></div> 
         <div class="row">
             <div class="col-md-12 column">
                 
@@ -397,9 +404,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
                                                     <select id="modePaiement" name="modePaiement" class="col-xs-12 col-sm-10">
-                                                                <option value="Esp">Especes</option>
-                                                                <option value="ch">Cheque</option>
-                                                                <option value="vir">Virement</option>
+                                                                <option value="ESPECE">Especes</option>
+                                                                <option value="CHEQUE">Cheque</option>
+                                                                <option value="VIREMENT">Virement</option>
                                                         </select>
                                                 </div>
                                 </div>
@@ -685,7 +692,7 @@ $(document).ready(function () {
         });
      var i=1;
      $("#add_row_colis").click(function(){
-     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
+     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='number' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
         <td><select id='qteColis"+i+"' name='qteColis"+i+"' class='form-control qte' ><option value='*' class='qteColis"+i+"'></option></select>");
       $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
         $('#qteColis'+i).select2();
@@ -701,7 +708,10 @@ $(document).ready(function () {
 		 }
 	 });
 
-
+//        $("#delete_row_produit").click(function(){
+//            var lgTable=$("#tab_produit").length;
+//                 $("#tab_produit"+(i-1)).html('');
+//        });
   
        $(document).delegate('#tab_logic_colis tr td select', 'change', function (event) {
         var id = $(this).closest('tr').attr('id');
@@ -957,7 +967,7 @@ $(document).ready(function () {
 		 }
 	 });
     $("#modePaiement").change(function() {
-        if($("#modePaiement").val() ==='ch') {
+        if($("#modePaiement").val() ==='CHEQUE') {
             $("#numCheque").attr("readonly", false); 
         }
         else {
@@ -1128,6 +1138,7 @@ $(document).ready(function () {
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
+            
             ch = ch.substr(0,ch.length-4); 
             ch+=']';
            // console.log('colis'+ch);
@@ -1177,14 +1188,17 @@ $(document).ready(function () {
                 {
                     if (data.rc == 0)
                     {
-                        $.gritter.add({
+                        
+                        if(Action ==='INSERT') {
+                            $.gritter.add({
                             title: 'Notification',
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        if(Action ==='INSERT') {
-                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
-                         });
+                        window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
+                             });
                         }
                         else {
                             window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');

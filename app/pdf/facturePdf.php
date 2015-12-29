@@ -15,7 +15,7 @@
 $factureId = $_GET['factureId'];
     // get the HTML
     ob_start();
-    include(dirname(__FILE__).'/factureProformaContenuPdf.php');
+    include(dirname(__FILE__).'/factureContenuPdf.php');
    // include(dirname(__FILE__).'/res/exemple07b.php');
     $content = ob_get_clean();
 

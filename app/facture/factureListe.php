@@ -559,5 +559,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                 }
             });
+             $("#MNU_IMPRIMER").click(function()
+                {
+                    if (checkedFacture.length == 0)
+                    bootbox.alert("Veuillez selectionnez un facture");
+                else if (checkedFacture.length >= 1)
+                {
+                    var factureId = checkedFacture[0];
+                    window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php?factureId='+factureId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+                
+                }
+                  
+                 });
             });
         </script>
