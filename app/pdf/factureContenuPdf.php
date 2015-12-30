@@ -16,7 +16,7 @@ $sqlConteneur = "SELECT * FROM conteneur WHERE facture_id=" . $factureId;
 $ResultConteneur = mysqli_query($connexion, $sqlConteneur) or die(mysqli_error($connexion));
 //$rowConteneur = mysqli_fetch_array($ResultConteneur);
 
-$sqlProduit = "SELECT nbTotalColis, libelle, prixUnitaire, quantite, montant FROM facture f,ligne_facture lf,produit p WHERE f.id=lf.facture_id AND lf.produit=p.id AND f.id=" . $factureId;
+$sqlProduit = "SELECT nbColis, libelle, prixUnitaire, quantite, montant FROM facture f,ligne_facture lf,produit p WHERE f.id=lf.facture_id AND lf.produit=p.id AND f.id=" . $factureId;
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 
 ?>
@@ -97,9 +97,10 @@ td    { vertical-align: top; }
                         <td >
                             Mode de paiement: <?php echo $row['modePaiement'];?>
                         </td>
-                    </tr><tr>
+                    </tr>
+                    <tr>
                         <td >
-                           Avance : <?php echo $row['avance'];?>
+                            Avance : <?php echo $row['avance'];?> &nbsp; Reliquat: <?php echo $row['reliquat'];?>
                         </td>
                     </tr>
                     <tr>
@@ -187,7 +188,7 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
-            <td style="width: 15%; text-align: left"><?php echo $rowProduit['nbTotalColis'];?></td>
+            <td style="width: 15%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
             <td style="width: 40%; text-align: left"><?php echo $rowProduit['libelle'];?></td>
             <td style="width: 15%; text-align: left"><?php echo $rowProduit['prixUnitaire'];?></td>
             <td style="width: 20%; text-align: left"><?php echo $rowProduit['quantite'];?></td>
