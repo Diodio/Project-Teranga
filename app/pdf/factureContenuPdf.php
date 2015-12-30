@@ -100,11 +100,6 @@ td    { vertical-align: top; }
                     </tr>
                     <tr>
                         <td >
-                            Avance : <b><?php echo $row['avance'];?></b> &nbsp; Reliquat: <b><?php echo $row['reliquat'];?></b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >
                             Notre banque: <b>BICIS (SENEGAL)</b>
                         </td>
                     </tr>
@@ -175,7 +170,7 @@ td    { vertical-align: top; }
     <br>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
         <tr>
-            <th style="width: 15%">Nombre de colis</th>
+            <th style="width: 16%">Nombre de colis</th>
             <th style="width: 40%">Désignation</th>
             <th style="width: 15%">Prix Unitaire</th>
             <th style="width: 20%;">Quantité</th>
@@ -188,7 +183,7 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
-            <td style="width: 15%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
+            <td style="width: 16%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
             <td style="width: 40%; text-align: left"><?php echo $rowProduit['libelle'];?></td>
             <td style="width: 15%; text-align: left"><?php echo $rowProduit['prixUnitaire'];?></td>
             <td style="width: 20%; text-align: left"><?php echo $rowProduit['quantite'];?></td>
@@ -200,7 +195,7 @@ td    { vertical-align: top; }
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
-            <th style="width: 15%; text-align: left;"><?php echo $row['nbTotalColis'];?></th>
+            <th style="width: 16%; text-align: left;"><?php echo $row['nbTotalColis'];?></th>
             <th style="width: 40%; text-align: left;"></th>
             <th style="width: 15%; text-align: left;"></th>
             <th style="width: 20%; text-align: left;"><?php echo $row['nbTotalPoids'];?></th>
@@ -213,11 +208,35 @@ td    { vertical-align: top; }
     <br>
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:40%;">Arrêté cette facture à la somme de <?php echo $row['montantTtc'];?> <?php echo $row['devise'];?> TTC</td>
+            <td style="width:40%;">Arrêté cette facture à la somme de <b><?php echo $row['montantTtc'];?></b> <?php echo $row['devise'];?> TTC</td>
             <td style="width:60%; "><span  style="font-size: 25px;" ></span></td>
             <td ></td>
         </tr>
     </table>
+    <br>
+    <br>
+    <table cellspacing="0" style="float: right;width: 40%; text-align: left;font-size: 10pt">
+        
+        <tr>
+            <td style="width:70%;">Avance <b><?php echo $row['avance'];?></b> <?php echo $row['devise'];?></td>
+        </tr>
+        <tr>
+            <td style="width:70%;">Reliquat <b><?php echo $row['reliquat'];?></b>  <?php echo $row['devise'];?></td>
+        </tr>
+    </table>
   
+    <br>
+    
+    <nobreak>
+        <br>
+        <table cellspacing="0" style="width: 100%; text-align: left;">
+            <tr>
+                <td style="width:25%;"></td>
+                <td style="width:25%"></td>
+                <td style="width:38%"></td>
+                <td style="width:25%"> Le comptable</td>
+            </tr>
+        </table>
+    </nobreak>
 </page>
 

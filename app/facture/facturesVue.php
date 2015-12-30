@@ -869,11 +869,11 @@ $(document).ready(function () {
                 if(nbColis > qte ){
                   $.gritter.add({
                     title: 'Notification',
-                    text: 'Le nombre de colis ou la quantit saisi ne correspond pas au colisage du produit choisi',
+                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
                     class_name: 'gritter-error gritter-light '
                 });  
                  $("#nbColis"+counter).val("");
-                 $('#qteColis0').select2() ;
+                 $('#qteColis'+counter).val("*").change();
                 }
                 }
             }
