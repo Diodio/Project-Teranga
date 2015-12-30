@@ -208,8 +208,8 @@ td    { vertical-align: top; }
     <br>
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:40%;">Arrêté cette facture à la somme de <b><?php echo $row['montantTtc'];?></b> <?php echo $row['devise'];?> TTC</td>
-            <td style="width:60%; "><span  style="font-size: 25px;" ></span></td>
+            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantTtc'];?></b> <?php echo $row['devise'];?> TTC</td>
+            <td style="width:50%; "><span  style="font-size: 25px;" ></span></td>
             <td ></td>
         </tr>
     </table>
@@ -218,10 +218,10 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="float: right;width: 40%; text-align: left;font-size: 10pt">
         
         <tr>
-            <td style="width:70%;">Avance <b><?php echo $row['avance'];?></b> <?php echo $row['devise'];?></td>
+            <td style="width:70%;">Avance <b><?php if($row['avance']==null) echo 0; else echo $row['avance'];?></b> <?php echo $row['devise'];?></td>
         </tr>
         <tr>
-            <td style="width:70%;">Reliquat <b><?php echo $row['reliquat'];?></b>  <?php echo $row['devise'];?></td>
+            <td style="width:70%;">Reliquat <b><?php if($row['reliquat']==null) echo 0; else echo $row['reliquat'];?></b>  <?php echo $row['devise'];?></td>
         </tr>
     </table>
   

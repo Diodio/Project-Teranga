@@ -109,7 +109,7 @@ class FactureQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'SELECT count(*) as nbFactures FROM facture, client WHERE facture.client_id =client.id  AND facture.codeUsine='.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'SELECT count(*) as nbFactures FROM facture, client WHERE facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
              $sql = 'SELECT count(*) as nbFactures  FROM facture, client WHERE facture.client_id = client.id ' . $sWhere . '';

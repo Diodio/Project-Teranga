@@ -134,30 +134,30 @@ private $logger;
                 }
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
                 foreach ($jsonConteneur as $key => $ligneConteneur) {
-                    if (isset($ligneConteneur["nConteneur"])) {
-                        if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
+                   // if (isset($ligneConteneur["nConteneur"])) {
+                      //  if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
                             $conteneur = new \Facture\Conteneur();
                             $conteneur->setFacture($facture);
                             $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
                             $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
                             $conteneurManager = new \Facture\ConteneurManager();
                             $conteneurManager->insert($conteneur);
-                        }
-                    }
+                      //  }
+                    //}
                 }
                 $jsonProduit = json_decode($_POST['jsonProduit'], true);
                 foreach ($jsonProduit as $key => $ligne) {
                     if (isset($ligne["nColis"])) {
                         if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                            $colis= new \Facture\LigneFacture;
-                            $colis->setFacture($facture);
-                            $colis->setNbColis($ligne["nColis"]);
-                            $colis->setProduit($ligne["produitId"]);
-                            $colis->setQuantite($ligne["pnet"]);
-                            $colis->setPrixUnitaire($ligne["pu"]);
-                            $colis->setMontant($ligne["montant"]);
+                            $ligneFacture= new \Facture\LigneFacture;
+                            $ligneFacture->setFacture($facture);
+                            $ligneFacture->setNbColis($ligne["nColis"]);
+                            $ligneFacture->setProduit($ligne["produitId"]);
+                            $ligneFacture->setQuantite($ligne["pnet"]);
+                            $ligneFacture->setPrixUnitaire($ligne["pu"]);
+                            $ligneFacture->setMontant($ligne["montant"]);
                             $ligneFactureManager = new \Facture\LigneFactureManager();
-                            $inserted = $ligneFactureManager->insert($colis);
+                            $inserted = $ligneFactureManager->insert($ligneFacture);
                             if ($inserted->getId() != null) {
                                  $stockManager = new \Stock\StockManager();
                                  $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
