@@ -69,23 +69,23 @@ td    { vertical-align: top; }
                 Information client 
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
-                        <td >
-                            Nom: <?php echo $row['nom'];?>
+                        <td>
+                            Nom: <b><?php echo $row['nom'];?></b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Adresse:  <?php echo $row['adresse'];?>
+                            Adresse:  <b><?php echo $row['adresse'];?></b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Telephone: <?php echo $row['telephone'];?>
+                            Telephone: <b><?php echo $row['telephone'];?></b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Pays: <?php echo $row['pays'];?>
+                            Pays: <b><?php echo $row['pays'];?></b>
                         </td>
                     </tr>
                 </table>
@@ -95,32 +95,32 @@ td    { vertical-align: top; }
                 <table cellspacing="0" style="width: 50%; text-align: left;font-size: 10pt">
                     <tr>
                         <td >
-                            Mode de paiement: <?php echo $row['modePaiement'];?>
+                            Mode de paiement: <b><?php echo $row['modePaiement'];?></b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Avance : <?php echo $row['avance'];?> &nbsp; Reliquat: <?php echo $row['reliquat'];?>
+                            Avance : <b><?php echo $row['avance'];?></b> &nbsp; Reliquat: <b><?php echo $row['reliquat'];?></b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Notre banque: BICIS (SENEGAL)
+                            Notre banque: <b>BICIS (SENEGAL)</b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Adresse: 2, Avenue L S SENGHOR DAKAR
+                            Adresse: <b>2, Avenue L S SENGHOR DAKAR</b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            SWIFT: BICISNDXXXX
+                            SWIFT: <b>BICISNDXXXX</b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Numero compte: SN08 SN01 0015 2001 7895 7000 0733
+                            Numero compte: <b>SN08 SN01 0015 2001 7895 7000 0733</b>
                         </td>
                     </tr>
                 </table>
@@ -137,17 +137,17 @@ td    { vertical-align: top; }
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
                         <td >
-                            Port de chargement: DAKAR / SENEGAL
+                            Port de chargement: <b>DAKAR / SENEGAL</b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            Port de dechargement: <?php echo $row['portDechargement'];?>
+                            Port de dechargement: <b><?php echo $row['portDechargement'];?></b>
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            SHIP/AIR/ETC : Expedition par voie maritime
+                            SHIP/AIR/ETC : <b>Expedition par voie maritime</b>
                         </td>
                     </tr>
                 </table>
@@ -158,10 +158,10 @@ td    { vertical-align: top; }
                    <?php while ($rowConteneur = mysqli_fetch_array($ResultConteneur)) {?>
                     <tr>
                         <td style="width: 42%">
-                            Numero conteneur: <?php echo $rowConteneur['numConteneur'];?>
+                            Numero conteneur: <b><?php echo $rowConteneur['numConteneur'];?></b>
                         </td style="width: 52%">
                         <td >
-                           Numero plomb : <?php echo $rowConteneur['numPlomb'];?>
+                           Numero plomb : <b><?php echo $rowConteneur['numPlomb'];?></b>
                         </td>
                     </tr>
                    <?php } ?>
