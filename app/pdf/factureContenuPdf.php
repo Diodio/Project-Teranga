@@ -31,75 +31,74 @@ td    { vertical-align: top; }
 </style>
 <page backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
     <bookmark title="Lettre" level="0" ></bookmark>
-    <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
+    <br>
+    <br>
+    <table cellspacing="0" style="border: 1px;width: 100%; text-align: center; font-size: 14px">
         <tr>
-            <td style="width: 40%; ">
-                <span style="font-size: 20px;color:#68BC31;" >MACFISH</span>
-                <br>
-                 <span style="font-size: 20px;color:#68BC31;" >PRODUCTION SUARL</span>
-                 <br><br>
-                <span >TEL : 33 821 84 70 / 33 836 35 12</span>
-                 <br><br>
-                <span >Email : macfishrufisque@orange.sn</span>
-                 <br><br>
-                <span >Site : www.macfishproduction.sn</span>
+            <td>
+            <table cellspacing="0" style="width: 40%; text-align: center; font-size: 14px">
+                <tr>
+                    <td style="width: 100%; ">
+                        LOGO
+                    </td>
+                </tr>
+            </table> 
             </td>
-            <td style="width: 40%;">
-                <span style="margin-left:30px;"></span>
-            </td>
-            <td style="width: 25%; color: #444444;">
-                Dakar, le <?php echo date("d-m-Y");  ;?>
+            <td>
+            <table cellspacing="0" style="width: 60%; text-align: center; font-size: 14px">
+                <tr>
+                    <td style="width: 100%;">
+                        <br>
+                        <span style="font-size: 14px;color:#68BC31;" >MACFISH PRODUCTION SUARL</span>
+                        <br><br>
+                        <span >Rue Savers Rufisque</span>
+                         <br><br>
+                        <span >TEL : (00) 221 33 836 35 12 - Fax: (00) 33 836 35 07</span>
+                         <br><br>
+                        <span >E-mail : macfishrufisque@orange.sn</span>
+                         <br><br>
+                        <span >Site : www.macfishproduction.sn</span>
+                         <br><br>
+                         <div style="text-align: right" >Facture N° <?php echo $row['numero'];?></div>
+                         <br>
+                         <br>
+                         
+                    </td>
+                    
+                </tr>
+            </table>
             </td>
         </tr>
     </table>
-    <br>
-    <br>
-    <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
-        <tr>
-            <td style="width:40%;"></td>
-            <td style="width:60%; "><span  style="font-size: 25px;" >Facture N° <?php echo $row['numero'];?></span></td>
-            <td ></td>
-        </tr>
-    </table>
-    <br>
-    <br>
-    <table cellspacing="0" style="border: solid 1px black;color:#444444;width: 100%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="border:1px;color:#444444;width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td style="width:50%;">
-                Information client 
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
                         <td>
-                            Nom: <b><?php echo $row['nom'];?></b>
+                            Client (NOM, ADRESSE, PAYS, TELEPHONE)
+                           
                         </td>
                     </tr>
                     <tr>
-                        <td >
-                            Adresse:  <b><?php echo $row['adresse'];?></b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >
-                            Telephone: <b><?php echo $row['telephone'];?></b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >
-                            Pays: <b><?php echo $row['pays'];?></b>
+                        <td>
+                            <b><?php echo $row['nom'];?></b><br>
+                            <b><?php echo $row['adresse'];?></b><br>
+                            <b><?php echo $row['pays'];?></b><br>
+                            <b><?php echo $row['telephone'];?></b>
                         </td>
                     </tr>
                 </table>
             </td>
              <td style="width:50%;">
-                Paiement 
-                <table cellspacing="0" style="width: 50%; text-align: left;font-size: 10pt">
+                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
-                        <td >
+                        <td>
                             Mode de paiement: <b><?php echo $row['modePaiement'];?></b>
                         </td>
                     </tr>
                     <tr>
-                        <td >
+                        <td>
                             Notre banque: <b>BICIS (SENEGAL)</b>
                         </td>
                     </tr>
@@ -228,16 +227,6 @@ td    { vertical-align: top; }
         </table>
     <br>
     
-    <nobreak>
-        <br>
-        <table cellspacing="0" style="width: 100%; text-align: left;">
-            <tr>
-                <td style="width:25%;"></td>
-                <td style="width:25%"></td>
-                <td style="width:38%"></td>
-                <td style="width:25%"> Le comptable</td>
-            </tr>
-        </table>
-    </nobreak>
+ 
 </page>
 

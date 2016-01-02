@@ -160,7 +160,7 @@ class FactureQueries {
         return $Facture['nb'];
     }
      public function findRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -175,8 +175,8 @@ class FactureQueries {
         return $Achat['nb'];
     }
     
-    public function findRegleAnnuleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
+    public function findARegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();

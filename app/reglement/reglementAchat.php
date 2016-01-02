@@ -49,62 +49,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                     </div>
         </div>
-        
-        <div id="winModalReglement" class="modal fade" tabindex="-1">
-                 <form id="FRM_GROUP" class="form-horizontal" action="#" onsubmit="return false;" style="margin-bottom: 0px">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Réglement Facture</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="FRM_REGLEMENT" class="form-horizontal" role="form">
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_date" name="date" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Montant (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_montantRestant" name="montant" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Avance (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                              <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Reliquat (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_reliquat" name="avance" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button id="FRM_REGLEMENT_SAVE" class="btn btn-small btn-info" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Régler
-                            </button>
-                            
-                            <button class="btn btn-small btn-danger" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Annuler
-                            </button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-                
-                            </form>
-            </div>
-        
+  
         <div class="row">
             <div class="col-sm-5">
                 
@@ -210,7 +155,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NON_REGLE">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_A_VERSER">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Reliquat a verser</div>
 
@@ -223,7 +168,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NONVALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NON_REGLE">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats non réglées </div>
                                                         </div>
@@ -312,6 +257,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="status"></span>
                                 </div>
                             </div>
+                        </div>
+                             <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des avances
+                        </h4>
+                    <table class="table table-bordered table-hover"id="tab_avance">
+				<thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Montant</th>
+                                    </tr>
+                                </thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+                           <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Reliquat </div>
                                 <div class="profile-info-value">
@@ -332,7 +294,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">avance </div>
+                                <div class="profile-info-name">Montant </div>
                                 <div class="profile-info-value">
                                     <span id="avance"></span>
                                 </div>
@@ -463,7 +425,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     success: function(data) {
                         $('#INDIC_REGLEMENT_REGLES').text(data.nbRegle);
                         $('#INDIC_REGLEMENT_NON_REGLE').text(data.nbNonRegle);
-                        $('#INDIC_REGLEMENT_NONVALIDES').text(data.nbAnnule);
+                        $('#INDIC_REGLEMENT_A_REGLER').text(data.nbARegler);
                     
                     }
                 });
@@ -729,10 +691,28 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#status').text('Reliquat à verser');
                     else if(data.regle==2)
                         $('#status').text('Réglé');
-                    if(data.reliquat !==null)
-                        $('#reliquat').text(data.reliquat);
-                    else
-                        $('#reliquat').text('Non défini');
+                  $('#tab_avance tbody').html("");
+                    var tableAvance = data.reglement;
+                    var trHTMLAv='';
+                    var mtAv=0;
+                    $(tableAvance).each(function(index, element){
+                         mtAv += parseFloat(element.avance);
+                        trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
+                    });
+                    $('#tab_avance tbody').append(trHTMLAv);
+                    
+                    if(!isNaN(mtAv)) {
+                        var rel = data.montantTotal - mtAv;
+                        $('#reliquat').text(rel);
+                    }
+                    trHTMLAv='';   
+                    $('#TABLE_ACHATS tbody').html("");
+                    var table = data.ligneAchat;
+                    var trHTML='';
+                    $(table).each(function(index, element){
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                    });
+                    $('#TABLE_ACHATS tbody').append(trHTML);
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();

@@ -98,7 +98,7 @@ public function findStatisticByUsine($codeUsine) {
         if ($codeUsine != null) {
             $regle = $this->factureQuery->findRegleByUsine($codeUsine);
             $nonRegle = $this->factureQuery->findNonRegleByUsine($codeUsine);
-            $actureAnnuler = $this->factureQuery->findRegleAnnuleByUsine($codeUsine);
+            $actureAnnuler = $this->factureQuery->findARegleByUsine($codeUsine);
             $achatTab = array();
                 if ($regle != null)
                     $achatTab['nbRegle'] = $regle;

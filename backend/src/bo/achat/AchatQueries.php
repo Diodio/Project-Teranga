@@ -187,7 +187,7 @@ class AchatQueries {
     }
     
     public function findRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=2 AND status=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -195,21 +195,33 @@ class AchatQueries {
     }
     
     public function findNonRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=0 AND codeUsine="'.$codeUsine.'"';
+            $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=0 AND status=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
     
-    public function findRegleAnnuleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
+    public function findARegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=1 AND status=1 AND  codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
     
+    public function findReglementByAchat($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT datePaiement, avance FROM reglement_achat WHERE achat_id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
      public function findAchatDetails($achatId) {
         if ($achatId != null) {
             $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $achatId;
