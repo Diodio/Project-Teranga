@@ -102,15 +102,11 @@ class AchatQueries {
 
   
 
-     public function findById($produitId) {
-            $query = Bootstrap::$entityManager->createQuery("select p from Achat\Achat p where p.id = :produitId");
-            $query->setParameter('familleId', $produitId);
-            $produit = $query->getResult();
-            if ($produit != null)
-                return $produit[0];
-            else
-                return null;
-        }
+     public function findById($achatId) {
+		if ($achatId != null) {
+			return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
+		}
+	}
     public function count($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
@@ -161,6 +157,10 @@ class AchatQueries {
     }
     public function annulerAchat($achatId) {
         $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=2 WHERE a.id IN( '$achatId')");
+        return $query->getResult();
+    }
+    public function modifReglement($achatId, $status) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.regle=$status WHERE a.id IN( '$achatId')");
         return $query->getResult();
     }
     public function findValidAchatByUsine($codeUsine) {
@@ -222,6 +222,16 @@ class AchatQueries {
                 return null;
         }
     }
+    public function getTotalReglementByAchat($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_achat WHERE achat_id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            return $achat[0];
+        }
+    }
+    
      public function findAchatDetails($achatId) {
         if ($achatId != null) {
             $sql = 'SELECT * from achat, mareyeur where mareyeur.id=achat.mareyeur_id and achat.id=' . $achatId;

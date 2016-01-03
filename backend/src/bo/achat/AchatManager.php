@@ -29,8 +29,8 @@ class AchatManager {
     }
 
 
-   public function findById($produitId) {
-       return $this->achatQuery->findById($produitId);
+   public function findById($achatId) {
+       return $this->achatQuery->findById($achatId);
     }
    
     
@@ -63,6 +63,9 @@ class AchatManager {
     }
     public function annulerAchat($achatId) {
         return $this->achatQuery->annulerAchat($achatId);
+    }
+    public function modifReglement($achatId, $status) {
+        return $this->achatQuery->modifReglement($achatId, $status);
     }
 public function getLastNumberAchat() {
     $lastAchatId=$this->achatQuery->getLastNumberAchat();
@@ -151,6 +154,14 @@ public function findStatisticByUsine($codeUsine) {
         }
         else
             return null;
+    }
+    
+    public function getTotalReglementByAchat($achatId) {
+        $som=0;
+        $achat=$this->achatQuery->getTotalReglementByAchat($achatId);
+        if($achat['sommeAvance'] !=NULL)
+            $som=$achat['sommeAvance'];
+        return $som;
     }
     /**
      * 

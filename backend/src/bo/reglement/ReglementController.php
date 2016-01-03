@@ -82,83 +82,43 @@ private $logger;
 
     public function doInsert($request) {
         try {
-                $achatManager = new AchatManager();
-                $achat = new Achat();
-                $achat->setNumero($request['numAchat']);
-                $achat->setHeureReception(new \DateTime($request['heureReception']));
-                $achat->setDateAchat(new \DateTime("now"));
-                $achat->setPoidsTotal($request['poidsTotal']);
-                $achat->setMontantTotal($request['montantTotal']);
-                $achat->setModePaiement($request['modePaiement']);
-                $achat->setNumCheque($request['numCheque']);
-                $achat->setCodeUsine($request['codeUsine']);
-                $achat->setLogin($request['login']);
-                if($request['regle']=="true")
-                    $achat->setRegle(2);
-                else
-                    if($request['avance']!="") {
-                        $achat->setRegle(1);
-                        $reliquat =  $request['montantTotal'] - $request['avance'];
-                        $achat->setReliquat($reliquat);
-                        $reglement=new Reglement\ReglementAchat();
-                        $reglement->setAchat($achat);
-                        $reglement->setAvance($request['avance']);
-                    }
-                    else {
-                        $achat->setRegle(0);
-                    }
-                $mareyeurManager = new \Mareyeur\MareyeurManager();
-                $mareyeur = $mareyeurManager->findById($request['mareyeur']);
-                
-               // var_dump($request['mareyeur']);
-               $achat->setMareyeur($mareyeur);
-                
-                $achatAdded = $achatManager->insert($achat);
-           //     var_dump("fgf");
-                if ($achatAdded->getId() != null) {
-                    $jsonAchat = json_decode($_POST['jsonProduit'], true);
-                         foreach ($jsonAchat as $key => $ligneachat) {
-                            if(isset($ligneachat["Designation"])) {
-                                $ligneAchat = new \Achat\LigneAchat();
-                                $ligneAchat->setAchat($achat);
-                                $produitId = $ligneachat["Designation"];
-                                $produitManager = new Produit\ProduitManager();
-                                $produit= $produitManager->findById($produitId);
-                                $ligneAchat->setProduit($produit);
-                                if($ligneachat['Poids Net(kg)']!=="")
-                                    $ligneAchat->setQuantite($ligneachat['Poids Net(kg)']);
-                                else
-                                    $ligneAchat->setQuantite($ligneachat['Quantite(kg)']);
-                                $ligneAchat->setMontant($ligneachat['Montant']);
-                               // $ligneAchat->setPoids($ligneachat['Poids Net(kg)']);
-                                $ligneAchatManager = new \Achat\LigneAchatManager();
-                                $ligneAchatManager->insert($ligneAchat); 
-//                                if ($achatInserted->getId() != null) {
-//                                       $stockManager = new \Produit\StockManager();
-//                                       if($ligneachat['Quantite(kg)'] !="")
-//                                           $nbStock = $ligneachat['Quantite(kg)'];
-//                                       if($ligneachat['Poids Net(kg)'] !="")
-//                                           $nbStock = $ligneachat['Poids Net(kg)'];
-//                                       $stockManager->updateNbStock($produitId, $request['codeUsine'], $nbStock);
-//                                }
-//                                $achatPaiement = new AchatPaiement();
-//                                $achatPaiement->setAchat($achat);
-//                                $achatPaiement->setMontant($request['avance']);
-//                                $achatPaiement->setDatePaiement(new \DateTime("now"));
-                            }
-                         }
-                    $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');
+            $reglementManager = new Reglement\ReglementManager();
+            $achatManager = new AchatManager();
+            $achat = $achatManager->findById($request['achatId']);
+            $montantTotal = $achat->getMontantTotal();
+            $somAvance = $achatManager->getTotalReglementByAchat($request['achatId']);
+            $reliquat = $montantTotal - $somAvance;
+            if($reliquat !=0){
+            if ($request['versement'] <= $reliquat) {
+                $reglement = new \Reglement\ReglementAchat();
+                $reglement->setAchat($achat);
+                $reglement->setAvance($request['versement']);
+                $reglement->setDatePaiement(new \DateTime($request['dateVersement']));
+                $reglementAdded = $reglementManager->insert($reglement);
+                if ($reglementAdded->getId() != null) {
+                     $somme = $achatManager->getTotalReglementByAchat($request['achatId']);
+                     $reliquat = $montantTotal - $somme;
+                     if($reliquat==0)
+                         $achatManager->modifReglement ($request['achatId'], 2);
+                     else {
+                         $achatManager->modifReglement ($request['achatId'], 1);
+                     }
+                    $this->doSuccess($reglementAdded->getId(), 'Versement enregistré avec succes');
                 } else {
-                    $this->doError('-1', 'Impossible d\'inserer cet achat');
+                    $this->doError('-1', 'Impossible d\'inserer ce versement');
                 }
-                
-            
+            } else {
+                $this->doError('-1', 'Le montant ne doit pas etre supérieur au reliquat');
+            }
+            }
+            else{
+                 $this->doError('-1', 'Versements déja effectués');
+            }
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
 
-    
     public function doList($request) {
         try {
             $achatManager = new AchatManager();

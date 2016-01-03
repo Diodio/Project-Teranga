@@ -11,7 +11,7 @@ class ReglementFacture {
      */
     protected $id;
     
-   /** @Column(type="datetime", nullable=true) */
+   /** @Column(type="date", nullable=true) */
     public $datePaiement;
     
     /** @ManyToOne(targetEntity="Facture\Facture", inversedBy="facture") */

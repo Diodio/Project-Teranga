@@ -155,7 +155,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_REGLEMENT_A_VERSER">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_A_REGLER">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Reliquat a verser</div>
 
@@ -260,9 +260,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                              <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des avances
+                            Liste des versements
                         </h4>
-                    <table class="table table-bordered table-hover"id="tab_avance">
+                    <table class="table table-bordered table-hover"id="tab_versement">
 				<thead>
                                     <tr>
                                         <th class="text-center">Date</th>
@@ -285,7 +285,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <div class="profile-info-value">
                                     <div class="col-xs-8 col-sm-5">
                                         <div class="input-group">
-                                            <input class="form-control date-picker" id="dateAvance" name="dateAvance" type="text" data-date-format="dd-mm-yyyy" />
+                                            <input class="form-control date-picker" id="dateVersement" name="dateVersement" type="text" data-date-format="dd-mm-yyyy" />
                                                 <span class="input-group-addon">
                                                         <i class="fa fa-calendar bigger-110"></i>
                                                 </span>
@@ -296,7 +296,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Montant </div>
                                 <div class="profile-info-value">
-                                    <span id="avance"></span>
+                                    <span id="versement"></span>
                                 </div>
                             </div>
                         </div>
@@ -339,22 +339,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                 .next().on(ace.click_event, function(){
                         $(this).prev().focus();
                 });
-              $('#avance').editable({
+              $('#versement').editable({
                             type: 'text',
-                            name: 'avance',
+                            name: 'versement',
                             title: "Saisir un montant",
                             id: 'id',
                             submit : 'OK',
                             validate:function(value){
+                                //alert($('.date-picker').val());
                                 if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                                if($('.date-picker').val()==='') return 'Veuillez saisir  une date S.V.P.!';
+                                   
                             },
                             placement: 'right',
                             url: function(editParams) {                             
-                                var avance = editParams.value;
+                                var versement = editParams.value;
                                 //alert(code);
                                 function save() {
-                                    if(avance !== ""){
-                                        saveAvance(checkedAchat[0], avance);
+                                    if(versement !== ""){
+                                        saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                     }
                                     else {
                                             
@@ -373,9 +376,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                         });
                         
                          
-           function saveAvance(achatId, avance)
+           function saveAvance(achatId, versement, dateVersement)
                 {
-                    var ACTION = "<?php echo App::ACTION_UPDATE; ?>";
+                    var ACTION = "<?php echo App::ACTION_INSERT; ?>";
                     $.ajax({
                         url: '<?php echo App::getBoPath(); ?>/reglement/ReglementController.php',
                         type: 'POST',
@@ -383,7 +386,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         data: {
                             ACTION: ACTION,
                             achatId: achatId,
-                            avance: avance
+                            versement: versement,
+                            dateVersement: dateVersement
                         },
                         success: function(data)
                         {
@@ -391,8 +395,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             if (data.rc == 0){
                                 $.gritter.add({
                                     title: 'Server notification',
-                                    text: "<?php printf("Avance ajoute"); ?>",
+                                    text: "<?php printf("Versement enregistré avec succes"); ?>",
                                     class_name: 'gritter-success gritter-light'
+                                });
+                                $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementAchat.php", function () {
                                 });
                             }
                             else{
@@ -691,7 +697,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#status').text('Reliquat à verser');
                     else if(data.regle==2)
                         $('#status').text('Réglé');
-                  $('#tab_avance tbody').html("");
+                  $('#tab_versement tbody').html("");
                     var tableAvance = data.reglement;
                     var trHTMLAv='';
                     var mtAv=0;
@@ -699,7 +705,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                          mtAv += parseFloat(element.avance);
                         trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
                     });
-                    $('#tab_avance tbody').append(trHTMLAv);
+                    $('#tab_versement tbody').append(trHTMLAv);
                     
                     if(!isNaN(mtAv)) {
                         var rel = data.montantTotal - mtAv;
@@ -730,7 +736,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     cache: false,
                     success: function(data) {
                         $('#rgl_montantRestant').text(data.nbRegle);
-                        $('#rgl_avance').text(data.nbNonRegle);
+                        $('#rgl_versement').text(data.nbNonRegle);
                         $('#rgl_reliquat').text(data.nbAnnule);
                     
                     }
