@@ -33,46 +33,22 @@ td    { vertical-align: top; }
     <bookmark title="Lettre" level="0" ></bookmark>
     <br>
     <br>
-    <table cellspacing="0" style="border: 1px;width: 100%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="border: 0px;width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td>
             <table cellspacing="0" style="width: 40%; text-align: center; font-size: 14px">
                 <tr>
-                    <td style="width: 100%; ">
-                        LOGO
+                    <td style="width: 100%; " >
+                        <img alt="" src="../../assets/images/logo1.png">  
                     </td>
                 </tr>
             </table> 
             </td>
-            <td>
-            <table cellspacing="0" style="width: 60%; text-align: center; font-size: 14px">
-                <tr>
-                    <td style="width: 100%;">
-                        <br>
-                        <span style="font-size: 14px;color:#68BC31;" >MACFISH PRODUCTION SUARL</span>
-                        <br><br>
-                        <span >Rue Savers Rufisque</span>
-                         <br><br>
-                        <span >TEL : (00) 221 33 836 35 12 - Fax: (00) 33 836 35 07</span>
-                         <br><br>
-                        <span >E-mail : macfishrufisque@orange.sn</span>
-                         <br><br>
-                        <span >Site : www.macfishproduction.sn</span>
-                         <br><br>
-                         <div style="text-align: right" >Facture N° <?php echo $row['numero'];?></div>
-                         <br>
-                         <br>
-                         
-                    </td>
-                    
-                </tr>
-            </table>
-            </td>
         </tr>
     </table>
-    <table cellspacing="0" style="border:1px;color:#444444;width: 100%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="margin-top:-2px;border:1px;color:#444444;width: 100%; text-align: center; font-size: 14px">
         <tr>
-            <td style="width:50%;">
+            <td style="width:52%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
                         <td>
@@ -90,7 +66,10 @@ td    { vertical-align: top; }
                     </tr>
                 </table>
             </td>
-             <td style="width:50%;">
+            <td>
+                        <img alt="" src="../../assets/images/trait.png">  
+            </td>
+             <td style="width:35%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
                         <td>
