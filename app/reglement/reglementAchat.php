@@ -42,8 +42,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_REGLEMENT'><a href="#" id="GRP_NEW">Regler </a></li>
-                                        <li class="divider"></li>
+                                        
                                         <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
                                     </ul>
                                 </div>
@@ -280,6 +279,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="reliquat"></span>
                                 </div>
                             </div>
+                           </div>
+                           <div id="VERSEMENT_FORM">
+                               <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Date </div>
                                 <div class="profile-info-value">
@@ -299,6 +301,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="versement"></span>
                                 </div>
                             </div>
+                           </div>
                         </div>
                                             </div>
                                         </div>
@@ -691,12 +694,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                         trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#TABLE_ACHATS tbody').append(trHTML);
-                    if(data.regle==0)
+                    if(data.regle==0){
                         $('#status').text('Non reglé');
-                    else if(data.regle==1)
+                        $('#VERSEMENT_FORM').css("visibility", 'visible');
+                    }
+                    else if(data.regle==1) {
                         $('#status').text('Reliquat à verser');
-                    else if(data.regle==2)
+                        $('#VERSEMENT_FORM').css("visibility", 'visible');
+                    }
+                    else if(data.regle==2) {
                         $('#status').text('Réglé');
+                        $('#VERSEMENT_FORM').css("visibility", 'hidden');
+                    }
                   $('#tab_versement tbody').html("");
                     var tableAvance = data.reglement;
                     var trHTMLAv='';
