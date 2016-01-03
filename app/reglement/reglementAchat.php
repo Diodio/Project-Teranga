@@ -281,6 +281,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                            </div>
                            <div id="VERSEMENT_FORM">
+                               <h4 class="widget-title lighter">
+                                    <i class="ace-icon fa fa-plus orange"></i>
+                                    Ajouter un versement
+                                </h4>
                                <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Date </div>
