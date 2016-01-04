@@ -39,7 +39,7 @@ td    { vertical-align: top; }
             <table cellspacing="0" style="width: 40%; text-align: center; font-size: 14px">
                 <tr>
                     <td style="width: 100%; " >
-                        <img alt="" src="../../assets/images/logo1.png" style="margin-left:-5px">  
+                        <img alt="" src="../../assets/images/logo2.png" style="margin-left:-5px">  
                     </td>
                 </tr>
             </table> 
@@ -48,7 +48,7 @@ td    { vertical-align: top; }
     </table>
     <table cellspacing="0" style="margin-top:-2px;border:1px;color:#444444;width: 100%; text-align: center; font-size: 14px">
         <tr>
-            <td style="width:52%;">
+            <td style="width:45%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
                     <tr>
                         <td>
@@ -69,30 +69,36 @@ td    { vertical-align: top; }
             <td>
                         <img alt="" src="../../assets/images/trait.png">  
             </td>
-             <td style="width:35%;">
-                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
+             <td style="width:52.6%;">
+                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 12px">
                     <tr>
-                        <td>
+                        <td style="height: 15px;">
+                            NUMERO FACTURE: <b><?php echo $row['numero'];?></b>&nbsp;&nbsp;
+                            DATE FACTURE: <b><?php echo date('d/m/Y');?></b>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td style="height: 15px;">
                             Mode de paiement: <b><?php echo $row['modePaiement'];?></b>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="height: 15px;">
                             Notre banque: <b>BICIS (SENEGAL)</b>
                         </td>
                     </tr>
                     <tr>
-                        <td >
+                        <td style="height: 15px;">
                             Adresse: <b>2, Avenue L S SENGHOR DAKAR</b>
                         </td>
                     </tr>
                     <tr>
-                        <td >
+                        <td style="height: 15px;">
                             SWIFT: <b>BICISNDXXXX</b>
                         </td>
                     </tr>
                     <tr>
-                        <td >
+                        <td style="height: 15px;">
                             Numero compte: <b>SN08 SN01 0015 2001 7895 7000 0733</b>
                         </td>
                     </tr>

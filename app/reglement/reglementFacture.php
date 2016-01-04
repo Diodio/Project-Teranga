@@ -66,66 +66,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </a>
                         </div>
                     </div>
-                    
-                    <div id="winModalReglement" class="modal fade" tabindex="-1">
-                 <form id="FRM_GROUP" class="form-horizontal" action="#" onsubmit="return false;" style="margin-bottom: 0px">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Réglement Facture</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="FRM_REGLEMENT" class="form-horizontal" role="form">
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="date" name="date" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-<!--                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label> -->
-<!--                                     <div class="col-sm-9"> -->
-<!--                                         <input type="text" data-date-format="dd-mm-yyyy" id="date" name="date" placeholder="" class="span10 date-picker"> -->
-<!--                                     </div> -->
-<!--                                     <span class="add-on"> <i class="icon-calendar"></i></span -->
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Montant (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="montant" name="montant" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Avance (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                              <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Reliquat (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button id="FRM_REGLEMENT_SAVE" class="btn btn-small btn-info" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Régler
-                            </button>
-                            
-                            <button class="btn btn-small btn-danger" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Annuler
-                            </button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-                
-                            </form>
-            </div>
-
+     
                     <div class="widget-body">
                         <div class="widget-main no-padding">
                           <table id="LIST_ACHATS" class="table table-striped table-bordered table-hover">
@@ -250,19 +191,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="profile-info-row">
                         <div class="profile-info-name">Date facture </div>
                         <div class="profile-info-value">
-                            <span id="AchatDate"></span>
+                            <span id="dateFacture"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Nom Mareyeur </div>
+                        <div class="profile-info-name">Client</div>
                         <div class="profile-info-value">
-                            <span id="AchatNomMareyeur"></span>
+                            <span id="client"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Origine </div>
+                        <div class="profile-info-name">Adresse </div>
                         <div class="profile-info-value">
-                            <span id="factureAdresseMareyeur"></span>
+                            <span id="adresse"></span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Pays </div>
+                        <div class="profile-info-value">
+                            <span id="pays"></span>
                         </div>
                     </div>
                     <div class="profile-info-row">
@@ -279,14 +226,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <table class="table table-bordered table-hover"id="TABLE_ACHATS">
                         <thead>
                             <tr>
+                                  <th class="text-center">
+                                            Nombre de colis
+                                    </th>
                                     <th class="text-center">
                                             Désignation
                                     </th>
                                     <th class="text-center">
-                                            Prix Unitaire
+                                            Quantite (kg)
                                     </th>
                                     <th class="text-center">
-                                            Quantite (kg)
+                                            Prix Unitaire
                                     </th>
                                     <th class="text-center">
                                             Montant
@@ -424,7 +374,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             MessageSelected = function(click)
             {
                 if (checkedFacture.length == 1){
-                    loadAchatSelected(checkedFacture[0]);
+                    loadFactureSelected(checkedFacture[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -440,7 +390,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             MessageUnSelected = function()
             {
                if (checkedFacture.length === 1){
-                    loadAchatSelected(checkedFacture[0]);
+                    loadFactureSelected(checkedFacture[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -478,7 +428,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 return false;
             };
-             loadAchats = function() {
+             loadFactures = function() {
                 nbTotalAchatChecked = 0;
                 checkedFacture = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
@@ -591,8 +541,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
             
-            loadAchats();
-            loadAchatSelected = function(factureId)
+            loadFactures();
+            loadFactureSelected = function(factureId)
             {
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
@@ -600,7 +550,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero facture: "+ data.numero);
-                    $('#AchatDate').text(data.dateAchat);
+                    $('#dateFacture').text(data.dateFact);
                     $('#AchatNomMareyeur').text(data.nomMareyeur);
                     $('#factureAdresseMareyeur').text(data.adresse);
                     $('#factureUser').text(data.user);
