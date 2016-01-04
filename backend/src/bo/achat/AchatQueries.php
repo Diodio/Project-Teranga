@@ -102,15 +102,11 @@ class AchatQueries {
 
   
 
-     public function findById($produitId) {
-            $query = Bootstrap::$entityManager->createQuery("select p from Achat\Achat p where p.id = :produitId");
-            $query->setParameter('familleId', $produitId);
-            $produit = $query->getResult();
-            if ($produit != null)
-                return $produit[0];
-            else
-                return null;
-        }
+     public function findById($achatId) {
+		if ($achatId != null) {
+			return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
+		}
+	}
     public function count($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
@@ -163,6 +159,10 @@ class AchatQueries {
         $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.status=2 WHERE a.id IN( '$achatId')");
         return $query->getResult();
     }
+    public function modifReglement($achatId, $status) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Achat\Achat a set a.regle=$status WHERE a.id IN( '$achatId')");
+        return $query->getResult();
+    }
     public function findValidAchatByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -187,7 +187,7 @@ class AchatQueries {
     }
     
     public function findRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=2 AND status=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -195,19 +195,41 @@ class AchatQueries {
     }
     
     public function findNonRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=0 AND codeUsine="'.$codeUsine.'"';
+            $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=0 AND status=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
     
-    public function findRegleAnnuleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
+    public function findARegleByUsine($codeUsine) {
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=1 AND status=1 AND  codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
+    }
+    
+    public function findReglementByAchat($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT datePaiement, avance FROM reglement_achat WHERE achat_id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
+    public function getTotalReglementByAchat($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_achat WHERE achat_id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            return $achat[0];
+        }
     }
     
      public function findAchatDetails($achatId) {

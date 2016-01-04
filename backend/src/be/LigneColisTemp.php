@@ -1,27 +1,37 @@
 <?php
 
-namespace Reglement;
+namespace Facture;
 
-/** @Entity @HasLifecycleCallbacks 
- * @Table(name="reglement_facture") * */
-class ReglementFacture {
+/** @Entity @HasLifecycleCallbacks
+ * @Table(name="ligne_colis_temp") * */
+class LigneColisTemp {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
      */
     protected $id;
     
-   /** @Column(type="date", nullable=true) */
-    public $datePaiement;
-    
-    /** @ManyToOne(targetEntity="Facture\Facture", inversedBy="facture") */
-    protected $facture;
+     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $nombreCarton;
     
     /**
-     * @Column(type="string", length=60, nullable=true)
+     * @Column(type="integer", nullable=false)
      * */
-    protected $avance;
+    protected $quantiteParCarton;
+
+     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $produitId;
+
+     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $factureId;
     
+
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
 
@@ -30,17 +40,25 @@ class ReglementFacture {
 
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
-    
+
     function getId() {
         return $this->id;
     }
 
-    function getDatePaiement() {
-        return $this->datePaiement;
+    function getNombreCarton() {
+        return $this->nombreCarton;
     }
 
-    function getFacture() {
-        return $this->facture;
+    function getQuantiteParCarton() {
+        return $this->quantiteParCarton;
+    }
+
+    function getProduitId() {
+        return $this->produitId;
+    }
+
+    function getFactureId() {
+        return $this->factureId;
     }
 
     function getCreatedDate() {
@@ -59,12 +77,20 @@ class ReglementFacture {
         $this->id = $id;
     }
 
-    function setDatePaiement($datePaiement) {
-        $this->datePaiement = $datePaiement;
+    function setNombreCarton($nombreCarton) {
+        $this->nombreCarton = $nombreCarton;
     }
 
-    function setFacture($facture) {
-        $this->facture = $facture;
+    function setQuantiteParCarton($quantiteParCarton) {
+        $this->quantiteParCarton = $quantiteParCarton;
+    }
+
+    function setProduitId($produitId) {
+        $this->produitId = $produitId;
+    }
+
+    function setFactureId($factureId) {
+        $this->factureId = $factureId;
     }
 
     function setCreatedDate($createdDate) {
@@ -80,18 +106,11 @@ class ReglementFacture {
     }
 
     
-         /** @PrePersist */
+        
+        /** @PrePersist */
     public function doPrePersist() {
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
-    public function getAvance() {
-        return $this->avance;
-    }
 
-    public function setAvance($avance) {
-        $this->avance = $avance;
-    }
-
-
-    }
+}

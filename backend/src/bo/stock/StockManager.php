@@ -74,6 +74,14 @@ class StockManager {
        
   }
 
+  public function getStockValueParProduit($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+        $stock = $stockQueries->recupereNombreStockParProduit($produitId, $codeUsine);
+        $stockReel = 0;
+        if($stock['stock']!=NULL)
+            $stockReel=$stock['stock'];
+        return $stockReel;
+  }
   public function updateNbStock($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
     	return $stockQueries->updateNbStock($produitId, $codeUsine, $nbStock);
@@ -82,6 +90,10 @@ class StockManager {
   public function updateNbStockReel($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
     	return $stockQueries->updateNbStockReel($produitId, $codeUsine, $nbStock);
+  }
+  public function updateSeuilStock($produitId, $codeUsine, $nbSeuil ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->updateSeuilStock($produitId, $codeUsine, $nbSeuil);
   }
     public function resetStockProvisoire($produitId, $codeUsine ) {	
        $stockQueries = new StockQueries();
@@ -112,20 +124,25 @@ class StockManager {
     return 0;
   }
   public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $stock) {
-            $stockReel = $this->findStockReelByProduitId($produitId, $codeUsine);
-            if ($stockReel == 0) {
-                $stockReel = new \Stock\StockReel();
-                $stockReel->setCodeUsine($codeUsine);
-                $stockReel->setLogin($login);
-                $produitManger = new \Produit\ProduitManager();
-                $produit= $produitManger->findById($produitId);
-                $stockReel->setProduit($produit);
-                $stockReel->setStock($stock);
-                $this->insert($stockReel);
-            } else {
-                $this->updateNbStockReel($produitId, $codeUsine, $stock);
-            }
-            $this->resetStockProvisoire($produitId, $codeUsine);
-        
+        $stockReel = $this->findStockReelByProduitId($produitId, $codeUsine);
+        if ($stockReel == 0) {
+            $stockReel = new \Stock\StockReel();
+            $stockReel->setCodeUsine($codeUsine);
+            $stockReel->setLogin($login);
+            $produitManger = new \Produit\ProduitManager();
+            $produit = $produitManger->findById($produitId);
+            $stockReel->setProduit($produit);
+            $stockReel->setStock($stock);
+            $seuil = ($stock * 25)/100;
+            $stockReel->setSeuil($seuil);
+            $this->insert($stockReel);
+        } else {
+            $valueStock = $this->getStockValueParProduit($produitId, $codeUsine);
+            $seuil = (($valueStock+$stock) * 25/100);
+            $this->updateNbStockReel($produitId, $codeUsine, $stock);
+            $this->updateSeuilStock($produitId, $codeUsine, $seuil);
+        }
+        $this->resetStockProvisoire($produitId, $codeUsine);
     }
+
 }

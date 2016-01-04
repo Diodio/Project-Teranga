@@ -29,8 +29,8 @@ class AchatManager {
     }
 
 
-   public function findById($produitId) {
-       return $this->achatQuery->findById($produitId);
+   public function findById($achatId) {
+       return $this->achatQuery->findById($achatId);
     }
    
     
@@ -63,6 +63,9 @@ class AchatManager {
     }
     public function annulerAchat($achatId) {
         return $this->achatQuery->annulerAchat($achatId);
+    }
+    public function modifReglement($achatId, $status) {
+        return $this->achatQuery->modifReglement($achatId, $status);
     }
 public function getLastNumberAchat() {
     $lastAchatId=$this->achatQuery->getLastNumberAchat();
@@ -106,7 +109,7 @@ public function findStatisticByUsine($codeUsine) {
         if ($codeUsine != null) {
             $regle = $this->achatQuery->findRegleByUsine($codeUsine);
             $nonRegle = $this->achatQuery->findNonRegleByUsine($codeUsine);
-            $achatAnnuler = $this->achatQuery->findRegleAnnuleByUsine($codeUsine);
+            $achatARegler = $this->achatQuery->findARegleByUsine($codeUsine);
             $achatTab = array();
                 if ($regle != null)
                     $achatTab['nbRegle'] = $regle;
@@ -116,10 +119,10 @@ public function findStatisticByUsine($codeUsine) {
                     $achatTab['nbNonRegle'] = $nonRegle;
                 else
                     $achatTab['nbNonRegle']= 0;
-                if ($achatAnnuler != null)
-                    $achatTab['nbAnnule'] = $achatAnnuler;
+                if ($achatARegler != null)
+                    $achatTab['nbARegler'] = $achatARegler;
                 else
-                    $achatTab['nbAnnule'] = 0;
+                    $achatTab['nbARegler'] = 0;
                 
                
             return $achatTab;
@@ -131,6 +134,7 @@ public function findStatisticByUsine($codeUsine) {
         if ($achatId != null) {
             $achat = $this->achatQuery->findAchatDetails($achatId);
             $ligneAchat = $this->achatQuery->findAllProduitByAchact($achatId);
+             $reglement = $this->achatQuery->findReglementByAchat($achatId);
             $achatDetail = array();
             foreach ($achat as $key => $value) {
                // $achatDetail ['id'] = $value ['achat.id'];
@@ -144,11 +148,20 @@ public function findStatisticByUsine($codeUsine) {
                 $achatDetail ['regle']  =  $value ['regle'];
                 $achatDetail ['reliquat']  =  $value ['reliquat'];
                 $achatDetail['ligneAchat'] = $ligneAchat;
+                $achatDetail['reglement'] = $reglement;
             }
             return $achatDetail;
         }
         else
             return null;
+    }
+    
+    public function getTotalReglementByAchat($achatId) {
+        $som=0;
+        $achat=$this->achatQuery->getTotalReglementByAchat($achatId);
+        if($achat['sommeAvance'] !=NULL)
+            $som=$achat['sommeAvance'];
+        return $som;
     }
     /**
      * 

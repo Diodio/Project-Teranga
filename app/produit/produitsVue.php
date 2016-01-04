@@ -59,7 +59,7 @@
                             <h3 class="smaller lighter blue no-margin">Produit</h3>
                         </div>
 
-                        <div class="modal-body" style="height: 240px;">
+                        <div class="modal-body" style="height: 200px;">
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
                                     <div class="col-sm-9">
@@ -76,12 +76,6 @@
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
                                     <div class="col-sm-9">
                                         <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Seuil </label>
-                                    <div class="col-sm-9">
-                                            <input type="text" id="seuil" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
                         </div>
@@ -436,7 +430,15 @@
         $(grid_selector).jqGrid('GridUnload');
         $('.ui-jqdialog').remove();
     });
-        
+       function calculSeuil(){
+           var stock = parseFloat($("#stockReel").val());
+           if(!isNaN(stock) && stock!==0) {
+            var seuil=0;
+           if(stock > 0)
+              seuil = (stock * 25)/100;
+           return seuil;
+       }
+   }
          produitProcess = function ()
         {
             
@@ -445,7 +447,7 @@
             var designation = $("#designation").val();
             var stockProvisoire = $("#stockProvisoire").val();
             var stockReel = $("#stockReel").val();
-            var seuil = $("#seuil").val();
+            var seuil = calculSeuil();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             
@@ -495,17 +497,9 @@
 
 
     
-        $("#winModalProduit").bind("click", function () {
-            calculSeuil();
-            
-        });
         
-        $("#seuil").bind("focus", function () {
-            calculSeuil();
-            
-        });
-       
-
+        
+      
        //Validate
        $("#SAVE").bind("click", function () {
        $('#validation-form').validate({
@@ -565,16 +559,6 @@
 
        
        
-       function calculSeuil(){
-           var stock = parseInt($("#stock").val());
-            var seuil;
-           if(stock > 0) {
-              seuil = (stock * 25)/100;
-              if(!isNaN(seuil))
-                $("#seuil").val(seuil);
-            }
-            else $("#seuil").val(0);
-                
-       }
+       
     });
 </script>

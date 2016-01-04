@@ -42,69 +42,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_REGLEMENT'><a href="#" id="GRP_NEW">Regler </a></li>
-                                        <li class="divider"></li>
+                                        
                                         <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
         </div>
-        
-        <div id="winModalReglement" class="modal fade" tabindex="-1">
-                 <form id="FRM_GROUP" class="form-horizontal" action="#" onsubmit="return false;" style="margin-bottom: 0px">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Réglement Facture</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="FRM_REGLEMENT" class="form-horizontal" role="form">
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Date </label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_date" name="date" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Montant (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_montantRestant" name="montant" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Avance (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_avance" name="avance" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                              <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Reliquat (TTC)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="rgl_reliquat" name="avance" placeholder="" class="col-xs-10 col-sm-6">
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button id="FRM_REGLEMENT_SAVE" class="btn btn-small btn-info" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Régler
-                            </button>
-                            
-                            <button class="btn btn-small btn-danger" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Annuler
-                            </button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-                
-                            </form>
-            </div>
-        
+  
         <div class="row">
             <div class="col-sm-5">
                 
@@ -210,7 +154,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NON_REGLE">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_A_REGLER">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Reliquat a verser</div>
 
@@ -223,7 +167,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NONVALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_REGLEMENT_NON_REGLE">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Achats non réglées </div>
                                                         </div>
@@ -312,18 +256,42 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="status"></span>
                                 </div>
                             </div>
+                        </div>
+                             <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des versements
+                        </h4>
+                    <table class="table table-bordered table-hover"id="tab_versement">
+				<thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Montant</th>
+                                    </tr>
+                                </thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+                           <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Reliquat </div>
                                 <div class="profile-info-value">
                                     <span id="reliquat"></span>
                                 </div>
                             </div>
+                           </div>
+                           <div id="VERSEMENT_FORM">
+                               <h4 class="widget-title lighter">
+                                    <i class="ace-icon fa fa-plus orange"></i>
+                                    Ajouter un versement
+                                </h4>
+                               <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Date </div>
                                 <div class="profile-info-value">
                                     <div class="col-xs-8 col-sm-5">
                                         <div class="input-group">
-                                            <input class="form-control date-picker" id="dateAvance" name="dateAvance" type="text" data-date-format="dd-mm-yyyy" />
+                                            <input class="form-control date-picker" id="dateVersement" name="dateVersement" type="text" data-date-format="dd-mm-yyyy" />
                                                 <span class="input-group-addon">
                                                         <i class="fa fa-calendar bigger-110"></i>
                                                 </span>
@@ -332,11 +300,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">avance </div>
+                                <div class="profile-info-name">Montant </div>
                                 <div class="profile-info-value">
-                                    <span id="avance"></span>
+                                    <span id="versement"></span>
                                 </div>
                             </div>
+                           </div>
                         </div>
                                             </div>
                                         </div>
@@ -377,22 +346,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                 .next().on(ace.click_event, function(){
                         $(this).prev().focus();
                 });
-              $('#avance').editable({
+              $('#versement').editable({
                             type: 'text',
-                            name: 'avance',
+                            name: 'versement',
                             title: "Saisir un montant",
                             id: 'id',
                             submit : 'OK',
                             validate:function(value){
+                                //alert($('.date-picker').val());
                                 if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                                if($('.date-picker').val()==='') return 'Veuillez saisir  une date S.V.P.!';
+                                   
                             },
                             placement: 'right',
                             url: function(editParams) {                             
-                                var avance = editParams.value;
+                                var versement = editParams.value;
                                 //alert(code);
                                 function save() {
-                                    if(avance !== ""){
-                                        saveAvance(checkedAchat[0], avance);
+                                    if(versement !== ""){
+                                        saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                     }
                                     else {
                                             
@@ -411,9 +383,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                         });
                         
                          
-           function saveAvance(achatId, avance)
+           function saveAvance(achatId, versement, dateVersement)
                 {
-                    var ACTION = "<?php echo App::ACTION_UPDATE; ?>";
+                    var ACTION = "<?php echo App::ACTION_INSERT; ?>";
                     $.ajax({
                         url: '<?php echo App::getBoPath(); ?>/reglement/ReglementController.php',
                         type: 'POST',
@@ -421,7 +393,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         data: {
                             ACTION: ACTION,
                             achatId: achatId,
-                            avance: avance
+                            versement: versement,
+                            dateVersement: dateVersement
                         },
                         success: function(data)
                         {
@@ -429,8 +402,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             if (data.rc == 0){
                                 $.gritter.add({
                                     title: 'Server notification',
-                                    text: "<?php printf("Avance ajoute"); ?>",
+                                    text: "<?php printf("Versement enregistré avec succes"); ?>",
                                     class_name: 'gritter-success gritter-light'
+                                });
+                                $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementAchat.php", function () {
                                 });
                             }
                             else{
@@ -463,7 +438,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     success: function(data) {
                         $('#INDIC_REGLEMENT_REGLES').text(data.nbRegle);
                         $('#INDIC_REGLEMENT_NON_REGLE').text(data.nbNonRegle);
-                        $('#INDIC_REGLEMENT_NONVALIDES').text(data.nbAnnule);
+                        $('#INDIC_REGLEMENT_A_REGLER').text(data.nbARegler);
                     
                     }
                 });
@@ -723,16 +698,40 @@ $codeUsine = $_COOKIE['codeUsine'];
                         trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#TABLE_ACHATS tbody').append(trHTML);
-                    if(data.regle==0)
+                    if(data.regle==0){
                         $('#status').text('Non reglé');
-                    else if(data.regle==1)
+                        $('#VERSEMENT_FORM').css("visibility", 'visible');
+                    }
+                    else if(data.regle==1) {
                         $('#status').text('Reliquat à verser');
-                    else if(data.regle==2)
+                        $('#VERSEMENT_FORM').css("visibility", 'visible');
+                    }
+                    else if(data.regle==2) {
                         $('#status').text('Réglé');
-                    if(data.reliquat !==null)
-                        $('#reliquat').text(data.reliquat);
-                    else
-                        $('#reliquat').text('Non défini');
+                        $('#VERSEMENT_FORM').css("visibility", 'hidden');
+                    }
+                  $('#tab_versement tbody').html("");
+                    var tableAvance = data.reglement;
+                    var trHTMLAv='';
+                    var mtAv=0;
+                    $(tableAvance).each(function(index, element){
+                         mtAv += parseFloat(element.avance);
+                        trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
+                    });
+                    $('#tab_versement tbody').append(trHTMLAv);
+                    
+                    if(!isNaN(mtAv)) {
+                        var rel = data.montantTotal - mtAv;
+                        $('#reliquat').text(rel);
+                    }
+                    trHTMLAv='';   
+                    $('#TABLE_ACHATS tbody').html("");
+                    var table = data.ligneAchat;
+                    var trHTML='';
+                    $(table).each(function(index, element){
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                    });
+                    $('#TABLE_ACHATS tbody').append(trHTML);
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();
@@ -750,7 +749,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     cache: false,
                     success: function(data) {
                         $('#rgl_montantRestant').text(data.nbRegle);
-                        $('#rgl_avance').text(data.nbNonRegle);
+                        $('#rgl_versement').text(data.nbNonRegle);
                         $('#rgl_reliquat').text(data.nbAnnule);
                     
                     }

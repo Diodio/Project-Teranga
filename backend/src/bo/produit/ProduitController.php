@@ -95,6 +95,14 @@ class ProduitController extends BaseController implements BaseAction {
                             } else if ($request['stockProvisoire'] !== 0 && $request['stockReel'] !== 0) {
                                 $stock = new \Stock\StockReel();
                                 $stock->setStock($request['stockReel']);
+                                $stock1 = new \Stock\StockProvisoire();
+                                $stock1->setStock($request['stockProvisoire']);
+                                $stock1->setSeuil($request['seuil']);
+                                $stock1->setCodeUsine($request['codeUsine']);
+                                $stock1->setLogin($request['login']);
+                                $stock1->setProduit($produit);
+                                $stockManger1 = new \Stock\StockManager();
+                                $stockManger1->insert($stock1);
                             }
                             $stock->setSeuil($request['seuil']);
                             $stock->setCodeUsine($request['codeUsine']);

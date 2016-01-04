@@ -122,6 +122,7 @@ class App
      const ACTION_GET_INFO_CLIENT='GET_INFO_CLIENT';
      const ACTION_GET_STOCK='GET_STOCK';
      const ACTION_LIST_PRODUITS='LIST_PRODUITS';
+     const ACTION_INSERT_TEMP='INSERT_TEMP';
 
      static function getBoPath() {
          

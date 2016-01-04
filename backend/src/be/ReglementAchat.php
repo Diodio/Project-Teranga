@@ -11,7 +11,7 @@ class ReglementAchat {
      */
     protected $id;
     
-   /** @Column(type="datetime", nullable=true) */
+   /** @Column(type="date", nullable=true) */
     public $datePaiement;
     
     /** @ManyToOne(targetEntity="Achat\Achat", inversedBy="achat", cascade={"persist"}) */

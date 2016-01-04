@@ -611,10 +611,15 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            var mt=parseInt($("#montantTotal").val());
            var avance=parseInt($("#avance").val());
            rel=mt - avance;
-           if(!isNaN(rel) && rel>0) 
+           if(!isNaN(rel) && rel>0){
               $("#reliquat").val(rel);
-          else if(!isNaN(rel) && rel===0) {
+              
+              $('#regleAchat').attr("disabled", true);
+              $('#regleAchat').prop('checked', false);
+           }
+          else if(!isNaN(rel) && rel==0) {
               $('#regleAchat').attr("disabled", false);
+              $('#regleAchat').prop('checked', true);
               $("#reliquat").val(0);
           }  
           else

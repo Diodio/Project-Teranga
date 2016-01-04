@@ -248,9 +248,16 @@ $codeUsine = $_COOKIE['codeUsine'];
 							
 						</tbody>
 					</table>
+                                    
 				</div>
 			</div>
-             
+             <div class="row">
+                 <a id='delete_row_produit'
+                        class="btn btn-danger btn-sm" title="Supprimer une ligne"
+                        alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>Supprimer
+                </a>
+             </div>
+            <div class="space-6"></div> 
         <div class="row">
             <div class="col-md-12 column">
                 
@@ -397,9 +404,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
                                                     <select id="modePaiement" name="modePaiement" class="col-xs-12 col-sm-10">
-                                                                <option value="Esp">Especes</option>
-                                                                <option value="ch">Cheque</option>
-                                                                <option value="vir">Virement</option>
+                                                                <option value="ESPECE">Especes</option>
+                                                                <option value="CHEQUE">Cheque</option>
+                                                                <option value="VIREMENT">Virement</option>
                                                         </select>
                                                 </div>
                                 </div>
@@ -531,11 +538,13 @@ $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
      $('#CMB_DESIGNATIONS').select2();
      $('#qteColis0').select2();
+     var action = "<?php echo App::ACTION_INSERT; ?>"
      var colisage = [];
      var totalColis=0;
      var qteTotal=0;
      var mtTotal=0;
      var montantTtc=0;
+        var ch="[";
     $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -683,7 +692,7 @@ $(document).ready(function () {
         });
      var i=1;
      $("#add_row_colis").click(function(){
-     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='text' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
+     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='number' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
         <td><select id='qteColis"+i+"' name='qteColis"+i+"' class='form-control qte' ><option value='*' class='qteColis"+i+"'></option></select>");
       $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
         $('#qteColis'+i).select2();
@@ -699,7 +708,10 @@ $(document).ready(function () {
 		 }
 	 });
 
-
+//        $("#delete_row_produit").click(function(){
+//            var lgTable=$("#tab_produit").length;
+//                 $("#tab_produit"+(i-1)).html('');
+//        });
   
        $(document).delegate('#tab_logic_colis tr td select', 'change', function (event) {
         var id = $(this).closest('tr').attr('id');
@@ -776,20 +788,39 @@ $(document).ready(function () {
         var it=0;
         var row={};
         $('#tab_logic_colis tbody tr').find('td').each(function(){
-            
                 var $this = $(this);
                 var ncolis=$('#nbColis'+it).val();
                 var qte = $('#qteColis'+it).select2('data').text;
                 if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
                     pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
-                    row["produitId"] = produitId;
-                    row["nbColis"] = ncolis;
-                    row["qte"] = qte;
+                    
+                    it++;
                 }
-            it++;
-            });
-            colisage.push(row);
-            console.log(JSON.stringify(colisage));
+        });
+        var iter=0;
+        $("#tab_logic_colis tbody tr").each(function() {
+            var row='{';
+           // $(this).find('td#nbColis'+iter).eq(1).val();
+            //$(this).find('select').val();
+            var colis=$(this).find('#nbColis'+iter).val();
+            var quantite = $(this).find('#qteColis'+iter).select2('data').text;
+             if(typeof colis!=='undefined' && typeof quantite!=='undefined'){
+                 row+='"produitId":'+produitId+',"nbColis":'+colis+',"qte":'+quantite+'';
+            }
+            row+='},';
+          //  console.log('colis'+row);
+//            console.log('quantite'+quantite);
+//            row["produitId"] = produitId;
+//            row["nbColis"] = ''+colis;
+//            row["qte"] = quantite;
+//            colisage.push(row);
+            ch+=''+row;
+            iter++;
+        });
+        
+       // colisage.push(tblColis);
+        //console.log(colisage);    
+      //  console.log(JSON.stringify(colisage));
         var montant = parseInt(prix) * pNet;
         totalColis+=nbColis;
         qteTotal+=pNet;
@@ -817,6 +848,10 @@ $(document).ready(function () {
     //ajout des lignes
      $( "#AJOUT_PRODUIT" ).click(function(){
         ajoutLigne();
+//        ch = ch.substr(0,ch.length-4); 
+//            ch+=']';
+//         var obj = $.parseJSON(ch);
+//        console.log('colis'+ch);
   });
  function verifierPoids(qte, counter ){
            var nbColis=parseInt($("#nbColis"+counter).val());
@@ -834,11 +869,11 @@ $(document).ready(function () {
                 if(nbColis > qte ){
                   $.gritter.add({
                     title: 'Notification',
-                    text: 'Le nombre de colis ou la quantit saisi ne correspond pas au colisage du produit choisi',
+                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
                     class_name: 'gritter-error gritter-light '
                 });  
                  $("#nbColis"+counter).val("");
-                 $('#qteColis0').select2() ;
+                 $('#qteColis'+counter).val("*").change();
                 }
                 }
             }
@@ -932,7 +967,7 @@ $(document).ready(function () {
 		 }
 	 });
     $("#modePaiement").change(function() {
-        if($("#modePaiement").val() ==='ch') {
+        if($("#modePaiement").val() ==='CHEQUE') {
             $("#numCheque").attr("readonly", false); 
         }
         else {
@@ -1084,10 +1119,10 @@ $(document).ready(function () {
             return JSON.stringify(rows);
        }
        
-        factureProcess = function ()
+        factureProcess = function (Action)
         {
             
-            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            var ACTION = Action;
             var clientId = $("#CMB_CLIENTS").val();
             var numFacture= $('#numFacture').val();
             var heureFacture= $('#heureFacture').val();
@@ -1104,6 +1139,10 @@ $(document).ready(function () {
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             
+            ch = ch.substr(0,ch.length-4); 
+            ch+=']';
+           // console.log('colis'+ch);
+           // var obj = $.parseJSON(ch);
             var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
             var regle=false;
             if(Aregle === 'on')
@@ -1135,7 +1174,7 @@ $(document).ready(function () {
             formData.append('regle', regle);
             formData.append('jsonConteneur', tblConteneur);
             formData.append('jsonProduit', tblProduit);
-            formData.append('jsonColis', JSON.stringify(colisage));
+            formData.append('jsonColis', ch);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
@@ -1149,13 +1188,22 @@ $(document).ready(function () {
                 {
                     if (data.rc == 0)
                     {
-                        $.gritter.add({
+                        
+                        if(Action ==='INSERT') {
+                            $.gritter.add({
                             title: 'Notification',
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
-                        });
+                        window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
+                             });
+                        }
+                        else {
+                            window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                        }
+                            
                     } 
                     else
                     {
@@ -1181,6 +1229,7 @@ $(document).ready(function () {
 //        });
         
         $("#SAVE").bind("click", function () {
+        action="<?php echo App::ACTION_INSERT; ?>";
         $('#validation-form').validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
@@ -1267,7 +1316,8 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-				factureProcess();
+                           // alert(action);
+                            factureProcess(action);
 			},
 			invalidHandler: function (form) {
 			}
@@ -1275,9 +1325,100 @@ $(document).ready(function () {
 
 
         });
-        $("#FACTURE_PROFORMA").click(function()
-        {
-             window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+        $("#FACTURE_PROFORMA").bind("click", function () {
+        action="<?php echo App::ACTION_INSERT_TEMP; ?>";
+         $('#validation-form').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				nomClient: {
+					required: true
+				},
+				reference: {
+					required: true
+				},
+				origine: {
+					required: true
+				},
+				totalColis: {
+					required: true
+				},
+				qteTotal: {
+					required: true
+				},
+				portDechargement: {
+					required: true
+				},
+				montantHt: {
+					required: true
+				},
+				tva: {
+					required: true
+				},
+				montantTtc: {
+					required: true
+				},
+				modePaiement: {
+					required: true
+				}
+			},
+	
+			messages: {
+				nomClient: {
+					required: "Champ obligatoire."
+				},
+				reference: {
+					required: "Champ obligatoire."
+				},
+				origine: {
+					required: "Champ obligatoire."
+				},
+				totalColis: {
+					required: "Champ obligatoire."
+				},
+				qteTotal: {
+					required: "Champ obligatoire."
+				},
+				portDechargement: {
+					required: "Champ obligatoire."
+				},
+				montantHt: {
+					required: "Champ obligatoire."
+				},
+				tva: {
+					required: "Champ obligatoire."
+				},
+				montantTtc: {
+					required: "Champ obligatoire."
+				},
+				modePaiement: {
+					required: "Champ obligatoire."
+				}
+			},
+	
+	
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+                            factureProcess(action);
+			},
+			invalidHandler: function (form) {
+			}
+		});
+          
 
         });
         

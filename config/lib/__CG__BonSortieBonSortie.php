@@ -108,10 +108,10 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'numeroBonSortie', 'dateBonSortie', 'numeroContainer', 'numeroPlomb', 'numeroCamion', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'produit', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'client');
+            return array('__isInitialized__', 'id', 'numeroBonSortie', 'dateBonSortie', 'numeroContainer', 'numeroPlomb', 'numeroCamion', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'produit', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate');
         }
 
-        return array('__isInitialized__', 'id', 'numeroBonSortie', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'client');
+        return array('__isInitialized__', 'id', 'numeroBonSortie', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate');
     }
 
     /**
@@ -401,17 +401,6 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function getClient()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getClient', array());
-
-        return parent::getClient();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setId($id)
     {
 
@@ -583,17 +572,6 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDeletedDate', array($deletedDate));
 
         return parent::setDeletedDate($deletedDate);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setClient($client)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setClient', array($client));
-
-        return parent::setClient($client);
     }
 
     /**
