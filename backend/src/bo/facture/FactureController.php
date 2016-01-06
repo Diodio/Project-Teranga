@@ -128,23 +128,23 @@ private $logger;
             $facture->setClient($client);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
-                if($request['avance']!="") {
+                if($request['avance']!=""  && $request['regle']!="true") {
                     $reglementManager =new Reglement\ReglementManager();
                     $reglementManager->insert($reglement);
                 }
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
                 foreach ($jsonConteneur as $key => $ligneConteneur) {
-                   // if (isset($ligneConteneur["nConteneur"])) {
-                      //  if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
+                    if (isset($ligneConteneur["nConteneur"])) {
+                        if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
                             $conteneur = new \Facture\Conteneur();
                             $conteneur->setFacture($facture);
                             $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
                             $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
                             $conteneurManager = new \Facture\ConteneurManager();
                             $conteneurManager->insert($conteneur);
-                      //  }
-                    //}
-                }
+                        }
+                    }
+                        }
                 $jsonProduit = json_decode($_POST['jsonProduit'], true);
                 foreach ($jsonProduit as $key => $ligne) {
                     if (isset($ligne["nColis"])) {
@@ -161,6 +161,24 @@ private $logger;
                             if ($inserted->getId() != null) {
                                  $stockManager = new \Stock\StockManager();
                                  $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
+                            }
+                        }
+                    }
+                }
+                
+              $jsonColis = json_decode($_POST['jsonColis'], true);
+                foreach ($jsonColis as $key => $ligneC) {
+                    if (isset($ligneC["nbColis"])) {
+                        if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
+                            $colis= new \Facture\LigneColis();
+                            $colis->setNombreCarton($ligneC["nbColis"]);
+                            $colis->setQuantiteParCarton($ligneC["qte"]);
+                            $colis->setProduitId($ligneC["produitId"]);
+                            $colis->setFactureId($factureAdded->getId());
+                            $ligneColisManager = new \Facture\LigneColisManager;
+                            $inserted = $ligneColisManager->insert($colis);
+                            if ($inserted->getId() != null) {
+                                 $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
                             }
                         }
                     }

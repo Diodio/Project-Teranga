@@ -142,7 +142,9 @@ public function findStatisticByUsine($codeUsine) {
                 $achatDetail ['dateAchat']  = date_format(date_create($value ['dateAchat']), 'd/m/Y');
                 $achatDetail ['nomMareyeur']  = $value ['nom'];
                 $achatDetail ['adresse']  =  $value ['adresse'];
-                $achatDetail ['user']  =  $value ['login'];
+                $userManager = new \Utilisateur\UtilisateurManager();
+                $user = $userManager->findByLogin($value ['login'],$value ['codeUsine']);
+                $achatDetail ['user']  =  $user;
                 $achatDetail ['poidsTotal']  =  $value ['poidsTotal'];
                 $achatDetail ['montantTotal']  =  $value ['montantTotal'];
                 $achatDetail ['regle']  =  $value ['regle'];

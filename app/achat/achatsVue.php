@@ -204,9 +204,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<div class="col-sm-7">
 								<div class="clearfix">
 									<select id="modePaiement" class="col-xs-12 col-sm-10">
-										<option value="Esp">Especes</option>
-										<option value="ch">Cheque</option>
-										<option value="vir">Virement</option>
+										<option value="ESPECES">Especes</option>
+										<option value="CHEQUE">Cheque</option>
+										<option value="VIREMENT">Virement</option>
 									</select>
 								</div>
 							</div>
@@ -222,6 +222,16 @@ $codeUsine = $_COOKIE['codeUsine'];
 							</div>
 						</div>
 						<div class="form-group" style="margin-bottom: 132px;margin-top: 11%;">
+							<label class="col-sm-5 control-label no-padding-right"
+								for="form-field-1"> Date de paiement </label>
+							<div class="col-sm-7">
+								<div class="clearfix">
+									<input type="text" readonly id="datePaiement" placeholder=""
+										class="col-xs-12 col-sm-10">
+								</div>
+							</div>
+						</div>
+						<div class="form-group" style="margin-bottom: 177px;margin-top: 11%;">
 							<label class="col-sm-5 control-label no-padding-right"
 								for="form-field-1"> Avance </label>
 							<div class="col-sm-7">
@@ -506,11 +516,15 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     
 
     $("#modePaiement").change(function() {
-        if($("#modePaiement").val() ==='ch') {
+        if($("#modePaiement").val() ==='CHEQUE') {
             $("#numCheque").prop("readOnly", false);
         }
-        else {
+        else if($("#modePaiement").val() === 'VIREMENT') {
+            $("#datePaiement").prop("readOnly", false);
+        }
+        else{
             $("#numCheque").prop("readOnly", true);
+            $("#datePaiement").prop("readOnly", true);
         }
     });
 //    $('#designation0').change(function() {
