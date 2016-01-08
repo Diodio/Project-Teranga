@@ -28,6 +28,9 @@ private $logger;
                         case \App::ACTION_INSERT:
                                 $this->doInsert($request);
                                 break;
+                        case \App::ACTION_INSERT_FACTURE:
+                                $this->doInsertFacture($request);
+                                break;
                         case \App::ACTION_UPDATE:
                                 $this->doUpdate($request);
                                 break;
@@ -118,7 +121,46 @@ private $logger;
             $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
+    
 
+    public function doInsertFacture($request) {
+        try {
+            $reglementManager = new Reglement\ReglementManager();
+            $factureManager = new Facture\FactureManager();
+            $facture = $factureManager->findById($request['factureId']);
+            $montantTotal = $facture->getMontantTtc();
+            $somAvance = $factureManager->getTotalReglementByFacture($request['factureId']);
+            $reliquat = $montantTotal - $somAvance;
+            if($reliquat !=0){
+            if ($request['versement'] <= $reliquat) {
+                $reglement = new \Reglement\ReglementFacture();
+                $reglement->setFacture($facture);
+                $reglement->setAvance($request['versement']);
+                $reglement->setDatePaiement(new \DateTime($request['dateVersement']));
+                $reglementAdded = $reglementManager->insert($reglement);
+                if ($reglementAdded->getId() != null) {
+                     $somme = $factureManager->getTotalReglementByFacture($request['factureId']);
+                     $reliquat = $montantTotal - $somme;
+                     if($reliquat==0)
+                         $factureManager->modifReglement ($request['factureId'], 2);
+                     else {
+                         $factureManager->modifReglement ($request['factureId'], 1);
+                     }
+                    $this->doSuccess($reglementAdded->getId(), 'Versement enregistré avec succes');
+                } else {
+                    $this->doError('-1', 'Impossible d\'inserer ce versement');
+                }
+            } else {
+                $this->doError('-1', 'Le montant ne doit pas etre supérieur au reliquat');
+            }
+            }
+            else{
+                 $this->doError('-1', 'Versements déja effectués');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
+    }
     public function doList($request) {
         try {
             $achatManager = new AchatManager();

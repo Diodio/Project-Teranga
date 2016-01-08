@@ -1178,7 +1178,7 @@ $(document).ready(function () {
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/facture/factureController.php',
+                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,

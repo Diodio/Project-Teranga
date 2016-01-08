@@ -223,31 +223,37 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des produits
                         </h4>
-                    <table class="table table-bordered table-hover"id="TABLE_ACHATS">
-                        <thead>
-                            <tr>
-                                  <th class="text-center">
-                                            Nombre de colis
-                                    </th>
-                                    <th class="text-center">
-                                            Désignation
-                                    </th>
-                                    <th class="text-center">
-                                            Quantite (kg)
-                                    </th>
-                                    <th class="text-center">
-                                            Prix Unitaire
-                                    </th>
-                                    <th class="text-center">
-                                            Montant
-                                    </th>
-                            </tr>
-                        </thead>
-				<tbody>
-				
-				</tbody>
-			</table>
+                <table class="table table-bordered table-hover"id="TABLE_FACTURES">
+                    <thead>
+                        <tr>
+                              <th class="text-center">
+                                        Nombre de colis
+                                </th>
+                                <th class="text-center">
+                                        Désignation
+                                </th>
+                                <th class="text-center">
+                                        Quantite (kg)
+                                </th>
+                                <th class="text-center">
+                                        Prix Unitaire
+                                </th>
+                                <th class="text-center">
+                                        Montant
+                                </th>
+                        </tr>
+                    </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
                         <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Total colis </div>
+                                <div class="profile-info-value">
+                                    <span id="nbColis"></span>
+                                </div>
+                            </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Poids Total </div>
                                 <div class="profile-info-value">
@@ -260,6 +266,68 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantTotal"></span>
                                 </div>
                             </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Status </div>
+                                <div class="profile-info-value">
+                                    <span id="status"></span>
+                                </div>
+                            </div>
+                        </div>
+                                 <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des versements
+                        </h4>
+                    <table class="table table-bordered table-hover"id="tab_versement">
+				<thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Montant</th>
+                                    </tr>
+                                </thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+                           <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Somme versé </div>
+                                <div class="profile-info-value">
+                                    <span id="sommeAvance"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Reliquat </div>
+                                <div class="profile-info-value">
+                                    <span id="reliquat"></span>
+                                </div>
+                            </div>
+                           </div>
+                           <div id="VERSEMENT_FORM">
+                               <h4 class="widget-title lighter">
+                                    <i class="ace-icon fa fa-plus orange"></i>
+                                    Ajouter un versement
+                                </h4>
+                               <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Date </div>
+                                <div class="profile-info-value">
+                                    <div class="col-xs-8 col-sm-5">
+                                        <div class="input-group">
+                                            <input class="form-control date-picker" id="dateVersement" name="dateVersement" type="text" data-date-format="dd-mm-yyyy" />
+                                                <span class="input-group-addon">
+                                                        <i class="fa fa-calendar bigger-110"></i>
+                                                </span>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Montant </div>
+                                <div class="profile-info-value">
+                                    <span id="versement"></span>
+                                </div>
+                            </div>
+                           </div>
                         </div>
                                             </div>
                                         </div>
@@ -285,6 +353,94 @@ $codeUsine = $_COOKIE['codeUsine'];
             var checkedFacture = new Array();
             // Check if an item is in the array
            // var interval = 500;
+            $('.date-picker').datepicker({
+                        autoclose: true,
+                        todayHighlight: true
+                })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                });
+              $('#versement').editable({
+                            type: 'text',
+                            name: 'versement',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                //alert($('.date-picker').val());
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                                if($('.date-picker').val()==='') return 'Veuillez saisir  une date S.V.P.!';
+                                   
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var versement = editParams.value;
+                                //alert(code);
+                                function save() {
+                                    if(versement !== ""){
+                                        saveAvance(checkedFacture[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        
+                         
+           function saveAvance(factureId, versement, dateVersement)
+                {
+                    var ACTION = "<?php echo App::ACTION_INSERT_FACTURE; ?>";
+                    $.ajax({
+                        url: '<?php echo App::getBoPath(); ?>/reglement/ReglementController.php',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            ACTION: ACTION,
+                            factureId: factureId,
+                            versement: versement,
+                            dateVersement: dateVersement,
+                            codeUsine:"<?php echo $codeUsine;?>",
+                            login:"<?php echo $login;?>"
+                        },
+                        success: function(data)
+                        {
+                             $('#winModalINFO').modal('hide');
+                            if (data.rc == 0){
+                                $.gritter.add({
+                                    title: 'Server notification',
+                                    text: "<?php printf("Versement enregistré avec succes"); ?>",
+                                    class_name: 'gritter-success gritter-light'
+                                });
+                                $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementFacture.php", function () {
+                                });
+                            }
+                            else{
+                                $.gritter.add({
+                                    title: 'Server notification',
+                                    text: data.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                            };
+                        },
+                        error: function() {
+                            alert("error");
+                        }
+                    });
+
+                }
+                
             getIndicator = function() {
                 var url;
                 var user;
@@ -465,7 +621,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                                console.log(data);
                                 if (data == 0)
                                     src += '<span class="tooltip-error" title="Non réglé"><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
@@ -550,19 +705,54 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero facture: "+ data.numero);
-                    $('#dateFacture').text(data.dateFact);
-                    $('#AchatNomMareyeur').text(data.nomMareyeur);
-                    $('#factureAdresseMareyeur').text(data.adresse);
+                    $('#dateFacture').text(data.dateFacture);
+                    $('#client').text(data.nomClient);
+                    $('#adresse').text(data.adresse);
+                    $('#pays').text(data.pays);
                     $('#factureUser').text(data.user);
-                    $('#PoidsTotal').text(data.poidsTotal);
-                    $('#MontantTotal').text(data.montantTotal);
-                    $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneAchat;
+                    $('#MontantTotal').text(data.montantTtc);
+                    $('#TABLE_FACTURES tbody').html("");
+                    var table = data.ligneFacture;
                     var trHTML='';
+                    var pT=0;
+                    var nC=0;
                     $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                        pT += parseFloat(element.quantite);
+                        nC += parseInt(element.nbColis);
+                        trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    $('#TABLE_FACTURES tbody').append(trHTML);
+                    $('#nbColis').text(nC);
+                    $('#PoidsTotal').text(pT);
+                    if(data.regle==0){
+                        $('#status').text('Non reglé');
+                        $('#VERSEMENT_FORM').css("visibility", 'visible');
+                    }
+                    else if(data.regle==1) {
+                        $('#status').text('Reliquat à verser');
+                        $('#VERSEMENT_FORM').css("visibility", 'visible');
+                    }
+                    else if(data.regle==2) {
+                        $('#status').text('Réglé');
+                        $('#VERSEMENT_FORM').css("visibility", 'hidden');
+                    }
+                  $('#tab_versement tbody').html("");
+                    var tableAvance = data.reglement;
+                    var trHTMLAv='';
+                    var mtAv=0;
+                    var rel=0;
+                    $(tableAvance).each(function(index, element){
+                         mtAv += parseFloat(element.avance);
+                        trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
+                    });
+                    $('#tab_versement tbody').append(trHTMLAv);
+                    if(!isNaN(mtAv)) {
+                        rel = data.montantTtc - mtAv;
+                        $('#sommeAvance').text(mtAv);
+                         if(!isNaN(rel))
+                            $('#reliquat').text(rel);
+                    }
+                    trHTMLAv='';  
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();

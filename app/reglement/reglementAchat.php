@@ -274,6 +274,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</table>
                            <div class="profile-user-info">
                             <div class="profile-info-row">
+                                <div class="profile-info-name">Somme versé </div>
+                                <div class="profile-info-value">
+                                    <span id="sommeAvance"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
                                 <div class="profile-info-name">Reliquat </div>
                                 <div class="profile-info-value">
                                     <span id="reliquat"></span>
@@ -352,6 +358,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             title: "Saisir un montant",
                             id: 'id',
                             submit : 'OK',
+                            emptytext: "Saisir un montant",
                             validate:function(value){
                                 //alert($('.date-picker').val());
                                 if(value==='') return 'Veuillez saisir  un montant S.V.P.';
@@ -722,6 +729,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     
                     if(!isNaN(mtAv)) {
                         var rel = data.montantTotal - mtAv;
+                        $('#sommeAvance').text(mtAv);
                         $('#reliquat').text(rel);
                     }
                     trHTMLAv='';   

@@ -123,6 +123,7 @@ class App
      const ACTION_GET_STOCK='GET_STOCK';
      const ACTION_LIST_PRODUITS='LIST_PRODUITS';
      const ACTION_INSERT_TEMP='INSERT_TEMP';
+     const ACTION_INSERT_FACTURE='INSERT_FACTURE';
 
      static function getBoPath() {
          

@@ -147,6 +147,18 @@ public function findStatisticByUsine($codeUsine) {
         else
             return null;
     }
+    
+    public function getTotalReglementByFacture($factureId) {
+        $som=0;
+        $facture=$this->factureQuery->getTotalReglementByFacture($factureId);
+        if($facture['sommeAvance'] !=NULL)
+            $som=$facture['sommeAvance'];
+        return $som;
+    }
+    
+    public function modifReglement($factureId, $status) {
+        return $this->factureQuery->modifReglement($factureId, $status);
+    }
     /**
      * 
      * @param type $factureId

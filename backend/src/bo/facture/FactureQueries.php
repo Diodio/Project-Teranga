@@ -96,15 +96,11 @@ class FactureQueries {
         return $arrayAchats;
     }
 
-     public function findById($produitId) {
-            $query = Bootstrap::$entityManager->createQuery("select p from Facture\Facture p where p.id = :produitId");
-            $query->setParameter('familleId', $produitId);
-            $produit = $query->getResult();
-            if ($produit != null)
-                return $produit[0];
-            else
-                return null;
-        }
+     public function findById($factureId) {
+		if ($factureId != null) {
+			return Bootstrap::$entityManager->find('Facture\Facture', $factureId);
+		}
+	}
     public function count($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
@@ -220,6 +216,20 @@ class FactureQueries {
         }
     }
     
+    
+    public function getTotalReglementByFacture($achatId) {
+        if ($achatId != null) {
+            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_facture WHERE facture_id=' . $achatId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $facture = $stmt->fetchAll();
+            return $facture[0];
+        }
+    }
+    public function modifReglement($factureId, $status) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Facture\Facture f set f.regle=$status WHERE f.id IN( '$factureId')");
+        return $query->getResult();
+    }
     /***
      * recuperer les infos de l'achat pour la validation
      */
