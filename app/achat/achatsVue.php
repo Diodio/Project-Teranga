@@ -364,12 +364,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
                                     </div>
                             </div>
-                            <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Seuil </label>
-                                    <div class="col-sm-9">
-                                            <input type="text" id="seuil" placeholder="" class="col-xs-10 col-sm-7" value="0">
-                                    </div>
-                            </div>
                         </div>
 
                         <div class="modal-footer">
@@ -454,7 +448,7 @@ $(document).ready(function () {
                         }
                 });
                 };
-                loadReferenceMareyeur();
+              
                 
     loadMareyeurs = function(){
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
@@ -866,7 +860,7 @@ $table.find("tbody tr").each(function () {
         
         $("#NEW_MAREYEUR").click(function ()
     {
-       
+         loadReferenceMareyeur();
         $('#winModalMareyeur').modal('show');
     });
     
@@ -988,7 +982,10 @@ $table.find("tbody tr").each(function () {
     			SaveMareyeurProcess();
     		        //$('#winModalMareyeur').addClass('hide');
     		        $('#winModalMareyeur').modal('hide');
-                       
+                        $('#nom').val("");
+                        $('#new_adresse').val("");
+                        $('#telephone').val("");
+                        $('#compte').val("");
     			},
     			invalidHandler: function (form) {
     			}
@@ -996,7 +993,15 @@ $table.find("tbody tr").each(function () {
                 
                
     });
-    
+    function calculSeuil(){
+           var stock = parseFloat($("#stockReel").val());
+           if(!isNaN(stock) && stock!==0) {
+            var seuil=0;
+           if(stock > 0)
+              seuil = (stock * 25)/100;
+           return seuil;
+       }
+   }
      produitProcess = function ()
         {
             
@@ -1005,7 +1010,7 @@ $table.find("tbody tr").each(function () {
             var designation = $("#designation").val();
             var stockProvisoire = $("#stockProvisoire").val();
             var stockReel = $("#stockReel").val();
-            var seuil = $("#seuil").val();
+            var seuil = calculSeuil();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             
@@ -1033,7 +1038,9 @@ $table.find("tbody tr").each(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       loadProduit(0);
+                       var tableL=$("#tab_logic > tbody > tr").length;
+                       for(i=0;i<tableL;i++)
+                        loadProduit(i);
                     } 
                     else
                     {
@@ -1100,8 +1107,10 @@ $table.find("tbody tr").each(function () {
 	
 			submitHandler: function (form) {
 				 produitProcess();
-				 $('#winModalProduit').addClass('hide');
                                  $('#winModalProduit').modal('hide');
+                                 $('#designation').val("");
+                                $('#stockProvisoire').val(0);
+                                $('#stockReel').val(0);
 			},
 			invalidHandler: function (form) {
 			}

@@ -551,9 +551,11 @@ $codeUsine = $_COOKIE['codeUsine'];
         {
            //$("#groupName").val('');
           
-            $('#winModalClient .control-group').removeClass('error').addClass('info');
-            $('#winModalClient span.help-block').remove();
+            //$('#winModalClient .control-group').removeClass('error').addClass('info');
+           // $('#winModalClient span.help-block').remove();
+           loadNumberReference();
             $('#winModalClient').modal('show');
+            
         });
         
 //         $("#SAVE").bind("click", function () {
@@ -609,8 +611,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 
        			submitHandler: function (form) {
        			 SaveClientProcess();
-                 $('#winModalClient').addClass('hide');
-                 $('#winModalClient').modal('hide');
+               //  $('#winModalClient').addClass('hide');
+                        $('#winModalClient').modal('hide');
+                        $('#nom').val("");
+                        $('#adresse').val("");
+                        $('#telephone').val("");
+                        $('#pays').val("");
        			},
        			invalidHandler: function (form) {
        			}

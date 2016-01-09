@@ -51,7 +51,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
         <!-- ace settings handler -->
         <script src="assets/js/ace-extra.min.js"></script>
-        <script src="assets/js/jquery.maskedinput.min.js"></script>
+<!--        <script src="assets/js/jquery.maskedinput.min.js"></script>-->
 
         <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 

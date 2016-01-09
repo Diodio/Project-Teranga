@@ -122,6 +122,7 @@ public function findStatisticByUsine($codeUsine) {
         if ($factureId != null) {
             $facture = $this->factureQuery->findFactureDetails($factureId);
              $ligneFacture = $this->factureQuery->findAllProduitByFacture($factureId);
+             $colis = $this->factureQuery->findColisByFacture($factureId);
              $reglement = $this->factureQuery->findReglementByFacture($factureId);
             $factureDetail = array();
             foreach ($facture as $key => $value) {
@@ -130,6 +131,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['dateFacture']  = date_format(date_create($value ['dateFacture']), 'd/m/Y');
                 $factureDetail ['nomClient']  = $value ['nom'];
                 $factureDetail ['adresse']  =  $value ['adresse'];
+                $factureDetail ['pays']  =  $value ['pays'];
                 $userManager = new \Utilisateur\UtilisateurManager();
                 $user = $userManager->findByLogin($value ['login'],$value ['codeUsine']);
                 $factureDetail ['user']  =  $user;
@@ -141,6 +143,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['numCheque']  =  $value ['numCheque'];
                 $factureDetail ['datePaiement']  =  $value ['datePaiement'];
                 $factureDetail ['regle']  =  $value ['regle'];
+                $factureDetail['colis'] = $colis;
                 $factureDetail['ligneFacture'] = $ligneFacture;
                 $factureDetail['reglement'] = $reglement;
                 

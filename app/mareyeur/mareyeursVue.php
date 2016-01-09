@@ -115,7 +115,7 @@ $codeUsine = $_COOKIE['codeUsine'];
     //    var grid;
         var grid_selector = "#grid-table";
         var pager_selector = "#grid-pager";
-    loadMareyeurs = function () {
+    loadReferenceMareyeurs = function () {
         
         $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
@@ -317,7 +317,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         });
 
     };
-    loadMareyeurs();
+    loadReferenceMareyeurs();
 
 
 
@@ -512,6 +512,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
         $('#winModalMareyeur .control-group').removeClass('error').addClass('info');
         $('#winModalMareyeur span.help-block').remove();
+        loadReferenceMareyeurs();
         $('#winModalMareyeur').modal('show');
     });
 
@@ -561,8 +562,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 
     			submitHandler: function (form) {
     			SaveMareyeurProcess();
-    		        $('#winModalMareyeur').addClass('hide');
+    		       // $('#winModalMareyeur').addClass('hide');
     		        $('#winModalMareyeur').modal('hide');
+                        $('#nom').val("");
+                        $('#adresse').val("");
+                        $('#telephone').val("");
+                        $('#compte').val("");
                         $("#grid-table").trigger('reloadGrid');
                        
     			},

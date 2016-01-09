@@ -202,6 +202,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                     </div>
                 </div>
                 
+                            <h4 class="widget-title lighter">
+                        <i class="ace-icon fa fa-star orange"></i>
+                        Liste des colis
+                    </h4>
+                <table class="table table-bordered table-hover"id="tab_colis">
+                            <thead>
+                                <tr>
+                                        <th class="text-center">Désignation</th>
+                                        <th class="text-center">Nombre de colis</th>
+                                        <th class="text-center">Quantite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                    </table>
+                                
                 <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des produits
@@ -528,6 +545,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#datePaiement').text(data.datePaiement);
                     else
                         $('#datePaiement').text('Non dédini'); 
+                    //colis
+                    $('#tab_colis tbody').html("");
+                    var tableColis = data.colis;
+                    var trColisHTML='';
+                    $(tableColis).each(function(index, element){
+                        trColisHTML += '<tr><td>' + element.libelle + '</td><td>' + element.nombreCarton + '</td><td>' + element.quantiteParCarton + '</td></tr>';
+                    });
+                    $('#tab_colis tbody').append(trColisHTML);
+                    trColisHTML='';
+                    
                     $('#tab_produit tbody').html("");
                     var table = data.ligneFacture;
                     var trHTML='';

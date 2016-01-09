@@ -203,6 +203,18 @@ class FactureQueries {
                 return null;
         }
     }
+     public function findColisByFacture($factureId) {
+        if ($factureId != null) {
+            $sql = 'SELECT libelle,nombreCarton, quantiteParCarton FROM ligne_colis,produit WHERE produitId=produit.id AND factureId=' . $factureId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $colis = $stmt->fetchAll();
+            if ($colis != null)
+                return $colis;
+            else
+                return null;
+        }
+    }
     public function findReglementByFacture($factureId) {
         if ($factureId != null) {
             $sql = 'SELECT datePaiement, avance FROM reglement_facture WHERE facture_id=' . $factureId;

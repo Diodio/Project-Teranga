@@ -720,10 +720,32 @@ $(document).ready(function () {
 		 }
 	 });
 
-//        $("#delete_row_produit").click(function(){
+        $("#delete_row_produit").click(function(){
+         /////   alert("dsds");
 //            var lgTable=$("#tab_produit").length;
 //                 $("#tab_produit"+(i-1)).html('');
-//        });
+
+     $('#tab_produit tbody tr:last').remove();
+     console.log(colisage.length);
+     var ln= colisage.length -1;
+     delete colisage[ln];
+     var nc=0;
+     var qt=0;
+     var mont=0;
+     $('#tab_produit tbody').find('tr').each(function(){
+        var $this = $(this);
+        nc+=parseInt($('td:eq(1)', $this).text());
+        qt+=parseFloat($('td:eq(3)', $this).text());
+        mont+=parseFloat($('td:eq(5)', $this).text());
+        console.log(nc);
+      });
+      $('#totalColis').val(nc);
+      $('#qteTotal').val(qt);
+      $('#montantHt').val(mont);
+      var Ttc = mont+(mont * (parseFloat($("#tva").val())/100));
+        // montantTtc +=Ttc;
+        $('#montantTtc').val(Ttc);
+        });
   
        $(document).delegate('#tab_logic_colis tr td select', 'change', function (event) {
         var id = $(this).closest('tr').attr('id');
@@ -798,7 +820,7 @@ $(document).ready(function () {
        var tblColis=[];
       var pNet=0;
         var it=0;
-        var row={};
+        //var row={};
         $('#tab_logic_colis tbody tr').find('td').each(function(){
                 var $this = $(this);
                 var ncolis=$('#nbColis'+it).val();
@@ -810,29 +832,38 @@ $(document).ready(function () {
                 }
         });
         var iter=0;
-        $("#tab_logic_colis tbody tr").each(function() {
-            var row='{';
+        $("#tab_logic_colis tbody tr").each(function(iter) {
+         //   var row='{';
            // $(this).find('td#nbColis'+iter).eq(1).val();
             //$(this).find('select').val();
-            var colis=$(this).find('#nbColis'+iter).val();
-            var quantite = $(this).find('#qteColis'+iter).select2('data').text;
-             if(typeof colis!=='undefined' && typeof quantite!=='undefined'){
-                 row+='"produitId":'+produitId+',"nbColis":'+colis+',"qte":'+quantite+'';
+            
+        var row={};
+            var colis=0;
+            var quantite=0;
+            colis=$(this).find('#nbColis'+iter).val();
+            quantite = $(this).find('#qteColis'+iter).select2('data').text;
+            
+        //  console.log("dd "+ quantite);
+             if(typeof colis!=='function' && typeof quantite!=='function'){
+                    row["produitId"] = produitId;
+                    row["nbColis"] = colis;
+                    row["qte"] = quantite;
+                    
+            //     row+='"produitId":'+produitId+',"nbColis":'+colis+',"qte":'+quantite+'';
             }
-            row+='},';
-          //  console.log('colis'+row);
-//            console.log('quantite'+quantite);
+           // row+='},';
+            colisage.push(row);
 //            row["produitId"] = produitId;
 //            row["nbColis"] = ''+colis;
 //            row["qte"] = quantite;
 //            colisage.push(row);
-            ch+=''+row;
-            iter++;
+           // ch+=''+row;
+           // iter++;
         });
-        
+        //console.log('colis'+ch);
        // colisage.push(tblColis);
         //console.log(colisage);    
-      //  console.log(JSON.stringify(colisage));
+        console.log(JSON.stringify(colisage));
         var montant = parseInt(prix) * pNet;
         totalColis+=nbColis;
         qteTotal+=pNet;
@@ -967,7 +998,6 @@ $(document).ready(function () {
 <td><input type='text' id='plb"+j+"' name='plb"+j+"' class='form-control'/></td>");
       $('#tab_conteneur').append('<tr id="addrcont'+(j+1)+'"></tr>');
      
-       
       j++;
   });
      $("#delete_row_cont").click(function(){
@@ -1165,9 +1195,9 @@ $(document).ready(function () {
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             
-            ch = ch.substr(0,ch.length-4); 
-            ch+=']';
-           // console.log('colis'+ch);
+           // ch = ch.substr(0,ch.length-4); 
+           // ch+=']';
+            console.log('colis'+JSON.stringify(colisage));
            // var obj = $.parseJSON(ch);
             var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
             var regle=false;
@@ -1201,7 +1231,7 @@ $(document).ready(function () {
             formData.append('regle', regle);
             formData.append('jsonConteneur', tblConteneur);
             formData.append('jsonProduit', tblProduit);
-            formData.append('jsonColis', ch);
+            formData.append('jsonColis', JSON.stringify(colisage));
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
@@ -1467,6 +1497,7 @@ $(document).ready(function () {
 
  $("#NEW_CLIENT").click(function()
         {
+            loadNumberReference();
             $('#winModalClient').modal('show');
         });
         
@@ -1547,7 +1578,7 @@ $(document).ready(function () {
     });
     };
     
-    loadNumberReference();
+    
         $("#SAVE_CLIENT").click(function() {
        	 $('#formClient').validate({
        			errorElement: 'div',
@@ -1596,6 +1627,11 @@ $(document).ready(function () {
        			 SaveClientProcess();
                           //$('#winModalClient').addClass('hide');
                                 $('#winModalClient').modal('hide');
+                                
+                        $('#nom').val("");
+                        $('#new_adresse').val("");
+                        $('#telephone').val("");
+                        $('#new_pays').val("");
        			},
        			invalidHandler: function (form) {
        			}

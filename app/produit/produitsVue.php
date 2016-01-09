@@ -547,8 +547,11 @@
 	
 			submitHandler: function (form) {
 				 produitProcess();
-				 $('#winModalProduit').addClass('hide');
-                                 $('#winModalProduit').modal('hide');
+				/// $('#winModalProduit').addClass('hide');
+                               $('#winModalProduit').modal('hide');
+                            $('#designation').val("");
+                            $('#stockProvisoire').val(0);
+                            $('#stockReel').val(0);
 			},
 			invalidHandler: function (form) {
 			}

@@ -142,8 +142,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         },
                         "mRender": function(data, type, full) {
                             var src="";
-                            console.log('data'+data);
-                            console.log('ddd'+full[1]);
                             if(data==null)
                                 var seuil=0;
                             if(full[1] < seuil)
