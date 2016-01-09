@@ -785,7 +785,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert("Veuillez selectionnez un facture");
                         else if (checkedFacture.length >= 1)
                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+checkedFacture[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
                             
                         }
                     });

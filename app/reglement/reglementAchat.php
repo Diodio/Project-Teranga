@@ -788,7 +788,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert("Veuillez selectionnez un achat");
                         else if (checkedAchat.length >= 1)
                         {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedAchat[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
                             
                         }
                     });

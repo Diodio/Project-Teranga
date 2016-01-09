@@ -238,17 +238,34 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <br>
-    <br>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
         <tr>
-            <th style="width: 18%; text-align: left;">Total : </th>
-            <th style="width: 31%; text-align: right;"><?php echo number_format($totalPrix1, 2, ',', ' '); ?> </th>
-            <th style="width: 26%; text-align: right;"><?php echo number_format($totalQuantite1, 0, ',', ' '); ?>kg </th>
-            <th style="width: 25%; text-align: right;"><?php echo number_format($total, 2, ',', ' '); ?> </th>
+            <td style="width: 18%; text-align: left;"> </td>
+            <td style="width: 31%; text-align: right;"></td>
+            <td style="width: 26%; text-align: right;">Mode de paiement </td>
+            <td style="width: 25%; text-align: right;"><?php echo $row['modePaiement'] ?> </td>
         </tr>
     </table>
-    <br>
-    
+    <?php if($row['modePaiement'] =='CHEQUE') {?>
+    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+        <tr>
+            <td style="width: 18%; text-align: left;"> </td>
+            <td style="width: 31%; text-align: right;"></td>
+            <td style="width: 26%; text-align: right;">N° chèque </td>
+            <td style="width: 25%; text-align: right;"><?php echo $row['numCheque'] ?> </td>
+        </tr>
+    </table>
+    <?php }?>
+    <?php if($row['modePaiement'] =='VIREMENT') {?>
+    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+        <tr>
+            <td style="width: 18%; text-align: left;"> </td>
+            <td style="width: 31%; text-align: right;"></td>
+            <td style="width: 26%; text-align: right;">Date paiement </td>
+            <td style="width: 25%; text-align: right;"><?php echo $row['datePaiement'] ?> </td>
+        </tr>
+    </table>
+    <?php }?>
     <nobreak>
         <br>
         <table cellspacing="0" style="width: 100%; text-align: left;">
