@@ -147,6 +147,9 @@ public function findStatisticByUsine($codeUsine) {
                 $achatDetail ['user']  =  $user;
                 $achatDetail ['poidsTotal']  =  $value ['poidsTotal'];
                 $achatDetail ['montantTotal']  =  $value ['montantTotal'];
+                $achatDetail ['modePaiement']  =  $value ['modePaiement'];
+                $achatDetail ['numCheque']  =  $value ['numCheque'];
+                $achatDetail ['datePaiement']  =  $value ['datePaiement'];
                 $achatDetail ['regle']  =  $value ['regle'];
                 $achatDetail ['reliquat']  =  $value ['reliquat'];
                 $achatDetail['ligneAchat'] = $ligneAchat;

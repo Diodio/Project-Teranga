@@ -252,6 +252,24 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="profile-info-row">
+                                <div class="profile-info-name">Mode paiement </div>
+                                <div class="profile-info-value">
+                                    <span id="modePaiement"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">N° chèque </div>
+                                <div class="profile-info-value">
+                                    <span id="numCheque"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Date Paiement </div>
+                                <div class="profile-info-value">
+                                    <span id="datePaiement"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
                                 <div class="profile-info-name">Avance </div>
                                 <div class="profile-info-value">
                                     <span id="Avance"></span>
@@ -598,14 +616,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#achatUser').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
-                    $('#Avance').text("0");
-                    $('#Reliquat').text("0");
-                   
-                    if(data.reliquat!=null) {
-                        $('#Reliquat').text(data.reliquat);
-                        var av=data.montantTotal - data.reliquat;
-                        $('#Avance').text(av);
-                    }
+                    $('#modePaiement').text(data.modePaiement);
+                    if(data.numCheque !==null && data.numCheque!=="")
+                        $('#numCheque').text(data.numCheque);
+                    else
+                        $('#numCheque').text('Non dédini');
+                    if(data.datePaiement !==null && data.datePaiement!=="")
+                        $('#datePaiement').text(data.datePaiement);
+                    else
+                        $('#datePaiement').text('Non dédini'); 
+                    
                     $('#TABLE_ACHATS tbody').html("");
                     var table = data.ligneAchat;
                     var trHTML='';
@@ -613,6 +633,21 @@ $codeUsine = $_COOKIE['codeUsine'];
                         trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#TABLE_ACHATS tbody').append(trHTML);
+                    var infoAvance = data.reglement;
+                    var mtAv=0;
+                    var rel=0;
+                    $(infoAvance).each(function(index, element){
+                         mtAv += parseFloat(element.avance);
+                    });
+                    if(!isNaN(mtAv) ) {
+                        rel = data.montantTotal - mtAv;
+                        $('#Avance').text(mtAv);
+                        $('#Reliquat').text(rel);
+                    } 
+                    else{
+                        $('#Avance').text("0");
+                        $('#Reliquat').text("0");
+                    }
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();

@@ -134,9 +134,12 @@ public function findStatisticByUsine($codeUsine) {
                 $user = $userManager->findByLogin($value ['login'],$value ['codeUsine']);
                 $factureDetail ['user']  =  $user;
                 $factureDetail ['nbTotalColis']  =  $value ['nbTotalColis'];
+                $factureDetail ['nbTotalPoids']  =  $value ['nbTotalPoids'];
                 $factureDetail ['montantHt']  =  $value ['montantHt'];
                 $factureDetail ['montantTtc']  =  $value ['montantTtc'];
                 $factureDetail ['modePaiement']  =  $value ['modePaiement'];
+                $factureDetail ['numCheque']  =  $value ['numCheque'];
+                $factureDetail ['datePaiement']  =  $value ['datePaiement'];
                 $factureDetail ['regle']  =  $value ['regle'];
                 $factureDetail['ligneFacture'] = $ligneFacture;
                 $factureDetail['reglement'] = $reglement;

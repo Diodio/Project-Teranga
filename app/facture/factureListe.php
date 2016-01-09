@@ -223,6 +223,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 
                         <div class="profile-user-info">
                             <div class="profile-info-row">
+                                <div class="profile-info-name">Total colis </div>
+                                <div class="profile-info-value">
+                                    <span id="totalColis"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
                                 <div class="profile-info-name">Poids Total </div>
                                 <div class="profile-info-value">
                                     <span id="PoidsTotal"></span>
@@ -240,27 +246,35 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantTtc"></span>
                                 </div>
                             </div>
-                        </div>
-                           <h4 class="widget-title lighter">
-                            <i class="ace-icon fa fa-star orange"></i>
-                            Liste des avances
-                        </h4>
-                    <table class="table table-bordered table-hover"id="tab_avance">
-				<thead>
-                                    <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Montant</th>
-                                    </tr>
-                                </thead>
-				<tbody>
-					
-				</tbody>
-			</table>
-                         <div class="profile-user-info">
+                            
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Mode paiement </div>
+                                <div class="profile-info-value">
+                                    <span id="modePaiement"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">N° chèque </div>
+                                <div class="profile-info-value">
+                                    <span id="numCheque"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Date Paiement </div>
+                                <div class="profile-info-value">
+                                    <span id="datePaiement"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Avance </div>
+                                <div class="profile-info-value">
+                                    <span id="Avance"></span>
+                                </div>
+                            </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Reliquat </div>
                                 <div class="profile-info-value">
-                                    <span id="reliquat"></span>
+                                    <span id="Reliquat"></span>
                                 </div>
                             </div>
                         </div>
@@ -501,9 +515,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#origine').text(data.adresse);
                     $('#pays').text(data.pays);
                     $('#user').text(data.user);
-                    $('#PoidsTotal').text(data.poidsTotal);
+                    $('#totalColis').text(data.nbTotalColis);
+                    $('#PoidsTotal').text(data.nbTotalPoids);
                     $('#MontantHt').text(data.montantHt);
                     $('#MontantTtc').text(data.montantTtc);
+                    $('#modePaiement').text(data.modePaiement);
+                    if(data.numCheque !==null && data.numCheque!=="")
+                        $('#numCheque').text(data.numCheque);
+                    else
+                        $('#numCheque').text('Non dédini');
+                    if(data.datePaiement !==null && data.datePaiement!=="")
+                        $('#datePaiement').text(data.datePaiement);
+                    else
+                        $('#datePaiement').text('Non dédini'); 
                     $('#tab_produit tbody').html("");
                     var table = data.ligneFacture;
                     var trHTML='';
@@ -512,21 +536,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                     $('#tab_produit tbody').append(trHTML);
                     trHTML=''; 
-                     $('#tab_avance tbody').html("");
-                    var tableAvance = data.reglement;
-                    var trHTMLAv='';
+                    var infoAvance = data.reglement;
                     var mtAv=0;
-                    $(tableAvance).each(function(index, element){
+                    var rel=0;
+                    if(infoAvance !==null) {
+                    $(infoAvance).each(function(index, element){
                          mtAv += parseFloat(element.avance);
-                        trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
                     });
-                    $('#tab_avance tbody').append(trHTMLAv);
-                    
-                    if(!isNaN(mtAv)) {
-                        var rel = data.montantTtc - mtAv;
-                        $('#reliquat').text(rel);
+                    if(!isNaN(mtAv) ) {
+                        rel = data.montantTtc - mtAv;
                     }
-                    trHTMLAv='';   
+                    $('#Avance').text(mtAv);
+                    $('#Reliquat').text(rel);
+//                    } 
+//                    
+                    }
+                    else {
+                        $('#Avance').text("0");
+                        $('#Reliquat').text(data.montantTtc);
+                    }
              
               $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
               $('#TAB_MSG_VIEW').show();
