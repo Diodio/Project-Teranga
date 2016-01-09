@@ -233,7 +233,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						</div>
 						<div class="form-group" style="margin-bottom: 177px;margin-top: 11%;">
 							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Avance </label>
+								for="form-field-1"> Avance  (FCFA)</label>
 							<div class="col-sm-7">
 								<div class="clearfix">
 									<input type="text" id="avance" name="avance" placeholder=""
@@ -243,7 +243,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 						</div>
 						<div class="form-group">
 							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Reliquat </label>
+								for="form-field-1"> Reliquat (FCFA)</label>
 							<div class="col-sm-7">
 								<div class="clearfix">
 									<input type="text" id="reliquat" name="reliquat" placeholder=""
@@ -626,25 +626,63 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                     $("#poidsTotal").val(pd);
         }
         
+//        function calculReliquat(){
+//          var rel=0;
+//           var mt=parseInt($("#montantTotal").val());
+//           var avance=parseInt($("#avance").val());
+//           rel=mt - avance;
+//           if(!isNaN(rel) && rel>0){
+//              $("#reliquat").val(rel);
+//              
+//              $('#regleAchat').attr("disabled", true);
+//              $('#regleAchat').prop('checked', false);
+//           }
+//          else if(!isNaN(rel) && rel==0) {
+//              $('#regleAchat').attr("disabled", false);
+//              $('#regleAchat').prop('checked', true);
+//              $("#reliquat").val(0);
+//          }  
+//          else
+//              $("#reliquat").val(0);
+//        }
+        
         function calculReliquat(){
           var rel=0;
-           var mt=parseInt($("#montantTotal").val());
-           var avance=parseInt($("#avance").val());
-           rel=mt - avance;
-           if(!isNaN(rel) && rel>0){
+           var mt=parseFloat($("#montantTotal").val());
+           var avance=parseFloat($("#avance").val());
+           if(!isNaN(avance) && !isNaN(avance)) {
+           rel= mt - avance;
+           if(!isNaN(rel) && rel>0) {
               $("#reliquat").val(rel);
-              
               $('#regleAchat').attr("disabled", true);
               $('#regleAchat').prop('checked', false);
-           }
-          else if(!isNaN(rel) && rel==0) {
+          }
+           else if(!isNaN(rel) && rel===0) {
               $('#regleAchat').attr("disabled", false);
               $('#regleAchat').prop('checked', true);
               $("#reliquat").val(0);
           }  
-          else
-              $("#reliquat").val(0);
+          else{
+              $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant saisi ne doit pas être supérieur au montant TTC',
+                    class_name: 'gritter-error gritter-light'
+                });
+              $("#avance").val("");
+              $("#reliquat").val("");
+              $('#regleAchat').attr("disabled", true);
+              $('#regleAchat').prop('checked', false);
+          }
         }
+        else {
+             $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant avance ne doit pas être vide',
+                    class_name: 'gritter-error gritter-light'
+                });
+        }
+        }
+        
         AchatProcess = function ()
         {
             

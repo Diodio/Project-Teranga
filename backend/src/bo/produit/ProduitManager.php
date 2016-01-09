@@ -163,6 +163,7 @@ public function retrieveTypes()
         $produits = $this->produitQuery->retrieveAllByUsine();
         $list = array();
         $i = 0;
+        if($produits!=null)
         foreach ($produits as $key => $value) {
             $list [$i]['value'] = $value ['value'];
             $list [$i]['text'] = $value ['text']; 
@@ -175,6 +176,7 @@ public function retrieveTypes()
         $produits = $this->produitQuery->retrieveAllByUsine();
         $list = array();
         $i = 0;
+        if($produits!=null)
         foreach ($produits as $key => $value) {
             $stockFinal = 0;
             $list [$i]['value'] = $value ['value'];
