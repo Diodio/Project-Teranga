@@ -47,6 +47,9 @@ class Achat {
      * */
     protected $numCheque;
     
+   /** @Column(type="datetime", nullable=true) */
+    public $datePaiement;
+    
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
@@ -247,6 +250,14 @@ class Achat {
     public function setReglement($reglement) {
         $this->reglement = $reglement;
     }
+    function getDatePaiement() {
+        return $this->datePaiement;
+    }
+
+    function setDatePaiement($datePaiement) {
+        $this->datePaiement = $datePaiement;
+    }
+
 
 
 

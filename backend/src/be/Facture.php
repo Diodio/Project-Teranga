@@ -53,6 +53,9 @@ class Facture {
      * */
     protected $numCheque;
     
+   /** @Column(type="datetime", nullable=true) */
+    public $datePaiement;
+    
     /**
      * @Column(type="string", length=60, nullable=true)
      * */
@@ -292,6 +295,14 @@ class Facture {
         $this->nbTotalPoids = $nbTotalPoids;
     }
 
+
+    function getDatePaiement() {
+        return $this->datePaiement;
+    }
+
+    function setDatePaiement($datePaiement) {
+        $this->datePaiement = $datePaiement;
+    }
 
 
 

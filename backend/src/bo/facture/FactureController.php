@@ -96,26 +96,28 @@ private $logger;
             $facture->setMontantHt($request['montantHt']);
             $facture->setMontantTtc($request['montantTtc']);
             $facture->setModePaiement($request['modePaiement']);
-            $facture->setNumCheque($request['numCheque']);
+            if($request['modePaiement'] == 'CHEQUE')
+                    $facture->setNumCheque($request['numCheque']);
+            else if($request['modePaiement'] == 'VIREMENT')
+                $facture->setDatePaiement(new \DateTime($request['datePaiement']));
             $facture->setAvance($request['avance']);
             $facture->setReliquat($request['reliquat']);
             $facture->setNbTotalColis($request['nbTotalColis']);
             $facture->setNbTotalPoids($request['nbTotalPoids']);
             $facture->setStatus(1);
-             if($request['regle']=="true")
-                    $facture->setRegle(2);
+            if ($request['regle'] == "true")
+                $facture->setRegle(2);
             else {
-                if($request['avance']!="") {
+                if ($request['avance'] != "") {
                     $facture->setRegle(1);
-                    $reliquat =  $request['montantTtc'] - $request['avance'];
-                    if($reliquat==0)
+                    $reliquat = $request['montantTtc'] - $request['avance'];
+                    if ($reliquat == 0)
                         $facture->setRegle(2);
                     $facture->setReliquat($reliquat);
-                    $reglement=new Reglement\ReglementFacture();
+                    $reglement = new Reglement\ReglementFacture();
                     $reglement->setFacture($facture);
                     $reglement->setDatePaiement(new \DateTime("now"));
                     $reglement->setAvance($request['avance']);
-                    
                 }
                 else {
                     $facture->setRegle(0);
@@ -128,8 +130,8 @@ private $logger;
             $facture->setClient($client);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
-                if($request['avance']!=""  && $request['regle']!="true") {
-                    $reglementManager =new Reglement\ReglementManager();
+                if ($request['avance'] != "" && $request['regle'] != "true") {
+                    $reglementManager = new Reglement\ReglementManager();
                     $reglementManager->insert($reglement);
                 }
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
@@ -144,12 +146,12 @@ private $logger;
                             $conteneurManager->insert($conteneur);
                         }
                     }
-                        }
+                }
                 $jsonProduit = json_decode($_POST['jsonProduit'], true);
                 foreach ($jsonProduit as $key => $ligne) {
                     if (isset($ligne["nColis"])) {
                         if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                            $ligneFacture= new \Facture\LigneFacture;
+                            $ligneFacture = new \Facture\LigneFacture;
                             $ligneFacture->setFacture($facture);
                             $ligneFacture->setNbColis($ligne["nColis"]);
                             $ligneFacture->setProduit($ligne["produitId"]);
@@ -159,18 +161,18 @@ private $logger;
                             $ligneFactureManager = new \Facture\LigneFactureManager();
                             $inserted = $ligneFactureManager->insert($ligneFacture);
                             if ($inserted->getId() != null) {
-                                 $stockManager = new \Stock\StockManager();
-                                 $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
+                                $stockManager = new \Stock\StockManager();
+                                $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
                             }
                         }
                     }
                 }
-                
-              $jsonColis = json_decode($_POST['jsonColis'], true);
+
+                $jsonColis = json_decode($_POST['jsonColis'], true);
                 foreach ($jsonColis as $key => $ligneC) {
                     if (isset($ligneC["nbColis"])) {
                         if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-                            $colis= new \Facture\LigneColis();
+                            $colis = new \Facture\LigneColis();
                             $colis->setNombreCarton($ligneC["nbColis"]);
                             $colis->setQuantiteParCarton($ligneC["qte"]);
                             $colis->setProduitId($ligneC["produitId"]);
@@ -178,7 +180,7 @@ private $logger;
                             $ligneColisManager = new \Facture\LigneColisManager;
                             $inserted = $ligneColisManager->insert($colis);
                             if ($inserted->getId() != null) {
-                                 $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                                $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
                             }
                         }
                     }

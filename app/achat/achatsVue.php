@@ -516,20 +516,32 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     
 
     $("#modePaiement").change(function() {
-        if($("#modePaiement").val() ==='CHEQUE') {
-            $("#numCheque").prop("readOnly", false);
+        if($("#modePaiement").val() =='CHEQUE') {
+            $("#numCheque").prop("readonly", false);
+            $("#datePaiement").prop("readonly", true);
+            $("#datePaiement").toggleDisabled();
         }
-        else if($("#modePaiement").val() === 'VIREMENT') {
-            $("#datePaiement").prop("readOnly", false);
+        else if($("#modePaiement").val() == 'VIREMENT') {
+            $("#numCheque").prop("readonly",true );
+            $("#datePaiement").prop("readonly", false);
         }
         else{
-            $("#numCheque").prop("readOnly", true);
-            $("#datePaiement").prop("readOnly", true);
+            $("#numCheque").prop("readonly", true);
+            $("#datePaiement").prop("readonly", true);
+            
         }
     });
 //    $('#designation0').change(function() {
 //        loadPrix('designation0','pu0');
 //        });
+ $("#datePaiement").datepicker({
+                        autoclose: true,
+                        todayHighlight: true
+                })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                });
     loadPrix = function(cmbDesignation, champPrix){
         //$('#tab_logic').click();
         if($("#"+cmbDesignation).val()!==null){
@@ -653,6 +665,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var MontantTotal = $("#montantTotal").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
+            var datePaiement = $("#datePaiement").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
@@ -700,6 +713,7 @@ $table.find("tbody tr").each(function () {
             formData.append('montantTotal', MontantTotal);
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
+            formData.append('datePaiement', datePaiement);
             formData.append('avance', avance);
             formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);

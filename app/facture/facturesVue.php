@@ -424,6 +424,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                             <div class="space-6"></div>
                             <div class="row">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Date paiement </label>
+                                        
+                                            <div class="col-sm-7">
+                                                    <div class="clearfix">
+                                                            <input type="text" readonly id="datePaiement" placeholder=""
+                                                                    class="col-xs-12 col-sm-10">
+                                                    </div>
+                                            </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
                                 <label class="col-sm-5 control-label no-padding-right"
                                         for="form-field-1"> Avance <span id="labelavance"></span> </label>
                                 <div class="col-sm-7">
@@ -910,9 +922,7 @@ $(document).ready(function () {
         });
         }
     }); 
-   $( "#closed" ).click(function(){
-    alert("fd");
-   }); 
+   
   function calculMontant(index){
            var mt;
            var qte=parseInt($("#qte"+index).val());
@@ -967,14 +977,29 @@ $(document).ready(function () {
 		 }
 	 });
     $("#modePaiement").change(function() {
-        if($("#modePaiement").val() ==='CHEQUE') {
-            $("#numCheque").attr("readonly", false); 
+        if($("#modePaiement").val() =='CHEQUE') {
+            $("#numCheque").prop("readonly", false);
+            $("#datePaiement").prop("readonly", true);
+            $("#datePaiement").toggleDisabled();
         }
-        else {
-            $("#numCheque").attr("readonly", true); 
+        else if($("#modePaiement").val() == 'VIREMENT') {
+            $("#numCheque").prop("readonly",true );
+            $("#datePaiement").prop("readonly", false);
+        }
+        else{
+            $("#numCheque").prop("readonly", true);
+            $("#datePaiement").prop("readonly", true);
+            
         }
     });
-    
+     $("#datePaiement").datepicker({
+                        autoclose: true,
+                        todayHighlight: true
+                })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                });
       $("#avance").keyup(function() {
           calculReliquat();
       });
@@ -1135,6 +1160,7 @@ $(document).ready(function () {
             var nbTotalPoids = $("#qteTotal").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
+            var datePaiement = $("#datePaiement").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
@@ -1169,6 +1195,7 @@ $(document).ready(function () {
             formData.append('montantTtc', montantTtc);
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
+            formData.append('datePaiement', datePaiement);
             formData.append('avance', avance);
             formData.append('reliquat', reliquat);
             formData.append('regle', regle);

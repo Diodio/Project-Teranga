@@ -92,7 +92,10 @@ private $logger;
                 $achat->setPoidsTotal($request['poidsTotal']);
                 $achat->setMontantTotal($request['montantTotal']);
                 $achat->setModePaiement($request['modePaiement']);
-                $achat->setNumCheque($request['numCheque']);
+                if($request['modePaiement'] == 'CHEQUE')
+                    $achat->setNumCheque($request['numCheque']);
+                else if($request['modePaiement'] == 'VIREMENT')
+                    $achat->setDatePaiement(new \DateTime($request['datePaiement']));
                 $achat->setCodeUsine($request['codeUsine']);
                 $achat->setLogin($request['login']);
                 if($request['regle']=="true")
