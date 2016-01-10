@@ -142,13 +142,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                         },
                         "mRender": function(data, type, full) {
                             var src="";
-                            if(data==null)
-                                var seuil=0;
-                            if(full[1] < seuil)
+                            if(parseFloat(full[1]) < parseFloat(full[2])){
                                 src+= '<td><span class="label label-danger arrowed">seuil atteint</span></td>';
-                            else
+                            } else{
                                src+= '<td><span class="label label-success arrowed-in arrowed-in-right">disponible</span></td>'; 
-                           return src;
+                           }
+                            return src;
                         }
                     }
                 ],

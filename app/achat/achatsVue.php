@@ -508,7 +508,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         
     });
     
-
+   
     $("#modePaiement").change(function() {
         if($("#modePaiement").val() =='CHEQUE') {
             $("#numCheque").prop("readonly", false);
