@@ -24,7 +24,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 	<!-- /.page-header -->
 	<form id="validation-form">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<!-- PAGE CONTENT BEGINS -->
 
 
@@ -106,8 +106,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 				</div>
 
 			</div>
-			<div class="row clearfix">
-				<div class="col-md-12 column">
+			<div class="row">
 					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
 						alt="Ajouter une ligne"><i
 						class="ace-icon fa fa-plus-square"></i> </a> 
@@ -117,11 +116,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 					</a>
                                     <a id="NEW_PRODUIT" class="btn btn-primary btn-sm" style="float: right"><i
 						class="ace-icon fa fa-plus-square"></i> Nouveau produit</a> 
-				</div>
 			</div>
 			<div class="space-6"></div>
-			<div class="row clearfix">
-				<div class="col-md-12 column">
+			<div class="row">
 					<table class="table table-bordered table-hover" id="tab_logic">
 						<thead>
 							<tr>
@@ -160,7 +157,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<tr id='addr1'></tr>
 						</tbody>
 					</table>
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12 column">
@@ -379,7 +375,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-            </form>
             </div>
 </div>
 <!-- /.page-content -->

@@ -98,24 +98,23 @@ private $logger;
                     $achat->setDatePaiement(new \DateTime($request['datePaiement']));
                 $achat->setCodeUsine($request['codeUsine']);
                 $achat->setLogin($request['login']);
+                    if($request['avance']!="") {
                 if($request['regle']=="true")
                     $achat->setRegle(2);
-                else {
-                    if($request['avance']!="") {
-                        $achat->setRegle(1);
-                        $reliquat =  $request['montantTotal'] - $request['avance'];
-                        $achat->setReliquat($reliquat);
-                        $reglement=new Reglement\ReglementAchat();
-                        $reglement->setAchat($achat);
-                        $reglement->setDatePaiement(new \DateTime("now"));
-                        $reglement->setAvance($request['avance']);
-                        $reglementManager =new Reglement\ReglementManager();
-                        $reglementManager->insert($reglement);
+                else
+                    $achat->setRegle(1);
+                    $reliquat =  $request['montantTotal'] - $request['avance'];
+                    $achat->setReliquat($reliquat);
+                    $reglement=new Reglement\ReglementAchat();
+                    $reglement->setAchat($achat);
+                    $reglement->setDatePaiement(new \DateTime("now"));
+                    $reglement->setAvance($request['avance']);
+                    $reglementManager =new Reglement\ReglementManager();
+                    $reglementManager->insert($reglement);
                     }
                     else {
                         $achat->setRegle(0);
                     }
-                }
                 $mareyeurManager = new \Mareyeur\MareyeurManager();
                 $mareyeur = $mareyeurManager->findById($request['mareyeur']);
                 $achat->setMareyeur($mareyeur);

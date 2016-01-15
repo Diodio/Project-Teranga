@@ -274,7 +274,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</table>
                            <div class="profile-user-info">
                             <div class="profile-info-row">
-                                <div class="profile-info-name">Somme versé </div>
+                                <div class="profile-info-name">Somme versée </div>
                                 <div class="profile-info-value">
                                     <span id="sommeAvance"></span>
                                 </div>
@@ -716,7 +716,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                     else if(data.regle==2) {
                         $('#status').text('Réglé');
                         $('#VERSEMENT_FORM').css("visibility", 'hidden');
-                    }
+                    } 
+                    $('#TABLE_ACHATS tbody').html("");
+                    var table = data.ligneAchat;
+                    var trHTML='';
+                    $(table).each(function(index, element){
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                    });
+                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    trHTML='';
+                    
                   $('#tab_versement tbody').html("");
                     var tableAvance = data.reglement;
                     var trHTMLAv='';
@@ -732,15 +741,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#sommeAvance').text(mtAv);
                         $('#reliquat').text(rel);
                     }
-                    trHTMLAv='';   
-                    $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneAchat;
-                    var trHTML='';
-                    $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
-                    });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
-                    trHTML='';
+                    trHTMLAv='';  
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();
                }).error(function(error) { });
