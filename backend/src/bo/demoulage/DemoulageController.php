@@ -92,7 +92,7 @@ class DemoulageController extends BaseController  {
         try {
             if (isset($request['produitId'])) {
                 $demoulageManager = new Produit\DemoulageManager();
-                $infoscolis = $demoulageManager->getAllColis($request['produitId']);
+                $infoscolis = $demoulageManager->getAllColis($request['produitId'], $request['codeUsine']);
                     if($infoscolis!= NULL){
                         $this->doSuccessO($infoscolis);
                     }  else {

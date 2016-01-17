@@ -603,6 +603,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                 $("#montant"+index).val("");
             }
             calculMontantPoids();
+            calculReliquat();
        }
        function calculMontantPoids(){
            var pt=0;
@@ -669,13 +670,13 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
               $('#regleAchat').prop('checked', false);
           }
         }
-        else {
-             $.gritter.add({
-                    title: 'Notification',
-                    text: 'Le montant avance ne doit pas être vide',
-                    class_name: 'gritter-error gritter-light'
-                });
-        }
+//        else {
+//             $.gritter.add({
+//                    title: 'Notification',
+//                    text: 'Le montant avance ne doit pas être vide',
+//                    class_name: 'gritter-error gritter-light'
+//                });
+//        }
         }
         
         AchatProcess = function ()

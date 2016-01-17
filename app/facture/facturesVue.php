@@ -936,7 +936,7 @@ $(document).ready(function () {
   $( "#VOIR_COLISAGE" ).click(function(){
          if( $('#CMB_DESIGNATIONS').val() !=='*') {
          $("#VOIR_COLISAGE").popover('destroy');
-        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: $('#CMB_DESIGNATIONS').val(), ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: $('#CMB_DESIGNATIONS').val(), codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
         data=$.parseJSON(data);
 
         var htmlString="<a class='close' id='closed' style='position: absolute; top: 0; right: 6px;'>&times;</a>";
