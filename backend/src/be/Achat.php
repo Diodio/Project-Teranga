@@ -28,17 +28,17 @@ class Achat {
     protected $poidsTotal;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="float", length=60, nullable=false)
      * */
     protected $montantTotal;
     
     /**
-     * @Column(type="string", length=60, nullable=true)
+     * @Column(type="float", length=60, nullable=true)
      * */
     protected $reliquat;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="float", length=60, nullable=false)
      * */
     protected $modePaiement;
     

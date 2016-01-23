@@ -22,7 +22,7 @@ class LigneAchat {
     protected $quantite;
     
     /**
-     * @Column(type="string", nullable=true)
+     * @Column(type="float", nullable=true)
      * */
     protected $montant;
 
