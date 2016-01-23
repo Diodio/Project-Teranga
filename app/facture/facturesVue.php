@@ -734,7 +734,7 @@ $(document).ready(function () {
      var mont=0;
      $('#tab_produit tbody').find('tr').each(function(){
         var $this = $(this);
-        nc+=parseInt($('td:eq(1)', $this).text());
+        nc+=parseFloat($('td:eq(1)', $this).text());
         qt+=parseFloat($('td:eq(3)', $this).text());
         mont+=parseFloat($('td:eq(5)', $this).text());
         console.log(nc);
@@ -796,7 +796,7 @@ $(document).ready(function () {
         });
       $('#tab_logic_colis .nbColis').each(function () {
           if($(this).val()!==''){
-            nbColis += parseInt($(this).val());
+            nbColis += parseFloat($(this).val());
             i++;
           }
         });
@@ -864,7 +864,7 @@ $(document).ready(function () {
        // colisage.push(tblColis);
         //console.log(colisage);    
         console.log(JSON.stringify(colisage));
-        var montant = parseInt(prix) * pNet;
+        var montant = parseFloat(prix) * pNet;
         totalColis+=nbColis;
         qteTotal+=pNet;
         mtTotal+=montant;
@@ -897,7 +897,7 @@ $(document).ready(function () {
 //        console.log('colis'+ch);
   });
  function verifierPoids(qte, counter ){
-           var nbColis=parseInt($("#nbColis"+counter).val());
+           var nbColis=parseFloat($("#nbColis"+counter).val());
           if(qte!=='*'){
            if(isNaN(qte)) {
                     $.gritter.add({
@@ -956,10 +956,10 @@ $(document).ready(function () {
    
   function calculMontant(index){
            var mt;
-           var qte=parseInt($("#qte"+index).val());
+           var qte=parseFloat($("#qte"+index).val());
            if(!isNaN(qte)) {
               var pu = $("#pu"+index).val();
-              mt = parseInt(qte) * parseInt(pu);
+              mt = parseFloat(qte) * parseFloat(pu);
               if(!isNaN(mt)){
                 $("#montant"+index).val(mt);
               }
@@ -975,7 +975,7 @@ $(document).ready(function () {
            var nbColis=0;
           $('#tab_logic .montant').each(function () {
               if($(this).val()!=='')
-                pt += parseInt($(this).val());
+                pt += parseFloat($(this).val());
             });
             $('#tab_logic .qte').each(function () {
                 if($(this).val()!=='')
@@ -983,7 +983,7 @@ $(document).ready(function () {
             });
           $('#tab_logic .nbColis').each(function () {
               if($(this).val()!=='')
-                nbColis += parseInt($(this).val());
+                nbColis += parseFloat($(this).val());
             });
                 if(!isNaN(pt))
                     $("#montantHt").val(pt);

@@ -22,7 +22,7 @@ class LigneFactureTemp {
     protected $prixUnitaire;
     
     /**
-     * @Column(type="integer", nullable=true)
+     * @Column(type="float", nullable=true)
      * */
     protected $quantite;
     

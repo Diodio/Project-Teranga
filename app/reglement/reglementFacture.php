@@ -718,7 +718,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     var nC=0;
                     $(table).each(function(index, element){
                         pT += parseFloat(element.quantite);
-                        nC += parseInt(element.nbColis);
+                        nC += parseFloat(element.nbColis);
                         trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#TABLE_FACTURES tbody').append(trHTML);

@@ -60,8 +60,8 @@ class BonSortie {
     public $produit;
   
     
-    /**
-     * @Column(type="string", length=60, nullable=false)
+   /**
+     * @Column(type="float", nullable=true)
      * */
     protected $poidsTotal;
     /**

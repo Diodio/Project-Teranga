@@ -497,9 +497,12 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
        //   calculPoidsNet(counter);
        //   calculMontant(counter);
          // calculMontantPoids();
+        $( "#pu"+counter ).keyup(function() {
+           calculMontant(counter);
+      });
       $( "#qte"+counter ).keyup(function() {
             calculMontant(counter);
-         });
+       });
         
     });
     
@@ -573,7 +576,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            if($("#perc"+index).val() !=="") {
               var pourcentage = $("#perc"+index).val();
               var quantite = $("#qte"+index).val();
-              pn = parseInt(quantite) - ((parseInt(quantite) * pourcentage)/100);
+              pn = parseFloat(quantite) - ((parseFloat(quantite) * pourcentage)/100);
               if(!isNaN(pn))
                 $("#pdN"+index).val(pn);
               
@@ -591,10 +594,10 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         
        function calculMontant(index){
            var mt;
-           var qte=parseInt($("#qte"+index).val());
+           var qte=parseFloat($("#qte"+index).val());
            if(!isNaN(qte)) {
               var pu = $("#pu"+index).val();
-              mt = parseInt(qte) * parseInt(pu);
+              mt = parseFloat(qte) * parseFloat(pu);
               if(!isNaN(mt)){
                 $("#montant"+index).val(mt);
               }
@@ -610,7 +613,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            var pd=0;
           $('#tab_logic .montant').each(function () {
               if($(this).val()!=='')
-                pt += parseInt($(this).val());
+                pt += parseFloat($(this).val());
             });
             $('#tab_logic .qte').each(function () {
                 if($(this).val()!=='')

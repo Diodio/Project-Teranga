@@ -328,9 +328,9 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
          
          function verifierPoids(id, counter){
            var typ = $("#"+ id).select2('data').text;
-           var qte = parseInt($( "#qte"+counter ).val());
+           var qte = parseFloat($( "#qte"+counter ).val());
            var sp1 = typ.indexOf( '(' );
-           var res = parseInt(typ.substring(sp1+1, typ.length-1));
+           var res = parseFloat(typ.substring(sp1+1, typ.length-1));
            console.log('res' +res);
            console.log('qte' + $( "#qte"+counter ).val());
            if(res<=0) {

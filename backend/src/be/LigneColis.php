@@ -17,7 +17,7 @@ class LigneColis {
     protected $nombreCarton;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="float", nullable=true)
      * */
     protected $quantiteParCarton;
 

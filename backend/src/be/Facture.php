@@ -29,10 +29,14 @@ class Facture {
    /** @Column(type="string", length=60, nullable=true) */
     public $portDechargement;
     
-   /** @Column(type="integer", nullable=true) */
+   /**
+     * @Column(type="float", nullable=true)
+     * */
     public $nbTotalColis;
     
-   /** @Column(type="integer", nullable=true) */
+   /**
+     * @Column(type="float", nullable=true)
+     * */
     public $nbTotalPoids;
     
     

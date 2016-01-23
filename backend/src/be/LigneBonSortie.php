@@ -12,7 +12,7 @@ class LigneBonSortie {
     protected $id;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="float", nullable=true)
      * */
     protected $quantite;
     

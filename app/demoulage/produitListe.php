@@ -106,9 +106,9 @@
 		 }
 	 });
          function calculPoids(index){
-           var cart=parseInt($("#cart"+index).val());
-           var qte=parseInt($("#qte"+index).val());
-           var stockReel=parseInt($("#stockReel").val());
+           var cart=parseFloat($("#cart"+index).val());
+           var qte=parseFloat($("#qte"+index).val());
+           var stockReel=parseFloat($("#stockReel").val());
            var sqte=0;
            var tot = 0;
            tot = cart*qte;
@@ -116,7 +116,7 @@
                $("#tot"+index).val(tot);
                $('#tab_logic .tot').each(function () {
                 if($(this).val()!=='')
-                  sqte += parseInt($(this).val());
+                  sqte += parseFloat($(this).val());
                 });
                 if(sqte > stockReel){
                     $.gritter.add({
@@ -148,8 +148,8 @@
          });
          
          function verifiePoidsReel(index){
-           var stockProvisoire = parseInt($("#stockProvisoire").val());
-           var stockReel=parseInt($("#stockReel").val());
+           var stockProvisoire = parseFloat($("#stockProvisoire").val());
+           var stockReel=parseFloat($("#stockReel").val());
          
            if(stockReel>=stockProvisoire) {
                     $.gritter.add({

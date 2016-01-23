@@ -23,7 +23,7 @@ class Achat {
    /** @Column(type="time", nullable=true) */
     public $heureReception;
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="float", nullable=true)
      * */
     protected $poidsTotal;
     

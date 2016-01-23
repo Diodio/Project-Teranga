@@ -17,12 +17,12 @@ class Carton {
     protected $nombreCarton;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="float", nullable=true)
      * */
     protected $quantiteParCarton;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="string", nullable=false)
      * */
     protected $total;
     

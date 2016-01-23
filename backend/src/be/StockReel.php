@@ -12,11 +12,11 @@ class StockReel {
     protected $id;
     
     /**
-     * @Column(type="integer", nullable=true)
+     * @Column(type="float", nullable=true)
      * */
     protected $stock;
     /**
-     * @Column(type="integer", nullable=true)
+     * @Column(type="float", nullable=true)
      * */
     protected $seuil;
     
