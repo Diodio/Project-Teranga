@@ -84,13 +84,13 @@ td    { vertical-align: top; }
     </table>
     
 <?php
-    $total =0;
-    $totalPrix=0;
-    $totalQuantite=0;
+    $total =0.0;
+    $totalPrix=0.0;
+    $totalQuantite=0.0;
    while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
-       $total =$total+ $rowProduit['montant'];
-       $totalPrix =$totalPrix+ $rowProduit['prixUnitaire'];
-       $totalQuantite =$totalQuantite+ $rowProduit['quantite'];
+       $total = floatval($total) + floatval($rowProduit['montant']);
+       $totalPrix = floatval($totalPrix) + floatval($rowProduit['prixUnitaire']);
+       $totalQuantite = floatval($totalQuantite) + floatval($rowProduit['quantite']);
 ?>
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
@@ -106,8 +106,8 @@ td    { vertical-align: top; }
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
             <th style="width: 18%; text-align: left;">Total : </th>
-            <th style="width: 31%; text-align: right;"><?php echo number_format($totalPrix, 2, ',', ' '); ?> </th>
-            <th style="width: 26%; text-align: right;"><?php echo number_format($totalQuantite, 0, ',', ' '); ?>kg </th>
+            <th style="width: 31%; text-align: right;"><?php echo $totalPrix; ?> </th>
+            <th style="width: 26%; text-align: right;"><?php echo $totalQuantite; ?>kg </th>
             <th style="width: 25%; text-align: right;"><?php echo $total; ?> </th>
         </tr>
     </table>

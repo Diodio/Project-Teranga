@@ -497,6 +497,9 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
        //   calculPoidsNet(counter);
        //   calculMontant(counter);
          // calculMontantPoids();
+         $( "#designation"+counter ).change(function() {
+            calculMontant(counter);
+       });
         $( "#pu"+counter ).keyup(function() {
            calculMontant(counter);
       });

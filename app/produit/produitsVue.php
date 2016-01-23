@@ -523,7 +523,7 @@
 				},
 				stockProvisoire: {
 					required: true,
-                                        ///regexStockProvisoire: /\d{1,2}[\^.]{1}\d{1,2}/ // /^[a-zA-Z\u00E0-\u00FC ]+$/ //regexGroupName: /^[a-zA-Z0-9\u00E0-\u00FC ]+(&|\w)*$/
+                                        //regexStockProvisoire: /^[a-zA-Z0-9\u00E0-\u00FC ]+(&|\w)*$/ // /^[a-zA-Z\u00E0-\u00FC ]+$/ //regexGroupName: /^[a-zA-Z0-9\u00E0-\u00FC ]+(&|\w)*$/
 
 				},
 				stockReel: {
