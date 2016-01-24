@@ -93,6 +93,13 @@ $description = $_COOKIE['description'];
                         </small>
                     </a>
                 </div>
+                
+                <div class="navbar-header pull-center">
+                    <a href="" class="navbar-brand"> <small> <i
+                                class="fa fa-leaf"></i> <?php echo $codeUsine;?>
+                        </small>
+                    </a>
+                </div>
 
                 <div class="navbar-buttons navbar-header pull-right"
                      role="navigation">
