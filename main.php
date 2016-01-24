@@ -10,6 +10,9 @@ $login = $_COOKIE['login'];
 $profil = $_COOKIE['profil'];
 $status = $_COOKIE['status'];
 $codeUsine = $_COOKIE['codeUsine'];
+$nomUtilisateur = $_COOKIE['nomUtilisateur'];
+$description = $_COOKIE['description'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -299,8 +302,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </ul>
                                 </li>
 
-                                <li class="dropdown-footer"><a href="inbox.html"> See all
-                                        messages <i class="ace-icon fa fa-arrow-right"></i>
+                                <li class="dropdown-footer"><a href="inbox.html"> <?php echo $COOKIES['codeUsine'];?> <i class="ace-icon fa fa-arrow-right"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -314,7 +316,7 @@ $codeUsine = $_COOKIE['codeUsine'];
     width: 26px !important;"
                                                           src="assets/avatars/default.png" alt="Administrateur" /> 
                                 <span
-                                                          class="user-info"> <small>Bienvenue,</small> Administrateur
+                                                          class="user-info"> <small>Bienvenue,</small> <?php echo $nomUtilisateur;?>
                                 </span> <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
@@ -325,7 +327,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </li>
 
                                 <li><a href="profile.html"> <i class="ace-icon fa fa-user"></i>
-                                        Profile
+                                        Profil: <?php echo $description;?>
                                     </a>
                                 </li>
 

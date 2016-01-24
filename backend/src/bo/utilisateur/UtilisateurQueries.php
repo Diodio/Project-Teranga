@@ -155,7 +155,8 @@ class UtilisateurQueries {
     }
 
     public function signin($login, $password, $usineId) {
-        $dql = "SELECT u.id, u.login as login, u.nomUtilisateur  as nomUtilisateur, u.status status, u.etatCompte etatCompte, p.libelle as profil, us.code codeUsine, us.nomUsine from Utilisateur\Utilisateur u JOIN u.profil p JOIN u.usine us
+        $dql = "SELECT u.id, u.login as login, u.nomUtilisateur  as nomUtilisateur, u.status status, u.etatCompte etatCompte, 
+                p.libelle as profil, p.description as description, us.code codeUsine, us.nomUsine from Utilisateur\Utilisateur u JOIN u.profil p JOIN u.usine us
             where u.login='$login' and u.password='$password' and u.status=1 AND us.id='$usineId' ";
         try {
             $query = Bootstrap::$entityManager->createQuery($dql);

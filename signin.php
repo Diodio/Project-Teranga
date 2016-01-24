@@ -258,6 +258,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                     $.cookie('etatCompte', data.infos.etatCompte, { expires: heure, path: domainName });
                                     $.cookie('codeUsine', data.infos.codeUsine, { expires: heure, path: domainName});
                                     $.cookie('nomUsine', data.infos.nomUsine, { expires: heure, path: domainName});
+                                    $.cookie('nomUtilisateur', data.infos.nomUtilisateur, { expires: heure, path: domainName});
+                                    $.cookie('description', data.infos.description, { expires: heure, path: domainName});
                                     
                                     var url = "<?php echo \App::getHome();?>/main.php";
                                     document.location.href=url;
