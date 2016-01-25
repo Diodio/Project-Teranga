@@ -12,6 +12,7 @@ $status = $_COOKIE['status'];
 $codeUsine = $_COOKIE['codeUsine'];
 $nomUtilisateur = $_COOKIE['nomUtilisateur'];
 $description = $_COOKIE['description'];
+$nomUsine = $_COOKIE['nomUsine'];
 
 ?>
 <!DOCTYPE html>
@@ -89,17 +90,11 @@ $description = $_COOKIE['description'];
 
                 <div class="navbar-header pull-left">
                     <a href="index.html" class="navbar-brand"> <small> <i
-                                class="fa fa-leaf"></i> MacFish Production
+                                class="fa fa-leaf"></i> MacFish Production de <?php echo $nomUsine;?>
                         </small>
                     </a>
                 </div>
                 
-                <div class="navbar-header pull-center">
-                    <a href="" class="navbar-brand"> <small> <i
-                                class="fa fa-leaf"></i> <?php echo $codeUsine;?>
-                        </small>
-                    </a>
-                </div>
 
                 <div class="navbar-buttons navbar-header pull-right"
                      role="navigation">
