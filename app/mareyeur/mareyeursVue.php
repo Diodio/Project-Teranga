@@ -81,7 +81,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Compte </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Financement </label>
                                     <div class="col-sm-9">
                                         <input type="number" id="compte" name="compte" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
