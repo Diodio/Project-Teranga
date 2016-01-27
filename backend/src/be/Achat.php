@@ -38,7 +38,7 @@ class Achat {
     protected $reliquat;
     
     /**
-     * @Column(type="float", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=false)
      * */
     protected $modePaiement;
     

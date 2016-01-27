@@ -312,10 +312,9 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </ul>
                     </li>
 
-
-                    <li class=""><a href="calendar.html"> <i
-                                class="menu-icon fa fa-calendar"></i> <span class="menu-text">
-                                Consultations <span class="badge badge-transparent tooltip-error"
+                    <li id="LIST_USERS" class=""><a id="USERS" href="#"> <i
+                                class="menu-icon fa fa-group"></i> <span class="menu-text">
+                                Utilisateurs <span class="badge badge-transparent tooltip-error"
                                                     title="2 Important Events"> </span>
                             </span>
                         </a> <b class="arrow"></b>
@@ -735,6 +734,26 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
   					$("#MNU_DEMOULAGE_LIST").attr("Class", "active");
                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
                  });
+                 });
+                 
+                  $("#LIST_USERS").click(function (e) {
+                    $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MNU_MAREYEURS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_SORTIE").attr("Class", "no-active");
+                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "active");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/utilisateur/utilisateurs.php", function () {
+                    });
                  });
                 	
                 	
