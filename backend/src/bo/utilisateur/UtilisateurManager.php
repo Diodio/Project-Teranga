@@ -1,16 +1,4 @@
 <?php
-
-/*
- * 2SMOBILE
- * ----------------------------------------
- *  @author     Kiwi <pathe.gueye@kiwi.sn>
- *  @copyright  2006-2015 Kiwi/2SI Utilisateur
- *  @version    2.0.0
- *  @link       http://www.kiwi.sn
- *  @link       http://www.ssi.sn
- * ----------------------------------------
- */
-
 namespace Utilisateur;
 
 use Utilisateur\Utilisateur as Utilisateur;
@@ -141,8 +129,8 @@ class UtilisateurManager {
         
     }
 
-    public function listUtilisateurs($customerId, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->userQueries->listUtilisateurs($customerId, $offset, $rowCount, $sOrder, $sWhere);
+    public function listUtilisateurs($offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->utilisateurQueries->listUtilisateurs($offset, $rowCount, $sOrder, $sWhere);
     }
     
     public function ifExist($utilisateurname, $partner){

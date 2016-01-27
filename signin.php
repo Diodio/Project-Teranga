@@ -119,7 +119,7 @@
                                     </div><!-- /.widget-body -->
                                 </div><!-- /.login-box -->
 
-                    \
+                    
                             </div><!-- /.position-relative -->
 
                             <div class="navbar-fixed-top align-right">
@@ -250,7 +250,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                             },
                             success: function(data) {
                                 data=$.parseJSON(data);
-                                if(data.rc===1){
+                                if(data.rc==1){
                                     $.cookie('userId', data.infos.id, { expires: heure, path: domainName });
                                     $.cookie('login', data.infos.login, { expires: heure, path: domainName });
                                     $.cookie('profil', data.infos.profil, { expires: heure, path: domainName});
@@ -264,11 +264,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                     
                                     var url = "<?php echo \App::getHome();?>/main.php";
                                     document.location.href=url;
-                                }else if(data.rc===0){
+                                }else if(data.rc==0){
                                         alert("Login ou mot de passe incorrect");
                                         return false;
                                 }
-                                else if(data.rc===-1){
+                                else if(data.rc==-1){
                                         alert("Utilisateur desactivé");
                                         return false;
                                 }

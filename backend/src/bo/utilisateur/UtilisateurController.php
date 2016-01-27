@@ -261,12 +261,12 @@ private $langageManager;
         $this->logger->log->info('Action List user');
         $this->logger->log->info(json_encode($request));
         try {
-           $userManager=new UtilisateurManager();
-            if(isset($request['customerId']) && isset($request['iDisplayStart']) && isset($request['iDisplayLength'])){
+           $utilisateurManager=new UtilisateurManager();
+            if(isset($request['iDisplayStart']) && isset($request['iDisplayLength'])){
                 $customerId=$request['customerId'];
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('contactName','u.description', 'login','u.status');
+                $aColumns = array('nomUtilisateur','login', 'usine_id','profil_id');
                 if ( isset( $request['iSortCol_0'] ) ){
                         $sOrder = "ORDER BY  "; 
                         for ( $i=0 ; $i<intval( $request['iSortingCols'] ) ; $i++ ){
@@ -279,7 +279,7 @@ private $langageManager;
                         $sOrder = substr_replace( $sOrder, "", -2 );
                         if ( $sOrder == "ORDER BY" )
                         {
-                                 $sOrder .= " u.createdDate desc ";
+                                 $sOrder .= " createdDate desc ";
                         }
                 }
                 // End order from DataTable
@@ -299,9 +299,9 @@ private $langageManager;
                     }
                 }
                 // End filter from dataTable
-                $users=$userManager->listUsers($customerId, $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $users=$utilisateurManager->listUtilisateurs($request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if($users!=null){
-                    $nbUsers=$userManager->count($customerId, $sWhere);
+                    $nbUsers=$utilisateurManager->count($sWhere);
                     $this->logger->log->info($nbUsers. 'users retrieved');
                     $this->doSuccessO($this->dataTableFormat($users, $request['sEcho'], $nbUsers));
                 }

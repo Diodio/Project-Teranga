@@ -29,7 +29,7 @@ td    { vertical-align: top; }
 
 -->
 </style>
-<page orientation="paysage" format="A5" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
+<page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
     <bookmark title="Lettre" level="0" ></bookmark>
     <table cellspacing="0" style="width: 100%; text-align: center; font-size: 14px">
         <tr>
@@ -167,9 +167,9 @@ td    { vertical-align: top; }
             </tr>
         </table>
     </nobreak>
-    
-    <br/><br/><br/>
-    <bookmark title="Lettre" level="0" ></bookmark>
+    <br/><br/><br/><br/>
+    <hr>
+    <br/><br/><br/><br/>
     <table cellspacing="0" style="margin-top:-45px;width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td style="width: 40%; ">
@@ -182,7 +182,7 @@ td    { vertical-align: top; }
             <td style="width: 40%;">
                 <br>
                 <br>
-                <span  style="font-size: 25px;" >BON D'ACHAT
+                <span  style="font-size: 18px;" >BON D'ACHAT
                 N° <?php echo $row['numero']; ?></span>
             </td>
             <td style="width: 25%; color: #444444;">
