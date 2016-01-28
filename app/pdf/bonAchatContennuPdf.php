@@ -26,7 +26,11 @@ $rowAvance = mysqli_fetch_array($ResultAvance);
 table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; }
-
+hr {
+	height: none;
+	border: none;
+	border-top: 1px dashed grey;
+}
 -->
 </style>
 <page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">

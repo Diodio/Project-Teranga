@@ -127,24 +127,22 @@ class UtilisateurQueries {
      * @return type
      * @throws \Customer\Exception
      */
-    public function listUsers($customerId, $offset, $rowCount, $orderBy = "", $sWhere = "") {
-        $sql = 'SELECT u.id, contactName as name, contactEmail as email, u.description as description, login, u.activate as statut, p.intitule as type'
-                . ' from user u JOIN profil p on u.profil_id=p.id where u.customer_id= ' . $customerId . ' and u.status=1 ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount;
+    public function listUtilisateurs($offset, $rowCount, $orderBy = "", $sWhere = "") {
+        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1';
         $this->logger->log->trace($sql);
         try {
-            $stmt = B::$entityManager->getConnection()->prepare($sql);
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $rslt = $stmt->fetchAll();
             $array = array();
             foreach ($rslt as $key => $value) {
                 $utilisateur = array();
-                $utilisateur[] = $value['id'];
-                $utilisateur[] = $value['name'];
+                $utilisateur[] = $value['uid'];
+                $utilisateur[] = $value['nomUtilisateur'];
                 $utilisateur[] = $value['description'];
                 $utilisateur[] = $value['login'];
-                $utilisateur[] = $value['type'];
-                $utilisateur[] = $value['statut'];
-                $utilisateur[] = $value['id'];
+                $utilisateur[] = $value['nomUsine'];
+                $utilisateur[] = $value['uid'];
                 $array[] = $utilisateur;
             }
             return $array;
@@ -167,8 +165,8 @@ class UtilisateurQueries {
     }
 
     public function count($customerId, $where = "") {
-        $sql = "SELECT count(id) as nbUsers from user where  customer_id=" . $customerId . " AND status=1 " . $where;
-        $stmt = B::$entityManager->getConnection()->prepare($sql);
+        $sql = "SELECT count(*) as nbUsers FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1" . $where;
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbContacts = $stmt->fetch();
         return $nbContacts['nbUsers'];

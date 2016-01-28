@@ -263,7 +263,6 @@ private $langageManager;
         try {
            $utilisateurManager=new UtilisateurManager();
             if(isset($request['iDisplayStart']) && isset($request['iDisplayLength'])){
-                $customerId=$request['customerId'];
                 // Begin order from dataTable
                 $sOrder = "";
                 $aColumns = array('nomUtilisateur','login', 'usine_id','profil_id');

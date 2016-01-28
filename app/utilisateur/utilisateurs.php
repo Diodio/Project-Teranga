@@ -42,20 +42,21 @@
                         
                     <div class="widget-body">
                         <div class="widget-main no-padding">
-                          <table id="LIST_USERS" class="table table-striped table-bordered table-hover">
+                          <table id="LIST_UTILISATEURS" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
+                                <th class="hidden"><i class="icon-male bigger-110"></i>  </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Nom Complet
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                   Profil
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                    Login
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Usine
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Détail
                                 </th>
                             </tr>
                         </thead>
@@ -90,7 +91,7 @@
             
             
             persistChecked = function() {
-                $('input[type="checkbox"]', "#LIST_USERS").each(function() {
+                $('input[type="checkbox"]', "#LIST_UTILISATEURS").each(function() {
                     if (checkedUsersContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
@@ -121,7 +122,7 @@
                 });
             });
             
-             $('#LIST_USERS tbody').on('click', 'input[type="checkbox"]', function() {
+             $('#LIST_UTILISATEURS tbody').on('click', 'input[type="checkbox"]', function() {
                 context=$(this);
                 if ($(this).is(':checked') && $(this).val() != '*') {
                     checkedUsersAdd($(this).val());
@@ -228,12 +229,12 @@
              loadUsers = function() {
                 nbTotalUsersChecked = 0;
                 checkedUsers = new Array();
-                var url =  '<?php echo App::getBoPath(); ?>/utilis/UtilisateurController.php';
+                var url =  '<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php';
 
                 if (oTableUsers != null)
                     oTableUsers.fnDestroy();
 
-                oTableUsers = $('#LIST_USERS').dataTable({
+                oTableUsers = $('#LIST_UTILISATEURS').dataTable({
                     "oLanguage": {
                     "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
                     "oPaginate": {
@@ -245,50 +246,14 @@
                     },
                     "aoColumnDefs": [
                         {
-//                             "aTargets": [0],
-//                             "bSortable": false,
-//                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-//                                 $(nTd).css('text-align', 'center');
-//                             },
-//                             "mRender": function(data, type, full) {
-//                                 return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
-//                             }
-                        },
-                        {
-                        "aTargets": [3],
-                        "bSortable": false,
-                        "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-//                            $(nTd).css('text-align', 'center');
-//                            $(nTd).text('');
-//                            $(nTd).addClass('td-actions');
-//                            action=$('<div></div>');
-//                            action.addClass('hidden-phone pull-right visible-desktop action-buttons');
-//                            
-//                            btnGrps=$('<button id="colis'+oData[0]+'" class="center btn btn-warning btn-mini" href="#">'+
-//                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
-//                            '</button>');
-//                            btnGrps.click(function(){
-//                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
-//                                data=$.parseJSON(data);
-//                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
-//                                $.each(data , function(i) { 
-//                                    str= data [i].toString();
-//                                    var substr = str.split(',');
-//                                    htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
-//                                  });
-//                                  htmlString+="</div>";
-//                                showPopover("colis"+oData[0], ""+htmlString+"");
-//                                });
-//                            });
-//                            btnGrps.tooltip({
-//                                title: 'Liste des colis disponible'
-//                            });
-//                            btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
-//                            action.append(btnGrps);
-//                            $(nTd).append(action);
-                           
+                             "aTargets": [0],
+                             "bSortable": false,
+                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                 $(nTd).css('display', 'none');
+                             },
+                             "mRender": function(data, type, full) {
+                                return '<label class="hidden"><input type="text" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';                             }
                         }
-                    }
                     ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 //                        persistChecked();
