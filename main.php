@@ -193,7 +193,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </a> <b class="arrow"></b>
                     </li>
 
-                    <li class=""><a href="#" class="dropdown-toggle"> <i
+                    <li id="PARAMETRAGE" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-cogs"></i> <span class="menu-text">
                                 Parametrage </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
@@ -218,7 +218,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                     </li>
                     
                     
-                    <li class=""><a href="#" class="dropdown-toggle"> <i
+                    <li id="BONACHAT"class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="fa fa-pencil fa-fw"></i> <span class="menu-text">
                                 Bon d'Achat </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
@@ -242,19 +242,19 @@ $nomUsine = $_COOKIE['nomUsine'];
 <!--                                 Démoulage </span> <b class="arrow fa fa-angle-down"></b> -->
 <!--                         </a> <b class="arrow"></b> -->
 <!--                         <ul class="submenu"> -->
-                            <li id="MNU_DEMOULAGE" class=""><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
+                            <li id="MNU_DEMOULAGE" class="hidden"><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
                                    class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
                                         Démoulage </span>
                                 </a> <b class="arrow"></b>
                            </li>
-                            <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
+                            <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Stock Réel </span>
                                 </a> <b class="arrow"></b>
                             </li>
 <!--                         </ul> -->
 
-                     <li class=""><a href="#" class="dropdown-toggle"> <i
+                        <li id="BONSORTIE"class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
                                 Bon de Sortie </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
@@ -271,8 +271,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                             </li>
                         </ul>
                     </li>
-                      
-                    <li class=""><a href="#" class="dropdown-toggle"> <i
+                      <li id="MNU_FACTURE"class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
                                 Facture  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
@@ -291,9 +290,10 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </ul>
                     </li>
 
+                      
 
 
-                      <li class=""><a href="#" class="dropdown-toggle"> <i
+                    <li id="MNU_REGLEMENT" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
                                 Reglement  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
@@ -312,7 +312,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </ul>
                     </li>
 
-                    <li id="LIST_USERS" class=""><a id="USERS" href="#"> <i
+                    <li id="LIST_USERS" class="hidden"><a id="USERS" href="#"> <i
                                 class="menu-icon fa fa-group"></i> <span class="menu-text">
                                 Utilisateurs <span class="badge badge-transparent tooltip-error"
                                                     title="2 Important Events"> </span>
@@ -460,7 +460,30 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                 $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/home/home.php", function () {
 
                 });
-
+                function manageProfil(profil){
+                    if(profil==='magasinier')
+                    {
+                        $('#PARAMETRAGE').removeClass("hidden");
+                        $('#BONACHAT').removeClass("hidden");
+                        $('#MNU_DEMOULAGE').removeClass("hidden");
+                        $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
+                        $('#BONSORTIE').removeClass("hidden");
+                    }
+                    else if(profil==='comptable') {
+                        
+                    }
+                    else if(profil==='admin'){
+                        $('#PARAMETRAGE').removeClass("hidden");
+                        $('#BONACHAT').removeClass("hidden");
+                        $('#MNU_DEMOULAGE').removeClass("hidden");
+                        $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
+                        $('#BONSORTIE').removeClass("hidden");
+                        $('#MNU_FACTURE').removeClass("hidden");
+                        $('#MNU_REGLEMENT').removeClass("hidden");
+                        $('#LIST_USERS').removeClass("hidden");
+                    }
+                }
+                manageProfil("<?php echo $profil;?>");
                 $("#MNU_PRODUITS").click(function (e) {
                 	$("#MNU_PRODUITS").attr("Class", "active");
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
