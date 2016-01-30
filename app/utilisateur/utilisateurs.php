@@ -30,26 +30,38 @@
                             <i class="ace-icon fa fa-users orange"></i>
                             Liste des utilisateurs
                         </h4>
-                        <div class="btn-group">
-                                    <button data-toggle="dropdown"
-                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                            data-rel="tooltip" data-placement="top" title="" style="
-                                            height: 32px;
-                                            width: 80px;
-                                            margin-top: -10px;
-                                            margin-left: 36%;
-                                        ">
-                                        <i class="icon-group icon-only icon-on-right"></i> Action
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_NEW' class="" ><a href="#" id="GRP_NEW">Nouveau </a></li>
-                                        <li class="divider"></li>
-                                        <li id='MNU_EDIT' class="disabled" ><a href="#" id="GRP_EDIT">Modifier</a></li>
-                                        <li class="divider"></li>
-                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
-                                    </ul>
-                                </div>
+                                        <div class="btn-group">
+                                            <button id="BTN_NEW"
+                                                    class="btn btn-primary btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Nouveau">
+                                                <i class="icon-cloud-upload icon-only"></i> Nouveau
+                                            </button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button id="BTN_UPDATE"
+                                                    class="btn btn-primary btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Modifier">
+                                                <i class="icon-cloud-download icon-only"></i> Modifier
+                                            </button>
+                                        </div>
+                                       <div class="btn-group">
+                                            <button id="BTN_ACTIVER"
+                                                    class="btn btn-primary btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Activer">
+                                                <i class="icon-cloud-download icon-only"></i> Activer
+                                            </button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button id="BTN_DESACTIVER"
+                                                    class="btn btn-primary btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Desactiver">
+                                                <i class="icon-cloud-download icon-only"></i> Desactiver
+                                            </button>
+                                        </div>
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>
@@ -81,6 +93,9 @@
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Usine
                                 </th>
+                                <th class="center"><i class="smaller-70"></i>
+                                                Status</th>
+                                <th class="center" style="width: 10%;"></th>
                             </tr>
                         </thead>
 
@@ -383,7 +398,63 @@
                              },
                              "mRender": function(data, type, full) {
                                 return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';                             }
-                        }
+                        },
+                                {   
+                            "aTargets": [5],
+                            "bSortable": false,
+                                "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).css('text-align', 'center');
+                             },
+                                "mRender": function (data, type, full) {
+                                    console.log(full[5]);
+                                    var src = '<input type="hidden" >';
+                                    if (full[5] != null && full[5] !== '1')
+                                        src += '<span class="infobox-red tooltip-error"  title="Desactiver"><i class="fa fa-circle"></i></span>';
+                                    else
+                                        src += '<span class="infobox-green tooltip-error"  title="Activer"><i class="fa fa-circle"></i></span>';
+                                    
+                                return src;
+                            }
+                          },
+                            {
+                                "aTargets": [6],
+                                "bSortable": false,
+                                "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                    
+                                    $(nTd).css('text-align', 'center');
+                                    $(nTd).text('');
+                                    $(nTd).addClass('td-actions');
+                                    action=$('<div></div>');
+                                    action.addClass('pull-right hidden-phone visible-desktop action-buttons');
+                                    btnEdit=$('<a class="green" href="#"> '+
+                                    '<i class="fa fa-pencil bigger-130"></i>'+
+                                    '</a>');
+                                    btnEdit.click(function(){
+                                       // userForm('<?php //echo App::ACTION_UPDATE; ?>', oData[0]);
+                                    });
+                                    btnEdit.tooltip({
+                                        title: 'Modifier'
+                                    });
+                                    //if (full[5] !== "Admin"){
+                                    btnRemove=$('<a class="red" href="#">'+
+                                                '<i class="fa fa-trash bigger-130"></i>'+
+                                                '</a>');
+                                    //}
+                                    btnRemove.click(function(){
+                                        //removeUser(oData[0]);
+                                    });
+                                    btnRemove.tooltip({
+                                        title: 'Supprimer'
+                                    });
+                                    btnEdit.css({'margin-right': '10px', 'cursor':'pointer'});
+                                    btnRemove.css({'cursor':'pointer'});
+                                    action.append(btnEdit);
+                                    if(oData[4] !=="Admin"){
+                                    action.append(btnRemove);
+                                    }
+                                    $(nTd).append(action);
+                                }
+                            }
                     ],
                     
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {

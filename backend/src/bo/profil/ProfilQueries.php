@@ -50,7 +50,7 @@ class ProfilQueries {
     }
 
     public function findById($profilId) {
-        $query = Bootstrap::$entityManager->createQuery("select f from Utilisateur\Profil p where p.id = :profilId");
+        $query = Bootstrap::$entityManager->createQuery("select p from Utilisateur\Profil p where p.id = :profilId");
         $query->setParameter('profilId', $profilId);
         $profil = $query->getResult();
         if ($profil != null)

@@ -1,7 +1,7 @@
 <?php
 
 namespace Utilisateur;
-use Usine\UsineQueries as UsineQueries;
+use Utilisateur\ProfilQueries as ProfilQueries;
 
 
 
@@ -10,7 +10,7 @@ class ProfilManager {
     private $profilQueries;
 
     public function __construct() {
-        $this->profilQueries = new UsineQueries();
+        $this->profilQueries = new ProfilQueries();
     }
     
     public function insert($usine) {
