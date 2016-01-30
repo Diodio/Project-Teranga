@@ -83,7 +83,7 @@ private $logger;
     public function doInsert($request) {
         try {
             $this->logger->log->trace("tesst1");
-            
+            if($request['mareyeur'] !="null") {
                 $achatManager = new AchatManager();
                 $achat = new Achat();
                 $achat->setNumero($request['numAchat']);
@@ -140,6 +140,9 @@ private $logger;
                 } else {
                     $this->doError('-1', 'Impossible d\'inserer cet achat');
                 }
+            }else {
+                $this->doError('-1', 'Impossible d\'inserer cet achat');
+            }
                 
             
         } catch (Exception $e) {

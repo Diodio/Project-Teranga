@@ -385,6 +385,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
+    var mareyeurId;
     $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -560,8 +561,10 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     
     $('#CMB_MAREYEURS').change(function() {
     if($('#CMB_MAREYEURS').val()!==null) {
-        if($('#CMB_MAREYEURS').val()!=='*')
+        if($('#CMB_MAREYEURS').val()!=='*') {
+            mareyeurId = $('#CMB_MAREYEURS').val()
             loadInfoMareyeur($('#CMB_MAREYEURS').val());
+        }
         else {
             $('#adresse').val("");
             $('#reference').val("");
@@ -694,7 +697,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var numAchat= $('#numAchat').val();
             var heureReception= $('#heureReception').val();
            // var dateAchat = dateAchat;
-            var mareyeur = $("#CMB_MAREYEURS").val();
+            var mareyeur = mareyeurId;
             var poidsTotal = $("#poidsTotal").val();
             var MontantTotal = $("#montantTotal").val();
             var modePaiement = $("#modePaiement").val();
@@ -949,7 +952,8 @@ $table.find("tbody tr").each(function () {
                             jsonText=JSON.parse(jsonText);
                              //groupeId=groupId;
                             $("#CMB_MAREYEURS").select2("data", jsonText, true);
-                           // $("#CMB_MAREYEURS").select2('val',data.oId);
+                            mareyeurId = data.oId;
+                            //$("#CMB_MAREYEURS").val(data.oId);//.change();
                             $("#reference").val(reference);
                             $("#adresse").val(adresse);
                             
