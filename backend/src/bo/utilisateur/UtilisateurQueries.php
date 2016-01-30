@@ -137,7 +137,7 @@ class UtilisateurQueries {
      * @throws \Customer\Exception
      */
     public function listUtilisateurs($offset, $rowCount, $orderBy = "", $sWhere = "") {
-        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1';
+        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine, etatCompte FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1';
         $this->logger->log->trace($sql);
         try {
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -151,6 +151,7 @@ class UtilisateurQueries {
                 $utilisateur[] = $value['description'];
                 $utilisateur[] = $value['login'];
                 $utilisateur[] = $value['nomUsine'];
+                $utilisateur[] = $value['etatCompte'];
                 $utilisateur[] = $value['uid'];
                 $array[] = $utilisateur;
             }

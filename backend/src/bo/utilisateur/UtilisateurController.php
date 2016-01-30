@@ -211,7 +211,7 @@ private $langageManager;
                 $nom=$request['nom'];
                 $login=$request['login'];
                 $password=$request['password'];
-                $usineId=  md5($request['usineId']);
+                $usineId=  $request['usineId'];
                 $profilId=$request['profilId'];
                 if($nom!="" && $login!="" && $password!="" && $usineId!="-1" && $profilId!="-1"){
                     $userManager =new UtilisateurManager();
@@ -219,13 +219,15 @@ private $langageManager;
                     $user->setNomUtilisateur($nom);
                     $user->setLogin($login);
                     $user->setPassword($password);
+                    $user->setStatus(1);
+                    $user->setEtatCompte(0);
                     $usineManager = new Usine\UsineManager();
                     $usine=$usineManager->findById($usineId);
                     $user->setUsine($usine);
                     $profilManager = new ProfilManager();
                     $profil=$profilManager->findById($profilId);
-                    $logger->log->trace("Debut insertion user1");
                     $user->setProfil($profil);
+                    $logger->log->trace("Debut insertion user1");
                     $userManager->createOrEdit($user);
                     if($user->getId()!=null){
                         $this->doSuccess($user->getId(),'Utilisateur créé avec succes');
