@@ -28,11 +28,10 @@ $codeUsine = $_COOKIE['codeUsine'];
         <div class="row">
             <div class="col-sm-4"> 
                 <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
-                        <option value="*" class="types">Selectionnez</option>
-                          <option value="1" class="ace-icon fa fa-check-square-o green bigger-130 icon-only">Achats validés
-                          </option>
-                         <option value="0" class="ace-icon fa fa-wrench orange bigger-130 icon-only">Achats non validés</option>
-                           <option value="2" class="ace-icon fa fa-trash-o red bigger-130 icon-only">Achats annulés</option>
+                        <option value="*" class="types">Selectionnez un achat</option>
+                         <option value="0" class="orange bigger-130 icon-only">Achats non validés</option>
+                         <option value="1" class="green bigger-130 icon-only">Achats validés</option>
+                         <option value="2" class="red bigger-130 icon-only">Achats annulés</option>
                 </select>
             </div>
             <div class="col-sm-8">
