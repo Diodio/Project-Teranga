@@ -26,7 +26,14 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="row">
         <div class="space-6"></div>
         <div class="row">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4"> 
+                <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
+                        <option value="*" class="types">Selectionnez</option>
+                          <option value="1" class="types">Achats validés</option>
+                         <option value="0" class="types">Achats non validés</option>
+                           <option value="2" class="types">Achats annulés</option>
+                </select>
+            </div>
             <div class="col-sm-8">
                     <div class="col-lg-1">
                         <div class="btn-group">
@@ -304,6 +311,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var oTableAchats= null;
             var nbTotalAchatChecked=0;
             var checkedAchat = new Array();
+            $('#CMB_TYPE').select2();
             // Check if an item is in the array
            // var interval = 500;
             getIndicator = function() {
@@ -489,7 +497,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 return false;
             };
-             loadAchats = function() {
+             loadAchats = function(typeAchat) {
                 nbTotalAchatChecked = 0;
                 checkedAchat = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
@@ -571,6 +579,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
+                        aoData.push({"name": "typeAchat", "value": typeAchat});
                         userProfil=$.cookie('profil');
                         if(userProfil==='admin'){
                             aoData.push({"name": "codeUsine", "value": "*"});
@@ -600,8 +609,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                 });
             };
+            loadAchats('*');
+            $('#CMB_TYPE').change(function() {
+                if($('#CMB_TYPE').val()!=='*') {
+                    loadAchats($('#CMB_TYPE').val());
+                }
+                else {
+                    loadAchats('*');
+                }
+            });
             
-            loadAchats();
             loadAchatSelected = function(achatId)
             {
                  var url;

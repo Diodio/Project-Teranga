@@ -74,12 +74,12 @@ class UsineQueries {
         $famille = $query->getSingleResult();
         return $famille;
     }
-    public function findById($familleId) {
-            $query = Bootstrap::$entityManager->createQuery("select f from Produit\FamilleProduit f where f.id = :familleId");
-            $query->setParameter('familleId', $familleId);
-            $famille = $query->getResult();
-            if ($famille != null)
-                return $famille[0];
+    public function findById($usineId) {
+            $query = Bootstrap::$entityManager->createQuery("select u from Usine\Usine u where u.id = :usineId");
+            $query->setParameter('usineId', $usineId);
+            $usine = $query->getResult();
+            if ($usine != null)
+                return $usine[0];
             else
                 return null;
         }

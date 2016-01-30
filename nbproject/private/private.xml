@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/utilisateur/UtilisateurQueries.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/app/pdf/bonAchatContennuPdf.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/bonSortie/bonSortieVue.php</file>
             <file>file:/C:/xampp/htdocs/macfish/app/achat/achatsVue.php</file>
             <file>file:/C:/xampp/htdocs/macfish/signin.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/utilisateur/UtilisateurController.php</file>
             <file>file:/C:/xampp/htdocs/macfish/app/utilisateur/utilisateurs.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/reglement/reglementAchat.php</file>
             <file>file:/C:/xampp/htdocs/macfish/main.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/utilisateur/UtilisateurManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/facture/facturesVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/achat/achatListe.php</file>
             <file>file:/C:/xampp/htdocs/macfish/referentiel.sql</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/client/clientsVue.php</file>
         </group>
     </open-files>
 </project-private>

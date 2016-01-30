@@ -26,10 +26,14 @@ $rowAvance = mysqli_fetch_array($ResultAvance);
 table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; }
-
+hr {
+	height: none;
+	border: none;
+	border-top: 1px dashed grey;
+}
 -->
 </style>
-<page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
+<page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="33mm" style="font-size: 12pt">
     <bookmark title="Lettre" level="0" ></bookmark>
     <table cellspacing="0" style="width: 98%; text-align: center; font-size: 14px">
         <tr>
@@ -71,7 +75,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <br>
-    <span  style="font-size: 14px;margin-top:-12px;font-weight: bold;" >Liste des produits</span>
+    <span  style="font-size: 14px;margin-top:-13px;font-weight: bold;" >Liste des produits</span>
     <hr>
     <br>
     <table cellspacing="0" style="margin-top:-45px;width: 98%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
@@ -112,7 +116,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -121,7 +125,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <?php if($row['modePaiement'] =='CHEQUE') {?>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -131,7 +135,7 @@ td    { vertical-align: top; }
     </table>
     <?php }?>
     <?php if($row['modePaiement'] =='VIREMENT') {?>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -140,7 +144,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <?php }?>
-   <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+   <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -148,7 +152,7 @@ td    { vertical-align: top; }
             <td style="width: 25%; text-align: right;"><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0 ?> </td>
         </tr>
     </table>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -210,7 +214,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <br>
-    <span  style="font-size: 14px;margin-top:-12px;font-weight: bold;" >Liste des produits</span>
+    <span  style="font-size: 14px;margin-top:-13px;font-weight: bold;" >Liste des produits</span>
     <hr>
     <br>
     <table cellspacing="0" style="margin-top:-40px;width: 98%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
@@ -251,7 +255,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -260,7 +264,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <?php if($row['modePaiement'] =='CHEQUE') {?>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -270,7 +274,7 @@ td    { vertical-align: top; }
     </table>
     <?php }?>
     <?php if($row['modePaiement'] =='VIREMENT') {?>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -279,7 +283,7 @@ td    { vertical-align: top; }
         </tr>
     </table>
     <?php }?>
-   <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+   <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>
@@ -287,7 +291,7 @@ td    { vertical-align: top; }
             <td style="width: 25%; text-align: right;"><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0 ?> </td>
         </tr>
     </table>
-    <table cellspacing="0" style="text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
             <td style="width: 18%; text-align: left;"> </td>
             <td style="width: 31%; text-align: right;"></td>

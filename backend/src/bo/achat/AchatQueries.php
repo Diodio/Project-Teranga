@@ -41,18 +41,29 @@ class AchatQueries {
     }
 
    
-    public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAll($typeAchat,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            
+            if($typeAchat !=='*'){
+                $sql = 'select achat.id,status,dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
+            else {
             $sql = 'select achat.id,status,dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
         }
         else {
+            if($typeAchat !=='*'){
+                $sql = 'select achat.id, status,dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
+            else {
             $sql = 'select achat.id, status,dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-        }   
+            }
+            }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -107,25 +118,34 @@ class AchatQueries {
 			return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
 		}
 	}
-    public function count($codeUsine, $sWhere = "") {
-        if($sWhere !== "")
+        public function count($typeAchat, $codeUsine, $sWhere = "") {
+        if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
-        if($codeUsine !=='*') {
-            $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
-        }
-        else {
-             $sql = 'select count(achat.id) as nbAchats
+        if ($codeUsine !== '*') {
+            if ($typeAchat !== '*') {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=' . $typeAchat . ' and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+            } else {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+            }
+        } else {
+            if ($typeAchat !== '*') {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=' . $typeAchat . ' ' . $sWhere . '';
+            } else {
+                $sql = 'select count(achat.id) as nbAchats
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
+            }
         }
-       
+
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbClients = $stmt->fetch();
         return $nbClients['nbAchats'];
     }
-    
-     public function countReglements($codeUsine, $sWhere = "") {
+
+    public function countReglements($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {

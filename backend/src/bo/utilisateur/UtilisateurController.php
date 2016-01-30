@@ -43,6 +43,9 @@ private $langageManager;
                     case \App::ACTION_INSERT:
                         $this->doInsert($request);
                         break;
+                    case \App::ACTION_LIST_PROFIL:
+                        $this->doListProfil($request);
+                        break;
                     case \App::ACTION_UPDATE:
                         $this->doUpdate($request);
                         break;
@@ -60,9 +63,6 @@ private $langageManager;
                         break;
                     case \App::ACTION_LIST:
                         $this->doList($request);
-                        break;
-                    case \App::ACTION_LIST_PROFIL:
-                        $this->doListProfil($request);
                         break;
                     case \App::ACTION_SIGNIN:
                         $this->doSignin($request);
@@ -206,53 +206,41 @@ private $langageManager;
         $logger=new Logger(__CLASS__);
         try{
             $logger->log->trace("Debut insertion user");
-            if(isset($request['ACTION']) && isset($request['customerId']) && isset($request['contactName']) && isset($request['login']) && isset($request['password']) && isset($request['description'])){
-                $customerId=$request['customerId'];
-                $contactName=$request['contactName'];
+            if(isset($request['ACTION']) && isset($request['nom']) && isset($request['login']) && isset($request['password']) && isset($request['usineId']) && isset($request['profilId'])){
+                
+                $nom=$request['nom'];
                 $login=$request['login'];
-                $password=  md5($request['password']);
-                $description=$request['description'];
-                $email=$request['email'];
-                $profil=$request['profil']; // profil utilisateur simple par defaut
-                if($customerId!="" && $contactName!="" && $login!="" && $password!="" && $description!="" && $profil!=""){
+                $password=$request['password'];
+                $usineId=  md5($request['usineId']);
+                $profilId=$request['profilId'];
+                if($nom!="" && $login!="" && $password!="" && $usineId!="-1" && $profilId!="-1"){
                     $userManager =new UtilisateurManager();
-                    $customerManager=new Utilisateur\UtilisateurManager();
-                    $user=new Utilisateur\User();
-                    $customer=$customerManager->findById($customerId);
-                    $user->setUtilisateur($customer);
-                    $user->setLanguage($customer->getLanguage());
-                    $user->setPartner($customer->getPartner());
-                    $user->setContactName($contactName);
+                    $user=new Utilisateur\Utilisateur();
+                    $user->setNomUtilisateur($nom);
                     $user->setLogin($login);
                     $user->setPassword($password);
-                    $user->setDescription($description);
-                    $user->setContactEmail($email);
-                    $user->setActiveMailSending(0);
-                    $user->setActiveSMSTest(0);
-                    $profilManager=new ProfilManager();
-                    $objectProfil=  $profilManager->findById($profil);
-                    $user->setProfil($objectProfil);
-                    $userManager->create($user);
+                    $usineManager = new Usine\UsineManager();
+                    $usine=$usineManager->findById($usineId);
+                    $user->setUsine($usine);
+                    $profilManager = new ProfilManager();
+                    $profil=$profilManager->findById($profilId);
+                    $logger->log->trace("Debut insertion user1");
+                    $user->setProfil($profil);
+                    $userManager->createOrEdit($user);
                     if($user->getId()!=null){
-                        $this->doSuccess($user->getId(),$this->parameters['SAV']);
-                        $concat = $customerId.'-'.$contactName.'-'.$login.'-'.$password.'-'.$description.'-'.$profil;
-                        $this->logger->log->info($concat);
+                        $this->doSuccess($user->getId(),'Utilisateur créé avec succes');
                     }else{
-                        $this->logger->log->error('User already exists or in trash');
-                        throw new ConstraintException($this->parameters['USER_ALREADY_EXISTS']);
+                        throw new ConstraintException('Cet utilisateur existe deja');
                     }
                 }
             }else{
                 $this->logger->log->error('List : Params not enough');
-                throw new ConstraintException($this->parameters['AJOUT_USER_IMPOSSIBLE']);
+                $this->doError('-1', 'Insertion impossible');
             }
             $logger->log->trace("Fin insertion user");
-        } catch (ConstraintException $e) {
-            $logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            $this->doError('-1', $e->getMessage());
-        } catch (Exception $e) {
-            $logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            $this->doError('-1', $this->parameters['ERREUR_SERVEUR']);
+        } 
+        catch (Exception $e) {
+            $this->doError('-1', 'Insertion impossible');
         }
         
     }
@@ -263,7 +251,6 @@ private $langageManager;
         try {
            $utilisateurManager=new UtilisateurManager();
             if(isset($request['iDisplayStart']) && isset($request['iDisplayLength'])){
-                $customerId=$request['customerId'];
                 // Begin order from dataTable
                 $sOrder = "";
                 $aColumns = array('nomUtilisateur','login', 'usine_id','profil_id');
@@ -540,14 +527,9 @@ private $langageManager;
         }
     }
     public function doListProfil($request){
-        $profilManager=new ProfilManager();
-        $listProfils= $profilManager->findAll();
-//        $listProfils=array();
-//        for ($i=1; $i<3; $i++){
-//            $profil ['value'] = $i;
-//            $profil ['text'] = "profil".$i;
-//            $listProfils[]=$profil;
-//        }
+        $userManager=new UtilisateurManager();
+        $listProfils= $userManager->findAllProfils();
+
         echo json_encode($listProfils);
     }
     

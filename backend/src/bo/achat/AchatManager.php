@@ -39,8 +39,8 @@ class AchatManager {
     }
 
     
-    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->achatQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($typeAchat, $codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->achatQuery->retrieveAll($typeAchat, $codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
 
     
@@ -49,8 +49,8 @@ class AchatManager {
     }
 
    
-    public function count($codeUsine,$where="") {
-        return $this->achatQuery->count($codeUsine,$where);
+    public function count($typeAchat, $codeUsine,$where="") {
+        return $this->achatQuery->count($typeAchat, $codeUsine,$where);
     }
 
    

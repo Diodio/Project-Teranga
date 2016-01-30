@@ -16,53 +16,16 @@ class UtilisateurManager {
         $this->utilisateurQueries = new UtilisateurQueries();
     }
 
-    public function insert($utilisateur, $supp = null) {
+    public function createOrEdit($utilisateur) {
+        return $this->utilisateurQueries->create($utilisateur);
     }
-
-    public function create($utilisateur, $supp = null) {
-        if (($utilisateur->getUtilisateur()!=null)&&($utilisateur->getPartner()!=null)&&($utilisateur->getUtilisateur()->getStatus() != 0)&&($utilisateur->getPartner()->getActivate() != 0)){
-                if (($utilisateur->getLogin()!=null)&&($utilisateur->getPassword()!=null)){
-                            return $this->userQueries->insert($utilisateur, $supp);
-                        }
-                        else {
-                            return null;
-                        }
-                    }
-                }
-    public function createBdayParam($utilisateurId, $signature, $content, $notSendBefore, $notSendAfter, $CreatedDate, $UpdatedDate, $DeletedDate, $groups, $groupNames, $supp = null ) {
-                        if($utilisateurId != null)
-                           return $this->userQueries->createBdayParam($utilisateurId, $signature, $content, $notSendBefore, $notSendAfter,  $CreatedDate, $UpdatedDate, $DeletedDate, $groups, $groupNames, $supp = null);
-                        else 
-                           return null;    
-                }
-        
+    
     public function remove($listId,$supp=null) {
         return  $this->userQueries->remove($listId,$supp=null);
     }
     
-    public function update($utilisateur, $supp = null) {
-        if (($utilisateur->getUtilisateur()!=null)&&($utilisateur->getPartner()!=null)&&($utilisateur->getUtilisateur()->getStatus() != 0)&&($utilisateur->getPartner()->getActivate() != 0)){
-                if (($utilisateur->getLogin()!=null)&&($utilisateur->getPassword()!=null)){
-                            return $this->userQueries->update($utilisateur);
-                            }
-                        else {
-                            return null;
-                        }
-                    }
-                }
-    public function updateBoUtilisateurid($bouserid,$customerId){
-        return $this->userQueries->updateBoUtilisateurid($bouserid,$customerId);
-    }
-    public function updateBday($utilisateur, $supp = null) {
-      
-                            return $this->userQueries->updateBday($utilisateur);
-                            }                  
-    public function updateBdayParam($utilisateurId, $signature, $content, $notSendBefore, $notSendAfter, $UpdatedDate, $groups, $groupNames, $supp = null) {
-         //if($utilisateur != null)
-                   return $this->userQueries->updateBdayParam($utilisateurId, $signature, $content, $notSendBefore, $notSendAfter, $UpdatedDate, $groups, $groupNames);
-         //else return null;
-                 }
-
+    
+    
     public function view($utilisateurId, $supp = null) {
         return $this->userQueries->view($utilisateurId);
     }
@@ -90,6 +53,10 @@ class UtilisateurManager {
         return $this->userQueries->findUtilisateur($id);
     }
 
+     public function findAllProfils() {
+         $userQueries = new UtilisateurQueries();
+        return $userQueries->findAllProfils();
+    }
     /**
      * Sign user by id
      * @param type $id
@@ -118,7 +85,7 @@ class UtilisateurManager {
     }
 
     public function count($customerId, $where="") {
-        return $this->userQueries->count($customerId, $where);
+        return $this->utilisateurQueries->count($customerId, $where);
     }
     
     public function del($utilisateurId) {
