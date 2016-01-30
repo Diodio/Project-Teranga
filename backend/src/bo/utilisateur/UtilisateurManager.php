@@ -21,13 +21,13 @@ class UtilisateurManager {
     }
     
     public function remove($listId,$supp=null) {
-        return  $this->userQueries->remove($listId,$supp=null);
+        return  $this->utilisateurQueries->remove($listId,$supp=null);
     }
     
     
     
     public function view($utilisateurId, $supp = null) {
-        return $this->userQueries->view($utilisateurId);
+        return $this->utilisateurQueries->view($utilisateurId);
     }
 
     public function activate($listId) {

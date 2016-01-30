@@ -207,7 +207,7 @@ private $langageManager;
         try{
             $logger->log->trace("Debut insertion user");
             if(isset($request['ACTION']) && isset($request['nom']) && isset($request['login']) && isset($request['password']) && isset($request['usineId']) && isset($request['profilId'])){
-                
+                $userId=$request['userId'];
                 $nom=$request['nom'];
                 $login=$request['login'];
                 $password=$request['password'];
@@ -216,11 +216,13 @@ private $langageManager;
                 if($nom!="" && $login!="" && $password!="" && $usineId!="-1" && $profilId!="-1"){
                     $userManager =new UtilisateurManager();
                     $user=new Utilisateur\Utilisateur();
+                    if($userId !=0)
+                        $user->setId ($userId);
                     $user->setNomUtilisateur($nom);
                     $user->setLogin($login);
                     $user->setPassword($password);
                     $user->setStatus(1);
-                    $user->setEtatCompte(0);
+                    $user->setEtatCompte(1);
                     $usineManager = new Usine\UsineManager();
                     $usine=$usineManager->findById($usineId);
                     $user->setUsine($usine);
@@ -319,10 +321,10 @@ private $langageManager;
                 $userIds=$request['userIds'];
                 $userManager=new UtilisateurManager();
                 $nbModified= $userManager->remove($userIds);
-                $this->doSuccess($nbModified, $this->parameters['REMOVED']);
+                $this->doSuccess($nbModified, 'Utilisateur supprime');
             }else{
                 $this->logger->log->error('Remove : Params not enough');
-                $this->doError('-1', $this->parameters['USER_NOT_REMOVED']);
+                $this->doError('-1', 'Impossible de supprimer cet utilisateur');
             }
         } catch (ConstraintException $e) {
             $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
@@ -426,8 +428,8 @@ private $langageManager;
         $logger = new Logger(__CLASS__);
         try {
             if (isset($request['userId'])) {
-                $this->userManager = new UtilisateurManager();
-                $infosUser = $this->userManager->findUser($request['userId']);
+                $userManager = new UtilisateurManager();
+                $infosUser = $userManager->view($request['userId']);
                 if ($infosUser != NULL) {
                     $this->doSuccessO(($infosUser));
                 } else

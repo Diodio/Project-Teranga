@@ -37,29 +37,19 @@ class UtilisateurQueries {
     
 
     public function remove($listId, $supp = null) {
-          $query=("update user u set u.status=0, u.deletedDate=CURRENT_TIMESTAMP() WHERE u.id= $listId and u.profil_id<>1 and $listId not in (Select m.user_id from message m)");
+          $query=("update utilisateur u set u.status=0, u.deleteDate=CURRENT_TIMESTAMP() WHERE u.id= $listId");
           $this->logger->log->trace($query); 
         try {
-            $stmt=B::$entityManager->getConnection()->prepare($query);
+            $stmt=Bootstrap::$entityManager->getConnection()->prepare($query);
             $this->logger->log->trace($query);
             $stmt->execute();
-            
-            $trashManager = new \Trash\TrashManager ();
-            $arrayContact = explode(',', $listId);
-            foreach ($arrayContact as $value) {              
-                $utilisateur = $this->findById($value);
-                if (($utilisateur != null)) {
-                    $trashManager->insert($utilisateur);
-                }
-            }
-            //B::$entityManager->getConnection()->commit();
             return  $stmt;
         } catch (\Exception $e) {
             $this->logger->log->error($e->getMessage());
-            B::$entityManager->getConnection()->rollback();
-            B::$entityManager->close();
-            $b=new B();
-            B::$entityManager = $b->getEntityManager();
+            Bootstrap::$entityManager->getConnection()->rollback();
+            Bootstrap::$entityManager->close();
+            $b=new Bootstrap();
+            Bootstrap::$entityManager = $b->getEntityManager();
             return null;
         }
     }
@@ -86,13 +76,11 @@ class UtilisateurQueries {
         return null;
     }
     public function view($utilisateurId, $supp = null) {
-        $query = B::$entityManager->createQuery("select c.id as userId, c.password as password from Utilisateur/Utilisateur c where c.id = ".$utilisateurId." AND c.status = 1");
-        // $query->setParameter('userId', $utilisateurId);
-        $utilisateur = $query->getOneOrNullResult();
-        if ($utilisateur != null)
-            return $utilisateur;
-        else
-            return null;
+       $sql = 'SELECT nomUtilisateur, login, password, usine_id, profil_id FROM utilisateur WHERE id="'.$utilisateurId.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $user= $stmt->fetch();
+        return $user;
     }
 
     /**

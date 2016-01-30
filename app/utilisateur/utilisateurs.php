@@ -397,7 +397,6 @@
                                 $(nTd).css('text-align', 'center');
                              },
                                 "mRender": function (data, type, full) {
-                                    console.log(full[5]);
                                     var src = '<input type="hidden" >';
                                     if (full[5] != null && full[5] !== '1')
                                         src += '<span class="infobox-red tooltip-error"  title="Desactiver"><i class="fa fa-circle"></i></span>';
@@ -421,7 +420,18 @@
                                     '<i class="fa fa-pencil bigger-130"></i>'+
                                     '</a>');
                                     btnEdit.click(function(){
-                                       // userForm('<?php //echo App::ACTION_UPDATE; ?>', oData[0]);
+                                        userId=oData[0];
+                                         $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userId: userId, ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
+                                        data = $.parseJSON(data);
+                                        $('#nom').val(data.nomUtilisateur);
+                                        $('#login').val(data.login);
+                                        $('#motDePasse').val(data.password);
+                                        $('#confMotDePasse').val(data.password);
+                                        $('#CMB_USINE').val(data.usine_id).change();
+                                        $('#CMB_PROFIL').val(data.profil_id).change();
+                            });
+                                       
+                                        $('#winModalUser').modal('show');
                                     });
                                     btnEdit.tooltip({
                                         title: 'Modifier'
@@ -432,7 +442,7 @@
                                                 '</a>');
                                     //}
                                     btnRemove.click(function(){
-                                        //removeUser(oData[0]);
+                                        removeUser(oData[0]);
                                     });
                                     btnRemove.tooltip({
                                         title: 'Supprimer'
@@ -440,9 +450,9 @@
                                     btnEdit.css({'margin-right': '10px', 'cursor':'pointer'});
                                     btnRemove.css({'cursor':'pointer'});
                                     action.append(btnEdit);
-                                    if(oData[4] !=="Admin"){
+                                   // if(oData[4] !=="Admin"){
                                     action.append(btnRemove);
-                                    }
+                                  //  }
                                     $(nTd).append(action);
                                 }
                             }
@@ -518,10 +528,7 @@
         {
             
             var ACTION;
-            if(userId==0)
-                ACTION='<?php echo App::ACTION_INSERT; ?>';
-            else
-                ACTION='<?php echo App::ACTION_UPDATE; ?>';
+            ACTION='<?php echo App::ACTION_INSERT; ?>';
                 
             var nom= $('#nom').val();
             var login = $("#login").val();
@@ -531,6 +538,7 @@
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
+            formData.append('userId', userId);
             formData.append('nom', nom);
             formData.append('login', login);
             formData.append('password', password);
@@ -675,6 +683,34 @@
        			}
        		});
         });
+        removeUser=function(usersId){
+                    bootbox.confirm("Voulez vous vraiment supprimer cet utilisateur", function(result) {
+                        if (result) {
+                             var userIdsChecked = usersId;
+                            $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userIds: userIdsChecked + "", ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data) {
+                                if (data.rc == 0){
+                                    $.gritter.add({
+                                        title: 'Notification',
+                                        text: "Utilisateur supprime",
+                                        class_name: 'gritter-success gritter-light'
+                                    });
+                                    $('table th input:checkbox').removeAttr('checked');
+                                     checkedUser=new Array();
+                                    loadUsers();
+                                }
+                                else{
+                                    $.gritter.add({
+                                        title: 'Notification',
+                                        text: 'Impossible de supprimer cet utilisateur',
+                                        class_name: 'gritter-warning gritter-light'
+                                    });
+                                    
+                               // $("#NOTIF_ALERT").append("<div class='alert alert-danger'> <button class='close' data-dismiss='alert'> <i class='icon-remove'></i></button><i class='icon-hand-right'></i> <?php// printf($pNotifSupUserAlert); ?> </div>");
+                                }
+                            }, "json");
+                        }
+                    });
+                }
 
         $("#BTN_ACTIVER").click(function () {
                     if(checkedUsers.length!=0){
