@@ -244,12 +244,12 @@ $nomUsine = $_COOKIE['nomUsine'];
 <!--                         <ul class="submenu"> -->
                             <li id="MNU_DEMOULAGE" class="hidden"><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
                                    class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
-                                        Démoulage </span>
+                                        DÃ©moulage </span>
                                 </a> <b class="arrow"></b>
                            </li>
                             <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
-                                        Stock Réel </span>
+                                        Stock RÃ©el </span>
                                 </a> <b class="arrow"></b>
                             </li>
 <!--                         </ul> -->
