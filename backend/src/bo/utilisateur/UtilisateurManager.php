@@ -31,11 +31,11 @@ class UtilisateurManager {
     }
 
     public function activate($listId) {
-        return $this->userQueries->activate($listId);
+        return $this->utilisateurQueries->activate($listId);
     }
 
     public function deactivate($listId) {
-        return $this->userQueries->deactivate($listId);
+        return $this->utilisateurQueries->deactivate($listId);
     }
 
     /**

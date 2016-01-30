@@ -485,25 +485,24 @@ private $langageManager;
         }
     }
     public function doActiver($request){
-        $this->logger->log->info('Action Remove user');
-        $this->logger->log->info(json_encode($request));
+        $this->logger->log->info('Action activate user');
         try{
             if(isset($request['userIds'])){
                 $this->logger->log->info('Remove with params : '.$request['userIds']);
                 $userIds=$request['userIds'];
                 $userManager=new UtilisateurManager();
                 $nbModified= $userManager->activate($userIds);
-                $this->doSuccess($nbModified, $this->parameters['ACTIVATED']);
+                $this->doSuccess($nbModified, 'Utilisateur active');
             }else{
                 $this->logger->log->error('Remove : Params not enough');
-                $this->doError('-1', $this->parameters['USER_NOT_ACTIVATED']);
+                $this->doError('-1', 'Utilisateur non active');
             }
         } catch (ConstraintException $e) {
             $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             throw $e;
         } catch (Exception $e) {
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            throw new Exception($this->parameters['ERREUR_SERVEUR']);
+            throw new Exception('ERREUR_SERVEUR');
         }
     }
     public function doDesactiver($request){
@@ -515,17 +514,17 @@ private $langageManager;
                 $userIds=$request['userIds'];
                 $userManager=new UtilisateurManager();
                 $nbModified= $userManager->deactivate($userIds);
-                $this->doSuccess($nbModified, $this->parameters['DEACTIVATED']);
+                $this->doSuccess($nbModified, 'Utilisateur desactive');
                 }else{
                 $this->logger->log->error('Remove : Params not enough');
-                $this->doError('-1', $this->parameters['USER_NOT_DEACTIVATED']);
+                $this->doError('-1', 'Utilisateur desactive');
             }
         } catch (ConstraintException $e) {
             $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             throw $e;
         } catch (Exception $e) {
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            throw new Exception($this->parameters['ERREUR_SERVEUR']);
+            throw new Exception('ERREUR_SERVEUR');
         }
     }
     public function doListProfil($request){

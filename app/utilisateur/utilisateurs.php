@@ -38,14 +38,6 @@
                                                 <i class="icon-cloud-upload icon-only"></i> Nouveau
                                             </button>
                                         </div>
-                                        <div class="btn-group">
-                                            <button id="BTN_UPDATE"
-                                                    class="btn btn-primary btn-mini tooltip-info"
-                                                    data-rel="tooltip" data-placement="top"
-                                                    title="Modifier">
-                                                <i class="icon-cloud-download icon-only"></i> Modifier
-                                            </button>
-                                        </div>
                                        <div class="btn-group">
                                             <button id="BTN_ACTIVER"
                                                     class="btn btn-primary btn-mini tooltip-info"
@@ -145,7 +137,7 @@
                                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Usine</label>
                                         <div class="col-sm-9">
                                             <select id="CMB_USINE" name="CMB_USINE" data-placeholder="" class="col-xs-10 col-sm-7">
-                                                <option value="-1" class="usines">Nom Mareyeur</option>
+                                                <option value="-1" class="usines">Selectionnez</option>
                                         </select>
                                         </div>
 
@@ -154,7 +146,7 @@
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Profil</label>
                                     <div class="col-sm-9">
                                         <select id="CMB_PROFIL" name="CMB_PROFIL" data-placeholder="" class="col-xs-10 col-sm-7">
-                                                <option value="-1" class="profils">Nom Mareyeur</option>
+                                                <option value="-1" class="profils">Selectionnez</option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,10 +180,11 @@
            
            $("#CMB_USINE").select2();
            $("#CMB_PROFIL").select2();
-           $("#MNU_NEW").click(function()
+           $("#BTN_NEW").click(function()
            {
             $('#winModalUser').modal('show');
            });
+          
            loadUsines = function(){
                 $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST
                         ; ?>"}, function(data) {
@@ -292,7 +285,6 @@
             {
                 if (checkedUsers.length == 1){
                     $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedUsers[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -316,7 +308,6 @@
             {
                if (checkedUsers.length === 1){
                    $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedUsers[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -571,7 +562,7 @@
                         });
                         
                     };
-                  //  loadClients();
+                    loadUsers();
                 },
                 error: function () {
                     alert("failure - controller");
@@ -579,6 +570,15 @@
             });
 
         };
+         $("#CANCEL").click(function()
+           {
+            $('#nom').val("");
+            $('#login').val("");
+            $('#motDePasse').val("");
+            $('#confMotDePasse').val("");
+            $('#CMB_USINE').val("-1").change();
+            $('#CMB_PROFIL').val("-1").change();
+           });
          $("#SAVE").click(function() {
          $.validator.addMethod(
             "assertConfirmPwdTrue",
@@ -667,13 +667,95 @@
                         $('#nom').val("");
                         $('#login').val("");
                         $('#motDePasse').val("");
-                        $('#CMB_USINE').val("-1");
-                        $('#CMB_PROFIL').val("-1");
+                        $('#confMotDePasse').val("");
+                        $('#CMB_USINE').val("-1").change();
+                        $('#CMB_PROFIL').val("-1").change();
        			},
        			invalidHandler: function (form) {
        			}
        		});
         });
 
-            });
+        $("#BTN_ACTIVER").click(function () {
+                    if(checkedUsers.length!=0){
+                        userCheckedId = checkedUsers[0];
+                        bootbox.confirm("Etes vous sur de vouloir activer cet utilisateur", function(result) {
+                        if (result) {
+                             var userIdsChecked = checkedUsers;
+                            $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userIds: userIdsChecked + "", ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data) {
+                                if (data.rc == 0){
+                                     if(data.oId!==0){
+                                    $.gritter.add({
+                                    title: 'Notification',
+                                    text: data.oId+" Utilisateur activé",
+                                    class_name: 'gritter-success gritter-light'
+                                    });
+                                }else{ $.gritter.add({
+                                    title: 'Notification',
+                                    text: " Utilisateur non activé",
+                                    class_name: 'gritter-warning gritter-light'
+                                    }); }
+                                    $('table th input:checkbox').removeAttr('checked');
+                                    checkedUsers=new Array();
+                                    loadUsers();
+                                }
+                                else{
+                                    $.gritter.add({
+                                        title: 'Notification',
+                                        text: data.error,
+                                        class_name: 'gritter-error gritter-light'
+                                    });
+                                }
+                            }, "json");
+                        }
+                });
+                    }else{
+                        bootbox.alert("Veuillez choisir un utilisateur");
+                    }
+                });
+                $("#BTN_ACTIVER").tooltip({
+                    title: 'Activer un utilisateur'
+                });
+                $("#BTN_DESACTIVER").click(function () {
+                     if(checkedUsers.length!=0){
+                     userCheckedId = checkedUsers[0];
+                        bootbox.confirm("Voulez vous desactiver cet utilisateur", function(result) {
+                        if (result) {
+                            var userIdsChecked = checkedUsers;
+                            $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userIds: userIdsChecked + "", ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data) {
+                                if (data.rc == 0){
+                                    if(data.oId!==0){
+                                    $.gritter.add({
+                                    title: 'Notification',
+                                    text: data.oId+" utilisateur desactivé",
+                                    class_name: 'gritter-success gritter-light'
+                                    });
+                                }else{ $.gritter.add({
+                                    title: 'Notification',
+                                    text: "Utilisateur non desactivé",
+                                    class_name: 'gritter-warning gritter-light'
+                                    }); }
+                                $('table th input:checkbox').removeAttr('checked');
+                                checkedUsers=new Array();
+                                loadUsers();
+                                }
+                                else{
+                                    $.gritter.add({
+                                        title: 'Notification',
+                                        text: data.error,
+                                        class_name: 'gritter-error gritter-light'
+                                    });
+                                }
+                            }, "json");
+                        }
+                });
+              
+                    }else{
+                        bootbox.alert("Veuillez choisir un utilisateur");
+                    }
+                });
+                $("#BTN_DESACTIVER").tooltip({
+                    title: 'Desactiver un utilisateur'
+                });
+     });
         </script>

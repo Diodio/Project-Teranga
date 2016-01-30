@@ -65,18 +65,18 @@ class UtilisateurQueries {
     }
    
     public function activate($listId) {
-        $query=B::$entityManager->createQuery('update Utilisateur/Utilisateur u set u.activate=1 WHERE u.id in (' . $listId.') and u.activate=0 and u.status=1' );
+        $query=  Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.etatCompte=1 WHERE u.id in (' . $listId.') and u.etatCompte=0 and u.status=1' );
         return $query->getResult();
     }
 
     public function deactivate($listId) {
-        $query=B::$entityManager->createQuery('update Utilisateur/Utilisateur u set u.activate=0 WHERE u.id in (' . $listId.') and u.activate=1 and u.profil<>1 and u.status=1' );
+        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.etatCompte=0 WHERE u.id in (' . $listId.') and u.etatCompte=1 and u.status=1' );
         return $query->getResult();
     }
 
     public function update($utilisateur, $supp = null) {
         if ($utilisateur != NULL) {
-//            if (($utilisateur->getCustomer() != null) && ($utilisateur->getPartner() != null) && ($utilisateur->getCustomer()->getStatus() != 0) && ($utilisateur->getPartner()->getActivate() != 0)) {
+//            if (($utilisateur->getCustomer() != null) && ($utilisateur->getPartner() != null) && ($utilisateur->getCustomer()->getStatus() != 0) && ($utilisateur->getPartner()->getetatCompte() != 0)) {
                 B::$entityManager->merge($utilisateur);
                 B::$entityManager->flush();
                 return $utilisateur;
@@ -185,7 +185,7 @@ class UtilisateurQueries {
     public function ifExist($utilisateurname, $partner){
         $dql = "SELECT u.id, u.login, 
             u.contactName, u.contactEmail as email, u.description from Utilisateur/Utilisateur u JOIN u.customer c JOIN u.partner p JOIN u.language l JOIN u.profil pr
-            where u.login='$utilisateurname'  and u.partner=$partner and u.status=1 and u.activate=1";
+            where u.login='$utilisateurname'  and u.partner=$partner and u.status=1 and u.etatCompte=1";
         $query = B::$entityManager->createQuery($dql);
         return $query->getOneOrNullResult();
     }
