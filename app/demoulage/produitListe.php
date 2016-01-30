@@ -65,7 +65,7 @@
                                     Nombre de colis
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Détail
+                                    Détail Colis
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
@@ -351,7 +351,7 @@
                             btnGrps.click(function(){
                                 $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
                                 data=$.parseJSON(data);
-                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
+                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
                                 $.each(data , function(i) { 
                                     str= data [i].toString();
                                     var substr = str.split(',');
@@ -365,7 +365,7 @@
                                 });
                             });
                             btnGrps.tooltip({
-                                title: 'Liste des colis disponible'
+                                title: 'Consulter Détail des colis'
                             });
                             btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
                             action.append(btnGrps);
