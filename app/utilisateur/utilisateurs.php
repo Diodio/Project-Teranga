@@ -30,8 +30,26 @@
                             <i class="ace-icon fa fa-users orange"></i>
                             Liste des utilisateurs
                         </h4>
-                        <a id="MNU_AJOUTER" class="btn btn-primary btn-sm" style="margin-left: 10px;margin-bottom: 10px;"><i
-                                        class="ace-icon fa fa-plus-square"></i> Nouveau</a> 
+                        <div class="btn-group">
+                                    <button data-toggle="dropdown"
+                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+                                            data-rel="tooltip" data-placement="top" title="" style="
+                                            height: 32px;
+                                            width: 80px;
+                                            margin-top: -10px;
+                                            margin-left: 36%;
+                                        ">
+                                        <i class="icon-group icon-only icon-on-right"></i> Action
+                                    </button>
+
+                                    <ul class="dropdown-menu dropdown-info">
+                                        <li id='MNU_NEW' class="" ><a href="#" id="GRP_NEW">Nouveau </a></li>
+                                        <li class="divider"></li>
+                                        <li id='MNU_EDIT' class="disabled" ><a href="#" id="GRP_EDIT">Modifier</a></li>
+                                        <li class="divider"></li>
+                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
+                                    </ul>
+                                </div>
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>
@@ -45,7 +63,12 @@
                           <table id="LIST_UTILISATEURS" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th class="hidden"><i class="icon-male bigger-110"></i>  </th>
+                                <th class="center" style="border-right: 0px none;">
+                                    <label>
+                                        <input type="checkbox" value="*" name="allchecked"/>
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Nom Complet
                                 </th>
@@ -69,6 +92,74 @@
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
+            <div id="winModalUser" class="modal fade">
+            <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Creer un utilisateur</h3>
+                        </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom Complet </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Login </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="login" name="login" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mot de passe</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" id="motDePasse" name="motDePasse" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Confirmer mot de passe</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" id="confMotDePasse" name="confMotDePasse" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Usine</label>
+                                        <div class="col-sm-9">
+                                            <select id="CMB_USINE" name="CMB_USINE" data-placeholder="" class="col-xs-10 col-sm-7">
+                                                <option value="-1" class="usines">Nom Mareyeur</option>
+                                        </select>
+                                        </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Profil</label>
+                                    <div class="col-sm-9">
+                                        <select id="CMB_PROFIL" name="CMB_PROFIL" data-placeholder="" class="col-xs-10 col-sm-7">
+                                                <option value="-1" class="profils">Nom Mareyeur</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                    <button id="SAVE" class="btn btn-small btn-info">
+                        <i class="ace-icon fa fa-save"></i>
+                        Enregistrer
+                    </button>
+
+                    <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        Annuler
+                    </button>
+                </div>
+                        
+                    </div><!-- /.modal-content -->
+                
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
 </div>
         
        <script type="text/javascript">
@@ -76,10 +167,49 @@
             var oTableUsers = null;
             var nbTotalUsersChecked=0;
             var checkedUsers = new Array();
+            var userId=0;
             // Check if an item is in the array
            // var interval = 500;
            
-     alert("cc");
+           $("#CMB_USINE").select2();
+           $("#CMB_PROFIL").select2();
+           $("#MNU_NEW").click(function()
+           {
+            $('#winModalUser').modal('show');
+           });
+           loadUsines = function(){
+                $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST
+                        ; ?>"}, function(data) {
+                    sData=$.parseJSON(data);
+                    if(sData.rc==-1){
+                        $.gritter.add({
+                                title: 'Notification',
+                                text: sData.error,
+                                class_name: 'gritter-error gritter-light'
+                            });
+                    }else{
+                        $("#CMB_USINE").loadJSON('{"usines":' + data + '}');
+                    }
+                });
+            };
+            
+            loadProfils = function(){
+                $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {ACTION: "<?php echo App::ACTION_LIST_PROFIL
+                        ; ?>"}, function(data) {
+                    sData=$.parseJSON(data);
+                    if(sData.rc==-1){
+                        $.gritter.add({
+                                title: 'Notification',
+                                text: sData.error,
+                                class_name: 'gritter-error gritter-light'
+                            });
+                    }else{
+                        $("#CMB_PROFIL").loadJSON('{"profils":' + data + '}');
+                    }
+                });
+            };
+            loadUsines();
+            loadProfils();
             checkedUsersContains = function(item) {
                 for (var i = 0; i < checkedUsers.length; i++) {
                     if (checkedUsers[i] == item)
@@ -249,12 +379,13 @@
                              "aTargets": [0],
                              "bSortable": false,
                              "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-                                 $(nTd).css('display', 'none');
+                                 $(nTd).css('text-align', 'center');
                              },
                              "mRender": function(data, type, full) {
-                                return '<label class="hidden"><input type="text" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';                             }
+                                return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';                             }
                         }
                     ],
+                    
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 //                        persistChecked();
 //                        $(nRow).css('cursor','pointer');
@@ -321,7 +452,157 @@
             };
             
             loadUsers();
-         
+             SaveOrEditProcess = function (userId)
+        {
+            
+            var ACTION;
+            if(userId==0)
+                ACTION='<?php echo App::ACTION_INSERT; ?>';
+            else
+                ACTION='<?php echo App::ACTION_UPDATE; ?>';
+                
+            var nom= $('#nom').val();
+            var login = $("#login").val();
+            var password = $("#motDePasse").val();
+            var usineId = $("#CMB_USINE").val();
+            var profilId = $("#CMB_PROFIL").val();
+            
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('nom', nom);
+            formData.append('login', login);
+            formData.append('password', password);
+            formData.append('usineId', usineId);
+            formData.append('profilId', profilId);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                    };
+                  //  loadClients();
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
+
+        };
+         $("#SAVE").click(function() {
+         $.validator.addMethod(
+            "assertConfirmPwdTrue",
+            function(value, element, regexp) {
+                //return value===regexp;
+                var pwd = $("#motDePasse").val();
+                var pwdconf = $("#confMotDePasse").val();
+                if(pwd !== pwdconf){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            },
+            "les mots de passe ne sont pas identiques"
+        );
+        $.validator.addMethod("notEqual", function(value, element, param) {
+		            return this.optional(element) || value != param;
+		            });   
+       	 $('#validation-form').validate({
+       			errorElement: 'div',
+       			errorClass: 'help-block',
+       			focusInvalid: false,
+       			rules: {
+       				nom: {
+       					required: true
+       				},
+       				login: {
+       					required: true
+       				},
+       				motDePasse: {
+       					required: true
+       				},
+       				confMotDePasse: {
+       					required: true,
+                                        assertConfirmPwdTrue: true
+       				},
+       				CMB_USINE: {
+       					notEqual: "-1"
+       				},
+       				CMB_PROFIL: {
+       					notEqual: "-1"
+       				}
+       				
+       			},
+
+       			messages: {
+       				nom: {
+       					required: "Champ obligatoire."
+       				},
+       				login: {
+       					required: "Champ obligatoire."
+       				},
+       				motDePasse: {
+       					required: "Champ obligatoire."
+       				},
+       				confMotDePasse: {
+       					required: "Champ obligatoire.",
+                                        assertConfirmPwdTrue: "Les mots de passe ne sont pas identiques"
+       				},
+       				CMB_USINE: {
+       					notEqual: "Champ obligatoire."
+       				},
+       				CMB_PROFIL: {
+       					notEqual: "Champ obligatoire."
+       				}
+       			},
+
+
+       			highlight: function (e) {
+       				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+       			},
+
+       			success: function (e) {
+       				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+       				$(e).remove();
+       			},
+
+       			errorPlacement: function (error, element) {
+       				 error.insertAfter(element);
+       			},
+
+       			submitHandler: function (form) {
+                        SaveOrEditProcess(userId);
+                        $('#winModalUser').modal('hide');
+                        $('#nom').val("");
+                        $('#login').val("");
+                        $('#motDePasse').val("");
+                        $('#CMB_USINE').val("-1");
+                        $('#CMB_PROFIL').val("-1");
+       			},
+       			invalidHandler: function (form) {
+       			}
+       		});
+        });
 
             });
         </script>

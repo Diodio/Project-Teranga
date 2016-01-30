@@ -23,13 +23,16 @@ class UtilisateurQueries {
         date_default_timezone_set('GMT');
     }
 
-    public function insert($utilisateur) {
+    public function create($utilisateur) {
         if ($utilisateur != NULL) {
-            B::$entityManager->persist($utilisateur);
-            B::$entityManager->flush();
+            if($utilisateur->getId()==null)
+                Bootstrap::$entityManager->persist($utilisateur);
+            else 
+                Bootstrap::$entityManager->merge($utilisateur);
+            Bootstrap::$entityManager->flush();
         }
         return null;
-    }
+    } 
     
     
 
@@ -101,7 +104,13 @@ class UtilisateurQueries {
         $query = B::$entityManager->createQuery($dql);
         return $query->getOneOrNullResult();
     }
-  
+   public function findAllProfils() {
+        $sql = "select id value, description text from profil";
+         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $profils = $stmt->fetchAll();
+        return $profils;
+    }
     public function findByLogin($login, $codeUsine) {
         $sql = 'SELECT nomUtilisateur FROM utilisateur,usine WHERE usine.id=usine_id AND code="'.$codeUsine.'" and login="'.$login.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

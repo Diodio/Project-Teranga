@@ -36,7 +36,7 @@ class Facture extends \Facture\Facture implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('dateFacture' => NULL, 'heureFacture' => NULL, 'devise' => NULL, 'portDechargement' => NULL, 'nbTotalColis' => NULL, 'nbTotalPoids' => NULL, 'montantHt' => NULL, 'conteneur' => NULL);
+    public static $lazyPropertiesDefaults = array('dateFacture' => NULL, 'heureFacture' => NULL, 'devise' => NULL, 'portDechargement' => NULL, 'nbTotalColis' => NULL, 'nbTotalPoids' => NULL, 'montantHt' => NULL, 'datePaiement' => NULL, 'conteneur' => NULL);
 
 
 
@@ -46,7 +46,7 @@ class Facture extends \Facture\Facture implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->dateFacture, $this->heureFacture, $this->devise, $this->portDechargement, $this->nbTotalColis, $this->nbTotalPoids, $this->montantHt, $this->conteneur);
+        unset($this->dateFacture, $this->heureFacture, $this->devise, $this->portDechargement, $this->nbTotalColis, $this->nbTotalPoids, $this->montantHt, $this->datePaiement, $this->conteneur);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,7 +108,7 @@ class Facture extends \Facture\Facture implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'numero', 'dateFacture', 'heureFacture', 'devise', 'portDechargement', 'nbTotalColis', 'nbTotalPoids', 'montantHt', 'montantTtc', 'modePaiement', 'numCheque', 'avance', 'reliquat', 'codeUsine', 'login', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'client', 'conteneur');
+            return array('__isInitialized__', 'id', 'numero', 'dateFacture', 'heureFacture', 'devise', 'portDechargement', 'nbTotalColis', 'nbTotalPoids', 'montantHt', 'montantTtc', 'modePaiement', 'numCheque', 'datePaiement', 'avance', 'reliquat', 'codeUsine', 'login', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'client', 'conteneur');
         }
 
         return array('__isInitialized__', 'id', 'numero', 'montantTtc', 'modePaiement', 'numCheque', 'avance', 'reliquat', 'codeUsine', 'login', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'client');
@@ -133,7 +133,7 @@ class Facture extends \Facture\Facture implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->dateFacture, $this->heureFacture, $this->devise, $this->portDechargement, $this->nbTotalColis, $this->nbTotalPoids, $this->montantHt, $this->conteneur);
+            unset($this->dateFacture, $this->heureFacture, $this->devise, $this->portDechargement, $this->nbTotalColis, $this->nbTotalPoids, $this->montantHt, $this->datePaiement, $this->conteneur);
         }
     }
 
@@ -748,6 +748,28 @@ class Facture extends \Facture\Facture implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNbTotalPoids', array($nbTotalPoids));
 
         return parent::setNbTotalPoids($nbTotalPoids);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDatePaiement()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDatePaiement', array());
+
+        return parent::getDatePaiement();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDatePaiement($datePaiement)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDatePaiement', array($datePaiement));
+
+        return parent::setDatePaiement($datePaiement);
     }
 
 }

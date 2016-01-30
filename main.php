@@ -469,8 +469,9 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
                         $('#BONSORTIE').removeClass("hidden");
                     }
-                    else if(profil==='comptable') {
-                        
+                    else if(profil==='gerant') {
+                        $('#PARAMETRAGE').removeClass("hidden");
+                        $('#BONACHAT').removeClass("hidden");
                     }
                     else if(profil==='admin'){
                         $('#PARAMETRAGE').removeClass("hidden");
