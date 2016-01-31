@@ -35,7 +35,7 @@ class Utilisateur {
      * */
     protected $nomUtilisateur;
      
-    //pour les utilisateurs connectes
+    //pour les utilisateurs supprimes ou pas : 0 =supprime , 1= non supprime
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
@@ -46,6 +46,18 @@ class Utilisateur {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $etatCompte;
+    
+    //utilisateur connecte ou hors ligne : 0 hors ligne, 1 connecte
+    /**
+     * @Column(type="string", length=60, nullable=true)
+     * */
+    protected $connected;
+    
+    /** @Column(type="datetime", nullable=true) */
+    public $connectedDate;
+    
+    /** @Column(type="datetime", nullable=true) */
+    public $disconnectedDate;
     
 /** @ManyToOne(targetEntity="Usine\Usine", inversedBy="usine", cascade={"persist"}) */
     protected $usine;
