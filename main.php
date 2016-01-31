@@ -128,7 +128,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 <li class="divider"></li>
 
                                 <li><a href="#" id="US_LOGOUT"> <i
-                                            class="ace-icon fa fa-power-off"></i> Déconnexion
+                                            class="ace-icon fa fa-power-off"></i> Dï¿½connexion
                                     </a>
                                 </li>
                             </ul>
@@ -239,7 +239,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                     </li>
 <!--                     <li class=""><a href="#" class="dropdown-toggle"> <i -->
 <!--                                 class="fa fa-pencil fa-fw"></i> <span class="menu-text"> -->
-<!--                                 Démoulage </span> <b class="arrow fa fa-angle-down"></b> -->
+<!--                                 Dï¿½moulage </span> <b class="arrow fa fa-angle-down"></b> -->
 <!--                         </a> <b class="arrow"></b> -->
 <!--                         <ul class="submenu"> -->
                             <li id="MNU_DEMOULAGE" class="hidden"><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
@@ -481,6 +481,15 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#BONSORTIE').removeClass("hidden");
                         $('#MNU_FACTURE').removeClass("hidden");
                         $('#MNU_REGLEMENT').removeClass("hidden");
+                    }
+                    else if(profil==='directeur'){
+                        $('#PARAMETRAGE').removeClass("hidden");
+                        $('#BONACHAT').removeClass("hidden");
+                        $('#MNU_DEMOULAGE').removeClass("hidden");
+                        $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
+                        $('#BONSORTIE').removeClass("hidden");
+                        $('#MNU_FACTURE').removeClass("hidden");
+                        $('#MNU_REGLEMENT').removeClass("hidden");
                         $('#LIST_USERS').removeClass("hidden");
                     }
                 }
@@ -570,7 +579,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     //alert($.cookie('userId') );
                     $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {ACTION: "<?php echo App::ACTION_SIGNOUT; ?>"}, function (data) {
                         if (data === '0') {
-                            alert('Utilisateur dejadeconnecté');
+                            alert('Utilisateur dejadeconnectï¿½');
                         } else {
                             var cookies = $.cookie();
                             $.each(cookies, function (k) {
