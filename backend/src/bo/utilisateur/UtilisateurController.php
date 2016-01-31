@@ -455,8 +455,6 @@ private $langageManager;
             try{
                 $rslt=  $this->userManager->signin($request['login'], $request['password'], $request['usineId']);
                 if($rslt['rc']!=0){
-                //le client existe
-                // retourner json
                     echo json_encode($rslt);
                 }else{
                     echo json_encode($rslt);

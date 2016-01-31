@@ -72,7 +72,7 @@ class UtilisateurManager {
                 $rslt['rc'] = 1;
                 $rslt['infos'] = $utilisateur;
             }
-            else if ($utilisateur != null && $utilisateur['etatCompte']==0) {
+            if ($utilisateur != null && $utilisateur['etatCompte']==0) {
                 $rslt['rc'] = -1;
                 $rslt['infos'] = -1;
             }

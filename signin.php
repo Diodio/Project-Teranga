@@ -146,7 +146,7 @@
 
         <!--[if !IE]> -->
         <script src="assets/js/jquery.2.1.1.min.js"></script>
-        
+        <script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/select2.min.js"></script>
         <script src="assets/js/jquery.loadJSON.js"></script>
 	<script src="assets/js/bootbox.min.js"></script>
@@ -250,6 +250,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                             },
                             success: function(data) {
                                 data=$.parseJSON(data);
+                                console.log(data);
                                 if(data.rc==1){
                                     $.cookie('userId', data.infos.id, { expires: heure, path: domainName });
                                     $.cookie('login', data.infos.login, { expires: heure, path: domainName });
@@ -265,20 +266,20 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                     var url = "<?php echo \App::getHome();?>/main.php";
                                     document.location.href=url;
                                 }else if(data.rc==0){
-                                        alert("Login ou mot de passe incorrect");
+                                        bootbox.alert("Login ou mot de passe incorrect");
                                         return false;
                                 }
                                 else if(data.rc==-1){
-                                        alert("Utilisateur desactivé");
+                                        bootbox.alert("Cet utilisateur est desactivé. Veuillez contacter l'administrateur.");
                                         return false;
                                 }
                                 else {
-                                        alert("Login ou mot de passe incorrect");
+                                       bootbox.alert("Login ou mot de passe incorrect");
                                   return false;
                               }
                                 },
                                 error: function(data) {
-                                  alert("Erreur de connexion");
+                                  bootbox.alert("Erreur de connexion");
                                   return false;
                                 }
                             });
