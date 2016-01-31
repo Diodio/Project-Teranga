@@ -252,7 +252,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                 data=$.parseJSON(data);
                                 console.log(data);
                                 if(data.rc==1){
-                                    $.cookie('userId', data.infos.id, { expires: heure, path: domainName });
+                                    $.cookie('userId', data.infos.uid, { expires: heure, path: domainName });
                                     $.cookie('login', data.infos.login, { expires: heure, path: domainName });
                                     $.cookie('profil', data.infos.profil, { expires: heure, path: domainName});
                                     $.cookie('status', data.infos.status, { expires: heure, path: domainName });
@@ -284,7 +284,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                 }
                             });
                       }else{
-                        alert("Les champs ne doivent pas être vide");
+                        bootbox.alert("Les champs ne doivent pas être vide");
                         return false;
                       }
                    };

@@ -76,7 +76,7 @@ class UtilisateurQueries {
         return null;
     }
     public function view($utilisateurId, $supp = null) {
-       $sql = 'SELECT nomUtilisateur, login, password, usine_id, profil_id FROM utilisateur WHERE id="'.$utilisateurId.'"';
+       $sql = 'SELECT id, nomUtilisateur, login, password, usine_id, profil_id FROM utilisateur WHERE id="'.$utilisateurId.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $user= $stmt->fetch();
@@ -125,7 +125,7 @@ class UtilisateurQueries {
      * @throws \Customer\Exception
      */
     public function listUtilisateurs($offset, $rowCount, $orderBy = "", $sWhere = "") {
-        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine, etatCompte FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1';
+        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine, etatCompte, connected FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1';
         $this->logger->log->trace($sql);
         try {
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -135,11 +135,12 @@ class UtilisateurQueries {
             foreach ($rslt as $key => $value) {
                 $utilisateur = array();
                 $utilisateur[] = $value['uid'];
+                $utilisateur[] = $value['etatCompte'];
                 $utilisateur[] = $value['nomUtilisateur'];
                 $utilisateur[] = $value['description'];
                 $utilisateur[] = $value['login'];
                 $utilisateur[] = $value['nomUsine'];
-                $utilisateur[] = $value['etatCompte'];
+                $utilisateur[] = $value['connected'];
                 $utilisateur[] = $value['uid'];
                 $array[] = $utilisateur;
             }
@@ -151,7 +152,7 @@ class UtilisateurQueries {
     }
 
     public function signin($login, $password, $usineId) {
-        $dql = "SELECT u.id, u.login as login, u.nomUtilisateur  as nomUtilisateur, u.status status, u.etatCompte etatCompte, 
+        $dql = "SELECT u.id uid, u.login as login, u.nomUtilisateur  as nomUtilisateur, u.status status, u.etatCompte etatCompte, 
                 p.libelle as profil, p.description as description, us.code codeUsine, us.nomUsine from Utilisateur\Utilisateur u JOIN u.profil p JOIN u.usine us
             where u.login='$login' and u.password='$password' and u.status=1 AND us.id='$usineId' ";
         try {
@@ -161,7 +162,14 @@ class UtilisateurQueries {
             throw $e;
         }
     }
-
+    public function setOnLine($userId) {
+        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.connected=1 WHERE u.id in (' . $userId.') ' );
+        return $query->getResult();
+    }
+    public function setOffLine($userId) {
+        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.connected=0 WHERE u.id in (' . $userId.') ' );
+        return $query->getResult();
+    }
     public function count($customerId, $where = "") {
         $sql = "SELECT count(*) as nbUsers FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1" . $where;
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

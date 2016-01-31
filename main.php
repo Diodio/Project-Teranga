@@ -577,7 +577,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 
                 $("#US_LOGOUT").click(function () {
                     //alert($.cookie('userId') );
-                    $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {ACTION: "<?php echo App::ACTION_SIGNOUT; ?>"}, function (data) {
+                    $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userId:$.cookie('userId'), ACTION: "<?php echo App::ACTION_SIGNOUT; ?>"}, function (data) {
                         if (data === '0') {
                             alert('Utilisateur dejadeconnect�');
                         } else {

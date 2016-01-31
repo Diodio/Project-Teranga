@@ -73,6 +73,7 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
+                                <th style="width: 5%;"></th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Nom Complet
                                 </th>
@@ -86,7 +87,7 @@
                                     Usine
                                 </th>
                                 <th class="center"><i class="smaller-70"></i>
-                                                Status</th>
+                                                Statut</th>
                                 <th class="center" style="width: 10%;"></th>
                             </tr>
                         </thead>
@@ -174,6 +175,7 @@
             var oTableUsers = null;
             var nbTotalUsersChecked=0;
             var checkedUsers = new Array();
+            
             var userId=0;
             // Check if an item is in the array
            // var interval = 500;
@@ -184,7 +186,6 @@
            {
             $('#winModalUser').modal('show');
            });
-          
            loadUsines = function(){
                 $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST
                         ; ?>"}, function(data) {
@@ -390,24 +391,40 @@
                              "mRender": function(data, type, full) {
                                 return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';                             }
                         },
-                                {   
-                            "aTargets": [5],
+                        {   
+                            "aTargets": [1],
                             "bSortable": false,
                                 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                                 $(nTd).css('text-align', 'center');
                              },
                                 "mRender": function (data, type, full) {
                                     var src = '<input type="hidden" >';
-                                    if (full[5] != null && full[5] !== '1')
-                                        src += '<span class="infobox-red tooltip-error"  title="Desactiver"><i class="fa fa-circle"></i></span>';
+                                    if (full[1] != null && full[1] !== '1')
+                                        src += '<span class="infobox-red tooltip-error"  title="Desactivé"><i class="fa fa-check"></i></span>';
                                     else
-                                        src += '<span class="infobox-green tooltip-error"  title="Activer"><i class="fa fa-circle"></i></span>';
+                                        src += '<span class="infobox-green tooltip-error"  title="Activé"><i class="fa fa-check"></i></span>';
                                     
                                 return src;
                             }
                           },
-                            {
+                            {   
                                 "aTargets": [6],
+                                "bSortable": false,
+                                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                    $(nTd).css('text-align', 'center');
+                                 },
+                                    "mRender": function (data, type, full) {
+                                        var src = '<input type="hidden" >';
+                                        if (full[6] != null && full[6] == '0')
+                                            src += '<span class="infobox-red tooltip-error"  title="Hors ligne"><i class="fa fa-circle"></i></span>';
+                                        else if (full[6] != null && full[6] == '1')
+                                            src += '<span class="infobox-green tooltip-error"  title="En ligne"><i class="fa fa-circle"></i></span>';
+
+                                    return src;
+                                }
+                              },
+                            {
+                                "aTargets": [7],
                                 "bSortable": false,
                                 "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                                     
@@ -420,9 +437,10 @@
                                     '<i class="fa fa-pencil bigger-130"></i>'+
                                     '</a>');
                                     btnEdit.click(function(){
-                                        userId=oData[0];
-                                         $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userId: userId, ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
+                                         $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userId: oData[0], ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
                                         data = $.parseJSON(data);
+                                        console.log(oData[0]);
+                                        userId=oData[0];
                                         $('#nom').val(data.nomUtilisateur);
                                         $('#login').val(data.login);
                                         $('#motDePasse').val(data.password);
@@ -586,6 +604,7 @@
             $('#confMotDePasse').val("");
             $('#CMB_USINE').val("-1").change();
             $('#CMB_PROFIL').val("-1").change();
+            userId=0;
            });
          $("#SAVE").click(function() {
          $.validator.addMethod(
@@ -678,6 +697,7 @@
                         $('#confMotDePasse').val("");
                         $('#CMB_USINE').val("-1").change();
                         $('#CMB_PROFIL').val("-1").change();
+                        userId=0;
        			},
        			invalidHandler: function (form) {
        			}

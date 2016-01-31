@@ -428,6 +428,7 @@ private $langageManager;
         $logger = new Logger(__CLASS__);
         try {
             if (isset($request['userId'])) {
+                $logger->log->trace("user " . $request['userId']);
                 $userManager = new UtilisateurManager();
                 $infosUser = $userManager->view($request['userId']);
                 if ($infosUser != NULL) {
@@ -479,6 +480,9 @@ private $langageManager;
         $logger = new Logger(__CLASS__);
         $logger->log->trace('Signout');
         if(isset($request['ACTION']) && $request['ACTION']=='SIGNOUT'){
+            $userId=$request['userId'];
+            $userManager = new UtilisateurManager();
+            $userManager->setOffLine($userId);
             $logger->log->trace('Fin Signout');
         }else{
             echo '0';

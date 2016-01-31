@@ -37,7 +37,12 @@ class UtilisateurManager {
     public function deactivate($listId) {
         return $this->utilisateurQueries->deactivate($listId);
     }
-
+    public function setOnLine($userId) {
+        return $this->utilisateurQueries->setOnLine($userId);
+    }
+    public function setOffLine($userId) {
+        return $this->utilisateurQueries->setOffLine($userId);
+    }
     /**
      * get user by id
      * @param type $id
@@ -71,6 +76,7 @@ class UtilisateurManager {
             if ($utilisateur != null && $utilisateur['status']!=0) {
                 $rslt['rc'] = 1;
                 $rslt['infos'] = $utilisateur;
+                $this->utilisateurQueries->setOnLine($utilisateur['uid']);
             }
             if ($utilisateur != null && $utilisateur['etatCompte']==0) {
                 $rslt['rc'] = -1;
