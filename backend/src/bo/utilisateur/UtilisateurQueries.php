@@ -163,11 +163,11 @@ class UtilisateurQueries {
         }
     }
     public function setOnLine($userId) {
-        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.connected=1 WHERE u.id in (' . $userId.') ' );
+        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.connected=1, u.connectedDate=CURRENT_TIMESTAMP() WHERE u.id in (' . $userId.') ' );
         return $query->getResult();
     }
     public function setOffLine($userId) {
-        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.connected=0 WHERE u.id in (' . $userId.') ' );
+        $query=Bootstrap::$entityManager->createQuery('update Utilisateur\Utilisateur u set u.connected=0, u.disconnectedDate=CURRENT_TIMESTAMP()  WHERE u.id in (' . $userId.') ' );
         return $query->getResult();
     }
     public function count($customerId, $where = "") {

@@ -49,7 +49,7 @@ class Utilisateur {
     
     //utilisateur connecte ou hors ligne : 0 hors ligne, 1 connecte
     /**
-     * @Column(type="string", length=60, nullable=true)
+     * @Column(type="integer", nullable=true)
      * */
     protected $connected;
     
@@ -161,13 +161,37 @@ class Utilisateur {
     function setDeleteDate($deleteDate) {
         $this->deleteDate = $deleteDate;
     }
+    function getConnected() {
+        return $this->connected;
+    }
 
-    
+    function getConnectedDate() {
+        return $this->connectedDate;
+    }
+
+    function getDisconnectedDate() {
+        return $this->disconnectedDate;
+    }
+
+    function setConnected($connected) {
+        $this->connected = $connected;
+    }
+
+    function setConnectedDate($connectedDate) {
+        $this->connectedDate = $connectedDate;
+    }
+
+    function setDisconnectedDate($disconnectedDate) {
+        $this->disconnectedDate = $disconnectedDate;
+    }
+
+        
         
 
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');
+        $this->connected = 0;
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
