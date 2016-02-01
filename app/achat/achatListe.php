@@ -29,9 +29,9 @@ $codeUsine = $_COOKIE['codeUsine'];
             <div class="col-sm-4"> 
                 <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
                         <option value="*" class="types">Selectionnez un achat</option>
-                         <option value="0" class="orange bigger-130 icon-only">Achats non validÃ©s</option>
-                         <option value="1" class="green bigger-130 icon-only">Achats validÃ©s</option>
-                         <option value="2" class="red bigger-130 icon-only">Achats annulÃ©s</option>
+                         <option value="0" class="orange bigger-130 icon-only">Achats non validés</option>
+                         <option value="1" class="green bigger-130 icon-only">Achats validés</option>
+                         <option value="2" class="red bigger-130 icon-only">Achats annulés</option>
                 </select>
             </div>
             <div class="col-sm-8">
@@ -54,6 +54,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <li id='MNU_IMPRIMER' class="disabled" ><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li class="divider"></li>
+                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -151,7 +153,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data" >
                                                             <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats non validÃ©s </div>
+                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
                                                         </div>
                                                     </div>
 
@@ -163,7 +165,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats validÃ©s</div>
+                                                            <div class="infobox-content" style="width:150px">Achats validés</div>
 
                                                         </div>
                                                     </div>
@@ -176,7 +178,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats annulÃ©s</div>
+                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
 
                                                         </div>
                                                     </div>
@@ -214,7 +216,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">CrÃ©Ã© par </div>
+                        <div class="profile-info-name">Créé par </div>
                         <div class="profile-info-value">
                             <span id="achatUser"></span>
                         </div>
@@ -228,7 +230,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <thead>
                             <tr>
                                     <th class="text-center">
-                                            DÃ©signation
+                                            Désignation
                                     </th>
                                     <th class="text-center">
                                             Prix Unitaire
@@ -265,7 +267,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">NÂ° chÃ¨que </div>
+                                <div class="profile-info-name">N° chèque </div>
                                 <div class="profile-info-value">
                                     <span id="numCheque"></span>
                                 </div>
@@ -412,11 +414,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                          // $('#MNU_VALIDATION').removeClass('enable');
                          $('#MNU_VALIDATION').addClass('disabled');
                          $('#MNU_ANNULATION').addClass('disabled');
+                         $('#MNU_REMOVE').addClass('disabled');
                   } 
                   else if (state == 2) {
                       //$('#MNU_ANNULATION').removeClass('enable');
                       $('#MNU_VALIDATION').addClass('disabled');
                       $('#MNU_ANNULATION').addClass('disabled');
+                      if($.cookie('profil')=='directeur')
+                        $('#MNU_REMOVE').removeClass('disabled');
                   }
                           
             }
@@ -535,11 +540,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Non validÃ©"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
+                                    src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="ValidÃ©"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
                                 else if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="AnnulÃ©"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }
@@ -637,11 +642,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     if(data.numCheque !==null && data.numCheque!=="")
                         $('#numCheque').text(data.numCheque);
                     else
-                        $('#numCheque').text('Non dÃ©dini');
+                        $('#numCheque').text('Non dédini');
                     if(data.datePaiement !==null && data.datePaiement!=="")
                         $('#datePaiement').text(data.datePaiement);
                     else
-                        $('#datePaiement').text('Non dÃ©dini'); 
+                        $('#datePaiement').text('Non dédini'); 
                     
                     $('#TABLE_ACHATS tbody').html("");
                     var table = data.ligneAchat;
@@ -684,8 +689,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     {
                         if (data.rc == 0)
                         {
-                            bootbox.alert("Achat(s) validÃ©(s)");
-                             loadAchats();
+                            bootbox.alert("Achat(s) validé(s)");
+                             loadAchats('*');
                         }
                         else
                         {
@@ -724,7 +729,36 @@ $codeUsine = $_COOKIE['codeUsine'];
                     {
                         if (data.rc === 0)
                         {
-                            bootbox.alert("Achat(s) annulÃ©s(s)");
+                            bootbox.alert("Achat(s) annulés(s)");
+                            loadAchats('*');
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
+                        });
+                         }
+                    });
+                }
+            });
+            
+            $("#MNU_REMOVE").click(function()
+            {
+                if (checkedAchat.length == 0)
+                    bootbox.alert("Veuillez selectionnez un achat");
+                else if (checkedAchat.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
+                    if(result){
+                    var achatId = checkedAchat[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Achat(s) supprimés(s)");
+                            loadAchats("*");
                             
                         }
                         else
