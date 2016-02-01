@@ -690,6 +690,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc == 0)
                         {
                             bootbox.alert("Achat(s) validé(s)");
+                            getIndicator();
                              loadAchats('*');
                         }
                         else
@@ -730,6 +731,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Achat(s) annulés(s)");
+                            getIndicator();
                             loadAchats('*');
                         }
                         else
@@ -758,6 +760,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Achat(s) supprimés(s)");
+                            getIndicator();
                             loadAchats("*");
                             
                         }
