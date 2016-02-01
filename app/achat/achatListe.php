@@ -54,6 +54,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <li id='MNU_IMPRIMER' class="disabled" ><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li class="divider"></li>
+                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -412,11 +414,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                          // $('#MNU_VALIDATION').removeClass('enable');
                          $('#MNU_VALIDATION').addClass('disabled');
                          $('#MNU_ANNULATION').addClass('disabled');
+                         $('#MNU_REMOVE').addClass('disabled');
                   } 
                   else if (state == 2) {
                       //$('#MNU_ANNULATION').removeClass('enable');
                       $('#MNU_VALIDATION').addClass('disabled');
                       $('#MNU_ANNULATION').addClass('disabled');
+                      $('#MNU_REMOVE').removeClass('disabled');
                   }
                           
             }
@@ -725,6 +729,34 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Achat(s) annulés(s)");
+                            
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
+                        });
+                         }
+                    });
+                }
+            });
+            
+            $("#MNU_REMOVE").click(function()
+            {
+                if (checkedAchat.length == 0)
+                    bootbox.alert("Veuillez selectionnez un achat");
+                else if (checkedAchat.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
+                    if(result){
+                    var achatId = checkedAchat[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Achat(s) supprimés(s)");
                             
                         }
                         else

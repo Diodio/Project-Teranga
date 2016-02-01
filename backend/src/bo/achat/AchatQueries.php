@@ -192,14 +192,14 @@ class AchatQueries {
     }
     
     public function findNonValidAchatByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur WHERE mareyeur.id=mareyeur_id and STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
     public function findAchatAnnulerByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=2 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur WHERE mareyeur.id=mareyeur_id and STATUS=2 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -207,7 +207,7 @@ class AchatQueries {
     }
     
     public function findRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM achat WHERE regle=2 AND status=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM achat,mareyeur WHERE mareyeur.id=mareyeur_id and regle=2 AND status=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -291,6 +291,17 @@ class AchatQueries {
                 return $achat;
             else
                 return null;
+        }
+    }
+    
+    public function delete($achatId) {
+        $achat = $this->findById($achatId);
+        if ($achat != null) {
+            Bootstrap::$entityManager->remove($achat);
+            Bootstrap::$entityManager->flush();
+            return $achat;
+        } else {
+            return null;
         }
     }
 }

@@ -261,7 +261,23 @@ private $logger;
     }
     
     public function doRemove($request) {
-        
+        $this->logger->log->info('Action Remove user');
+        $this->logger->log->info(json_encode($request));
+        try{
+            if(isset($request['achatId'])){
+                $this->logger->log->info('Remove with params : '.$request['achatId']);
+                $achatId=$request['achatId'];
+                $achatManager=new AchatManager();
+                $nbModified= $achatManager->remove($achatId);
+                $this->doSuccess($nbModified, 'achat supprime');
+            }else{
+                $this->logger->log->error('Remove : Params not enough');
+                $this->doError('-1', 'Impossible de supprimer cet achat');
+            }
+        }  catch (Exception $e) {
+            $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            throw new Exception('ERREUR_SERVEUR');
+        }
     }
 
     public function doUpdate($request) {
