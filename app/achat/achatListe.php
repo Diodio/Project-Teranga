@@ -420,7 +420,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                       //$('#MNU_ANNULATION').removeClass('enable');
                       $('#MNU_VALIDATION').addClass('disabled');
                       $('#MNU_ANNULATION').addClass('disabled');
-                      $('#MNU_REMOVE').removeClass('disabled');
+                      if($.cookie('profil')=='directeur')
+                        $('#MNU_REMOVE').removeClass('disabled');
                   }
                           
             }
@@ -689,7 +690,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc == 0)
                         {
                             bootbox.alert("Achat(s) validé(s)");
-                             loadAchats();
+                             loadAchats('*');
                         }
                         else
                         {
@@ -729,7 +730,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Achat(s) annulés(s)");
-                            
+                            loadAchats('*');
                         }
                         else
                         {
@@ -757,6 +758,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Achat(s) supprimés(s)");
+                            loadAchats("*");
                             
                         }
                         else

@@ -296,7 +296,7 @@ class AchatQueries {
     
     public function delete($achatId) {
         $achat = $this->findById($achatId);
-        if ($achat != null) {
+        if ($achat != null && $achat->getStatus()==2) {
             Bootstrap::$entityManager->remove($achat);
             Bootstrap::$entityManager->flush();
             return $achat;
