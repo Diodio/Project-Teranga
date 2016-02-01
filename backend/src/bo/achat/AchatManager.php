@@ -64,6 +64,12 @@ class AchatManager {
     public function annulerAchat($achatId) {
         return $this->achatQuery->annulerAchat($achatId);
     }
+    
+    public function remove($achatId) {
+        return $this->achatQuery->delete($achatId);
+    }
+    
+    
     public function modifReglement($achatId, $status) {
         return $this->achatQuery->modifReglement($achatId, $status);
     }

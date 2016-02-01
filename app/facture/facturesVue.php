@@ -35,7 +35,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                         <div class="col-sm-6">
                             <select id="CMB_CLIENTS" name="nomClient" data-placeholder=""  style="width:100%"     >
-                                <option value="" class="clients"></option>
+                                <option value="*" class="clients"></option>
                             </select>
                         </div>
                     <a id="NEW_CLIENT" class="btn btn-primary btn-sm"  title="Nouveau client"
