@@ -29,9 +29,9 @@ $codeUsine = $_COOKIE['codeUsine'];
             <div class="col-sm-4"> 
                 <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
                         <option value="*" class="types">Selectionnez un achat</option>
-                         <option value="0" class="orange bigger-130 icon-only">Achats non validés</option>
-                         <option value="1" class="green bigger-130 icon-only">Achats validés</option>
-                         <option value="2" class="red bigger-130 icon-only">Achats annulés</option>
+                         <option value="0" class="orange bigger-130 icon-only">Achats non valid�s</option>
+                         <option value="1" class="green bigger-130 icon-only">Achats valid�s</option>
+                         <option value="2" class="red bigger-130 icon-only">Achats annul�s</option>
                 </select>
             </div>
             <div class="col-sm-8">
@@ -153,7 +153,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data" >
                                                             <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
+                                                            <div class="infobox-content" style="width:150px">Achats non valid�s </div>
                                                         </div>
                                                     </div>
 
@@ -165,7 +165,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats validés</div>
+                                                            <div class="infobox-content" style="width:150px">Achats valid�s</div>
 
                                                         </div>
                                                     </div>
@@ -178,7 +178,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
+                                                            <div class="infobox-content" style="width:150px">Achats annul�s</div>
 
                                                         </div>
                                                     </div>
@@ -216,7 +216,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Créé par </div>
+                        <div class="profile-info-name">Cr�� par </div>
                         <div class="profile-info-value">
                             <span id="achatUser"></span>
                         </div>
@@ -230,7 +230,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <thead>
                             <tr>
                                     <th class="text-center">
-                                            Désignation
+                                            D�signation
                                     </th>
                                     <th class="text-center">
                                             Prix Unitaire
@@ -267,7 +267,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">N° chèque </div>
+                                <div class="profile-info-name">N� ch�que </div>
                                 <div class="profile-info-value">
                                     <span id="numCheque"></span>
                                 </div>
@@ -540,11 +540,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
+                                    src += '<span class=" tooltip-error" title="Non valid�"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Valid�"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
                                 else if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Annul�"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }
@@ -642,11 +642,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     if(data.numCheque !==null && data.numCheque!=="")
                         $('#numCheque').text(data.numCheque);
                     else
-                        $('#numCheque').text('Non dédini');
+                        $('#numCheque').text('Non d�dini');
                     if(data.datePaiement !==null && data.datePaiement!=="")
                         $('#datePaiement').text(data.datePaiement);
                     else
-                        $('#datePaiement').text('Non dédini'); 
+                        $('#datePaiement').text('Non d�dini'); 
                     
                     $('#TABLE_ACHATS tbody').html("");
                     var table = data.ligneAchat;
