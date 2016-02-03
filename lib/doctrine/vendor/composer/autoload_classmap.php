@@ -28,6 +28,7 @@ return array(
     'Client\\Client' => $baseDir . '/../backend/src/be/Client.php',
     'Client\\ClientManager' => $baseDir . '/../backend/src/bo/client/ClientManager.php',
     'Client\\ClientQueries' => $baseDir . '/../backend/src/bo/client/ClientQueries.php',
+    'Common\\Common' => $baseDir . '/../backend/src/bo/common/Common.php',
     'Common\\DoctrineLogger' => $baseDir . '/../backend/src/bo/common/DoctrineLogger.php',
     'DemoulageController' => $baseDir . '/../backend/src/bo/demoulage/DemoulageController.php',
     'DoctrineORM\\Proxies\\__CG__\\Achat\\Achat' => $baseDir . '/../backend/src/bo/achat/lib/__CG__AchatAchat.php',

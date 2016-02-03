@@ -29,7 +29,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             <div class="col-sm-4"> 
                 <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
                         <option value="*" class="types">Selectionnez un achat</option>
-                         <option value="0" class="orange bigger-130 icon-only">Achats non valid�s</option>
+                         <option value="0" class="orange bigger-130 icon-only">Achats non validÃ©s</option>
                          <option value="1" class="green bigger-130 icon-only">Achats valid�s</option>
                          <option value="2" class="red bigger-130 icon-only">Achats annul�s</option>
                 </select>
@@ -291,6 +291,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                         </div>
+                                
+                                <div style="float: right">
+                        <button id="SAVE_PRODUIT" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                                </div>
+                            
+                            
                                             </div>
                                         </div>
 
@@ -638,7 +647,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#achatUser').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
-                    $('#modePaiement').text(data.modePaiement);
+                    if(data.modePaiement !=='')
+                        $('#modePaiement').text(data.modePaiement);
+                    else
+                       $('#modePaiement').text('Non dedini'); 
                     if(data.numCheque !==null && data.numCheque!=="")
                         $('#numCheque').text(data.numCheque);
                     else
@@ -704,8 +716,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $(table).each(function(index, element){
                         var row = $('<tr id='+element.id+' />');
                         $("#TABLE_ACHATS tbody").append(row); 
+                        var pu='';
+                        if(element.prixUnitaire != 0)
+                            pu=element.prixUnitaire
                         row.append($('<td  id="statusPalier'+index+'">'+element.designation+'</td>'));
-                        row.append($('<td ><span id="prix'+index+'"></span></td>'));
+                        row.append($('<td ><span id="prix'+index+'">'+pu+'</span></td>'));
                         row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
                         row.append($('<td class="montant" id="montant'+index+'">'+element.montant+'</td>'));
                         //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
@@ -834,5 +849,249 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                 }
             });
+            
+            
+            $('#modePaiement').editable({
+                            type: 'select',
+                            name: 'modePaiement',
+                            title: "Selectionnez um mode de paiement",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Selectionnez um mode de paiement",
+                            source: [
+                                {id: 'ESPECE', text: 'ESPECE'},
+                                {id: 'VIREMENT', text: 'VIREMENT'},
+                                {id: 'CHEQUE', text: 'CHEQUE'}
+                            ],
+                            validate:function(value){
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant))
+                                            $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        
+                        $('#numCheque').editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                
+                                    
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant))
+                                            $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        
+                        $('#datePaiement').editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                
+                                    
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant))
+                                            $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        
+                        $('#Avance').editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                
+                                    
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant))
+                                            $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        $('#Reliquat').editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                
+                                    
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant))
+                                            $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                        
             });
         </script>

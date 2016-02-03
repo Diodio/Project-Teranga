@@ -192,7 +192,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 								for="form-field-1"> Mode de paiement </label>
 							<div class="col-sm-7">
 								<div class="clearfix">
-									<select readonly id="modePaiement" class="col-xs-12 col-sm-10">
+                                                                    <select disabled id="modePaiement" class="col-xs-12 col-sm-10">
+										<option value=""></option>
 										<option value="ESPECES">Especes</option>
 										<option value="CHEQUE">Cheque</option>
 										<option value="VIREMENT">Virement</option>
@@ -402,7 +403,7 @@ $(document).ready(function () {
     
     $('#heureReception').timepicker({
             minuteStep: 1,
-            defaultTime: '08:00',
+            defaultTime: new Date(),
             showSeconds: false,
             showMeridian: false
         });
@@ -689,7 +690,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var frmData;
             var numAchat= $('#numAchat').val();
             var heureReception= $('#heureReception').val();
-           // var dateAchat = dateAchat;
+            var dateAchat = $('#dateAchat').val();;
             var mareyeur = mareyeurId;
             var poidsTotal = $("#poidsTotal").val();
             var MontantTotal = $("#montantTotal").val();

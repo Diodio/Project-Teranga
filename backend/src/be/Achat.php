@@ -16,7 +16,7 @@ class Achat {
      * */
     protected $numero;
     
-   /** @Column(type="datetime", nullable=true) */
+   /** @Column(type="date", nullable=true) */
     public $dateAchat;
     
     
@@ -24,22 +24,22 @@ class Achat {
     public $heureReception;
     
     /**
-     * @Column(type="float", scale=2, nullable=true)
+     * @Column(type="float", nullable=true)
      * */
     protected $poidsTotal;
     
     /**
-     * @Column(type="float", scale=2, nullable=false)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $montantTotal;
     
     /**
-     * @Column(type="float", scale=2, nullable=true)
+     * @Column(type="decimal", scale=2, precision=10,nullable=true)
      * */
     protected $reliquat;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=true)
      * */
     protected $modePaiement;
     

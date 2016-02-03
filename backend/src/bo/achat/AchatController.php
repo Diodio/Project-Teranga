@@ -88,7 +88,7 @@ private $logger;
                 $achat = new Achat();
                 $achat->setNumero($request['numAchat']);
                 $achat->setHeureReception(new \DateTime($request['heureReception']));
-                $achat->setDateAchat(new \DateTime("now"));
+                $achat->setDateAchat(new \DateTime($request['dateAchat']));
                 $achat->setPoidsTotal($request['poidsTotal']);
                 $achat->setMontantTotal($request['montantTotal']);
                 $achat->setModePaiement($request['modePaiement']);
