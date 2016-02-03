@@ -675,6 +675,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         var montant= prix * parseFloat(qte);
                                         if(!isNaN(montant))
                                             $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
                                        // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                     }
                                     else {
@@ -701,7 +707,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         row.append($('<td  id="statusPalier'+index+'">'+element.designation+'</td>'));
                         row.append($('<td ><span id="prix'+index+'"></span></td>'));
                         row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
-                        row.append($('<td id="montant'+index+'">'+element.montant+'</td>'));
+                        row.append($('<td class="montant" id="montant'+index+'">'+element.montant+'</td>'));
                         //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                          loadEditable(index);
                     });

@@ -12,17 +12,17 @@ class LigneAchat {
     protected $id;
     
     /**
-     * @Column(type="string", nullable=true)
+     * @Column(type="float", scale=2,nullable=true)
      * */
     protected $prixUnitaire;
     
     /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="float",scale=2, nullable=true)
      * */
     protected $quantite;
     
     /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="float",scale=2, nullable=true)
      * */
     protected $montant;
 

@@ -22,18 +22,19 @@ class Achat {
     
    /** @Column(type="time", nullable=true) */
     public $heureReception;
+    
     /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="float", scale=2, nullable=true)
      * */
     protected $poidsTotal;
     
     /**
-     * @Column(type="float", length=60, nullable=false)
+     * @Column(type="float", scale=2, nullable=false)
      * */
     protected $montantTotal;
     
     /**
-     * @Column(type="float", length=60, nullable=true)
+     * @Column(type="float", scale=2, nullable=true)
      * */
     protected $reliquat;
     
