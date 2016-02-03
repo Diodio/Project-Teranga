@@ -5,6 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/macfish/app/achat/achatsVue.php</file>
             <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/utilisateur/UtilisateurController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/achat/achatListe.php</file>
             <file>file:/C:/xampp/htdocs/macfish/app/facture/facturesVue.php</file>
             <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatQueries.php</file>
         </group>

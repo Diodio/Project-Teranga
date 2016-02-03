@@ -649,12 +649,65 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#datePaiement').text('Non d�dini'); 
                     
                     $('#TABLE_ACHATS tbody').html("");
+                    loadEditable = function(compteur)
+                    {
+                    $('#prix'+compteur).editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                
+                                    
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant))
+                                            $('#montant'+compteur).text(montant);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                    }
                     var table = data.ligneAchat;
                     var trHTML='';
                     $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                        var row = $('<tr id='+element.id+' />');
+                        $("#TABLE_ACHATS tbody").append(row); 
+                        row.append($('<td  id="statusPalier'+index+'">'+element.designation+'</td>'));
+                        row.append($('<td ><span id="prix'+index+'"></span></td>'));
+                        row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
+                        row.append($('<td id="montant'+index+'">'+element.montant+'</td>'));
+                        //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                         loadEditable(index);
                     });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    
+                    //$('#TABLE_ACHATS tbody').append(trHTML);
+                    
                     var infoAvance = data.reglement;
                     var mtAv=0;
                     var rel=0;
@@ -675,7 +728,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#TAB_MSG_VIEW').show();
                }).error(function(error) { });
             };
-
+            
             $("#MNU_VALIDATION").click(function()
             {
                 if (checkedAchat.length == 0)
