@@ -930,7 +930,7 @@ $codeUsine = $_COOKIE['codeUsine'];
           var rel=0;
            var mt=parseFloat($("#MontantTotal").text());
            var avance=parseFloat($("#avance").val());
-           if(!isNaN(avance) && !isNaN(avance)) {
+           if(!isNaN(avance) && avance!=="") {
            rel= mt - avance;
            if(!isNaN(rel) && rel>0) {
               $("#reliquat").val(rel);
@@ -954,13 +954,9 @@ $codeUsine = $_COOKIE['codeUsine'];
               $('#regleAchat').prop('checked', false);
           }
         }
-//        else {
-//             $.gritter.add({
-//                    title: 'Notification',
-//                    text: 'Le montant avance ne doit pas être vide',
-//                    class_name: 'gritter-error gritter-light'
-//                });
-//        }
+        else {
+             $("#reliquat").val("");
+        }
         }
            $( "#avance" ).keyup(function() {
             calculReliquat();
