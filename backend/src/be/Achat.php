@@ -180,8 +180,8 @@ class Achat {
      /** @PrePersist */
     public function doPrePersist() {
         $this->status = 0;
-        $this->createdDate = new \DateTime("now");
-        $this->updatedDate = new \DateTime("now");
+       // $this->createdDate = new \DateTime("now");
+       // $this->updatedDate = new \DateTime("now");
     }
     public function getPaiement() {
         return $this->paiement;
