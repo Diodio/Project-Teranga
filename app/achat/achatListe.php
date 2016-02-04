@@ -852,48 +852,24 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             
             $('#modePaiement').editable({
-                            type: 'select',
+                            type: 'select2',
                             name: 'modePaiement',
                             title: "Selectionnez um mode de paiement",
                             id: 'id',
                             submit : 'OK',
-                            emptytext: "Selectionnez um mode de paiement",
+                           // emptytext: "Selectionnez um mode de paiement",
                             source: [
                                 {id: 'ESPECE', text: 'ESPECE'},
                                 {id: 'VIREMENT', text: 'VIREMENT'},
                                 {id: 'CHEQUE', text: 'CHEQUE'}
                             ],
                             validate:function(value){
-                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                                if(value==='') return 'Veuillez selectionner un mode de paiement S.V.P.';
                             },
                             placement: 'right',
                             url: function(editParams) {                             
                                 var prix = editParams.value;
                                 function save() {
-                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
-                                    
-                                    if($.trim(prix) !== ""){
-                                        var tot=0;
-                                        var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
-                                        if(!isNaN(montant))
-                                            $('#montant'+compteur).text(montant);
-                                        $('#TABLE_ACHATS .montant').each(function () {
-                                            if($(this).html()!== 0)
-                                                tot += parseFloat($(this).html());
-                                        });
-                                      //console.log(tot);
-                                      $('#MontantTotal').text(tot);
-                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                    }
-                                    else {
-                                            
-                                            $.gritter.add({
-                                                title: 'Server notification',
-                                                text: "Veuillez saisir  un montant S.V.P.",
-                                                class_name: 'gritter-error gritter-light'
-                                            });
-                                    }
                                 }
                                 
                                 save(function() {});
