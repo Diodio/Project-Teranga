@@ -26,7 +26,7 @@ class LigneAchatQueries {
     public function insert($ligneAchat) {
         if ($ligneAchat != null) {
                 Bootstrap::$entityManager->persist($ligneAchat);
-            Bootstrap::$entityManager->flush();
+                Bootstrap::$entityManager->flush();
             return $ligneAchat;
         }
     }
@@ -34,8 +34,15 @@ class LigneAchatQueries {
     public function update($ligneAchat) {
         if ($ligneAchat != null) {
                 Bootstrap::$entityManager->merge($ligneAchat);
-            Bootstrap::$entityManager->flush();
+                Bootstrap::$entityManager->flush();
             return $ligneAchat;
         }
     }
+    
+    public function findById($ligneAchatId) {
+        if ($ligneAchatId != null) {
+            return Bootstrap::$entityManager->find('LigneAchat\LigneAchat', $ligneAchatId);
+        }
+    }
+
 }

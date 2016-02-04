@@ -229,6 +229,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <table class="table table-bordered table-hover"id="TABLE_ACHATS">
                         <thead>
                             <tr>
+                                <th class="text-center">
+                                 </th>
                                     <th class="text-center">
                                             Designation
                                     </th>
@@ -770,7 +772,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         var pu='';
                         if(element.prixUnitaire != 0)
                             pu=element.prixUnitaire
-                        row.append($('<td  id="produitId'+index+'">'+element.id+'</td>'));
+                        row.append($('<td  id="ligneId'+index+'">'+element.id+'</td>'));
                         row.append($('<td  id="designation'+index+'">'+element.designation+'</td>'));
                         row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
                         row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
@@ -994,7 +996,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 //$table.find("thead th").each(function () {
 //    header.push($(this).html().trim());
 //});
-            header = ["produitId","libelle","pu","qte","montant"];
+            header = ["ligneId","libelle","pu","qte","montant"];
             $table.find("tbody tr").each(function () {
                 var row = {};
 

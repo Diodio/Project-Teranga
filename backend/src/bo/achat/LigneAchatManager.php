@@ -23,5 +23,9 @@ class LigneAchatManager {
         $this->ligneAchatQuery->update($ligneAchat);
     	return $ligneAchat;
     }
+    
+    public function findById($ligneAchatId) {
+        return $this->ligneAchatQuery->findById($ligneAchatId);
+    }
 
 }

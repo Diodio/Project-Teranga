@@ -82,7 +82,7 @@ private $logger;
 
     public function doInsert($request) {
         try {
-            $this->logger->log->trace("tesst1");
+            $this->logger->log->info(json_encode($request));
             if($request['mareyeur'] !="null") {
                 $achatManager = new AchatManager();
                 $achat = new Achat();
@@ -121,17 +121,17 @@ private $logger;
                 $achatAdded = $achatManager->insert($achat);
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
-                         foreach ($jsonAchat as $key => $ligneachat) {
-                            if(isset($ligneachat["designation"])) {
+                         foreach ($jsonAchat as $key => $ligne) {
+                            if(isset($ligne["designation"])) {
                                 $ligneAchat = new \Achat\LigneAchat();
                                 $ligneAchat->setAchat($achat);
-                                $produitId = $ligneachat["designation"];
+                                $produitId = $ligne["designation"];
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
                                 $ligneAchat->setProduit($produit);
-                                $ligneAchat->setPrixUnitaire($ligneachat['pu']);
-                                $ligneAchat->setQuantite($ligneachat['qte']);
-                                $ligneAchat->setMontant($ligneachat['montant']);
+                                $ligneAchat->setPrixUnitaire($ligne['pu']);
+                                $ligneAchat->setQuantite($ligne['qte']);
+                                $ligneAchat->setMontant($ligne['montant']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
                                 $ligneAchatManager->insert($ligneAchat); 
                             }
@@ -313,19 +313,20 @@ private $logger;
                     }
                 $achatAdded = $achatManager->update($achat);
                 if ($achatAdded->getId() != null) {
+                    $ligneAchatManager = new \Achat\LigneAchatManager();
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
-                         foreach ($jsonAchat as $key => $ligneachat) {
-                            if(isset($ligneachat["designation"])) {
-                                $ligneAchat = new \Achat\LigneAchat();
-                                $ligneAchat->setAchat($achat);
-                                $produitId = $ligneachat["produitId"];
-                                $produitManager = new Produit\ProduitManager();
-                                $produit= $produitManager->findById($produitId);
-                                $ligneAchat->setProduit($produit);
-                                $ligneAchat->setPrixUnitaire($ligneachat['pu']);
-                                $ligneAchat->setQuantite($ligneachat['qte']);
-                                $ligneAchat->setMontant($ligneachat['montant']);
-                                $ligneAchatManager = new \Achat\LigneAchatManager();
+                         foreach ($jsonAchat as $key => $ligne) {
+                            if(isset($ligne["ligneId"])) {
+                                $ligneAchat = $ligneAchatManager->findById(ligneId);
+                                $ligneAchat->setId($ligne["ligneId"]);
+                                //$ligneAchat->setAchat($achat);
+                                //$produitId = $ligne["ligneId"];
+                               // $produitManager = new Produit\ProduitManager();
+                                //$produit= $produitManager->findById($produitId);
+                               // $ligneAchat->setProduit($produit);
+                                $ligneAchat->setPrixUnitaire($ligne['pu']);
+                                $ligneAchat->setQuantite($ligne['qte']);
+                                $ligneAchat->setMontant($ligne['montant']);
                                 $ligneAchatManager->update($ligneAchat); 
                             }
                          }
