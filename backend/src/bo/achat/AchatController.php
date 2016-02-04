@@ -137,7 +137,7 @@ private $logger;
                                 $ligneAchatManager->insert($ligneAchat); 
                             }
                          }
-                    $this->doSuccess($achatAdded->getId(), 'Achat enregistré avec succes');
+                    $this->doSuccess($achatAdded->getId(), 'Achat enregistrï¿½ avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'inserer cet achat');
                 }
@@ -331,7 +331,7 @@ private $logger;
                                 $ligneAchatManager->update($ligneAchat); 
                             }
                          }
-                    $this->doSuccess($achatAdded->getId(), 'Reglement effectué avec succes');
+                    $this->doSuccess($achatAdded->getId(), 'Achat mis Ã  jour avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'effectuer ce reglement');
                 }
@@ -355,7 +355,7 @@ private $logger;
                 $valid = $achatManager->validAchat($request['achatId']);
                 if($valid==1)
                     $achatManager->ajoutStockParAchact ($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
+                $this->doSuccess($request['achatId'], 'Validation effectuï¿½ avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
@@ -371,7 +371,7 @@ private $logger;
                 $valid = $achatManager->annulerAchat($request['achatId']);
                 if($valid==1)
                     $achatManager->ajoutStockParAchact ($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Annulation effectuée avec succes');
+                $this->doSuccess($request['achatId'], 'Annulation effectuï¿½e avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }

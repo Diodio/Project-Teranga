@@ -253,13 +253,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Poids Total </div>
                                 <div class="profile-info-value">
-                                    <span id="PoidsTotal"></span>
+                                    <span id="PoidsTotal" class="bolder"></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Montant Total </div>
                                 <div class="profile-info-value">
-                                    <span id="MontantTotal"></span>
+                                    <span id="MontantTotal" class="bolder"></span>
                                 </div>
                             </div>
                         </div>
@@ -308,10 +308,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <div class="row">
                                 <div class="form-group">
                                         <label class="col-sm-5 control-label no-padding-right"
-                                                for="form-field-1"> Avance  (FCFA)</label>
+                                                for="form-field-1"> Montant payé  (FCFA)</label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                        <input type="text"  id="avance" name="avance" placeholder=""
+                                                        <input type="text" class="bolder"  id="avance" name="avance" placeholder=""
                                                                 class="col-xs-12 col-sm-10">
                                                 </div>
                                         </div>
@@ -324,7 +324,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 for="form-field-1"> Reliquat (FCFA)</label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                        <input type="text" readonly id="reliquat" name="reliquat" placeholder=""
+                                                    <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder=""
                                                                 class="col-xs-12 col-sm-10">
                                                 </div>
                                         </div>
