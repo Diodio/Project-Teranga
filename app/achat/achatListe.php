@@ -346,7 +346,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         
                                 
                                 <div style="float: right">
-                        <button id="SAVE_PRODUIT" class="btn btn-small btn-info" >
+                        <button id="SAVE" class="btn btn-small btn-info" >
                                 <i class="ace-icon fa fa-save"></i>
                                 Enregistrer
                             </button>
@@ -960,6 +960,110 @@ $codeUsine = $_COOKIE['codeUsine'];
         }
            $( "#avance" ).keyup(function() {
             calculReliquat();
-         });              
+         });     
+         
+         ReglementProcess = function (achatId)
+        {
+           $('#SAVE').attr("disabled", true);
+            var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
+            var frmData;
+            var achatId= achatId;
+            var MontantTotal = $("#MontantTotal").text();
+            var modePaiement = $("#modePaiement").val();
+            var numCheque = $("#numCheque").val();
+            var datePaiement = $("#datePaiement").val();
+            var avance = $("#avance").val();
+            var reliquat = $("#reliquat").val();
+            var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
+            var regle=false;
+            if(Aregle === 'on')
+                 regle=true;
+             
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            var $table = $("#TABLE_ACHATS");
+            rows = [],
+            header = [];
+
+//$table.find("thead th").each(function () {
+//    header.push($(this).html().trim());
+//});
+            header = ["#","produitId","pu","qte","montant"];
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                        valueSelect = $(this).find('select').val();
+                        valueInput = $(this).find('input').val();
+                    if (typeof valueInput !== "undefined")
+                        value=valueInput;
+                    if (typeof valueSelect !== "undefined")
+                        value=valueSelect;
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+    
+    
+            var tbl=JSON.stringify(rows);
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('montantTotal', MontantTotal);
+            formData.append('modePaiement', modePaiement);
+            formData.append('numCheque', numCheque);
+            formData.append('datePaiement', datePaiement);
+            formData.append('avance', avance);
+            formData.append('jsonProduit', tbl);
+            formData.append('reliquat', reliquat);
+            formData.append('regle', regle);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/achat/AchatController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+//                    window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
+//                    });
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                        $('#SAVE').attr("disabled", false);
+                    };
+                    
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
+
+        };
+        
+        $("#SAVE").bind("click", function () {
+             alert(checkedAchat[0]);
+            // ReglementProcess(checkedAchat[0]);
+           
+         });
             });
         </script>
