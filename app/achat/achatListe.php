@@ -267,7 +267,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 for="form-field-1"> Mode de paiement </label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                    <select disabled id="modePaiement" class="col-xs-12 col-sm-10">
+                                                    <select  id="modePaiement" class="col-xs-12 col-sm-10">
                                                                 <option value=""></option>
                                                                 <option value="ESPECES">Especes</option>
                                                                 <option value="CHEQUE">Cheque</option>
@@ -284,7 +284,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 for="form-field-1"> No Cheque </label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                        <input type="text" readonly id="numCheque" placeholder=""
+                                                        <input type="text" id="numCheque" placeholder=""
                                                                 class="col-xs-12 col-sm-10">
                                                 </div>
                                         </div>
@@ -310,7 +310,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 for="form-field-1"> Avance  (FCFA)</label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                        <input type="text" readonly id="avance" name="avance" placeholder=""
+                                                        <input type="text"  id="avance" name="avance" placeholder=""
                                                                 class="col-xs-12 col-sm-10">
                                                 </div>
                                         </div>
@@ -701,17 +701,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
                     if(data.modePaiement !=='')
-                        $('#modePaiement').text(data.modePaiement);
-                    else
-                       $('#modePaiement').text('Non dedini'); 
+                        $('#modePaiement').val(data.modePaiement);
+                   // else
+                  //     $('#modePaiement').text('Non dedini'); 
                     if(data.numCheque !==null && data.numCheque!=="")
-                        $('#numCheque').text(data.numCheque);
-                    else
-                        $('#numCheque').text('Non d�dini');
+                        $('#numCheque').val(data.numCheque);
                     if(data.datePaiement !==null && data.datePaiement!=="")
-                        $('#datePaiement').text(data.datePaiement);
-                    else
-                        $('#datePaiement').text('Non d�dini'); 
+                        $('#datePaiement').val(data.datePaiement);
                     
                     $('#TABLE_ACHATS tbody').html("");
                     loadEditable = function(compteur)
@@ -903,224 +899,34 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
             
+            $("#modePaiement").change(function() {
+        if($("#modePaiement").val() =='CHEQUE') {
+            $("#numCheque").prop("readonly", false);
+            $("#datePaiement").prop("readonly", true);
+            $("#datePaiement").toggleDisabled();
+        }
+        else if($("#modePaiement").val() == 'VIREMENT') {
+            $("#numCheque").prop("readonly",true );
+            $("#datePaiement").prop("readonly", false);
+        }
+        else{
+            $("#numCheque").prop("readonly", true);
+            $("#datePaiement").prop("readonly", true);
             
-            $('#modePaiement').editable({
-                            type: 'select2',
-                            name: 'modePaiement',
-                            title: "Selectionnez um mode de paiement",
-                            id: 'id',
-                            submit : 'OK',
-                           // emptytext: "Selectionnez um mode de paiement",
-                            source: [
-                                {id: 'ESPECE', text: 'ESPECE'},
-                                {id: 'VIREMENT', text: 'VIREMENT'},
-                                {id: 'CHEQUE', text: 'CHEQUE'}
-                            ],
-                            validate:function(value){
-                                if(value==='') return 'Veuillez selectionner un mode de paiement S.V.P.';
-                            },
-                            placement: 'right',
-                            url: function(editParams) {                             
-                                var prix = editParams.value;
-                                function save() {
-                                }
-                                
-                                save(function() {});
-
-                            }
-                          
-                        });
-                        
-                        $('#numCheque').editable({
-                            type: 'text',
-                            name: 'prix',
-                            title: "Saisir un montant",
-                            id: 'id',
-                            submit : 'OK',
-                            emptytext: "Saisir un montant",
-                            validate:function(value){
-                                
-                                    
-                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
-                            },
-                            placement: 'right',
-                            url: function(editParams) {                             
-                                var prix = editParams.value;
-                                function save() {
-                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
-                                    
-                                    if($.trim(prix) !== ""){
-                                        var tot=0;
-                                        var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
-                                        if(!isNaN(montant))
-                                            $('#montant'+compteur).text(montant);
-                                        $('#TABLE_ACHATS .montant').each(function () {
-                                            if($(this).html()!== 0)
-                                                tot += parseFloat($(this).html());
-                                        });
-                                      //console.log(tot);
-                                      $('#MontantTotal').text(tot);
-                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                    }
-                                    else {
-                                            
-                                            $.gritter.add({
-                                                title: 'Server notification',
-                                                text: "Veuillez saisir  un montant S.V.P.",
-                                                class_name: 'gritter-error gritter-light'
-                                            });
-                                    }
-                                }
-                                
-                                save(function() {});
-
-                            }
-                          
-                        });
-                        
-                        $('#datePaiement').editable({
-                            type: 'text',
-                            name: 'prix',
-                            title: "Saisir un montant",
-                            id: 'id',
-                            submit : 'OK',
-                            emptytext: "Saisir un montant",
-                            validate:function(value){
-                                
-                                    
-                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
-                            },
-                            placement: 'right',
-                            url: function(editParams) {                             
-                                var prix = editParams.value;
-                                function save() {
-                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
-                                    
-                                    if($.trim(prix) !== ""){
-                                        var tot=0;
-                                        var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
-                                        if(!isNaN(montant))
-                                            $('#montant'+compteur).text(montant);
-                                        $('#TABLE_ACHATS .montant').each(function () {
-                                            if($(this).html()!== 0)
-                                                tot += parseFloat($(this).html());
-                                        });
-                                      //console.log(tot);
-                                      $('#MontantTotal').text(tot);
-                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                    }
-                                    else {
-                                            
-                                            $.gritter.add({
-                                                title: 'Server notification',
-                                                text: "Veuillez saisir  un montant S.V.P.",
-                                                class_name: 'gritter-error gritter-light'
-                                            });
-                                    }
-                                }
-                                
-                                save(function() {});
-
-                            }
-                          
-                        });
-                        
-                        $('#Avance').editable({
-                            type: 'text',
-                            name: 'prix',
-                            title: "Saisir un montant",
-                            id: 'id',
-                            submit : 'OK',
-                            emptytext: "Saisir un montant",
-                            validate:function(value){
-                                
-                                    
-                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
-                            },
-                            placement: 'right',
-                            url: function(editParams) {                             
-                                var prix = editParams.value;
-                                function save() {
-                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
-                                    
-                                    if($.trim(prix) !== ""){
-                                        var tot=0;
-                                        var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
-                                        if(!isNaN(montant))
-                                            $('#montant'+compteur).text(montant);
-                                        $('#TABLE_ACHATS .montant').each(function () {
-                                            if($(this).html()!== 0)
-                                                tot += parseFloat($(this).html());
-                                        });
-                                      //console.log(tot);
-                                      $('#MontantTotal').text(tot);
-                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                    }
-                                    else {
-                                            
-                                            $.gritter.add({
-                                                title: 'Server notification',
-                                                text: "Veuillez saisir  un montant S.V.P.",
-                                                class_name: 'gritter-error gritter-light'
-                                            });
-                                    }
-                                }
-                                
-                                save(function() {});
-
-                            }
-                          
-                        });
-                        $('#Reliquat').editable({
-                            type: 'text',
-                            name: 'prix',
-                            title: "Saisir un montant",
-                            id: 'id',
-                            submit : 'OK',
-                            emptytext: "Saisir un montant",
-                            validate:function(value){
-                                
-                                    
-                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
-                            },
-                            placement: 'right',
-                            url: function(editParams) {                             
-                                var prix = editParams.value;
-                                function save() {
-                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
-                                    
-                                    if($.trim(prix) !== ""){
-                                        var tot=0;
-                                        var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
-                                        if(!isNaN(montant))
-                                            $('#montant'+compteur).text(montant);
-                                        $('#TABLE_ACHATS .montant').each(function () {
-                                            if($(this).html()!== 0)
-                                                tot += parseFloat($(this).html());
-                                        });
-                                      //console.log(tot);
-                                      $('#MontantTotal').text(tot);
-                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                    }
-                                    else {
-                                            
-                                            $.gritter.add({
-                                                title: 'Server notification',
-                                                text: "Veuillez saisir  un montant S.V.P.",
-                                                class_name: 'gritter-error gritter-light'
-                                            });
-                                    }
-                                }
-                                
-                                save(function() {});
-
-                            }
-                          
-                        });
+        }
+    });
+//    $('#designation0').change(function() {
+//        loadPrix('designation0','pu0');
+//        });
+ $("#datePaiement").datepicker({
+                        autoclose: true,
+                        todayHighlight: true
+                })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                });
+           
                         
             });
         </script>
