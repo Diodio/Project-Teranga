@@ -477,14 +477,23 @@ $codeUsine = $_COOKIE['codeUsine'];
                          // $('#MNU_VALIDATION').removeClass('enable');
                          $('#MNU_VALIDATION').addClass('disabled');
                          $('#MNU_ANNULATION').addClass('disabled');
-                         $('#MNU_REMOVE').addClass('disabled');
+                      if($.cookie('profil')=='directeur')
+                         $('#MNU_VALIDATION').addClass('disabled');
                   } 
                   else if (state == 2) {
                       //$('#MNU_ANNULATION').removeClass('enable');
                       $('#MNU_VALIDATION').addClass('disabled');
                       $('#MNU_ANNULATION').addClass('disabled');
+                        $('#SAVE').attr("disabled", true);
                       if($.cookie('profil')=='directeur')
                         $('#MNU_REMOVE').removeClass('disabled');
+                  }
+                  else if (state == 0) {
+                      $('#MNU_VALIDATION').addClass('disabled');
+                      if($.cookie('profil')=='directeur')
+                        $('#SAVE').attr("disabled", false);
+                      else
+                        $('#SAVE').attr("disabled", true);
                   }
                           
             }
@@ -492,9 +501,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $('#MNU_VALIDATION').removeClass('enable');
                 $('#MNU_ANNULATION').removeClass('enable');
                 $('#MNU_IMPRIMER').removeClass('enable');
-                $('#MNU_VALIDATION').addClass('disabled');
-                $('#MNU_ANNULATION').addClass('disabled');
                 $('#MNU_IMPRIMER').addClass('disabled');
+                 if($.cookie('profil')=='directeur') {
+                    $('#MNU_VALIDATION').addClass('disabled');
+                    $('#MNU_ANNULATION').addClass('disabled');
+                 }
             }
             else{
                 $('#MNU_VALIDATION').removeClass('enable');
