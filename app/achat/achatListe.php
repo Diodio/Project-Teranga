@@ -926,7 +926,44 @@ $codeUsine = $_COOKIE['codeUsine'];
                 .next().on(ace.click_event, function(){
                         $(this).prev().focus();
                 });
-           
-                        
+           function calculReliquat(){
+          var rel=0;
+           var mt=parseFloat($("#MontantTotal").text());
+           var avance=parseFloat($("#avance").val());
+           if(!isNaN(avance) && !isNaN(avance)) {
+           rel= mt - avance;
+           if(!isNaN(rel) && rel>0) {
+              $("#reliquat").val(rel);
+              $('#regleAchat').attr("disabled", true);
+              $('#regleAchat').prop('checked', false);
+          }
+           else if(!isNaN(rel) && rel===0) {
+              $('#regleAchat').attr("disabled", false);
+              $('#regleAchat').prop('checked', true);
+              $("#reliquat").val(0);
+          }  
+          else{
+              $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant saisi ne doit pas être supérieur au montant TTC',
+                    class_name: 'gritter-error gritter-light'
+                });
+              $("#avance").val("");
+              $("#reliquat").val("");
+              $('#regleAchat').attr("disabled", true);
+              $('#regleAchat').prop('checked', false);
+          }
+        }
+//        else {
+//             $.gritter.add({
+//                    title: 'Notification',
+//                    text: 'Le montant avance ne doit pas être vide',
+//                    class_name: 'gritter-error gritter-light'
+//                });
+//        }
+        }
+           $( "#avance" ).keyup(function() {
+            calculReliquat();
+         });              
             });
         </script>
