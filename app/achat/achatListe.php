@@ -942,7 +942,7 @@ $codeUsine = $_COOKIE['codeUsine'];
               $('#regleAchat').prop('checked', false);
           }
            else if(!isNaN(rel) && rel===0) {
-              $('#regleAchat').attr("disabled", false);
+              $('#regleAchat').attr("disabled", true);
               $('#regleAchat').prop('checked', true);
               $("#reliquat").val(0);
           }  
