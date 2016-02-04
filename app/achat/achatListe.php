@@ -260,37 +260,90 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantTotal"></span>
                                 </div>
                             </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Mode paiement </div>
-                                <div class="profile-info-value">
-                                    <span id="modePaiement"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">N� ch�que </div>
-                                <div class="profile-info-value">
-                                    <span id="numCheque"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Date Paiement </div>
-                                <div class="profile-info-value">
-                                    <span id="datePaiement"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Avance </div>
-                                <div class="profile-info-value">
-                                    <span id="Avance"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Reliquat </div>
-                                <div class="profile-info-value">
-                                    <span id="Reliquat"></span>
-                                </div>
-                            </div>
                         </div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Mode de paiement </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                    <select disabled id="modePaiement" class="col-xs-12 col-sm-10">
+                                                                <option value=""></option>
+                                                                <option value="ESPECES">Especes</option>
+                                                                <option value="CHEQUE">Cheque</option>
+                                                                <option value="VIREMENT">Virement</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> No Cheque </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" readonly id="numCheque" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Date de paiement </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" readonly id="datePaiement" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Avance  (FCFA)</label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" readonly id="avance" name="avance" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Reliquat (FCFA)</label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" readonly id="reliquat" name="reliquat" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="space-12"></div>
+                                    <div class="form-group">
+                                            <label class="col-sm-5 control-label no-padding-right"
+                                                    for="form-field-1"> Reglé </label>
+                                            <div class="col-sm-7">
+                                                    <div class="clearfix">
+                                                        <input type="checkbox" disabled="disabled" id="regleAchat" name="regleAchat" placeholder=""
+                                                                    >
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                        
                                 
                                 <div style="float: right">
                         <button id="SAVE_PRODUIT" class="btn btn-small btn-info" >
