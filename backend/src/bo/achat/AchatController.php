@@ -281,7 +281,7 @@ private $logger;
     }
 
     public function doUpdate($request) {
-        
+       $this->logger->log->info(json_encode($request));
     }
 
     public function doView($request) {

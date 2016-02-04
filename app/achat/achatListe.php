@@ -230,7 +230,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <thead>
                             <tr>
                                     <th class="text-center">
-                                            D�signation
+                                            Designation
                                     </th>
                                     <th class="text-center">
                                             Prix Unitaire
@@ -768,8 +768,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                         var pu='';
                         if(element.prixUnitaire != 0)
                             pu=element.prixUnitaire
-                        row.append($('<td  id="statusPalier'+index+'">'+element.designation+'</td>'));
-                        row.append($('<td ><span id="prix'+index+'">'+pu+'</span></td>'));
+                        row.append($('<td  id="produitId'+index+'">'+element.id+'</td>'));
+                        row.append($('<td  id="designation'+index+'">'+element.designation+'</td>'));
+                        row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
                         row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
                         row.append($('<td class="montant" id="montant'+index+'">'+element.montant+'</td>'));
                         //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
@@ -900,20 +901,23 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
             
             $("#modePaiement").change(function() {
-        if($("#modePaiement").val() =='CHEQUE') {
-            $("#numCheque").prop("readonly", false);
-            $("#datePaiement").prop("readonly", true);
-            $("#datePaiement").toggleDisabled();
-        }
-        else if($("#modePaiement").val() == 'VIREMENT') {
-            $("#numCheque").prop("readonly",true );
-            $("#datePaiement").prop("readonly", false);
-        }
-        else{
-            $("#numCheque").prop("readonly", true);
-            $("#datePaiement").prop("readonly", true);
-            
-        }
+                if($("#modePaiement").val() =='CHEQUE') {
+                    $("#numCheque").prop("readonly", false);
+                    $("#datePaiement").prop("readonly", true);
+                    $("#datePaiement").val("");
+                }
+                else if($("#modePaiement").val() == 'VIREMENT') {
+                    $("#numCheque").prop("readonly",true );
+                    $("#datePaiement").prop("readonly", false);
+                    $("#numCheque").val("");
+                }
+                else{
+                    $("#numCheque").prop("readonly", true);
+                    $("#datePaiement").prop("readonly", true);
+                    $("#numCheque").val("");
+                    $("#datePaiement").val("");
+
+                }
     });
 //    $('#designation0').change(function() {
 //        loadPrix('designation0','pu0');
@@ -988,19 +992,19 @@ $codeUsine = $_COOKIE['codeUsine'];
 //$table.find("thead th").each(function () {
 //    header.push($(this).html().trim());
 //});
-            header = ["#","produitId","pu","qte","montant"];
+            header = ["produitId","libelle","pu","qte","montant"];
             $table.find("tbody tr").each(function () {
                 var row = {};
 
                 $(this).find("td").each(function (i) {
                     var key = header[i];
                     var value;
-                        valueSelect = $(this).find('select').val();
-                        valueInput = $(this).find('input').val();
-                    if (typeof valueInput !== "undefined")
-                        value=valueInput;
-                    if (typeof valueSelect !== "undefined")
-                        value=valueSelect;
+                        valueEditable = $(this).find('span').text();
+                        valueTd = $(this).text();
+                    if (typeof valueEditable !== "undefined")
+                        value=valueEditable;
+                    if (typeof valueTd !== "undefined")
+                        value=valueTd;
                     row[key] = value;
                 });
 
@@ -1011,6 +1015,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
+            formData.append('achatId', achatId);
             formData.append('montantTotal', MontantTotal);
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
@@ -1061,8 +1066,8 @@ $codeUsine = $_COOKIE['codeUsine'];
         };
         
         $("#SAVE").bind("click", function () {
-             alert(checkedAchat[0]);
-            // ReglementProcess(checkedAchat[0]);
+            // alert(checkedAchat[0]);
+             ReglementProcess(checkedAchat[0]);
            
          });
             });
