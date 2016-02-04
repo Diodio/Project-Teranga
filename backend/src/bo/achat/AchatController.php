@@ -129,6 +129,7 @@ private $logger;
                                 $produitManager = new Produit\ProduitManager();
                                 $produit= $produitManager->findById($produitId);
                                 $ligneAchat->setProduit($produit);
+                                $this->logger->log->info("prixUnitaire " . $ligne['pu']);
                                 $ligneAchat->setPrixUnitaire($ligne['pu']);
                                 $ligneAchat->setQuantite($ligne['qte']);
                                 $ligneAchat->setMontant($ligne['montant']);
