@@ -319,7 +319,7 @@ private $logger;
                          foreach ($jsonAchat as $key => $ligne) {
                             if(isset($ligne["ligneId"])) {
                                 $ligneAchat = $ligneAchatManager->findById(ligneId);
-                                $ligneAchat->setId($ligne["ligneId"]);
+                                //$ligneAchat->setId($ligne["ligneId"]);
                                 //$ligneAchat->setAchat($achat);
                                 //$produitId = $ligne["ligneId"];
                                // $produitManager = new Produit\ProduitManager();
