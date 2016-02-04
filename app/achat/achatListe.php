@@ -700,7 +700,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#achatUser').text(data.user);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
-                    if(data.modePaiement !=='')
+                    
+                    console.log(data.modePaiement);
+                    if(data.modePaiement !== "")
                         $('#modePaiement').val(data.modePaiement);
                    // else
                   //     $('#modePaiement').text('Non dedini'); 
