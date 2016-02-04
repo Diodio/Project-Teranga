@@ -270,7 +270,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
                                                     <select  id="modePaiement" class="col-xs-12 col-sm-10">
-                                                                <option value=""></option>
                                                                 <option value="ESPECES">Especes</option>
                                                                 <option value="CHEQUE">Cheque</option>
                                                                 <option value="VIREMENT">Virement</option>
@@ -1046,9 +1045,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-//                    window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
-//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
-//                    });
+                   // window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
+                    });
                     } 
                     else
                     {
