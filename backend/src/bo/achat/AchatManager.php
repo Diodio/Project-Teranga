@@ -23,6 +23,11 @@ class AchatManager {
     	return $achat;
     }
     
+     public function update($achat) {
+        $this->achatQuery->update($achat);
+    	return $achat;
+    }
+    
     public function listAll() {
     	$this->achatQuery=$this->achatQuery->findAll();
     	return $this->achatQuery;

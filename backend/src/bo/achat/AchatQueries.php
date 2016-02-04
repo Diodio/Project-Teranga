@@ -30,7 +30,14 @@ class AchatQueries {
             return $achat;
         }
     }
-
+    
+     public function update($achat) {
+        if ($achat != null) {
+            Bootstrap::$entityManager->merge($achat);
+            Bootstrap::$entityManager->flush();
+            return $achat;
+        }
+    }
     
     
     
@@ -114,9 +121,9 @@ class AchatQueries {
   
 
      public function findById($achatId) {
-		if ($achatId != null) {
-			return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
-		}
+            if ($achatId != null) {
+                    return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
+            }
 	}
         public function count($typeAchat, $codeUsine, $sWhere = "") {
         if ($sWhere !== "")

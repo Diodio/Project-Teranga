@@ -19,6 +19,9 @@ class LigneAchatManager {
     	return $ligneAchat;
     }
     
-    
+     public function update($ligneAchat) {
+        $this->ligneAchatQuery->update($ligneAchat);
+    	return $ligneAchat;
+    }
 
 }

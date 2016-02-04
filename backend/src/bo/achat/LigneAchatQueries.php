@@ -23,12 +23,19 @@ class LigneAchatQueries {
     }
 
    
-    public function insert($produit) {
-        if ($produit != null) {
-                Bootstrap::$entityManager->persist($produit);
+    public function insert($ligneAchat) {
+        if ($ligneAchat != null) {
+                Bootstrap::$entityManager->persist($ligneAchat);
             Bootstrap::$entityManager->flush();
-            return $produit;
+            return $ligneAchat;
         }
     }
 
+    public function update($ligneAchat) {
+        if ($ligneAchat != null) {
+                Bootstrap::$entityManager->merge($ligneAchat);
+            Bootstrap::$entityManager->flush();
+            return $ligneAchat;
+        }
+    }
 }

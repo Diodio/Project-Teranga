@@ -281,7 +281,66 @@ private $logger;
     }
 
     public function doUpdate($request) {
-       $this->logger->log->info(json_encode($request));
+       try {
+            if(isset($request['achatId']) && $request['achatId'] != "") {
+                $achatId=$request['achatId'];
+                $achatManager = new AchatManager();
+                $achat = $achatManager->findById($achatId);
+                $achat->setMontantTotal($request['montantTotal']);
+                $achat->setModePaiement($request['modePaiement']);
+                if($request['modePaiement'] == 'CHEQUE')
+                    $achat->setNumCheque($request['numCheque']);
+                else if($request['modePaiement'] == 'VIREMENT')
+                    $achat->setDatePaiement(new \DateTime($request['datePaiement']));
+               // $achat->setCodeUsine($request['codeUsine']);
+               // $achat->setLogin($request['login']);
+                    if($request['avance']!="") {
+                if($request['regle']=="true")
+                    $achat->setRegle(2);
+                else
+                    $achat->setRegle(1);
+                    $reliquat =  $request['montantTotal'] - $request['avance'];
+                    $achat->setReliquat($reliquat);
+                    $reglement=new Reglement\ReglementAchat();
+                    $reglement->setAchat($achat);
+                    $reglement->setDatePaiement(new \DateTime("now"));
+                    $reglement->setAvance($request['avance']);
+                    $reglementManager =new Reglement\ReglementManager();
+                    $reglementManager->insert($reglement);
+                    }
+                    else {
+                        $achat->setRegle(0);
+                    }
+                $achatAdded = $achatManager->update($achat);
+                if ($achatAdded->getId() != null) {
+                    $jsonAchat = json_decode($_POST['jsonProduit'], true);
+                         foreach ($jsonAchat as $key => $ligneachat) {
+                            if(isset($ligneachat["designation"])) {
+                                $ligneAchat = new \Achat\LigneAchat();
+                                $ligneAchat->setAchat($achat);
+                                $produitId = $ligneachat["produitId"];
+                                $produitManager = new Produit\ProduitManager();
+                                $produit= $produitManager->findById($produitId);
+                                $ligneAchat->setProduit($produit);
+                                $ligneAchat->setPrixUnitaire($ligneachat['pu']);
+                                $ligneAchat->setQuantite($ligneachat['qte']);
+                                $ligneAchat->setMontant($ligneachat['montant']);
+                                $ligneAchatManager = new \Achat\LigneAchatManager();
+                                $ligneAchatManager->update($ligneAchat); 
+                            }
+                         }
+                    $this->doSuccess($achatAdded->getId(), 'Reglement effectué avec succes');
+                } else {
+                    $this->doError('-1', 'Impossible d\'effectuer ce reglement');
+                }
+            }else {
+                $this->doError('-1', 'Impossible d\'effectuer ce reglement');
+            }
+                
+            
+        } catch (Exception $e) {
+            $this->doError('-1', 'Erreur de traitement de votre requete');
+        }
     }
 
     public function doView($request) {

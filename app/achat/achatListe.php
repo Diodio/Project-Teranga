@@ -284,7 +284,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 for="form-field-1"> No Cheque </label>
                                         <div class="col-sm-7">
                                                 <div class="clearfix">
-                                                        <input type="text" id="numCheque" placeholder=""
+                                                        <input type="text" readonly id="numCheque" placeholder=""
                                                                 class="col-xs-12 col-sm-10">
                                                 </div>
                                         </div>
