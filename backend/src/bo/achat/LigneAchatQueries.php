@@ -41,7 +41,7 @@ class LigneAchatQueries {
     
     public function findById($ligneAchatId) {
         if ($ligneAchatId != null) {
-            return Bootstrap::$entityManager->find('LigneAchat\LigneAchat', $ligneAchatId);
+            return Bootstrap::$entityManager->find('Achat\LigneAchat', $ligneAchatId);
         }
     }
 
