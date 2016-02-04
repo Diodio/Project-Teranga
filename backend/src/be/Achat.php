@@ -180,8 +180,13 @@ class Achat {
      /** @PrePersist */
     public function doPrePersist() {
         $this->status = 0;
+<<<<<<< HEAD
        // $this->createdDate = new \DateTime("now");
        // $this->updatedDate = new \DateTime("now");
+=======
+      //  $this->createdDate = new \DateTime("now");
+     //   $this->updatedDate = new \DateTime("now");
+>>>>>>> branch 'master' of https://github.com/Diodio/Project-Teranga.git
     }
     public function getPaiement() {
         return $this->paiement;

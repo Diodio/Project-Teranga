@@ -318,8 +318,8 @@ private $logger;
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonAchat as $key => $ligne) {
                             if(isset($ligne["ligneId"])) {
-                                $ligneAchat = $ligneAchatManager->findById(ligneId);
-                                $ligneAchat->setId($ligne["ligneId"]);
+                                $ligneAchat = $ligneAchatManager->findById($ligne["ligneId"]);
+                                //$ligneAchat->setId($ligne["ligneId"]);
                                 //$ligneAchat->setAchat($achat);
                                 //$produitId = $ligne["ligneId"];
                                // $produitManager = new Produit\ProduitManager();
@@ -341,7 +341,7 @@ private $logger;
                 
             
         } catch (Exception $e) {
-            $this->doError('-1', 'Erreur de traitement de votre requete');
+            $this->doError('-1', 'Erreur lors du traitement de votre requete');
         }
     }
 
