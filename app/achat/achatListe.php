@@ -804,12 +804,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                     if(!isNaN(mtAv) ) {
                         rel = data.montantTotal - mtAv;
-                        $('#Avance').text(mtAv);
-                        $('#Reliquat').text(rel);
+                        $('#avance').val(mtAv);
+                        $('#reliquat').val(rel);
                     } 
                     else{
-                        $('#Avance').text("0");
-                        $('#Reliquat').text("0");
+                        $('#avance').text("");
+                        $('#reliquat').text("");
                     }
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
