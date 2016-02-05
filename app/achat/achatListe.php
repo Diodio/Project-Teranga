@@ -805,7 +805,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     if(!isNaN(mtAv) ) {
                         rel = data.montantTotal - mtAv;
                         $('#avance').val(mtAv);
-                        $('#reliquat').val(rel);
+                        if(rel==0 && mtAv==0)
+                            $('#avance').text("");
+                        else //checked rel=0
+                            $('#reliquat').val(rel);
                     } 
                     else{
                         $('#avance').text("");
