@@ -498,10 +498,19 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         $( "#pu"+counter ).keyup(function() {
            calculMontant(counter);
       });
+      
       $( "#qte"+counter ).keyup(function() {
             calculMontant(counter);
        });
-        
+      $( "#qte"+counter ).paste(function() {
+          calculMontant(counter);
+     });
+      $( "#qte"+counter ).scrolling(function() {
+          calculMontant(counter);
+     });
+      $( "#qte"+counter ).select(function() {
+          calculMontant(counter);
+     });
     });
     
    
