@@ -625,25 +625,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                     $("#poidsTotal").val(pd);
         }
         
-//        function calculReliquat(){
-//          var rel=0;
-//           var mt=parseInt($("#montantTotal").val());
-//           var avance=parseInt($("#avance").val());
-//           rel=mt - avance;
-//           if(!isNaN(rel) && rel>0){
-//              $("#reliquat").val(rel);
-//              
-//              $('#regleAchat').attr("disabled", true);
-//              $('#regleAchat').prop('checked', false);
-//           }
-//          else if(!isNaN(rel) && rel==0) {
-//              $('#regleAchat').attr("disabled", false);
-//              $('#regleAchat').prop('checked', true);
-//              $("#reliquat").val(0);
-//          }  
-//          else
-//              $("#reliquat").val(0);
-//        }
+
         
         function calculReliquat(){
           var rel=0;
@@ -828,19 +810,7 @@ $table.find("tbody tr").each(function () {
 				},
 				heureReception: {
 					required: true
-				},
-				poidsTotal: {
-                    required:true
-					},
-				montantTotal: {
-                    required:true
-					},
-				heureReception: {
-	                 required:true
-					},
-				designationSelect: {
-		             required:true
-					}
+				}
 				
 			},
 	
@@ -858,16 +828,7 @@ $table.find("tbody tr").each(function () {
 					required: "Champ obligatoire."
 				},
 				poidsTotal: {
-                    required:"Champ obligatoire."
-					},
-				montantTotal: {
-	                required:"Champ obligatoire."
-					},
-				heureReception: {
-		            required:"Champ obligatoire."
-					},
-				designationSelect: {
-					required:"Champ obligatoire."
+                                        required:"Champ obligatoire."
 					}
 			},
 	

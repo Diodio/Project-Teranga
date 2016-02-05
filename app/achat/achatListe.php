@@ -477,16 +477,21 @@ $codeUsine = $_COOKIE['codeUsine'];
                          // $('#MNU_VALIDATION').removeClass('enable');
                          $('#MNU_VALIDATION').addClass('disabled');
                          $('#MNU_ANNULATION').addClass('disabled');
-                      if($.cookie('profil')=='directeur')
+                      if($.cookie('profil')=='directeur') {
                          $('#MNU_VALIDATION').addClass('disabled');
+                        $('#MNU_ANNULATION').removeClass('disabled');
+                     }
                   } 
                   else if (state == 2) {
+                      
                       //$('#MNU_ANNULATION').removeClass('enable');
                       $('#MNU_VALIDATION').addClass('disabled');
                       $('#MNU_ANNULATION').addClass('disabled');
                         $('#SAVE').attr("disabled", true);
-                      if($.cookie('profil')=='directeur')
+                      if($.cookie('profil')=='directeur') {
                         $('#MNU_REMOVE').removeClass('disabled');
+                        $('#MNU_ANNULATION').removeClass('disabled');
+                    }
                   }
                   else if (state == 0) {
                       if($.cookie('profil')=='directeur') {
@@ -705,7 +710,10 @@ $codeUsine = $_COOKIE['codeUsine'];
             {
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-
+                 $('#regleAchat').prop('checked', false);
+                 $('#datePaiement').val("");
+                 $('#avance').val("");
+                 $('#reliquat').val("");
                 $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
@@ -716,7 +724,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
                     
-                    console.log(data.modePaiement);
                     if(data.modePaiement !== "")
                         $('#modePaiement').val(data.modePaiement);
                    // else
@@ -814,6 +821,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#avance').text("");
                         $('#reliquat').text("");
                     }
+                    if(data.regle !==null && data.regle==2)
+                        $('#regleAchat').prop('checked', true);
                     trHTML='';
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();

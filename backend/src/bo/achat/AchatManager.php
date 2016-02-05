@@ -208,7 +208,7 @@ public function findStatisticByUsine($codeUsine) {
     public function annulerStockParAchact($achatId) {
         $achat = $this->achatQuery->findInfoByAchact($achatId);
         foreach ($achat as $key => $value) {
-            $stockManager = new \Produit\StockManager();
+            $stockManager = new \Stock\StockManager();
             $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
         }
     }

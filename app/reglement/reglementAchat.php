@@ -764,24 +764,24 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                 });
             };
-            $("#MNU_REGLEMENT").click(function()
-            {
-                if (checkedAchat.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedAchat.length >= 1)
-                {
-                     bootbox.confirm("Voulez vous vraiment régler cet achat", function(result) {
-                    if(result){
-                    	 $('#winModalReglement').addClass('show');
-     		            $('#winModalReglement').modal('show');
-                    var achatId = checkedAchat[0];
-                   
-//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
-//                        });
-                         }
-                    });
-                }
-            });
+//            $("#MNU_REGLEMENT").click(function()
+//            {
+//                if (checkedAchat.length == 0)
+//                    bootbox.alert("Veuillez selectionnez un achat");
+//                else if (checkedAchat.length >= 1)
+//                {
+//                     bootbox.confirm("Voulez vous vraiment régler cet achat", function(result) {
+//                    if(result){
+//                    	 $('#winModalReglement').addClass('show');
+//     		            $('#winModalReglement').modal('show');
+//                    var achatId = checkedAchat[0];
+//                   
+////                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/listebonsAchatVue.php", function () {
+////                        });
+//                         }
+//                    });
+//                }
+//            });
 
             $("#MNU_IMPRIMER").click(function()
                     {

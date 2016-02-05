@@ -370,7 +370,7 @@ private $logger;
                 $achatManager = new AchatManager();
                 $valid = $achatManager->annulerAchat($request['achatId']);
                 if($valid==1)
-                    $achatManager->ajoutStockParAchact ($request['achatId']);
+                    $achatManager->annulerStockParAchact ($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Annulation effectu�e avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
