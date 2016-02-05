@@ -30,20 +30,20 @@ class Facture {
     public $portDechargement;
     
    /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="integer",  nullable=true)
      * */
     public $nbTotalColis;
     
    /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     public $nbTotalPoids;
     
     
-   /** @Column(type="float", length=60, nullable=true) */
+   /** @Column(type="decimal", scale=2, precision=10, nullable=true) */
     public $montantHt;
     /**
-     * @Column(type="float", length=60, nullable=false)
+     * @Column(type="decimal", scale=2, precision=10, nullable=false)
      * */
     protected $montantTtc;
     
@@ -61,12 +61,12 @@ class Facture {
     public $datePaiement;
     
     /**
-     * @Column(type="string", length=60, nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $avance;
     
     /**
-     * @Column(type="string", length=60, nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $reliquat;
     

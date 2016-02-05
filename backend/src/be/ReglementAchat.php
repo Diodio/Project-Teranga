@@ -18,7 +18,7 @@ class ReglementAchat {
     protected $achat;
     
     /**
-     * @Column(type="float", length=60, nullable=false)
+     * @Column(type="decimal", scale=2, precision=10, nullable=false)
      * */
     protected $avance;
     

@@ -489,11 +489,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#MNU_REMOVE').removeClass('disabled');
                   }
                   else if (state == 0) {
-                      $('#MNU_VALIDATION').addClass('disabled');
-                      if($.cookie('profil')=='directeur')
+                      if($.cookie('profil')=='directeur') {
                         $('#SAVE').attr("disabled", false);
-                      else
+                       $('#MNU_VALIDATION').removeClass('disabled');
+                    }
+                      else {
                         $('#SAVE').attr("disabled", true);
+                        $('#MNU_VALIDATION').addClass('disabled');
+                    }
                   }
                           
             }

@@ -18,7 +18,7 @@ class ReglementFacture {
     protected $facture;
     
     /**
-     * @Column(type="float", length=60, nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $avance;
     

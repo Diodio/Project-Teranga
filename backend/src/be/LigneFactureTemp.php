@@ -17,17 +17,17 @@ class LigneFactureTemp {
     protected $nbColis;
     
     /**
-     * @Column(type="integer", nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $prixUnitaire;
     
     /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $quantite;
     
     /**
-     * @Column(type="float", nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $montant;
 
