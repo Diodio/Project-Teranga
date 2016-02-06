@@ -95,9 +95,9 @@ class StockManager {
        $stockQueries = new StockQueries();
     	return $stockQueries->updateSeuilStock($produitId, $codeUsine, $nbSeuil);
   }
-    public function resetStockProvisoire($produitId, $codeUsine ) {	
+    public function resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler ) {	
        $stockQueries = new StockQueries();
-    	return $stockQueries->resetStockProvisoire($produitId, $codeUsine);
+    	return $stockQueries->resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler);
   }
   public function destockage($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
@@ -123,7 +123,7 @@ class StockManager {
         return $stock['id'];
     return 0;
   }
-  public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $stock) {
+  public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $quantiteAdemouler, $quantiteDemoulee) {
         $stockReel = $this->findStockReelByProduitId($produitId, $codeUsine);
         if ($stockReel == 0) {
             $stockReel = new \Stock\StockReel();
@@ -132,17 +132,17 @@ class StockManager {
             $produitManger = new \Produit\ProduitManager();
             $produit = $produitManger->findById($produitId);
             $stockReel->setProduit($produit);
-            $stockReel->setStock($stock);
-            $seuil = ($stock * 25)/100;
+            $stockReel->setStock($quantiteDemoulee);
+            $seuil = ($quantiteDemoulee * 25)/100;
             $stockReel->setSeuil($seuil);
             $this->insert($stockReel);
         } else {
             $valueStock = $this->getStockValueParProduit($produitId, $codeUsine);
-            $seuil = (($valueStock+$stock) * 25/100);
-            $this->updateNbStockReel($produitId, $codeUsine, $stock);
+            $seuil = (($valueStock+$quantiteDemoulee) * 25/100);
+            $this->updateNbStockReel($produitId, $codeUsine, $quantiteDemoulee);
             $this->updateSeuilStock($produitId, $codeUsine, $seuil);
         }
-        $this->resetStockProvisoire($produitId, $codeUsine);
+        $this->resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler);
     }
 
 }

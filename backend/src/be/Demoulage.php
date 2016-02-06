@@ -114,7 +114,31 @@ class Demoulage {
         $this->carton = $carton;
     }
 
-        
+    function getNumero() {
+        return $this->numero;
+    }
+
+    function getQuantiteAdemouler() {
+        return $this->quantiteAdemouler;
+    }
+
+    function getQuantiteDemoulee() {
+        return $this->quantiteDemoulee;
+    }
+
+    function setNumero($numero) {
+        $this->numero = $numero;
+    }
+
+    function setQuantiteAdemouler($quantiteAdemouler) {
+        $this->quantiteAdemouler = $quantiteAdemouler;
+    }
+
+    function setQuantiteDemoulee($quantiteDemoulee) {
+        $this->quantiteDemoulee = $quantiteDemoulee;
+    }
+
+    
              /** @PrePersist */
     public function doPrePersist() {
         $this->createdDate = new \DateTime("now");

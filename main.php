@@ -263,7 +263,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                         
                             <li id="PRODUITS_A_DEMOULES" class=""><a id="PRODUITS_A_DEMOULES" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Produits à demouler </span>
+                                        Demoulage </span>
                                 </a> <b class="arrow"></b>
                             </li>
                             

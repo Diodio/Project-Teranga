@@ -75,7 +75,18 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
     	}
     	return $arrayDemoulages;
     }
-    
+    public function getLastNumber() {
+    $lastNumero=$this->demoulageQueries->getLastNumber();
+    if($lastNumero !=null){
+    if(strlen($lastNumero)==1) $lastNumero="0000".$lastNumero;
+    else if(strlen($lastNumero)==2) $lastNumero="000".$lastNumero;
+    else if(strlen($lastNumero)==3) $lastNumero="00".$lastNumero;
+    else if(strlen($lastNumero)==4) $lastNumero="0".$lastNumero;
+    }
+    else
+        $lastNumero="00001";
+    return $lastNumero;
+}
     public function countAll($codeUsine,$where="") {
     	return $this->demoulageQueries->countAll($codeUsine,$where);
     }

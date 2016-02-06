@@ -141,4 +141,13 @@ class DemoulageQueries {
     	return $nbClients['nb'];
     }
     
+    
+    
+    public function getLastNumber() {
+        $sql = 'select max(id)+1 as last from demoulage';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $lastAchat = $stmt->fetch();
+        return $lastAchat['last'];
+    }
 }

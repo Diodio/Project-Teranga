@@ -103,6 +103,15 @@ $codeUsine = $_COOKIE['codeUsine'];
 									</h4>
 									<div class="form-group">
 										<label class="col-sm-4 control-label no-padding-right"
+											for="form-field-1" style="margin-left: -8%"> Numero</label>
+										<div class="col-sm-8">
+											<input type="text" id="numero"
+												name="numero" placeholder=""
+												class="col-xs-10 col-sm-4" disabled>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right"
 											for="form-field-1" style="margin-left: -8%"> Stock Provisoire
 											(kg)</label>
 										<div class="col-sm-8">
@@ -193,7 +202,21 @@ $codeUsine = $_COOKIE['codeUsine'];
             var checkedDemoulages = new Array();
             // Check if an item is in the array
            // var interval = 500;
-           
+           loadNumeroDemoulage = function () {
+                    $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+                    sData=$.parseJSON(data);
+                        if(sData.rc==-1){
+                            $.gritter.add({
+                                    title: 'Notification',
+                                    text: sData.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                        }else{
+                            $("#numero").val(sData.oId);
+                        }
+                });
+                };
+                
       var i=1;
      $("#add_row").click(function(){
     $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='number' id='cart"+i+"' name='cart"+i+"' class='form-control'/></td>\n\
@@ -224,15 +247,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                 if(sqte > quantiteDemoulee){
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'La quantité totale définie ne doit pas �tre supérieure � la quantite démoulée',
+                        text: 'La quantité totale définie ne doit pas �tre supérieure � la quantite démoulée',
                         class_name: 'gritter-error gritter-light'
                     }); 
                     $("#qte"+index).val(""); 
-                   $("#tot"+index).val("0"); 
+                   $("#tot"+index).val(""); 
                }
+               
+               
                }
             else {
-                $("#tot"+index).val("0");
+                $("#tot"+index).val("");
             }
        }
          $(document).delegate('#tab_logic tr td', 'click', function (event) {
@@ -246,21 +271,33 @@ $codeUsine = $_COOKIE['codeUsine'];
     });
     
            
-        $( "#quantiteDemoulee" ).keyup(function() {
+        $( "#quantiteAdemouler" ).keyup(function() {
             verifiePoidsReel();
          });
-         
+         $( "#quantiteDemoulee" ).keyup(function() {
+            verifiePoidsReel();
+         });
          function verifiePoidsReel(index){
            var stockProvisoire = parseFloat($("#stockProvisoire").val());
+           var quantiteAdemouler=parseFloat($("#quantiteAdemouler").val());
            var quantiteDemoulee=parseFloat($("#quantiteDemoulee").val());
          
-           if(quantiteDemoulee>=stockProvisoire) {
+            if(quantiteAdemouler > stockProvisoire) {
+                $.gritter.add({
+                    title: 'Notification',
+                    text: 'La quantité à démouler ne doit pas être supérieure au stock provisoire ',
+                    class_name: 'gritter-error gritter-light'
+                }); 
+               $("#quantiteAdemouler").val(""); 
+           }
+               
+           if(quantiteDemoulee > quantiteAdemouler) {
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'LLa quantité démoulée ne doit pas �tre supérieure � la quantité � démouler ',
+                        text: 'La quantité démoulée ne doit pas être supérieure à la quantité à démouler ',
                         class_name: 'gritter-error gritter-light'
                     }); 
-                   $("#quantiteDemoulee").val("0"); 
+                   $("#quantiteDemoulee").val(""); 
                }
        }
             checkedDemoulagesContains = function(item) {
@@ -498,6 +535,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             loadDemoulages();
             loadDemoulagesSelected = function(produitId)
             {
+                loadNumeroDemoulage();
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
 
@@ -582,7 +620,8 @@ $codeUsine = $_COOKIE['codeUsine'];
             
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
-            
+            var numero= $('#numero').val();
+            var quantiteAdemouler= $('#quantiteAdemouler').val();
             var quantiteDemoulee= $('#quantiteDemoulee').val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
@@ -617,6 +656,8 @@ $codeUsine = $_COOKIE['codeUsine'];
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('produitId', checkedDemoulages[0]);
+            formData.append('numero', numero);
+            formData.append('quantiteAdemouler', quantiteAdemouler);
             formData.append('quantiteDemoulee', quantiteDemoulee);
             formData.append('jsonCarton', tbl);
             formData.append('codeUsine', codeUsine);

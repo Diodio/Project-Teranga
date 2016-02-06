@@ -191,9 +191,9 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
         return $connexion->executeUpdate("UPDATE stock_reel SET seuil = $nbSeuil WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
     }
-    public function resetStockProvisoire($produitId, $codeUsine ) {			
+    public function resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = 0 WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $quantiteAdemouler WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		
     }
     

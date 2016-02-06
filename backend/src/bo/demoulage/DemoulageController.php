@@ -38,6 +38,9 @@ class DemoulageController extends BaseController  {
 					case \App::ACTION_GET_COLIS_DEMOULAGE:
 						$this->doGetColisColisage($request);
 						break;
+                                        case \App::ACTION_GET_LAST_NUMBER:
+                                                $this->doGetLastNumber($request);
+                                                break;
 
 
 				}
@@ -51,7 +54,7 @@ class DemoulageController extends BaseController  {
 
 	public function doInsert($request) {
 		try {
-			if ($request['produitId'] !="" && $request['stockReel'] != "") {
+			if ($request['produitId'] !="" && $request['quantiteDemoulee'] != "") {
 				$produitManager = new \Produit\ProduitManager();
 				$produit=$produitManager->findById($request['produitId']);
 				$demoulageManager = new Produit\DemoulageManager();
@@ -62,13 +65,16 @@ class DemoulageController extends BaseController  {
 				// $demoulage->setNombreCarton($request['nombreCarton']);
 				//  $demoulage->setNombreParCarton($request['nombreParCarton']);
 				$demoulage->setProduit($produit);
+                                $demoulage->setNumero($request['numero']);
+                                $demoulage->setQuantiteAdemouler($request['quantiteAdemouler']);
+                                $demoulage->setQuantiteDemoulee($request['quantiteDemoulee']);
 				$demoulage->setCodeUsine($request['codeUsine']);
 				$demoulage->setLogin($request['login']);
 				$demoulageAdded = $demoulageManager->insert($demoulage);
 				if ($demoulageAdded->getId() != null) {
-					if($request['stockReel'] !=""){
+					if($request['quantiteDemoulee'] !=""){
 						$stockManager = new \Stock\StockManager();
-						$stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockReel']);
+						$stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['quantiteAdemouler'],  $request['quantiteDemoulee']);
 						$jsonCarton = json_decode($_POST['jsonCarton'], true);
 						foreach ($jsonCarton as $key => $ligneCarton) {
 							if(isset($ligneCarton["nbCarton"])) {
@@ -222,6 +228,17 @@ class DemoulageController extends BaseController  {
 			throw new Exception('ERREUR SERVEUR');
 		}
 	}
+        
+        
+    public function doGetLastNumber($request) {
+        try {
+                $demooulageManager = new DemoulageManager();
+                $last = $demooulageManager->getLastNumber();
+                $this->doSuccess($last,'Dernier bon');
+        }  catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
+    }
 }
 
 $oDemoulageController = new DemoulageController($_REQUEST);
