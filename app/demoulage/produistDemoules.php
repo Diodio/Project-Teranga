@@ -17,47 +17,72 @@
             Demoulage
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Demoulage
+                Produits demoulés
             </small>
         </h1>
     </div><!-- /.page-header -->
 
      <div class="row">
-            <div class="col-sm-5">
-                
+         
                 <div class="widget-box transparent">
                     <div class="widget-header widget-header-flat">
+                         <div class="widget-box transparent">
+                    <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
-                            <i class="ace-icon fa fa-star orange"></i>
-                            Liste des produits à demouler
+                            <i class="ace-icon fa fa-users orange"></i>
+                            Produits demoulés
                         </h4>
-
+                                        
+                                       <div class="btn-group">
+                                            <button id="BTN_ACTIVER"
+                                                    class="btn btn-primary btn-mini tooltip-info disabled"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Activer">
+                                                <i class="icon-cloud-download icon-only"></i> Annuler
+                                            </button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button id="BTN_DESACTIVER"
+                                                    class="btn btn-primary btn-mini tooltip-info disabled"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Desactiver">
+                                                <i class="icon-cloud-download icon-only"></i> Supprimer
+                                            </button>
+                                        </div>
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>
                             </a>
                         </div>
-                    </div>
-
+			</div>
                     <div class="widget-body">
                         <div class="widget-main no-padding">
                           <table id="LIST_DEMOULAGES" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th class="center" style="border-right: 0px none;">
-                                    <label>
-                                        <input type="checkbox" value="*" name="allchecked"/>
-                                        <span class="lbl"></span>
-                                    </label>
+                                 <label> 
+                                         <input type="checkbox" value="*" name="allchecked"/> 
+                                         <span class="lbl"></span> 
+                                     </label> 
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Désignation
+                                    Date
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Provisoire
+                                    Produit
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Réel
+                                    Quantite avant demoulage
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Quantite demoulee
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Nombre de colis
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Colisage
                                 </th>
 
                                 <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
@@ -73,94 +98,7 @@
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
-            <div class="col-sm-7">
-                <div class="widget-container-span">
-                    <div class="widget-box transparent">
-                        <div class="widget-header">
-
-                            <h4 class="lighter"></h4>
-                            <div class="widget-toolbar no-border">
-                                <ul class="nav nav-tabs" id="TAB_GROUP">
-
-                                    <li id="TAB_INFO_VIEW" class="active">
-                                        <a id="TAB_INFO_LINK" data-toggle="tab" href="#TAB_INFO">
-                                            <i class="green icon-dashboard bigger-110"></i>
-                                            Demoulage
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                     <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
-                        <div class="widget-body">
-                            <div class="widget-main padding-12 no-padding-left no-padding-right">
-                                <div class="tab-content padding-4">
-                                 <h4 class="widget-title lighter">
-                                     <i class="ace-icon fa fa-star orange"></i>Produit: <span id="nomProduit"></span>
-                                 </h4>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock Provisoire (kg)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text"  id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-4" disabled >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Stock Reel (kg)</label>
-                                        <div class="col-sm-9">
-                                            <input type="number"  id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                        </div>
-                                </div>
-                            
-			<div class="row ">
-				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
-						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
-						class="btn btn-danger btn-sm" title="Supprimer une ligne"
-						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
-					</a>
-				</div>
-			</div>
-			<div class="space-6"></div>
-			<div class="row clearfix">
-				<div class="col-md-8 column">
-					<table class="table table-bordered table-hover" id="tab_logic">
-						<thead>
-                                                    <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th class="text-center">Nombre de carton</th>
-                                                        <th class="text-center">Quantité/Carton</th>
-                                                        <th class="text-center">Total</th>
-                                                    </tr>
-						</thead>
-						<tbody>
-                                                    <tr id='addr0'>
-                                                            <td>1</td>
-                                                            <td><input type="number" id="cart0" name='cart0'
-                                                                    class="form-control" />
-                                                            </td>
-                                                            <td><input type="number" id="qte0" name='qte0'
-                                                                    class="form-control" />
-                                                            </td>
-                                                            <td><input type="number" id="tot0" name='tot0'
-                                                                    class="form-control tot" />
-                                                            </td>
-                                                    </tr>
-                                                    <tr id='addr1'></tr>
-						</tbody>
-					</table>
-				</div>
-                        </div>
-                            <button id="SAVE" class="btn btn-small btn-info pull-right">
-                                    <i class="fa fa-plus-square "></i> Valider
-                            </button>
-                        </div>
-                            </div>
-                        </div>
-                    </form>
-                </div><!--/.span6-->
-            </div>
-        </div><!-- /.row -->
+        
         
        <script type="text/javascript">
             jQuery(function ($) {
@@ -206,7 +144,7 @@
                     $("#qte"+index).val(""); 
                    $("#tot"+index).val("0"); 
                }
-               }
+            }
             else {
                 $("#tot"+index).val("0");
             }
@@ -376,6 +314,15 @@
                 }
                 return false;
             };
+            showPopover = function(idButton, colis){
+            $("#" + idButton).popover({
+                html: true,
+                trigger: 'focus',
+                placement: 'left',
+                title: '<i class="icon-group icon-"></i> Détail colis ',
+                content: colis
+            }).popover('toggle');
+         };
              loadDemoulages = function() {
                 nbTotalDemoulagesChecked = 0;
                 checkedDemoulages = new Array();
@@ -396,15 +343,53 @@
                     },
                     "aoColumnDefs": [
                         {
-                            "aTargets": [0],
-                            "bSortable": false,
-                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-                                $(nTd).css('text-align', 'center');
-                            },
-                            "mRender": function(data, type, full) {
-                                return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
-                            }
+                             "aTargets": [0],
+                             "bSortable": false,
+                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                 $(nTd).css('text-align', 'center');
+                             },
+                             "mRender": function(data, type, full) {
+                                 return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
+                             }
+                        },
+                        {
+                        "aTargets": [4],
+                        "bSortable": false,
+                        "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                            $(nTd).css('text-align', 'center');
+                            $(nTd).text('');
+                            $(nTd).addClass('td-actions');
+                            action=$('<div></div>');
+                            action.addClass('hidden-phone pull-right visible-desktop action-buttons');
+                            
+                            btnGrps=$('<button id="colis'+oData[0]+'" class="center btn btn-warning btn-mini" href="#">'+
+                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
+                            '</button>');
+                            btnGrps.click(function(){
+                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+                                data=$.parseJSON(data);
+                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
+                                $.each(data , function(i) { 
+                                    str= data [i].toString();
+                                    var substr = str.split(',');
+                                    htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
+                                // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
+                                 
+                                    //console.log(data [i]); 
+                                  });
+                                  htmlString+="</div>";
+                                showPopover("colis"+oData[0], ""+htmlString+"");
+                                });
+                            });
+                            btnGrps.tooltip({
+                                title: 'Consulter Détail des colis'
+                            });
+                            btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
+                            action.append(btnGrps);
+                            $(nTd).append(action);
+                           
                         }
+                    }
                     ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         persistChecked();
@@ -438,7 +423,7 @@
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULAGES; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_VALID; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
@@ -514,16 +499,7 @@
                 }
             });
 
-            $("#MNU_IMPRIMER").click(function()
-                    {
-                        if (checkedDemoulages.length == 0)
-                            bootbox.alert("Veuillez selectionnez un achat");
-                        else if (checkedDemoulages.length >= 1)
-                        {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?produitId='+checkedDemoulages[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
-                            
-                        }
-                    });
+
             
             $("#MNU_ANNULATION").click(function()
             {
@@ -613,9 +589,7 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       // loadDemoulages();
-                         $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
-                        });
+                        loadDemoulages();
                         $('#nombreCarton').val("");
                         $('#nombreParCarton').val("");
                     } 
@@ -689,8 +663,11 @@
 			invalidHandler: function (form) {
 			}
 		});
-
-
         });
+
+        $("#MNU_IMPRIMER").click(function()
+        {
+          window.open('<?php echo App::getHome(); ?>/app/pdf/stockPdf.php?codeUsine='+"<?php echo $codeUsine?>",'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+         });
             });
         </script>

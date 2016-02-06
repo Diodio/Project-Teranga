@@ -242,16 +242,39 @@ $nomUsine = $_COOKIE['nomUsine'];
 <!--                                 D�moulage </span> <b class="arrow fa fa-angle-down"></b> -->
 <!--                         </a> <b class="arrow"></b> -->
 <!--                         <ul class="submenu"> -->
-                            <li id="MNU_DEMOULAGE" class="hidden"><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
+<!--                            <li id="MNU_DEMOULAGE" class="hidden"><a id="DEMOULAGES" href="#" class="dropdown-toggle"> <i
                                    class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
                                         Démoulage </span>
                                 </a> <b class="arrow"></b>
-                           </li>
-                            <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
+                           </li>-->
+                           
+                      <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Stock Réel </span>
                                 </a> <b class="arrow"></b>
+                        </li>
+
+                        
+                     <li id="MNU_LIST_DEMOULAGES"class="hidden"><a href="#" class="dropdown-toggle"> <i
+                                class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
+                                Demoulage </span> <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                        
+                            <li id="PRODUITS_A_DEMOULES" class=""><a id="PRODUITS_A_DEMOULES" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Produits à demouler </span>
+                                </a> <b class="arrow"></b>
                             </li>
+                            
+                             <li id="PRODUITS_DEMOULES" class=""><a id="PRODUITS_DEMOULES" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Produits demoulés </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li>
+                            
 <!--                         </ul> -->
 
                         <li id="BONSORTIE"class="hidden"><a href="#" class="dropdown-toggle"> <i
@@ -491,6 +514,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_FACTURE').removeClass("hidden");
                         $('#MNU_REGLEMENT').removeClass("hidden");
                         $('#LIST_USERS').removeClass("hidden");
+                        $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                     }
                 }
                 manageProfil("<?php echo $profil;?>");
@@ -499,16 +523,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
-					$("#AJOUTER_ACHATS").attr("Class", "no-active");
-					$("#LISTE_ACHATS").attr("Class", "no-active");
-					$("#AJOUTER_SORTIE").attr("Class", "no-active");
-					$("#AJOUTER_FACTURE").attr("Class", "no-active");
-					$("#LISTE_FACTURE").attr("Class", "no-active");
-					$("#LISTE_SORTIE").attr("Class", "no-active");
-					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
-					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
-					$("#MNU_DEMOULAGE").attr("Class", "no-active");
-					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_SORTIE").attr("Class", "no-active");
+                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function () {
                     });
 
@@ -677,16 +701,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
- 					$("#AJOUTER_ACHATS").attr("Class", "no-active");
- 					$("#LISTE_ACHATS").attr("Class", "no-active");
- 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
- 					$("#AJOUTER_FACTURE").attr("Class", "no-active");
- 					$("#LISTE_FACTURE").attr("Class", "no-active");
- 					$("#LISTE_SORTIE").attr("Class", "active");
- 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
- 					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
- 					$("#MNU_DEMOULAGE").attr("Class", "no-active");
- 					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_SORTIE").attr("Class", "active");
+                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieListe.php", function () {
 
                     });
@@ -717,37 +741,57 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
- 					$("#AJOUTER_ACHATS").attr("Class", "no-active");
- 					$("#LISTE_ACHATS").attr("Class", "no-active");
- 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
- 					$("#AJOUTER_FACTURE").attr("Class", "no-active");
- 					$("#LISTE_FACTURE").attr("Class", "no-active");
- 					$("#LISTE_SORTIE").attr("Class", "no-active");
- 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
- 					$("#REGLEMENT_ACHAT").attr("Class", "active");
- 					$("#MNU_DEMOULAGE").attr("Class", "no-active");
- 					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_SORTIE").attr("Class", "no-active");
+                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#REGLEMENT_ACHAT").attr("Class", "active");
+                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementAchat.php", function () {
 
                     });
                 });
 
-                $("#MNU_DEMOULAGE").click(function (e) {
+                $("#PRODUITS_A_DEMOULES").click(function (e) {
                 	 $("#MNU_PRODUITS").attr("Class", "no-active");
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
- 					$("#AJOUTER_ACHATS").attr("Class", "no-active");
- 					$("#LISTE_ACHATS").attr("Class", "no-active");
- 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
- 					$("#AJOUTER_FACTURE").attr("Class", "no-active");
- 					$("#LISTE_FACTURE").attr("Class", "no-active");
- 					$("#LISTE_SORTIE").attr("Class", "no-active");
- 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
- 					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
- 					$("#MNU_DEMOULAGE").attr("Class", "active");
- 					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_SORTIE").attr("Class", "no-active");
+                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE").attr("Class", "active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulage.php", function () {
+                 });
+                 });
+                 
+
+                $("#PRODUITS_DEMOULES").click(function (e) {
+                	 $("#MNU_PRODUITS").attr("Class", "no-active");
+                     $("#MNU_MAREYEURS").attr("Class", "no-active");
+                     $("#MNU_BORD").attr("Class", "no-active");
+                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LISTE_ACHATS").attr("Class", "no-active");
+                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_SORTIE").attr("Class", "no-active");
+                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE").attr("Class", "active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produistDemoules.php", function () {
                  });
                  });
                   $("#MNU_DEMOULAGE_LIST").click(function (e) {
