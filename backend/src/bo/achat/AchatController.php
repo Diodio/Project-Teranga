@@ -158,7 +158,7 @@ private $logger;
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('id','dateAchat', 'numero', 'nom');
+                $aColumns = array('dateAchat', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -170,7 +170,7 @@ private $logger;
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder .= " STR_TO_DATE(dateAchat, '%Y-%m-%d') desc";
+                        $sOrder .= " numero desc";
                     }
                 }
                 // End order from DataTable

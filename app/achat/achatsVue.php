@@ -75,7 +75,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 							for="form-field-1"> Numero Achat</label>
 						<div class="col-sm-6">
 							<div class="clearfix">
-								<input type="text" id="numAchat" placeholder=""
+                                                            <input type="text" readonly id="numAchat" placeholder=""
 									class="col-xs-10 col-sm-7">
 							</div>
 						</div>

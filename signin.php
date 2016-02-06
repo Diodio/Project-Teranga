@@ -237,7 +237,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                           var domainName='';
                          
                           var heure = new Date();
-                          var m = 30* 60 * 1000; // 30 minutes
+                          var m = 1800000; // 30 minutes
                           heure.setTime(heure.getTime() + m ); // l'heure actuelle + 30 minutes
                       $.ajax({
                             type: "POST",
