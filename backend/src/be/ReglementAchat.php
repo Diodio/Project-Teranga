@@ -14,7 +14,8 @@ class ReglementAchat {
    /** @Column(type="date", nullable=true) */
     public $datePaiement;
     
-    /** @ManyToOne(targetEntity="Achat\Achat", inversedBy="achat", cascade={"persist","remove"}) */
+    /** @ManyToOne(targetEntity="Achat\Achat", inversedBy="achat") 
+    * @JoinColumn(name="achat_id", referencedColumnName="id", onDelete="CASCADE")     */
     protected $achat;
     
     /**

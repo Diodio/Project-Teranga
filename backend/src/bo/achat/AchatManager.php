@@ -206,10 +206,18 @@ public function findStatisticByUsine($codeUsine) {
     }
 
     public function annulerStockParAchact($achatId) {
-        $achat = $this->achatQuery->findInfoByAchact($achatId);
-        foreach ($achat as $key => $value) {
-            $stockManager = new \Stock\StockManager();
-            $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+        $ach = $this->achatQuery->findById($achatId);
+        if ($ach->getStatus() == 0)
+            $this->annulerAchat($achatId);
+        else if ($ach->getStatus() == 1) {
+            $achat = $this->achatQuery->findInfoByAchact($achatId);
+            if ($achat != NULL) {
+                foreach ($achat as $key => $value) {
+                    $stockManager = new \Stock\StockManager();
+                    $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+                }
+                $this->annulerAchat($achatId);
+            }
         }
     }
 

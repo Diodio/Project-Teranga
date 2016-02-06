@@ -490,7 +490,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#SAVE').attr("disabled", true);
                       if($.cookie('profil')=='directeur') {
                         $('#MNU_REMOVE').removeClass('disabled');
-                        $('#MNU_ANNULATION').removeClass('disabled');
                     }
                   }
                   else if (state == 0) {
@@ -905,7 +904,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     bootbox.alert("Veuillez selectionnez un achat");
                 else if (checkedAchat.length >= 1)
                 {
-                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
+                     bootbox.confirm("Voulez vous vraiment supprimer cet achat", function(result) {
                     if(result){
                     var achatId = checkedAchat[0];
                     $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {achatId: achatId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data)

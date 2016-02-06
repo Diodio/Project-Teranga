@@ -198,13 +198,15 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
     }
     
         
-      public function destockage($produitId, $codeUsine, $nbStock ) {			
-        $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-		
-	}
-        
-        public function destockageReel($produitId, $codeUsine, $nbStock ) {			
+    public function destockage($produitId, $codeUsine, $nbStock) {
+        if ($produitId != "" && $codeUsine != "" && $nbStock != "") {
+            $connexion = Bootstrap::$entityManager->getConnection();
+            return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");
+        }
+        return NULL;
+    }
+
+    public function destockageReel($produitId, $codeUsine, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
         return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 		

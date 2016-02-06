@@ -277,7 +277,7 @@ private $logger;
             }
         }  catch (Exception $e) {
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            throw new Exception('ERREUR_SERVEUR');
+            throw new Exception('Erreur lors du traitement de votre requete');
         }
     }
 
@@ -368,10 +368,8 @@ private $logger;
         try {
             if ($request['achatId'] != null) {
                 $achatManager = new AchatManager();
-                $valid = $achatManager->annulerAchat($request['achatId']);
-                if($valid==1)
-                    $achatManager->annulerStockParAchact ($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Annulation effectu�e avec succes');
+                $achatManager->annulerStockParAchact ($request['achatId']);
+                $this->doSuccess($request['achatId'], 'Annulation effectuee avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
