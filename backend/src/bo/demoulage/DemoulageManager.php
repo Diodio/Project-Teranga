@@ -54,14 +54,14 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
     	$arrayDemoulages = array();
     	$i = 0;
     	foreach ($demoulage as $key => $value) {
-    		$arrayDemoulages [$i] ['demoulageId'] = $value ['demoulageId'];
-    		$arrayDemoulages [$i] ['date'] = $value ['date'];
-    		$arrayDemoulages [$i] ['libelle'] = $value ['libelle'];
-    		$arrayDemoulages [$i] ['quantiteAdemouler'] = $value ['quantiteAdemouler'];
-    		$arrayDemoulages [$i] ['quantiteDemoulee'] = $value ['quantiteDemoulee'];
-    		
-    		$colis=$this->demoulageQueries->getAllColis($value ['produitId'], $value ['codeUsine']);
-    		$arrayDemoulages [$i] ['colis']=$colis;
+    		$arrayDemoulages [$i] [] = $value ['demoulageId'];
+    		$arrayDemoulages [$i] [] = $value ['date'];
+    		$arrayDemoulages [$i] [] = $value ['numero'];
+    		$arrayDemoulages [$i] [] = $value ['libelle'];
+    		$arrayDemoulages [$i] [] = $value ['quantiteAdemouler'];
+    		$arrayDemoulages [$i] [] = $value ['quantiteDemoulee'];
+//    		$colis=$this->demoulageQueries->getAllColis($value ['produitId'], $value ['codeUsine']);
+//    		$arrayDemoulages [$i] []=$colis;
     		
     		$i++;
     	}

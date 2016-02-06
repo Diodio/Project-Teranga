@@ -356,7 +356,7 @@
                              }
                         },
                         {
-                        "aTargets": [4],
+                        "aTargets": [7],
                         "bSortable": false,
                         "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                             $(nTd).css('text-align', 'center');
