@@ -140,7 +140,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 								</td>
                                                                 <td><input type="text" readonly id="pu0" name='pu0' class="form-control" />
 								</td>
-								<td><input type="text" id="qte0" name='qte0'
+                                                                <td><input type="text" autocomplete="off" id="qte0" name='qte0'
 									class="form-control qte" />
 								</td>
 								<td><input type="text" readonly id="montant0" name='montant0'
@@ -466,7 +466,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
 <td><input type='text' readonly id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>\n\
+<td><input type='text' id='qte"+i+"' autocomplete='off' name='qte"+i+"'  class='form-control qte'/></td>\n\
 <td><input type='text' readonly id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
@@ -492,9 +492,28 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
        //   calculPoidsNet(counter);
        //   calculMontant(counter);
          // calculMontantPoids();
-         $( "#designation"+counter ).change(function() {
-            calculMontant(counter);
-       });
+//         $( "#designation"+counter ).change(function() {
+//             var trouve=0;
+//             var valueSelected = $( "#designation"+counter ).val();
+//             console.log('valueselecte'+valueSelected);
+//            $('#tab_logic tr').each(function () {
+//                value = $(this).find('select').val();
+//                if(typeof value !=="undefined"){
+//                    // console.log('compare'+value);
+//                   if(value==valueSelected){
+//                       trouve+=1;
+//                   }
+//                }
+//            });
+//            console.log("trouve "+trouve)
+//            if(trouve > 1){
+//                $.gritter.add({
+//                    title: 'Notification',
+//                    text: 'Ce produit existe deja, Veuillez changer de produit',
+//                    class_name: 'gritter-error gritter-light'
+//                });
+//            }
+//       });
         $( "#pu"+counter ).keyup(function() {
            calculMontant(counter);
       });
@@ -502,15 +521,13 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
       $( "#qte"+counter ).keyup(function() {
             calculMontant(counter);
        });
-      $( "#qte"+counter ).paste(function() {
-          calculMontant(counter);
-     });
-      $( "#qte"+counter ).scrolling(function() {
-          calculMontant(counter);
-     });
-      $( "#qte"+counter ).select(function() {
-          calculMontant(counter);
-     });
+//      $( "#qte"+counter ).paste(function() {
+//          calculMontant(counter);
+//       });
+//      $( "#qte"+counter ).scrolling(function() {
+//          calculMontant(counter);
+//     });
+     
     });
     
    

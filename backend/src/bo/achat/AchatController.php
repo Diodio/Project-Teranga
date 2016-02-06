@@ -122,7 +122,7 @@ private $logger;
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
                          foreach ($jsonAchat as $key => $ligne) {
-                            if(isset($ligne["designation"])) {
+                            if(isset($ligne["designation"]) && $ligne["designation"]!=="-1") {
                                 $ligneAchat = new \Achat\LigneAchat();
                                 $ligneAchat->setAchat($achat);
                                 $produitId = $ligne["designation"];
