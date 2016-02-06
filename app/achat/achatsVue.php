@@ -107,11 +107,11 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 			</div>
 			<div class="row">
-					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+					<a id="add_row" class="btn btn-primary btn-sm"  title="Ajouter une ligne de produit"
 						alt="Ajouter une ligne"><i
 						class="ace-icon fa fa-plus-square"></i> </a> 
                                         <a id='delete_row'
-						class="btn btn-danger btn-sm" title="Supprimer une ligne"
+						class="btn btn-danger btn-sm" title="Supprimer une ligne de produit"
 						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
 					</a>
                                     <a id="NEW_PRODUIT" class="btn btn-primary btn-sm" style="float: right"><i

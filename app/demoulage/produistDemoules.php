@@ -34,18 +34,18 @@
                         </h4>
                                         
                                        <div class="btn-group">
-                                            <button id="BTN_ACTIVER"
+                                            <button id="MNU_ANNULATION"
                                                     class="btn btn-primary btn-mini tooltip-info disabled"
                                                     data-rel="tooltip" data-placement="top"
-                                                    title="Activer">
+                                                    title="Annuler Démoulage">
                                                 <i class="icon-cloud-download icon-only"></i> Annuler
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="BTN_DESACTIVER"
+                                            <button id="GRP_REMOVE"
                                                     class="btn btn-primary btn-mini tooltip-info disabled"
                                                     data-rel="tooltip" data-placement="top"
-                                                    title="Desactiver">
+                                                    title="Supprimer Démoulage">
                                                 <i class="icon-cloud-download icon-only"></i> Supprimer
                                             </button>
                                         </div>
