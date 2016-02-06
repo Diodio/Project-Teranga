@@ -1,174 +1,192 @@
 <?php
-    require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
-    if(!isset($_COOKIE['userId'])){
-        header('Location: '.\App::getHome());
-        exit();
-    }
-    $userId = $_COOKIE['userId'];
-    $etatCompte = $_COOKIE['etatCompte'];
-    $login = $_COOKIE['login'];
-    $profil = $_COOKIE['profil'];
-    $status = $_COOKIE['status'];
-    $codeUsine = $_COOKIE['codeUsine'];
+require_once dirname(dirname(dirname(__FILE__))) . '/common/app.php';
+if(!isset($_COOKIE['userId'])){
+	header('Location: '.\App::getHome());
+	exit();
+}
+$userId = $_COOKIE['userId'];
+$etatCompte = $_COOKIE['etatCompte'];
+$login = $_COOKIE['login'];
+$profil = $_COOKIE['profil'];
+$status = $_COOKIE['status'];
+$codeUsine = $_COOKIE['codeUsine'];
 ?>
 <div class="page-content">
-    <div class="page-header">
-        <h1>
-            Demoulage
-            <small>
-                <i class="ace-icon fa fa-angle-double-right"></i>
-                Demoulage
-            </small>
-        </h1>
-    </div><!-- /.page-header -->
+	<div class="page-header">
+		<h1>
+			Demoulage <small> <i class="ace-icon fa fa-angle-double-right"></i>
+				Demoulage
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
 
-     <div class="row">
-            <div class="col-sm-5">
-                
-                <div class="widget-box transparent">
-                    <div class="widget-header widget-header-flat">
-                        <h4 class="widget-title lighter">
-                            <i class="ace-icon fa fa-star orange"></i>
-                            Liste des produits à demouler
-                        </h4>
+	<div class="row">
+		<div class="col-sm-5">
 
-                        <div class="widget-toolbar">
-                            <a href="#" data-action="collapse">
-                                <i class="ace-icon fa fa-chevron-up"></i>
-                            </a>
-                        </div>
-                    </div>
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i> Liste des produits à
+						demouler
+					</h4>
 
-                    <div class="widget-body">
-                        <div class="widget-main no-padding">
-                          <table id="LIST_DEMOULAGES" class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="center" style="border-right: 0px none;">
-                                    <label>
-                                        <input type="checkbox" value="*" name="allchecked"/>
-                                        <span class="lbl"></span>
-                                    </label>
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Désignation
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Provisoire
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock Réel
-                                </th>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse"> <i
+							class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+				</div>
 
-                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
+				<div class="widget-body">
+					<div class="widget-main no-padding">
+						<table id="LIST_DEMOULAGES"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center" style="border-right: 0px none;"><label> <input
+											type="checkbox" value="*" name="allchecked" /> <span
+											class="lbl"></span>
+									</label>
+									</th>
+									<th style="border-left: 0px none; border-right: 0px none;">
+										Désignation</th>
+									<th style="border-left: 0px none; border-right: 0px none;">
+										Stock Provisoire</th>
+									<th style="border-left: 0px none; border-right: 0px none;">
+										Stock Réel</th>
+
+									<!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
                                 </th>-->
-                            </tr>
-                        </thead>
+								</tr>
+							</thead>
 
-                        <tbody>
+							<tbody>
 
-                        </tbody>
-                    </table>
-                        </div><!-- /.widget-main -->
-                    </div><!-- /.widget-body -->
-                </div><!-- /.widget-box -->
-            </div><!-- /.col -->
-            <div class="col-sm-7">
-                <div class="widget-container-span">
-                    <div class="widget-box transparent">
-                        <div class="widget-header">
-
-                            <h4 class="lighter"></h4>
-                            <div class="widget-toolbar no-border">
-                                <ul class="nav nav-tabs" id="TAB_GROUP">
-
-                                    <li id="TAB_INFO_VIEW" class="active">
-                                        <a id="TAB_INFO_LINK" data-toggle="tab" href="#TAB_INFO">
-                                            <i class="green icon-dashboard bigger-110"></i>
-                                            Demoulage
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                     <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
-                        <div class="widget-body">
-                            <div class="widget-main padding-12 no-padding-left no-padding-right">
-                                <div class="tab-content padding-4">
-                                 <h4 class="widget-title lighter">
-                                     <i class="ace-icon fa fa-star orange"></i>Produit: <span id="nomProduit"></span>
-                                 </h4>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock Provisoire (kg)</label>
-                                    <div class="col-sm-9">
-                                        <input type="text"  id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-4" disabled >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Quantite a demouler (kg)</label>
-                                        <div class="col-sm-9">
-                                            <input type="number"  id="quantiteAdemouler" name="quantiteAdemouler" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                        </div>
-                                </div>
-                                <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Quantite demoulee (kg)</label>
-                                        <div class="col-sm-9">
-                                            <input type="number"  id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
-                                        </div>
-                                </div>
-                            
-			<div class="row ">
-				<div class="col-md-12 column">
-					<a id="add_row" class="btn btn-primary btn-sm"><i
-						class="ace-icon fa fa-plus-square"></i> </a> <a id='delete_row'
-						class="btn btn-danger btn-sm" title="Supprimer une ligne"
-						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
-					</a>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.widget-main -->
 				</div>
+				<!-- /.widget-body -->
 			</div>
-			<div class="space-6"></div>
-			<div class="row clearfix">
-				<div class="col-md-8 column">
-					<table class="table table-bordered table-hover" id="tab_logic">
-						<thead>
-                                                    <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th class="text-center">Nombre de carton</th>
-                                                        <th class="text-center">Quantité/Carton</th>
-                                                        <th class="text-center">Total</th>
-                                                    </tr>
-						</thead>
-						<tbody>
-                                                    <tr id='addr0'>
-                                                            <td>1</td>
-                                                            <td><input type="number" id="cart0" name='cart0'
-                                                                    class="form-control" />
-                                                            </td>
-                                                            <td><input type="number" id="qte0" name='qte0'
-                                                                    class="form-control" />
-                                                            </td>
-                                                            <td><input type="number" id="tot0" name='tot0'
-                                                                    class="form-control tot" />
-                                                            </td>
-                                                    </tr>
-                                                    <tr id='addr1'></tr>
-						</tbody>
-					</table>
+			<!-- /.widget-box -->
+		</div>
+		<!-- /.col -->
+		<div class="col-sm-7">
+			<div class="widget-container-span">
+				<div class="widget-box transparent">
+					<div class="widget-header">
+
+						<h4 class="lighter"></h4>
+						<div class="widget-toolbar no-border">
+							<ul class="nav nav-tabs" id="TAB_GROUP">
+
+								<li id="TAB_INFO_VIEW" class="active"><a id="TAB_INFO_LINK"
+									data-toggle="tab" href="#TAB_INFO"> <i
+										class="green icon-dashboard bigger-110"></i> Demoulage
+								</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+					<form id="validation-form" class="form-horizontal"
+						onsubmit="return false;">
+						<div class="widget-body">
+							<div
+								class="widget-main padding-12 no-padding-left no-padding-right">
+								<div class="tab-content padding-4">
+									<h4 class="widget-title lighter">
+										<i class="ace-icon fa fa-star orange"></i>Produit: <span
+											id="nomProduit"></span>
+									</h4>
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right"
+											for="form-field-1" style="margin-left: -8%"> Stock Provisoire
+											(kg)</label>
+										<div class="col-sm-8">
+											<input type="text" id="stockProvisoire"
+												name="stockProvisoire" placeholder=""
+												class="col-xs-10 col-sm-4" disabled>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right"
+											for="form-field-1" style="margin-top: 5px; margin-left: -8%">
+											Quantite a demouler (kg)</label>
+										<div class="col-sm-8">
+											<input type="number" id="quantiteAdemouler"
+												name="quantiteAdemouler" placeholder=""
+												class="col-xs-10 col-sm-4" style="margin-top: 5px;">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right"
+											for="form-field-1" style="margin-top: 5px; margin-left: -8%">
+											Quantite demoulee (kg)</label>
+										<div class="col-sm-8">
+											<input type="number" id="quantiteDemoulee"
+												name="quantiteDemoulee" placeholder=""
+												class="col-xs-10 col-sm-4" style="margin-top: 5px;">
+										</div>
+									</div>
+
+									<div class="row ">
+										<div class="col-md-12 column">
+											<a id="add_row" class="btn btn-primary btn-sm"><i
+												class="ace-icon fa fa-plus-square"></i> </a> <a
+												id='delete_row' class="btn btn-danger btn-sm"
+												title="Supprimer une ligne" alt="Supprimer une ligne"> <i
+												class="ace-icon fa fa-minus-square"></i>
+											</a>
+										</div>
+									</div>
+									<div class="space-6"></div>
+									<div class="row clearfix">
+										<div class="col-md-8 column">
+											<table class="table table-bordered table-hover"
+												id="tab_logic">
+												<thead>
+													<tr>
+														<th class="text-center">#</th>
+														<th class="text-center">Nombre de carton</th>
+														<th class="text-center">Quantité/Carton</th>
+														<th class="text-center">Total</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr id='addr0'>
+														<td>1</td>
+														<td><input type="number" id="cart0" name='cart0'
+															class="form-control" />
+														</td>
+														<td><input type="number" id="qte0" name='qte0'
+															class="form-control" />
+														</td>
+														<td><input type="number" id="tot0" name='tot0'
+															class="form-control tot" />
+														</td>
+													</tr>
+													<tr id='addr1'></tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<button id="SAVE" class="btn btn-small btn-info pull-right">
+										<i class="fa fa-plus-square "></i> Valider
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
-                        </div>
-                            <button id="SAVE" class="btn btn-small btn-info pull-right">
-                                    <i class="fa fa-plus-square "></i> Valider
-                            </button>
-                        </div>
-                            </div>
-                        </div>
-                    </form>
-                </div><!--/.span6-->
-            </div>
-        </div><!-- /.row -->
-        
-       <script type="text/javascript">
+				<!--/.span6-->
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<script type="text/javascript">
             jQuery(function ($) {
             var oTableDemoulages= null;
             var nbTotalDemoulagesChecked=0;
@@ -193,7 +211,7 @@
          function calculPoids(index){
            var cart=parseFloat($("#cart"+index).val());
            var qte=parseFloat($("#qte"+index).val());
-           var stockReel=parseFloat($("#stockReel").val());
+           var quantiteDemoulee=parseFloat($("#quantiteDemoulee").val());
            var sqte=0;
            var tot = 0;
            tot = cart*qte;
@@ -203,10 +221,10 @@
                 if($(this).val()!=='')
                   sqte += parseFloat($(this).val());
                 });
-                if(sqte > stockReel){
+                if(sqte > quantiteDemoulee){
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'La quantité totale définie est supérieure au stock réel',
+                        text: 'La quantité totale définie ne doit pas �tre supérieure � la quantite démoulée',
                         class_name: 'gritter-error gritter-light'
                     }); 
                     $("#qte"+index).val(""); 
@@ -228,21 +246,21 @@
     });
     
            
-        $( "#stockReel" ).keyup(function() {
+        $( "#quantiteDemoulee" ).keyup(function() {
             verifiePoidsReel();
          });
          
          function verifiePoidsReel(index){
            var stockProvisoire = parseFloat($("#stockProvisoire").val());
-           var stockReel=parseFloat($("#stockReel").val());
+           var quantiteDemoulee=parseFloat($("#quantiteDemoulee").val());
          
-           if(stockReel>=stockProvisoire) {
+           if(quantiteDemoulee>=stockProvisoire) {
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'Le stock réel défini doit etre inférieur au stock provisoire',
+                        text: 'LLa quantité démoulée ne doit pas �tre supérieure � la quantité � démouler ',
                         class_name: 'gritter-error gritter-light'
                     }); 
-                   $("#stockReel").val("0"); 
+                   $("#quantiteDemoulee").val("0"); 
                }
        }
             checkedDemoulagesContains = function(item) {
@@ -320,7 +338,7 @@
                     $('#SAVE').attr("disabled", true);
                     $('#nomProduit').text("");
                     $('#stockProvisoire').val("");
-                    $('#stockReel').val("");
+                    $('#quantiteDemoulee').val("");
                     $('#nombreCarton').val("");
                     $('#nombreParCarton').val("");
                     
@@ -345,7 +363,7 @@
                     $('#SAVE').attr("disabled", true);
                     $('#nomProduit').text("");
                     $('#stockProvisoire').val("");
-                    $('#stockReel').val("");
+                    $('#quantiteDemoulee').val("");
                     $('#nombreCarton').val("");
                     $('#nombreParCarton').val("");
                     $('#SAVE').attr("disabled", false);
@@ -488,7 +506,7 @@
                  // data = data[0];
                     $('#nomProduit').text(data.designation);
                     $('#stockProvisoire').val(data.stockProvisoire);
-                    //$('#stockReel').val(data.stockReel);
+                    //$('#quantiteDemoulee').val(data.quantiteDemoulee);
                     
                }).error(function(error) { });
             };
@@ -565,7 +583,7 @@
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             
-            var stockReel= $('#stockReel').val();
+            var quantiteDemoulee= $('#quantiteDemoulee').val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             var $table = $("table");
@@ -599,7 +617,7 @@
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('produitId', checkedDemoulages[0]);
-            formData.append('stockReel', stockReel);
+            formData.append('quantiteDemoulee', quantiteDemoulee);
             formData.append('jsonCarton', tbl);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
@@ -651,9 +669,12 @@
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				stockReel: {
+				quantiteDemoulee: {
                                     required: true
 				},
+				quantiteAdemouler: {
+                                   required: true
+                },
 				nombreParCarton: {
                                     required: true
 				},
@@ -664,7 +685,10 @@
 			},
 	
 			messages: {
-				stockReel: {
+				quantiteDemoulee: {
+					required: "Champ obligatoire."
+				},
+				quantiteAdemouler: {
 					required: "Champ obligatoire."
 				},
 				nombreParCarton: {
