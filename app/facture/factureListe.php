@@ -42,9 +42,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer </a></li>
+                                        <li id='MNU_VALIDATION' class="disabled" ><a href="#" id="GRP_NEW">Valider </a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li id='MNU_IMPRIMER' class="disabled"><a href="#" id="GRP_NEW">Imprimer </a></li>
+                                        <li class="divider"></li>
+                                        <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
                                     </ul>
                                 </div>
                     </div>
@@ -592,7 +594,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             {
                 if (checkedFacture.length == 0)
                     bootbox.alert("Veuillez selectionnez un facture");
-                else if (checkedFacture.length > 1)
+                else if (checkedFacture.length == 1)
                 {
                      bootbox.confirm("Voulez vous vraiment valider cet facture","Non","Oui", function(result) {
                     if(result){
@@ -613,18 +615,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                          }
                     });
                 }
+                else if (checkedFacture.length > 1)
+                {
+                	bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                }
             });
              $("#MNU_IMPRIMER").click(function()
                 {
                     if (checkedFacture.length == 0)
                     bootbox.alert("Veuillez selectionnez un facture");
-                else if (checkedFacture.length >= 1)
+                else if (checkedFacture.length == 1)
                 {
                     var factureId = checkedFacture[0];
                     window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+factureId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
                 
                 }
-                  
+                else if (checkedFacture.length > 1)
+                {
+                	bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                }
                  });
             });
         </script>

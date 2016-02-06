@@ -513,6 +513,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#MNU_VALIDATION').addClass('disabled');
                     $('#MNU_ANNULATION').addClass('disabled');
                  }
+                 bootbox.alert("Veuillez selectionnez un seul achat SVP!");
             }
             else{
                 $('#MNU_VALIDATION').removeClass('enable');
@@ -521,6 +522,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $('#MNU_VALIDATION').addClass('disabled');
                 $('#MNU_ANNULATION').addClass('disabled');
                 $('#MNU_IMPRIMER').addClass('disabled');
+
             }
             };
             
