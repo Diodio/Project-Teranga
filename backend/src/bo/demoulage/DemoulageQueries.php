@@ -90,4 +90,29 @@ class DemoulageQueries {
         else
             return null;
     }
+    
+    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	$sql = 'select distinct(d.id) as demoulageId, d.createdDate date, p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId from demoulage d, produit p where d.produit_id=p.id';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$products = $stmt->fetchAll();
+    	return $products;
+    }
+    
+    public function countAll($codeUsine, $sWhere = "") {
+    	if($sWhere !== "")
+    		$sWhere = " and " . $sWhere;
+    	if($codeUsine !=='*') {
+    	$sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+    		}
+    	else {
+    		$sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id ' . $sWhere . '';
+    	}
+    	 
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$nbClients = $stmt->fetch();
+    	return $nbClients['nb'];
+    }
+    
 }

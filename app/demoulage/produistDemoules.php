@@ -69,6 +69,9 @@
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Date
                                 </th>
+                                 <th style="border-left: 0px none;border-right: 0px none;">
+                                    Numero
+                                </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Produit
                                 </th>
@@ -326,7 +329,7 @@
              loadDemoulages = function() {
                 nbTotalDemoulagesChecked = 0;
                 checkedDemoulages = new Array();
-                var url =  '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
+                var url =  '<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php';
 
                 if (oTableDemoulages != null)
                     oTableDemoulages.fnDestroy();
@@ -423,7 +426,7 @@
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_VALID; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULE; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');

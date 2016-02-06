@@ -82,6 +82,8 @@ return array(
     'Reglement\\ReglementManager' => $baseDir . '/../backend/src/bo/reglement/ReglementManager.php',
     'Reglement\\ReglementQueries' => $baseDir . '/../backend/src/bo/reglement/ReglementQueries.php',
     'StockController' => $baseDir . '/../backend/src/bo/stock/StockController.php',
+    'Stock\\StockAchete' => $baseDir . '/../backend/src/be/StockAchete.php',
+    'Stock\\StockFacture' => $baseDir . '/../backend/src/be/StockFacture.php',
     'Stock\\StockManager' => $baseDir . '/../backend/src/bo/stock/StockManager.php',
     'Stock\\StockProvisoire' => $baseDir . '/../backend/src/be/StockProvisoire.php',
     'Stock\\StockQueries' => $baseDir . '/../backend/src/bo/stock/StockQueries.php',

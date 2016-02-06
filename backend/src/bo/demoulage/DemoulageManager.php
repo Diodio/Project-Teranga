@@ -30,6 +30,7 @@ public function verifieDemoulage($produitId, $codeUsine) {
      public function getQuantiteColisage($produitId) {
         return $this->demoulageQueries->getQuantiteColisage($produitId);
     }
+    
 public function verificationColis($produitId, $nbCarton, $quantite) {
         $res = 0;
         $carton = $this->demoulageQueries->verifieCarton($produitId, $quantite);
@@ -48,6 +49,27 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
         return $res;
     }
 
-   
+    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	$demoulage = $this->demoulageQueries->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    	$arrayDemoulages = array();
+    	$i = 0;
+    	foreach ($demoulage as $key => $value) {
+    		$arrayDemoulages [$i] ['demoulageId'] = $value ['demoulageId'];
+    		$arrayDemoulages [$i] ['date'] = $value ['date'];
+    		$arrayDemoulages [$i] ['libelle'] = $value ['libelle'];
+    		$arrayDemoulages [$i] ['quantiteAdemouler'] = $value ['quantiteAdemouler'];
+    		$arrayDemoulages [$i] ['quantiteDemoulee'] = $value ['quantiteDemoulee'];
+    		
+    		$colis=$this->demoulageQueries->getAllColis($value ['produitId'], $value ['codeUsine']);
+    		$arrayDemoulages [$i] ['colis']=$colis;
+    		
+    		$i++;
+    	}
+    	return $arrayDemoulages;
+    }
+    
+    public function countAll($codeUsine,$where="") {
+    	return $this->demoulageQueries->countAll($codeUsine,$where);
+    }
 
 }

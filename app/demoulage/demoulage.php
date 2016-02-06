@@ -108,7 +108,7 @@
                                 <div class="form-group">
                                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: 12px;"> Quantite a demouler (kg)</label>
                                         <div class="col-sm-9">
-                                            <input type="number"  id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
+                                            <input type="number"  id="quantiteAdemouler" name="quantiteAdemouler" placeholder="" class="col-xs-10 col-sm-4" style="margin-top: 12px;">
                                         </div>
                                 </div>
                                 <div class="form-group">
