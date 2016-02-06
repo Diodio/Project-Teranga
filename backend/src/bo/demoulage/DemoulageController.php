@@ -175,7 +175,7 @@ class DemoulageController extends BaseController  {
 			if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
 				// Begin order from dataTable
 				$sOrder = "";
-				$aColumns = array('date', 'numero','libelle', 'quantiteAdemouler', 'quantiteDemoulee', 'stock');
+				$aColumns = array('numero','libelle', 'quantiteAdemouler', 'quantiteDemoulee');
 				if (isset($request['iSortCol_0'])) {
 					$sOrder = "ORDER BY  ";
 					for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
