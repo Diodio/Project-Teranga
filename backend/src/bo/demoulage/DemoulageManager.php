@@ -63,6 +63,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
             if($value ['nbColis'] !=null)
                 $arrayDemoulages [$i] [] = $value ['nbColis'];
             else $arrayDemoulages [$i] [] = 0;
+            $arrayDemoulages [$i] [] = $value ['demoulageId'];
 //    		$colis=$this->demoulageQueries->getAllColis($value ['produitId'], $value ['codeUsine']);
 //    		$arrayDemoulages [$i] []=$colis;
     		
