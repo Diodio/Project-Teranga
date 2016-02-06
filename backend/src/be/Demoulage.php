@@ -12,6 +12,21 @@ class Demoulage {
     protected $id;
      
     /**
+     * @Column(type="string", length=60, nullable=true)
+     * */
+    protected $numero;
+    
+    /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
+    public $quantiteAdemouler;
+    
+     /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
+    public $quantiteDemoulee;
+    
+    /**
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $codeUsine;

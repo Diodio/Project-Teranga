@@ -759,25 +759,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                }).error(function(error) { });
             };
 
-            $("#MNU_REGLEMENT").click(function()
-                    {
-                        if (checkedFacture.length == 0)
-                            bootbox.alert("Veuillez selectionnez une facture");
-                        else if (checkedFacture.length >= 1)
-                        {
-                             bootbox.confirm("Voulez vous vraiment régler cette facture", function(result) {
-                            if(result){
-                                
-                            	 $('#winModalReglement').addClass('show');
-             		            $('#winModalReglement').modal('show');
-                            var factureId = checkedFacture[0];
-                           
-                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsAchatVue.php", function () {
-                                });
-                                 }
-                            });
-                        }
-                    });
+//            $("#MNU_REGLEMENT").click(function()
+//                    {
+//                        if (checkedFacture.length == 0)
+//                            bootbox.alert("Veuillez selectionnez une facture");
+//                        else if (checkedFacture.length >= 1)
+//                        {
+//                             bootbox.confirm("Voulez vous vraiment régler cette facture", function(result) {
+//                            if(result){
+//                                
+//                            	 $('#winModalReglement').addClass('show');
+//             		            $('#winModalReglement').modal('show');
+//                            var factureId = checkedFacture[0];
+//                           
+//                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsAchatVue.php", function () {
+//                                });
+//                                 }
+//                            });
+//                        }
+//                    });
 
             $("#MNU_IMPRIMER").click(function()
                     {
