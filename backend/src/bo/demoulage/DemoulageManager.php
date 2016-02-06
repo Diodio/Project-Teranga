@@ -27,6 +27,10 @@ public function verifieDemoulage($produitId, $codeUsine) {
     public function getAllColis($produitId, $codeUsine) {
         return $this->demoulageQueries->getAllColis($produitId, $codeUsine);
     }
+    
+    public function getAllColisDemoulage($demoulageId, $codeUsine) {
+        return $this->demoulageQueries->getAllColisDemoulage($demoulageId, $codeUsine);
+    }
      public function getQuantiteColisage($produitId) {
         return $this->demoulageQueries->getQuantiteColisage($produitId);
     }

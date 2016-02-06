@@ -369,7 +369,7 @@
                             '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
                             '</button>');
                             btnGrps.click(function(){
-                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {demoulageId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS_DEMOULAGE; ?>"}, function(data) {
                                 data=$.parseJSON(data);
                                 var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
                                 $.each(data , function(i) { 

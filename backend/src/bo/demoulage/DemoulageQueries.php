@@ -69,6 +69,24 @@ class DemoulageQueries {
         return $arrayContact;
     }
 
+    public function getAllColisDemoulage($demoulageId, $codeUsine) {
+        if($codeUsine !=='*')
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND codeUsine="'.$codeUsine.'" AND d.id='.$demoulageId.' GROUP BY quantiteParCarton';
+        else
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.id='.$demoulageId.' GROUP BY quantiteParCarton';
+         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $clients = $stmt->fetchAll();
+        $arrayContact = array();
+        $i = 0;
+        foreach ($clients as $key => $value) {
+            $arrayContact [$i] [] = $value ['nbCarton'];
+            $arrayContact [$i] [] = $value ['quantiteParCarton'];
+            $i ++;
+        }
+        return $arrayContact;
+    }
+    
     public function verifieCarton($produitId,$quantite) {
         $sql = 'SELECT id, SUM(nombreCarton) as nbCarton, quantiteParCarton FROM carton WHERE quantiteParCarton='.$quantite.' AND produitId='.$produitId.' GROUP BY quantiteParCarton';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
