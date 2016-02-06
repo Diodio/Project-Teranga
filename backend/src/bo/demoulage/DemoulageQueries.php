@@ -92,7 +92,7 @@ class DemoulageQueries {
     }
     
     public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	$sql = 'select distinct(d.id) as demoulageId, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId from demoulage d, produit p where d.produit_id=p.id';
+    	$sql = 'select distinct(d.id) as demoulageId, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE p.id=carton.produitId) as nbColis from demoulage d, produit p where d.produit_id=p.id';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$products = $stmt->fetchAll();
