@@ -430,7 +430,7 @@
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
-                        if(userProfil==='admin'){
+                        if(userProfil==='admin' || userProfil==='directeur'){
                             aoData.push({"name": "codeUsine", "value": "*"});
                         }
                         else
