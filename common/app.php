@@ -125,7 +125,8 @@ class App
      const ACTION_INSERT_TEMP='INSERT_TEMP';
      const ACTION_INSERT_FACTURE='INSERT_FACTURE';
      const ACTION_LIST_DEMOULE='LIST_DEMOULE';
-
+     const ACTION_GET_COLIS_DEMOULAGE='GET_COLIS_DEMOULAGE';
+     
      static function getBoPath() {
          
          if (is_file(App::FILE_PARAMETERS))
