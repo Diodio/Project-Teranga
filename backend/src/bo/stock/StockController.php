@@ -81,12 +81,12 @@ class StockController extends BaseController {
                     }
                 }
                 // End filter from dataTable
-                if(isset($request['profil']) && $request['profil'] == 'admin')
+                if((isset ($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
                     $produits = $stockManager->retrieveAll($request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 else
                     $produits = $stockManager->retrieveAllByUsine($request['codeUsine'],$request['login'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($produits != null) {
-                    if(isset($request['profil']) && $request['profil'] == 'admin')
+                    if((isset($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
                         $nbProduits = $stockManager->countAll($sWhere);
                     else
                        $nbProduits = $stockManager->countByUsine($request['codeUsine'],$request['login'], $sWhere);
