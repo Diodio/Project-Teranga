@@ -28,10 +28,10 @@ $codeUsine = $_COOKIE['codeUsine'];
         <div class="row">
             <div class="col-sm-4"> 
                 <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
-                        <option value="*" class="types">Selectionnez un achat</option>
-                         <option value="0" class="orange bigger-130 icon-only">Achats non validÃ©s</option>
-                         <option value="1" class="green bigger-130 icon-only">Achats valid�s</option>
-                         <option value="2" class="red bigger-130 icon-only">Achats annul�s</option>
+                        <option value="*" class="types">Filtrer par type achat</option>
+                         <option value="0" class="orange bigger-130 icon-only">Achats non validés</option>
+                         <option value="1" class="green bigger-130 icon-only">Achats validés</option>
+                         <option value="2" class="red bigger-130 icon-only">Achats validés</option>
                 </select>
             </div>
             <div class="col-sm-8">
@@ -153,7 +153,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data" >
                                                             <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats non valid�s </div>
+                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
                                                         </div>
                                                     </div>
 
@@ -165,7 +165,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats valid�s</div>
+                                                            <div class="infobox-content" style="width:150px">Achats validés</div>
 
                                                         </div>
                                                     </div>
@@ -178,7 +178,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_ACHAT_ANNULES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Achats annul�s</div>
+                                                            <div class="infobox-content" style="width:150px">Achats annulés</div>
 
                                                         </div>
                                                     </div>
@@ -216,7 +216,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Cr�� par </div>
+                        <div class="profile-info-name">créé par </div>
                         <div class="profile-info-value">
                             <span id="achatUser"></span>
                         </div>
