@@ -299,6 +299,34 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }); 
                    $("#quantiteDemoulee").val(""); 
                }
+       };
+       
+       function verifierPoidsTotal(){
+           var sqte=0;
+           var quantiteDemoulee=parseFloat($("#quantiteDemoulee").val());
+           $('#tab_logic .tot').each(function () {
+                if($(this).val()!=='')
+                  sqte += parseFloat($(this).val());
+                });
+           if(sqte > quantiteDemoulee){
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'La quantité totale du colisage ne doit pas être supérieure à la quantité démoulée',
+                    class_name: 'gritter-error gritter-light'
+                });
+               return false;
+           }
+           else if(sqte < quantiteDemoulee){$.gritter.add({
+                title: 'Notification',
+                text: 'La quantité totale du colisage ne doit pas être inférieure à la quantité démoulée ',
+                class_name: 'gritter-error gritter-light'
+            });
+               return false;
+           }
+           else
+               return true;
+               
+           
        }
             checkedDemoulagesContains = function(item) {
                 for (var i = 0; i < checkedDemoulages.length; i++) {
@@ -621,7 +649,7 @@ $codeUsine = $_COOKIE['codeUsine'];
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var numero= $('#numero').val();
-            var quantiteAdemouler= $('#quantiteAdemouler').val();
+            var quantiteAdemouler= x$('#quantiteAdemouler').val();
             var quantiteDemoulee= $('#quantiteDemoulee').val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
@@ -755,7 +783,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 			},
 	
 			submitHandler: function (form) {
-				DemoulageProcess();
+                            if(verifierPoidsTotal());
+                                alert("cc");
+                            
+				//DemoulageProcess();
 			},
 			invalidHandler: function (form) {
 			}
