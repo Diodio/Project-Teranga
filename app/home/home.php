@@ -170,7 +170,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                     aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine?>"});
                     aoData.push({"name": "login","value": "<?php echo $login?>"});
-                    if("<?php echo $login?>" === "admin")
+                    if("<?php echo $profil?>" == "admin" || "<?php echo $profil?>" == "directeur" )
                         aoData.push({"name": "profil", "value": "<?php echo $profil?>"});
                     aoData.push({"name": "offset", "value": "1"});
                     aoData.push({"name": "rowCount", "value": "10"});
@@ -307,7 +307,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                        
                     }).error(function(error) { alert("failure"); });;
             };
-			if("<?php echo $profil ?>" === "admin") {
+			if("<?php echo $profil ?>" === "admin" || "<?php echo $login?>" === "directeur" ) {
                             loadStats("*","<?php echo $login?>");
                         }
                         else 
