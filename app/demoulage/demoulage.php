@@ -649,7 +649,7 @@ $codeUsine = $_COOKIE['codeUsine'];
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var numero= $('#numero').val();
-            var quantiteAdemouler= x$('#quantiteAdemouler').val();
+            var quantiteAdemouler= $('#quantiteAdemouler').val();
             var quantiteDemoulee= $('#quantiteDemoulee').val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
@@ -783,10 +783,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 			},
 	
 			submitHandler: function (form) {
-                            if(verifierPoidsTotal());
-                                alert("cc");
-                            
-				//DemoulageProcess();
+                            if(verifierPoidsTotal())
+                                DemoulageProcess();
 			},
 			invalidHandler: function (form) {
 			}

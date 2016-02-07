@@ -113,10 +113,10 @@ class DemoulageQueries {
         if($sWhere !== "")
     		$sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'select distinct(d.id) as demoulageId, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT nombreCarton FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+            $sql = 'select distinct(d.id) as demoulageId, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
         }
         else {
-            $sql = 'select distinct(d.id) as demoulageId, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT nombreCarton FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+            $sql = 'select distinct(d.id) as demoulageId, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
 
         }
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
