@@ -64,6 +64,9 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_LIST_PRODUITS:
                                 $this->doGetListProduit($request);
                                 break;
+                        case \App::ACTION_DETAIL_PRODUIT:
+                                $this->doDetailProduit($request);
+                                break;
                         
                         
                     }
@@ -431,6 +434,60 @@ class ProduitController extends BaseController implements BaseAction {
         }
     }
     
+    
+    public function doDetailProduit($request) {
+    	try {
+    		$produitManager = new ProduitManager();
+    		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
+    			// Begin order from dataTable
+    			$sOrder = "";
+    			$aColumns = array('libelle', 'stockProvisoire', 'quantiteAchetee', 'quantiteDemoulee','quantiteFacturee','stockReel');
+    			if (isset($request['iSortCol_0'])) {
+    				$sOrder = "ORDER BY  ";
+    				for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
+    					if ($request['bSortable_' . intval($request['iSortCol_' . $i])] == "true") {
+    						$sOrder .= "" . $aColumns[intval($request['iSortCol_' . $i])] . " " .
+    								($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+    					}
+    				}
+    
+    				$sOrder = substr_replace($sOrder, "", -2);
+    				if ($sOrder == "ORDER BY") {
+    					$sOrder .= " stock desc";
+    				}
+    			}
+    			// End order from DataTable
+    			// Begin filter from dataTable
+    			$sWhere = "";
+    			if (isset($request['sSearch']) && $request['sSearch'] != "") {
+    				$sSearchs = explode(" ", $request['sSearch']);
+    				for ($j = 0; $j < count($sSearchs); $j++) {
+    					$sWhere .= "( ";
+    					for ($i = 0; $i < count($aColumns); $i++) {
+    						$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+    						if ($i == count($aColumns) - 1)
+    							$sWhere = substr_replace($sWhere, "", -3);
+    					}
+    					$sWhere = $sWhere .=")";
+    				}
+    			}
+    			// End filter from dataTable
+    			$demoulages = $produitManager->retrieveConsultDetailProduit($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			if ($demoulages != null) {
+    				$nb = $produitManager->countAllProduitsDemoulages($request['codeUsine'],$sWhere);
+    				$this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
+    			} else {
+    				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
+    			}
+    		} else {
+    			throw new Exception('list failed');
+    		}
+    	} catch (Exception $e) {
+    		throw $e;
+    	} catch (Exception $e) {
+    		throw new Exception('ERREUR SERVEUR');
+    	}
+    }
     
 }
 
