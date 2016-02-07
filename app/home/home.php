@@ -307,7 +307,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                        
                     }).error(function(error) { alert("failure"); });;
             };
-			if("<?php echo $profil ?>" === "admin" || "<?php echo $login?>" === "directeur" ) {
+			if("<?php echo $profil ?>" === "admin" || "<?php echo $profil?>" === "directeur" ) {
                             loadStats("*","<?php echo $login?>");
                         }
                         else 
