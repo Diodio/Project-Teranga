@@ -4,11 +4,7 @@ namespace Achat;
 
 use Achat\AchatQueries as AchatQueries;
 
-/**
- * Cette classe communique avec la classe ContactQueries
- * Elle sert d'intermédiaire entre le controleur ContactControleur et les queries 
- * qui se trouve dans ContactQueries
- */
+
 class AchatManager {
 
     private $achatQuery;
