@@ -199,8 +199,21 @@ public function findStatisticByUsine($codeUsine) {
                 $stockProvisoire->setProduit($produit);
                 $stockProvisoire->setStock($value ['quantite']);
                 $stockManager->insert($stockProvisoire);
+                
             } else {
                 $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+            }
+            
+            
+            $StockAcheteManager = new \Stock\StockAcheteManager();
+            $stockA = $StockAcheteManager->findStockAcheteByProduitId($value ['produit_id'], $value ['codeUsine']);
+            if ($stockA == 0) {
+            	$stockAchete = new \Stock\StockAchete();
+            	$stockAchete->setQuantiteAchetee($value ['quantite']);
+            	$StockAcheteManager->insert($stockAchete);
+            }
+            else {
+            	$StockAcheteManager->updateNbStockAchete($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
             }
         }
     }

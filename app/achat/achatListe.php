@@ -31,7 +31,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <option value="*" class="types">Filtrer par type achat</option>
                          <option value="0" class="orange bigger-130 icon-only">Achats non validés</option>
                          <option value="1" class="green bigger-130 icon-only">Achats validés</option>
-                         <option value="2" class="red bigger-130 icon-only">Achats validés</option>
+                         <option value="2" class="red bigger-130 icon-only">Achats annulés</option>
                 </select>
             </div>
             <div class="col-sm-8">

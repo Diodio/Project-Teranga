@@ -83,6 +83,8 @@ return array(
     'Reglement\\ReglementQueries' => $baseDir . '/../backend/src/bo/reglement/ReglementQueries.php',
     'StockController' => $baseDir . '/../backend/src/bo/stock/StockController.php',
     'Stock\\StockAchete' => $baseDir . '/../backend/src/be/StockAchete.php',
+    'Stock\\StockAcheteManager' => $baseDir . '/../backend/src/bo/stock/StockAcheteManager.php',
+    'Stock\\StockAcheteQueries' => $baseDir . '/../backend/src/bo/stock/StockAcheteQueries.php',
     'Stock\\StockFacture' => $baseDir . '/../backend/src/be/StockFacture.php',
     'Stock\\StockManager' => $baseDir . '/../backend/src/bo/stock/StockManager.php',
     'Stock\\StockProvisoire' => $baseDir . '/../backend/src/be/StockProvisoire.php',
