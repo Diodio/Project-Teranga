@@ -293,4 +293,34 @@ class ProduitQueries {
         else
             return null;
     }
+    
+    
+    public function retrieveConsultDetailProduit($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	if($sWhere !== "")
+    		$sWhere = " and " . $sWhere;
+    	if($codeUsine !== '*')  {
+    		$sql = 'SELECT DISTINCT produit.id id, libelle, sp.stock stockProvisoire , sa.quantiteAchetee, 
+    				d.quantiteDemoulee, sf.quantiteFacturee, sr.stock stockReel
+    				 FROM produit, stock_provisoire sp, stock_achete sa, demoulage d, stock_facture sf, stock_reel sr
+                    WHERE  produit.id=sr.produit_id AND produit.id=sp.produit_id AND 
+    				       produit.id=sa.produitId AND produit.id=d.produit_id AND
+    				       produit.id=sf.produitId AND
+    				       sr.codeUsine="'.$codeUsine.'" GROUP BY 
+    				       produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+    	}
+    	else {
+    		$sql = 'SELECT DISTINCT produit.id id, libelle, sp.stock stockProvisoire , sa.quantiteAchetee, 
+    				d.quantiteDemoulee, sf.quantiteFacturee, sr.stock stockReel
+    				 FROM produit, stock_provisoire sp, stock_achete sa, demoulage d, stock_facture sf, stock_reel sr
+                    WHERE  produit.id=sr.produit_id AND produit.id=sp.produit_id AND 
+    				       produit.id=sa.produitId AND produit.id=d.produit_id AND
+    				       produit.id=sf.produitId GROUP BY 
+    				       produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+    	}
+    	$sql = str_replace("`", "", $sql);
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$products = $stmt->fetchAll();
+    	return $products;
+    }
 }

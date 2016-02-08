@@ -355,7 +355,7 @@
                             '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
                             '</button>');
                             btnGrps.click(function(){
-                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+                                $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
                                 data=$.parseJSON(data);
                                 var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
                                 $.each(data , function(i) { 
@@ -412,7 +412,7 @@
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_VALID; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_DETAIL_PRODUIT; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
