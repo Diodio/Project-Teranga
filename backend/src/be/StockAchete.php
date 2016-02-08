@@ -12,9 +12,9 @@ class StockAchete {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="integer",nullable=true)
      * */
-    protected $numeroAchat;
+    protected $achatId;
     
     /**
      * @Column(type="integer",nullable=true)
@@ -36,8 +36,63 @@ class StockAchete {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
-  
+    function getId() {
+        return $this->id;
+    }
 
+    function getAchatId() {
+        return $this->achatId;
+    }
+
+    function getProduitId() {
+        return $this->produitId;
+    }
+
+    function getQuantiteAchetee() {
+        return $this->quantiteAchetee;
+    }
+
+    function getCreatedDate() {
+        return $this->createdDate;
+    }
+
+    function getUpdatedDate() {
+        return $this->updatedDate;
+    }
+
+    function getDeleteDate() {
+        return $this->deleteDate;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setAchatId($achatId) {
+        $this->achatId = $achatId;
+    }
+
+    function setProduitId($produitId) {
+        $this->produitId = $produitId;
+    }
+
+    function setQuantiteAchetee($quantiteAchetee) {
+        $this->quantiteAchetee = $quantiteAchetee;
+    }
+
+    function setCreatedDate($createdDate) {
+        $this->createdDate = $createdDate;
+    }
+
+    function setUpdatedDate($updatedDate) {
+        $this->updatedDate = $updatedDate;
+    }
+
+    function setDeleteDate($deleteDate) {
+        $this->deleteDate = $deleteDate;
+    }
+
+    
         
 /** @PrePersist */
     public function doPrePersist() {

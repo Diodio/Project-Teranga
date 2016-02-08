@@ -342,42 +342,42 @@
 //                             }
                         },
                         {
-                        "aTargets": [4],
-                        "bSortable": false,
-                        "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-                            $(nTd).css('text-align', 'center');
-                            $(nTd).text('');
-                            $(nTd).addClass('td-actions');
-                            action=$('<div></div>');
-                            action.addClass('hidden-phone pull-right visible-desktop action-buttons');
-                            
-                            btnGrps=$('<button id="colis'+oData[0]+'" class="center btn btn-warning btn-mini" href="#">'+
-                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
-                            '</button>');
-                            btnGrps.click(function(){
-                                $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
-                                data=$.parseJSON(data);
-                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
-                                $.each(data , function(i) { 
-                                    str= data [i].toString();
-                                    var substr = str.split(',');
-                                    htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
-                                // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
-                                 
-                                    //console.log(data [i]); 
-                                  });
-                                  htmlString+="</div>";
-                                showPopover("colis"+oData[0], ""+htmlString+"");
-                                });
-                            });
-                            btnGrps.tooltip({
-                                title: 'Consulter Détail des colis'
-                            });
-                            btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
-                            action.append(btnGrps);
-                            $(nTd).append(action);
-                           
-                        }
+//                        "aTargets": [4],
+//                        "bSortable": false,
+//                        "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+//                            $(nTd).css('text-align', 'center');
+//                            $(nTd).text('');
+//                            $(nTd).addClass('td-actions');
+//                            action=$('<div></div>');
+//                            action.addClass('hidden-phone pull-right visible-desktop action-buttons');
+//                            
+//                            btnGrps=$('<button id="colis'+oData[0]+'" class="center btn btn-warning btn-mini" href="#">'+
+//                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
+//                            '</button>');
+//                            btnGrps.click(function(){
+//                                $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+//                                data=$.parseJSON(data);
+//                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
+//                                $.each(data , function(i) { 
+//                                    str= data [i].toString();
+//                                    var substr = str.split(',');
+//                                    htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
+//                                 htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
+//                                 
+//                                    //console.log(data [i]); 
+//                                  });
+//                                  htmlString+="</div>";
+//                                showPopover("colis"+oData[0], ""+htmlString+"");
+//                                });
+//                            });
+//                            btnGrps.tooltip({
+//                                title: 'Consulter Détail des colis'
+//                            });
+//                            btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
+//                            action.append(btnGrps);
+//                            $(nTd).append(action);
+//                           
+//                        }
                     }
                     ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {

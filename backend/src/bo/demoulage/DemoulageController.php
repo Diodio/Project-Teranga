@@ -239,6 +239,40 @@ class DemoulageController extends BaseController  {
             $this->doError('-1', $e->getMessage());
         }
     }
+    
+     public function doAnnuler($request) {
+        try {
+            if ($request['demoulageId'] != null) {
+                $demoulageManager = new DemoulageManager();
+                $demoulageManager->annulerStockReekParDemoulagId ($request['demoulageId']);
+                $this->doSuccess($request['demoulageId'], 'Annulation effectuee avec succes');
+            } else {
+                $this->doError('-1', 'Params not enough');
+            }
+        }  catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
+    }
+    public function doRemove($request) {
+        $this->logger->log->info('Action Remove demoulage');
+        $this->logger->log->info(json_encode($request));
+        try{
+            if(isset($request['demoulageId'])){
+                $this->logger->log->info('Remove with params : '.$request['demoulageId']);
+                $demoulageId=$request['demoulageId'];
+                $demoulageManager=new DemoulageManager();
+                $nbModified= $demoulageManager->remove($demoulageId);
+                $this->doSuccess($nbModified, 'demoulage supprime');
+            }else{
+                $this->logger->log->error('Remove : Params not enough');
+                $this->doError('-1', 'Impossible de supprimer cet achat');
+            }
+        }  catch (Exception $e) {
+            $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            throw new Exception('Erreur lors du traitement de votre requete');
+        }
+    }
+    
 }
 
 $oDemoulageController = new DemoulageController($_REQUEST);

@@ -12,9 +12,9 @@ class StockFacture {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="integer",nullable=true)
      * */
-    protected $numeroFacture;
+    protected $factureId;
     
     /**
      * @Column(type="integer",nullable=true)

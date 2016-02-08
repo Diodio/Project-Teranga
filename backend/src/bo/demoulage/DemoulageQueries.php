@@ -35,7 +35,16 @@ class DemoulageQueries {
             return $demoulage;
         }
     }
- 
+ public function delete($achatId) {
+        $achat = $this->findById($achatId);
+        if ($achat != null && $achat->getStatus()==2) {
+            Bootstrap::$entityManager->remove($achat);
+            Bootstrap::$entityManager->flush();
+            return $achat;
+        } else {
+            return null;
+        }
+    }
     
   public function verifieDemoulage($produitId, $codeUsine) {
         $sql = 'SELECT id FROM demoulage where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
@@ -149,5 +158,45 @@ class DemoulageQueries {
         $stmt->execute();
         $lastAchat = $stmt->fetch();
         return $lastAchat['last'];
+    }
+    
+     public function findById($demoulageId) {
+            if ($demoulageId != null) {
+                    return Bootstrap::$entityManager->find('Demoulage\Demoulage', $demoulageId);
+            }
+	}
+        
+        public function annulerAchat($achatId) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Demoulage\Demoulage d set d.status=0 WHERE d.status =1 AND d.id IN( '$achatId')");
+        return $query->getResult();
+    }
+
+    /***
+     * recuperer les infos de l'achat pour l'annuation
+     */
+    public function findInfoColisByDemoulage($demoulageId) {
+        if ($demoulageId != null) {
+            $sql = 'SELECT produit_id, codeUsine,quantite, login FROM ligne_achat, achat WHERE achat.id=achat_id AND achat.id=' . $demoulageId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
+    
+    public function findInfoStockByDemoulage($demoulageId) {
+        if ($demoulageId != null) {
+            $sql = 'SELECT produit_id, codeUsine,quantite, login FROM ligne_achat, achat WHERE achat.id=achat_id AND achat.id=' . $demoulageId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
     }
 }

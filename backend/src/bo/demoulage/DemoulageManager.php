@@ -91,4 +91,25 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
     	return $this->demoulageQueries->countAll($codeUsine,$where);
     }
 
+    public function remove($achatId) {
+        return $this->demoulageQueries->delete($achatId);
+    }
+    public function annulerDemoulage($demoulageId) {
+        return $this->demoulageQueries->annulerDemoulage($demoulageId);
+    }
+    
+    public function annulerStockReekParDemoulagId($demoulageId) {
+        $demou = $this->demoulageQueries->findById($demoulageId);
+        if ($demou->getStatus() == 1) {
+            $infoStocks = $this->demoulageQueries->findInfoStockByDemoulage($demoulageId);
+            $infoColis = $this->demoulageQueries->findInfoColisByDemoulage($demoulageId);
+            if ($demoulage != NULL) {
+                foreach ($demoulage as $key => $value) {
+                    $stockManager = new \Stock\StockManager();
+                    $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+                }
+                $this->annulerDemoulage($demoulageId);
+            }
+        }
+    }
 }
