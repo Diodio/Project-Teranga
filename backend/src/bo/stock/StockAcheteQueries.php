@@ -28,187 +28,31 @@ public function insert($stock) {
         return $stock;
     }
 }
-    
-public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function findStocksAcheteById($achatId, $produitId) {
+        $sql = "SELECT id FROM stock_achete where achatId = '$achatId' and produitId='$produitId'";
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stockId = $stmt->fetch();
+        if($stockId!=null)
+            return $stockId['id'];
+        return null;
+    }
+    public function findById($stockAcheteId) {
+        if ($stockAcheteId != null) {
+            return Bootstrap::$entityManager->find('Stock\StockAchete', $stockAcheteId);
+        }
+    }
+
+     public function delete($stockAchete) {
+            Bootstrap::$entityManager->remove($stockAchete);
+            Bootstrap::$entityManager->flush();
+            return $stockAchete;
         
-            $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
-                    FROM produit,stock_reel WHERE produit.id=produit_id  ' . $sWhere . ' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-      
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $products = $stmt->fetchAll();
-        $arrayStocks = array();
-        $i = 0;
-        foreach ($products as $key => $value) {
-            $arrayStocks [$i] [] = $value ['libelle'];
-            $arrayStocks [$i] [] = $value ['stock'];
-            $arrayStocks [$i] [] = $value ['seuil'];
-            $i++;
-        }
-        return $arrayStocks;
     }
     
-
-    public function retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $orderBy = "", $sWhere = "") {
-             $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
-                    FROM produit,stock_reel WHERE produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-     
-        $sql = str_replace("`", "", $sql);
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $products = $stmt->fetchAll();
-        $arrayStocks = array();
-        $i = 0;
-        foreach ($products as $key => $value) {
-            $arrayStocks [$i] [] = $value ['libelle'];
-            $arrayStocks [$i] [] = $value ['stock'];
-            $arrayStocks [$i] [] = $value ['seuil'];
-            $i++;
-        }
-        return $arrayStocks;
-    }
-    
-    public function countAll($where="") {
-        $sql = 'select count(produit.id) as nbStocks
-                    from produit,stock_reel where produit.id=produit_id ' . $where . '';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $nbTypeStocks = $stmt->fetch();
-        return $nbTypeStocks['nbStocks'];
-    }
-
-    public function countByUsine($codeUsine, $login, $where="") {
-
-        $sql = 'select count(produit.id) as nbStocks
-                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" ' . $where . '';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $nbTypeStocks = $stmt->fetch();
-        return $nbTypeStocks['nbStocks'];
-    }
-
     public function getEntityManager() {
         return $this->entityManager;
     }
 
-    public function findTypeStockById($typeproduitId) {
-            if ($typeproduitId != null) {
-                return Bootstrap::$entityManager->find( 'Stock\TypeStock', $typeproduitId );
-            }
-        }
-    public function findAllStocks($term) {
-        $sql = 'SELECT id, libelle VALUE  FROM produit
-    		  where ( libelle LIKE "%' . $term . '%")';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $produits = $stmt->fetchAll();
-        if ($produits != null)
-            return $produits;
-        else
-            return null;
-    }
-   
-    
-     public function findStocksByName($name) {
-        $sql = 'SELECT id, stock, seuil FROM produit where libelle = "'.$name.'"';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $produit = $stmt->fetchAll();
-        if ($produit != null)
-            return $produit[0];
-        else
-            return null;
-    }
-    
-    public function findStockAcheteByProduitId($produitId, $codeUsine) {
-        $sql = 'SELECT id FROM stock_achete where produitId = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $produit = $stmt->fetchAll();
-        if ($produit != null)
-            return $produit[0];
-        else
-            return null;
-    }
-    
-    public function findStockReelByProduitId($produitId, $codeUsine) {
-        $sql = 'SELECT id FROM stock_reel where produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $produit = $stmt->fetchAll();
-        if ($produit != null)
-            return $produit[0];
-        else
-            return null;
-    }
-    
-    public function findStats($codeUsine) {
-        if($codeUsine !='*')
-            $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock_reel s, usine u WHERE s.codeUsine=u.code AND s.codeUsine='".$codeUsine."' GROUP BY nomUsine ORDER BY nomUsine DESC";
-        else
-           $sql = "SELECT u.nomUsine, u.couleur, SUM(stock) AS nbStocks  FROM stock_reel s, usine u WHERE s.codeUsine=u.code GROUP BY nomUsine ORDER BY nomUsine DESC";
-
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $stock = $stmt->fetchAll();
-        $arrayStock = array();
-        $i = 0;
-        foreach ($stock as $key => $value) {
-            $arrayStock [$i]['nomUsine'] = $value ['nomUsine'];
-            $arrayStock [$i]['couleur'] = $value ['couleur'];
-            $arrayStock [$i]['nbStocks'] = $value ['nbStocks'];
-            $i++;
-        }
-        return $arrayStock;
-    }
-    
-    
-    
-    public function recupereNombreStockParProduit($produitId, $codeUsine ) {
-        $sql = "SELECT stock  FROM stock_reel WHERE produit_id=$produitId and codeUsine='".$codeUsine."'";
-        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $stock = $stmt->fetchAll();
-        if($stock!=null)
-            return $stock[0];
-         return null;
-        
-    }
-
-    public function updateNbStockAchete($produitId, $codeUsine, $nbStock ) {			
-        $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_achete SET quantiteAchetee = quantiteAchetee + $nbStock WHERE produitId = $produitId AND codeUsine='".$codeUsine."'");
-		
-    }
-    
-    public function updateNbStockReel($produitId, $codeUsine, $nbStock ) {			
-        $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-
-    }
-    public function updateSeuilStock($produitId, $codeUsine, $nbSeuil ) {			
-        $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_reel SET seuil = $nbSeuil WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-		
-    }
-//     public function resetStockAchete($produitId, $codeUsine, $quantiteAdemouler ) {			
-//         $connexion=  Bootstrap::$entityManager->getConnection();
-//         return $connexion->executeUpdate("UPDATE stock_achete SET stock = stock - $quantiteAdemouler WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-		
-//     }
-    
-        
-    public function destockage($produitId, $codeUsine, $nbStock) {
-        if ($produitId != "" && $codeUsine != "" && $nbStock != "") {
-            $connexion = Bootstrap::$entityManager->getConnection();
-            return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");
-        }
-        return NULL;
-    }
-
-    public function destockageReel($produitId, $codeUsine, $nbStock ) {			
-        $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-		
-	}
+ 
 }

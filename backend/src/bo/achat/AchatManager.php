@@ -220,7 +220,13 @@ class AchatManager {
             if ($achat != NULL) {
                 foreach ($achat as $key => $value) {
                     $stockManager = new \Stock\StockManager();
+                    $StockAcheteManager = new \Stock\StockAcheteManager();
                     $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+                    $stockId = $StockAcheteManager->findStocksAcheteById($achatId, $value ['produit_id']);
+                    if($stockId !== null){
+                        $stockAchete = $StockAcheteManager->findById($stockId);
+                        $StockAcheteManager->delete($stockAchete);
+                    }
                 }
                 $this->annulerAchat($achatId);
             }
