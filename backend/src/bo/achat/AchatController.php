@@ -130,9 +130,9 @@ private $logger;
                                 $produit= $produitManager->findById($produitId);
                                 $ligneAchat->setProduit($produit);
                                 $this->logger->log->info("m " . $ligne['pu']);
-                                $ligneAchat->setPrixUnitaire($ligne['pu']);
+                               // $ligneAchat->setPrixUnitaire($ligne['pu']);
                                 $ligneAchat->setQuantite($ligne['qte']);
-                                $ligneAchat->setMontant($ligne['montant']);
+                                //$ligneAchat->setMontant($ligne['montant']);
                                 $ligneAchatManager = new \Achat\LigneAchatManager();
                                 $ligneAchatManager->insert($ligneAchat); 
                             }

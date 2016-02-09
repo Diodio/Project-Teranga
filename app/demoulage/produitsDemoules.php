@@ -32,20 +32,24 @@
                             <i class="ace-icon fa fa-users orange"></i>
                             Produits demoulés
                         </h4>
-                                        
+                        <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="" style="margin-right: 10px;">
+                        <option value="*" class="types">Filtrer par type </option>
+                         <option value="0" class="red bigger-130 icon-only">Annulés</option>
+                         <option value="1" class="orange bigger-130 icon-only">Validés</option>
+                </select>
                                        <div class="btn-group">
                                             <button id="MNU_ANNULATION"
                                                     class="btn btn-primary btn-mini tooltip-info disabled"
                                                     data-rel="tooltip" data-placement="top"
-                                                    title="Annuler D�moulage">
+                                                    title="Annuler Demoulage">
                                                 <i class="icon-cloud-download icon-only"></i> Annuler
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="GRP_REMOVE"
+                                            <button id="MNU_REMOVE"
                                                     class="btn btn-primary btn-mini tooltip-info disabled"
                                                     data-rel="tooltip" data-placement="top"
-                                                    title="Supprimer D�moulage">
+                                                    title="Supprimer D�moulage">
                                                 <i class="icon-cloud-download icon-only"></i> Supprimer
                                             </button>
                                         </div>
@@ -65,6 +69,9 @@
                                          <input type="checkbox" value="*" name="allchecked"/> 
                                          <span class="lbl"></span> 
                                      </label> 
+                                </th>
+                                 <th style="border-left: 0px none;border-right: 0px none;">
+                                    
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Date
@@ -108,6 +115,7 @@
             var oTableDemoulages= null;
             var nbTotalDemoulagesChecked=0;
             var checkedDemoulages = new Array();
+            $('#CMB_TYPE').select2();
             // Check if an item is in the array
            // var interval = 500;
            
@@ -245,9 +253,10 @@
             $('#SAVE').attr("disabled", true);
             MessageSelected = function(click)
             {
+                enableRelevantDemoulageMenu();
                 if (checkedDemoulages.length == 1){
                     $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedDemoulages[0]);
+                    //loadDemoulagesSelected(checkedDemoulages[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -269,9 +278,10 @@
             };
             MessageUnSelected = function()
             {
+                enableRelevantDemoulageMenu();
                if (checkedDemoulages.length === 1){
-                   $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedDemoulages[0]);
+                   //$('#SAVE').attr("disabled", false);
+                   // loadDemoulagesSelected(checkedDemoulages[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -326,7 +336,7 @@
                 content: colis
             }).popover('toggle');
          };
-             loadDemoulages = function() {
+             loadDemoulages = function(status) {
                 nbTotalDemoulagesChecked = 0;
                 checkedDemoulages = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php';
@@ -356,7 +366,23 @@
                              }
                         },
                         {
-                        "aTargets": [7],
+                            "aTargets": [1],
+                            "bSortable": false,
+                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                $(nTd).css('text-align', 'center');
+                            },
+                            "mRender": function(data, type, full) {
+                               var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
+                                if (data == 0)
+                                    src += '<span class=" tooltip-error" title="Non valid�"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                else if (data == 1)
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Valid�"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                              
+                                return src;
+                            }
+                        },
+                        {
+                        "aTargets": [8],
                         "bSortable": false,
                         "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                             $(nTd).css('text-align', 'center');
@@ -435,6 +461,7 @@
                         }
                         else
                             aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "status", "value": status});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",
@@ -459,49 +486,55 @@
                 });
             };
             
-            loadDemoulages();
-            loadDemoulagesSelected = function(produitId)
-            {
-                 var url;
-                 url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
-
-                $.post(url, {produitId: produitId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
-                  data = $.parseJSON(data);
-                 // data = data[0];
-                    $('#nomProduit').text(data.designation);
-                    $('#stockProvisoire').val(data.stockProvisoire);
-                    //$('#stockReel').val(data.stockReel);
-                    
-               }).error(function(error) { });
-            };
-
-            $("#MNU_VALIDATION").click(function()
-            {
-                if (checkedDemoulages.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedDemoulages.length >= 1)
-                {
-                     bootbox.confirm("Voulez vous vraiment valider cet achat", function(result) {
-                    if(result){
-                    var produitId = checkedDemoulages[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
-                    {
-                        if (data.rc == 0)
-                        {
-                            bootbox.alert("Demoulages(s) validé(s)");
-                        }
-                        else
-                        {
-                            bootbox.alert(data.error);
-                        }
-                    }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
-                        });
-                         }
-                    });
+            loadDemoulages('*');
+            
+            $('#CMB_TYPE').change(function() {
+                if($('#CMB_TYPE').val()!=='*') {
+                    loadDemoulages($('#CMB_TYPE').val());
+                }
+                else {
+                    loadDemoulages('*');
                 }
             });
+            
+             enableRelevantDemoulageMenu = function()
+	{   
+            if (checkedDemoulages.length == 1)
+            {
+                $('#MNU_ANNULATION').removeClass('disabled');
+                $('#MNU_REMOVE').removeClass('disabled');
+                var state = $('#stag' + checkedDemoulages[0]).val();
+                 if (state == 1) {
+                         $('#MNU_REMOVE').addClass('disabled');
+                         $('#MNU_ANNULATION').removeClass('disabled');
+                 }
+                  else if (state == 0) {
+                      //if($.cookie('profil')=='directeur') {
+                        $('#MNU_REMOVE').removeClass('disabled');
+                        $('#MNU_ANNULATION').addClass('disabled');
+                   // }
+                      
+                  }
+                          
+            }
+            else if (checkedDemoulages.length > 1){
+               $('#MNU_REMOVE').addClass('disabled');
+                $('#MNU_ANNULATION').addClass('disabled');
+               
+                // bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+            }
+            else{
+                $('#MNU_REMOVE').addClass('disabled');
+                $('#MNU_ANNULATION').addClass('disabled');
 
+            }
+            };
+            loadDemoulagesSelected = function(produitId)
+            {
+               //enableRelevantDemoulageMenu();
+            };
+
+           
 
             
             $("#MNU_ANNULATION").click(function()
@@ -510,28 +543,55 @@
                     bootbox.alert("Veuillez selectionnez un achat");
                 else if (checkedDemoulages.length >= 1)
                 {
-                     bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
+                     bootbox.confirm("Voulez vous vraiment annuler ce demoulage", function(result) {
                     if(result){
-                    var produitId = checkedDemoulages[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    var demoulageId = checkedDemoulages[0];
+                   
+                    $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {demoulageId: demoulageId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
                     {
                         if (data.rc === 0)
                         {
-                            bootbox.alert("Demoulages(s) annulés(s)");
-                            
+                            bootbox.alert("Demoulage annulé");
+                            loadDemoulages($('#CMB_TYPE').val());
                         }
                         else
                         {
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
-                        });
-                         }
+                    }
                     });
                 }
             });
             
+            $("#MNU_REMOVE").click(function()
+            {
+                if (checkedDemoulages.length == 0)
+                    bootbox.alert("Veuillez selectionnez un demoulage");
+                else if (checkedDemoulages.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment supprimer ce demoulage", function(result) {
+                    if(result){
+                    var demoulageId = checkedDemoulages[0];
+                    $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {demoulageId: demoulageId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Demoulage supprimé");
+                             loadDemoulages($('#CMB_TYPE').val());
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                   
+                         }
+                         
+                  
+                    });
+                }
+            });
         DemoulageProcess = function ()
         {
             

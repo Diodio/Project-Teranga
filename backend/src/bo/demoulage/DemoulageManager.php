@@ -53,12 +53,13 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
         return $res;
     }
 
-    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	$demoulage = $this->demoulageQueries->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($status,$codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	$demoulage = $this->demoulageQueries->retrieveAll($status,$codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     	$arrayDemoulages = array();
     	$i = 0;
     	foreach ($demoulage as $key => $value) {
             $arrayDemoulages [$i] [] = $value ['demoulageId'];
+            $arrayDemoulages [$i] [] = $value ['status'];
             $arrayDemoulages [$i] [] = $value ['date'];
             $arrayDemoulages [$i] [] = $value ['numero'];
             $arrayDemoulages [$i] [] = $value ['libelle'];
@@ -91,25 +92,35 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
     	return $this->demoulageQueries->countAll($codeUsine,$where);
     }
 
-    public function remove($achatId) {
-        return $this->demoulageQueries->delete($achatId);
+    public function remove($demoulageId) {
+        return $this->demoulageQueries->delete($demoulageId);
     }
-    public function annulerDemoulage($demoulageId) {
-        return $this->demoulageQueries->annulerDemoulage($demoulageId);
+    public function annulerDemoulageId($demoulageId) {
+        return $this->demoulageQueries->annulerDemoulageId($demoulageId);
     }
     
-    public function annulerStockReekParDemoulagId($demoulageId) {
+    public function annulerParDemoulagId($demoulageId) {
+        $stockManager = new \Stock\StockManager();
         $demou = $this->demoulageQueries->findById($demoulageId);
         if ($demou->getStatus() == 1) {
-            $infoStocks = $this->demoulageQueries->findInfoStockByDemoulage($demoulageId);
+            $codeUsine=$demou->getCodeUsine();
+            $produitId=$demou->getProduit()->getId();
+            $quantiteAdemouler=$demou->getQuantiteAdemouler();
+            $quantiteDemoulee=$demou->getQuantiteDemoulee();
+            if($produitId!==NULL && $quantiteAdemouler!==NULL && $quantiteDemoulee!==NULL){
+            $stockManager->updateNbStock($produitId, $codeUsine, $quantiteAdemouler);
+            $stockManager->destockageReel($produitId, $codeUsine, $quantiteDemoulee);
+            //$infoStocks = $this->demoulageQueries->findInfoStockByDemoulage($demoulageId);
             $infoColis = $this->demoulageQueries->findInfoColisByDemoulage($demoulageId);
-            if ($demoulage != NULL) {
-                foreach ($demoulage as $key => $value) {
-                    $stockManager = new \Stock\StockManager();
-                    $stockManager->destockage($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+            if ($infoColis != NULL) {
+                foreach ($infoColis as $key => $value) {
+                    $this->demoulageQueries->diminueCartonParDemoulageId($value ['produitId'], $value ['nombreCarton'], $value ['quantiteParCarton']);
                 }
-                $this->annulerDemoulage($demoulageId);
+                
+                
             }
+            }
+            $this->annulerDemoulageId($demoulageId);
         }
     }
 }

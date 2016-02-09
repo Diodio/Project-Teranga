@@ -45,7 +45,8 @@ class Carton {
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
     
-    /** @ManyToOne(targetEntity="Produit\Demoulage", inversedBy="demoulage", cascade={"persist"}) */
+    /** @ManyToOne(targetEntity="Produit\Demoulage", inversedBy="demoulage")
+     * @JoinColumn(name="demoulage_id", referencedColumnName="id", onDelete="CASCADE") */
     protected $demoulage;
     
     function getId() {

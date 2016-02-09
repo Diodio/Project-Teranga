@@ -41,9 +41,13 @@ class DemoulageController extends BaseController  {
                                         case \App::ACTION_GET_LAST_NUMBER:
                                                 $this->doGetLastNumber($request);
                                                 break;
-
-
-				}
+                                        case \App::ACTION_DESACTIVER:
+                                                $this->doAnnuler($request);
+                                                break;
+                                        case \App::ACTION_REMOVE:
+                                            $this->doRemove($request);
+                                            break;
+                        }
 			} else {
 				throw new Exception('NO ACTION');
 			}
@@ -212,9 +216,9 @@ class DemoulageController extends BaseController  {
 					}
 				}
 				// End filter from dataTable
-				$demoulages = $demoulageManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+				$demoulages = $demoulageManager->retrieveAll($request['status'],$request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
 				if ($demoulages != null) {
-					$nb = $demoulageManager->countAll($request['codeUsine'],$sWhere);
+					$nb = $demoulageManager->countAll($request['status'],$request['codeUsine'],$sWhere);
 					$this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
 				} else {
 					$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -244,7 +248,7 @@ class DemoulageController extends BaseController  {
         try {
             if ($request['demoulageId'] != null) {
                 $demoulageManager = new DemoulageManager();
-                $demoulageManager->annulerStockReekParDemoulagId ($request['demoulageId']);
+                $demoulageManager->annulerParDemoulagId ($request['demoulageId']);
                 $this->doSuccess($request['demoulageId'], 'Annulation effectuee avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
@@ -254,21 +258,16 @@ class DemoulageController extends BaseController  {
         }
     }
     public function doRemove($request) {
-        $this->logger->log->info('Action Remove demoulage');
-        $this->logger->log->info(json_encode($request));
         try{
             if(isset($request['demoulageId'])){
-                $this->logger->log->info('Remove with params : '.$request['demoulageId']);
                 $demoulageId=$request['demoulageId'];
-                $demoulageManager=new DemoulageManager();
+                $demoulageManager = new DemoulageManager();
                 $nbModified= $demoulageManager->remove($demoulageId);
                 $this->doSuccess($nbModified, 'demoulage supprime');
             }else{
-                $this->logger->log->error('Remove : Params not enough');
-                $this->doError('-1', 'Impossible de supprimer cet achat');
+                $this->doError('-1', 'Impossible de supprimer ce demoulage');
             }
         }  catch (Exception $e) {
-            $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
             throw new Exception('Erreur lors du traitement de votre requete');
         }
     }

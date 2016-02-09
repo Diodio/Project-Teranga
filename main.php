@@ -823,7 +823,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_DEMOULAGE").attr("Class", "active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produistDemoules.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitsDemoules.php", function () {
                  });
                  });
                   $("#MNU_DEMOULAGE_LIST").click(function (e) {

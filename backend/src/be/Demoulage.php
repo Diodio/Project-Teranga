@@ -30,6 +30,11 @@ class Demoulage {
      * @Column(type="string", length=60, nullable=false)
      * */
     protected $codeUsine;
+    
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $status;
    
     /**
      * @Column(type="string", length=60, nullable=false)
@@ -138,9 +143,17 @@ class Demoulage {
         $this->quantiteDemoulee = $quantiteDemoulee;
     }
 
-    
-             /** @PrePersist */
+    function getStatus() {
+        return $this->status;
+    }
+
+    function setStatus($status) {
+        $this->status = $status;
+    }
+
+                 /** @PrePersist */
     public function doPrePersist() {
+        $this->status = 1;
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
