@@ -352,8 +352,8 @@ private $logger;
         try {
             if ($request['achatId'] != null) {
                 $achatManager = new AchatManager();
-                
-                //if($valid==1)
+                $valid = $achatManager->validAchat($request['achatId']);
+                if($valid==1)
                     $achatManager->ajoutStockParAchact ($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Validation effectu� avec succes');
             } else {
