@@ -540,8 +540,8 @@
             $("#MNU_ANNULATION").click(function()
             {
                 if (checkedDemoulages.length == 0)
-                    bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedDemoulages.length >= 1)
+                    bootbox.alert("Veuillez selectionnez un démoulage");
+                else if (checkedDemoulages.length == 1)
                 {
                      bootbox.confirm("Voulez vous vraiment annuler ce demoulage", function(result) {
                     if(result){
@@ -561,6 +561,10 @@
                     }, "json");
                     }
                     });
+                }
+                else if (checkedDemoulages.length > 1)
+                {
+                	bootbox.alert("Veuillez choisir un seul démoulage SVP!");
                 }
             });
             
