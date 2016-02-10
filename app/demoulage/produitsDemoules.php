@@ -34,8 +34,8 @@
                         </h4>
                         <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="" style="margin-right: 10px;">
                         <option value="*" class="types">Filtrer par type </option>
-                         <option value="0" class="red bigger-130 icon-only">Annulés</option>
-                         <option value="1" class="orange bigger-130 icon-only">Validés</option>
+                         <option value="0" class="red bigger-130 icon-only">Démoulages annulés</option>
+                         <option value="1" class="orange bigger-130 icon-only">Démoulages validés</option>
                 </select>
                                        <div class="btn-group">
                                             <button id="MNU_ANNULATION"
