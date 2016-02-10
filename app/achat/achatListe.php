@@ -791,13 +791,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                         var row = $('<tr id='+element.id+' />');
                         $("#TABLE_ACHATS tbody").append(row); 
                         var pu='';
-                        if(element.prixUnitaire != 0)
-                            pu=element.prixUnitaire
+                        var mt=0;
+                        if(element.prixUnitaire !== 0 && element.prixUnitaire !== null){
+                            pu=element.prixUnitaire;
+                        }
+                        if(element.montant !== 0 && element.montant !== null){
+                            mt=element.montant;
+                        }
                         row.append($('<td  id="ligneId'+index+'">'+element.id+'</td>'));
                         row.append($('<td  id="designation'+index+'">'+element.designation+'</td>'));
                         row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
                         row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
-                        row.append($('<td class="montant" id="montant'+index+'">'+element.montant+'</td>'));
+                        row.append($('<td class="montant" id="montant'+index+'">'+mt+'</td>'));
                         //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                          loadEditable(index);
                     });
