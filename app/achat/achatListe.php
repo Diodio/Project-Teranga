@@ -33,12 +33,20 @@ $codeUsine = $_COOKIE['codeUsine'];
                          <option value="1" class="green bigger-130 icon-only">Achats validés</option>
                          <option value="2" class="red bigger-130 icon-only">Achats annulés</option>
                 </select>
+                                            <button id="BTN_NEW"
+                                                    class="btn btn-primary btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Nouveau Achat">
+                                                <i class="icon-cloud-upload icon-only"></i> Nouveau
+                                            </button>
             </div>
+            
             <div class="col-sm-8">
                     <div class="col-lg-1">
                         <div class="btn-group">
+                          
                                     <button data-toggle="dropdown"
-                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info" 
                                             data-rel="tooltip" data-placement="top" title="Famille de produit" style="
                                             height: 32px;
                                             width: 80px;
@@ -1104,7 +1112,12 @@ $codeUsine = $_COOKIE['codeUsine'];
         $("#SAVE").bind("click", function () {
             // alert(checkedAchat[0]);
              ReglementProcess(checkedAchat[0]);
-           
          });
-            });
+
+        $("#BTN_NEW").click(function()
+                {
+        	   $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
+               });
+                });
+  });
         </script>
