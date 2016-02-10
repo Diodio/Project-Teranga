@@ -267,6 +267,10 @@ $codeUsine = $_COOKIE['codeUsine'];
       $( "#qte"+counter ).keyup(function() {
             calculPoids(counter);
          });
+         
+       $( "#cart"+counter ).keyup(function() {
+            calculPoids(counter);
+         });
         
     });
     
@@ -709,8 +713,20 @@ $codeUsine = $_COOKIE['codeUsine'];
                         loadDemoulages();
                         // $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
 //                         });
-                        $('#nombreCarton').val("");
-                        $('#nombreParCarton').val("");
+                        $('#numero').val("");
+                        $('#stockProvisoire').val("");
+                        $('#quantiteAdemouler').val("");
+                        $('#quantiteDemoulee').val("");
+                        $("#tab_logic").find("tr:gt(0)").remove();
+                        i=1;
+                        $('#qte0').val("");
+                        $('#tot0').val("");
+                        $('#cart0').val("");
+//                        j=$("#tab_logic").length;
+//                        
+//                        $("#addr"+(i-1)).html('');
+//                        i--;
+		   
                     } 
                     else
                     {
