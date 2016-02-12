@@ -248,26 +248,26 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </a> <b class="arrow"></b>
                            </li>-->
                            
-                      <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
+                      <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#" class="dropdown-toggle"> <i
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Stock Réel </span>
                                 </a> <b class="arrow"></b>
                         </li>
 
                         
-                     <li id="MNU_LIST_DEMOULAGES"class="hidden"><a href="#" class="dropdown-toggle"> <i
+                     <li id="MNU_LIST_DEMOULAGES" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
                                 Demoulage </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
                         
-                            <li id="PRODUITS_A_DEMOULES" class=""><a id="PRODUITS_A_DEMOULES" href="#"> <i
+                            <li id="MNU_DEMOULAGE" class="hidden"><a id="MNU_DEMOULAGE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Démoulage </span>
                                 </a> <b class="arrow"></b>
                             </li>
                             
-                             <li id="PRODUITS_DEMOULES" class=""><a id="PRODUITS_DEMOULES" href="#"> <i
+                             <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Produits demoulés </span>
                                 </a> <b class="arrow"></b>
@@ -277,24 +277,24 @@ $nomUsine = $_COOKIE['nomUsine'];
                             
 <!--                         </ul> -->
 
-                        <li id="BONSORTIE"class="hidden"><a href="#" class="dropdown-toggle"> <i
+                        <li id="BONSORTIE" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
                                 Bon de Sortie </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                            <li id="AJOUTER_SORTIE" class=""><a id="SORTIE" href="#"> <i
+                            <li id="AJOUTER_SORTIE" class="hidden"><a id="SORTIE" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="LISTE_SORTIE" class=""><a id="LISTESORTIE" href="#"> <i
+                            <li id="LISTE_SORTIE" class="hidden"><a id="LISTESORTIE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Consulter Liste </span>
                                 </a> <b class="arrow"></b>
                             </li>
                         </ul>
                     </li>
-                      <li id="MNU_FACTURE"class="hidden"><a href="#" class="dropdown-toggle"> <i
+                      <li id="MNU_FACTURE" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
                                 Facture  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
