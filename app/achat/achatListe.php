@@ -1116,8 +1116,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 
         $("#BTN_NEW").click(function()
                 {
-        	    $("#AJOUTER_ACHATS").attr("Class", "active");
-		    	$("#LISTE_ACHATS").attr("Class", "no-active");
+        	$("#AJOUTER_ACHATS").attr("Class", "active");
+			$("#LISTE_ACHATS").attr("Class", "no-active");
         	   $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
                });
                 });

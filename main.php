@@ -248,7 +248,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </a> <b class="arrow"></b>
                            </li>-->
                            
-                      <li id="STOCK_REEL" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#" class="dropdown-toggle"> <i
+                      <li id="STOCK_REEL" class="hidden"><a id="STOCK_REEL" href="#" class="dropdown-toggle"> <i
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Stock Réel </span>
                                 </a> <b class="arrow"></b>
@@ -804,7 +804,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 });
 
-                $("#PRODUITS_A_DEMOULES").click(function (e) {
+                $("#MNU_DEMOULAGE").click(function (e) {
                 	 $("#MNU_PRODUITS").attr("Class", "no-active");
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
@@ -825,7 +825,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                  });
                  
 
-                $("#PRODUITS_DEMOULES").click(function (e) {
+                $("#MNU_DEMOULAGE_LIST").click(function (e) {
                 	 $("#MNU_PRODUITS").attr("Class", "no-active");
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
@@ -838,13 +838,13 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
-                    $("#MNU_DEMOULAGE").attr("Class", "active");
-                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#MNU_DEMOULAGE_LIST").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitsDemoules.php", function () {
                  });
                  });
-                  $("#MNU_DEMOULAGE_LIST").click(function (e) {
+                  $("#STOCK_REEL").click(function (e) {
                 	  $("#MNU_PRODUITS").attr("Class", "no-active");
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
@@ -858,7 +858,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
   					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
   					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
   					$("#MNU_DEMOULAGE").attr("Class", "no-active");
-  					$("#MNU_DEMOULAGE_LIST").attr("Class", "active");
+					$("#MNU_DEMOULAGE_LIST").attr("Class", "active");
+  					$("#STOCK_REEL").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
                  });
