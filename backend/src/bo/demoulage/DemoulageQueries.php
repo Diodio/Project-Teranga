@@ -121,14 +121,14 @@ class DemoulageQueries {
     public function retrieveAll($status, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
-        if ($codeUsine !== '*') {
-            if ($status !== '*')
+        if ($codeUsine !== "*") {
+            if ($status !== "*")
                 $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
             else {
                 $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
             }
         } else {
-            if ($status !== '*')
+            if ($status !== "*")
                 $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id  and status ="' . $status . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
             else
                 $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAdemouler, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
@@ -142,14 +142,14 @@ class DemoulageQueries {
     public function countAll($status, $codeUsine, $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
-        if ($codeUsine !== '*') {
-            if ($status !== '*')
-                $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and  and status ="' . $status . '" and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+        if ($codeUsine !== "*") {
+            if ($status !== "*")
+                $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
             else
                 $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
         }
         else {
-            if ($status !== '*')
+            if ($status !== "*")
                 $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" ' . $sWhere . '';
             else {
                 $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id ' . $sWhere . '';

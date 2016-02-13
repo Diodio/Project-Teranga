@@ -8,14 +8,16 @@ use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
+use Log\Loggers as Logger;
 use Produit\DemoulageManager as DemoulageManager;
 
 class DemoulageController extends BaseController  {
 
 	private $parameters;
-
+        private $logger;
 	function __construct($request) {
 
+       $this->logger = new Logger(__CLASS__);
 		// $this->parameters = parse_ini_file("../../../../lang/trad_fr.ini");
 		try {
 			if (isset($request['ACTION'])) {
@@ -181,6 +183,7 @@ class DemoulageController extends BaseController  {
 	
 	public function doListeDemoule($request) {
 		try {
+                    $this->logger->log->info(json_encode($request));
 			$demoulageManager = new DemoulageManager();
 			if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
 				// Begin order from dataTable
@@ -216,9 +219,9 @@ class DemoulageController extends BaseController  {
 					}
 				}
 				// End filter from dataTable
-				$demoulages = $demoulageManager->retrieveAll($request['status'],$request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+				$demoulages = $demoulageManager->retrieveAll($request['etat'],$request['usineCode'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
 				if ($demoulages != null) {
-					$nb = $demoulageManager->countAll($request['status'],$request['codeUsine'],$sWhere);
+					$nb = $demoulageManager->countAll($request['etat'],$request['usineCode'],$sWhere);
 					$this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
 				} else {
 					$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

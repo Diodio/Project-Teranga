@@ -336,7 +336,7 @@
                 content: colis
             }).popover('toggle');
          };
-             loadDemoulages = function(status) {
+             loadDemoulages = function(etat) {
                 nbTotalDemoulagesChecked = 0;
                 checkedDemoulages = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php';
@@ -457,11 +457,11 @@
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
                         if(userProfil==='admin' || userProfil==='directeur'){
-                            aoData.push({"name": "codeUsine", "value": "*"});
+                            aoData.push({"name": "usineCode", "value": "*"});
                         }
                         else
-                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
-                        aoData.push({"name": "status", "value": status});
+                            aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "etat", "value": etat});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",
@@ -540,7 +540,7 @@
             $("#MNU_ANNULATION").click(function()
             {
                 if (checkedDemoulages.length == 0)
-                    bootbox.alert("Veuillez selectionnez un démoulage");
+                    bootbox.alert("Veuillez selectionnez un dï¿½moulage");
                 else if (checkedDemoulages.length == 1)
                 {
                      bootbox.confirm("Voulez vous vraiment annuler ce demoulage", function(result) {
@@ -564,7 +564,7 @@
                 }
                 else if (checkedDemoulages.length > 1)
                 {
-                	bootbox.alert("Veuillez choisir un seul démoulage SVP!");
+                	bootbox.alert("Veuillez choisir un seul dï¿½moulage SVP!");
                 }
             });
             
