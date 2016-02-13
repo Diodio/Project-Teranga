@@ -299,8 +299,12 @@ class ProduitQueries {
     	if($sWhere !== "")
     		$sWhere = " and " . $sWhere;
     	if($codeUsine !== '*')  {
-    		$sql = 'SELECT DISTINCT produit.id id, libelle, sp.stock stockProvisoire , sa.quantiteAchetee, 
-    				d.quantiteDemoulee, sf.quantiteFacturee, sr.stock stockReel
+    		$sql = 'DISTINCT produit.id id, libelle, 
+    				(SELECT SUM(stock) stockProvisoire FROM stock_provisoire spr, produit pd WHERE pd.id=spr.produit_id GROUP BY pd.id),
+    				(SELECT SUM(quantiteAchetee) quantiteAchetee FROM stock_achete sat, produit pd WHERE pd.id=sat.produitId GROUP BY pd.id), 
+    				(SELECT SUM(quantiteDemoulee) quantiteDemoulee FROM demoulage dm, produit pd WHERE pd.id=dm.produit_id GROUP BY pd.id), 
+    				(SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, produit pd WHERE pd.id=sfa.produitId GROUP BY pd.id),
+    				(SELECT SUM(stock) stockReel FROM stock_reel sre, produit pd WHERE pd.id=sre.produit_id GROUP BY pd.id)
     				 FROM produit, stock_provisoire sp, stock_achete sa, demoulage d, stock_facture sf, stock_reel sr
                     WHERE  produit.id=sr.produit_id AND produit.id=sp.produit_id AND 
     				       produit.id=sa.produitId AND produit.id=d.produit_id AND
@@ -309,12 +313,17 @@ class ProduitQueries {
     				       produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
     	}
     	else {
-    		$sql = 'SELECT DISTINCT produit.id id, libelle, sp.stock stockProvisoire , sa.quantiteAchetee, 
-    				d.quantiteDemoulee, sf.quantiteFacturee, sr.stock stockReel
+    		$sql = 'DISTINCT produit.id id, libelle, 
+    				(SELECT SUM(stock) stockProvisoire FROM stock_provisoire spr, produit pd WHERE pd.id=spr.produit_id GROUP BY pd.id),
+    				(SELECT SUM(quantiteAchetee) quantiteAchetee FROM stock_achete sat, produit pd WHERE pd.id=sat.produitId GROUP BY pd.id), 
+    				(SELECT SUM(quantiteDemoulee) quantiteDemoulee FROM demoulage dm, produit pd WHERE pd.id=dm.produit_id GROUP BY pd.id), 
+    				(SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, produit pd WHERE pd.id=sfa.produitId GROUP BY pd.id),
+    				(SELECT SUM(stock) stockReel FROM stock_reel sre, produit pd WHERE pd.id=sre.produit_id GROUP BY pd.id)
     				 FROM produit, stock_provisoire sp, stock_achete sa, demoulage d, stock_facture sf, stock_reel sr
                     WHERE  produit.id=sr.produit_id AND produit.id=sp.produit_id AND 
     				       produit.id=sa.produitId AND produit.id=d.produit_id AND
-    				       produit.id=sf.produitId GROUP BY 
+    				       produit.id=sf.produitId AND
+    				       GROUP BY 
     				       produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
     	}
     	$sql = str_replace("`", "", $sql);
