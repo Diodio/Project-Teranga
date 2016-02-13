@@ -26,6 +26,14 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="row">
         <div class="space-6"></div>
         <div class="row">
+                          <div class="col-sm-4"> 
+       									  <button id="BTN_NEW"
+                                                    class="btn btn-primary btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Nouveau Bon de Sortie">
+                                                <i class="icon-cloud-upload icon-only"></i> Nouveau
+                                            </button>
+                            </div>
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
                     <div class="col-lg-1">
@@ -136,7 +144,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data" >
                                                             <div class="infobox-content" id="INDIC_BON_NONVALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Facturés </div>
+                                                            <div class="infobox-content" style="width:150px">Bon émis </div>
                                                         </div>
                                                     </div>
 
@@ -148,23 +156,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_BON_VALIDES">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Non facturés</div>
+                                                            <div class="infobox-content" style="width:150px">Bon recus</div>
 
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon-calendar"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_BON_ANNULES">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Annulés</div>
-
-                                                        </div>
-                                                    </div>
+                                                   
 
                                                     <div class="space-6"></div>
                                                     <br/>
@@ -631,5 +628,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             
                         }
                     });
+
+            $("#BTN_NEW").click(function()
+                    {
+            	    $("#AJOUTER_ACHATS").attr("Class", "active");
+    		    	$("#LISTE_ACHATS").attr("Class", "no-active");
+    		    	$("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieVue.php", function () {
+                    });
+                   });
             });
         </script>

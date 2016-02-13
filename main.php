@@ -248,7 +248,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </a> <b class="arrow"></b>
                            </li>-->
                            
-                      <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#" class="dropdown-toggle"> <i
+                      <li id="STOCK_REEL" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#" class="dropdown-toggle"> <i
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Stock Réel </span>
                                 </a> <b class="arrow"></b>
@@ -261,13 +261,13 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
                         
-                            <li id="MNU_DEMOULAGE" class="hidden"><a id="MNU_DEMOULAGE" href="#"> <i
+                            <li id="MNU_DEMOULAGE" class=""><a id="MNU_DEMOULAGE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Démoulage </span>
                                 </a> <b class="arrow"></b>
                             </li>
                             
-                             <li id="MNU_DEMOULAGE_LIST" class="hidden"><a id="MNU_DEMOULAGE_LIST" href="#"> <i
+                             <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Produits demoulés </span>
                                 </a> <b class="arrow"></b>
@@ -277,17 +277,17 @@ $nomUsine = $_COOKIE['nomUsine'];
                             
 <!--                         </ul> -->
 
-                        <li id="BONSORTIE" class="hidden"><a href="#" class="dropdown-toggle"> <i
+                    <li id="BONSORTIE"class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
                                 Bon de Sortie </span> <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                            <li id="AJOUTER_SORTIE" class="hidden"><a id="SORTIE" href="#"> <i
+                            <li id="AJOUTER_SORTIE" class=""><a id="SORTIE" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="LISTE_SORTIE" class="hidden"><a id="LISTESORTIE" href="#"> <i
+                            <li id="LISTE_SORTIE" class=""><a id="LISTESORTIE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Consulter Liste </span>
                                 </a> <b class="arrow"></b>
@@ -344,13 +344,6 @@ $nomUsine = $_COOKIE['nomUsine'];
                                         class="menu-icon fa fa-caret-right"></i> Détails Produits en Stock
                                 </a> <b class="arrow"></b>
                             </li>
-
-<!--                             <li id="REGLEMENT_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i -->
-<!--                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text"> -->
-<!--                                         Facture </span> -->
-<!--                                 </a> <b class="arrow"></b> -->
-<!--                             </li> -->
-
                         </ul>
                     </li>
 
@@ -360,6 +353,31 @@ $nomUsine = $_COOKIE['nomUsine'];
                                                     title="2 Important Events"> </span>
                             </span>
                         </a> <b class="arrow"></b>
+                    </li>
+                    
+                    <li id="MNU_INVENTAIRE" class="hidden"><a href="#" class="dropdown-toggle"> <i
+                                class="menu-icon fa fa-glyphicon glyphicon-arrow-left"></i> <span class="menu-text">
+                                Inventaires  </span>  <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li id="INVENTAIRE_ACHAT" class=""><a id="INV_ACHAT" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Achats
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                            <li id="INVENTAIRE_FACTURE" class=""><a id="INV_FACTURE" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Ventes </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+                            
+                             <li id="INVENTAIRE_GENERALE" class=""><a id="INV_FACTURE" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Général </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                        </ul>
                     </li>
                 </ul>
                 <!-- /.nav-list -->
@@ -507,36 +525,37 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     {
                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
-                        $('#MNU_DEMOULAGE').removeClass("hidden");
-                        $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
+                        $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                         $('#BONSORTIE').removeClass("hidden");
+                        $('#STOCK_REEL').removeClass("hidden");
                     }
                     else if(profil==='gerant') {
                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
-//                         $('#MNU_DEMOULAGE_LIST').addClass("hidden");
                     }
                     else if(profil==='admin'){
                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
-                        $('#MNU_DEMOULAGE').removeClass("hidden");
-                        $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
+                        $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                         $('#BONSORTIE').removeClass("hidden");
                         $('#MNU_FACTURE').removeClass("hidden");
                         $('#MNU_REGLEMENT').removeClass("hidden");
                         $('#MNU_CONSULTATION').removeClass("hidden");
+                        $('#MNU_INVENTAIRE').removeClass("hidden");
+                        $('#STOCK_REEL').removeClass("hidden");
                     }
                     else if(profil==='directeur'){
                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
-                        $('#MNU_DEMOULAGE').removeClass("hidden");
-                        $('#MNU_DEMOULAGE_LIST').removeClass("hidden");
+                        $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                         $('#BONSORTIE').removeClass("hidden");
                         $('#MNU_FACTURE').removeClass("hidden");
                         $('#MNU_REGLEMENT').removeClass("hidden");
                         $('#LIST_USERS').removeClass("hidden");
                         $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                         $('#MNU_CONSULTATION').removeClass("hidden");
+                        $('#MNU_INVENTAIRE').removeClass("hidden");
+                        $('#STOCK_REEL').removeClass("hidden");
                     }
                 }
                 manageProfil("<?php echo $profil;?>");
@@ -888,9 +907,28 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/produitDetail.php", function () {
                       });
                    });
-                  	
-                	
-                	
+
+                  $("#INVENTAIRE_ACHAT").click(function (e) {
+                      $("#MNU_PRODUITS").attr("Class", "no-active");
+                      $("#MNU_MAREYEURS").attr("Class", "no-active");
+                      $("#MNU_BORD").attr("Class", "no-active");
+                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                      $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                      $("#LISTE_ACHATS").attr("Class", "no-active");
+                      $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_SORTIE").attr("Class", "no-active");
+                      $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                      $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                      $("#LIST_USERS").attr("Class", "no-active");
+                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#INVENTAIRE_ACHAT").attr("Class", "active");
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/achatInventaire.php", function () {
+                      });
+                   });
 
 
             });
