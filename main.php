@@ -89,7 +89,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand"> <small> <i
+                    <a href="#" class="navbar-brand"> <small> <i
                                 class="fa fa-leaf"></i> MacFish Production <?php echo $nomUsine;?>
                         </small>
                     </a>
