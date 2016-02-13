@@ -28,7 +28,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Priode
+                            Periode
                         </h4>
                        
                         <div class="widget-toolbar">
@@ -37,35 +37,59 @@
                             </a>
                         </div>
                     </div>
-                     <div class="form-group" style="margin-top: 1%;">
-                                        <label class="col-sm-5 control-label no-padding-right"
-                                                for="form-field-1"> Du </label>
-                                        <div class="col-sm-3">
-                                                <div class="clearfix">
-                                                        <input type="text"  id="dateDebutAchat" placeholder="" style="margin-left: -174%;"
-                                                                class="col-xs-12 col-sm-10">
-                                                </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                         <div class="col-sm-3">
-                                         <label class="col-sm-5 control-label "
-                                                for="form-field-1" > Au </label>
-                                        </div>
-                                        <div class="col-sm-5">
-                                                <div class="clearfix">
-                                                        <input type="text"  id="dateFinAchat" placeholder="" style="margin-left: 28%;margin-top: -14%"
-                                                                class="col-xs-12 col-sm-10">
-                                                </div>
-                                        </div>
-                                        </div>
-                     </div>
+<!--                     <div class="form-group" style="margin-top: 1%;">
+                            <label class="col-sm-5 control-label no-padding-right"
+                                    for="form-field-1"> Du </label>
+                            <div class="col-sm-3">
+                                    <div class="clearfix">
+                                            <input type="text"  id="dateDebutAchat" placeholder="" style="margin-left: -174%;"
+                                                    class="col-xs-12 col-sm-10">
+                                    </div>
+                            </div>
+                            <div class="col-sm-8">
+                             <div class="col-sm-3">
+                             <label class="col-sm-5 control-label "
+                                    for="form-field-1" > Au </label>
+                            </div>
+                            <div class="col-sm-5">
+                                    <div class="clearfix">
+                                            <input type="text"  id="dateFinAchat" placeholder="" style="margin-left: 28%;margin-top: -14%"
+                                                    class="col-xs-12 col-sm-10">
+                                    </div>
+                            </div>
+                            </div>
+                     </div>-->
+
+<div style="float: right; margin-top: 7px;">
+    <span id="labelFrom">Du</span>
+    <input
+        class="date-picker" id="dateDebutAchat"
+        name="dateDebutAchat" type="text"
+        data-date-format="dd-mm-yyyy" />
+    <span id="labelTo" style="margin-left: -1px;">au</span>
+    <input
+        class="date-picker" id="dateFinAchat"
+        name="dateFinAchat" type="text"
+        data-date-format="dd-mm-yyyy" />
+    <button data-toggle="dropdown" id="BTN_SEARCH" style="align-content: center;margin-top: -3px;"
+            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+            data-rel="tooltip" data-placement="top" title="consulter">
+        <i class="fa fa-search bigger-120 white" style="margin-left: 1px;"></i> 
+    </button>
+    
+    <button data-toggle="dropdown" id="BTN_IMPRIMER" style="align-content: center;margin-top: -3px;"
+            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+            data-rel="tooltip" data-placement="top" title="Imprimer">
+        <i class="fa fa-print bigger-120 white" style="margin-left: 1px;"></i> 
+    </button>
+</div>
                      
-                      <div class="row clearfix">
+<!--                      <div class="row clearfix">
 				<div class="col-md-12 column">
                           <a id="MNU_IMPRIMER" class="btn btn-primary btn-sm" style="float: left; margin-top: -5%;margin-left: 87%"><i
 						class="ace-icon fa fa-plus-square"></i> Imprimer</a> 
 				</div>
-			</div>
+			</div>-->
                     <div class="widget-body">
                         <div class="widget-main no-padding">
                           <table id="ACHATS_INVENTAIRES" class="table table-striped table-bordered table-hover">
@@ -116,7 +140,12 @@
             var checkedDemoulages = new Array();
             // Check if an item is in the array
            // var interval = 500;
-           
+            $('#dateDebutAchat').datepicker({autoclose: true,language:'fr',todayHighlight:true}).on(ace.click_event, function(){
+             });
+    $('#dateFinAchat').datepicker({autoclose: true,language:'fr', todayHighlight:true}).prev().on(ace.click_event, function(){
+//            $(this).prev().focus();
+    });
+    
       var i=1;
      $("#add_row").click(function(){
     $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='number' id='cart"+i+"' name='cart"+i+"' class='form-control'/></td>\n\
