@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="col-sm-5">
                                                 <div class="clearfix">
-                                                        <input type="text"  id="dateFinAchat" placeholder="" style="margin-left: -80%;margin-top: -14%"
+                                                        <input type="text"  id="dateFinAchat" placeholder="" style="margin-left: 28%;margin-top: -14%"
                                                                 class="col-xs-12 col-sm-10">
                                                 </div>
                                         </div>
