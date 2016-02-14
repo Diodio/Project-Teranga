@@ -48,7 +48,7 @@ class AchatQueries {
     }
 
    
-    public function retrieveAchatInventaire($typeAchat,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAchatInventaire($dateDebut, $dateFin, $regle,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
