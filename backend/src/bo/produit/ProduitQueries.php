@@ -295,41 +295,25 @@ class ProduitQueries {
     }
     
     
-    public function retrieveConsultDetailProduit($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	if($sWhere !== "")
-    		$sWhere = " and " . $sWhere;
-    	if($codeUsine !== '*')  {
-    		$sql = 'DISTINCT produit.id id, libelle, 
-    				(SELECT SUM(stock) stockProvisoire FROM stock_provisoire spr, produit pd WHERE pd.id=spr.produit_id GROUP BY pd.id),
-    				(SELECT SUM(quantiteAchetee) quantiteAchetee FROM stock_achete sat, produit pd WHERE pd.id=sat.produitId GROUP BY pd.id), 
-    				(SELECT SUM(quantiteDemoulee) quantiteDemoulee FROM demoulage dm, produit pd WHERE pd.id=dm.produit_id GROUP BY pd.id), 
-    				(SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, produit pd WHERE pd.id=sfa.produitId GROUP BY pd.id),
-    				(SELECT SUM(stock) stockReel FROM stock_reel sre, produit pd WHERE pd.id=sre.produit_id GROUP BY pd.id)
-    				 FROM produit, stock_provisoire sp, stock_achete sa, demoulage d, stock_facture sf, stock_reel sr
-                    WHERE  produit.id=sr.produit_id AND produit.id=sp.produit_id AND 
-    				       produit.id=sa.produitId AND produit.id=d.produit_id AND
-    				       produit.id=sf.produitId AND
-    				       sr.codeUsine="'.$codeUsine.'" GROUP BY 
-    				       produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
-    	}
-    	else {
-    		$sql = 'DISTINCT produit.id id, libelle, 
-    				(SELECT SUM(stock) stockProvisoire FROM stock_provisoire spr, produit pd WHERE pd.id=spr.produit_id GROUP BY pd.id),
-    				(SELECT SUM(quantiteAchetee) quantiteAchetee FROM stock_achete sat, produit pd WHERE pd.id=sat.produitId GROUP BY pd.id), 
-    				(SELECT SUM(quantiteDemoulee) quantiteDemoulee FROM demoulage dm, produit pd WHERE pd.id=dm.produit_id GROUP BY pd.id), 
-    				(SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, produit pd WHERE pd.id=sfa.produitId GROUP BY pd.id),
-    				(SELECT SUM(stock) stockReel FROM stock_reel sre, produit pd WHERE pd.id=sre.produit_id GROUP BY pd.id)
-    				 FROM produit, stock_provisoire sp, stock_achete sa, demoulage d, stock_facture sf, stock_reel sr
-                    WHERE  produit.id=sr.produit_id AND produit.id=sp.produit_id AND 
-    				       produit.id=sa.produitId AND produit.id=d.produit_id AND
-    				       produit.id=sf.produitId AND
-    				       GROUP BY 
-    				       produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
-    	}
-    	$sql = str_replace("`", "", $sql);
-    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-    	$stmt->execute();
-    	$products = $stmt->fetchAll();
-    	return $products;
+    public function retrieveAllProduits($codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        if ($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        $sql = 'SELECT DISTINCT id, libelle FROM produit ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        return $products;
     }
+
+    public function countAllProduits($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+            $sql = 'SELECT count(*) nb  FROM produit ' . $sWhere . '';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nb = $stmt->fetch();
+        return $nb['nb'];
+    }
+    
 }

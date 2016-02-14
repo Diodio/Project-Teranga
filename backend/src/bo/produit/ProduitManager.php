@@ -195,17 +195,24 @@ public function retrieveTypes()
     }
     
     public function retrieveConsultDetailProduit($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	$produits = $this->produitQuery->retrieveConsultDetailProduit($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    	$produits = $this->produitQuery->retrieveAllProduits($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     	$arrayProduits = array();
     	$i = 0;
+        $stockManager = new \Stock\StockManager();
     	foreach ($produits as $key => $value) {
     		$arrayProduits [$i] [] = $value ['id'];
     		$arrayProduits [$i] [] = $value ['libelle'];
-    		$arrayProduits [$i] [] = $value ['stockProvisoire'];
-    		$arrayProduits [$i] [] = $value ['quantiteAchetee'];
-    		$arrayProduits [$i] [] = $value ['quantiteDemoulee'];
-    		$arrayProduits [$i] [] = $value ['quantiteFacturee'];
-    		$arrayProduits [$i] [] = $value ['stockReel'];
+               //var_dump($value ['id']);
+                $stockPro = $stockManager->recupereNbStockProvisoire($value ['id'], $codeUsine);
+                $quantiteAchetee = $stockManager->recupereQuantiteAchete($value ['id'], $codeUsine);
+                $quantiteDemoulee = $stockManager->recupereQuantiteDemoulee($value ['id'], $codeUsine);
+                $quantiteFacturee = $stockManager->recupereQuantiteFacturee($value ['id'], $codeUsine);
+                $stockReel = $stockManager->recupereStockReel($value ['id'], $codeUsine);
+    		$arrayProduits [$i] [] = $stockPro;
+    		$arrayProduits [$i] [] = $quantiteAchetee;
+    		$arrayProduits [$i] [] = $quantiteDemoulee;
+    		$arrayProduits [$i] [] = $quantiteFacturee;
+    		$arrayProduits [$i] [] = $stockReel;
 //    		$arrayProduits [$i] [] = $value ['stockReel'];
 //    		if($value ['nbColis'] !=null)
 //    			$arrayProduits [$i] [] = $value ['nbColis'];
@@ -215,5 +222,9 @@ public function retrieveTypes()
     		$i++;
     	}
     	return $arrayProduits;
+    }
+    
+     public function countAllProduits($codeUsine,$where="") {
+        return $this->produitQuery->countAllProduits($codeUsine,$where);
     }
 }

@@ -145,4 +145,57 @@ class StockManager {
         $this->resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler);
     }
 
+    
+  
+  public function recupereNbStockProvisoire($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+        $stock = $stockQueries->recupereNbStockProvisoire($produitId, $codeUsine);
+       $arrayStock = array();
+        $stockPro = 0;
+        if($stock['stockProvisoire']!=NULL)
+            $stockPro=$stock['stockProvisoire'];
+        return $stockPro;
+       
+  }
+  public function recupereQuantiteAchete($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+        $stock = $stockQueries->recupereQuantiteAchete($produitId, $codeUsine);
+       $arrayStock = array();
+        $stockPro = 0;
+        if($stock['quantiteAchetee']!=NULL)
+            $stockPro=$stock['quantiteAchetee'];
+        return $stockPro;
+       
+  }
+  public function recupereQuantiteDemoulee($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+        $stock = $stockQueries->recupereQuantiteDemoulee($produitId, $codeUsine);
+       $arrayStock = array();
+        $stockPro = 0;
+        if($stock['quantiteDemoulee']!=NULL)
+            $stockPro=$stock['quantiteDemoulee'];
+        return $stockPro;
+       
+  }
+  public function recupereQuantiteFacturee($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+        $stock = $stockQueries->recupereQuantiteFacturee($produitId, $codeUsine);
+       $arrayStock = array();
+        $stockPro = 0;
+        if($stock['quantiteFacturee']!=NULL)
+            $stockPro=$stock['quantiteFacturee'];
+        return $stockPro;
+       
+  }
+  public function recupereStockReel($produitId, $codeUsine ) {
+       $stockQueries = new StockQueries();
+        $stock = $stockQueries->recupereStockReel($produitId, $codeUsine);
+       $arrayStock = array();
+        $stockPro = 0;
+        if($stock['stockReel']!=NULL)
+            $stockPro=$stock['stockReel'];
+        return $stockPro;
+       
+  }
+
 }
