@@ -112,9 +112,9 @@
         
        <script type="text/javascript">
             jQuery(function ($) {
-            var oTableDemoulages= null;
-            var nbTotalDemoulagesChecked=0;
-            var checkedDemoulages = new Array();
+            var oTableAchats= null;
+            var nbTotalAchatsChecked=0;
+            var checkedAchats = new Array();
             // Check if an item is in the array
            // var interval = 500;
             $('#dateDebutAchat').datepicker({autoclose: true,language:'fr',todayHighlight:true}).on(ace.click_event, function(){
@@ -192,9 +192,9 @@
                    $("#stockReel").val("0"); 
                }
        }
-            checkedDemoulagesContains = function(item) {
-                for (var i = 0; i < checkedDemoulages.length; i++) {
-                    if (checkedDemoulages[i] == item)
+            checkedAchatsContains = function(item) {
+                for (var i = 0; i < checkedAchats.length; i++) {
+                    if (checkedAchats[i] == item)
                         return true;
                 }
                 return false;
@@ -204,7 +204,7 @@
             
             persistChecked = function() {
                 $('input[type="checkbox"]', "#LIST_ACHATS_INVENTAIRES").each(function() {
-                    if (checkedDemoulagesContains($(this).val())) {
+                    if (checkedAchatsContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
                         $(this).removeAttr('checked');
@@ -217,15 +217,15 @@
                     this.checked = that.checked;
                     if (this.checked)
                     {
-                        checkedDemoulagesAdd($(this).val());
+                        checkedAchatsAdd($(this).val());
                       //  MessageSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
-                        nbTotalDemoulagesChecked=checkedDemoulages.length;
+                        nbTotalAchatsChecked=checkedAchats.length;
                     }
                     else
                     {
-                        checkedDemoulagesRemove($(this).val());
+                        checkedAchatsRemove($(this).val());
                    //    MessageUnSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
 			$('#TAB_MSG_VIEW').hide();
@@ -237,17 +237,17 @@
              $('#LIST_ACHATS_INVENTAIRES tbody').on('click', 'input[type="checkbox"]', function() {
                 context=$(this);
                 if ($(this).is(':checked') && $(this).val() != '*') {
-                    checkedDemoulagesAdd($(this).val());
+                    checkedAchatsAdd($(this).val());
                     MessageSelected();
                 } else {
-                    checkedDemoulagesRemove($(this).val());
+                    checkedAchatsRemove($(this).val());
                     MessageUnSelected();
                 }
                 ;
                 if(!context.is(':checked')){
                     $('table th input:checkbox').removeAttr('checked');
                 }else{
-                    if(checkedDemoulages.length==nbTotalDemoulagesChecked){
+                    if(checkedAchats.length==nbTotalAchatsChecked){
                         $('table th input:checkbox').prop('checked', true);
                     }
                 }
@@ -257,9 +257,9 @@
             $('#SAVE').attr("disabled", true);
             MessageSelected = function(click)
             {
-                if (checkedDemoulages.length == 1){
+                if (checkedAchats.length == 1){
                     $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedDemoulages[0]);
+                    loadAchatsSelected(checkedAchats[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -275,15 +275,15 @@
                     $('#TAB_MSG_VIEW').hide();
                     
                 }
-                if(checkedDemoulages.length==nbTotalDemoulagesChecked){
+                if(checkedAchats.length==nbTotalAchatsChecked){
                     $('table th input:checkbox').prop('checked', true);
                 }
             };
             MessageUnSelected = function()
             {
-               if (checkedDemoulages.length === 1){
+               if (checkedAchats.length === 1){
                    $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedDemoulages[0]);
+                    loadAchatsSelected(checkedAchats[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -306,25 +306,25 @@
             };
 
             // Add checked item to the array
-            checkedDemoulagesAdd = function(item) {
+            checkedAchatsAdd = function(item) {
                 if (!checkedMessageContains(item)) {
-                    checkedDemoulages.push(item);
+                    checkedAchats.push(item);
                 }
             };
             // Remove unchecked items from the array
-            checkedDemoulagesRemove = function(item) {
+            checkedAchatsRemove = function(item) {
                 var i = 0;
-                while (i < checkedDemoulages.length) {
-                    if (checkedDemoulages[i] == item) {
-                        checkedDemoulages.splice(i, 1);
+                while (i < checkedAchats.length) {
+                    if (checkedAchats[i] == item) {
+                        checkedAchats.splice(i, 1);
                     } else {
                         i++;
                     }
                 }
             };
             checkedMessageContains = function(item) {
-                for (var i = 0; i < checkedDemoulages.length; i++) {
-                    if (checkedDemoulages[i] == item)
+                for (var i = 0; i < checkedAchats.length; i++) {
+                    if (checkedAchats[i] == item)
                         return true;
                 }
                 return false;
@@ -338,15 +338,15 @@
                 content: colis
             }).popover('toggle');
          };
-             loadDemoulages = function() {
-                nbTotalDemoulagesChecked = 0;
-                checkedDemoulages = new Array();
+             loadAchats = function(dateDebut, dateFin, regle) {
+                nbTotalAchatsChecked = 0;
+                checkedAchats = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/produit/AchatController.php';
 
-                if (oTableDemoulages != null)
-                    oTableDemoulages.fnDestroy();
+                if (oTableAchats != null)
+                    oTableAchats.fnDestroy();
 
-                oTableDemoulages = $('#LIST_ACHATS_INVENTAIRES').dataTable({
+                oTableAchats = $('#LIST_ACHATS_INVENTAIRES').dataTable({
                     "oLanguage": {
                     "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
                     "oPaginate": {
@@ -377,30 +377,9 @@
                             action=$('<div></div>');
                             action.addClass('hidden-phone pull-right visible-desktop action-buttons');
                             
-                            btnGrps=$('<button id="colis'+oData[0]+'" class="center btn btn-warning btn-mini" href="#">'+
-                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
-                            '</button>');
-                            btnGrps.click(function(){
-                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
-                                data=$.parseJSON(data);
-                                var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
-                                $.each(data , function(i) { 
-                                    str= data [i].toString();
-                                    var substr = str.split(',');
-                                    htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
-                                // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
-                                 
-                                    //console.log(data [i]); 
-                                  });
-                                  htmlString+="</div>";
-                                showPopover("colis"+oData[0], ""+htmlString+"");
-                                });
-                            });
                             btnGrps.tooltip({
                                 title: 'Consulter Détail des colis'
                             });
-                            btnGrps.css({'margin-right': '10px', 'cursor':'pointer'});
-                            action.append(btnGrps);
                             $(nTd).append(action);
                            
                         }
@@ -413,13 +392,13 @@
                             checkbox=$(this).parent().find('input:checkbox:first');
                             if(!checkbox.is(':checked')){
                                 checkbox.prop('checked', true);;
-                                checkedDemoulagesAdd(aData[0]);
+                                checkedAchatsAdd(aData[0]);
                                 MessageSelected();
                                 
                             }else{
                                 checkbox.removeAttr('checked');
                                 
-                                checkedDemoulagesRemove(aData[0]);
+                                checkedAchatsRemove(aData[0]);
                                 MessageUnSelected();
                             }
                         });
@@ -446,7 +425,10 @@
                             aoData.push({"name": "codeUsine", "value": "*"});
                         }
                         else
-                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "dateDebut", "value": dateDebut});
+                        aoData.push({"name": "dateFin", "value": dateFin});
+                        aoData.push({"name": "regle", "value": regle});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",
@@ -462,7 +444,7 @@
                               }else{
                                   $('table th input:checkbox').removeAttr('checked');
                                   fnCallback(json);
-                                  nbTotalDemoulagesChecked=json.iTotalRecords;
+                                  nbTotalAchatsChecked=json.iTotalRecords;
                               }
                                 
                            }
@@ -471,8 +453,8 @@
                 });
             };
             
-            loadDemoulages();
-            loadDemoulagesSelected = function(produitId)
+            loadAchats();
+            loadAchatsSelected = function(produitId)
             {
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
@@ -489,18 +471,18 @@
 
             $("#MNU_VALIDATION").click(function()
             {
-                if (checkedDemoulages.length == 0)
+                if (checkedAchats.length == 0)
                     bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedDemoulages.length >= 1)
+                else if (checkedAchats.length >= 1)
                 {
                      bootbox.confirm("Voulez vous vraiment valider cet achat", function(result) {
                     if(result){
-                    var produitId = checkedDemoulages[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
+                    var produitId = checkedAchats[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatsController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function(data)
                     {
                         if (data.rc == 0)
                         {
-                            bootbox.alert("Demoulages(s) validé(s)");
+                            bootbox.alert("Achats(s) validé(s)");
                         }
                         else
                         {
@@ -518,18 +500,18 @@
             
             $("#MNU_ANNULATION").click(function()
             {
-                if (checkedDemoulages.length == 0)
+                if (checkedAchats.length == 0)
                     bootbox.alert("Veuillez selectionnez un achat");
-                else if (checkedDemoulages.length >= 1)
+                else if (checkedAchats.length >= 1)
                 {
                      bootbox.confirm("Voulez vous vraiment annuler cet achat", function(result) {
                     if(result){
-                    var produitId = checkedDemoulages[0];
-                    $.post("<?php echo App::getBoPath(); ?>/achat/DemoulagesController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    var produitId = checkedAchats[0];
+                    $.post("<?php echo App::getBoPath(); ?>/achat/AchatsController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
                     {
                         if (data.rc === 0)
                         {
-                            bootbox.alert("Demoulages(s) annulés(s)");
+                            bootbox.alert("Achats(s) annulés(s)");
                             
                         }
                         else
@@ -583,7 +565,7 @@
             var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('produitId', checkedDemoulages[0]);
+            formData.append('produitId', checkedAchats[0]);
             formData.append('stockReel', stockReel);
             formData.append('jsonCarton', tbl);
             formData.append('codeUsine', codeUsine);
@@ -604,7 +586,7 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        loadDemoulages();
+                        loadAchats();
                         $('#nombreCarton').val("");
                         $('#nombreParCarton').val("");
                     } 
