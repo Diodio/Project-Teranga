@@ -52,22 +52,22 @@ class AchatQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            if($typeAchat !=='*'){
-                $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            if($regle !=='*'){
+                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+            $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
-            if($typeAchat !=='*'){
-                $sql = 'select achat.id, status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            if($regle !=='*'){
+                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id, status, date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+            $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   
@@ -79,10 +79,11 @@ class AchatQueries {
         $i = 0;
         foreach ($products as $key => $value) {
             $arrayAchats [$i] [] = $value ['id'];
-            $arrayAchats [$i] [] = $value ['status'];
             $arrayAchats [$i] [] = $value ['dateAchat'];
             $arrayAchats [$i] [] = $value ['numero'];
             $arrayAchats [$i] [] = $value ['nom'];
+            $arrayAchats [$i] [] = $value ['poidsTotal'];
+            $arrayAchats [$i] [] = $value ['montantTotal'];
             $i++;
         }
         return $arrayAchats;
@@ -125,21 +126,21 @@ class AchatQueries {
                     return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
             }
 	}
-        public function count($typeAchat, $codeUsine, $sWhere = "") {
+        public function count($dateDebut, $dateFin, $regle, $codeUsine, $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
-            if ($typeAchat !== '*') {
+            if ($regle !== '*') {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=' . $typeAchat . ' and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
             } else {
                 $sql = 'select count(achat.id) as nbAchats
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
             }
         } else {
-            if ($typeAchat !== '*') {
+            if ($regle !== '*') {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=' . $typeAchat . ' ' . $sWhere . '';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle=' . $regle . ' ' . $sWhere . '';
             } else {
                 $sql = 'select count(achat.id) as nbAchats
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';

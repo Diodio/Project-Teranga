@@ -44,8 +44,8 @@ class AchatManager {
         return $this->achatQuery->retrieveAllReglements($codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
-    public function count($typeAchat, $codeUsine, $where = "") {
-        return $this->achatQuery->count($typeAchat, $codeUsine, $where);
+    public function count($dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
+        return $this->achatQuery->count($dateDebut, $dateFin, $regle, $codeUsine, $where);
     }
 
     public function countReglement($codeUsine, $where = "") {

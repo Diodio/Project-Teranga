@@ -483,10 +483,10 @@ private $logger;
     				}
     			}
     			// End filter from dataTable
-    			$achats = $achatManager->retrieveAchatInventaire($request['dateDebut'], $request['dateFint'], $request['regle'],
+    			$achats = $achatManager->retrieveAchatInventaire($request['dateDebut'], $request['dateFin'], $request['regle'],
     					  $request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     			if ($achats != null) {
-    				$nbAchats = $achatManager->count($request['dateDebut'], $request['dateFint'], $request['regle'],
+    				$nbAchats = $achatManager->count($request['dateDebut'], $request['dateFin'], $request['regle'],
     					  $request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     				$this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
     			} else {

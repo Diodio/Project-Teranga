@@ -61,11 +61,11 @@
 					</div>
                     </div>
 					<div class="col-sm-4" style="float: right;margin-top: -34px">
-					<select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
+					<select id="regle" name="regle" data-placeholder="" class="col-xs-10 col-sm-7">
 					     <option value="*" class="types">Filtré par achat</option>
-                         <option value="0" class="green bigger-130 icon-only">Achats réglés</option>
-                         <option value="1" class="orange bigger-130 icon-only">Achats non réglés</option>
-               		 </select>
+                                            <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
+                                            <option value="1" class="orange bigger-130 icon-only">Achats non réglés</option>
+                                            </select>
 					</div>
 					
                     <div class="widget-body">
@@ -156,6 +156,7 @@
             // Persist checked Message when navigating
             
              loadAchats = function(dateDebut, dateFin, regle) {
+                 alert(regle);
                 nbTotalAchatsChecked = 0;
                 checkedAchats = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
@@ -173,24 +174,6 @@
                         "sPrevious": null
                       }
                     },
-                    "aoColumnDefs": [
-                        {
-                        },
-                        {
-                        "aTargets": [4],
-                        "bSortable": false,
-                        "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-                            $(nTd).css('text-align', 'center');
-                            $(nTd).text('');
-                            $(nTd).addClass('td-actions');
-                            action=$('<div></div>');
-                            action.addClass('hidden-phone pull-right visible-desktop action-buttons');
-                            
-                            $(nTd).append(action);
-                           
-                        }
-                    }
-                    ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         persistChecked();
                         $(nRow).css('cursor','pointer');
@@ -261,9 +244,11 @@
                 });
             };
             
-            loadAchats($('dateDebut').val(),$('dateFin').val(), $('regle').val());
+            loadAchats($('#dateDebut').val(),$('#dateFin').val(), $('#regle').val());
 
-
+            $('#regle').change(function() {
+                loadAchats($('#dateDebut').val(),$('#dateFin').val(), $('#regle').val());
+            });
         $("#MNU_IMPRIMER").click(function()
         {
           window.open('<?php echo App::getHome(); ?>/app/pdf/stockPdf.php?codeUsine='+"<?php echo $codeUsine?>",'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
