@@ -133,6 +133,15 @@ $codeUsine = $_COOKIE['codeUsine'];
             if (oTableStock != null)
                 oTableStock.fnDestroy();
             oTableStock = $('#LIST_STOCKS').dataTable({
+            	 "oLanguage": {
+                     "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
+                     "oPaginate": {
+                         "sNext": "",
+                         "sLast": "",
+                         "sFirst": null,
+                         "sPrevious": null
+                       }
+                     },
                
                "aoColumnDefs": [{
                         "aTargets": [2],

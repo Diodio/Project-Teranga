@@ -28,7 +28,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Periode
+                            Période
                         </h4>
                        
                         <div class="widget-toolbar">
@@ -37,62 +37,39 @@
                             </a>
                         </div>
                     </div>
-<!--                     <div class="form-group" style="margin-top: 1%;">
-                            <label class="col-sm-5 control-label no-padding-right"
-                                    for="form-field-1"> Du </label>
-                            <div class="col-sm-3">
-                                    <div class="clearfix">
-                                            <input type="text"  id="dateDebutAchat" placeholder="" style="margin-left: -174%;"
-                                                    class="col-xs-12 col-sm-10">
-                                    </div>
-                            </div>
-                            <div class="col-sm-8">
-                             <div class="col-sm-3">
-                             <label class="col-sm-5 control-label "
-                                    for="form-field-1" > Au </label>
-                            </div>
-                            <div class="col-sm-5">
-                                    <div class="clearfix">
-                                            <input type="text"  id="dateFinAchat" placeholder="" style="margin-left: 28%;margin-top: -14%"
-                                                    class="col-xs-12 col-sm-10">
-                                    </div>
-                            </div>
-                            </div>
-                     </div>-->
-
-<div style="float: right; margin-top: 7px;">
-    <span id="labelFrom">Du</span>
-    <input
-        class="date-picker" id="dateDebutAchat"
-        name="dateDebutAchat" type="text"
-        data-date-format="dd-mm-yyyy" />
-    <span id="labelTo" style="margin-left: -1px;">au</span>
-    <input
-        class="date-picker" id="dateFinAchat"
-        name="dateFinAchat" type="text"
-        data-date-format="dd-mm-yyyy" />
-    <button data-toggle="dropdown" id="BTN_SEARCH" style="align-content: center;margin-top: -3px;"
-            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-            data-rel="tooltip" data-placement="top" title="consulter">
-        <i class="fa fa-search bigger-120 white" style="margin-left: 1px;"></i> 
-    </button>
-    
-    <button data-toggle="dropdown" id="BTN_IMPRIMER" style="align-content: center;margin-top: -3px;"
-            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-            data-rel="tooltip" data-placement="top" title="Imprimer">
-        <i class="fa fa-print bigger-120 white" style="margin-left: 1px;"></i> 
-    </button>
-</div>
-                     
-<!--                      <div class="row clearfix">
-				<div class="col-md-12 column">
-                          <a id="MNU_IMPRIMER" class="btn btn-primary btn-sm" style="float: left; margin-top: -5%;margin-left: 87%"><i
-						class="ace-icon fa fa-plus-square"></i> Imprimer</a> 
-				</div>
-			</div>-->
+					<div class="col-sm-4" style="float: right;margin-top: -38px;">
+					<select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
+<!-- 					     <option value="*" class="types">Filtré par achats</option> -->
+                         <option value="0" class="green bigger-130 icon-only">Achats réglés</option>
+                         <option value="1" class="orange bigger-130 icon-only">Achats non réglés</option>
+               		 </select>
+					</div>
+					<div style="margin-top: -38px;margin-left: 9%;">
+					    <span id="labelFrom">Du</span>
+					    <input
+					        class="date-picker" id="dateDebutAchat"
+					        name="dateDebutAchat" type="text"
+					        data-date-format="dd-mm-yyyy" />
+					    <span id="labelTo" style="margin-left: -1px;">au</span>
+					    <input
+					        class="date-picker" id="dateFinAchat"
+					        name="dateFinAchat" type="text"
+					        data-date-format="dd-mm-yyyy" />
+					    <button data-toggle="dropdown" id="BTN_SEARCH" style="align-content: center;margin-top: -3px;"
+					            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+					            data-rel="tooltip" data-placement="top" title="consulter">
+					        <i class="fa fa-search bigger-120 white" style="margin-left: 1px;"></i> 
+					    </button>
+					    
+					    <button data-toggle="dropdown" id="BTN_IMPRIMER" style="align-content: center;margin-top: -3px;"
+					            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
+					            data-rel="tooltip" data-placement="top" title="Imprimer">
+					        <i class="fa fa-print bigger-120 white" style="margin-left: 1px;"></i> 
+					    </button>
+					</div>
                     <div class="widget-body">
-                        <div class="widget-main no-padding">
-                          <table id="ACHATS_INVENTAIRES" class="table table-striped table-bordered table-hover">
+                        <div class="widget-main no-padding" style="margin-top:20px">
+                          <table id="LIST_ACHATS_INVENTAIRES" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th class="center" style="border-right: 0px none;">
@@ -226,7 +203,7 @@
             
             
             persistChecked = function() {
-                $('input[type="checkbox"]', "#LIST_DEMOULAGES").each(function() {
+                $('input[type="checkbox"]', "#LIST_ACHATS_INVENTAIRES").each(function() {
                     if (checkedDemoulagesContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
@@ -257,7 +234,7 @@
                 });
             });
             
-             $('#LIST_DEMOULAGES tbody').on('click', 'input[type="checkbox"]', function() {
+             $('#LIST_ACHATS_INVENTAIRES tbody').on('click', 'input[type="checkbox"]', function() {
                 context=$(this);
                 if ($(this).is(':checked') && $(this).val() != '*') {
                     checkedDemoulagesAdd($(this).val());
@@ -364,12 +341,12 @@
              loadDemoulages = function() {
                 nbTotalDemoulagesChecked = 0;
                 checkedDemoulages = new Array();
-                var url =  '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
+                var url =  '<?php echo App::getBoPath(); ?>/produit/AchatController.php';
 
                 if (oTableDemoulages != null)
                     oTableDemoulages.fnDestroy();
 
-                oTableDemoulages = $('#LIST_DEMOULAGES').dataTable({
+                oTableDemoulages = $('#LIST_ACHATS_INVENTAIRES').dataTable({
                     "oLanguage": {
                     "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
                     "oPaginate": {
@@ -461,7 +438,7 @@
                     "sAjaxSource": url,
                     "sPaginationType": "simple",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_VALID; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_INVENTAIRE_ACHATS; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');

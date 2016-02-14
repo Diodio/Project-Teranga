@@ -36,7 +36,7 @@ class AchatManager {
         return $this->achatQuery->findTypeAchatById($typeproduitId);
     }
 
-    public function retrieveAll($typeAchat, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+    public function retrieveAchatInventaire($typeAchat, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->achatQuery->retrieveAll($typeAchat, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 

@@ -127,6 +127,7 @@ class App
      const ACTION_LIST_DEMOULE='LIST_DEMOULE';
      const ACTION_GET_COLIS_DEMOULAGE='GET_COLIS_DEMOULAGE';
      const ACTION_DETAIL_PRODUIT='DETAIL_PRODUIT';
+     const ACTION_LIST_INVENTAIRE_ACHATS='LIST_INVENTAIRE_ACHATS';
      
      static function getBoPath() {
          
