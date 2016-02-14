@@ -25,8 +25,8 @@
      <div class="row">
          
                 <div class="widget-box transparent">
-                    <div class="widget-header widget-header-flat">
-                        <h4 class="widget-title lighter">
+                    <div class="widget-header widget-header-flat" >
+                        <h4 class="widget-title lighter" >
                             <i class="ace-icon fa fa-star orange"></i>
                             Période:
                         </h4>
@@ -36,15 +36,7 @@
                                 <i class="ace-icon fa fa-chevron-up"></i>
                             </a>
                         </div>
-                    </div>
-					<div class="col-sm-4" style="float: right;margin-top: -38px;">
-					<select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
-<!-- 					     <option value="*" class="types">Filtré par achats</option> -->
-                         <option value="0" class="green bigger-130 icon-only">Achats réglés</option>
-                         <option value="1" class="orange bigger-130 icon-only">Achats non réglés</option>
-               		 </select>
-					</div>
-					<div style="margin-top: -38px;margin-left: 9%;">
+                        <div style="margin-top: -34px;margin-left: 9%;">
 					    <span id="labelFrom">Du</span>
 					    <input
 					        class="date-picker" id="dateDebutAchat"
@@ -67,6 +59,15 @@
 					        <i class="fa fa-print bigger-120 white" style="margin-left: 1px;"></i> 
 					    </button>
 					</div>
+                    </div>
+					<div class="col-sm-4" style="float: right;margin-top: -34px">
+					<select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
+					     <option value="*" class="types">Filtré par achat</option>
+                         <option value="0" class="green bigger-130 icon-only">Achats réglés</option>
+                         <option value="1" class="orange bigger-130 icon-only">Achats non réglés</option>
+               		 </select>
+					</div>
+					
                     <div class="widget-body">
                         <div class="widget-main no-padding" style="margin-top:20px">
                           <table id="LIST_ACHATS_INVENTAIRES" class="table table-striped table-bordered table-hover">
@@ -117,26 +118,7 @@
             var checkedAchats = new Array();
             // Check if an item is in the array
            // var interval = 500;
-            $('#dateDebutAchat').datepicker({autoclose: true,language:'fr',todayHighlight:true}).on(ace.click_event, function(){
-             });
-    $('#dateFinAchat').datepicker({autoclose: true,language:'fr', todayHighlight:true}).prev().on(ace.click_event, function(){
-//            $(this).prev().focus();
-    });
     
-      var i=1;
-     $("#add_row").click(function(){
-    $('#addr'+i).html("<td>"+ (i+1) +"<td><input type='number' id='cart"+i+"' name='cart"+i+"' class='form-control'/></td>\n\
-    <td><input type='number' id='qte"+i+"' name='qte"+i+"'  class='form-control'/></td>\n\
-    <td><input type='number' id='tot"+i+"' name='tot"+i+"'  class='form-control tot'/></td>");
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      i++;
-  });
-     $("#delete_row").click(function(){
-    	 if(i>1){
-		 $("#addr"+(i-1)).html('');
-		 i--;
-		 }
-	 });
          function calculPoids(index){
            var cart=parseFloat($("#cart"+index).val());
            var qte=parseFloat($("#qte"+index).val());
