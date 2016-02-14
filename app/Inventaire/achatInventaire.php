@@ -119,6 +119,11 @@
             // Check if an item is in the array
            // var interval = 500;
     
+    $('#dateDebutAchat').datepicker({autoclose: true,language:'fr',todayHighlight:true}).on(ace.click_event, function(){
+             });
+    $('#dateFinAchat').datepicker({autoclose: true,language:'fr', todayHighlight:true}).prev().on(ace.click_event, function(){
+//            $(this).prev().focus();
+    });
          function calculPoids(index){
            var cart=parseFloat($("#cart"+index).val());
            var qte=parseFloat($("#qte"+index).val());
