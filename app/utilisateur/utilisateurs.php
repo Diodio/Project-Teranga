@@ -103,40 +103,40 @@
             <div id="winModalUser" class="modal fade">
             <form id="validation-form" class="form-horizontal"  onsubmit="return false;">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+                    <div class="modal-content" >
+                        <div class="modal-header" style="margin-top:-5px">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Creer un utilisateur</h3>
+                            <h3 class="smaller lighter blue no-margin">Nouveau utilisateur</h3>
                         </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom Complet </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7">
+                                        <input type="text" id="nom" name="nom" placeholder="" class="col-xs-10 col-sm-7" style="margin-top: 10px;">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Login </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: -5px;"> Login </label>
                                     <div class="col-sm-9">
                                         <input type="text" id="login" name="login" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mot de passe</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: -5px;"> Mot de passe</label>
                                     <div class="col-sm-9">
                                         <input type="password" id="motDePasse" name="motDePasse" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Confirmer mot de passe</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: -11px;"> Confirmer mot de passe</label>
                                     <div class="col-sm-9">
                                         <input type="password" id="confMotDePasse" name="confMotDePasse" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Usine</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: -11px;"> Usine</label>
+                                        <div class="col-sm-9" style="margin-top: -4px;margin-left: -12px;">
                                             <select id="CMB_USINE" name="CMB_USINE" data-placeholder="" class="col-xs-10 col-sm-7">
                                                 <option value="-1" class="usines">Selectionnez</option>
                                         </select>
@@ -144,8 +144,8 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Profil</label>
-                                    <div class="col-sm-9">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="style="margin-top: -4px;"> Profil</label>
+                                    <div class="col-sm-9" style="margin-left: -12px;">
                                         <select id="CMB_PROFIL" name="CMB_PROFIL" data-placeholder="" class="col-xs-10 col-sm-7">
                                                 <option value="-1" class="profils">Selectionnez</option>
                                         </select>
