@@ -156,7 +156,6 @@
             // Persist checked Message when navigating
             
              loadAchats = function(dateDebut, dateFin, regle) {
-                 alert(regle);
                 nbTotalAchatsChecked = 0;
                 checkedAchats = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';

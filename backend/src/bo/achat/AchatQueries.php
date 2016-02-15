@@ -79,8 +79,8 @@ class AchatQueries {
         $i = 0;
         foreach ($products as $key => $value) {
             $arrayAchats [$i] [] = $value ['id'];
-            $arrayAchats [$i] [] = $value ['dateAchat'];
             $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['dateAchat'];
             $arrayAchats [$i] [] = $value ['nom'];
             $arrayAchats [$i] [] = $value ['poidsTotal'];
             $arrayAchats [$i] [] = $value ['montantTotal'];
