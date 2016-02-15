@@ -28,7 +28,7 @@
                     <div class="widget-header widget-header-flat" >
                         <h4 class="widget-title lighter" >
                             <i class="ace-icon fa fa-star orange"></i>
-                            Période:
+                           Achat
                         </h4>
                        
                         <div class="widget-toolbar">
@@ -36,8 +36,29 @@
                                 <i class="ace-icon fa fa-chevron-up"></i>
                             </a>
                         </div>
-                        <div style="margin-top: -34px;margin-left: 9%;">
-					    <span id="labelFrom">Du</span>
+                        <div style="margin-top: -40px;margin-left: 9%;">
+					       <div class="infobox infobox-green" style="width: 300px; height: 51px;">
+                                                            <div class="infobox-data">
+                                                                    <span class="infobox-data-number">Poids total 3000 FCFA</span>
+                                                            </div>
+                                                    </div>
+                                                    <div class="infobox infobox-blue" style=" width: 320px; height: 51px;">
+                                                            
+
+                                                            <div class="infobox-data" style="width:500px">
+                                                                    <span class="infobox-data-number">Montant total 30000000 Kg</span>
+                                                            </div>
+                                                    </div>
+					</div>
+                    </div>
+                                        
+                    <div class="widget-body">
+                     <div class="widget-main no-padding" style="margin-top:20px">
+                      <div class="row">
+                       <div class="col-sm-9 infobox-container" style="float: left; margin-bottom: 20px;width:600px">
+                         <label>  <i class="ace-icon fa orange"></i>
+                            Période:</label>
+                                    <span id="labelFrom">Du</span>
 					    <input
 					        class="date-picker" id="dateDebutAchat"
 					        name="dateDebutAchat" type="text"
@@ -58,50 +79,15 @@
 					            data-rel="tooltip" data-placement="top" title="Imprimer">
 					        <i class="fa fa-print bigger-120 white" style="margin-left: 1px;"></i> 
 					    </button>
-					</div>
-                                       </div>
-					<div class="col-sm-4">
-                                            <select id="regle" name="regle" data-placeholder="" class="col-xs-10 col-sm-7" style="
-    margin-left: 175%;
-    margin-top: -35px;
-">
+					                   <div class="col-sm-4">
+                                            <select id="regle" name="regle" data-placeholder="" class="col-xs-10 col-sm-7" style="margin-left: 175%; margin-top: -35px;">
                                             <option value="*" class="">Filtrez par achat</option>
                                             <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
                                             <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option>
                                             <option value="0" class="orange bigger-130 icon-only">Achats non réglés</option>
                                             </select>
-                                        </div>
-                                        
-                    <div class="widget-body">
-                        <div class="widget-main no-padding" style="margin-top:20px">
-                            <div class="row">
-                                <div class="col-sm-9 infobox-container" style="float: right; margin-bottom: 20px;">
-                                                    <div class="infobox infobox-green" style="
-    width: 278px;
-    height: 51px;
-">
-                                                           
-
-                                                            <div class="infobox-data">
-                                                                    <span class="infobox-data-number">Poids total 3000</span>
-                                                            </div>
-
-                                                    </div>
-
-                                                    <div class="infobox infobox-blue" style="
-    width: 278px;
-    height: 51px;
-">
-                                                            
-
-                                                            <div class="infobox-data">
-                                                                    <span class="infobox-data-number">Montant total 30000000</span>
-                                                            </div>
-                                                    </div>
-
-
-                                            </div>
-                                
+                                       </div>
+                            </div>
                             </div>
                           <table id="LIST_ACHATS_INVENTAIRES" class="table table-striped table-bordered table-hover">
                         <thead>
