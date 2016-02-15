@@ -193,9 +193,6 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                                     <div class="space-6"></div>
                                                     <br/>
-
-                                                
-
                                             </div>
                                         </div>
                                     </div>
