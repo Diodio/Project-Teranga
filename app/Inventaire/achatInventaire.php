@@ -62,7 +62,7 @@
                                        </div>
 					<div class="col-sm-4">
                                             <select id="regle" name="regle" data-placeholder="" class="col-xs-10 col-sm-7" style="
-    margin-left: 162%;
+    margin-left: 175%;
     margin-top: -35px;
 ">
                                             <option value="*" class="">Filtrez par achat</option>
@@ -75,26 +75,27 @@
                     <div class="widget-body">
                         <div class="widget-main no-padding" style="margin-top:20px">
                             <div class="row">
-                                <div class="col-sm-7 infobox-container" style="float: right; margin-bottom: 20px;">
-                                                    <div class="infobox infobox-green">
-                                                            <div class="infobox-icon">
-                                                                    <i class="ace-icon fa fa-comments"></i>
-                                                            </div>
+                                <div class="col-sm-9 infobox-container" style="float: right; margin-bottom: 20px;">
+                                                    <div class="infobox infobox-green" style="
+    width: 278px;
+    height: 51px;
+">
+                                                           
 
                                                             <div class="infobox-data">
-                                                                    <span class="infobox-data-number">32000</span>
-                                                                    <div class="infobox-content">KG</div>
+                                                                    <span class="infobox-data-number">Poids total 3000</span>
                                                             </div>
+
                                                     </div>
 
-                                                    <div class="infobox infobox-blue">
-                                                            <div class="infobox-icon">
-                                                                    <i class="ace-icon fa fa-twitter"></i>
-                                                            </div>
+                                                    <div class="infobox infobox-blue" style="
+    width: 278px;
+    height: 51px;
+">
+                                                            
 
                                                             <div class="infobox-data">
-                                                                    <span class="infobox-data-number">3000 000 </span>
-                                                                    <div class="infobox-content">F</div>
+                                                                    <span class="infobox-data-number">Montant total 30000000</span>
                                                             </div>
                                                     </div>
 
