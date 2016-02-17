@@ -410,11 +410,11 @@
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
-                        if(userProfil==='admin'){
-                            aoData.push({"name": "codeUsine", "value": "*"});
+                        if(userProfil==='admin' || userProfil==='directeur'){
+                            aoData.push({"name": "usineCode", "value": "*"});
                         }
                         else
-                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                            aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",

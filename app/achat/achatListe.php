@@ -675,11 +675,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "typeAchat", "value": typeAchat});
                         userProfil=$.cookie('profil');
-                        if(userProfil==='admin'){
-                            aoData.push({"name": "codeUsine", "value": "*"});
+                        if(userProfil==='admin' || userProfil==='directeur'){
+                            aoData.push({"name": "usineCode", "value": "*"});
                         }
                         else
-                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                            aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",

@@ -346,9 +346,9 @@ class ProduitController extends BaseController implements BaseAction {
                     }
                 }
                 // End filter from dataTable
-                $demoulages = $produitManager->retrieveAllDemoulages($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $demoulages = $produitManager->retrieveAllDemoulages($request['usineCode'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($demoulages != null) {
-                    $nb = $produitManager->countAllDemoulages($request['codeUsine'],$sWhere);
+                    $nb = $produitManager->countAllDemoulages($request['usineCode'],$sWhere);
                     $this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -400,9 +400,9 @@ class ProduitController extends BaseController implements BaseAction {
                     }
                 }
                 // End filter from dataTable
-                $demoulages = $produitManager->retrieveAllProduitsDemoulages($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $demoulages = $produitManager->retrieveAllProduitsDemoulages($request['usineCode'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($demoulages != null) {
-                    $nb = $produitManager->countAllProduitsDemoulages($request['codeUsine'],$sWhere);
+                    $nb = $produitManager->countAllProduitsDemoulages($request['usineCode'],$sWhere);
                     $this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
