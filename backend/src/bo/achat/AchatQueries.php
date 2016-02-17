@@ -47,7 +47,46 @@ class AchatQueries {
         return $clients;
     }
 
-   
+   public function retrieveAll($typeAchat,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            if($typeAchat !=='*'){
+                $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
+            else {
+            $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
+        }
+        else {
+            if($typeAchat !=='*'){
+                $sql = 'select achat.id, status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
+            else {
+            $sql = 'select achat.id, status, date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            }
+            }   
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        $arrayAchats = array();
+        $i = 0;
+        foreach ($products as $key => $value) {
+            $arrayAchats [$i] [] = $value ['id'];
+            $arrayAchats [$i] [] = $value ['status'];
+            $arrayAchats [$i] [] = $value ['dateAchat'];
+            $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['nom'];
+            $i++;
+        }
+        return $arrayAchats;
+    }
+    
     public function retrieveAchatInventaire($dateDebut, $dateFin, $regle,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
@@ -126,7 +165,34 @@ class AchatQueries {
                     return Bootstrap::$entityManager->find('Achat\Achat', $achatId);
             }
 	}
-        public function count($dateDebut, $dateFin, $regle, $codeUsine, $sWhere = "") {
+        
+        public function count($typeAchat, $codeUsine, $sWhere = "") {
+        if ($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if ($codeUsine !== '*') {
+            if ($typeAchat !== '*') {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=' . $typeAchat . ' and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+            } else {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+            }
+        } else {
+            if ($typeAchat !== '*') {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status=' . $typeAchat . ' ' . $sWhere . '';
+            } else {
+                $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere . '';
+            }
+        }
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return $nbClients['nbAchats'];
+    }
+        
+        public function countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {

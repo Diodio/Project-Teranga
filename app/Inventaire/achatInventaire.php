@@ -37,12 +37,12 @@
                             </a>
                         </div>
                         <div style="margin-top: -40px;margin-left: 9%;">
-					       <div class="infobox infobox-green" style="width: 300px; height: 51px;">
+					       <div class="infobox infobox-green" style="width: 300px; height: 40px;">
                                                             <div class="infobox-data">
                                                                     <span class="infobox-data-number">Poids total 3000 FCFA</span>
                                                             </div>
                                                     </div>
-                                                    <div class="infobox infobox-blue" style=" width: 320px; height: 51px;">
+                                                    <div class="infobox infobox-blue" style=" width: 320px; height: 40px;">
                                                             
 
                                                             <div class="infobox-data" style="width:500px">

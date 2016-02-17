@@ -90,8 +90,8 @@ class UtilisateurManager {
         }
     }
 
-    public function count($customerId, $where="") {
-        return $this->utilisateurQueries->count($customerId, $where);
+    public function count($where="") {
+        return $this->utilisateurQueries->count($where);
     }
     
     public function del($utilisateurId) {

@@ -206,23 +206,24 @@ private $langageManager;
         $logger=new Logger(__CLASS__);
         try{
             $logger->log->trace("Debut insertion user");
-            if(isset($request['ACTION']) && isset($request['nom']) && isset($request['login']) && isset($request['password']) && isset($request['usineId']) && isset($request['profilId'])){
-                $userId=$request['userId'];
-                $nom=$request['nom'];
-                $login=$request['login'];
+            if(isset($request['ACTION']) && isset($request['utilisateurNom']) && isset($request['utilisateurLogin']) && isset($request['password']) && isset($request['usineId']) && isset($request['profilId'])){
+                $utilisateurId=$request['utilisateurId'];
+                $nom=$request['utilisateurNom'];
+                $login=$request['utilisateurLogin'];
                 $password=$request['password'];
                 $usineId=  $request['usineId'];
                 $profilId=$request['profilId'];
                 if($nom!="" && $login!="" && $password!="" && $usineId!="-1" && $profilId!="-1"){
                     $userManager =new UtilisateurManager();
                     $user=new Utilisateur\Utilisateur();
-                    if($userId !=0)
-                        $user->setId ($userId);
+                    if($utilisateurId !=0)
+                        $user->setId ($utilisateurId);
                     $user->setNomUtilisateur($nom);
                     $user->setLogin($login);
                     $user->setPassword($password);
                     $user->setStatus(1);
                     $user->setEtatCompte(1);
+                    $user->setConnected(0);
                     $usineManager = new Usine\UsineManager();
                     $usine=$usineManager->findById($usineId);
                     $user->setUsine($usine);
@@ -270,7 +271,7 @@ private $langageManager;
                         $sOrder = substr_replace( $sOrder, "", -2 );
                         if ( $sOrder == "ORDER BY" )
                         {
-                                 $sOrder .= " createdDate desc ";
+                                 $sOrder .= " u.createdDate desc ";
                         }
                 }
                 // End order from DataTable
@@ -427,10 +428,10 @@ private $langageManager;
     public function doView($request) {
         $logger = new Logger(__CLASS__);
         try {
-            if (isset($request['userId'])) {
-                $logger->log->trace("user " . $request['userId']);
+            if (isset($request['utilisateurId'])) {
+                $logger->log->trace("user " . $request['utilisateurId']);
                 $userManager = new UtilisateurManager();
-                $infosUser = $userManager->view($request['userId']);
+                $infosUser = $userManager->view($request['utilisateurId']);
                 if ($infosUser != NULL) {
                     $this->doSuccessO(($infosUser));
                 } else

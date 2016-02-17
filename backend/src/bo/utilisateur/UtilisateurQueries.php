@@ -125,7 +125,7 @@ class UtilisateurQueries {
      * @throws \Customer\Exception
      */
     public function listUtilisateurs($offset, $rowCount, $orderBy = "", $sWhere = "") {
-        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine, etatCompte, connected FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1';
+        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine, etatCompte, connected FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         $this->logger->log->trace($sql);
         try {
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -171,7 +171,7 @@ class UtilisateurQueries {
         return $query->getResult();
     }
     public function count($customerId, $where = "") {
-        $sql = "SELECT count(*) as nbUsers FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id AND status=1" . $where;
+        $sql = "SELECT count(*) as nbUsers FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id " . $where;
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbContacts = $stmt->fetch();

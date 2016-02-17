@@ -144,7 +144,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="style="margin-top: -4px;"> Profil</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="margin-top: -4px;"> Profil</label>
                                     <div class="col-sm-9" style="margin-left: -12px;">
                                         <select id="CMB_PROFIL" name="CMB_PROFIL" data-placeholder="" class="col-xs-10 col-sm-7">
                                                 <option value="-1" class="profils">Selectionnez</option>
@@ -176,7 +176,7 @@
             var nbTotalUsersChecked=0;
             var checkedUsers = new Array();
             
-            var userId=0;
+            var utilisateurId=0;
             // Check if an item is in the array
            // var interval = 500;
            
@@ -437,10 +437,10 @@
                                     '<i class="fa fa-pencil bigger-130"></i>'+
                                     '</a>');
                                     btnEdit.click(function(){
-                                         $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userId: oData[0], ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
+                                         $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {utilisateurId: oData[0], ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
                                         data = $.parseJSON(data);
                                         console.log(oData[0]);
-                                        userId=oData[0];
+                                        utilisateurId=oData[0];
                                         $('#nom').val(data.nomUtilisateur);
                                         $('#login').val(data.login);
                                         $('#motDePasse').val(data.password);
@@ -512,11 +512,11 @@
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         userProfil=$.cookie('profil');
-                        if(userProfil==='admin'){
-                            aoData.push({"name": "codeUsine", "value": "*"});
+                        if(userProfil==='admin' || userProfil==='directeur'){
+                            aoData.push({"name": "usineCode", "value": "*"});
                         }
                         else
-                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                            aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",
@@ -542,7 +542,7 @@
             };
             
             loadUsers();
-             SaveOrEditProcess = function (userId)
+             SaveOrEditProcess = function (utilisateurId)
         {
             
             var ACTION;
@@ -556,9 +556,9 @@
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('userId', userId);
-            formData.append('nom', nom);
-            formData.append('login', login);
+            formData.append('utilisateurId', utilisateurId);
+            formData.append('utilisateurNom', nom);
+            formData.append('utilisateurLogin', login);
             formData.append('password', password);
             formData.append('usineId', usineId);
             formData.append('profilId', profilId);
@@ -604,7 +604,7 @@
             $('#confMotDePasse').val("");
             $('#CMB_USINE').val("-1").change();
             $('#CMB_PROFIL').val("-1").change();
-            userId=0;
+            utilisateurId=0;
            });
          $("#SAVE").click(function() {
          $.validator.addMethod(
@@ -689,7 +689,7 @@
        			},
 
        			submitHandler: function (form) {
-                        SaveOrEditProcess(userId);
+                        SaveOrEditProcess(utilisateurId);
                         $('#winModalUser').modal('hide');
                         $('#nom').val("");
                         $('#login').val("");
@@ -697,7 +697,7 @@
                         $('#confMotDePasse').val("");
                         $('#CMB_USINE').val("-1").change();
                         $('#CMB_PROFIL').val("-1").change();
-                        userId=0;
+                        utilisateurId=0;
        			},
        			invalidHandler: function (form) {
        			}
