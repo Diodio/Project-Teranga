@@ -281,8 +281,10 @@
                 });
             };
             dateformat = function (date) {
-                var arr = date.split('-');
-                return arr[2] + '-' + arr[1] + '-' + arr[0];
+                if(date!==''){
+                    var arr = date.split('-');
+                    return arr[2] + '-' + arr[1] + '-' + arr[0];
+                }
             };
             loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
 
