@@ -476,9 +476,9 @@ class AchatController extends BaseController implements BaseAction {
                     }
                 }
                 // End filter from dataTable
-                $achats = $achatManager->retrieveAchatInventaire($request['dateDebut'], $request['dateFin'], $request['regle'], $request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $achats = $achatManager->retrieveAchatInventaire($request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbAchats = $achatManager->count($request['dateDebut'], $request['dateFin'], $request['regle'], $request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                    $nbAchats = $achatManager->countInventaires($request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                     $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
