@@ -24,17 +24,17 @@
 
      <div class="row">
           <div class="row">
-         <div style="float: right; margin-bottom: 10px;" >
-                    <div class="infobox infobox-green" style="width: 300px; height: 40px;">
+         <div style="margin-bottom: 20px;" >
+                    <div class="infobox infobox-green" style="width: 360px; height: 40px;">
                                  <div class="infobox-data">
-                                         <span class="infobox-data-number">Poids total 3000 KG</span>
+                                     <span class="infobox-data-number">Poids total : <span id='montantTotal'></span> KG</span>
                                  </div>
                          </div>
-                         <div class="infobox infobox-blue" style=" width: 320px; height: 40px;">
+                         <div class="infobox infobox-blue" style=" width: 360px; height: 40px;">
 
 
-                                 <div class="infobox-data" style="width:500px">
-                                         <span class="infobox-data-number">Montant total 30000000 F CFA</span>
+                                 <div class="infobox-data" style="width:640px">
+                                         <span class="infobox-data-number">Montant total : <span id='poidsTotal'></span> F CFA</span>
                                  </div>
                          </div>
                      </div>
@@ -144,6 +144,25 @@
     $('#dateFin').datepicker({autoclose: true,language:'fr', todayHighlight:true}).prev().on(ace.click_event, function(){
 //            $(this).prev().focus();
     });
+    
+    loadInfosInventaire = function () {
+        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                console.log(sData.poidsTotal);
+                $("#poidsTotal").text(sData.poidsTotal);
+                $("#montantTotal").text(sData.montantTotal);
+            }
+    });
+    };
+    loadInfosInventaire();
+                
          function calculPoids(index){
            var cart=parseFloat($("#cart"+index).val());
            var qte=parseFloat($("#qte"+index).val());

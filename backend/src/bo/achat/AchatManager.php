@@ -241,4 +241,15 @@ class AchatManager {
         }
     }
 
+    public function getInfoInventaire() {
+        $infos = $this->achatQuery->getInfoInventaire();
+        $infosTab = array();
+        //var_dump($infos);
+        if ($infos != null) {
+            $infosTab['montantTotal'] = $infos['montantTotal'];
+            $infosTab['poidsTotal'] = $infos['poidsTotal'];
+        }
+        return $infosTab;
+    }
+
 }

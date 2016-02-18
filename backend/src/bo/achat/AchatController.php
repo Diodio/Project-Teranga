@@ -72,6 +72,9 @@ class AchatController extends BaseController implements BaseAction {
                     case \App::ACTION_LIST_INVENTAIRE_ACHATS:
                         $this->doListInventaireAchat($request);
                         break;
+                    case \App::ACTION_GET_INFOS:
+                        $this->doGetInfoInventaire($request);
+                        break;
                 }
             } else {
                 throw new Exception('NO_ACTION');
@@ -490,6 +493,16 @@ class AchatController extends BaseController implements BaseAction {
             throw $e;
         } catch (Exception $e) {
             throw new Exception('ERREUR SERVEUR');
+        }
+    }
+    
+    public function doGetInfoInventaire($request) {
+        try {
+            $achatManager = new AchatManager();
+            $infos = $achatManager->getInfoInventaire();
+            $this->doSuccessO($infos);
+        } catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
         }
     }
 

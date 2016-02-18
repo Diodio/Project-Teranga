@@ -394,4 +394,12 @@ class AchatQueries {
             return null;
         }
     }
+    
+    public function getInfoInventaire() {
+        $sql = 'SELECT SUM(avance) montantTotal, SUM(poidsTotal) poidsTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle=2';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $infos = $stmt->fetch();
+        return $infos;
+    }
 }
