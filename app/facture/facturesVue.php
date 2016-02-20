@@ -550,6 +550,7 @@ $(document).ready(function () {
     $('#CMB_CLIENTS').select2();
      $('#CMB_DESIGNATIONS').select2();
      $('#qteColis0').select2();
+     var clientId;
      var action = "<?php echo App::ACTION_INSERT; ?>"
      var colisage = [];
      var totalColis=0;
@@ -694,8 +695,10 @@ $(document).ready(function () {
     };
     $('#CMB_CLIENTS').change(function() {
     if($('#CMB_CLIENTS').val()!==null) {
-        if($('#CMB_CLIENTS').val()!=='')
+        if($('#CMB_CLIENTS').val()!==''){
+            clientId = $('#CMB_CLIENTS').val()
             loadInfoClient($('#CMB_CLIENTS').val());
+        }
         else {
             $('#nomClient').val("");
             $('#origine').val("");
@@ -1178,7 +1181,7 @@ $(document).ready(function () {
         {
             
             var ACTION = Action;
-            var clientId = $("#CMB_CLIENTS").val();
+            var client = clientId;
             var numFacture= $('#numFacture').val();
             var heureFacture= $('#heureFacture').val();
             var devise= $('#devise').val();
@@ -1213,7 +1216,7 @@ $(document).ready(function () {
            
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('clientId', clientId);
+            formData.append('client', client);
             formData.append('numFacture', numFacture);
             formData.append('heureFacture', heureFacture);
             formData.append('devise', devise);
@@ -1293,9 +1296,7 @@ $(document).ready(function () {
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				nomClient: {
-					required: true
-				},
+				
 				reference: {
 					required: true
 				},
@@ -1326,9 +1327,7 @@ $(document).ready(function () {
 			},
 	
 			messages: {
-				nomClient: {
-					required: "Champ obligatoire."
-				},
+				
 				reference: {
 					required: "Champ obligatoire."
 				},
@@ -1373,8 +1372,8 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-                           // alert(action);
-                            factureProcess(action);
+                          alert(clientId);
+                          factureProcess(action);
 			},
 			invalidHandler: function (form) {
 			}
@@ -1390,9 +1389,7 @@ $(document).ready(function () {
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				nomClient: {
-					required: true
-				},
+				
 				reference: {
 					required: true
 				},
@@ -1423,9 +1420,7 @@ $(document).ready(function () {
 			},
 	
 			messages: {
-				nomClient: {
-					required: "Champ obligatoire."
-				},
+				
 				reference: {
 					required: "Champ obligatoire."
 				},
@@ -1539,6 +1534,8 @@ $(document).ready(function () {
                             jsonText='{"value":'+data.oId+', "text":"'+nom+'"}';
                             jsonText=JSON.parse(jsonText);
                             $("#CMB_CLIENTS").select2("data", jsonText, true);
+                            $("#CMB_CLIENTS").val(data.oId);//.change();
+                            clientId = data.oId;
                             $("#reference").val(reference);
                             $("#origine").val(adresse);
                             $("#pays").val(pays);

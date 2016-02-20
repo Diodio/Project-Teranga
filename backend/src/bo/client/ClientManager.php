@@ -85,6 +85,7 @@ public function retrieveClients()
         $list = array();
         $i = 0;
         // $grp = new Group();
+        if($Clients !=NULL)
         foreach ($Clients as $key => $value) {
             $list [$i]['id'] = $value ['id'];
             $list [$i]['nom'] = $value ['nom'];
@@ -112,6 +113,7 @@ public function retrieveClients()
         $Clients = $this->ClientQuery->findAllClients();
         $list = array();
         $i = 0;
+        if($Clients !=NULL)
         foreach ($Clients as $key => $value) {
             $list [$i]['value'] = $value ['id'];
             $list [$i]['text'] = $value ['nom'];

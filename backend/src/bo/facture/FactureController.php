@@ -86,6 +86,7 @@ private $logger;
 
     public function doInsert($request) {
         try {
+            if ($request['client'] != "null" || $request['client'] != "undefined") {
             $factureManager = new FactureManager();
             $facture = new Facture();
             $facture->setNumero($request['numFacture']);
@@ -126,7 +127,7 @@ private $logger;
             $facture->setCodeUsine($request['codeUsine']);
             $facture->setLogin($request['login']);
             $clientManager = new \Client\ClientManager();
-            $client = $clientManager->findById($request['clientId']);
+            $client = $clientManager->findById($request['client']);
             $facture->setClient($client);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
@@ -186,9 +187,13 @@ private $logger;
                     }
                 }
                 $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
-            } else {
+            }
+            else {
                 $this->doError('-1', 'Impossible d\'inserer ce facture');
             }
+            }
+            else 
+                $this->doError('-1', 'Impossible d\'inserer ce facture');
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
         }

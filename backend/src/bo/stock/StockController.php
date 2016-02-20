@@ -150,7 +150,7 @@ class StockController extends BaseController {
         try {
             if (isset($request['produitId'])) {
                 $stockManager = new StockManager();
-                $infoStocks = $stockManager->recupereNombreStockParProduit($request['produitId'],$request['usineCode']);
+                $infoStocks = $stockManager->recupereNombreStockParProduit($request['produitId'],$request['codeUsine']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else
