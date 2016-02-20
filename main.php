@@ -269,7 +269,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                             
                              <li id="MNU_DEMOULAGE_LIST" class=""><a id="MNU_DEMOULAGE_LIST" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Produits demoulés </span>
+                                        Consulter liste  </span>
                                 </a> <b class="arrow"></b>
                             </li>
                         </ul>
