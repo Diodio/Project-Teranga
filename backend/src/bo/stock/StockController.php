@@ -82,14 +82,14 @@ class StockController extends BaseController {
                 }
                 // End filter from dataTable
                 if((isset ($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
-                    $produits = $stockManager->retrieveAll($request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                    $produits = $stockManager->retrieveAll('*', $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 else
-                    $produits = $stockManager->retrieveAllByUsine($request['codeUsine'],$request['login'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                    $produits = $stockManager->retrieveAllByUsine($request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($produits != null) {
                     if((isset($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
-                        $nbProduits = $stockManager->countAll($sWhere);
+                        $nbProduits = $stockManager->countAll('*',$sWhere);
                     else
-                       $nbProduits = $stockManager->countByUsine($request['codeUsine'],$request['login'], $sWhere);
+                       $nbProduits = $stockManager->countByUsine($request['usineCode'],$request['login'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -109,7 +109,7 @@ class StockController extends BaseController {
             if (isset($request['userId'])) {
                 $stockManager = new StockManager();
                // $request['login'],$request['codeUsine']
-                $infoStocks = $stockManager->findStats($request['codeUsine']);
+                $infoStocks = $stockManager->findStats($request['usineCode']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else
@@ -147,7 +147,7 @@ class StockController extends BaseController {
         try {
             if (isset($request['produitId'])) {
                 $stockManager = new StockManager();
-                $infoStocks = $stockManager->recupereNombreStockParProduit($request['produitId'],$request['codeUsine']);
+                $infoStocks = $stockManager->recupereNombreStockParProduit($request['produitId'],$request['usineCode']);
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else

@@ -177,10 +177,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                 "fnServerData": function ( sSource, aoData, fnCallback ) {
                         /* Add some extra data to the sender */
                     aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
-                    aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine?>"});
-                    aoData.push({"name": "login","value": "<?php echo $login?>"});
-                    if("<?php echo $profil?>" == "admin" || "<?php echo $profil?>" == "directeur" )
-                        aoData.push({"name": "profil", "value": "<?php echo $profil?>"});
+                    aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine?>"});
+                    aoData.push({"name": "profil", "value": "<?php echo $profil?>"});
                     aoData.push({"name": "offset", "value": "1"});
                     aoData.push({"name": "rowCount", "value": "10"});
                    
@@ -257,41 +255,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 			 */
 			// placeholder.data('chart', data);
 			// placeholder.data('draw', drawPieChart);
-                       loadStatsFamille = function(familleId,codeUsine, login){
-                           $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>", familleId:familleId,login:login,codeUsine:codeUsine, ACTION: "<?php echo App::ACTION_STAT_FAMILLE; ?>"}, function(data) {
-                             data = $.parseJSON(data);
-                    if(data.rc==-1){
-                        $.gritter.add({
-                                title: 'Notification',
-                                text: data.error,
-                                class_name: 'gritter-error gritter-light'
-                            });
-                    }else {
-                        var head = [];
-                        var value = [];
-                        $.each(data, function(idx, obj) {
-                                head.push(obj.libelle);
-                                value.push(obj.nbStocks);
-                        });
-                        
-                            $("#STAT_OTHER").jChart({
-                              name: "Famille SOMPATE",
-                              headers: head,
-                              values: value,
-                              footers: [100000,200000,300000,400000,500000],
-                              colors: ["#1000ff","#006eff","#00b6ff","#00fff6","#00ff90"]
+                    
 
-                              });
-                               }
-                       
-                            }).error(function(error) { alert("failure"); });;
-                        };
-
-        loadStats = function(codeUsine, login)
+        loadStats = function(codeUsine, login, profil)
             {
               var map = [];
               var color = '';
-                $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",login: login,codeUsine:codeUsine, ACTION: "<?php echo App::ACTION_STAT; ?>"}, function(data) {
+                $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {userId:"<?php echo $userId;?>",login: login,usineCode:codeUsine,profil:profil, ACTION: "<?php echo App::ACTION_STAT; ?>"}, function(data) {
                  data = $.parseJSON(data);
                     if(data.rc==-1){
                         $.gritter.add({
@@ -316,11 +286,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                        
                     }).error(function(error) { alert("failure"); });;
             };
-			if("<?php echo $profil ?>" === "admin" || "<?php echo $profil?>" === "directeur" ) {
-                            loadStats("*","<?php echo $login?>");
-                        }
-                        else 
-                             loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
+			//if("<?php echo $profil ?>" === "admin" || "<?php echo $profil?>" === "directeur" ) {
+                            loadStats("<?php echo $codeUsine;?>","<?php echo $profil;?>");
+                      //  }
+                       // else 
+                       //      loadStats("<?php echo $codeUsine?>","<?php echo $login?>");
                            // loadStatsFamille($("#GRP_CMB").val(),"<?php echo $codeUsine?>","<?php echo $login?>");
 			  //pie chart tooltip example
 			  var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');

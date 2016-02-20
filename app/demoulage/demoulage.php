@@ -103,7 +103,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 									</h4>
 									<div class="form-group">
 										<label class="col-sm-4 control-label no-padding-right"
-											for="form-field-1" style="margin-left: -8%"> Numero</label>
+											for="form-field-1" style="margin-left: -8%"> Numéro</label>
 										<div class="col-sm-8">
 											<input type="text" id="numero"
 												name="numero" placeholder=""
@@ -123,7 +123,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 									<div class="form-group">
 										<label class="col-sm-4 control-label no-padding-right"
 											for="form-field-1" style="margin-top: 5px; margin-left: -8%">
-											Quantite a demouler (kg)</label>
+											Quantité à demouler (kg)</label>
 										<div class="col-sm-8">
 											<input type="number" id="quantiteAdemouler"
 												name="quantiteAdemouler" placeholder=""
@@ -133,7 +133,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 									<div class="form-group">
 										<label class="col-sm-4 control-label no-padding-right"
 											for="form-field-1" style="margin-top: 5px; margin-left: -8%">
-											Quantite demoulee (kg)</label>
+											Quantité demoulée (kg)</label>
 										<div class="col-sm-8">
 											<input type="number" id="quantiteDemoulee"
 												name="quantiteDemoulee" placeholder=""
@@ -402,9 +402,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                     loadDemoulagesSelected(checkedDemoulages[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
-                }else
+                } else  if (checkedDemoulages.length > 1){
                 {
+                    bootbox.alert("Veuillez selectionnez un seul produit SVP!");
+                    loadDemoulages();
                     $('#SAVE').attr("disabled", true);
+                    $('#numero').val("");
                     $('#nomProduit').text("");
                     $('#stockProvisoire').val("");
                     $('#quantiteDemoulee').val("");
@@ -413,7 +416,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     
                     $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_MSG_VIEW').hide();
-                    
+                } 
                 }
                 if(checkedDemoulages.length==nbTotalDemoulagesChecked){
                     $('table th input:checkbox').prop('checked', true);
@@ -430,6 +433,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 else
                 {
                     $('#SAVE').attr("disabled", true);
+                    $('#numero').val("");
                     $('#nomProduit').text("");
                     $('#stockProvisoire').val("");
                     $('#quantiteDemoulee').val("");

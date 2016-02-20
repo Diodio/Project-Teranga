@@ -29,11 +29,15 @@ public function insert($stock) {
     }
 }
     
-public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
-        
+public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($codeUsine !=='*'){
             $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
-                    FROM produit,stock_reel WHERE produit.id=produit_id  ' . $sWhere . ' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-      
+                    FROM produit,stock_reel WHERE produit.id=produit_id  ' . $sWhere . ' and codeUsine="'.$codeUsine.'" group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        }
+        else{
+           $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
+                    FROM produit,stock_reel WHERE produit.id=produit_id  ' . $sWhere . ' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.''; 
+        }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
@@ -49,7 +53,7 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
     }
     
 
-    public function retrieveAllByUsine($codeUsine, $login, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAllByUsine($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
              $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
                     FROM produit,stock_reel WHERE produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
      
@@ -68,9 +72,15 @@ public function retrieveAll($offset, $rowCount, $orderBy = "", $sWhere = "") {
         return $arrayStocks;
     }
     
-    public function countAll($where="") {
-        $sql = 'select count(produit.id) as nbStocks
-                    from produit,stock_reel where produit.id=produit_id ' . $where . '';
+    public function countAll($codeUsine,$where="") {
+        if($codeUsine !=='*'){
+            $sql = 'select count(produit.id) as nbStocks
+                        from produit,stock_reel where produit.id=produit_id and codeUsine="'.$codeUsine.'" ' . $where . '';
+        }
+        else {
+            $sql = 'select count(produit.id) as nbStocks
+                        from produit,stock_reel where produit.id=produit_id ' . $where . '';
+        }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbTypeStocks = $stmt->fetch();

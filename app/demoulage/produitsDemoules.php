@@ -14,10 +14,10 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Demoulage
+            Démoulage
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Produits demoulés
+                Liste démoulages
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -30,12 +30,12 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-users orange"></i>
-                            Produits demoulés
+                            Liste démoulages
                         </h4>
-                        <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="" style="margin-right: 10px;">
+                        <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="" style="width: 200px;margin-right: 10px;">
                         <option value="*" class="types">Filtrer par type </option>
-                         <option value="0" class="red bigger-130 icon-only">Démoulages annulés</option>
-                         <option value="1" class="orange bigger-130 icon-only">Démoulages validés</option>
+                         <option value="0" class="red bigger-120 icon-only">Démoulages annulés</option>
+                         <option value="1" class="green bigger-120 icon-only">Démoulages validés</option>
                 </select>
                                        <div class="btn-group">
                                             <button id="MNU_ANNULATION"
