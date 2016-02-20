@@ -720,7 +720,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
-                    $('#AchatDate').text(data.dateAchat);
+                    $('#AchatDate').text(data.dateAchat+' à '+ data.heureReception);
                     $('#AchatNomMareyeur').text(data.nomMareyeur);
                     $('#achatAdresseMareyeur').text(data.adresse);
                     $('#achatUser').text(data.user);

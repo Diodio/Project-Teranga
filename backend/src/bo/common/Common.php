@@ -101,9 +101,13 @@ class Common {
     }
     
    
-    public static function setFormatDateTime(){
-            return '%d-%m-%Y';
+    public static function setFormatDate(){
         
+            return '%d-%m-%Y';
+    }
+    public static function setFormatDateTime(){
+        
+            return '%d-%m-%Y %T';
     }
     
     public static function setAllCookies() {

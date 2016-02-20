@@ -151,7 +151,8 @@ class AchatManager {
             foreach ($achat as $key => $value) {
                 // $achatDetail ['id'] = $value ['achat.id'];
                 $achatDetail ['numero'] = $value ['numero'];
-                $achatDetail ['dateAchat'] = date_format(date_create($value ['dateAchat']), 'd/m/Y');
+                $achatDetail ['dateAchat'] = date_format(date_create($value ['dateAchat']), 'd-m-Y');
+                $achatDetail ['heureReception'] =  $value ['heureReception'];
                 $achatDetail ['nomMareyeur'] = $value ['nom'];
                 $achatDetail ['adresse'] = $value ['adresse'];
                 $userManager = new \Utilisateur\UtilisateurManager();

@@ -52,21 +52,21 @@ class AchatQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             if($typeAchat !=='*'){
-                $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+                $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+            $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
             if($typeAchat !=='*'){
-                $sql = 'select achat.id, status,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+                $sql = 'select achat.id, status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id, status, date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom
+            $sql = 'select achat.id, status, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   
@@ -100,21 +100,21 @@ class AchatQueries {
             $dateFin="2900-01-01";
         if($codeUsine !=='*') {
             if($regle !=='*'){
-                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+            $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
             if($regle !=='*'){
-                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDateTime().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+            $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   
