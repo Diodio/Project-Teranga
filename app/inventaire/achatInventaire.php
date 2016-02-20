@@ -52,10 +52,8 @@
                         </span>
                         <span class="col-sm-8">
                             <select id="regle" name="regle" style="margin-left: -40px;">
-                                            <option value="*" class="">Filtrez par achat</option>
                                             <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
                                             <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option>
-                                            <option value="0" class="orange bigger-130 icon-only">Achats non réglés</option>
                             </select>
                             <span id="labelTo" style="margin-left: -1px;">Periode du</span>
                             <input
