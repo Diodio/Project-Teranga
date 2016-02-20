@@ -441,7 +441,7 @@ class ProduitController extends BaseController implements BaseAction {
     		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
     			// Begin order from dataTable
     			$sOrder = "";
-    			$aColumns = array('libelle', 'stockProvisoire', 'quantiteAchetee', 'quantiteDemoulee','quantiteFacturee','stockReel');
+    			$aColumns = array('id','libelle');
     			if (isset($request['iSortCol_0'])) {
     				$sOrder = "ORDER BY  ";
     				for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -450,12 +450,13 @@ class ProduitController extends BaseController implements BaseAction {
     								($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
     					}
     				}
-    
+                               //  var_dump($sOrder);
     				$sOrder = substr_replace($sOrder, "", -2);
     				if ($sOrder == "ORDER BY") {
-    					$sOrder .= " stock desc";
+    					$sOrder .= " libelle desc";
     				}
     			}
+                           
     			// End order from DataTable
     			// Begin filter from dataTable
     			$sWhere = "";
