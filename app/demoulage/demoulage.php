@@ -575,7 +575,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
 
-                $.post(url, {produitId: produitId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                $.post(url, {produitId: produitId, usineCode:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                   data = $.parseJSON(data);
                  // data = data[0];
                     $('#nomProduit').text(data.designation);

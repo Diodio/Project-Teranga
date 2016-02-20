@@ -374,9 +374,9 @@
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Non valid�"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
+                                    src += '<span class=" tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash-o red bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Valid�"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
                               
                                 return src;
                             }

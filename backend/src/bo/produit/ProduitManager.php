@@ -77,8 +77,8 @@ class ProduitManager {
         return $arrayProduits;
     }
     
-    public function retrieveDetailProduit($produitId) {
-        $produits = $this->produitQuery->retrieveDetailProduit($produitId);
+    public function retrieveDetailProduit($produitId, $codeUsine) {
+        $produits = $this->produitQuery->retrieveDetailProduit($produitId, $codeUsine);
         $arrayProduits = array();
         $i = 0;
         foreach ($produits as $key => $value) {

@@ -420,7 +420,7 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId']);
+                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId'], $request['usineCode']);
                 if ($produitDetails != null)
                     $this->doSuccessO($produitDetails);
                 else

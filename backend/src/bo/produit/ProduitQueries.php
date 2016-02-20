@@ -103,8 +103,8 @@ class ProduitQueries {
         return $products;
     }
     
-    public function retrieveDetailProduit($produitId) {
-        $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="'.$produitId.'"';
+    public function retrieveDetailProduit($produitId, $codeUsine) {
+        $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="'.$produitId.'" and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
