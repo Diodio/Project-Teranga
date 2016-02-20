@@ -666,9 +666,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    "bInfo": false,
+                    "bInfo": true,
                     "sAjaxSource": url,
-                    "sPaginationType": "simple",
+                    "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
