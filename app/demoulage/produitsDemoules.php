@@ -455,12 +455,8 @@
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULE; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
-                        userProfil=$.cookie('profil');
-                        if(userProfil==='admin' || userProfil==='directeur'){
-                            aoData.push({"name": "usineCode", "value": "*"});
-                        }
-                        else
-                            aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "profil", "value": $.cookie('profil')});
+                        aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
                         aoData.push({"name": "etat", "value": etat});
                         $.ajax( {
                           "dataType" : 'json',

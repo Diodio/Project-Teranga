@@ -241,13 +241,19 @@ class AchatManager {
         }
     }
 
-    public function getInfoInventaire() {
-        $infos = $this->achatQuery->getInfoInventaire();
+    public function getInfoInventaire($codeUsine) {
+        $infos = $this->achatQuery->getInfoInventaire($codeUsine);
         $infosTab = array();
         //var_dump($infos);
         if ($infos != null) {
-            $infosTab['montantTotal'] = $infos['montantTotal'];
-            $infosTab['poidsTotal'] = $infos['poidsTotal'];
+            if($infos['montantTotal'] !=null)
+                $infosTab['montantTotal'] = $infos['montantTotal'];
+            else
+                $infosTab['montantTotal'] = 0;
+            if($infos['poidsTotal'] !=null)
+                $infosTab['poidsTotal'] = $infos['poidsTotal'];
+            else
+                $infosTab['poidsTotal'] = 0;
         }
         return $infosTab;
     }

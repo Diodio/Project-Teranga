@@ -27,14 +27,14 @@
          <div style="margin-bottom: 20px;" >
                     <div class="infobox infobox-green" style="width: 360px; height: 40px;">
                                  <div class="infobox-data">
-                                     <span class="infobox-data-number">Poids total : <span id='montantTotal'></span> KG</span>
+                                     <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
                                  </div>
                          </div>
                          <div class="infobox infobox-blue" style=" width: 360px; height: 40px;">
 
 
                                  <div class="infobox-data" style="width:640px">
-                                         <span class="infobox-data-number">Montant total : <span id='poidsTotal'></span> F CFA</span>
+                                         <span class="infobox-data-number">Montant total : <span id='montantTotal'></span> F CFA</span>
                                  </div>
                          </div>
                      </div>
@@ -146,7 +146,7 @@
     });
     
     loadInfosInventaire = function () {
-        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
+        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -246,14 +246,8 @@
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_INVENTAIRE_ACHATS; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
-                        userProfil=$.cookie('profil');
-                        
-                        if(userProfil==='admin' || userProfil==='directeur'){
-                            aoData.push({"name": "usineCode", "value": "*"});
-                        }
-                        else
+                        aoData.push({"name": "profil", "value": $.cookie('profil')});
                         aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
-                        
                         aoData.push({"name": "dateDebut", "value": dateDebut});
                         aoData.push({"name": "dateFin", "value": dateFin});
                         aoData.push({"name": "regle", "value": regle});

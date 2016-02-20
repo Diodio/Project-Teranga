@@ -666,12 +666,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_REGLEMENTS; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
-                        userProfil=$.cookie('profil');
-                        if(userProfil==='admin'){
-                            aoData.push({"name": "codeUsine", "value": "*"});
-                        }
-                        else
-                            aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "profil", "value": $.cookie('profil')});
+                        aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
                         $.ajax( {
                           "dataType" : 'json',
                           "type" : "POST",

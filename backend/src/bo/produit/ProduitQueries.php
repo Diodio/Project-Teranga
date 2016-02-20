@@ -104,14 +104,17 @@ class ProduitQueries {
     }
     
     public function retrieveDetailProduit($produitId, $codeUsine) {
-        $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="'.$produitId.'" and codeUsine="'.$codeUsine.'"';
+        if ($codeUsine !== '*') {
+            $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="' . $produitId . '" and codeUsine="' . $codeUsine . '"';
+        } else
+            $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND produit.id="' . $produitId . '"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
         return $products;
     }
-    
-     public function countAllDemoulages($codeUsine, $sWhere = "") {
+
+    public function countAllDemoulages($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {

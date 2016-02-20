@@ -109,7 +109,10 @@ class StockController extends BaseController {
             if (isset($request['userId'])) {
                 $stockManager = new StockManager();
                // $request['login'],$request['codeUsine']
-                $infoStocks = $stockManager->findStats($request['usineCode']);
+                if((isset($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
+                    $infoStocks = $stockManager->findStats($request['usineCode']);
+                else
+                     $infoStocks = $stockManager->findStats('*');
                 if ($infoStocks !== NULL) {
                     $this->doSuccessO($infoStocks);
                 } else
