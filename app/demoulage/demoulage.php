@@ -531,9 +531,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    "bInfo": false,
+                    //afficher nombre élément
+                    "bInfo": true,
                     "sAjaxSource": url,
-                    "sPaginationType": "simple",
+                  //afficher nombre élément
+                    "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULAGES; ?>"});
                         aoData.push({"name": "offset", "value": "1"});

@@ -666,8 +666,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
+                    //afficher nombre élément
                     "bInfo": true,
                     "sAjaxSource": url,
+                  //afficher nombre élément
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
