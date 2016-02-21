@@ -85,7 +85,7 @@ private $logger;
 
     public function doInsert($request) {
         try {
-            $this->logger->log->trace("tesst1");
+            $this->logger->log->trace("debut insertion bon de sortie");
             $bonSortieManager = new BonSortieManager();
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
@@ -93,16 +93,11 @@ private $logger;
             $bonSortie->setNumeroCamion($request['numeroCamion']);
             $bonSortie->setNomChauffeur($request['nomChauffeur']);
             $bonSortie->setOrigine($request['origine']);
-            $bonSortie->setNumeroContainer($request['numContainer']);
-            $bonSortie->setNumeroPlomb($request['numeroPlomb']);
             $bonSortie->setDestination($request['destination']);
             $bonSortie->setCodeUsine($request['codeUsine']);
             $bonSortie->setLogin($request['login']);
             $bonSortie->setStatus(1);
             $bonSortie->setPoidsTotal($request['poidsTotal']);
-//                $clientManager = new Client\ClientManager();
-//                $client = $clientManager->findById($request['client']);
-//                $bonSortie->setClient($client);
             $Added = $bonSortieManager->insert($bonSortie);
             if ($Added->getId() != null) {
                 $jsonBonSortie = json_decode($_POST['jsonProduit'], true);

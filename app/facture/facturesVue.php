@@ -210,7 +210,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 <!--                      <a id="VOIR_COLISAGE" class="btn btn-primary btn-sm"  title="Voir le colisage"
 						alt="Voir le colisage"><i
 						class="ace-icon fa fa-plus-square"></i>Voir colisage </a>-->
-                                                <button id="VOIR_COLISAGE" type="button" class="btn btn-lg btn-warning" data-toggle="popover" title="Voir le colisage" >Voir colisage</button>
+                                                <button id="VOIR_COLISAGE" type="button" class="btn btn-lg btn-warning" data-toggle="popover" title="Voir démoulage" >Voir démoulage</button>
                      </div>
                      
                    

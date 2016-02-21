@@ -190,18 +190,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Numéro Container </div>
-                        <div class="profile-info-value">
-                            <span id="NumeroContainer"></span>
-                        </div>
-                    </div>
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Numéro plomb </div>
-                        <div class="profile-info-value">
-                            <span id="NumeroPlomb"></span>
-                        </div>
-                    </div>
-                    <div class="profile-info-row">
                         <div class="profile-info-name">Numéro camion </div>
                         <div class="profile-info-value">
                             <span id="NumeroCamion"></span>
@@ -542,8 +530,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#Date').text(data.date);
                     $('#NomClient').text(data.nomClient);
                     $('#Origine').text(data.origine);
-                    $('#NumeroContainer').text(data.numContainer);
-                    $('#NumeroPlomb').text(data.numPlomb);
                     $('#NumeroCamion').text(data.numCamion);
                     $('#Chauffeur').text(data.chauffeur);
                     $('#Destination').text(data.destination);

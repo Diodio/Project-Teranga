@@ -21,14 +21,6 @@ class BonSortie {
     
     
    /** @Column(type="string", length=60, nullable=true) */
-    public $numeroContainer;
-    
-    
-   /** @Column(type="string", length=60, nullable=true) */
-    public $numeroPlomb;
-    
-    
-   /** @Column(type="string", length=60, nullable=true) */
     public $numeroCamion;
     /**
      * @Column(type="string", length=60, nullable=false)

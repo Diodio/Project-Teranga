@@ -84,6 +84,15 @@ class UsineQueries {
                 return null;
         }
     
+    public function findByCodeUsine($codeUsine) {
+            $query = Bootstrap::$entityManager->createQuery("select u.nomUsine from Usine\Usine u where u.code = :codeUsine");
+            $query->setParameter('codeUsine', $codeUsine);
+            $usine = $query->getResult();
+            if ($usine != null)
+                return $usine[0];
+            else
+                return null;
+        }
     public function count($sWhere = "") {
        
     }
