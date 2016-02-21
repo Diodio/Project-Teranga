@@ -43,23 +43,24 @@ $nomUsine = $_COOKIE['nomUsine'];
 				<div class="space-6"></div>
 				<div class="row">
 					<div class="col-sm-4">
-						<label> Numero Container</label>
+						<label> Destination</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numContainer" id="numContainer" placeholder=""
-							style="width: 100%" class="col-xs-10 col-sm-7">
+                                            <input type="text" name="destination" id="destination" placeholder=""
+                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
 					</div>
 				</div>
 				<div class="space-6"></div>
 				<div class="row">
 					<div class="col-sm-4">
-						<label> Numero Plomb</label>
+						<label>Chauffeur</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numeroPlomb" id="numeroPlomb" placeholder=""
+						<input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
+				
 			</div>
 			<div class="col-sm-5" style="margin-left: 12%">
 				<div class="row">
@@ -89,26 +90,6 @@ $nomUsine = $_COOKIE['nomUsine'];
 					<div class="col-sm-6">
 						<input type="text" id="numeroCamion" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
-					</div>
-				</div>
-				<div class="space-6"></div>
-				<div class="row">
-					<div class="col-sm-5">
-						<label>Chauffeur</label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
-							style="width: 100%" class="col-xs-10 col-sm-7">
-					</div>
-				</div>
-				<div class="space-6"></div>
-				<div class="row">
-					<div class="col-sm-5">
-						<label> Destination</label>
-					</div>
-					<div class="col-sm-6">
-                                            <input type="text" name="destination" id="destination" placeholder=""
-                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
 					</div>
 				</div>
 			</div>
@@ -196,7 +177,6 @@ $nomUsine = $_COOKIE['nomUsine'];
 <script type="text/javascript">
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
-    $('#CMB_CLIENTS').select2();
     $('#CMBDESTINATIONS').select2();
     $('#designation0').select2();
     var today = new Date();
@@ -245,22 +225,6 @@ $(document).ready(function () {
             }
         });
     };
-    loadClients = function(){
-        $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
-                ; ?>"}, function(data) {
-            sData=$.parseJSON(data);
-            if(sData.rc==-1){
-                $.gritter.add({
-                        title: 'Notification',
-                        text: sData.error,
-                        class_name: 'gritter-error gritter-light'
-                    });
-            }else{
-                $("#CMB_CLIENTS").loadJSON('{"clients":' + data + '}');
-            }
-        });
-    };
-    loadClients();
     loadProduit(0);
     var i=1;
      $("#add_row").click(function(){
@@ -287,19 +251,17 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
  
   
  
-    
     $(document).delegate('#tab_logic tr td', 'click', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
           $( "#qte"+counter ).keyup(function() {
-           
-             verifierPoids('designation'+counter, counter);
+            verifierPoids('designation'+counter, counter);
          }); 
           
          
 //          $("#designation"+counter).change(function() {
-//              alert('designation'+counter);
-          // verifierPoids('designation'+counter, counter);
+//             console.log ('designation'+counter);
+//           //verifierPoids('designation'+counter, counter);
 //         }); 
       
     });
@@ -318,9 +280,9 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                 $("#poidsTotal").val(tot);
        };
        
-        $( "#qte0" ).keyup(function() {
-              calculTotalPoids();
-         }); 
+//        $( "#qte0" ).keyup(function() {
+//              calculTotalPoids();
+//         }); 
        
 //        $("#designation0").change(function() {
 //           verifierPoids('designation0');
@@ -331,8 +293,17 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
            var qte = parseFloat($( "#qte"+counter ).val());
            var sp1 = typ.indexOf( '(' );
            var res = parseFloat(typ.substring(sp1+1, typ.length-1));
-           console.log('res' +res);
-           console.log('qte' + $( "#qte"+counter ).val());
+           console.log('type' + $( "#"+id ).val());
+           if($("#"+ id).val() ==='-1'){
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'Veuillez sélectionner un produit SVP!',
+                    class_name: 'gritter-error gritter-light'
+                });
+                $("#qte"+ counter).val("");
+                return;
+           }
+           else {
            if(res<=0) {
                $.gritter.add({
                     title: 'Notification',
@@ -340,28 +311,30 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                     class_name: 'gritter-error gritter-light'
                 });
                 $("#"+ id).select2("val", "-1");
+                $("#qte"+ counter).val("");
+                return;
            }
            else if(qte>res){
                $.gritter.add({
                     title: 'Notification',
-                    text: 'La quantité ne doit pas etre superieure au stock',
+                    text: 'La quantité ne doit pas etre supérieure au stock',
                     class_name: 'gritter-error gritter-light'
                 });
-               // $("#"+ id).select2("val", "-1");
-                //$( "#qte"+counter ).val("");
+                $("#"+ id).select2("val", "-1");
+                $("#qte"+ counter).val("");
+                return;
            }
            else
-                          calculTotalPoids();
+             calculTotalPoids();
+           }
+               
        };
          
           BonSortieProcess = function ()
         {
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
-            var frmData;            
             var origine = '<?php echo $codeUsine?>';
-            var numContainer= $('#numContainer').val();
-            var numeroPlomb= $('#numeroPlomb').val();
             var numeroBonSortie = $("#numeroBonSortie").val();
             var numeroCamion = $("#numeroCamion").val();
             var nomChauffeur = $("#nomChauffeur").val();
@@ -400,8 +373,6 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             formData.append('ACTION', ACTION);
             formData.append('dateBonSortie', dateAchat);
             formData.append('origine', origine);
-            formData.append('numContainer', numContainer);
-            formData.append('numeroPlomb', numeroPlomb);
             formData.append('numeroBonSortie', numeroBonSortie);
             formData.append('numeroCamion', numeroCamion);
             formData.append('nomChauffeur', nomChauffeur);
@@ -475,46 +446,17 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				numContainer: {
-					required: true
-				},
-				adresse: {
-					required: true
-				},
-				numeroPlomb: {
-					required: true
-				},
-				numeroCamion: {
-					required: true
-				},
-				poidsTotal: {
-                    required:true
-					},
-			    nomChauffeur: {
-                    required:true
+				
+                            poidsTotal: {
+                                required:true
 					}
 				
 			},
 	
 			messages: {
-				numContainer: {
-					required: "Champ obligatoire."
-				},
-				adresse: {
-					required: "Champ obligatoire."
-				},
-				numeroPlomb: {
-					required: "Champ obligatoire."
-				},
-				numeroCamion: {
-					required: "Champ obligatoire."
-				},
-				poidsTotal: {
-                    required:"Champ obligatoire."
-					},
-			    nomChauffeur: {
-                    required:"Champ obligatoire."
-					}
+                            poidsTotal: {
+                                required:"Champ obligatoire."
+                            }
 			},
 	
 	

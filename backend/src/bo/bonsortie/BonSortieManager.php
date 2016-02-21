@@ -95,19 +95,23 @@ public function findStatisticByUsine($codeUsine) {
         if ($bonSortieId != null) {
             $bonSortie = $this->bonSortieQuery->findBonDetails($bonSortieId);
             $ligneBonSortie = $this->bonSortieQuery->findAllProduitByBon($bonSortieId);
+            $usineManager = new \Usine\UsineManager();
             $bonSortieDetail = array();
             foreach ($bonSortie as $key => $value) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
                 $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
                 $bonSortieDetail ['date']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
-                $bonSortieDetail ['numContainer']  =  $value ['numeroContainer'];
-                $bonSortieDetail ['numPlomb']  =  $value ['numeroPlomb'];
                 $bonSortieDetail ['numCamion']  =  $value ['numeroCamion'];
                 $bonSortieDetail ['chauffeur']  =  $value ['nomChauffeur'];
-                $bonSortieDetail ['origine']  =  $value ['origine'];
-                $bonSortieDetail ['destination']  =  $value ['destination'];
+                $usineOrigine = $usineManager->findByCodeUsine($value ['origine']);
+                $bonSortieDetail ['origine']  =  $usineOrigine['nomUsine'];
+                $usineDestination = $usineManager->findByCodeUsine($value ['destination']);
+                $bonSortieDetail ['destination']  =  $usineDestination ['nomUsine'];
                 $bonSortieDetail ['poidsTotal']  =  $value ['poidsTotal'];
-                $bonSortieDetail ['user']  =  $value ['login'];
+                $userManager = new \Utilisateur\UtilisateurManager();
+                $user = $userManager->findByLogin($value ['login'], $value ['codeUsine']);
+                $bonSortieDetail ['user'] = $user;
+               // $bonSortieDetail ['user']  =  $value ['login'];
                 $bonSortieDetail['ligneBonSortie'] = $ligneBonSortie;
             }
             return $bonSortieDetail;

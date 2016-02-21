@@ -51,18 +51,9 @@ public function retrieveTypes()
         return $this->usineQueries->retrieveTypes();
     }
    
-    public function count($where="") {
-    }
-    
-     public function retrieveAllTypeProduits($offset, $rowCount, $sOrder = "", $sWhere = "") {
-    }
-
-   
-    public function countAllTypeProduits($where="") {
-    }
-    public function findAllProduits($term){
-    }
-
+   public function findByCodeUsine($codeUsine) {
+       return $this->usineQueries->findByCodeUsine($codeUsine);
+   }
    
 
 }
