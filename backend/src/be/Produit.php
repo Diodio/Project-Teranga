@@ -12,9 +12,14 @@ class Produit {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false, unique=true)
+     * @Column(type="string", length=120, nullable=false, unique=true)
      * */
     protected $libelle;
+    
+    /**
+     * @Column(type="string", length=120, nullable=true)
+     * */
+    protected $libelleFacture;
     
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
@@ -133,6 +138,14 @@ class Produit {
         date_default_timezone_set('GMT');
         $this->updatedDate = new \DateTime("now");
     }
-   
+    function getLibelleFacture() {
+        return $this->libelleFacture;
+    }
+
+    function setLibelleFacture($libelleFacture) {
+        $this->libelleFacture = $libelleFacture;
+    }
+
+
 
     }

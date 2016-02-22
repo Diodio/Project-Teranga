@@ -86,6 +86,7 @@ class ProduitController extends BaseController implements BaseAction {
                 if ($checkProduit == NULL) {
                     $produit = new Produit();
                     $produit->setLibelle($request['designation']);
+                    $produit->setLibelleFacture($request['libelleFacture']);
                     $produitAdded = $produitManager->insert($produit);
                     if ($produitAdded->getId() != null) {
                         if ($request['stockProvisoire'] !== 0 || $request['stockReel'] !== 0) {
