@@ -83,6 +83,9 @@
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                    Login
                                 </th>
+                                   <th style="border-left: 0px none;border-right: 0px none;">
+                                   Mot de passe
+                                </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Usine
                                 </th>
@@ -504,9 +507,9 @@
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    "bInfo": false,
+                    "bInfo": true,
                     "sAjaxSource": url,
-                    "sPaginationType": "simple",
+                    "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                         aoData.push({"name": "offset", "value": "1"});

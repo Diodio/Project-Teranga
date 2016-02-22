@@ -258,7 +258,7 @@ private $langageManager;
             if(isset($request['iDisplayStart']) && isset($request['iDisplayLength'])){
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('nomUtilisateur','login', 'usine_id','profil_id');
+                $aColumns = array('nomUtilisateur','login', 'password', 'usine_id','profil_id');
                 if ( isset( $request['iSortCol_0'] ) ){
                         $sOrder = "ORDER BY  "; 
                         for ( $i=0 ; $i<intval( $request['iSortingCols'] ) ; $i++ ){

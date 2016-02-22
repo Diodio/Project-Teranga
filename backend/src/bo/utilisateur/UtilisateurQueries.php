@@ -125,7 +125,7 @@ class UtilisateurQueries {
      * @throws \Customer\Exception
      */
     public function listUtilisateurs($offset, $rowCount, $orderBy = "", $sWhere = "") {
-        $sql = 'SELECT u.id uid, nomUtilisateur, description,login, nomUsine, etatCompte, connected FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+        $sql = 'SELECT u.id uid, nomUtilisateur, description,login,password, nomUsine, etatCompte, connected FROM utilisateur u,usine us, profil p WHERE u.usine_id=us.id AND u.profil_id=p.id ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         $this->logger->log->trace($sql);
         try {
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -139,6 +139,7 @@ class UtilisateurQueries {
                 $utilisateur[] = $value['nomUtilisateur'];
                 $utilisateur[] = $value['description'];
                 $utilisateur[] = $value['login'];
+                $utilisateur[] = $value['password'];
                 $utilisateur[] = $value['nomUsine'];
                 $utilisateur[] = $value['connected'];
                 $utilisateur[] = $value['uid'];
@@ -186,7 +187,7 @@ class UtilisateurQueries {
         return $query->getOneOrNullResult();
     }
     
-    public function getPasswordRecovery($utilisateurname, $partner, $token){
+    public function getPasswordRecovery($utilisateurame, $partner, $token){
         $dql = "SELECT p from Customer\PasswordRecovery p where p.username='$utilisateurname' and p.partner='$partner' and p.token='$token'";
         $query = B::$entityManager->createQuery($dql);
         return $query->getOneOrNullResult();
