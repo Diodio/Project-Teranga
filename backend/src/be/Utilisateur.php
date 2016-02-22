@@ -14,7 +14,7 @@
 namespace Utilisateur;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="utilisateur") * */
+ * @Table(name="utilisateur", uniqueConstraints={@UniqueConstraint(name="login_idx", columns={"login", "usine_id"})}) * */
 class Utilisateur {
 
     /** @Id

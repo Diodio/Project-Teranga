@@ -235,7 +235,7 @@ private $langageManager;
                     if($user->getId()!=null){
                         $this->doSuccess($user->getId(),'Utilisateur créé avec succes');
                     }else{
-                        throw new ConstraintException('Cet utilisateur existe deja');
+                        $this->doError('-1', 'Cet utilisateur existe deja');
                     }
                 }
             }else{

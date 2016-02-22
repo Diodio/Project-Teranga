@@ -411,23 +411,23 @@
                             }
                           },
                             {   
-                                "aTargets": [6],
+                                "aTargets": [7],
                                 "bSortable": false,
                                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                                     $(nTd).css('text-align', 'center');
                                  },
                                     "mRender": function (data, type, full) {
                                         var src = '<input type="hidden" >';
-                                        if (full[6] != null && full[6] == '0')
+                                        if (full[7] != null && full[7] == '0')
                                             src += '<span class="infobox-red tooltip-error"  title="Hors ligne"><i class="fa fa-circle"></i></span>';
-                                        else if (full[6] != null && full[6] == '1')
+                                        else if (full[7] != null && full[7] == '1')
                                             src += '<span class="infobox-green tooltip-error"  title="En ligne"><i class="fa fa-circle"></i></span>';
 
                                     return src;
                                 }
                               },
                             {
-                                "aTargets": [7],
+                                "aTargets": [8],
                                 "bSortable": false,
                                 "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                                     
