@@ -165,7 +165,7 @@ class ProduitController extends BaseController implements BaseAction {
     		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
     			// Begin order from dataTable
     			$sOrder = "";
-    			$aColumns = array('libelle');
+    			$aColumns = array('id','libelle');
     			if (isset($request['iSortCol_0'])) {
     				$sOrder = "ORDER BY  ";
     				for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -461,7 +461,7 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId'], $request['usineCode']);
+                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId']);
                 if ($produitDetails != null)
                     $this->doSuccessO($produitDetails);
                 else

@@ -114,6 +114,14 @@ class ProduitQueries {
         return $products;
     }
 
+    public function retrieveDetail($produitId) {
+        $sql = 'SELECT p.id id, libelle, libelleFacture,(SELECT stock FROM stock_provisoire sp WHERE p.id=sp.produit_id ) stockProvisoire,  (SELECT stock FROM stock_reel sr WHERE p.id=sr.produit_id ) stockReel FROM produit p WHERE p.id="' . $produitId . '"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        return $products;
+    }
+    
     public function countAllDemoulages($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;

@@ -347,19 +347,17 @@
                                     '<i class="fa fa-pencil bigger-130"></i>'+
                                     '</a>');
                                     btnEdit.click(function(){
-                                         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {utilisateurId: oData[0], ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
+                                         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                                         data = $.parseJSON(data);
-                                        console.log(oData[0]);
-                                        utilisateurId=oData[0];
-                                        $('#nom').val(data.nomUtilisateur);
-                                        $('#login').val(data.login);
-                                        $('#motDePasse').val(data.password);
-                                        $('#confMotDePasse').val(data.password);
-                                        $('#CMB_USINE').val(data.usine_id).change();
-                                        $('#CMB_PROFIL').val(data.profil_id).change();
-                            });
+                                        console.log(data);
+                                        produit=oData[0];
+                                        $('#designation').val(data.libelle);
+                                        $('#libelleFacture').val(data.libelleFacture);
+                                        $('#stockProvisoire').val(data.stockProvisoire);
+                                        $('#stockReel').val(data.stockReel);
+                                    });
                                        
-                                        $('#winModalUser').modal('show');
+                                        $('#winModalProduit').modal('show');
                                     });
                                     btnEdit.tooltip({
                                         title: 'Modifier'

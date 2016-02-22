@@ -79,17 +79,22 @@ class ProduitManager {
         return $arrayProduits;
     }
     
-    public function retrieveDetailProduit($produitId, $codeUsine) {
-        $produits = $this->produitQuery->retrieveDetailProduit($produitId, $codeUsine);
+    public function retrieveDetailProduit($produitId) {
+        $produits = $this->produitQuery->retrieveDetail($produitId);
         $arrayProduits = array();
         $i = 0;
         foreach ($produits as $key => $value) {
             $arrayProduits ['id'] = $value ['id'];
-            if ($value ['stock'] != null)
-                $arrayProduits ['stockProvisoire'] = $value ['stock'];
+            $arrayProduits ['libelle'] = $value ['libelle'];
+            $arrayProduits ['libelleFacture'] = $value ['libelleFacture'];
+            if ($value ['stockProvisoire'] != null)
+                $arrayProduits ['stockProvisoire'] = $value ['stockProvisoire'];
             else
                 $arrayProduits ['stockProvisoire'] = 0;
-            $arrayProduits ['designation'] = $value ['libelle'];
+            if ($value ['stockReel'] != null)
+                $arrayProduits ['stockReel'] = $value ['stockReel'];
+            else
+                $arrayProduits ['stockReel'] = 0;
         }
         return $arrayProduits;
     }
