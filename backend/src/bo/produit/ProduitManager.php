@@ -55,23 +55,25 @@ class ProduitManager {
     }
 
     
-    public function retrieveAll() {
-        $produits = $this->produitQuery->retrieveAll();
+    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        $produits = $this->produitQuery->retrieveAllProduits($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
         $arrayProduits = array();
         $i = 0;
         foreach ($produits as $key => $value) {
-            $arrayProduits [$i] ['id'] = $value ['pid'];
-            $stockProvisoire =  $this->produitQuery->retrieveStockProvisoire($value ['pid']);
+            $arrayProduits [$i] [] = $value ['id'];
+            $arrayProduits [$i] [] = $value ['libelle'];
+            $stockProvisoire =  $this->produitQuery->retrieveStockProvisoire($value ['id']);
             if($stockProvisoire !=null)
-                $arrayProduits [$i] ['stockProvisoire'] = $stockProvisoire ['stock'];
+                $arrayProduits [$i] [] = $stockProvisoire ['stock'];
             else
-                $arrayProduits [$i] ['stockProvisoire'] = 0;
-            $stockReel =  $this->produitQuery->retrieveStockReel($value ['pid']);
+                $arrayProduits [$i] [] = 0;
+            $stockReel =  $this->produitQuery->retrieveStockReel($value ['id']);
             if($stockReel !=null)
-                $arrayProduits [$i] ['stockReel'] = $stockReel['stock'];
+                $arrayProduits [$i] [] = $stockReel['stock'];
             else
-                $arrayProduits [$i] ['stockReel'] = 0;
-            $arrayProduits [$i] ['designation'] = $value ['libelle'];
+                $arrayProduits [$i] [] = 0;
+            
+            $arrayProduits [$i] [] = $value ['id'];
             $i++;
         }
         return $arrayProduits;

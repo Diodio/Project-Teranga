@@ -133,14 +133,14 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<tr id='addr0'>
 								<td>1</td>
 								<td><select id="designation0" name="designation0"
-									class="col-xs-10 col-sm-10">
+									class="des col-xs-10 col-sm-10">
 										<option value="-1" id="designationSelect"
 											class="designations0">selectionnez un produit</option>
 								</select>
 								</td>
                                                                 <td><input type="text" readonly id="pu0" name='pu0' class="form-control" />
 								</td>
-                                                                <td><input type="text" autocomplete="off" id="qte0" name='qte0'
+                                                                <td><input type="text" readonly autocomplete="off" id="qte0" name='qte0'
 									class="form-control qte" />
 								</td>
 								<td><input type="text" readonly id="montant0" name='montant0'
@@ -462,11 +462,11 @@ $(document).ready(function () {
 //      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
 
 
-$('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
+$('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='des col-xs-10 col-sm-10'>\n\
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
 <td><input type='text' readonly id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='qte"+i+"' autocomplete='off' name='qte"+i+"'  class='form-control qte'/></td>\n\
+<td><input type='text' id='qte"+i+"' readonly autocomplete='off' name='qte"+i+"'  class='form-control qte'/></td>\n\
 <td><input type='text' readonly id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
@@ -482,9 +482,36 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 	 });
          
  
-  
- 
-    
+  $('#tab_logic').on('change', '.des', function()
+{//replace table selector with an id selector, if you are targetting a specific table
+       var id = $(this).closest('tr').attr('id');
+        var counter = id.slice(-1);
+        if($( "#designation"+counter ).val()!== '-1')
+               $("#qte"+counter).prop("readonly", false);
+        else
+            $("#qte"+counter).prop("readonly", true);
+        var trouve=0;
+        var valueSelected = $( "#designation"+counter ).val();
+            $('#tab_logic tr').each(function () {
+                value = $(this).find('select').val();
+                if(typeof value !=="undefined"){
+                    // console.log('compare'+value);
+                   if(value==valueSelected){
+                       trouve+=1;
+                   }
+                }
+            });
+            if(trouve > 1){
+                $.gritter.add({
+                    title: 'Notification',
+                    text: 'Ce produit existe deja, Veuillez changer de produit',
+                    class_name: 'gritter-error gritter-light'
+                });
+                $( "#designation"+counter ).val('-1').change();
+            }
+      
+    //set to work, you have the cells, the entire row, and the cell containing the button.
+});
     $(document).delegate('#tab_logic tr td', 'click', function (event) {
         var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
@@ -514,6 +541,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 //                });
 //            }
 //       });
+
+
+    
+               
+     
         $( "#pu"+counter ).keyup(function() {
            calculMontant(counter);
       });

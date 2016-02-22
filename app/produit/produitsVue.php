@@ -45,10 +45,56 @@
                 <a href="#modal-table" role="button" class="green" data-toggle="modal"> Liste des produits </a>
             </h4>-->
             <div class="row">
-                <div class="col-xs-12" style="margin-top: 12px;">
-                    <table id="grid-table"></table>
-                    <div id="grid-pager"></div>
-                </div>
+                  <div class="widget-box transparent">
+                    <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Liste des produits
+                        </h4>
+
+                        <div class="widget-toolbar">
+                            <a href="#" data-action="collapse">
+                                <i class="ace-icon fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main no-padding">
+                          <table id="LIST_PRODUITS" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center" style="border-right: 0px none;">
+                                    <label>
+                                        <input type="checkbox" value="*" name="allchecked"/>
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                                              
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Désignation
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Stock provisoire
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Stock réel
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                </th>
+
+                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
+                                </th>-->
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                        </div><!-- /.widget-main -->
+                    </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
             </div>
             <div id="winModalProduit" class="modal fade" tabindex="-1">
             <form id="validation-form" class="form-horizontal" role="form">
@@ -102,334 +148,308 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+         var oTableProduits = null;
+            var nbTotalProduitsChecked=0;
+            var checkedProduits = new Array();
+            
+            var produit=0;
+            
+            checkedProduitsContains = function(item) {
+                for (var i = 0; i < checkedProduits.length; i++) {
+                    if (checkedProduits[i] == item)
+                        return true;
+                }
+                return false;
+            };
+            // Persist checked Message when navigating
+            
+            
+            persistChecked = function() {
+                $('input[type="checkbox"]', "#LIST_UTILISATEURS").each(function() {
+                    if (checkedProduitsContains($(this).val())) {
+                        $(this).attr('checked', 'checked');
+                    } else {
+                        $(this).removeAttr('checked');
+                    }
+                });
+            };
+             $('table th input:checkbox').on('click', function() {
+                var that = this;
+                $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
+                    this.checked = that.checked;
+                    if (this.checked)
+                    {
+                        checkedProduitsAdd($(this).val());
+                      //  MessageSelected();
+                        $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+			$('#TAB_MSG_VIEW').hide();
+                        nbTotalProduitsChecked=checkedProduits.length;
+                    }
+                    else
+                    {
+                        checkedProduitsRemove($(this).val());
+                   //    MessageUnSelected();
+                        $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+			$('#TAB_MSG_VIEW').hide();
+                    }
+                    $(this).closest('tr').toggleClass('selected');
+                });
+            });
+            
+             $('#LIST_PRODUITS tbody').on('click', 'input[type="checkbox"]', function() {
+                context=$(this);
+                if ($(this).is(':checked') && $(this).val() != '*') {
+                    checkedProduitsAdd($(this).val());
+                    MessageSelected();
+                } else {
+                    checkedProduitsRemove($(this).val());
+                    MessageUnSelected();
+                }
+                ;
+                if(!context.is(':checked')){
+                    $('table th input:checkbox').removeAttr('checked');
+                }else{
+                    if(checkedProduits.length==nbTotalProduitsChecked){
+                        $('table th input:checkbox').prop('checked', true);
+                    }
+                }
+            });
+            
+         
+           // $('#SAVE').attr("disabled", true);
+            MessageSelected = function(click)
+            {
+                if (checkedProduits.length == 1){
+                    $('#SAVE').attr("disabled", false);
+                    $('#TAB_MSG_VIEW').show();
+		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+                }else
+                {
+                    $('#SAVE').attr("disabled", true);
+                    $('#nomProduit').text("");
+                    $('#stockProvisoire').val("");
+                    $('#stockReel').val("");
+                    $('#nombreCarton').val("");
+                    $('#nombreParCarton').val("");
+                    
+                    $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_MSG_VIEW').hide();
+                    
+                }
+                if(checkedProduits.length==nbTotalProduitsChecked){
+                    $('table th input:checkbox').prop('checked', true);
+                }
+            };
+            MessageUnSelected = function()
+            {
+               if (checkedProduits.length === 1){
+                   $('#SAVE').attr("disabled", false);
+		    $('#TAB_MSG_VIEW').show();
+                    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
+                }
+                else
+                {
+                    $('#SAVE').attr("disabled", true);
+                    $('#nomProduit').text("");
+                    $('#stockProvisoire').val("");
+                    $('#stockReel').val("");
+                    $('#nombreCarton').val("");
+                    $('#nombreParCarton').val("");
+                    $('#SAVE').attr("disabled", false);
+                    
+                    $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_MSG_VIEW').hide();
+                    $("#BTN_MSG_GROUP").popover('destroy');
+                    $("#BTN_MSG_CONTENT").popover('destroy');
+                }
+                $('table th input:checkbox').removeAttr('checked');
+            };
 
+            // Add checked item to the array
+            checkedProduitsAdd = function(item) {
+                if (!checkedMessageContains(item)) {
+                    checkedProduits.push(item);
+                }
+            };
+            // Remove unchecked items from the array
+            checkedProduitsRemove = function(item) {
+                var i = 0;
+                while (i < checkedProduits.length) {
+                    if (checkedProduits[i] == item) {
+                        checkedProduits.splice(i, 1);
+                    } else {
+                        i++;
+                    }
+                }
+            };
+            checkedMessageContains = function(item) {
+                for (var i = 0; i < checkedProduits.length; i++) {
+                    if (checkedProduits[i] == item)
+                        return true;
+                }
+                return false;
+            };
+            showPopover = function(idButton, colis){
+            $("#" + idButton).popover({
+                html: true,
+                trigger: 'focus',
+                placement: 'left',
+                title: '<i class="icon-group icon-"></i> Détail colis ',
+                content: colis
+            }).popover('toggle');
+         };
+             loadProduits = function() {
+                nbTotalProduitsChecked = 0;
+                checkedProduits = new Array();
+                var url =  '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
+
+                if (oTableProduits != null)
+                    oTableProduits.fnDestroy();
+
+                oTableProduits = $('#LIST_PRODUITS').dataTable({
+                    "oLanguage": {
+                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
+                    "oPaginate": {
+                        "sNext": "",
+                        "sLast": "",
+                        "sFirst": null,
+                        "sPrevious": null
+                      }
+                    },
+                    "aoColumnDefs": [
+                        {
+                             "aTargets": [0],
+                             "bSortable": false,
+                             "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                 $(nTd).css('text-align', 'center');
+                             },
+                             "mRender": function(data, type, full) {
+                                return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';                             }
+                        },
+                            
+                            {
+                                "aTargets": [4],
+                                "bSortable": false,
+                                "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                    
+                                    $(nTd).css('text-align', 'center');
+                                    $(nTd).text('');
+                                    $(nTd).addClass('td-actions');
+                                    action=$('<div></div>');
+                                    action.addClass('pull-right hidden-phone visible-desktop action-buttons');
+                                    btnEdit=$('<a class="green" href="#"> '+
+                                    '<i class="fa fa-pencil bigger-130"></i>'+
+                                    '</a>');
+                                    btnEdit.click(function(){
+                                         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {utilisateurId: oData[0], ACTION: "<?php echo App::ACTION_VIEW; ?>"}, function (data) {
+                                        data = $.parseJSON(data);
+                                        console.log(oData[0]);
+                                        utilisateurId=oData[0];
+                                        $('#nom').val(data.nomUtilisateur);
+                                        $('#login').val(data.login);
+                                        $('#motDePasse').val(data.password);
+                                        $('#confMotDePasse').val(data.password);
+                                        $('#CMB_USINE').val(data.usine_id).change();
+                                        $('#CMB_PROFIL').val(data.profil_id).change();
+                            });
+                                       
+                                        $('#winModalUser').modal('show');
+                                    });
+                                    btnEdit.tooltip({
+                                        title: 'Modifier'
+                                    });
+                                    //if (full[5] !== "Admin"){
+                                    btnRemove=$('<a class="red" href="#">'+
+                                                '<i class="fa fa-trash bigger-130"></i>'+
+                                                '</a>');
+                                    //}
+                                    btnRemove.click(function(){
+                                        removeUser(oData[0]);
+                                    });
+                                    btnRemove.tooltip({
+                                        title: 'Supprimer'
+                                    });
+                                    btnEdit.css({'margin-right': '10px', 'cursor':'pointer'});
+                                    btnRemove.css({'cursor':'pointer'});
+                                    action.append(btnEdit);
+                                   // if(oData[4] !=="Admin"){
+                                    action.append(btnRemove);
+                                  //  }
+                                    $(nTd).append(action);
+                                }
+                            }
+                    ],
+                    
+                    "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+//                        persistChecked();
+//                        $(nRow).css('cursor','pointer');
+//                        $(nRow).on('click', 'td:not(:first-child)', function(){
+//                            checkbox=$(this).parent().find('input:checkbox:first');
+//                            if(!checkbox.is(':checked')){
+//                                checkbox.prop('checked', true);;
+//                                checkedProduitsAdd(aData[0]);
+//                                MessageSelected();
+//                                
+//                            }else{
+//                                checkbox.removeAttr('checked');
+//                                
+//                                checkedProduitsRemove(aData[0]);
+//                                MessageUnSelected();
+//                            }
+//                        });
+                    },
+                    "fnDrawCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                       
+                    },
+                    "preDrawCallback": function( settings ) {
+                       
+                    },
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bInfo": true,
+                    "sAjaxSource": url,
+                    "sPaginationType": "full_numbers",
+                    "fnServerData": function ( sSource, aoData, fnCallback ) {
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
+                        aoData.push({"name": "offset", "value": "1"});
+                        aoData.push({"name": "rowCount", "value": "10"});
+                        aoData.push({"name": "profil", "value": $.cookie('profil')});
+                        aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
+                        $.ajax( {
+                          "dataType" : 'json',
+                          "type" : "POST",
+                          "url" : sSource,
+                          "data" : aoData,
+                          "success" : function(json) {
+                              if(json.rc==-1){
+                                 $.gritter.add({
+                                    title: 'Notification',
+                                    text: json.error,
+                                    class_name: 'gritter-error gritter-light'
+                                }); 
+                              }else{
+                                  $('table th input:checkbox').removeAttr('checked');
+                                  fnCallback(json);
+                                  nbTotalProduitsChecked=json.iTotalRecords;
+                              }
+                                
+                           }
+                        });
+                    }
+                });
+            };
+            
+            loadProduits();
         $("#MNU_PRODUIT_NEW").click(function()
         {
-           //$("#groupName").val('');
-          
-//            $('#winModalProduit .control-group').removeClass('error').addClass('info');
-//            $('#winModalProduit span.help-block').remove();
             $('#winModalProduit').modal('show');
         });
         
    
-       var grid_data;
-    //    var grid;
-
-    loadProduit = function () {
-        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
-            $.extend($.jgrid,$.jgrid.regional['fr']);
-            grid_data = $.parseJSON(data);
-            
-            jQuery(grid_selector).jqGrid({
-                //direction: "rtl",
-
-                //subgrid options
-                //subGrid : false,
-                //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
-                //datatype: "xml",
-                subGridOptions: {
-                    plusicon: "ace-icon fa fa-plus center bigger-110 blue",
-                    minusicon: "ace-icon fa fa-minus center bigger-110 blue",
-                    openicon: "ace-icon fa fa-chevron-right center orange"
-                },
-                //for this example we are using local data
-
-
-
-                data: grid_data,
-                datatype: "local",
-                height: 350,
-                colNames: [' ', 'Désignation', 'stock provisoire', 'stock reel'],
-                colModel: [
-                    {name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
-                        formatter: 'actions',
-                        formatoptions: {
-                            keys: true,
-                            //delbutton: false,//disable delete button
-
-                            delOptions: {recreateForm: true, beforeShowForm: beforeDeleteCallback},
-                            //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                        }
-                    },
-                    // 						{name:'id',index:'id', width:60, sorttype:"int", editable: true},
-                    {name: 'designation', index: 'designation', width: 90, editable: true, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'stockProvisoire', index: 'stockProvisoire', width: 150, editable: false, editoptions: {size: "20", maxlength: "30"}},
-                    {name: 'stockReel', index: 'stockReel', width: 70, editable: false}
-                ],
-                viewrecords: true,
-                rowNum: 10,
-                rowList: [10, 20, 30],
-                pager: pager_selector,
-                altRows: true,
-                //toppager: true,
-
-                multiselect: true,
-                //multikey: "ctrlKey",
-                multiboxonly: true,
-                loadComplete: function () {
-                    var table = this;
-                    setTimeout(function () {
-                        styleCheckbox(table);
-
-                        updateActionIcons(table);
-                        updatePagerIcons(table);
-                        enableTooltips(table);
-                    }, 0);
-                },
-                editurl: "<?php echo App::getBoPath(); ?>/produit/ProduitController.php?ACTION=UPDATE", //nothing is saved
-                dataType: 'json',
-                caption: "Liste des produits"
-            });
-            $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
-            
-            
-
-            //switch element when editing inline
-            function aceSwitch(cellvalue, options, cell) {
-                setTimeout(function () {
-                    $(cell).find('input[type=checkbox]')
-                            .addClass('ace ace-switch ace-switch-5')
-                            .after('<span class="lbl"></span>');
-                }, 0);
-            }
-            //enable datepicker
-            function pickDate(cellvalue, options, cell) {
-                setTimeout(function () {
-                    $(cell).find('input[type=text]')
-                            .datepicker({format: 'yyyy-mm-dd', autoclose: true});
-                }, 0);
-            }
-
-
-            //navButtons
-            jQuery(grid_selector).jqGrid('navGrid', pager_selector,
-                    {//navbar options
-                        edit: true,
-                        editicon: 'ace-icon fa fa-pencil blue',
-                        del: true,
-                        delicon: 'ace-icon fa fa-trash-o red',
-                        refresh: true,
-                        refreshicon: 'ace-icon fa fa-refresh green',
-                        
-                    },
-                    {
-                        //edit record form
-                        closeAfterEdit: true,
-                        width: 700,
-                        recreateForm: true,
-                        beforeShowForm: function (e) {
-                            var form = $(e[0]);
-                            form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                            style_edit_form(form);
-                        }
-                    },
-            {
-                //new record form
-                //width: 700,
-                closeAfterAdd: true,
-                recreateForm: true,
-                viewPagerButtons: false,
-                beforeShowForm: function (e) {
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
-                            .wrapInner('<div class="widget-header" />')
-                    style_edit_form(form);
-                }
-            },
-            {
-                //delete record form
-                recreateForm: true,
-                beforeShowForm: function (e) {
-                    var form = $(e[0]);
-                    if (form.data('styled'))
-                        return false;
-
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                    style_delete_form(form);
-
-                    form.data('styled', true);
-                },
-                onClick: function (e) {
-                    //alert(1);
-                }
-            },
-            {
-                //search form
-                recreateForm: true,
-                afterShowSearch: function (e) {
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                    style_search_form(form);
-                },
-                afterRedraw: function () {
-                    style_search_filters($(this));
-                }
-                ,
-                multipleSearch: true,
-                /**
-                 multipleGroup:true,
-                 showQuery: true
-                 */
-            },
-                    {
-                        //view record form
-                        recreateForm: true,
-                        beforeShowForm: function (e) {
-                            var form = $(e[0]);
-                            form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                        }
-                    }
-            )
-        });
-
-            var grid_selector = "#grid-table";
-            var pager_selector = "#grid-pager";
-
-        //resize to fit page size
-        $(window).on('resize.jqGrid', function () {
-            $(grid_selector).jqGrid('setGridWidth', $(".page-content").width());
-        })
-        //resize on sidebar collapse/expand
-        var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
-            if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
-                //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
-                setTimeout(function () {
-                    $(grid_selector).jqGrid('setGridWidth', parent_column.width());
-                }, 0);
-            }
-        });
-
-    };
-    loadProduit();
-    
-    function style_edit_form(form) {
-        //enable datepicker on "sdate" field and switches for "stock" field
-      //  form.find('input[name=sdate]').datepicker({format: 'yyyy-mm-dd', autoclose: true})
-
-      //  form.find('input[name=stock]').addClass('ace ace-switch ace-switch-5').after('<span class="lbl"></span>');
-        //don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
-        //.addClass('ace ace-switch ace-switch-5').wrap('<label class="inline" />').after('<span class="lbl"></span>');
-
-
-        //update buttons classes
-        var buttons = form.next().find('.EditButton .fm-button');
-        buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
-        buttons.eq(0).addClass('btn-primary').prepend('<i class="ace-icon fa fa-check"></i>');
-        buttons.eq(1).prepend('<i class="ace-icon fa fa-times"></i>')
-
-        buttons = form.next().find('.navButton a');
-        buttons.find('.ui-icon').hide();
-        buttons.eq(0).append('<i class="ace-icon fa fa-chevron-left"></i>');
-        buttons.eq(1).append('<i class="ace-icon fa fa-chevron-right"></i>');
-    }
-
-    function style_delete_form(form) {
-        var buttons = form.next().find('.EditButton .fm-button');
-        buttons.addClass('btn btn-sm btn-white btn-round').find('[class*="-icon"]').hide();//ui-icon, s-icon
-        buttons.eq(0).addClass('btn-danger').prepend('<i class="ace-icon fa fa-trash-o"></i>');
-        buttons.eq(1).addClass('btn-default').prepend('<i class="ace-icon fa fa-times"></i>')
-    }
-
-    function style_search_filters(form) {
-        form.find('.delete-rule').val('X');
-        form.find('.add-rule').addClass('btn btn-xs btn-primary');
-        form.find('.add-group').addClass('btn btn-xs btn-success');
-        form.find('.delete-group').addClass('btn btn-xs btn-danger');
-    }
-    function style_search_form(form) {
-        var dialog = form.closest('.ui-jqdialog');
-        var buttons = dialog.find('.EditTable')
-        buttons.find('.EditButton a[id*="_reset"]').addClass('btn btn-sm btn-info').find('.ui-icon').attr('class', 'ace-icon fa fa-retweet');
-        buttons.find('.EditButton a[id*="_query"]').addClass('btn btn-sm btn-inverse').find('.ui-icon').attr('class', 'ace-icon fa fa-comment-o');
-        buttons.find('.EditButton a[id*="_search"]').addClass('btn btn-sm btn-purple').find('.ui-icon').attr('class', 'ace-icon fa fa-search');
-    }
-
-    function beforeDeleteCallback(e) {
-        var form = $(e[0]);
-        if (form.data('styled'))
-            return false;
-
-        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-        style_delete_form(form);
-
-        form.data('styled', true);
-    }
-
-    function beforeEditCallback(e) {
-        var form = $(e[0]);
-        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-        style_edit_form(form);
-    }
-
-
-
-    //it causes some flicker when reloading or navigating grid
-    //it may be possible to have some custom formatter to do this as the grid is being created to prevent this
-    //or go back to default browser checkbox styles for the grid
-    function styleCheckbox(table) {
-        /**
-         $(table).find('input:checkbox').addClass('ace')
-         .wrap('<label />')
-         .after('<span class="lbl align-top" />')
-             
-             
-         $('.ui-jqgrid-labels th[id*="_cb"]:first-child')
-         .find('input.cbox[type=checkbox]').addClass('ace')
-         .wrap('<label />').after('<span class="lbl align-top" />');
-         */
-    }
-
-
-    //unlike navButtons icons, action icons in rows seem to be hard-coded
-    //you can change them like this in here if you want
-    function updateActionIcons(table) {
-        /**
-         var replacement =
-         {
-         'ui-ace-icon fa fa-pencil' : 'ace-icon fa fa-pencil blue',
-         'ui-ace-icon fa fa-trash-o' : 'ace-icon fa fa-trash-o red',
-         'ui-icon-disk' : 'ace-icon fa fa-check green',
-         'ui-icon-cancel' : 'ace-icon fa fa-times red'
-         };
-         $(table).find('.ui-pg-div span.ui-icon').each(function(){
-         var icon = $(this);
-         var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
-         if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
-         })
-         */
-    }
-
-    //replace icons with FontAwesome icons like above
-    function updatePagerIcons(table) {
-        var replacement =
-                {
-                    'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
-                    'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
-                    'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
-                    'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
-                };
-        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
-            var icon = $(this);
-            var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
-
-            if ($class in replacement)
-                icon.attr('class', 'ui-icon ' + replacement[$class]);
-        })
-    }
-
-    function enableTooltips(table) {
-        $('.navtable .ui-pg-button').tooltip({container: 'body'});
-        $(table).find('.ui-pg-div').tooltip({container: 'body'});
-    }
-
-    //var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
-
-    $(document).one('ajaxloadstart.page', function (e) {
-        $(grid_selector).jqGrid('GridUnload');
-        $('.ui-jqdialog').remove();
-    });
+   
+   
        function calculSeuil(){
            var stock = parseFloat($("#stockReel").val());
            if(!isNaN(stock) && stock!==0) {
@@ -475,7 +495,7 @@
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       loadProduit();
+                       loadProduits();
                     } 
                     else
                     {
