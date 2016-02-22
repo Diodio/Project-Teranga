@@ -22,7 +22,7 @@ class ProduitManager {
         $this->produitQuery->insert($produit);
     	return $produit;
     }
-    
+   
     public function listAll() {
     	$this->produitQuery=$this->produitQuery->findAll();
     	return $this->produitQuery;

@@ -304,6 +304,36 @@
                 content: colis
             }).popover('toggle');
          };
+         
+         removeProduit=function(produitIds){
+                    bootbox.confirm("Voulez vous vraiment supprimer ce produit", function(result) {
+                        if (result) {
+                             var produitIdsChecked = produitIds;
+                            $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitIds: produitIdsChecked + "", ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data) {
+                                if (data.rc == 0){
+                                    $.gritter.add({
+                                        title: 'Notification',
+                                        text: "Produit supprimé",
+                                        class_name: 'gritter-success gritter-light'
+                                    });
+                                    $('table th input:checkbox').removeAttr('checked');
+                                     checkedProduits=new Array();
+                                    loadProduits();
+                                }
+                                else{
+                                    $.gritter.add({
+                                        title: 'Notification',
+                                        text: 'Impossible de supprimer ce produit',
+                                        class_name: 'gritter-warning gritter-light'
+                                    });
+                                    
+                               // $("#NOTIF_ALERT").append("<div class='alert alert-danger'> <button class='close' data-dismiss='alert'> <i class='icon-remove'></i></button><i class='icon-hand-right'></i> <?php// printf($pNotifSupUserAlert); ?> </div>");
+                                }
+                            }, "json");
+                        }
+                    });
+                }
+                
              loadProduits = function() {
                 nbTotalProduitsChecked = 0;
                 checkedProduits = new Array();
@@ -368,7 +398,7 @@
                                                 '</a>');
                                     //}
                                     btnRemove.click(function(){
-                                        removeUser(oData[0]);
+                                        removeProduit(oData[0]);
                                     });
                                     btnRemove.tooltip({
                                         title: 'Supprimer'

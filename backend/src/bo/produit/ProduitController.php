@@ -215,25 +215,19 @@ class ProduitController extends BaseController implements BaseAction {
     }
 
     public function doRemove($request) {
-        $this->logger->log->info('Action Remove contact');
-        $this->logger->log->info(json_encode($request));
         try {
-            if (isset($request['contactIds'])) {
-                $this->logger->log->info('Remove with params : ' . $request['contactIds']);
-                $contactId = $request['contactIds'];
-                $contactManager = new ContactManager();
-                $nbModified = $contactManager->remove($contactId);
-                $this->doSuccess($nbModified, $this->parameters['REMOVED']);
+            if (isset($request['produitIds'])) {
+                $produitIds = $request['produitIds'];
+                $produitManager = new ProduitManager();
+                $nbModified = $produitManager->delete($produitIds);
+                $this->doSuccess($nbModified, 'REMOVED');
             } else {
-                $this->logger->log->trace('Remove : Params not enough');
-                $this->doError('-1', $this->parameters['CONTACT_NOT_REMOVED']);
+                $this->doError('-1', 'PRODUIT_NOT_REMOVED');
             }
-        } catch (ConstraintException $e) {
-            $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        } catch (Exception $e) {
             throw $e;
         } catch (Exception $e) {
-            $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-            throw new Exception($this->parameters['ERREUR_SERVEUR']);
+            throw new Exception('ERREUR SERVEUR');
         }
     }
 
