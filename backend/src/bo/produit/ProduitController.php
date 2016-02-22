@@ -85,6 +85,8 @@ class ProduitController extends BaseController implements BaseAction {
                 $checkProduit = $produitManager->findProduitsByName($request['designation']);
                 if ($checkProduit == NULL) {
                     $produit = new Produit();
+                    if($utilisateurId !=0)
+                        $user->setId ($utilisateurId);
                     $produit->setLibelle($request['designation']);
                     $produit->setLibelleFacture($request['libelleFacture']);
                     $produitAdded = $produitManager->insert($produit);
@@ -131,31 +133,55 @@ class ProduitController extends BaseController implements BaseAction {
     }
 
     public function doUpdate($request) {
-       try {
-           
-             $produitManager = new ProduitManager();
-             if($request['oper'] == 'edit') {
-                $produit = $produitManager->findById($request['id']);
-                $produit->setLibelle($request['designation']);
-                $produitUpdated = $produitManager->update($produit);
-                if ($produitUpdated->getId() != null) {
-                        $this->doSuccess($produitUpdated->getId(), 'Produit mis à jour avec succes');
+        try {
+            if ($request['designation'] != "") {
+                $produitManager = new ProduitManager();
+                $checkProduit = $produitManager->findProduitsByName($request['designation']);
+                if ($checkProduit == NULL) {
+                    $produit = new Produit();
+                    $produit->setId($request['produitId']);
+                    $produit->setLibelle($request['designation']);
+                    $produit->setLibelleFacture($request['libelleFacture']);
+                    $produitAdded = $produitManager->update($produit);
+                    if ($produitAdded->getId() != null) {
+                        if ($request['stockProvisoire'] !== 0 || $request['stockReel'] !== 0) {
+                            $stockManager = new Stock\StockManager();
+                            if ($request['stockProvisoire'] !== 0) {
+                                $stocPro = $stockManager->findStockProvisoireByProduitId($request['produitId'], $request['codeUsine']);
+                                if ($stocPro == 0) {
+                                    $stockP = new StockProvisoire();
+                                    $stockP->setStock($request['stockProvisoire']);
+                                    $stockManager->insert($stockP);
+                                } else {
+                                    $stockManager->misAjourStockProvisoire($request['produitId'], $request['codeUsine'], $request['stockProvisoire']);
+                                }
+                            }
+                            if ($request['stockReel'] !== 0) {
+                                $stockReel = $stockManager->findStockReelByProduitId($request['produitId'], $request['codeUsine']);
+                                if ($stockReel == 0) {
+                                    $stockR = new \Stock\StockReel();
+                                    $stockR->setStock($request['stockReel']);
+                                    $stockR->setStock($request['stockProvisoire']);
+                                    $stockR->setSeuil($request['seuil']);
+                                    $stockR->setCodeUsine($request['codeUsine']);
+                                    $stockR->setLogin($request['login']);
+                                    $stockR->setProduit($produit);
+                                    $stockManager->insert($stockR);
+                                }
+                            }
+                        }
+                        $this->doSuccess($produitAdded->getId(), 'Produit enregistré avec succes');
+                    } else {
+                        $this->doError('-1', 'Impossible d\'inserer ce produit');
+                    }
                 } else {
-                    throw new Exception('impossible d\'inserer ce produit');
+                    $this->doError('-1', 'Ce produit éxiste déja');
                 }
-             }
-             else if($request['oper'] == 'del'){
-                 if($request['id'] !=null) {
-                     $nbLines = $produitManager->delete($request['id']);
-                     $this->doSuccess($nbLines, 'REMOVED');
-                 }
-                 else {
-                     throw new Exception('impossible de supprimer ce mareyeur');
-                 }
-                     
-             }
+            } else {
+                $this->doError('-1', 'Veuillez vérifier vos parametres');
+            }
         } catch (Exception $e) {
-            throw new Exception('ERREUR SERVEUR');
+            $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
 

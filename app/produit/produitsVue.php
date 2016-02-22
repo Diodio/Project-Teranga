@@ -491,7 +491,7 @@
            return seuil;
        }
    }
-         produitProcess = function ()
+         produitProcess = function (produit)
         {
             
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
@@ -506,6 +506,7 @@
             
             var formData = new FormData();
             formData.append('ACTION', ACTION);
+            formData.append('produitId', produit);
             formData.append('designation', designation);
             formData.append('libelleFacture', libelleFacture);
             formData.append('stockProvisoire', stockProvisoire);
@@ -611,7 +612,7 @@
 			},
 	
 			submitHandler: function (form) {
-				 produitProcess();
+				 produitProcess(produit);
 				/// $('#winModalProduit').addClass('hide');
                             $('#winModalProduit').modal('hide');
                             $('#designation').val("");

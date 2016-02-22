@@ -82,6 +82,20 @@ class StockManager {
             $stockReel=$stock['stock'];
         return $stockReel;
   }
+  
+  public function misAjourStockProvisoire($produitId, $codeUsine, $nbStock ) {			
+       $stockQueries = new StockQueries();
+    	return $stockQueries->misAjourStockProvisoire($produitId, $codeUsine, $nbStock);
+		
+    }
+    
+    public function misAjourStockReel($produitId, $codeUsine, $nbStock ) {			
+        $stockQueries = new StockQueries();
+    	return $stockQueries->misAjourStockReel($produitId, $codeUsine, $nbStock);
+		
+    }
+    
+    
   public function updateNbStock($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
     	return $stockQueries->updateNbStock($produitId, $codeUsine, $nbStock);

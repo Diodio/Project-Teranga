@@ -191,6 +191,18 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
 		
     }
     
+    public function misAjourStockProvisoire($produitId, $codeUsine, $nbStock ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        return $connexion->executeUpdate("UPDATE stock_provisoire SET stock = $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+		
+    }
+    
+    public function misAjourStockReel($produitId, $codeUsine, $nbStock ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        return $connexion->executeUpdate("UPDATE stock_reel SET stock = $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+		
+    }
+    
     public function updateNbStockReel($produitId, $codeUsine, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
         return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
