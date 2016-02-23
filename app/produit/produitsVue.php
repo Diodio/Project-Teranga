@@ -113,7 +113,7 @@
                                     </div>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nom </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Libellé facture </label>
                                     <div class="col-sm-9">
                                         <input type="text" id="libelleFacture" name="libelleFacture" placeholder="" class="col-xs-10 col-sm-7">
                                     </div>
@@ -494,7 +494,11 @@
          produitProcess = function (produit)
         {
             
-            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
+            var ACTION 
+            if(produit==0)       
+               ACTION = '<?php echo App::ACTION_INSERT; ?>';
+           else
+              ACTION = '<?php echo App::ACTION_UPDATE; ?>';
             var frmData;
             var designation = $("#designation").val();
             var libelleFacture = $("#libelleFacture").val();

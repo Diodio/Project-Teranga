@@ -85,8 +85,6 @@ class ProduitController extends BaseController implements BaseAction {
                 $checkProduit = $produitManager->findProduitsByName($request['designation']);
                 if ($checkProduit == NULL) {
                     $produit = new Produit();
-                    if($utilisateurId !=0)
-                        $user->setId ($utilisateurId);
                     $produit->setLibelle($request['designation']);
                     $produit->setLibelleFacture($request['libelleFacture']);
                     $produitAdded = $produitManager->insert($produit);
@@ -136,37 +134,41 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if ($request['designation'] != "") {
                 $produitManager = new ProduitManager();
-                $checkProduit = $produitManager->findProduitsByName($request['designation']);
-                if ($checkProduit == NULL) {
+               
                     $produit = new Produit();
                     $produit->setId($request['produitId']);
                     $produit->setLibelle($request['designation']);
                     $produit->setLibelleFacture($request['libelleFacture']);
                     $produitAdded = $produitManager->update($produit);
                     if ($produitAdded->getId() != null) {
-                        if ($request['stockProvisoire'] !== 0 || $request['stockReel'] !== 0) {
+                        if ($request['stockProvisoire'] !== "0" || $request['stockReel'] !== "0") {
                             $stockManager = new Stock\StockManager();
-                            if ($request['stockProvisoire'] !== 0) {
+                            if ($request['stockProvisoire'] !== "0") {
                                 $stocPro = $stockManager->findStockProvisoireByProduitId($request['produitId'], $request['codeUsine']);
                                 if ($stocPro == 0) {
                                     $stockP = new StockProvisoire();
+                                    $stocPro->setProduit($produit);
                                     $stockP->setStock($request['stockProvisoire']);
                                     $stockManager->insert($stockP);
                                 } else {
                                     $stockManager->misAjourStockProvisoire($request['produitId'], $request['codeUsine'], $request['stockProvisoire']);
                                 }
                             }
-                            if ($request['stockReel'] !== 0) {
+                            if ($request['stockReel'] !== "0") {
                                 $stockReel = $stockManager->findStockReelByProduitId($request['produitId'], $request['codeUsine']);
+                                
                                 if ($stockReel == 0) {
+                                    
                                     $stockR = new \Stock\StockReel();
                                     $stockR->setStock($request['stockReel']);
-                                    $stockR->setStock($request['stockProvisoire']);
                                     $stockR->setSeuil($request['seuil']);
                                     $stockR->setCodeUsine($request['codeUsine']);
                                     $stockR->setLogin($request['login']);
                                     $stockR->setProduit($produit);
                                     $stockManager->insert($stockR);
+                                }
+                                else{
+                                   $stockManager->misAjourStockReel($request['produitId'], $request['codeUsine'], $request['stockReel']) ;
                                 }
                             }
                         }
@@ -174,9 +176,7 @@ class ProduitController extends BaseController implements BaseAction {
                     } else {
                         $this->doError('-1', 'Impossible d\'inserer ce produit');
                     }
-                } else {
-                    $this->doError('-1', 'Ce produit éxiste déja');
-                }
+               
             } else {
                 $this->doError('-1', 'Veuillez vérifier vos parametres');
             }
