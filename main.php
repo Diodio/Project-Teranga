@@ -199,6 +199,10 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </a> <b class="arrow"></b>
 
                         <ul class="submenu">
+                             <li id="MNU_PRODUITS" class=""><a id="PRODUITS" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Produit
+                                </a> <b class="arrow"></b>
+                            </li>
                             <li id="MNU_MAREYEURS" class=""><a id="MAREYEURS" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Mareyeur
                                 </a> <b class="arrow"></b>
@@ -210,10 +214,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="MNU_PRODUITS" class=""><a id="PRODUITS" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Produit
-                                </a> <b class="arrow"></b>
-                            </li>
+                          
                         </ul>
                     </li>
                     
