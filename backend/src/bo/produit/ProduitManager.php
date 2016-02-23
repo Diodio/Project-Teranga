@@ -66,12 +66,12 @@ class ProduitManager {
             if($stockProvisoire !=null)
                 $arrayProduits [$i] [] = $stockProvisoire ['stock'];
             else
-                $arrayProduits [$i] [] = 0;
+                $arrayProduits [$i] [] = "0.0";
             $stockReel =  $this->produitQuery->retrieveStockReel($value ['id']);
             if($stockReel !=null)
                 $arrayProduits [$i] [] = $stockReel['stock'];
             else
-                $arrayProduits [$i] [] = 0;
+                $arrayProduits [$i] [] = "0.0";
             
             $arrayProduits [$i] [] = $value ['id'];
             $i++;

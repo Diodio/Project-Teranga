@@ -36,7 +36,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('carton' => NULL);
+    public static $lazyPropertiesDefaults = array('quantiteAdemouler' => NULL, 'quantiteDemoulee' => NULL, 'carton' => NULL);
 
 
 
@@ -46,7 +46,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->carton);
+        unset($this->quantiteAdemouler, $this->quantiteDemoulee, $this->carton);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'codeUsine', 'login', 'carton', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
+            return array('__isInitialized__', 'id', 'numero', 'quantiteAdemouler', 'quantiteDemoulee', 'codeUsine', 'status', 'login', 'carton', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
         }
 
-        return array('__isInitialized__', 'id', 'codeUsine', 'login', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
+        return array('__isInitialized__', 'id', 'numero', 'codeUsine', 'status', 'login', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
     }
 
     /**
@@ -133,7 +133,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->carton);
+            unset($this->quantiteAdemouler, $this->quantiteDemoulee, $this->carton);
         }
     }
 
@@ -396,6 +396,94 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCarton', array($carton));
 
         return parent::setCarton($carton);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNumero()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumero', array());
+
+        return parent::getNumero();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQuantiteAdemouler()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getQuantiteAdemouler', array());
+
+        return parent::getQuantiteAdemouler();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQuantiteDemoulee()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getQuantiteDemoulee', array());
+
+        return parent::getQuantiteDemoulee();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setNumero($numero)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumero', array($numero));
+
+        return parent::setNumero($numero);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setQuantiteAdemouler($quantiteAdemouler)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setQuantiteAdemouler', array($quantiteAdemouler));
+
+        return parent::setQuantiteAdemouler($quantiteAdemouler);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setQuantiteDemoulee($quantiteDemoulee)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setQuantiteDemoulee', array($quantiteDemoulee));
+
+        return parent::setQuantiteDemoulee($quantiteDemoulee);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatus()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
+
+        return parent::getStatus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatus($status)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
+
+        return parent::setStatus($status);
     }
 
     /**

@@ -36,7 +36,7 @@ class Utilisateur extends \Utilisateur\Utilisateur implements \Doctrine\ORM\Prox
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('createdDate' => NULL, 'updatedDate' => NULL, 'deleteDate' => NULL);
+    public static $lazyPropertiesDefaults = array('connectedDate' => NULL, 'disconnectedDate' => NULL, 'createdDate' => NULL, 'updatedDate' => NULL, 'deleteDate' => NULL);
 
 
 
@@ -46,7 +46,7 @@ class Utilisateur extends \Utilisateur\Utilisateur implements \Doctrine\ORM\Prox
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->createdDate, $this->updatedDate, $this->deleteDate);
+        unset($this->connectedDate, $this->disconnectedDate, $this->createdDate, $this->updatedDate, $this->deleteDate);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class Utilisateur extends \Utilisateur\Utilisateur implements \Doctrine\ORM\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'login', 'password', 'nomUtilisateur', 'status', 'etatCompte', 'usine', 'profil', 'createdDate', 'updatedDate', 'deleteDate');
+            return array('__isInitialized__', 'id', 'login', 'password', 'nomUtilisateur', 'status', 'etatCompte', 'connected', 'connectedDate', 'disconnectedDate', 'usine', 'profil', 'createdDate', 'updatedDate', 'deleteDate');
         }
 
-        return array('__isInitialized__', 'id', 'login', 'password', 'nomUtilisateur', 'status', 'etatCompte', 'usine', 'profil');
+        return array('__isInitialized__', 'id', 'login', 'password', 'nomUtilisateur', 'status', 'etatCompte', 'connected', 'usine', 'profil');
     }
 
     /**
@@ -133,7 +133,7 @@ class Utilisateur extends \Utilisateur\Utilisateur implements \Doctrine\ORM\Prox
                 }
             };
 
-            unset($this->createdDate, $this->updatedDate, $this->deleteDate);
+            unset($this->connectedDate, $this->disconnectedDate, $this->createdDate, $this->updatedDate, $this->deleteDate);
         }
     }
 
@@ -462,6 +462,72 @@ class Utilisateur extends \Utilisateur\Utilisateur implements \Doctrine\ORM\Prox
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDeleteDate', array($deleteDate));
 
         return parent::setDeleteDate($deleteDate);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getConnected()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getConnected', array());
+
+        return parent::getConnected();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getConnectedDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getConnectedDate', array());
+
+        return parent::getConnectedDate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDisconnectedDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDisconnectedDate', array());
+
+        return parent::getDisconnectedDate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setConnected($connected)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConnected', array($connected));
+
+        return parent::setConnected($connected);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setConnectedDate($connectedDate)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConnectedDate', array($connectedDate));
+
+        return parent::setConnectedDate($connectedDate);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDisconnectedDate($disconnectedDate)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDisconnectedDate', array($disconnectedDate));
+
+        return parent::setDisconnectedDate($disconnectedDate);
     }
 
     /**

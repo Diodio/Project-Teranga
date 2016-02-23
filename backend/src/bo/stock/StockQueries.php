@@ -23,7 +23,7 @@ class StockQueries {
     }
 public function insert($stock) {
     if ($stock != null) {
-            Bootstrap::$entityManager->persist($stock);
+        Bootstrap::$entityManager->persist($stock);
         Bootstrap::$entityManager->flush();
         return $stock;
     }

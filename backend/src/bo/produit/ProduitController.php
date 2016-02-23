@@ -141,14 +141,16 @@ class ProduitController extends BaseController implements BaseAction {
                     $produit->setLibelleFacture($request['libelleFacture']);
                     $produitAdded = $produitManager->update($produit);
                     if ($produitAdded->getId() != null) {
-                        if ($request['stockProvisoire'] !== "0" || $request['stockReel'] !== "0") {
                             $stockManager = new Stock\StockManager();
                             if ($request['stockProvisoire'] !== "0") {
-                                $stocPro = $stockManager->findStockProvisoireByProduitId($request['produitId'], $request['codeUsine']);
-                                if ($stocPro == 0) {
+                                $stockPro = $stockManager->findStockProvisoireByProduitId($request['produitId'], $request['codeUsine']);
+                                if ($stockPro == 0) {
+                                    $produitP=$produitManager->findById($request['produitId']);
                                     $stockP = new StockProvisoire();
-                                    $stocPro->setProduit($produit);
+                                    $stockP->setProduit($produitP);
                                     $stockP->setStock($request['stockProvisoire']);
+                                    $stockP->setCodeUsine($request['codeUsine']);
+                                    $stockP->setLogin($request['login']);
                                     $stockManager->insert($stockP);
                                 } else {
                                     $stockManager->misAjourStockProvisoire($request['produitId'], $request['codeUsine'], $request['stockProvisoire']);
@@ -156,22 +158,23 @@ class ProduitController extends BaseController implements BaseAction {
                             }
                             if ($request['stockReel'] !== "0") {
                                 $stockReel = $stockManager->findStockReelByProduitId($request['produitId'], $request['codeUsine']);
-                                
                                 if ($stockReel == 0) {
-                                    
+                                    $produitV=$produitManager->findById($request['produitId']);
                                     $stockR = new \Stock\StockReel();
                                     $stockR->setStock($request['stockReel']);
                                     $stockR->setSeuil($request['seuil']);
                                     $stockR->setCodeUsine($request['codeUsine']);
                                     $stockR->setLogin($request['login']);
-                                    $stockR->setProduit($produit);
-                                    $stockManager->insert($stockR);
+                                    $stockR->setProduit($produitV);
+                                    $stockManager1 =new Stock\StockManager();
+                                    $stockManager1->insert($stockR);
+                                    
                                 }
                                 else{
                                    $stockManager->misAjourStockReel($request['produitId'], $request['codeUsine'], $request['stockReel']) ;
                                 }
                             }
-                        }
+                        
                         $this->doSuccess($produitAdded->getId(), 'Produit enregistré avec succes');
                     } else {
                         $this->doError('-1', 'Impossible d\'inserer ce produit');

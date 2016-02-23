@@ -39,7 +39,7 @@ class StockReel {
     /** @Column(type="datetime", nullable=true) */
     public $deleteDate;
     
-    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
+    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit") */
     protected $produit;
     
     function getId() {
