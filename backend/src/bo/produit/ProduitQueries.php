@@ -327,4 +327,37 @@ class ProduitQueries {
         return $nb['nb'];
     }
     
+    public function verifieProduitAchat($produitId) {
+        $query = "SELECT DISTINCT produit_Id produitId FROM ligne_achat WHERE produit_id=$produitId";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $trouve = $stmt->fetch();
+        if ($trouve != null)
+            return $trouve['produitId'];
+        else
+            return null;
+    }
+    
+    public function verifieProduitBonSortie($produitId) {
+        $query = "SELECT DISTINCT produit_Id produitId FROM ligne_bonsortie WHERE produit_id=$produitId";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $trouve = $stmt->fetch();
+        if ($trouve != null)
+            return $trouve['produitId'];
+        else
+            return null;
+    }
+    
+    public function verifieProduitFacture($produitId) {
+        $query = "SELECT DISTINCT produit produitId FROM ligne_facture WHERE produit=$produitId";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $trouve = $stmt->fetch();
+        if ($trouve != null)
+            return $trouve['produitId'];
+        else
+            return null;
+    }
+    
 }

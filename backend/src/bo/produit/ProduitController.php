@@ -249,7 +249,10 @@ class ProduitController extends BaseController implements BaseAction {
                 $produitIds = $request['produitIds'];
                 $produitManager = new ProduitManager();
                 $nbModified = $produitManager->delete($produitIds);
-                $this->doSuccess($nbModified, 'REMOVED');
+                if($nbModified !=null)
+                    $this->doSuccess($nbModified, 'REMOVED');
+                else
+                    $this->doError('-1', 'Ce produit est utilisé, impossible de le supprimer');
             } else {
                 $this->doError('-1', 'PRODUIT_NOT_REMOVED');
             }
