@@ -246,13 +246,32 @@ class ProduitController extends BaseController implements BaseAction {
     public function doRemove($request) {
         try {
             if (isset($request['produitIds'])) {
-                $produitIds = $request['produitIds'];
+                $produitId = $request['produitIds'];
                 $produitManager = new ProduitManager();
-                $nbModified = $produitManager->delete($produitIds);
-                if($nbModified !=null)
-                    $this->doSuccess($nbModified, 'REMOVED');
+                $verifAchat = $produitManager->verifieUsageProduitAchat($produitId);
+                $verifBonSortie = $produitManager->verifieUsageProduitBonSortie($produitId);
+                $verifFacture = $produitManager->verifieUsageProduitFacture($produitId);
+                $msg="";
+                if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==0 )
+                    $msg+="Impossible de supprimer ce produit car il est utilisé dans bon d'achat";
+                if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==0 )
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie";
+                if($verifAchat==0 && $verifBonSortie==0 && $verifFacture==1 )
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans facture";
+                if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==0 )
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat et bon de sortie";
+                if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==1 )
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat et facture";
+                if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==1 )
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie et facture";
+                if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==1 )
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat, bon de sortie et facture";
+                if($msg=""){
+                   $nbModified = $produitManager->delete($produitId);
+                   $this->doSuccess($nbModified, 'REMOVED');
+                }
                 else
-                    $this->doError('-1', 'Ce produit est utilisé, impossible de le supprimer');
+                    $this->doError('-1', $msg);
             } else {
                 $this->doError('-1', 'PRODUIT_NOT_REMOVED');
             }

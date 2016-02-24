@@ -323,7 +323,7 @@
                                 else{
                                     $.gritter.add({
                                         title: 'Notification',
-                                        text: 'Impossible de supprimer ce produit',
+                                        text: data.error,
                                         class_name: 'gritter-warning gritter-light'
                                     });
                                     

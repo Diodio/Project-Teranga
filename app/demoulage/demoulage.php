@@ -531,10 +531,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULAGES; ?>"});
@@ -576,7 +576,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $.post(url, {produitId: produitId, usineCode:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                   data = $.parseJSON(data);
                  // data = data[0];
-                    $('#nomProduit').text(data.designation);
+                    $('#nomProduit').text(data.libelle);
                     $('#stockProvisoire').val(data.stockProvisoire);
                     //$('#quantiteDemoulee').val(data.quantiteDemoulee);
                     

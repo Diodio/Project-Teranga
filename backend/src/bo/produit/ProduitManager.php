@@ -34,9 +34,7 @@ class ProduitManager {
 
  
     public function delete($produitId) {
-        if($this->verifieUsageProduit($produitId) ==0)
-            return $this->produitQuery->delete($produitId);
-        return null;
+         return $this->produitQuery->delete($produitId);
     }
 
    public function findById($produitId) {
@@ -237,14 +235,27 @@ public function retrieveTypes()
         return $this->produitQuery->countAllProduits($codeUsine,$where);
     }
     
-    public function verifieUsageProduit($produitId) {
+    public function verifieUsageProduitAchat($produitId) {
         $trouve=0;
         $produitAchat = $this->produitQuery->verifieProduitAchat($produitId);
-        $produitFacture = $this->produitQuery->verifieProduitFacture($produitId);
-        $produitBonSortie = $this->produitQuery->verifieProduitBonSortie($produitId);
-        if($produitAchat!=null || $produitBonSortie !=null || $produitFacture!=null)
+        if($produitAchat!=null)
             $trouve =1;
         return $trouve;
     }
+    public function verifieUsageProduitBonSortie($produitId) {
+        $trouve=0;
+        $produitBonSortie = $this->produitQuery->verifieProduitBonSortie($produitId);
+        if($produitBonSortie !=null)
+            $trouve =1;
+        return $trouve;
+    }
+    public function verifieUsageProduitFacture($produitId) {
+        $trouve=0;
+        $produitFacture = $this->produitQuery->verifieProduitFacture($produitId);
+        if($produitFacture!=null)
+            $trouve =1;
+        return $trouve;
+    }
+    
     
 }
