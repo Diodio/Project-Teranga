@@ -252,8 +252,9 @@ class ProduitController extends BaseController implements BaseAction {
                 $verifBonSortie = $produitManager->verifieUsageProduitBonSortie($produitId);
                 $verifFacture = $produitManager->verifieUsageProduitFacture($produitId);
                 $msg="";
+                //var_dump($verifFacture);
                 if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==0 )
-                    $msg+="Impossible de supprimer ce produit car il est utilisé dans bon d'achat";
+                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat";
                 if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==0 )
                     $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie";
                 if($verifAchat==0 && $verifBonSortie==0 && $verifFacture==1 )
@@ -266,7 +267,7 @@ class ProduitController extends BaseController implements BaseAction {
                     $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie et facture";
                 if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==1 )
                     $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat, bon de sortie et facture";
-                if($msg=""){
+                if($msg==""){
                    $nbModified = $produitManager->delete($produitId);
                    $this->doSuccess($nbModified, 'REMOVED');
                 }
