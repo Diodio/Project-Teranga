@@ -206,7 +206,7 @@ class ProduitController extends BaseController implements BaseAction {
                                //  var_dump($sOrder);
     				$sOrder = substr_replace($sOrder, "", -2);
     				if ($sOrder == "ORDER BY") {
-    					$sOrder .= " libelle desc";
+    					$sOrder .= " libelle asc";
     				}
     			}
                            
@@ -215,15 +215,15 @@ class ProduitController extends BaseController implements BaseAction {
     			$sWhere = "";
     			if (isset($request['sSearch']) && $request['sSearch'] != "") {
     				$sSearchs = explode(" ", $request['sSearch']);
-    				for ($j = 0; $j < count($sSearchs); $j++) {
+    				//for ($j = 0; $j < count($sSearchs); $j++) {
     					$sWhere .= "( ";
     					for ($i = 0; $i < count($aColumns); $i++) {
-    						$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+    						$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $request['sSearch'] . "%') OR";
     						if ($i == count($aColumns) - 1)
     							$sWhere = substr_replace($sWhere, "", -3);
     					}
     					$sWhere = $sWhere .=")";
-    				}
+    				//}
     			}
     			// End filter from dataTable
     			$demoulages = $produitManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
@@ -251,28 +251,30 @@ class ProduitController extends BaseController implements BaseAction {
                 $verifAchat = $produitManager->verifieUsageProduitAchat($produitId);
                 $verifBonSortie = $produitManager->verifieUsageProduitBonSortie($produitId);
                 $verifFacture = $produitManager->verifieUsageProduitFacture($produitId);
+               // $verifSP = $produitManager->verifieUsageProduitStockProvisoire($produitId);
+               // $verifSR = $produitManager->verifieUsageProduitStockReel($produitId);
                 $msg="";
                 //var_dump($verifFacture);
-                if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==0 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat";
-                if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==0 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie";
-                if($verifAchat==0 && $verifBonSortie==0 && $verifFacture==1 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans facture";
-                if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==0 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat et bon de sortie";
-                if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==1 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat et facture";
-                if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==1 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie et facture";
-                if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==1 )
-                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat, bon de sortie et facture";
-                if($msg==""){
+//                if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==0)
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat";
+//                else if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==0 )
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie";
+//                else if($verifAchat==0 && $verifBonSortie==0 && $verifFacture==1 )
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans facture";
+//                else if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==0 )
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat et bon de sortie";
+//                else if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==1 )
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat et facture";
+//                else if($verifAchat==0 && $verifBonSortie==1 && $verifFacture==1 )
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie et facture";
+//                else if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==1 )
+//                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat, bon de sortie et facture";
+//                if($msg==""){
                    $nbModified = $produitManager->delete($produitId);
                    $this->doSuccess($nbModified, 'REMOVED');
-                }
-                else
-                    $this->doError('-1', $msg);
+//                }
+//                else
+//                    $this->doError('-1', $msg);
             } else {
                 $this->doError('-1', 'PRODUIT_NOT_REMOVED');
             }
@@ -507,7 +509,7 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId']);
+                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId'], $request['codeUsine']);
                 if ($produitDetails != null)
                     $this->doSuccessO($produitDetails);
                 else

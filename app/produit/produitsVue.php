@@ -121,13 +121,13 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                        <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0">
+                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
                                     </div>
                             </div>
                         </div>
@@ -233,8 +233,8 @@
                 {
                     $('#SAVE').attr("disabled", true);
                     $('#nomProduit').text("");
-                    $('#stockProvisoire').val("");
-                    $('#stockReel').val("");
+                    $('#stockProvisoire').val("0.00");
+                    $('#stockReel').val("0.00");
                     $('#nombreCarton').val("");
                     $('#nombreParCarton').val("");
                     
@@ -257,8 +257,8 @@
                 {
                     $('#SAVE').attr("disabled", true);
                     $('#nomProduit').text("");
-                    $('#stockProvisoire').val("");
-                    $('#stockReel').val("");
+                    $('#stockProvisoire').val("0.00");
+                    $('#stockReel').val("0.00");
                     $('#nombreCarton').val("");
                     $('#nombreParCarton').val("");
                     $('#SAVE').attr("disabled", false);
@@ -377,7 +377,7 @@
                                     '<i class="fa fa-pencil bigger-130"></i>'+
                                     '</a>');
                                     btnEdit.click(function(){
-                                         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
+                                         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                                         data = $.parseJSON(data);
                                         console.log(data);
                                         produit=oData[0];
@@ -621,8 +621,8 @@
                             $('#winModalProduit').modal('hide');
                             $('#designation').val("");
                             $('#libelleFacture').val("");
-                            $('#stockProvisoire').val(0);
-                            $('#stockReel').val(0);
+                            $('#stockProvisoire').val("0.00");
+                            $('#stockReel').val("0.00");
 			},
 			invalidHandler: function (form) {
 			}

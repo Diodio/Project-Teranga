@@ -114,8 +114,8 @@ class ProduitQueries {
         return $products;
     }
 
-    public function retrieveDetail($produitId) {
-        $sql = 'SELECT p.id id, libelle, libelleFacture,(SELECT stock FROM stock_provisoire sp WHERE p.id=sp.produit_id ) stockProvisoire,  (SELECT stock FROM stock_reel sr WHERE p.id=sr.produit_id ) stockReel FROM produit p WHERE p.id="' . $produitId . '"';
+    public function retrieveDetail($produitId, $codeUsine) {
+        $sql = 'SELECT p.id id, libelle, libelleFacture,(SELECT stock FROM stock_provisoire sp WHERE p.id=sp.produit_id and sp.codeUsine="'.$codeUsine.'") stockProvisoire,  (SELECT stock FROM stock_reel sr WHERE p.id=sr.produit_id  and sr.codeUsine="'.$codeUsine.'") stockReel FROM produit p WHERE p.id="' . $produitId . '"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();
@@ -158,8 +158,8 @@ class ProduitQueries {
         return count($nbClients);
     }
     
-    public function retrieveStockProvisoire($produitId){
-        $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.'';
+    public function retrieveStockProvisoire($produitId, $codeUsine){
+        $sql = 'SELECT stock FROM stock_provisoire WHERE produit_id='.$produitId.' and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -168,8 +168,8 @@ class ProduitQueries {
         else return null;
     }
 
-    public function retrieveStockReel($produitId){
-        $sql = 'SELECT stock FROM stock_reel WHERE produit_id='.$produitId.'';
+    public function retrieveStockReel($produitId, $codeUsine){
+        $sql = 'SELECT stock FROM stock_reel WHERE produit_id='.$produitId.' and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -351,6 +351,28 @@ class ProduitQueries {
     
     public function verifieProduitFacture($produitId) {
         $query = "SELECT DISTINCT produit produitId FROM ligne_facture WHERE produit=$produitId";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $trouve = $stmt->fetch();
+        if ($trouve != null)
+            return $trouve['produitId'];
+        else
+            return null;
+    }
+    
+    public function verifieProduitStockProvisoire($produitId) {
+        $query = "SELECT DISTINCT produit_id produitId FROM stock_provisoire WHERE produit_id=$produitId";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $trouve = $stmt->fetch();
+        if ($trouve != null)
+            return $trouve['produitId'];
+        else
+            return null;
+    }
+    
+    public function verifieProduitStockReel($produitId) {
+        $query = "SELECT DISTINCT produit_id produitId FROM stock_reel WHERE produit_id=$produitId";
         $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $trouve = $stmt->fetch();

@@ -62,16 +62,16 @@ class ProduitManager {
         foreach ($produits as $key => $value) {
             $arrayProduits [$i] [] = $value ['id'];
             $arrayProduits [$i] [] = $value ['libelle'];
-            $stockProvisoire =  $this->produitQuery->retrieveStockProvisoire($value ['id']);
+            $stockProvisoire =  $this->produitQuery->retrieveStockProvisoire($value ['id'], $codeUsine);
             if($stockProvisoire !=null)
                 $arrayProduits [$i] [] = $stockProvisoire ['stock'];
             else
-                $arrayProduits [$i] [] = "0.0";
-            $stockReel =  $this->produitQuery->retrieveStockReel($value ['id']);
+                $arrayProduits [$i] [] = "0.00";
+            $stockReel =  $this->produitQuery->retrieveStockReel($value ['id'],$codeUsine);
             if($stockReel !=null)
                 $arrayProduits [$i] [] = $stockReel['stock'];
             else
-                $arrayProduits [$i] [] = "0.0";
+                $arrayProduits [$i] [] = "0.00";
             
             $arrayProduits [$i] [] = $value ['id'];
             $i++;
@@ -79,8 +79,8 @@ class ProduitManager {
         return $arrayProduits;
     }
     
-    public function retrieveDetailProduit($produitId) {
-        $produits = $this->produitQuery->retrieveDetail($produitId);
+    public function retrieveDetailProduit($produitId, $codeUsine) {
+        $produits = $this->produitQuery->retrieveDetail($produitId, $codeUsine);
         $arrayProduits = array();
         $i = 0;
         foreach ($produits as $key => $value) {
@@ -252,6 +252,20 @@ public function retrieveTypes()
     public function verifieUsageProduitFacture($produitId) {
         $trouve=0;
         $produitFacture = $this->produitQuery->verifieProduitFacture($produitId);
+        if($produitFacture!=null)
+            $trouve =1;
+        return $trouve;
+    }
+    public function verifieUsageProduitStockProvisoire($produitId) {
+        $trouve=0;
+        $produitFacture = $this->produitQuery->verifieProduitStockProvisoire($produitId);
+        if($produitFacture!=null)
+            $trouve =1;
+        return $trouve;
+    }
+    public function verifieUsageProduitStockReel($produitId) {
+        $trouve=0;
+        $produitFacture = $this->produitQuery->verifieProduitStockReel($produitId);
         if($produitFacture!=null)
             $trouve =1;
         return $trouve;
