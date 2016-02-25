@@ -360,8 +360,8 @@ class ProduitQueries {
             return null;
     }
     
-    public function verifieProduitStockProvisoire($produitId) {
-        $query = "SELECT DISTINCT produit_id produitId FROM stock_provisoire WHERE produit_id=$produitId";
+    public function verifieProduitStockProvisoire($produitId, $codeUsine) {
+        $query = "SELECT DISTINCT produit_id produitId FROM stock_provisoire WHERE produit_id=$produitId and codeUsine='".$codeUsine."' and stock !=0.00";
         $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $trouve = $stmt->fetch();
@@ -371,8 +371,8 @@ class ProduitQueries {
             return null;
     }
     
-    public function verifieProduitStockReel($produitId) {
-        $query = "SELECT DISTINCT produit_id produitId FROM stock_reel WHERE produit_id=$produitId";
+    public function verifieProduitStockReel($produitId, $codeUsine) {
+        $query = "SELECT DISTINCT produit_id produitId FROM stock_reel WHERE produit_id=$produitId and codeUsine='".$codeUsine."' and stock !=0.00";
         $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $trouve = $stmt->fetch();

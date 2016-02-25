@@ -256,16 +256,16 @@ public function retrieveTypes()
             $trouve =1;
         return $trouve;
     }
-    public function verifieUsageProduitStockProvisoire($produitId) {
+    public function verifieUsageProduitStockProvisoire($produitId, $codeUsine) {
         $trouve=0;
-        $produitFacture = $this->produitQuery->verifieProduitStockProvisoire($produitId);
+        $produitFacture = $this->produitQuery->verifieProduitStockProvisoire($produitId, $codeUsine);
         if($produitFacture!=null)
             $trouve =1;
         return $trouve;
     }
-    public function verifieUsageProduitStockReel($produitId) {
+    public function verifieUsageProduitStockReel($produitId, $codeUsine) {
         $trouve=0;
-        $produitFacture = $this->produitQuery->verifieProduitStockReel($produitId);
+        $produitFacture = $this->produitQuery->verifieProduitStockReel($produitId, $codeUsine);
         if($produitFacture!=null)
             $trouve =1;
         return $trouve;

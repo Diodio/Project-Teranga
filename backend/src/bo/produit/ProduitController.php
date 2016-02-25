@@ -247,12 +247,13 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['produitIds'])) {
                 $produitId = $request['produitIds'];
+                $codeUsine = $request['codeUsine'];
                 $produitManager = new ProduitManager();
-                $verifAchat = $produitManager->verifieUsageProduitAchat($produitId);
-                $verifBonSortie = $produitManager->verifieUsageProduitBonSortie($produitId);
-                $verifFacture = $produitManager->verifieUsageProduitFacture($produitId);
-               // $verifSP = $produitManager->verifieUsageProduitStockProvisoire($produitId);
-               // $verifSR = $produitManager->verifieUsageProduitStockReel($produitId);
+//                $verifAchat = $produitManager->verifieUsageProduitAchat($produitId);
+//                $verifBonSortie = $produitManager->verifieUsageProduitBonSortie($produitId);
+//                $verifFacture = $produitManager->verifieUsageProduitFacture($produitId);
+                $verifSP = $produitManager->verifieUsageProduitStockProvisoire($produitId, $codeUsine);
+                $verifSR = $produitManager->verifieUsageProduitStockReel($produitId, $codeUsine);
                 $msg="";
                 //var_dump($verifFacture);
 //                if($verifAchat==1 && $verifBonSortie==0 && $verifFacture==0)
@@ -269,12 +270,20 @@ class ProduitController extends BaseController implements BaseAction {
 //                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon de sortie et facture";
 //                else if($verifAchat==1 && $verifBonSortie==1 && $verifFacture==1 )
 //                    $msg="Impossible de supprimer ce produit car il est utilisé dans bon d'achat, bon de sortie et facture";
-//                if($msg==""){
+                    
+                if($verifSP==1 && $verifSR==0)
+                    $msg="Impossible de supprimer ce produit car il dipose d'un stock provisoire";
+                if($verifSP==0 && $verifSR==1)
+                    $msg="Impossible de supprimer ce produit car il dipose d'un stock réel";
+                if($verifSP==1 && $verifSR==1)
+                    $msg="Impossible de supprimer ce produit car il dipose d'un stock provisoire et réel";
+                if($msg==""){
                    $nbModified = $produitManager->delete($produitId);
                    $this->doSuccess($nbModified, 'REMOVED');
-//                }
-//                else
-//                    $this->doError('-1', $msg);
+                }
+                else
+                    $this->doError('-1', $msg);
+               
             } else {
                 $this->doError('-1', 'PRODUIT_NOT_REMOVED');
             }
@@ -509,7 +518,7 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['produitId'])) {
                 $produitManager = new ProduitManager();
-                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId'], $request['codeUsine']);
+                $produitDetails = $produitManager->retrieveDetailProduit($request['produitId'], $request['usineCode']);
                 if ($produitDetails != null)
                     $this->doSuccessO($produitDetails);
                 else

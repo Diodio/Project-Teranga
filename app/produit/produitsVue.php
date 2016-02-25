@@ -309,7 +309,7 @@
                     bootbox.confirm("Voulez vous vraiment supprimer ce produit", function(result) {
                         if (result) {
                              var produitIdsChecked = produitIds;
-                            $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitIds: produitIdsChecked + "", ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data) {
+                            $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine:"<?php echo $codeUsine;?>", produitIds: produitIdsChecked + "", ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data) {
                                 if (data.rc == 0){
                                     $.gritter.add({
                                         title: 'Notification',
