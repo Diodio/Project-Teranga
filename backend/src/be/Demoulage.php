@@ -44,7 +44,9 @@ class Demoulage {
     /** @OneToMany(targetEntity="Produit\Carton", mappedBy="carton") */
     public $carton;
     
-    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) */
+    /** @ManyToOne(targetEntity="Produit\Produit", inversedBy="produit", cascade={"persist"}) 
+    @JoinColumn(name="produit_id", referencedColumnName="id",
+      onDelete="CASCADE")   */
     protected $produit;
     
     /** @Column(type="datetime", nullable=true) */

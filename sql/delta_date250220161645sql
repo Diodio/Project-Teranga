@@ -1,0 +1,5 @@
+ALTER TABLE demoulage DROP FOREIGN KEY FK_72FD14D7F347EFB;
+ALTER TABLE demoulage ADD CONSTRAINT FK_72FD14D7F347EFB FOREIGN KEY (produit_id) REFERENCES produit (id) ON DELETE CASCADE;
+
+Updating database schema...
+Database schema updated successfully! "2" queries were executed

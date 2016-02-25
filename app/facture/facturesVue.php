@@ -1372,7 +1372,6 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-                          alert(clientId);
                           factureProcess(action);
 			},
 			invalidHandler: function (form) {
