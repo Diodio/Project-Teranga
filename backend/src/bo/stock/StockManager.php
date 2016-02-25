@@ -32,8 +32,8 @@ class StockManager {
     
 
     
-    public function retrieveAll($offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->stockQuery->retrieveAll($offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->stockQuery->retrieveAll($codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
     public function retrieveAllByUsine($codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {

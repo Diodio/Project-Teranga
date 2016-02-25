@@ -69,16 +69,16 @@ class StockController extends BaseController {
                 // Begin filter from dataTable
                 $sWhere = "";
                 if (isset($request['sSearch']) && $request['sSearch'] != "") {
-                    $sSearchs = explode(" ", $request['sSearch']);
-                    for ($j = 0; $j < count($sSearchs); $j++) {
-                        $sWhere .= " ";
+                   // $sSearchs = explode(" ", $request['sSearch']);
+                   // for ($j = 0; $j < count($sSearchs); $j++) {
+                    //    $sWhere .= " ";
                         for ($i = 0; $i < count($aColumns); $i++) {
-                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" .  $request['sSearch'] . "%') OR";
                             if ($i == count($aColumns) - 1)
                                 $sWhere = substr_replace($sWhere, "", -3);
                         }
-                       // $sWhere = $sWhere .=")";
-                    }
+                      // $sWhere = $sWhere .=")";
+                  //  }
                 }
                 // End filter from dataTable
                 if((isset ($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
@@ -89,7 +89,7 @@ class StockController extends BaseController {
                     if((isset($request['profil']) && $request['profil'] == 'admin') || (isset ($request['profil']) && $request['profil'] == 'directeur'))
                         $nbProduits = $stockManager->countAll('*',$sWhere);
                     else
-                       $nbProduits = $stockManager->countByUsine($request['usineCode'],$request['login'], $sWhere);
+                       $nbProduits = $stockManager->countByUsine($request['usineCode'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($produits, $request['sEcho'], $nbProduits));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

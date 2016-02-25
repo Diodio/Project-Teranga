@@ -30,6 +30,8 @@ public function insert($stock) {
 }
     
 public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+    if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
         if($codeUsine !=='*'){
             $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
                     FROM produit,stock_reel WHERE produit.id=produit_id  ' . $sWhere . ' and codeUsine="'.$codeUsine.'" group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
@@ -54,6 +56,8 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     
 
     public function retrieveAllByUsine($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
              $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
                     FROM produit,stock_reel WHERE produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
      
@@ -72,14 +76,16 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         return $arrayStocks;
     }
     
-    public function countAll($codeUsine,$where="") {
+    public function countAll($codeUsine,$sWhere="") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
         if($codeUsine !=='*'){
             $sql = 'select count(produit.id) as nbStocks
-                        from produit,stock_reel where produit.id=produit_id and codeUsine="'.$codeUsine.'" ' . $where . '';
+                        from produit,stock_reel where produit.id=produit_id and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
             $sql = 'select count(produit.id) as nbStocks
-                        from produit,stock_reel where produit.id=produit_id ' . $where . '';
+                        from produit,stock_reel where produit.id=produit_id ' . $sWhere . '';
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -87,10 +93,12 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         return $nbTypeStocks['nbStocks'];
     }
 
-    public function countByUsine($codeUsine, $login, $where="") {
+    public function countByUsine($codeUsine, $login, $sWhere="") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
 
         $sql = 'select count(produit.id) as nbStocks
-                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" ' . $where . '';
+                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbTypeStocks = $stmt->fetch();
