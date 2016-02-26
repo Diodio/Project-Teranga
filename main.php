@@ -530,6 +530,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         if($.cookie('codeUsine')!=='usine_dakar')
                             $('#BONSORTIE').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
+                        $('#MNU_CONSULTATION').removeClass("hidden");
                     }
                     else if(profil==='gerant') {
                         $('#PARAMETRAGE').removeClass("hidden");
