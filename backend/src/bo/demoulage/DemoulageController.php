@@ -60,7 +60,7 @@ class DemoulageController extends BaseController  {
 
 	public function doInsert($request) {
 		try {
-			if ($request['produitId'] !="" && $request['quantiteDemoulee'] != "") {
+			if ($request['produitId'] !="" && $request['numero'] != ""&& $request['quantiteDemoulee'] != "") {
 				$produitManager = new \Produit\ProduitManager();
 				$produit=$produitManager->findById($request['produitId']);
 				$demoulageManager = new Produit\DemoulageManager();
@@ -72,7 +72,7 @@ class DemoulageController extends BaseController  {
 				//  $demoulage->setNombreParCarton($request['nombreParCarton']);
 				$demoulage->setProduit($produit);
                                 $demoulage->setNumero($request['numero']);
-                                $demoulage->setQuantiteAdemouler($request['quantiteAdemouler']);
+                                $demoulage->setStockProvisoire($request['stockProvisoire']);
                                 $demoulage->setQuantiteDemoulee($request['quantiteDemoulee']);
 				$demoulage->setCodeUsine($request['codeUsine']);
 				$demoulage->setLogin($request['login']);
@@ -80,7 +80,7 @@ class DemoulageController extends BaseController  {
 				if ($demoulageAdded->getId() != null) {
 					if($request['quantiteDemoulee'] !=""){
 						$stockManager = new \Stock\StockManager();
-						$stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['quantiteAdemouler'],  $request['quantiteDemoulee']);
+						$stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockProvisoire'],  $request['quantiteDemoulee']);
 						$jsonCarton = json_decode($_POST['jsonCarton'], true);
 						foreach ($jsonCarton as $key => $ligneCarton) {
 							if(isset($ligneCarton["nbCarton"])) {
@@ -188,7 +188,7 @@ class DemoulageController extends BaseController  {
 			if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
 				// Begin order from dataTable
 				$sOrder = "";
-				$aColumns = array('numero','libelle', 'quantiteAdemouler', 'quantiteDemoulee');
+				$aColumns = array('numero','libelle', 'quantiteDemoulee');
 				if (isset($request['iSortCol_0'])) {
 					$sOrder = "ORDER BY  ";
 					for ($i = 0; $i < intval($request['iSortingCols']); $i++) {

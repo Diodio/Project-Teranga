@@ -63,7 +63,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
             $arrayDemoulages [$i] [] = $value ['date'];
             $arrayDemoulages [$i] [] = $value ['numero'];
             $arrayDemoulages [$i] [] = $value ['libelle'];
-            $arrayDemoulages [$i] [] = $value ['quantiteAdemouler'];
+            $arrayDemoulages [$i] [] = $value ['stockProvisoire'];
             $arrayDemoulages [$i] [] = $value ['quantiteDemoulee'];
             if($value ['nbColis'] !=null)
                 $arrayDemoulages [$i] [] = $value ['nbColis'];

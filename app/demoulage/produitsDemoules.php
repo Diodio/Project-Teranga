@@ -83,7 +83,7 @@
                                     Produit
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Quantite avant demoulage
+                                    Stock provisoire
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Quantite demoulee
@@ -448,10 +448,10 @@
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_DEMOULE; ?>"});
