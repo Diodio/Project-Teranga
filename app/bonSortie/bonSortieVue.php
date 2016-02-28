@@ -85,7 +85,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 				<div class="space-6"></div>
 				<div class="row">
 					<div class="col-sm-5">
-						<label> Numero Camion</label>
+						<label> Numéro Camion</label>
 					</div>
 					<div class="col-sm-6">
 						<input type="text" id="numeroCamion" placeholder=""
@@ -93,78 +93,186 @@ $nomUsine = $_COOKIE['nomUsine'];
 					</div>
 				</div>
 			</div>
-
 		</div>
-		<div class="row clearfix">
-			<div class="col-md-12 column">
-				<a id="add_row" class="btn btn-primary btn-sm" title="Ajouter un produit">
-				<i	class="ace-icon fa fa-plus-square"></i> </a>
-					 <a id='delete_row'
-					class="btn btn-danger btn-sm" title="Supprimer un produit"
-					alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
-				</a>
-			</div>
-		</div>
-		<div class="space-6"></div>
-		<div class="row clearfix">
-			<div class="col-md-12 column">
-				<table class="table table-bordered table-hover" id="tab_logic">
-					<thead>
-						<tr>
-							<th class="text-center">N0</th>
-							<th class="text-center">Désignation</th>
-							<th class="text-center">Quantité(kg)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr id='addr0'>
-							<td>1</td>
-							<td><select id="designation0" name="designation0"
-								class="col-xs-10 col-sm-10">
-									<option value="-1" class="designations0">sélectionnez un
-										produit</option>
-							</select>
-							</td>
-							<td><input type="text" id="qte0" name='qte0' class="form-control qte" />
-							</td>
-						</tr>
-						<tr id='addr1'></tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 column">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-3"></div>
-
-				<div class="col-sm-3" style="margin-left: 76%;">
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right"
-							for="form-field-1"> Poids Total </label>
-						<div class="col-sm-8">
-							<input type="text" id="poidsTotal" name="poidsTotal"
-								placeholder="" class="col-xs-12 col-sm-12">
-						</div>
-					</div>
+		
+		 <div class="row">
+<!--             <form  id="formProduit" method="get">-->
+             <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Produits</h3>
+            <div class="col-sm-4">
+                            <div class="row">
+                                 <div class="col-sm-3">
+                                     <label>  Désignation </label>
+                                </div>
+                                
+                                <div class="col-sm-8">
+                                        <div class="clearfix">
+                                                <select id="CMB_DESIGNATIONS" data-placeholder=""  style="width:100%"     >
+                                                    <option value="*" class="designations"></option>
+                                                </select>
+                                        </div>
+                                </div>
+                            </div>
+                             <div class="space-6"></div>
+                            <div class="row">
+                                
+                                <div class="col-sm-3">
+                                    <label>  Stock (kg)</label>
+                                </div>
+                                <div class="col-sm-8">
+                                        <div class="clearfix">
+                                            <input type="text" id="stockReel" readonly="readonly" placeholder=""
+                                                        class="col-xs-12 col-sm-12">
+                                        </div>
+                                </div>
+                            </div>
+                             <div class="space-6"></div>
+                            <div class="row">
+                                
+                                <div class="col-sm-3">
+                                    <label>Sortie (kg <span id="labeldevise"></span> </label>
+                                </div>
+                                <div class="col-sm-8">
+                                        <div class="clearfix">
+                                                <input type="text" id="quantiteSorte" placeholder=""
+                                                        class="col-xs-12 col-sm-12">
+                                        </div>
+                                </div>
+                            </div>
+           
+                </div>
+                <div class="col-sm-6">
+                      <div class="row clearfix">
+				<div class="col-md-12 column">
+					<a id="add_row_colis" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+						alt="Ajouter une ligne"><i
+						class="ace-icon fa fa-plus-square"></i> </a> 
+                                        <a id='delete_row_colis'
+						class="btn btn-danger btn-sm" title="Supprimer une ligne"
+						alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>
+					</a>
 				</div>
 			</div>
+			<div class="space-6"></div>
+			<div class="row clearfix">
+				<div class="col-md-8 column">
+					<table class="table table-bordered table-hover" id="tab_logic_colis">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+                                                                <th class="text-center" style="width: 150px;">Nombre de colis</th>
+								<th class="text-center" style="width: 150px;">Quantité</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='addrColis0'>
+								<td>1</td>
+                                 <td><input type="number" id="nbColis0" name='nbColis0' class="form-control nbColis" /> </td> 
+								
+								<td>
+                                                                    <select id="qteColis0" name="qteColis0" class="form-control qte" >
+                                                                       <option value="*" class="qteColis0"></option> 
+                                                                    </select>
+<!--                                                                    <input type="number" id="qteColis0" name='qteColis0'
+									class="form-control qte" />-->
+                                                                     
+								</td>
+								
+							</tr>
+							<tr id='addrColis1'></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>     
+           </div>
+             <div class="col-sm-2" style="margin-top: 3.2%;margin-left: -9%;">
+                    <div class="row">
+                        <div class="form-group">
+                            
+                            <a id="AJOUT_PRODUIT" class="btn btn-primary btn-sm"  title="Ajouter une ligne"
+						alt="Ajouter une ligne"><i
+						class="ace-icon fa fa-plus-square"></i>Ajouter </a> 
+                        </div>
+                    </div>
+             </div>
+<!--             </form>-->
+        </div>
+        
+        <div class="space-6"></div>
+           <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Détails produit</h3>
 
-		</div>
-		<div class="row" style="margin-top: 12px;">
-<!-- 			<div class="col-md-6 column"> -->
-<!-- 				<button id="SAVE" class="btn btn-small btn-info pull-right" -->
-<!-- 					data-dismiss="modal"> -->
-<!-- 					<i class="fa fa-plus-square "></i> Valider -->
-<!-- 				</button> -->
-<!-- 			</div> -->
-			<div class="col-md-12 column">
-				<button id="SAVE" class="btn btn-small btn-info pull-right">
-					<i class="fa fa-check "></i> Valider
-				</button>
+         <div class="col-sm-7">
+			<div class="row col-md-12 clearfix">
+				<div class="col-md-12 column">
+					<table class="table table-bordered table-hover" id="tab_produit">
+						<thead>
+							<tr>
+                                                                <th class="text-center hidden"></th>
+								<th class="text-center">Nombre de colis</th>
+								<th class="text-center">Désignation</th>
+								<th class="text-center">Quantité(kg)</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+                                    
+				</div>
 			</div>
-		</div>
+             <div class="row">
+                 <a id='delete_row_produit'
+                        class="btn btn-danger btn-sm" title="Supprimer une ligne"
+                        alt="Supprimer une ligne"> <i class="ace-icon fa fa-minus-square"></i>Supprimer
+                </a>
+             </div>
+            <div class="space-6"></div> 
+        <div class="row">
+            <div class="col-md-12 column">
+                
+                <div class="col-sm-6">
+                    <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right"
+                                            for="form-field-1"> Total colis </label>
+                                    <div class="col-sm-5">
+                                            <div class="clearfix">
+                                                    <input type="text" id="totalColis" name="totalColis" placeholder=""
+                                                            class="col-xs-12 col-sm-9">
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <div class="col-sm-6">
+                     <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right"
+                                            for="form-field-1"> Poids total </label>
+                                    <div class="col-sm-5">
+                                            <div class="clearfix">
+                                                    <input type="text" id="qteTotal" name="qteTotal" placeholder=""
+                                                            class="col-xs-12 col-sm-9">
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                
+                
+            </div>
+        </div>
+         </div>
 	</div>
+	
+	<div class="row">
+        <div class="col-sm-8">
+        </div>
+            <div class="col-sm-2" style="margin-top: 20px;">
+                    <button id="SAVE" class="btn btn-small btn-info pull-right">
+                            <i class="fa fa-plus-square "></i> Valider
+                    </button>
+            </div>
+    </div>
 	</form>
 	<!-- /.col -->
 </div>

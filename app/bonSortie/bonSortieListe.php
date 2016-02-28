@@ -92,6 +92,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Numero
                                 </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Nombre de colis
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
+                                    Quantité(kg)
+                                </th>
                             </tr>
                         </thead>
 
