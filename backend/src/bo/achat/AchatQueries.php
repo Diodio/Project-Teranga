@@ -395,15 +395,15 @@ class AchatQueries {
         }
     }
     
-    public function getInfoInventaire($codeUsine) {
-        $sql = 'SELECT SUM(avance) montantTotal, SUM(poidsTotal) poidsTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and codeUsine="'.$codeUsine.'"';
+    public function getInfoMontantTotal($codeUsine) {
+        $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $infos = $stmt->fetch();
         return $infos;
     }
     
-    public function getInfoInventaire($codeUsine) {
+    public function getInfoPoidsTotal($codeUsine) {
     	$sql = 'SELECT SUM(poidsTotal) poidsTotal FROM achat  WHERE status=1 and codeUsine="'.$codeUsine.'"';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();

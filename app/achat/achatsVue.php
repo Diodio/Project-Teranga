@@ -482,20 +482,21 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 	 });
          
  
-  $('#tab_logic').on('change', '.des', function()
-{//replace table selector with an id selector, if you are targetting a specific table
+  $('#tab_logic tbody tr td').on('change', '.des', function()
+    {
+         var trouve=0;
        var id = $(this).closest('tr').attr('id');
         var counter = id.slice(-1);
         if($( "#designation"+counter ).val()!== '-1')
                $("#qte"+counter).prop("readonly", false);
         else
             $("#qte"+counter).prop("readonly", true);
-        var trouve=0;
+       
         var valueSelected = $( "#designation"+counter ).val();
-            $('#tab_logic tr').each(function () {
+            $('#tab_logic tbody tr td').each(function () {
                 value = $(this).find('select').val();
                 if(typeof value !=="undefined"){
-                    // console.log('compare'+value);
+                   console.log('compare'+value);
                    if(value==valueSelected){
                        trouve+=1;
                    }
@@ -507,9 +508,8 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                     text: 'Ce produit existe deja, Veuillez changer de produit',
                     class_name: 'gritter-error gritter-light'
                 });
-                $( "#designation"+counter ).val('-1').change();
+                //$( "#designation"+counter ).val('-1').change();
             }
-      
     //set to work, you have the cells, the entire row, and the cell containing the button.
 });
     $(document).delegate('#tab_logic tr td', 'click', function (event) {

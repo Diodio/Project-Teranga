@@ -243,16 +243,17 @@ class AchatManager {
     }
 
     public function getInfoInventaire($codeUsine) {
-        $infos = $this->achatQuery->getInfoInventaire($codeUsine);
+        $infosP = $this->achatQuery->getInfoPoidsTotal($codeUsine);
+        $infosM = $this->achatQuery->getInfoMontantTotal($codeUsine);
         $infosTab = array();
         //var_dump($infos);
-        if ($infos != null) {
-            if($infos['montantTotal'] !=null)
-                $infosTab['montantTotal'] = $infos['montantTotal'];
+        if ($infosP != null && $infosM !=null) {
+            if($infosM['montantTotal'] !=null)
+                $infosTab['montantTotal'] = $infosM['montantTotal'];
             else
                 $infosTab['montantTotal'] = 0;
-            if($infos['poidsTotal'] !=null)
-                $infosTab['poidsTotal'] = $infos['poidsTotal'];
+            if($infosP['poidsTotal'] !=null)
+                $infosTab['poidsTotal'] = $infosP['poidsTotal'];
             else
                 $infosTab['poidsTotal'] = 0;
         }
