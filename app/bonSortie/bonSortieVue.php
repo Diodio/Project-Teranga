@@ -60,6 +60,16 @@ $nomUsine = $_COOKIE['nomUsine'];
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
+				<div class="space-6"></div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label> Numéro Camion</label>
+					</div>
+					<div class="col-sm-6">
+						<input type="text" id="numeroCamion" placeholder=""
+							style="width: 100%" class="col-xs-10 col-sm-7">
+					</div>
+				</div>
 				
 			</div>
 			<div class="col-sm-5" style="margin-left: 12%">
@@ -75,7 +85,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 				<div class="space-6"></div>
 				<div class="row">
 					<div class="col-sm-5">
-						<label> Date Bon de sortie</label>
+						<label> Date de sortie</label>
 					</div>
 					<div class="col-sm-6">
 						<input type="text" id="dateBonSortie" placeholder=""
@@ -83,15 +93,16 @@ $nomUsine = $_COOKIE['nomUsine'];
 					</div>
 				</div>
 				<div class="space-6"></div>
-				<div class="row">
+				<div class="row input-append bootstrap-timepicker form-group">
 					<div class="col-sm-5">
-						<label> Numéro Camion</label>
+						<label> Heure de sortie</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" id="numeroCamion" placeholder=""
-							style="width: 100%" class="col-xs-10 col-sm-7">
+						<input name="heureReception" id="heureReception" type="text"
+									class="col-xs-10 col-sm-7">
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		
@@ -129,7 +140,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                             <div class="row">
                                 
                                 <div class="col-sm-3">
-                                    <label>Sortie (kg <span id="labeldevise"></span> </label>
+                                    <label>Sortie (kg) <span id="labeldevise"></span> </label>
                                 </div>
                                 <div class="col-sm-8">
                                         <div class="clearfix">
@@ -184,7 +195,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 				</div>
 			</div>     
            </div>
-             <div class="col-sm-2" style="margin-top: 3.2%;margin-left: -9%;">
+             <div class="col-sm-2" style="margin-top: 9.2%;margin-left: -17%;">
                     <div class="row">
                         <div class="form-group">
                             
@@ -200,13 +211,13 @@ $nomUsine = $_COOKIE['nomUsine'];
         <div class="space-6"></div>
            <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Détails produit</h3>
 
-         <div class="col-sm-7">
+         <div class="col-sm-12">
 			<div class="row col-md-12 clearfix">
 				<div class="col-md-12 column">
 					<table class="table table-bordered table-hover" id="tab_produit">
 						<thead>
 							<tr>
-                                                                <th class="text-center hidden"></th>
+                                <th class="text-center hidden"></th>
 								<th class="text-center">Nombre de colis</th>
 								<th class="text-center">Désignation</th>
 								<th class="text-center">Quantité(kg)</th>
@@ -265,9 +276,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 	</div>
 	
 	<div class="row">
-        <div class="col-sm-8">
-        </div>
-            <div class="col-sm-2" style="margin-top: 20px;">
+            <div class="col-sm-12" style="margin-top: 20px;">
                     <button id="SAVE" class="btn btn-small btn-info pull-right">
                             <i class="fa fa-plus-square "></i> Valider
                     </button>

@@ -125,15 +125,15 @@
                             <div class="navbar-fixed-top align-right">
                                 <br />
                                 &nbsp;
-                                <a id="btn-login-dark" href="#">Dark</a>
+                                <a id="btn-login-dark" href="#">Noir</a>
                                 &nbsp;
                                 <span class="blue">/</span>
                                 &nbsp;
-                                <a id="btn-login-blur" href="#">Blur</a>
+                                <a id="btn-login-blur" href="#">Bleu</a>
                                 &nbsp;
                                 <span class="blue">/</span>
                                 &nbsp;
-                                <a id="btn-login-light" href="#">Light</a>
+                                <a id="btn-login-light" href="#">Gris</a>
                                 &nbsp; &nbsp; &nbsp;
                             </div>
                         </div>
