@@ -52,8 +52,9 @@
                         </span>
                         <span class="col-sm-8">
                             <select id="regle" name="regle" style="margin-left: -40px;">
-                                            <option value="2" class="green bigger-130 icon-only">Achats rÃ©glÃ©s</option>
-                                            <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option>
+                                    <option value="*" class="">Filtrer par type achat</option>
+                                    <option value="2" class="green bigger-130 icon-only">Achats rÃ©glÃ©s</option>
+                                    <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option>
                             </select>
                             <span id="labelTo" style="margin-left: -1px;">Periode du</span>
                             <input
@@ -92,11 +93,7 @@
                         <thead>
                             <tr>
                                 <th class="center" style="border-right: 0px none;">
-                                Id
-<!--                                     <label> -->
-<!--                                         <input type="checkbox" value="*" name="allchecked"/> -->
-<!--                                         <span class="lbl"></span> -->
-<!--                                     </label> -->
+                               
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     NumÃ©ro
@@ -210,6 +207,23 @@
                         "sPrevious": null
                       }
                     },
+                    "aoColumnDefs": [
+                        {
+                            "aTargets": [0],
+                            "bSortable": false,
+                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                                $(nTd).css('text-align', 'center');
+                            },
+                            "mRender": function(data, type, full) {
+                               var src = '<input type="hidden" id="stag' + full[1] + '" value="' + data + '">';
+                                if (data == 2)
+                                    src += '<span class="badge badge-transparent tooltip-error" title="RÃ©glÃ©:"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
+                                else if (data == 1)
+                                    src += '<span class="badge badge-transparent tooltip-error" title="Reliquat: '+full[6]+' F CFA"><i class="ace-icon fa fa-check-square-o orange red bigger-130 icon-only"></i></span>';
+                                return src;
+                            }
+                        }
+                    ],
                     "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         $(nRow).css('cursor','pointer');
                         $(nRow).on('click', 'td:not(:first-child)', function(){
@@ -237,10 +251,10 @@
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_INVENTAIRE_ACHATS; ?>"});

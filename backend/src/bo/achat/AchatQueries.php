@@ -100,22 +100,22 @@ class AchatQueries {
             $dateFin="2900-01-01";
         if($codeUsine !=='*') {
             if($regle !=='*'){
-                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
             if($regle !=='*'){
-                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
+                $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   
         $sql = str_replace("`", "", $sql);
@@ -125,12 +125,16 @@ class AchatQueries {
         $arrayAchats = array();
         $i = 0;
         foreach ($products as $key => $value) {
-            $arrayAchats [$i] [] = $value ['id'];
+           // $arrayAchats [$i] [] = $value ['id'];
+            $reglement = $this->getTotalReglementByAchat($value ['id']);
+            $arrayAchats [$i] [] = $value ['regle'];
             $arrayAchats [$i] [] = $value ['numero'];
             $arrayAchats [$i] [] = $value ['dateAchat'];
             $arrayAchats [$i] [] = $value ['nom'];
             $arrayAchats [$i] [] = $value ['poidsTotal'];
             $arrayAchats [$i] [] = $value ['montantTotal'];
+            $reliquat = floatval($value ['montantTotal']) - floatval($reglement);
+            $arrayAchats [$i] [] = $reliquat;
             $i++;
         }
         return $arrayAchats;
@@ -217,7 +221,7 @@ class AchatQueries {
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             } else {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" AND (regle=2 OR regle=1) and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             }
         } else {
             if ($regle !== '*') {
@@ -225,7 +229,7 @@ class AchatQueries {
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle=' . $regle . ' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             } else {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             }
         }
 

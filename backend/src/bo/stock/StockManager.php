@@ -109,9 +109,9 @@ class StockManager {
        $stockQueries = new StockQueries();
     	return $stockQueries->updateSeuilStock($produitId, $codeUsine, $nbSeuil);
   }
-    public function resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler ) {	
+    public function resetStockProvisoire($produitId, $codeUsine, $quantitedemouler ) {	
        $stockQueries = new StockQueries();
-    	return $stockQueries->resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler);
+    	return $stockQueries->resetStockProvisoire($produitId, $codeUsine, $quantitedemouler);
   }
   public function destockage($produitId, $codeUsine, $nbStock ) {	
        $stockQueries = new StockQueries();
@@ -156,7 +156,7 @@ class StockManager {
             $this->updateNbStockReel($produitId, $codeUsine, $quantiteDemoulee);
             $this->updateSeuilStock($produitId, $codeUsine, $seuil);
         }
-        $this->resetStockProvisoire($produitId, $codeUsine, $stockProvisoire);
+        $this->resetStockProvisoire($produitId, $codeUsine, $quantiteDemoulee);
     }
 
     
