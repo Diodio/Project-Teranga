@@ -19,6 +19,11 @@ class Demoulage {
      /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
+    public $quantiteAvantDemoulage;
+    
+     /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
     public $quantiteDemoulee;
     
     /**
@@ -139,8 +144,15 @@ class Demoulage {
     function setStatus($status) {
         $this->status = $status;
     }
+    function getQuantiteAvantDemoulage() {
+        return $this->quantiteAvantDemoulage;
+    }
 
-    
+    function setQuantiteAvantDemoulage($quantiteAvantDemoulage) {
+        $this->quantiteAvantDemoulage = $quantiteAvantDemoulage;
+    }
+
+        
                  /** @PrePersist */
     public function doPrePersist() {
         $this->status = 1;
