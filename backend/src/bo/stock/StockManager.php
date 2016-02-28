@@ -137,7 +137,7 @@ class StockManager {
         return $stock['id'];
     return 0;
   }
-  public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $quantiteAdemouler, $quantiteDemoulee) {
+  public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $stockProvisoire, $quantiteDemoulee) {
         $stockReel = $this->findStockReelByProduitId($produitId, $codeUsine);
         if ($stockReel == 0) {
             $stockReel = new \Stock\StockReel();
@@ -156,7 +156,7 @@ class StockManager {
             $this->updateNbStockReel($produitId, $codeUsine, $quantiteDemoulee);
             $this->updateSeuilStock($produitId, $codeUsine, $seuil);
         }
-        $this->resetStockProvisoire($produitId, $codeUsine, $quantiteAdemouler);
+        $this->resetStockProvisoire($produitId, $codeUsine, $stockProvisoire);
     }
 
     

@@ -19,7 +19,7 @@ class Demoulage {
     /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
-    public $quantiteAdemouler;
+    public $stockProvisoire;
     
      /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
@@ -125,20 +125,12 @@ class Demoulage {
         return $this->numero;
     }
 
-    function getQuantiteAdemouler() {
-        return $this->quantiteAdemouler;
-    }
-
     function getQuantiteDemoulee() {
         return $this->quantiteDemoulee;
     }
 
     function setNumero($numero) {
         $this->numero = $numero;
-    }
-
-    function setQuantiteAdemouler($quantiteAdemouler) {
-        $this->quantiteAdemouler = $quantiteAdemouler;
     }
 
     function setQuantiteDemoulee($quantiteDemoulee) {
@@ -152,7 +144,16 @@ class Demoulage {
     function setStatus($status) {
         $this->status = $status;
     }
+    
+    function getStockProvisoire() {
+        return $this->stockProvisoire;
+    }
 
+    function setStockProvisoire($stockProvisoire) {
+        $this->stockProvisoire = $stockProvisoire;
+    }
+
+    
                  /** @PrePersist */
     public function doPrePersist() {
         $this->status = 1;
