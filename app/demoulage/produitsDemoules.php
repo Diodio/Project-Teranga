@@ -518,8 +518,8 @@
             else if (checkedDemoulages.length > 1){
                $('#MNU_REMOVE').addClass('disabled');
                 $('#MNU_ANNULATION').addClass('disabled');
-               
-                // bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                bootbox.alert("Veuillez selectionnez un seul démoulage SVP!");
+                loadDemoulages('*');
             }
             else{
                 $('#MNU_REMOVE').addClass('disabled');
