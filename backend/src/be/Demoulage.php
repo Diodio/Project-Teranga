@@ -16,10 +16,10 @@ class Demoulage {
      * */
     protected $numero;
     
-    /**
+     /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
-    public $stockProvisoire;
+    public $quantiteAvantDemoulage;
     
      /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
@@ -144,16 +144,15 @@ class Demoulage {
     function setStatus($status) {
         $this->status = $status;
     }
-    
-    function getStockProvisoire() {
-        return $this->stockProvisoire;
+    function getQuantiteAvantDemoulage() {
+        return $this->quantiteAvantDemoulage;
     }
 
-    function setStockProvisoire($stockProvisoire) {
-        $this->stockProvisoire = $stockProvisoire;
+    function setQuantiteAvantDemoulage($quantiteAvantDemoulage) {
+        $this->quantiteAvantDemoulage = $quantiteAvantDemoulage;
     }
 
-    
+        
                  /** @PrePersist */
     public function doPrePersist() {
         $this->status = 1;

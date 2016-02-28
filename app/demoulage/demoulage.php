@@ -237,11 +237,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                 if(sqte > quantiteDemoulee){
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'La quantité totale définie ne doit pas �tre supérieure � la quantite démoulée',
+                        text: 'La quantité totale définie ne doit pas �tre supérieure a la quantite démoulée',
                         class_name: 'gritter-error gritter-light'
                     }); 
                     $("#qte"+index).val(""); 
-                   $("#tot"+index).val(""); 
+                    $("#tot"+index).val(""); 
                }
                
                
@@ -636,7 +636,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var numero= $('#numero').val();
             var quantiteDemoulee= $('#quantiteDemoulee').val();
-            var stockProvisoire= parseFloat($('#stockProvisoire').val()) - parseFloat($('#quantiteDemoulee').val());
+            var stockProvisoire= $('#stockProvisoire').val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             var $table = $("table");

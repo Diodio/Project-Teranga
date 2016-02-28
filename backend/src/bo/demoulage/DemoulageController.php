@@ -72,7 +72,7 @@ class DemoulageController extends BaseController  {
 				//  $demoulage->setNombreParCarton($request['nombreParCarton']);
 				$demoulage->setProduit($produit);
                                 $demoulage->setNumero($request['numero']);
-                                $demoulage->setStockProvisoire($request['stockProvisoire']);
+                                $demoulage->setQuantiteAvantDemoulage($request['stockProvisoire']);
                                 $demoulage->setQuantiteDemoulee($request['quantiteDemoulee']);
 				$demoulage->setCodeUsine($request['codeUsine']);
 				$demoulage->setLogin($request['login']);
