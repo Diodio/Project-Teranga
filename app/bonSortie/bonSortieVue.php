@@ -105,9 +105,8 @@ $nomUsine = $_COOKIE['nomUsine'];
 				
 			</div>
 		</div>
-		
+		<div class="space-6"></div>
 		 <div class="row">
-<!--             <form  id="formProduit" method="get">-->
              <h3 class="header smaller lighter green"><i class="ace-icon fa fa-th-large"></i>Ajout Produit</h3>
             <div class="col-sm-4">
                             <div class="row">
