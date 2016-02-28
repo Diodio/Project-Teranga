@@ -83,10 +83,10 @@
                                     Produit
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Stock provisoire
+                                    Quantite avant démoulage
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Quantite demoulee
+                                    Quantite démoulée
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Nombre de colis

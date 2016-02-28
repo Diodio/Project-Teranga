@@ -63,7 +63,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
             $arrayDemoulages [$i] [] = $value ['date'];
             $arrayDemoulages [$i] [] = $value ['numero'];
             $arrayDemoulages [$i] [] = $value ['libelle'];
-            $arrayDemoulages [$i] [] = $value ['stockProvisoire'] + $value ['quantiteDemoulee'];
+            $arrayDemoulages [$i] [] = 0;//$value ['stockProvisoire'] + $value ['quantiteDemoulee'];
             $arrayDemoulages [$i] [] = $value ['quantiteDemoulee'];
             if($value ['nbColis'] !=null)
                 $arrayDemoulages [$i] [] = $value ['nbColis'];
@@ -105,10 +105,9 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
         if ($demou->getStatus() == 1) {
             $codeUsine=$demou->getCodeUsine();
             $produitId=$demou->getProduit()->getId();
-            $quantiteAdemouler=$demou->getQuantiteAdemouler();
             $quantiteDemoulee=$demou->getQuantiteDemoulee();
-            if($produitId!==NULL && $quantiteAdemouler!==NULL && $quantiteDemoulee!==NULL){
-            $stockManager->updateNbStock($produitId, $codeUsine, $quantiteAdemouler);
+            if($produitId!==NULL && $quantiteDemoulee!==NULL){
+            $stockManager->updateNbStock($produitId, $codeUsine, $quantiteDemoulee);
             $stockManager->destockageReel($produitId, $codeUsine, $quantiteDemoulee);
             //$infoStocks = $this->demoulageQueries->findInfoStockByDemoulage($demoulageId);
             $infoColis = $this->demoulageQueries->findInfoColisByDemoulage($demoulageId);

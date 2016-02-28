@@ -221,7 +221,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 		 i--;
 		 }
 	 });
-         function calculPoids(index){
+         function calculPoids(index, keyType){
            var cart=parseFloat($("#cart"+index).val());
            var qte=parseFloat($("#qte"+index).val());
            var quantiteDemoulee=parseFloat($("#quantiteDemoulee").val());
@@ -237,11 +237,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                 if(sqte > quantiteDemoulee){
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'La quantité totale définie ne doit pas �tre supérieure � la quantite démoulée',
+                        text: 'La quantité totale définie ne doit pas �tre supérieure à la quantité démoulée',
                         class_name: 'gritter-error gritter-light'
                     }); 
                     $("#qte"+index).val(""); 
-                   $("#tot"+index).val(""); 
+                    $("#tot"+index).val(""); 
                }
                
                

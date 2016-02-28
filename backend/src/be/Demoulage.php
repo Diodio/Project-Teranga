@@ -16,11 +16,6 @@ class Demoulage {
      * */
     protected $numero;
     
-    /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=true)
-     * */
-    public $stockProvisoire;
-    
      /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
@@ -143,14 +138,6 @@ class Demoulage {
 
     function setStatus($status) {
         $this->status = $status;
-    }
-    
-    function getStockProvisoire() {
-        return $this->stockProvisoire;
-    }
-
-    function setStockProvisoire($stockProvisoire) {
-        $this->stockProvisoire = $stockProvisoire;
     }
 
     
