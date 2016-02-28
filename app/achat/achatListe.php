@@ -337,6 +337,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                             <div class="space-6"></div>
                             <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Transport</label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                    <input type="text" class="bolder"  id="transport" name="transport" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
                                 <div class="space-12"></div>
                                     <div class="form-group">
                                             <label class="col-sm-5 control-label no-padding-right"
@@ -666,10 +679,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
@@ -719,6 +732,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                  $('#datePaiement').val("");
                  $('#avance').val("");
                  $('#reliquat').val("");
+                 $('#transport').val("");
                 $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
@@ -831,6 +845,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#avance').text("");
                         $('#reliquat').text("");
                     }
+                    $('#transport').val(data.transport);
                     if(data.regle !==null && data.regle==2)
                         $('#regleAchat').prop('checked', true);
                     trHTML='';
@@ -1017,6 +1032,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var datePaiement = $("#datePaiement").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
+            var transport = $("#transport").val();
             var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
             var regle=false;
             if(Aregle === 'on')
@@ -1062,6 +1078,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('avance', avance);
             formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
+            formData.append('transport', transport);
             formData.append('regle', regle);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);

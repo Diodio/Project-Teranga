@@ -39,6 +39,11 @@ class Achat {
     protected $reliquat;
     
     /**
+     * @Column(type="decimal", scale=2, precision=10,nullable=true)
+     * */
+    protected $transport;
+    
+    /**
      * @Column(type="string", length=60, nullable=true)
      * */
     protected $modePaiement;
@@ -257,6 +262,14 @@ class Achat {
 
     function setDatePaiement($datePaiement) {
         $this->datePaiement = $datePaiement;
+    }
+
+    function getTransport() {
+        return $this->transport;
+    }
+
+    function setTransport($transport) {
+        $this->transport = $transport;
     }
 
 

@@ -165,6 +165,7 @@ class AchatManager {
                 $achatDetail ['datePaiement'] = $value ['datePaiement'];
                 $achatDetail ['regle'] = $value ['regle'];
                 $achatDetail ['reliquat'] = $value ['reliquat'];
+                $achatDetail ['transport'] = $value ['transport'];
                 $achatDetail['ligneAchat'] = $ligneAchat;
                 $achatDetail['reglement'] = $reglement;
             }

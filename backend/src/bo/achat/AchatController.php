@@ -302,6 +302,7 @@ class AchatController extends BaseController implements BaseAction {
                         $achat->setRegle(1);
                     $reliquat = $request['montantTotal'] - $request['avance'];
                     $achat->setReliquat($reliquat);
+                    $achat->setTransport($request['transport']);
                     $reglement = new Reglement\ReglementAchat();
                     $reglement->setAchat($achat);
                     $reglement->setDatePaiement(new \DateTime("now"));
