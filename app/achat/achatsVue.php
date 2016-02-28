@@ -102,6 +102,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 							</div>
 						</div>
 					</div>
+					
 
 				</div>
 
@@ -185,20 +186,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 			<div class="space-6"></div>
 			<div class="row">
 				<div class="col-md-12">
-			     
-					<div class="col-sm-4">
-						<div class="form-group" style="margin-bottom: 86px;margin-top: 11%;">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Transport (FCFA) </label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-									<input type="text" readonly id="numCheque" placeholder=""
-										class="col-xs-12 col-sm-10">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4"></div>
+					<div class="col-sm-8"></div>
 					<div class="col-sm-4">
 						<div class="form-group" style="margin-bottom: 40px;">
 							<label class="col-sm-5 control-label no-padding-right"
