@@ -402,4 +402,12 @@ class AchatQueries {
         $infos = $stmt->fetch();
         return $infos;
     }
+    
+    public function getInfoInventaire($codeUsine) {
+    	$sql = 'SELECT SUM(poidsTotal) poidsTotal FROM achat  WHERE status=1 and codeUsine="'.$codeUsine.'"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$infos = $stmt->fetch();
+    	return $infos;
+    }
 }
