@@ -251,12 +251,17 @@ class AchatManager {
             if($infosM['montantTotal'] !=null)
                 $infosTab['montantTotal'] = $infosM['montantTotal'];
             else
-                $infosTab['montantTotal'] = 0;
+                $infosTab['montantTotal'] = 0.00;
             if($infosP['poidsTotal'] !=null)
                 $infosTab['poidsTotal'] = $infosP['poidsTotal'];
             else
-                $infosTab['poidsTotal'] = 0;
+                $infosTab['poidsTotal'] = 0.00;
         }
+        else {
+            $infosTab['poidsTotal'] =0.00;
+            $infosTab['montantTotal'] =0.00;
+        }
+        
         return $infosTab;
     }
 
