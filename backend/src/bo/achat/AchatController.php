@@ -94,34 +94,11 @@ class AchatController extends BaseController implements BaseAction {
                 $achat->setHeureReception(new \DateTime($request['heureReception']));
                 $achat->setDateAchat(new \DateTime($request['dateAchat']));
                 $achat->setPoidsTotal($request['poidsTotal']);
-                $achat->setMontantTotal($request['montantTotal']);
-                $achat->setModePaiement($request['modePaiement']);
-                if ($request['modePaiement'] == 'CHEQUE')
-                    $achat->setNumCheque($request['numCheque']);
-                else if ($request['modePaiement'] == 'VIREMENT')
-                    $achat->setDatePaiement(new \DateTime($request['datePaiement']));
-                $achat->setCodeUsine($request['codeUsine']);
-                $achat->setLogin($request['login']);
-                if ($request['avance'] != "") {
-                    if ($request['regle'] == "true")
-                        $achat->setRegle(2);
-                    else
-                        $achat->setRegle(1);
-                    $reliquat = $request['montantTotal'] - $request['avance'];
-                    $achat->setReliquat($reliquat);
-                    $reglement = new Reglement\ReglementAchat();
-                    $reglement->setAchat($achat);
-                    $reglement->setDatePaiement(new \DateTime("now"));
-                    $reglement->setAvance($request['avance']);
-                    $reglementManager = new Reglement\ReglementManager();
-                    $reglementManager->insert($reglement);
-                }
-                else {
-                    $achat->setRegle(0);
-                }
                 $mareyeurManager = new \Mareyeur\MareyeurManager();
                 $mareyeur = $mareyeurManager->findById($request['mareyeur']);
                 $achat->setMareyeur($mareyeur);
+                $achat->setCodeUsine($request['codeUsine']);
+                $achat->setLogin($request['login']);
                 $achatAdded = $achatManager->insert($achat);
                 if ($achatAdded->getId() != null) {
                     $jsonAchat = json_decode($_POST['jsonProduit'], true);
@@ -133,10 +110,7 @@ class AchatController extends BaseController implements BaseAction {
                             $produitManager = new Produit\ProduitManager();
                             $produit = $produitManager->findById($produitId);
                             $ligneAchat->setProduit($produit);
-                            $this->logger->log->info("m " . $ligne['pu']);
-                            // $ligneAchat->setPrixUnitaire($ligne['pu']);
                             $ligneAchat->setQuantite($ligne['qte']);
-                            //$ligneAchat->setMontant($ligne['montant']);
                             $ligneAchatManager = new \Achat\LigneAchatManager();
                             $ligneAchatManager->insert($ligneAchat);
                         }

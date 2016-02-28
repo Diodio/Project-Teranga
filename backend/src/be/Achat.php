@@ -185,6 +185,7 @@ class Achat {
      /** @PrePersist */
     public function doPrePersist() {
         $this->status = 0;
+        $this->regle = 0;
        $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }

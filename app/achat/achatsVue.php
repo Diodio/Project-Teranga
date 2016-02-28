@@ -125,9 +125,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 							<tr>
 								<th class="text-center">#</th>
 								<th class="text-center">Désignation</th>
-								<th class="text-center">Prix Unitaire</th>
 								<th class="text-center">Quantité(kg)</th>
-								<th class="text-center">Montant</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -139,13 +137,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 											class="designations0">selectionnez un produit</option>
 								</select>
 								</td>
-                                                                <td><input type="text" readonly id="pu0" name='pu0' class="form-control" />
-								</td>
                                                                 <td><input type="text" readonly autocomplete="off" id="qte0" name='qte0'
 									class="form-control qte" />
-								</td>
-								<td><input type="text" readonly id="montant0" name='montant0'
-									class="form-control montant" />
 								</td>
 							</tr>
 							<tr id='addr1'></tr>
@@ -154,10 +147,13 @@ $codeUsine = $_COOKIE['codeUsine'];
 			</div>
 			<div class="row">
 				<div class="col-md-12 column">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-3"></div>
+					<div class="col-sm-9"></div>
+						
+					</div>
+
+
 					<div class="col-sm-3"
-						style="margin-left: 57.5%; margin-top: -10px;">
+						style="margin-left: 78.5%; margin-top: -10px;">
 						<div class="form-group">
 							<label class="col-sm-2 control-label no-padding-right"
 								for="form-field-1"> Total </label>
@@ -168,94 +164,8 @@ $codeUsine = $_COOKIE['codeUsine'];
 						</div>
 					</div>
 
-
-					<div class="col-sm-3"
-						style="margin-left: 82.5%; margin-top: -35px;">
-						<div class="form-group">
-							<label class="col-sm-2 control-label no-padding-right"
-								for="form-field-1"> total </label>
-							<div class="col-sm-8">
-								<input type="text" readonly id="montantTotal" name="montantTotal"
-									placeholder="" class="col-xs-12 col-sm-10">
-							</div>
-						</div>
-					</div>
-
 				</div>
-			</div>
-			<div class="space-6"></div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="col-sm-8"></div>
-					<div class="col-sm-4">
-						<div class="form-group" style="margin-bottom: 40px;">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Mode de paiement </label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-                                                                    <select disabled id="modePaiement" class="col-xs-12 col-sm-10">
-										<option value=""></option>
-										<option value="ESPECES">Especes</option>
-										<option value="CHEQUE">Cheque</option>
-										<option value="VIREMENT">Virement</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-group" style="margin-bottom: 86px;margin-top: 11%;">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> No Cheque </label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-									<input type="text" readonly id="numCheque" placeholder=""
-										class="col-xs-12 col-sm-10">
-								</div>
-							</div>
-						</div>
-						<div class="form-group" style="margin-bottom: 132px;margin-top: 11%;">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Date de paiement </label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-									<input type="text" readonly id="datePaiement" placeholder=""
-										class="col-xs-12 col-sm-10">
-								</div>
-							</div>
-						</div>
-						<div class="form-group" style="margin-bottom: 177px;margin-top: 11%;">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Avance  (FCFA)</label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-									<input type="text" readonly id="avance" name="avance" placeholder=""
-										class="col-xs-12 col-sm-10">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Reliquat (FCFA)</label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-									<input type="text" readonly id="reliquat" name="reliquat" placeholder=""
-										class="col-xs-12 col-sm-10">
-								</div>
-							</div>
-						</div>
-                                            <div class="space-12"></div>
-						<div class="form-group" style="margin-top: 43px;">
-							<label class="col-sm-5 control-label no-padding-right"
-								for="form-field-1"> Reglé </label>
-							<div class="col-sm-7">
-								<div class="clearfix">
-                                                                    <input type="checkbox" disabled="disabled" id="regleAchat" name="regleAchat" placeholder=""
-										>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
+                        <div class="row">
 					<div class="col-md-12 column" style="margin-top: 20px;">
 						<button id="SAVE" class="btn btn-small btn-info pull-right"
 							data-dismiss="modal">
@@ -466,9 +376,7 @@ $(document).ready(function () {
 $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='des col-xs-10 col-sm-10'>\n\
 <option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
 </td>\n\
-<td><input type='text' readonly id='pu"+i+"' name='pu"+i+"' class='form-control'/></td>\n\
-<td><input type='text' id='qte"+i+"' readonly autocomplete='off' name='qte"+i+"'  class='form-control qte'/></td>\n\
-<td><input type='text' readonly id='montant"+i+"' name='montant"+i+"'  class='form-control montant'/>");
+<td><input type='text' id='qte"+i+"' readonly autocomplete='off' name='qte"+i+"'  class='form-control qte'/></td>");
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       $('#designation'+i).select2();
       loadProduit(i);
@@ -483,11 +391,11 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 	 });
          
  
-  $('#tab_logic tbody tr td').on('change', '.des', function()
+  $('#tab_logic').on('change', '.des', function()
     {
          var trouve=0;
        var id = $(this).closest('tr').attr('id');
-        var counter = id.slice(-1);
+       var counter = id.substring(4);
         if($( "#designation"+counter ).val()!== '-1')
                $("#qte"+counter).prop("readonly", false);
         else
@@ -497,7 +405,6 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             $('#tab_logic tbody tr td').each(function () {
                 value = $(this).find('select').val();
                 if(typeof value !=="undefined"){
-                   console.log('compare'+value);
                    if(value==valueSelected){
                        trouve+=1;
                    }
@@ -509,97 +416,24 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                     text: 'Ce produit existe deja, Veuillez changer de produit',
                     class_name: 'gritter-error gritter-light'
                 });
-                //$( "#designation"+counter ).val('-1').change();
+                $( "#designation"+counter ).select2('val','-1');
+                $("#qte"+counter).prop("readonly", true);
             }
     //set to work, you have the cells, the entire row, and the cell containing the button.
 });
     $(document).delegate('#tab_logic tr td', 'click', function (event) {
-        var id = $(this).closest('tr').attr('id');
-        var counter = id.slice(-1);
-        // loadPrix('designation'+counter,'pu'+counter);
-       //   calculPoidsNet(counter);
-       //   calculMontant(counter);
-         // calculMontantPoids();
-//         $( "#designation"+counter ).change(function() {
-//             var trouve=0;
-//             var valueSelected = $( "#designation"+counter ).val();
-//             console.log('valueselecte'+valueSelected);
-//            $('#tab_logic tr').each(function () {
-//                value = $(this).find('select').val();
-//                if(typeof value !=="undefined"){
-//                    // console.log('compare'+value);
-//                   if(value==valueSelected){
-//                       trouve+=1;
-//                   }
-//                }
-//            });
-//            console.log("trouve "+trouve)
-//            if(trouve > 1){
-//                $.gritter.add({
-//                    title: 'Notification',
-//                    text: 'Ce produit existe deja, Veuillez changer de produit',
-//                    class_name: 'gritter-error gritter-light'
-//                });
-//            }
-//       });
-
-
-    
-               
-     
-        $( "#pu"+counter ).keyup(function() {
-           calculMontant(counter);
-      });
+       var id = $(this).closest('tr').attr('id');
+       var counter = id.substring(4);
       
       $( "#qte"+counter ).keyup(function() {
-            calculMontant(counter);
+            calculPoids(counter);
        });
-//      $( "#qte"+counter ).paste(function() {
-//          calculMontant(counter);
-//       });
-//      $( "#qte"+counter ).scrolling(function() {
-//          calculMontant(counter);
-//     });
-     
+
     });
     
    
-    $("#modePaiement").change(function() {
-        if($("#modePaiement").val() =='CHEQUE') {
-            $("#numCheque").prop("readonly", false);
-            $("#datePaiement").prop("readonly", true);
-            $("#datePaiement").toggleDisabled();
-        }
-        else if($("#modePaiement").val() == 'VIREMENT') {
-            $("#numCheque").prop("readonly",true );
-            $("#datePaiement").prop("readonly", false);
-        }
-        else{
-            $("#numCheque").prop("readonly", true);
-            $("#datePaiement").prop("readonly", true);
-            
-        }
-    });
-//    $('#designation0').change(function() {
-//        loadPrix('designation0','pu0');
-//        });
- $("#datePaiement").datepicker({
-                        autoclose: true,
-                        todayHighlight: true
-                })
-                //show datepicker when clicking on the icon
-                .next().on(ace.click_event, function(){
-                        $(this).prev().focus();
-                });
-    loadPrix = function(cmbDesignation, champPrix){
-        //$('#tab_logic').click();
-        if($("#"+cmbDesignation).val()!==null){
-            $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: $("#"+cmbDesignation).val(), ACTION: "<?php echo App::ACTION_GET_PRODUCT; ?>"}, function(data) {
-            data = $.parseJSON(data);
-            $("#" + champPrix).val(data);
-            });
-        }
-    };
+    
+ 
     
      loadInfoMareyeur = function(mareyeurId){
         //$('#tab_logic').click();
@@ -625,104 +459,33 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
     }
         });
     
-            $("#montantTotal").bind("focus", function () {
-            calculMontantPoids();
+           
             
-        });
-            
-        function calculPoidsNet(index){
-           var pn;
-           if($("#perc"+index).val() !=="") {
-              var pourcentage = $("#perc"+index).val();
-              var quantite = $("#qte"+index).val();
-              pn = parseFloat(quantite) - ((parseFloat(quantite) * pourcentage)/100);
-              if(!isNaN(pn))
-                $("#pdN"+index).val(pn);
-              
-            }  
-       }
        
+            
+        
 
          $( "#qte0" ).keyup(function() {
-            calculMontant(0);
+            calculPoids();
          }); 
          
-          $( "#avance" ).keyup(function() {
-            calculReliquat();
-         }); 
         
-       function calculMontant(index){
-           var mt;
-           var qte=parseFloat($("#qte"+index).val());
-           if(!isNaN(qte)) {
-              var pu = $("#pu"+index).val();
-              mt = parseFloat(qte) * parseFloat(pu);
-              if(!isNaN(mt)){
-                $("#montant"+index).val(mt);
-              }
-            }
-            else {
-                $("#montant"+index).val("");
-            }
-            calculMontantPoids();
-            calculReliquat();
-       }
-       function calculMontantPoids(){
+       
+       function calculPoids(){
            var pt=0;
            var pd=0;
-          $('#tab_logic .montant').each(function () {
-              if($(this).val()!=='')
-                pt += parseFloat($(this).val());
-            });
+         
             $('#tab_logic .qte').each(function () {
                 if($(this).val()!=='')
                 pd+= parseFloat($(this).val());
             });
-                if(!isNaN(pt))
-                    $("#montantTotal").val(pt);
-                if(!isNaN(pd))
-                    $("#poidsTotal").val(pd);
+               
+            if(!isNaN(pd))
+                $("#poidsTotal").val(pd);
         }
         
 
-        
-        function calculReliquat(){
-          var rel=0;
-           var mt=parseFloat($("#montantTotal").val());
-           var avance=parseFloat($("#avance").val());
-           if(!isNaN(avance) && !isNaN(avance)) {
-           rel= mt - avance;
-           if(!isNaN(rel) && rel>0) {
-              $("#reliquat").val(rel);
-              $('#regleAchat').attr("disabled", true);
-              $('#regleAchat').prop('checked', false);
-          }
-           else if(!isNaN(rel) && rel===0) {
-              $('#regleAchat').attr("disabled", false);
-              $('#regleAchat').prop('checked', true);
-              $("#reliquat").val(0);
-          }  
-          else{
-              $.gritter.add({
-                    title: 'Notification',
-                    text: 'Le montant saisi ne doit pas être supérieur au montant TTC',
-                    class_name: 'gritter-error gritter-light'
-                });
-              $("#avance").val("");
-              $("#reliquat").val("");
-              $('#regleAchat').attr("disabled", true);
-              $('#regleAchat').prop('checked', false);
-          }
-        }
-//        else {
-//             $.gritter.add({
-//                    title: 'Notification',
-//                    text: 'Le montant avance ne doit pas être vide',
-//                    class_name: 'gritter-error gritter-light'
-//                });
-//        }
-        }
-        
+     
         AchatProcess = function ()
         {
             
@@ -734,17 +497,6 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
             var dateAchat = $('#dateAchat').val();;
             var mareyeur = mareyeurId;
             var poidsTotal = $("#poidsTotal").val();
-            var MontantTotal = $("#montantTotal").val();
-            var modePaiement = $("#modePaiement").val();
-            var numCheque = $("#numCheque").val();
-            var datePaiement = $("#datePaiement").val();
-            var avance = $("#avance").val();
-            var reliquat = $("#reliquat").val();
-            var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
-            var regle=false;
-            if(Aregle === 'on')
-                 regle=true;
-             
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             var $table = $("table")
@@ -754,7 +506,7 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
 //$table.find("thead th").each(function () {
 //    header.push($(this).html().trim());
 //});
-header = ["#","designation","pu","qte","montant"];
+header = ["#","designation","qte"];
 $table.find("tbody tr").each(function () {
     var row = {};
     
@@ -782,16 +534,9 @@ $table.find("tbody tr").each(function () {
             formData.append('heureReception', heureReception);
             formData.append('mareyeur', mareyeur);
             formData.append('poidsTotal', poidsTotal);
-            formData.append('montantTotal', MontantTotal);
-            formData.append('modePaiement', modePaiement);
-            formData.append('numCheque', numCheque);
-            formData.append('datePaiement', datePaiement);
-            formData.append('avance', avance);
-            formData.append('jsonProduit', tbl);
-            formData.append('reliquat', reliquat);
-            formData.append('regle', regle);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
+            formData.append('jsonProduit', tbl);
             $.ajax({
                 url: '<?php echo App::getBoPath(); ?>/achat/AchatController.php',
                 type: 'POST',
