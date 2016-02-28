@@ -396,7 +396,7 @@ class AchatQueries {
     }
     
     public function getInfoInventaire($codeUsine) {
-        $sql = 'SELECT SUM(avance) montantTotal, SUM(poidsTotal) poidsTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle=2 and codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT SUM(avance) montantTotal, SUM(poidsTotal) poidsTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $infos = $stmt->fetch();
