@@ -777,12 +777,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         var tot=0;
                                         var qte=$('#quantite'+compteur).text();
                                         var montant= prix * parseFloat(qte);
-                                        if(!isNaN(montant))
+                                        if(!isNaN(montant)){
                                             $('#montant'+compteur).text(montant);
                                         $('#TABLE_ACHATS .montant').each(function () {
                                             if($(this).html()!== 0)
                                                 tot += parseFloat($(this).html());
                                         });
+                                        $('#avance').val("");
+                                        $('#reliquat').val("");
+                                        $('#datePaiement').val("");
+                                        $('#numCheque').val("");
+                                        $('#modePaiement').val("-1").change;
+                                        $('#transport').val("");
+                                        }
                                       //console.log(tot);
                                       $('#MontantTotal').text(tot);
                                        // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
