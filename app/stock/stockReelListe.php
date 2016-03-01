@@ -48,7 +48,7 @@
                           <table id="LIST_DEMOULAGES" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th class="center" style="border-right: 0px none;">
+                                <th  style="border-left: 0px none;">
                                 Id
 <!--                                     <label> -->
 <!--                                         <input type="checkbox" value="*" name="allchecked"/> -->
@@ -400,7 +400,7 @@
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
                     //afficher nombre élément
                     "bInfo": true,

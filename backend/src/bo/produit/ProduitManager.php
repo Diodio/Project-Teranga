@@ -61,6 +61,7 @@ class ProduitManager {
         $i = 0;
         foreach ($produits as $key => $value) {
             $arrayProduits [$i] [] = $value ['id'];
+            $arrayProduits [$i] [] = $value ['id'];
             $arrayProduits [$i] [] = $value ['libelle'];
             $stockProvisoire =  $this->produitQuery->retrieveStockProvisoire($value ['id'], $codeUsine);
             if($stockProvisoire !=null)

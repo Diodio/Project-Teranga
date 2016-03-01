@@ -446,7 +446,7 @@
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
                     //afficher nombre �l�ment
                     "bInfo": true,

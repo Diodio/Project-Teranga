@@ -406,7 +406,7 @@
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
                     //afficher nombre élément
                     "bInfo": true,

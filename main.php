@@ -835,7 +835,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulage.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulageVue.php", function () {
                  });
                  });
                  
@@ -857,7 +857,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitsDemoules.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/DemoulageListe.php", function () {
                  });
                  });
                   $("#STOCK_REEL").click(function (e) {
@@ -878,7 +878,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
   					$("#STOCK_REEL").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/produitListe.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/stock/stockReelListe.php", function () {
                  });
                  });
                  
@@ -900,7 +900,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LIST_USERS").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/utilisateur/utilisateurs.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/utilisateur/utilisateurListe.php", function () {
                     });
                  });
 

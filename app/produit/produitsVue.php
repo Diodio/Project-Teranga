@@ -70,7 +70,9 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
-                                                              
+                                <th style="border-left: 0px none;border-right: 0px none;width:10%">
+                                   Id
+                                </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Désignation
                                 </th>
@@ -364,7 +366,7 @@
                         },
                             
                             {
-                                "aTargets": [4],
+                                "aTargets": [5],
                                 "bSortable": false,
                                 "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                                     
@@ -440,7 +442,7 @@
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
                     "bInfo": true,
                     "sAjaxSource": url,

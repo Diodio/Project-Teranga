@@ -505,7 +505,7 @@
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
                     "bInfo": true,
                     "sAjaxSource": url,
