@@ -702,12 +702,12 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    if("<?php echo $profil?>"!=='magasinier'){
+                    if("<?php echo $profil?>"!=='gerant'){
                         $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
                         });
                     }
                     else {
-                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeMagasinier.php", function () {
+                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeGerant.php", function () {
                         });
                     }
                 });

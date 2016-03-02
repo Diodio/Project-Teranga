@@ -417,18 +417,18 @@ class AchatQueries {
     }
     
     
-    public function retrieveAllAchatMagasinier($login, $codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAllAchatGerant($login, $codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
 
             $sql = 'select distinct achat.id,achat.status,date_format(dateAchat, "' . \Common\Common::setFormatDate() . '") as dateAchat, numero, nom
-                    from achat, mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=2  and achat.login="' . $login . '"
+                    from achat, mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4  and achat.login="' . $login . '"
                      and mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         } else {
 
             $sql = 'select distinct achat.id, status, date_format(dateAchat, "' . \Common\Common::setFormatDate() . '") as dateAchat, numero, nom
-                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id  and achat.login=utilisateur.login and utilisateur.profil_id=2 and achat.login="' . $login . '"' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id  and achat.login=utilisateur.login and utilisateur.profil_id=4 and achat.login="' . $login . '"' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -447,16 +447,16 @@ class AchatQueries {
         return $arrayAchats;
     }
     
-     public function countAllAchatMagasinier($login, $codeUsine, $sWhere = "") {
+     public function countAllAchatGerant($login, $codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             $sql = 'select count(distinct achat.id) as nbAchats
-                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id and achat.login=utilisateur.login and utilisateur.profil_id=2  and achat.login="' . $login . '" and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id and achat.login=utilisateur.login and utilisateur.profil_id=4  and achat.login="' . $login . '" and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
              $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id and achat.login=utilisateur.login and utilisateur.profil_id=2  and achat.login="' . $login . '" ' . $sWhere . '';
+                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id and achat.login=utilisateur.login and utilisateur.profil_id=4  and achat.login="' . $login . '" ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

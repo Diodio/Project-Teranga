@@ -39,8 +39,8 @@ class AchatManager {
     public function retrieveAll($typeAchat,$codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->achatQuery->retrieveAll($typeAchat,$codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
-    public function retrieveAllAchatMagasinier($login,$codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	return $this->achatQuery->retrieveAllAchatMagasinier($login,$codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAllAchatGerant($login,$codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	return $this->achatQuery->retrieveAllAchatGerant($login,$codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
     
     public function retrieveAchatInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
@@ -51,8 +51,8 @@ class AchatManager {
         return $this->achatQuery->retrieveAllReglements($codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
-    public function countAllAchatMagasinier($login, $codeUsine, $where = "") {
-        return $this->achatQuery->countAllAchatMagasinier($login, $codeUsine, $where);
+    public function countAllAchatGerant($login, $codeUsine, $where = "") {
+        return $this->achatQuery->countAllAchatGerant($login, $codeUsine, $where);
     }
     
     public function count($typeAchat, $codeUsine, $where = "") {

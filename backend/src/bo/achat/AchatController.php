@@ -75,8 +75,8 @@ class AchatController extends BaseController implements BaseAction {
                     case \App::ACTION_GET_INFOS:
                         $this->doGetInfoInventaire($request);
                         break;
-                    case \App::ACTION_LIST_MAGASINIER:
-                        $this->doListMagasinier($request);
+                    case \App::ACTION_LIST_GERANT:
+                        $this->doListGerant($request);
                         break;
                 }
             } else {
@@ -476,7 +476,7 @@ class AchatController extends BaseController implements BaseAction {
         }
     }
     
-    public function doListMagasinier($request) {
+    public function doListGerant($request) {
     	try {
     		$achatManager = new AchatManager();
     		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
@@ -513,9 +513,9 @@ class AchatController extends BaseController implements BaseAction {
     				}
     			}
     			// End filter from dataTable
-    			$achats = $achatManager->retrieveAllAchatMagasinier($request['login'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			$achats = $achatManager->retrieveAllAchatGerant($request['login'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     			if ($achats != null) {
-    				$nbAchats = $achatManager->countAllAchatMagasinier($request['login'], $request['usineCode'], $sWhere);
+    				$nbAchats = $achatManager->countAllAchatGerant($request['login'], $request['usineCode'], $sWhere);
     				$this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

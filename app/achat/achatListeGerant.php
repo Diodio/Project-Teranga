@@ -568,7 +568,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                   //afficher nombre �l�ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_MAGASINIER; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_GERANT; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "login", "value": "<?php echo $login;?>"});

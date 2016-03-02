@@ -554,12 +554,12 @@ $table.find("tbody tr").each(function () {
                             class_name: 'gritter-success gritter-light'
                         });
                    // window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
-                    if("<?php echo $profil?>"!=='magasinier'){
+                    if("<?php echo $profil?>"!=='gerant'){
                         $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
                         });
                     }
                     else {
-                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeMagasinier.php", function () {
+                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeGerant.php", function () {
                         });
                     }
                     } 
