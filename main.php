@@ -544,8 +544,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     if(profil==='magasinier')
                     {
                         $('#PARAMETRAGE').removeClass("hidden");
-                        //$('#BONACHAT').removeClass("hidden");
-                        $('#BONACHATMAGASINIER').removeClass("hidden");
+                        $('#BONACHAT').removeClass("hidden");
                         $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                         if($.cookie('codeUsine')!=='usine_dakar')
                             $('#BONSORTIE').removeClass("hidden");
@@ -662,27 +661,6 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 					$("#MNU_DEMOULAGE").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
 					$("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
-
-                    });
-                });
-                
-                $("#BONACHATMAGASINIER").click(function (e) {
-                	$("#MNU_PRODUITS").attr("Class", "no-active");
-                    $("#MNU_MAREYEURS").attr("Class", "no-active");
-                    $("#MNU_BORD").attr("Class", "no-active");
-                    $("#MNU_CLIENTS").attr("Class", "no-active");
-                    $("#AJOUTER_ACHATS").attr("Class", "active");
-                    $("#LISTE_ACHATS").attr("Class", "no-active");
-                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
-                    $("#LISTE_FACTURE").attr("Class", "no-active");
-                    $("#LISTE_SORTIE").attr("Class", "no-active");
-                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
-                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
-                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
-                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
-                    $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
 
                     });
@@ -1058,6 +1036,28 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS_MAGASINIER").attr("Class", "active");
                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeMagasinier.php", function () {
+                      });
+                  });
+
+                  $("#AJOUTER_ACHATS_MAGASINIER").click(function (e) {
+                  	$("#MNU_PRODUITS").attr("Class", "no-active");
+                      $("#MNU_MAREYEURS").attr("Class", "no-active");
+                      $("#MNU_BORD").attr("Class", "no-active");
+                      $("#MNU_CLIENTS").attr("Class", "no-active");
+  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
+  					$("#LISTE_ACHATS").attr("Class", "no-active");
+  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
+  					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+  					$("#LISTE_FACTURE").attr("Class", "no-active");
+  					$("#LISTE_SORTIE").attr("Class", "no-active");
+  					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
+  					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
+  					$("#MNU_DEMOULAGE").attr("Class", "no-active");
+  					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+  					$("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+  					$("#AJOUTER_ACHATS_MAGASINIER").attr("Class", "active");
+                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
+
                       });
                   });
 
