@@ -236,13 +236,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             Designation
                                     </th>
                                     <th class="text-center">
-                                            Prix Unitaire
-                                    </th>
-                                    <th class="text-center">
                                             Quantite (kg)
-                                    </th>
-                                    <th class="text-center">
-                                            Montant
                                     </th>
                             </tr>
                         </thead>
