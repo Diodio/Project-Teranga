@@ -143,7 +143,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </div>
                                 <div class="col-sm-8">
                                         <div class="clearfix">
-                                                <input type="text" id="quantiteSorte" placeholder=""
+                                                <input type="text" id="quantiteSortie" placeholder=""
                                                         class="col-xs-12 col-sm-12">
                                         </div>
                                 </div>
@@ -368,27 +368,30 @@ $(document).ready(function () {
  
   
  
-    $(document).delegate('#tab_logic tr td', 'click', function (event) {
-        var id = $(this).closest('tr').attr('id');
-        var counter = id.slice(-1);
-          $( "#qte"+counter ).keyup(function() {
-            verifierPoids('designation'+counter, counter);
-         });  
-      
-    });
+//    $(document).delegate('#tab_logic_colis tr td', 'change', function (event) {
+//        var id = $(this).closest('tr').attr('id');
+//        var counter = id.slice(-1);
+//        if($('#qteColis'+counter).val()!=='*'){
+//          //$( "#qte"+counter ).keyup(function() {
+//            verifierPoids('qteColis'+counter, counter);
+//        }
+//    });
+    
+   
     
      function verifierPoids(qte, counter ){
            var nbColis=parseFloat($("#nbColis"+counter).val());
+           console.log(nbColis);
           if(qte!=='*'){
-           if(isNaN(qte)) {
-                    $.gritter.add({
+           if(isNaN(nbColis)) {
+                $.gritter.add({
                     title: 'Notification',
-                    text: 'Veuillez choisir une quantité',
+                   text: 'Veuillez saisir le nombre de colis',
                     class_name: 'gritter-error gritter-light'
                 });
                  $("#nbColis"+counter).val("");
                  $('#qteColis'+counter).val("*").change();
-                }
+            }
             else{
                 if(nbColis > qte ){
                   $.gritter.add({
@@ -407,7 +410,6 @@ $(document).ready(function () {
         ajoutLigne();
         });
       function ajoutLigne(){
-        var nbColis=1;
         var pd=0;
         var nbColis=0;
         var i=0;
@@ -430,39 +432,54 @@ $(document).ready(function () {
                 for (var i = 1; i<rowCount; i++) {
                     $("#addrColis"+(i)).html('');
                 }
-                $('#quantiteSorte').val('');
+                $('#quantiteSortie').val('');
                 $('#nbColis0').val('');
                 $('#qteColis0').val('*').change();
                 $('#CMB_DESIGNATIONS').val('*').change();
             return;
         }
         
-        $('#tab_logic_colis .qte').each(function () {
+      $('#tab_logic_colis .qte').each(function () {
             if($(this).val()!=='')
                 pd+= parseFloat($(this).select2('data').text);
-        });
+      });
       $('#tab_logic_colis .nbColis').each(function () {
           if($(this).val()!==''){
-            nbColis += parseFloat($(this).val());
+            nbColis += parseInt($(this).val());
             i++;
           }
         });
         
       //  var produitId = $('#CMB_DESIGNATIONS').val();
         var designation = $('#CMB_DESIGNATIONS').select2('data').text;
-        var quantiteSortie = $('#quantiteSorte').val();
+        var quantiteSortie = $('#quantiteSortie').val();
        //var rows=[];
        
 
        
-        if(produitId==='*' || nbColis===0 || quantiteSortie===''){
+        if(produitId==='*'){
                $.gritter.add({
                     title: 'Notification',
-                    text: 'Les champs ne doivent pas etre vide',
+                    text: 'Veuillez choisir un produit',
                     class_name: 'gritter-error gritter-light'
                 });
         }
-        else {
+        else if(quantiteSortie===''){
+             $.gritter.add({
+                    title: 'Notification',
+                    text: 'Veuillez sasir la quantite de sortie',
+                    class_name: 'gritter-error gritter-light'
+                });
+       }
+       else if(nbColis===0){
+            $.gritter.add({
+                    title: 'Notification',
+                    text: 'Veuillez sasir le nombre de colis',
+                    class_name: 'gritter-error gritter-light'
+                });
+        }
+       
+        else  {
             var header=["nbColis","qte"];
        var tblColis=[];
       var pNet=0;
@@ -478,6 +495,21 @@ $(document).ready(function () {
                     it++;
                 }
         });
+        if(pNet>quantiteSortie){
+            $.gritter.add({
+                title: 'Notification',
+                text: 'La quantite definie ne doit pas etre superieure a la quantite de sortie (voir demoulage)',
+                class_name: 'gritter-error gritter-light'
+            });
+        }
+        else  if(pNet<quantiteSortie){
+            $.gritter.add({
+                title: 'Notification',
+                text: 'La quantite definie ne doit pas etre inferieure a la quantite de sortie (voir demoulage)',
+                class_name: 'gritter-error gritter-light'
+            });
+        }
+        else {
         var iter=0;
         $("#tab_logic_colis tbody tr").each(function(iter) {
          //   var row='{';
@@ -489,27 +521,15 @@ $(document).ready(function () {
             var quantite=0;
             colis=$(this).find('#nbColis'+iter).val();
             quantite = $(this).find('#qteColis'+iter).select2('data').text;
-            
-        //  console.log("dd "+ quantite);
              if(typeof colis!=='function' && typeof quantite!=='function'){
                     row["produitId"] = produitId;
                     row["nbColis"] = colis;
                     row["qte"] = quantite;
                     
-            //     row+='"produitId":'+produitId+',"nbColis":'+colis+',"qte":'+quantite+'';
             }
-           // row+='},';
             colisage.push(row);
-//            row["produitId"] = produitId;
-//            row["nbColis"] = ''+colis;
-//            row["qte"] = quantite;
-//            colisage.push(row);
-           // ch+=''+row;
-           // iter++;
         });
-        //console.log('colis'+ch);
-       // colisage.push(tblColis);
-        //console.log(colisage);    
+        
         console.log(JSON.stringify(colisage));
         totalColis+=nbColis;
         qteTotal+=pNet;
@@ -528,6 +548,7 @@ $(document).ready(function () {
         $('#prixUnitaire').val(''); 
         $('#stockReel').val('');
        }
+       }
     }
     $('#CMB_DESIGNATIONS').change(function() {
         if($('#CMB_DESIGNATIONS').val()!=='*') {
@@ -536,7 +557,31 @@ $(document).ready(function () {
             loadQteColis($('#CMB_DESIGNATIONS').val(), 0);
         }
         
-        });
+    });
+    
+    $("#quantiteSortie").keyup(function() {
+           var stockReel = parseFloat($("#stockReel").val());
+           var quantiteSortie = parseFloat($("#quantiteSortie").val());
+           if(!isNaN(stockReel)){
+               if(quantiteSortie > stockReel){
+                   $.gritter.add({
+                        title: 'Notification',
+                        text: 'La quantite de sortie ne doit pas être supérieur au stock réel',
+                        class_name: 'gritter-error gritter-light'
+                    });
+                   $("#quantiteSortie").val('');
+               }
+            }
+            else {
+                $.gritter.add({
+                        title: 'Notification',
+                        text: 'La stock réel ne doit pas être vide',
+                        class_name: 'gritter-error gritter-light'
+                    });
+                   $("#quantiteSortie").val('');
+            }
+//        
+      });
   
    loadQuantiteStock = function (produitId) {
         $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {produitId:produitId, codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_STOCK; ?>"}, function (data) {
