@@ -249,7 +249,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="LISTE_ACHATS_MAGASINIER" class=""><a id="achat" href="#"> <i
+                            <li id="LISTE_ACHATS_MAGASINIER" class=""><a id="achatMagasinier" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Consulter liste </span>
                                 </a> <b class="arrow"></b>
