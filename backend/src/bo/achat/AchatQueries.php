@@ -257,6 +257,7 @@ class AchatQueries {
         return $nbClients['nbAchats'];
     }
     
+    
     public function getLastNumberAchat() {
         $sql = 'select max(id)+1 as lastAchats from achat';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -416,45 +417,52 @@ class AchatQueries {
     }
     
     
-    public function retrieveAllAchatMagasinier($typeAchat,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
-    	if($sWhere !== "")
-    		$sWhere = " and " . $sWhere;
-    	if($codeUsine !=='*') {
-    		if($typeAchat !=='*'){
-    			$sql = 'select achat.id,achat.status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
-                    from achat, mareyeur, utilisateur u, profil p  WHERE achat.login=u.login  and
-                    AND p.libelle="gerant" and mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-    		}
-    		else {
-    			$sql = 'select achat.id,achat.status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
-                    from achat, mareyeur, utilisateur u, profil p  WHERE achat.login=u.login
-                     and mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-    		}
-    	}
-    	else {
-    		if($typeAchat !=='*'){
-    			$sql = 'select achat.id, status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-    		}
-    		else {
-    			$sql = 'select achat.id, status, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
-    		}
-    	}
-    	$sql = str_replace("`", "", $sql);
-    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
-    	$stmt->execute();
-    	$products = $stmt->fetchAll();
-    	$arrayAchats = array();
-    	$i = 0;
-    	foreach ($products as $key => $value) {
-    		$arrayAchats [$i] [] = $value ['id'];
-    		$arrayAchats [$i] [] = $value ['status'];
-    		$arrayAchats [$i] [] = $value ['dateAchat'];
-    		$arrayAchats [$i] [] = $value ['numero'];
-    		$arrayAchats [$i] [] = $value ['nom'];
-    		$i++;
-    	}
-    	return $arrayAchats;
+    public function retrieveAllAchatMagasinier($login, $codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+        if ($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if ($codeUsine !== '*') {
+
+            $sql = 'select distinct achat.id,achat.status,date_format(dateAchat, "' . \Common\Common::setFormatDate() . '") as dateAchat, numero, nom
+                    from achat, mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=2  and achat.login="' . $login . '"
+                     and mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+        } else {
+
+            $sql = 'select distinct achat.id, status, date_format(dateAchat, "' . \Common\Common::setFormatDate() . '") as dateAchat, numero, nom
+                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id  and achat.login=utilisateur.login and utilisateur.profil_id=2 and achat.login="' . $login . '"' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+        }
+        $sql = str_replace("`", "", $sql);
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $products = $stmt->fetchAll();
+        $arrayAchats = array();
+        $i = 0;
+        foreach ($products as $key => $value) {
+            $arrayAchats [$i] [] = $value ['id'];
+            $arrayAchats [$i] [] = $value ['status'];
+            $arrayAchats [$i] [] = $value ['dateAchat'];
+            $arrayAchats [$i] [] = $value ['numero'];
+            $arrayAchats [$i] [] = $value ['nom'];
+            $i++;
+        }
+        return $arrayAchats;
     }
+    
+     public function countAllAchatMagasinier($login, $codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            $sql = 'select count(distinct achat.id) as nbAchats
+                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id and achat.login=utilisateur.login and utilisateur.profil_id=2  and achat.login="' . $login . '" and codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+        }
+        else {
+             $sql = 'select count(achat.id) as nbAchats
+                    from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id and achat.login=utilisateur.login and utilisateur.profil_id=2  and achat.login="' . $login . '" ' . $sWhere . '';
+        }
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return $nbClients['nbAchats'];
+    }
+
 }

@@ -296,7 +296,11 @@ $nomUsine = $_COOKIE['nomUsine'];
 //{id:"1",designation:"",pu:"",quantite:"",montant:""}
 $(document).ready(function () {
     $('#CMBDESTINATIONS').select2();
-    $('#designation0').select2();
+    $('#CMB_DESIGNATIONS').select2();
+     $('#qteColis0').select2();
+     var colisage = []; 
+     var totalColis=0;
+     var qteTotal=0;
     var today = new Date();
     var dateAchat = new Date();
     var dd = today.getDate();
@@ -328,7 +332,7 @@ $(document).ready(function () {
                  $("#CMBDESTINATIONS").loadJSON('{"usines":' + data + '}');
             }
     });
-    loadProduit = function(index){
+    loadProduit = function(){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
@@ -339,33 +343,28 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#designation"+index).loadJSON('{"designations'+index+'":' + data + '}');
+                $("#CMB_DESIGNATIONS").loadJSON('{"designations":' + data + '}');
             }
         });
     };
-    loadProduit(0);
+    loadProduit();
     var i=1;
-     $("#add_row").click(function(){
-//      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
-
-
-$('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='designation"+i+"' class='col-xs-10 col-sm-10'>\n\
-<option value='-1' class='designations"+i+"'>sélectionnez un produit</option></select>\n\
-</td>\n\
-<td><input type='text' id='qte"+i+"' name='qte"+i+"'  class='form-control qte'/></td>");
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      $('#designation'+i).select2();
-      loadProduit(i);
-      
+     $("#add_row_colis").click(function(){
+     $('#addrColis'+i).html("<td>"+ (i+1) +"</td><td><input type='number' id='nbColis"+i+"' name='nbColis"+i+"' class='form-control nbColis'/></td>\n\
+        <td><select id='qteColis"+i+"' name='qteColis"+i+"' class='form-control qte' ><option value='*' class='qteColis"+i+"'></option></select>");
+      $('#tab_logic_colis').append('<tr id="addrColis'+(i+1)+'"></tr>');
+        $('#qteColis'+i).select2();
+        if($('#CMB_DESIGNATIONS').val()!=='*')
+            loadQteColis($('#CMB_DESIGNATIONS').val(), i);
+        
       i++;
   });
-     $("#delete_row").click(function(){
+     $("#delete_row_colis").click(function(){
     	 if(i>1){
-		 $("#addr"+(i-1)).html('');
+		 $("#addrColis"+(i-1)).html('');
 		 i--;
 		 }
 	 });
-         
  
   
  
@@ -374,79 +373,240 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
         var counter = id.slice(-1);
           $( "#qte"+counter ).keyup(function() {
             verifierPoids('designation'+counter, counter);
-         }); 
-          
-         
-//          $("#designation"+counter).change(function() {
-//             console.log ('designation'+counter);
-//           //verifierPoids('designation'+counter, counter);
-//         }); 
+         });  
       
     });
     
-
-   
-  
-   
+     function verifierPoids(qte, counter ){
+           var nbColis=parseFloat($("#nbColis"+counter).val());
+          if(qte!=='*'){
+           if(isNaN(qte)) {
+                    $.gritter.add({
+                    title: 'Notification',
+                    text: 'Veuillez choisir une quantité',
+                    class_name: 'gritter-error gritter-light'
+                });
+                 $("#nbColis"+counter).val("");
+                 $('#qteColis'+counter).val("*").change();
+                }
+            else{
+                if(nbColis > qte ){
+                  $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
+                    class_name: 'gritter-error gritter-light '
+                });  
+                 $("#nbColis"+counter).val("");
+                 $('#qteColis'+counter).val("*").change();
+                }
+                }
+            }
             
-        function calculTotalPoids(){
-        var tot=0;
-           $('#tab_logic .qte').each(function () {
-                tot+= parseFloat($(this).val());
-            }); 
-            if(!isNaN(tot))
-                $("#poidsTotal").val(tot);
-       };
+       }
+       $( "#AJOUT_PRODUIT" ).click(function(){
+        ajoutLigne();
+        });
+      function ajoutLigne(){
+        var nbColis=1;
+        var pd=0;
+        var nbColis=0;
+        var i=0;
+        var produitId = $('#CMB_DESIGNATIONS').val();
+         var flag = false;
+            $('#tab_produit tbody').find('tr').each(function(){
+                var $this = $(this);
+                if(produitId == $('td:eq(0)', $this).text()){
+                    flag = true;
+                    return false;
+                }
+            });
+        if(flag){
+             $.gritter.add({
+                    title: 'Notification',
+                    text: 'Ce produit existe deja, Veuillez changer de produit',
+                    class_name: 'gritter-error gritter-light'
+                });
+                var rowCount = $('#tab_logic_colis tr').length;
+                for (var i = 1; i<rowCount; i++) {
+                    $("#addrColis"+(i)).html('');
+                }
+                $('#quantiteSorte').val('');
+                $('#nbColis0').val('');
+                $('#qteColis0').val('*').change();
+                $('#CMB_DESIGNATIONS').val('*').change();
+            return;
+        }
+        
+        $('#tab_logic_colis .qte').each(function () {
+            if($(this).val()!=='')
+                pd+= parseFloat($(this).select2('data').text);
+        });
+      $('#tab_logic_colis .nbColis').each(function () {
+          if($(this).val()!==''){
+            nbColis += parseFloat($(this).val());
+            i++;
+          }
+        });
+        
+      //  var produitId = $('#CMB_DESIGNATIONS').val();
+        var designation = $('#CMB_DESIGNATIONS').select2('data').text;
+        var quantiteSortie = $('#quantiteSorte').val();
+       //var rows=[];
        
-//        $( "#qte0" ).keyup(function() {
-//              calculTotalPoids();
-//         }); 
+
        
-//        $("#designation0").change(function() {
-//           verifierPoids('designation0');
-//         }); 
+        if(produitId==='*' || nbColis===0 || quantiteSortie===''){
+               $.gritter.add({
+                    title: 'Notification',
+                    text: 'Les champs ne doivent pas etre vide',
+                    class_name: 'gritter-error gritter-light'
+                });
+        }
+        else {
+            var header=["nbColis","qte"];
+       var tblColis=[];
+      var pNet=0;
+        var it=0;
+        //var row={};
+        $('#tab_logic_colis tbody tr').find('td').each(function(){
+                var $this = $(this);
+                var ncolis=$('#nbColis'+it).val();
+                var qte = $('#qteColis'+it).select2('data').text;
+                if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
+                    pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
+                    
+                    it++;
+                }
+        });
+        var iter=0;
+        $("#tab_logic_colis tbody tr").each(function(iter) {
+         //   var row='{';
+           // $(this).find('td#nbColis'+iter).eq(1).val();
+            //$(this).find('select').val();
+            
+        var row={};
+            var colis=0;
+            var quantite=0;
+            colis=$(this).find('#nbColis'+iter).val();
+            quantite = $(this).find('#qteColis'+iter).select2('data').text;
+            
+        //  console.log("dd "+ quantite);
+             if(typeof colis!=='function' && typeof quantite!=='function'){
+                    row["produitId"] = produitId;
+                    row["nbColis"] = colis;
+                    row["qte"] = quantite;
+                    
+            //     row+='"produitId":'+produitId+',"nbColis":'+colis+',"qte":'+quantite+'';
+            }
+           // row+='},';
+            colisage.push(row);
+//            row["produitId"] = produitId;
+//            row["nbColis"] = ''+colis;
+//            row["qte"] = quantite;
+//            colisage.push(row);
+           // ch+=''+row;
+           // iter++;
+        });
+        //console.log('colis'+ch);
+       // colisage.push(tblColis);
+        //console.log(colisage);    
+        console.log(JSON.stringify(colisage));
+        totalColis+=nbColis;
+        qteTotal+=pNet;
+        var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pNet+"</td></tr>";
+        $('#tab_produit tbody').append(data);
+        $('#totalColis').val(totalColis);
+        $('#qteTotal').val(qteTotal);
+        $('#CMB_DESIGNATIONS').val('*').change();
+        $('#quantiteSortie').val('');
+        var rowCount = $('#tab_logic_colis tr').length;
+        for (var i = 1; i<rowCount; i++) {
+            $("#addrColis"+(i)).html('');
+        }
+        $('#nbColis0').val('');
+        $('#qteColis0').val('*').change();
+        $('#prixUnitaire').val(''); 
+        $('#stockReel').val('');
+       }
+    }
+    $('#CMB_DESIGNATIONS').change(function() {
+        if($('#CMB_DESIGNATIONS').val()!=='*') {
+            $('#qteColis0').val("*").change();
+            loadQuantiteStock($('#CMB_DESIGNATIONS').val());
+            loadQteColis($('#CMB_DESIGNATIONS').val(), 0);
+        }
+        
+        });
+  
+   loadQuantiteStock = function (produitId) {
+        $.post("<?php echo App::getBoPath(); ?>/stock/StockController.php", {produitId:produitId, codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_STOCK; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                if(sData.nbStocks>0)
+                    $("#stockReel").val(sData.nbStocks);
+                else{
+                    $.gritter.add({
+                        title: 'Notification',
+                        text: 'Ce produit est en rupture de stock',
+                        class_name: 'gritter-error gritter-light'
+                    });
+                     $('#CMB_DESIGNATIONS').val("*").change();
+                     $('#stockReel').val("");
+                }
+            }
+    });
+    };
+   loadQteColis = function(produitId, index){
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_GET_INFOS
+                ; ?>"}, function(data) {
+            sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#qteColis"+index).loadJSON('{"qteColis'+index+'":' + data + '}');
+            }
+        });
+    };
+     showPopover = function(idButton, colis){
+            $("#" + idButton).popover({
+                html: true,
+                trigger: 'auto',
+                placement: 'top',
+                title: '<i class="icon-group icon-"></i> Détail colis ',
+                content: colis
+            }).popover('toggle');
+         };    
          
-         function verifierPoids(id, counter){
-           var typ = $("#"+ id).select2('data').text;
-           var qte = parseFloat($( "#qte"+counter ).val());
-           var sp1 = typ.indexOf( '(' );
-           var res = parseFloat(typ.substring(sp1+1, typ.length-1));
-           console.log('type' + $( "#"+id ).val());
-           if($("#"+ id).val() ==='-1'){
-               $.gritter.add({
-                    title: 'Notification',
-                    text: 'Veuillez sélectionner un produit SVP!',
-                    class_name: 'gritter-error gritter-light'
-                });
-                $("#qte"+ counter).val("");
-                return;
-           }
-           else {
-           if(res<=0) {
-               $.gritter.add({
-                    title: 'Notification',
-                    text: 'Le produit selectionné est en rupture de stock',
-                    class_name: 'gritter-error gritter-light'
-                });
-                $("#"+ id).select2("val", "-1");
-                $("#qte"+ counter).val("");
-                return;
-           }
-           else if(qte>res){
-               $.gritter.add({
-                    title: 'Notification',
-                    text: 'La quantité ne doit pas etre supérieure au stock',
-                    class_name: 'gritter-error gritter-light'
-                });
-                $("#"+ id).select2("val", "-1");
-                $("#qte"+ counter).val("");
-                return;
-           }
-           else
-             calculTotalPoids();
-           }
-               
-       };
+     $( "#VOIR_COLISAGE" ).click(function(){
+         if( $('#CMB_DESIGNATIONS').val() !=='*') {
+         $("#VOIR_COLISAGE").popover('destroy');
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: $('#CMB_DESIGNATIONS').val(), codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+        data=$.parseJSON(data);
+
+        var htmlString="<a class='close' id='closed' style='position: absolute; top: 0; right: 6px;'>&times;</a>";
+        htmlString+="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
+        $.each(data , function(i) { 
+            str= data [i].toString();
+            var substr = str.split(',');
+            htmlString+="<span><b>"+substr [0]+" colis de "+substr [1]+" kg<b></span><br /><hr>";
+        // htmlString+="<span><b> Quantité</b>: "+substr [1]+"</span><br /><hr>";
+
+          });
+          htmlString+="</div>";
+        showPopover("VOIR_COLISAGE", ""+htmlString+"");
+        });
+        }
+    });   
          
           BonSortieProcess = function ()
         {
@@ -534,28 +694,8 @@ $('#addr'+i).html("<td>"+ (i+1) +"</td><td><select id='designation"+i+"' name='d
                 }
             });
 
-        };   
-        loadAddress = function(clientId){
-        //$('#tab_logic').click();
-        if(clientId!==''){
-            $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {clientId: clientId, ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function(data) {
-            data = $.parseJSON(data);
-            $("#adresse").val(data.adresse);
-            });
-        }
-    };
-        $('#CMB_CLIENTS').change(function() {
-        if($('#CMB_CLIENTS').val()!=='*')
-            loadAddress($('#CMB_CLIENTS').val());
-        else {
-            $('#adresse').val("");
-        }
-        });
-//         $("#SAVE").bind("click", function () {
-//            BonSortieProcess();
-//                    });
-
-
+        };  
+        
         //Validate
         $("#SAVE").bind("click", function () {
         $('#validation-form').validate({

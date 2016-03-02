@@ -513,9 +513,9 @@ class AchatController extends BaseController implements BaseAction {
     				}
     			}
     			// End filter from dataTable
-    			$achats = $achatManager->retrieveAllAchatMagasinier($request['typeAchat'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			$achats = $achatManager->retrieveAllAchatMagasinier($request['login'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     			if ($achats != null) {
-    				$nbAchats = $achatManager->count($request['typeAchat'], $request['usineCode'], $sWhere);
+    				$nbAchats = $achatManager->countAllAchatMagasinier($request['login'], $request['usineCode'], $sWhere);
     				$this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

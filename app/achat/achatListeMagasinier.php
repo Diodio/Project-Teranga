@@ -571,7 +571,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_MAGASINIER; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
-                        aoData.push({"name": "typeAchat", "value": typeAchat});
+                        aoData.push({"name": "login", "value": "<?php echo $login;?>"});
                         aoData.push({"name": "profil", "value": $.cookie('profil')});
                         aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
                         $.ajax( {
@@ -695,6 +695,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                     var table = data.ligneAchat;
                     var trHTML='';
+                    var num=1;
                     $(table).each(function(index, element){
                         var row = $('<tr id='+element.id+' />');
                         $("#TABLE_ACHATS tbody").append(row); 
@@ -706,13 +707,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if(element.montant !== 0 && element.montant !== null){
                             mt=element.montant;
                         }
-                        row.append($('<td  id="ligneId'+index+'">'+element.id+'</td>'));
+                        row.append($('<td  id="ligneId'+index+'">'+num+'</td>'));
                         row.append($('<td  id="designation'+index+'">'+element.designation+'</td>'));
-                        row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
+                       // row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
                         row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
-                        row.append($('<td class="montant" id="montant'+index+'">'+mt+'</td>'));
+                        num++;
+                        //row.append($('<td class="montant" id="montant'+index+'">'+mt+'</td>'));
                         //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
-                         loadEditable(index);
+                       //  loadEditable(index);
                     });
                     
                     //$('#TABLE_ACHATS tbody').append(trHTML);
