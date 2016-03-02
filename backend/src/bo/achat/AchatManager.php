@@ -39,6 +39,9 @@ class AchatManager {
     public function retrieveAll($typeAchat,$codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->achatQuery->retrieveAll($typeAchat,$codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
+    public function retrieveAllAchatMagasinier($typeAchat,$codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	return $this->achatQuery->retrieveAllAchatMagasinier($typeAchat,$codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    }
     
     public function retrieveAchatInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->achatQuery->retrieveAchatInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);

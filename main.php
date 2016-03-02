@@ -218,7 +218,6 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </ul>
                     </li>
                     
-                    
                     <li id="BONACHAT"class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="fa fa-pencil fa-fw"></i> <span class="menu-text">
                                 Bon d'Achat </span> <b class="arrow fa fa-angle-down"></b>
@@ -231,6 +230,26 @@ $nomUsine = $_COOKIE['nomUsine'];
                             </li>
 
                             <li id="LISTE_ACHATS" class=""><a id="CLIENTS" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Consulter liste </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                    
+                    <li id="BONACHATMAGASINIER"class="hidden"><a href="#" class="dropdown-toggle"> <i
+                                class="fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                Bon d'Achat </span> <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li id="AJOUTER_ACHATS_MAGASINIER" class=""><a id="ACHATSMAGASINIER" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Nouveau
+                                </a> <b class="arrow"></b>
+                            </li>
+
+                            <li id="LISTE_ACHATS_MAGASINIER" class=""><a id="achat" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
                                         Consulter liste </span>
                                 </a> <b class="arrow"></b>
@@ -533,7 +552,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     }
                     else if(profil==='gerant') {
                         $('#PARAMETRAGE').removeClass("hidden");
-                        $('#BONACHAT').removeClass("hidden");
+                        $('#BONACHATMAGASINIER').removeClass("hidden");
                     }
                     else if(profil==='admin'){
                         $('#PARAMETRAGE').removeClass("hidden");
@@ -974,6 +993,51 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/factureInventaire.php", function () {
                       });
                    });
+
+                  $("#INVENTAIRE_FACTURE").click(function (e) {
+                      $("#MNU_PRODUITS").attr("Class", "no-active");
+                      $("#MNU_MAREYEURS").attr("Class", "no-active");
+                      $("#MNU_BORD").attr("Class", "no-active");
+                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                      $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                      $("#LISTE_ACHATS").attr("Class", "no-active");
+                      $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_SORTIE").attr("Class", "no-active");
+                      $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                      $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                      $("#LIST_USERS").attr("Class", "no-active");
+                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#INVENTAIRE_ACHAT").attr("Class", "no-active");
+                      $("#INVENTAIRE_FACTURE").attr("Class", "active");
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/factureInventaire.php", function () {
+                      });
+                   });
+
+                  $("#LISTE_ACHATS_MAGASINIER").click(function (e) {
+                  	$("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MNU_MAREYEURS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_CLIENTS").attr("Class", "no-active");
+  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
+  					$("#LISTE_ACHATS").attr("Class", "no-active");
+  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
+  					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+  					$("#LISTE_FACTURE").attr("Class", "no-active");
+  					$("#LISTE_SORTIE").attr("Class", "no-active");
+  					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
+  					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
+  					$("#MNU_DEMOULAGE").attr("Class", "no-active");
+  					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_ACHATS_MAGASINIER").attr("Class", "active");
+                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeMagasinier.php", function () {
+                      });
+                  });
 
 
             });
