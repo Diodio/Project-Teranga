@@ -78,6 +78,9 @@ class AchatController extends BaseController implements BaseAction {
                     case \App::ACTION_LIST_GERANT:
                         $this->doListGerant($request);
                         break;
+                        case \App::ACTION_STAT_GERANT:
+                        	$this->doStatGerant($request);
+                        	break;
                 }
             } else {
                 throw new Exception('NO_ACTION');
@@ -371,7 +374,7 @@ class AchatController extends BaseController implements BaseAction {
         try {
             if (isset($request['codeUsine'])) {
                 $AchatManager = new AchatManager();
-                $achat = $AchatManager->findStatisticByUsine($request['codeUsine']);
+                $achat = $AchatManager->findStatisticByUsine($request['login'],$request['codeUsine']);
                 if ($achat != null)
                     $this->doSuccessO($achat);
                 else
@@ -538,6 +541,25 @@ class AchatController extends BaseController implements BaseAction {
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
+    }
+    
+    public function doStatGerant($request) {
+    	try {
+    		if (isset($request['codeUsine'])) {
+    			$AchatManager = new AchatManager();
+    			$achat = $AchatManager->findStatisticByUsineGerant($request['login'],$request['codeUsine']);
+    			if ($achat != null)
+    				$this->doSuccessO($achat);
+    			else
+    				echo json_encode(array());
+    		} else {
+    			$this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
+    			$this->logger->log->error('View : Params not enough');
+    		}
+    	} catch (Exception $e) {
+    		$this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
+    		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+    	}
     }
 
 }

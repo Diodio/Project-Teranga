@@ -285,6 +285,14 @@ class AchatQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
+    public function findValidAchatByUsineGerant($codeUsine) {
+    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4
+    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and STATUS=1 AND codeUsine="'.$codeUsine.'"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$Achat = $stmt->fetch();
+    	return $Achat['nb'];
+    }
     
     public function findNonValidAchatByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur WHERE mareyeur.id=mareyeur_id and STATUS=0 AND codeUsine="'.$codeUsine.'"';
@@ -292,6 +300,14 @@ class AchatQueries {
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
+    }
+    public function findNonValidAchatByUsineGerant($codeUsine) {
+    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4  
+    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and STATUS=0 AND codeUsine="'.$codeUsine.'"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$Achat = $stmt->fetch();
+    	return $Achat['nb'];
     }
     public function findAchatAnnulerByUsine($codeUsine) {
         $sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur WHERE mareyeur.id=mareyeur_id and STATUS=2 AND codeUsine="'.$codeUsine.'"';
@@ -301,6 +317,14 @@ class AchatQueries {
         return $Achat['nb'];
     }
     
+    public function findAchatAnnulerByUsineGerant($codeUsine) {
+    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4
+    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and STATUS=2 AND codeUsine="'.$codeUsine.'"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$Achat = $stmt->fetch();
+    	return $Achat['nb'];
+    }
     public function findRegleByUsine($codeUsine) {
         $sql = 'SELECT COUNT(regle) AS nb FROM achat,mareyeur WHERE mareyeur.id=mareyeur_id and regle=2 AND status=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

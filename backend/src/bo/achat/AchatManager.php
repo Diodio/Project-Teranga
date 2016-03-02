@@ -272,5 +272,30 @@ class AchatManager {
         
         return $infosTab;
     }
+    
+    public function findStatisticByUsineGerant($codeUsine) {
+    	if ($codeUsine != null) {
+    		$validAchat = $this->achatQuery->findValidAchatByUsineGerant($codeUsine);
+    		$nonValidAchat = $this->achatQuery->findNonValidAchatByUsineGerant($codeUsine);
+    		$achatAnnuler = $this->achatQuery->findAchatAnnulerByUsineGerant($codeUsine);
+    		$achatTab = array();
+    		if ($validAchat != null)
+    			$achatTab['nbValid'] = $validAchat;
+    		else
+    			$achatTab['nbValid'] = 0;
+    		if ($nonValidAchat != null)
+    			$achatTab['nbNonValid'] = $nonValidAchat;
+    		else
+    			$achatTab['nbNonValid'] = 0;
+    		if ($achatAnnuler != null)
+    			$achatTab['nbAnnule'] = $achatAnnuler;
+    		else
+    			$achatTab['nbAnnule'] = 0;
+    
+    
+    		return $achatTab;
+    	} else
+    		return 0;
+    }
 
 }
