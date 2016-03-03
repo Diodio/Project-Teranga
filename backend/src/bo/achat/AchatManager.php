@@ -273,11 +273,11 @@ class AchatManager {
         return $infosTab;
     }
     
-    public function findStatisticByUsineGerant($codeUsine) {
+    public function findStatisticByUsineGerant($login,$codeUsine) {
     	if ($codeUsine != null) {
-    		$validAchat = $this->achatQuery->findValidAchatByUsineGerant($codeUsine);
-    		$nonValidAchat = $this->achatQuery->findNonValidAchatByUsineGerant($codeUsine);
-    		$achatAnnuler = $this->achatQuery->findAchatAnnulerByUsineGerant($codeUsine);
+    		$validAchat = $this->achatQuery->findValidAchatByUsineGerant($login,$codeUsine);
+    		$nonValidAchat = $this->achatQuery->findNonValidAchatByUsineGerant($login,$codeUsine);
+    		$achatAnnuler = $this->achatQuery->findAchatAnnulerByUsineGerant($login,$codeUsine);
     		$achatTab = array();
     		if ($validAchat != null)
     			$achatTab['nbValid'] = $validAchat;

@@ -286,8 +286,8 @@ class AchatQueries {
         return $Achat['nb'];
     }
     public function findValidAchatByUsineGerant($login,$codeUsine) {
-    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4
-    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and STATUS=1 AND codeUsine="'.$codeUsine.'"';
+    	$sql = 'SELECT COUNT(achat.status) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4
+    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and achat.status=1 AND codeUsine="'.$codeUsine.'"';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$Achat = $stmt->fetch();
@@ -302,8 +302,8 @@ class AchatQueries {
         return $Achat['nb'];
     }
     public function findNonValidAchatByUsineGerant($login,$codeUsine) {
-    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4  
-    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and STATUS=0 AND codeUsine="'.$codeUsine.'"';
+    	$sql = 'SELECT COUNT(achat.status) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4  
+    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and achat.status=0 AND codeUsine="'.$codeUsine.'"';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$Achat = $stmt->fetch();
@@ -318,8 +318,8 @@ class AchatQueries {
     }
     
     public function findAchatAnnulerByUsineGerant($login,$codeUsine) {
-    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4
-    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and STATUS=2 AND codeUsine="'.$codeUsine.'"';
+    	$sql = 'SELECT COUNT(achat.status) AS nb FROM achat,mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4
+    			          and achat.login="' . $login . '"  and mareyeur.id=mareyeur_id and achat.status=2 AND codeUsine="'.$codeUsine.'"';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$Achat = $stmt->fetch();
