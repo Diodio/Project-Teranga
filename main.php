@@ -539,9 +539,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function ($) {
-
+            	if("<?php echo $profil?>"==='gerant')
+            		 $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeGerant.php", function () {
+                     });
+            	 else
                 $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/home/home.php", function () {
-
                 });
                 function manageProfil(profil){
                     if(profil==='magasinier')
@@ -554,7 +556,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#STOCK_REEL').removeClass("hidden");
                     }
                     else if(profil==='gerant') {
-                        $('#PARAMETRAGE').removeClass("hidden");
+//                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
                     }
                     else if(profil==='admin'){

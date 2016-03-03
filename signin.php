@@ -270,7 +270,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                                         return false;
                                 }
                                 else if(data.rc==-1){
-                                        bootbox.alert("Cet utilisateur est desactivé. Veuillez contacter l'administrateur.");
+                                        bootbox.alert("Cet utilisateur est desactivé. Veuillez contacter votre administrateur.");
                                         return false;
                                 }
                                 else {
