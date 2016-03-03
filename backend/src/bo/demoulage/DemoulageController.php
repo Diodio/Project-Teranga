@@ -165,7 +165,7 @@ class DemoulageController extends BaseController  {
 		try {
 			if (isset($request['produitId'])) {
 				$demoulageManager = new Produit\DemoulageManager();
-				$colis = $demoulageManager->getQuantiteColisage($request['produitId']);
+				$colis = $demoulageManager->getQuantiteColisage($request['produitId'], $request['codeUsine']);
 				if($colis !=null)
 					$this->doSuccessO($colis);
 				else

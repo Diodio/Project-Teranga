@@ -365,7 +365,28 @@ $(document).ready(function () {
 		 i--;
 		 }
 	 });
- 
+     $("#delete_row_produit").click(function(){
+     $('#tab_produit tbody tr:last').remove();
+     console.log(colisage.length);
+     var ln= colisage.length -1;
+     delete colisage[ln];
+     var nc=0;
+     var qt=0;
+     var mont=0;
+     $('#tab_produit tbody').find('tr').each(function(){
+        var $this = $(this);
+        nc+=parseFloat($('td:eq(1)', $this).text());
+        qt+=parseFloat($('td:eq(3)', $this).text());
+        mont+=parseFloat($('td:eq(5)', $this).text());
+        console.log(nc);
+      });
+      $('#totalColis').val(nc);
+      $('#qteTotal').val(qt);
+      $('#montantHt').val(mont);
+      var Ttc = mont+(mont * (parseFloat($("#tva").val())/100));
+        // montantTtc +=Ttc;
+        $('#montantTtc').val(Ttc);
+        });
   
  
 //    $(document).delegate('#tab_logic_colis tr td', 'change', function (event) {
@@ -608,7 +629,7 @@ $(document).ready(function () {
     });
     };
    loadQteColis = function(produitId, index){
-        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_GET_INFOS
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
