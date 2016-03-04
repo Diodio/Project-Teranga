@@ -20,4 +20,11 @@ class CartonManager {
     	return $carton;
     }
     
+    public function findCartonByProduitId($produitId, $codeUsine) {
+      $stockQueries = new CartonQueries();
+      $carton=$stockQueries->findCartonByProduitId($produitId, $codeUsine);
+      if($carton!=null)
+        return $carton['id'];
+    return 0;
+  }
 }

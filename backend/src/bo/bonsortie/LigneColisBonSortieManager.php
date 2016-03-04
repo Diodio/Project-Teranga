@@ -18,11 +18,11 @@ class LigneColisBonSortieManager {
         $this->ligneColisQuery->insert($ligneColis);
     	return $ligneColis;
     }
-    public function dimunieNbColis($produitId, $quantite, $nbCarton) {	
-         return $this->ligneColisQuery->dimunieNbColis($produitId, $quantite, $nbCarton);
+    public function dimunieNbColis($produitId, $quantite, $nbCarton, $codeUsine) {	
+         return $this->ligneColisQuery->dimunieNbColis($produitId, $quantite, $nbCarton, $codeUsine);
     }
     
-    public function ajoutNbColis($produitId, $quantite, $nbCarton) {	
-         return $this->ligneColisQuery->ajoutNbColis($produitId, $quantite, $nbCarton);
+    public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine) {	
+         return $this->ligneColisQuery->misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine);
     }
 }
