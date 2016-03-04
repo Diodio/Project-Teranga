@@ -148,7 +148,7 @@ private $logger;
                             if ($inserted->getId() != null) {
                                 $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
                                  $ligneColisManager->ajoutNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
-                            }
+                            
                             }
                         }
                     }
