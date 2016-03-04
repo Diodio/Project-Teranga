@@ -132,6 +132,27 @@ private $logger;
                                     $stockManager->updateNbStockReel($produitId, 'usine_dakar', $nbStock);
                                 }
                             }
+                            
+
+                $jsonColis = json_decode($_POST['jsonColis'], true);
+                foreach ($jsonColis as $key => $ligneC) {
+                    if (isset($ligneC["nbColis"])) {
+                        if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
+                            $colis = new \BonSortie\LigneColisBonSortie();
+                            $colis->setNombreCarton($ligneC["nbColis"]);
+                            $colis->setQuantiteParCarton($ligneC["qte"]);
+                            $colis->setProduitId($ligneC["produitId"]);
+                            $colis->setBonSortie_id($Inserted->getId());
+                            $ligneColisManager = new \BonSortie\LigneColisBonSortieManager();
+                            $inserted = $ligneColisManager->insert($colis);
+                            if ($inserted->getId() != null) {
+                                $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                                 $ligneColisManager->ajoutNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                            }
+                            }
+                        }
+                    }
+                }
                         }
                     }
                 }

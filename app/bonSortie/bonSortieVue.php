@@ -417,7 +417,7 @@ $(document).ready(function () {
                 if(nbColis > qte ){
                   $.gritter.add({
                     title: 'Notification',
-                    text: 'Le nombre de colis ou la quantite saisi ne correspond pas au colisage du produit choisi',
+                    text: 'Le nombre de colis ou la quantité saisi ne correspond pas au colisage du produit choisi',
                     class_name: 'gritter-error gritter-light '
                 });  
                  $("#nbColis"+counter).val("");
@@ -519,14 +519,14 @@ $(document).ready(function () {
         if(pNet>quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
-                text: 'La quantite definie ne doit pas etre superieure a la quantite de sortie (voir demoulage)',
+                text: 'La quantité définie ne doit pas etre supérieure à la quantité de sortie (voir demoulage)',
                 class_name: 'gritter-error gritter-light'
             });
         }
         else  if(pNet<quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
-                text: 'La quantite definie ne doit pas etre inferieure a la quantite de sortie (voir demoulage)',
+                text: 'La quantité définie ne doit pas etre inférieure à la quantité de sortie (voir demoulage)',
                 class_name: 'gritter-error gritter-light'
             });
         }
@@ -587,7 +587,7 @@ $(document).ready(function () {
                if(quantiteSortie > stockReel){
                    $.gritter.add({
                         title: 'Notification',
-                        text: 'La quantite de sortie ne doit pas être supérieur au stock réel',
+                        text: 'La quantite de sortie ne doit pas être supérieur au stock réel (voir demoulage)',
                         class_name: 'gritter-error gritter-light'
                     });
                    $("#quantiteSortie").val('');
@@ -722,6 +722,7 @@ $(document).ready(function () {
             formData.append('nomChauffeur', nomChauffeur);
             formData.append('destination', destination);
             formData.append('jsonProduit', tbl);
+            formData.append('jsonColis', JSON.stringify(colisage));
             formData.append('poidsTotal', poidsTotal);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);

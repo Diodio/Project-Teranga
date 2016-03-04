@@ -26,7 +26,10 @@ class LigneColisBonSortie {
      * */
     protected $produit_id;
 
-    
+     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $bonSortie_id;
     
 
     /** @Column(type="datetime", nullable=true) */
@@ -52,6 +55,10 @@ class LigneColisBonSortie {
 
     function getProduit_id() {
         return $this->produit_id;
+    }
+
+    function getBonSortie_id() {
+        return $this->bonSortie_id;
     }
 
     function getCreatedDate() {
@@ -82,6 +89,10 @@ class LigneColisBonSortie {
         $this->produit_id = $produit_id;
     }
 
+    function setBonSortie_id($bonSortie_id) {
+        $this->bonSortie_id = $bonSortie_id;
+    }
+
     function setCreatedDate($createdDate) {
         $this->createdDate = $createdDate;
     }
@@ -94,8 +105,7 @@ class LigneColisBonSortie {
         $this->deletedDate = $deletedDate;
     }
 
-    
-    
+        
         
         /** @PrePersist */
     public function doPrePersist() {
