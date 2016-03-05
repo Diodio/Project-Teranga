@@ -689,7 +689,7 @@ $(document).ready(function () {
             var $table = $("#tab_produit");
             rows = [],
             header = [];
-            header = ["produitId","numOrdre","designation","qte"];
+            header = ["produitId","nombreCarton","designation","qte"];
             $table.find("tbody tr").each(function () {
                 var row = {};
 

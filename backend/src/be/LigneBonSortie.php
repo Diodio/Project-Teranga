@@ -99,8 +99,15 @@ class LigneBonSortie {
         $this->deletedDate = $deletedDate;
     }
 
-    
-    
+    function getNombreCarton() {
+        return $this->nombreCarton;
+    }
+
+    function setNombreCarton($nombreCarton) {
+        $this->nombreCarton = $nombreCarton;
+    }
+
+        
         /** @PrePersist */
     public function doPrePersist() {
         $this->createdDate = new \DateTime("now");

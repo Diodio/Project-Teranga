@@ -107,6 +107,7 @@ class BonSortieController extends BaseController implements BaseAction {
                         $produitManager = new Produit\ProduitManager();
                         $produit = $produitManager->findById($produitId);
                         $ligneBonSortie->setProduit($produit);
+                        $ligneBonSortie->setNombreCarton($ligne['nombreCarton']);
                         $ligneBonSortie->setQuantite($ligne['qte']);
                         $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
                         $InsertedLB = $ligneBonSortieManager->insert($ligneBonSortie);

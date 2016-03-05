@@ -227,7 +227,7 @@
             {
                 if (checkedDemoulages.length == 1){
                     $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedDemoulages[0]);
+                   // loadDemoulagesSelected(checkedDemoulages[0]);
                     $('#TAB_MSG_VIEW').show();
 		    $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }else
@@ -251,7 +251,7 @@
             {
                if (checkedDemoulages.length === 1){
                    $('#SAVE').attr("disabled", false);
-                    loadDemoulagesSelected(checkedDemoulages[0]);
+                    //loadDemoulagesSelected(checkedDemoulages[0]);
 		    $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -402,10 +402,10 @@
                     "bServerSide": true,
                     "bLengthChange": true,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_VALID; ?>"});
@@ -443,7 +443,7 @@
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
 
-                $.post(url, {produitId: produitId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
+                $.post(url, {produitId: produitId, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                   data = $.parseJSON(data);
                  // data = data[0];
                     $('#nomProduit').text(data.designation);
