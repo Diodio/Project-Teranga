@@ -44,7 +44,6 @@ class BonSortieQueries {
     public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         
         if($codeUsine !=='*') {
-            
             $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,nombreCarton, quantite FROM bon_sortie,ligne_bonsortie  WHERE bon_sortie.id=bonSortie_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
