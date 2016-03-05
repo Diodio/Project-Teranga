@@ -44,15 +44,12 @@ class BonSortieQueries {
     public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         
         if($codeUsine !=='*') {
-            
-            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie
-                    from bon_sortie where codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,nombreCarton, quantite FROM bon_sortie,ligne_bonsortie  WHERE bon_sortie.id=bonSortie_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
              if($sWhere !== "")
                 $sWhere = " where " . $sWhere;
-            $sql = 'select bon_sortie.id,status,dateBonSortie, numeroBonSortie
-                    from bon_sortie ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT bon_sortie.id,STATUS,dateBonSortie, numeroBonSortie,nombreCarton, quantite  FROM bon_sortie,ligne_bonsortie  WHERE bon_sortie.id=bonSortie_id  ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -65,6 +62,8 @@ class BonSortieQueries {
             $arrayAchats [$i] [] = $value ['status'];
             $arrayAchats [$i] [] = $value ['dateBonSortie'];
             $arrayAchats [$i] [] = $value ['numeroBonSortie'];
+            $arrayAchats [$i] [] = $value ['nombreCarton'];
+            $arrayAchats [$i] [] = $value ['quantite'];
             $i++;
         }
         return $arrayAchats;

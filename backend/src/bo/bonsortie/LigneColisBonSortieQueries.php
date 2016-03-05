@@ -30,16 +30,14 @@ class LigneColisBonSortieQueries {
             return $ligneColis;
         }
     }
-    public function dimunieNbColis($produitId, $quantite, $nbCarton ) {			
+    public function dimunieNbColis($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite");
-        $this->recupereColisFini($produitId, $quantite, $nbCarton);
+        $connexion->executeUpdate("UPDATE carton,demoulage  SET nombreCarton = nombreCarton - $nbCarton WHERE demoulage.id=carton.demoulage_id AND produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine'");
     }
     
-    public function ajoutNbColis($produitId, $quantite, $nbCarton ) {			
+    public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite");
-        $this->recupereColisFini($produitId, $quantite, $nbCarton);
+        $connexion->executeUpdate("UPDATE carton,demoulage  SET nombreCarton = nombreCarton + $nbCarton WHERE demoulage.id=carton.demoulage_id AND produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine'");
     }
     public function recupereColisFini($produitId, $quantite, $nbCarton ) {
         $sql = "SELECT id,nombreCarton FROM carton WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";

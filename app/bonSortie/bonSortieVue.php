@@ -686,26 +686,21 @@ $(document).ready(function () {
             var poidsTotal = $("#poidsTotal").val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
-            var $table = $("table")
+            var $table = $("#tab_produit");
             rows = [],
             header = [];
-
-            //$table.find("thead th").each(function () {
-            //    header.push($(this).html().trim());
-            //});
-            header = ["#","designation","qte"];
+            header = ["produitId","nombreCarton","designation","qte"];
             $table.find("tbody tr").each(function () {
                 var row = {};
 
                 $(this).find("td").each(function (i) {
                     var key = header[i];
                     var value;
-                        valueSelect = $(this).find('select').val();
-                        valueInput = $(this).find('input').val();
+                       // valueSelect = $(this).find('select').val();
+                        valueInput = $(this).html();
                     if (typeof valueInput !== "undefined")
                         value=valueInput;
-                    if (typeof valueSelect !== "undefined")
-                        value=valueSelect;
+                   
                     row[key] = value;
                 });
 
@@ -799,7 +794,7 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-				BonSortieProcess();
+                            BonSortieProcess();
 			},
 			invalidHandler: function (form) {
 			}

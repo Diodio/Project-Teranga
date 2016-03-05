@@ -12,6 +12,11 @@ class LigneBonSortie {
     protected $id;
     
     /**
+     * @Column(type="integer", nullable=false)
+     * */
+    protected $nombreCarton;
+    
+    /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
     protected $quantite;
@@ -94,8 +99,15 @@ class LigneBonSortie {
         $this->deletedDate = $deletedDate;
     }
 
-    
-    
+    function getNombreCarton() {
+        return $this->nombreCarton;
+    }
+
+    function setNombreCarton($nombreCarton) {
+        $this->nombreCarton = $nombreCarton;
+    }
+
+        
         /** @PrePersist */
     public function doPrePersist() {
         $this->createdDate = new \DateTime("now");
