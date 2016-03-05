@@ -408,7 +408,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
+                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&login=<?php echo $login?>&codeUsine=<?php echo $codeUsine; ?>',
                     cache: false,
                     success: function(data) {
                         $('#INDIC_ACHAT_VALIDES').text(data.nbValid);

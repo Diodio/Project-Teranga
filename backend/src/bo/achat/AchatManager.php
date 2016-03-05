@@ -99,7 +99,7 @@ class AchatManager {
         return $lastAchatId;
     }
 
-    public function findStatisticByUsine($codeUsine) {
+    public function findStatisticByUsine($login, $codeUsine) {
         if ($codeUsine != null) {
             $validAchat = $this->achatQuery->findValidAchatByUsine($codeUsine);
             $nonValidAchat = $this->achatQuery->findNonValidAchatByUsine($codeUsine);
