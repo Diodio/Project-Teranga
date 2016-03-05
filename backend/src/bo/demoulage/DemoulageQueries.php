@@ -108,7 +108,7 @@ class DemoulageQueries {
     }
 
     public function getQuantiteColisage($produitId, $codeUsine) {
-        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.produit_id='$produitId' and codeUsine='".$codeUsine."' GROUP BY quantiteParCarton";
+        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.produit_id='$produitId' and codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();

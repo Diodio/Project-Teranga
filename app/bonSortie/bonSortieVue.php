@@ -98,7 +98,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label> Heure de sortie</label>
 					</div>
 					<div class="col-sm-6">
-						<input name="heureReception" id="heureReception" type="text"
+						<input name="heureSortie" id="heureSortie" type="text"
 									class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -308,6 +308,12 @@ $(document).ready(function () {
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
     $('#dateBonSortie').attr('value', today);
+    $('#heureSortie').timepicker({
+            minuteStep: 1,
+            defaultTime: new Date(),
+            showSeconds: false,
+            showMeridian: false
+        });
     $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -680,6 +686,7 @@ $(document).ready(function () {
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var origine = '<?php echo $codeUsine?>';
             var numeroBonSortie = $("#numeroBonSortie").val();
+            var heureSortie= $('#heureSortie').val();
             var numeroCamion = $("#numeroCamion").val();
             var nomChauffeur = $("#nomChauffeur").val();
             var destination = 'usine_dakar';
@@ -711,6 +718,7 @@ $(document).ready(function () {
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('dateBonSortie', dateAchat);
+            formData.append('heureSortie', heureSortie);
             formData.append('origine', origine);
             formData.append('numeroBonSortie', numeroBonSortie);
             formData.append('numeroCamion', numeroCamion);

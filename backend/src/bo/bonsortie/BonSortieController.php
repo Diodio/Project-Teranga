@@ -87,6 +87,7 @@ class BonSortieController extends BaseController implements BaseAction {
             $bonSortieManager = new BonSortieManager();
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
+            $bonSortie->setHeureSortie(new \DateTime($request['heureSortie']));
             $bonSortie->setDateBonSortie(new \DateTime("now"));
             $bonSortie->setNumeroCamion($request['numeroCamion']);
             $bonSortie->setNomChauffeur($request['nomChauffeur']);
