@@ -19,6 +19,8 @@ class BonSortie {
    /** @Column(type="datetime", nullable=true) */
     public $dateBonSortie;
     
+    /** @Column(type="time", nullable=true) */
+    public $heureSortie;
     
    /** @Column(type="string", length=60, nullable=true) */
     public $numeroCamion;
@@ -213,7 +215,15 @@ class BonSortie {
     }
 
 
-   
+    function getHeureSortie() {
+        return $this->heureSortie;
+    }
+
+    function setHeureSortie($heureSortie) {
+        $this->heureSortie = $heureSortie;
+    }
+
+
 
 
     }
