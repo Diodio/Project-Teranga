@@ -323,13 +323,13 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
                             <li id="AJOUTER_FACTURE" class=""><a id="FACTURE" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Nouveau
+                                        class="menu-icon fa fa-caret-right"></i> Empotage
                                 </a> <b class="arrow"></b>
                             </li>
 
                             <li id="LISTE_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Consulter Liste </span>
+                                        Facturation </span>
                                 </a> <b class="arrow"></b>
                             </li>
 

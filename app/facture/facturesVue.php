@@ -1576,15 +1576,15 @@ $(document).ready(function () {
        			errorClass: 'help-block',
        			focusInvalid: false,
        			rules: {
-       				new_adresse: {
-       					required: true
-       				},
-       				nom: {
-       					required: true
-       				},
-       				new_pays: {
-       					required: true
-       				}
+//        				new_adresse: {
+//        					required: true
+//        				},
+//        				nom: {
+//        					required: true
+//        				},
+//        				new_pays: {
+//        					required: true
+//        				}
        				
        			},
 
