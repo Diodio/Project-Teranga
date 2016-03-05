@@ -674,7 +674,7 @@ $(document).ready(function () {
         
         });
      loadQteColis = function(produitId, index){
-        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, ACTION: "<?php echo App::ACTION_GET_INFOS
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId, codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_INFOS
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
