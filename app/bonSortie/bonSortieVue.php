@@ -774,13 +774,20 @@ $(document).ready(function () {
         
         //Validate
         $("#SAVE").bind("click", function () {
+        $.validator.addMethod("notEqual", function(value, element, param) {
+            return this.optional(element) || value != param;
+        });     
         $('#validation-form').validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				
+			
+                        CMBDESTINATIONS: {
+                            notEqual: "*" 
+                        },
+                        
                         qteTotal: {
                             required:true
                         },
@@ -799,6 +806,9 @@ $(document).ready(function () {
 			},
 	
 			messages: {
+                            CMBDESTINATIONS: {
+                                notEqual:"Champ obligatoire."
+                            },
                             qteTotal: {
                                 required:"Champ obligatoire."
                             },

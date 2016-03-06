@@ -86,6 +86,7 @@ class DemoulageController extends BaseController  {
 							if(isset($ligneCarton["nbCarton"])) {
 								$carton = new \Produit\Carton();
 								$carton->setDemoulage($demoulage);
+								$carton->setCodeUsine($request['codeUsine']);
 								$carton->setNombreCarton($ligneCarton['nbCarton']);
 								$carton->setQuantiteParCarton($ligneCarton['qte']);
 								$carton->setTotal($ligneCarton['total']);

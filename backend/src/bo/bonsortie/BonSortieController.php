@@ -84,6 +84,7 @@ class BonSortieController extends BaseController implements BaseAction {
     public function doInsert($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
+            $codeUsineDestination = $request['codeUsineDestination'];
             $bonSortieManager = new BonSortieManager();
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
@@ -92,13 +93,12 @@ class BonSortieController extends BaseController implements BaseAction {
             $bonSortie->setNumeroCamion($request['numeroCamion']);
             $bonSortie->setNomChauffeur($request['nomChauffeur']);
             $bonSortie->setOrigine($request['origine']);
-            $bonSortie->setDestination($request['destination']);
+            $bonSortie->setDestination($codeUsineDestination);
             $bonSortie->setCodeUsine($request['codeUsine']);
             $bonSortie->setLogin($request['login']);
             $bonSortie->setStatus(1);
             $bonSortie->setPoidsTotal($request['poidsTotal']);
             $bonSortie->setTotalColis($request['totalColis']);
-            $codeUsineDestination = $request['codeUsineDestination'];
             $Added = $bonSortieManager->insert($bonSortie);
             if ($Added->getId() != null) {
                 $jsonBonSortie = json_decode($_POST['jsonProduit'], true);

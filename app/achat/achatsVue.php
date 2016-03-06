@@ -254,6 +254,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </div>
                             </div>
                             <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Libellé facture </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="libelleFacture" name="libelleFacture" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                            </div>
+                            <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
                                     <div class="col-sm-9">
                                         <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0">
@@ -817,6 +823,7 @@ $table.find("tbody tr").each(function () {
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
             var designation = $("#designation").val();
+            var libelleFacture = $("#libelleFacture").val();
             var stockProvisoire = $("#stockProvisoire").val();
             var stockReel = $("#stockReel").val();
             var seuil = calculSeuil();
@@ -826,6 +833,7 @@ $table.find("tbody tr").each(function () {
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('designation', designation);
+            formData.append('libelleFacture', libelleFacture);
             formData.append('stockProvisoire', stockProvisoire);
             formData.append('stockReel', stockReel);
             formData.append('seuil', seuil);

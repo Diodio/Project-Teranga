@@ -70,7 +70,7 @@ class UsineQueries {
     }
     
     public function retrieveAllByUsine($codeUsine) {
-        $query = Bootstrap::$entityManager->createQuery("select u.id as value, u.nomUsine as text from Usine\Usine u where u.code!='$codeUsine'");
+        $query = Bootstrap::$entityManager->createQuery("select u.code as value, u.nomUsine as text from Usine\Usine u where u.code!='$codeUsine'");
         $types = $query->getResult();
         if ($types != null)
             return $types;
