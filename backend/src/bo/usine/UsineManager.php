@@ -46,6 +46,11 @@ class UsineManager {
         return $this->usineQueries->retrieveAll();
         
     }
+    public function retrieveAllByUsine($codeUsine) {
+        return $this->usineQueries->retrieveAllByUsine($codeUsine);
+        
+    }
+    
 public function retrieveTypes()
     {
         return $this->usineQueries->retrieveTypes();

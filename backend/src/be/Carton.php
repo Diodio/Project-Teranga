@@ -32,6 +32,11 @@ class Carton {
     protected $produitId;
     
     /**
+     * @Column(type="string", length=60, nullable=false)
+     * */
+    protected $codeUsine;
+    
+    /**
      * @Column(type="integer", options={"default":0}) 
      **/
     protected $status;

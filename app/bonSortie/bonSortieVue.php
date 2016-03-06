@@ -46,8 +46,9 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label> Destination</label>
 					</div>
 					<div class="col-sm-6">
-                                            <input type="text" name="destination" id="destination" placeholder=""
-                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
+                                            <select id="CMBDESTINATIONS" name="CMBDESTINATIONS"  data-placeholder="" style="width: 99%">
+                                                        <option value="*" class="usines">Selectionnez</option>
+                                                </select>
 					</div>
 				</div>
 				<div class="space-6"></div>
@@ -326,7 +327,8 @@ $(document).ready(function () {
                 $("#numeroBonSortie").val(sData.oId);
             }
     });
-    $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
+    loadUsine = function(codeUsine){
+    $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID; ?>", codeUsine:codeUsine}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -338,6 +340,8 @@ $(document).ready(function () {
                  $("#CMBDESTINATIONS").loadJSON('{"usines":' + data + '}');
             }
     });
+    };
+    loadUsine("<?php echo $codeUsine;?>");
     loadProduit = function(){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
