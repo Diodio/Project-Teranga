@@ -144,33 +144,48 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon fa-play"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_BON_NONVALIDES">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Bon émis </div>
-                                                        </div>
-                                                    </div>
-
+                                                <?php if($codeUsine=='usine_dakar') {?>
                                                     <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_BON_VALIDES">0</div>
+                                                            <div class="infobox-content" id="INDIC_BON_DAKAR">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Bon recus</div>
+                                                            <div class="infobox-content" style="width:150px">Sortie Dakar</div>
 
                                                         </div>
                                                     </div>
+                                                <?php }?>
+                                                <?php if($codeUsine=='usine_dakar' || $codeUsine=='usine_rufisque') {?>
+                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon fa-play"></i>
+                                                        </div>
 
-                                                   
+                                                        <div class="infobox-data" >
+                                                            <div class="infobox-content" id="INDIC_BON_RUFISQUE">0</div>
 
+                                                            <div class="infobox-content" style="width:150px">Sortie Rufisqie </div>
+                                                        </div>
+                                                    </div>
+                                                <?php }?>
+                                                
+                                                <?php if($codeUsine=='usine_dakar'  || $codeUsine=='usine_stlouis') {?>
+                                                    <div class="infobox infobox-blue2 infobox-small infobox-dark" style="width:200px">
+                                                        <div class="infobox-icon">
+                                                            <i class="icon-pause"></i>
+                                                        </div>
+
+                                                        <div class="infobox-data">
+                                                            <div class="infobox-content" id="INDIC_BON_STLOUIS">0</div>
+
+                                                            <div class="infobox-content" style="width:150px">Sortie Saint Louis recus</div>
+
+                                                        </div>
+                                                    </div>
+                                                <?php }?>
                                                     <div class="space-6"></div>
                                                     <br/>
 
@@ -287,19 +302,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                 var url;
                 var user;
                 url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
-                userProfil=$.cookie('profil');
-                if(userProfil==='admin')
-                   user = 'login=<?php echo $login; ?>';
+                
                 $.ajax({
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: user+'&ACTION=<?php echo App::ACTION_STAT; ?>&codeUsine=<?php echo $codeUsine; ?>',
+                    data: 'ACTION=<?php echo App::ACTION_STAT; ?>',
                     cache: false,
                     success: function(data) {
-                        $('#INDIC_BON_VALIDES').text(data.nbValid);
-                        $('#INDIC_BON_NONVALIDES').text(data.nbNonValid);
-                        $('#INDIC_BON_ANNULES').text(data.nbAnnule);
+                        
+                        $('#INDIC_BON_STLOUIS').text(data.nbStLouis);
+                        $('#INDIC_BON_RUFISQUE').text(data.nbRufisque);
+                        $('#INDIC_BON_DAKAR').text(data.nbDakar);
 
 //                        
                     }

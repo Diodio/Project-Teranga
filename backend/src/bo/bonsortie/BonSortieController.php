@@ -285,19 +285,15 @@ class BonSortieController extends BaseController implements BaseAction {
 
     public function doStat($request) {
         try {
-            if (isset($request['codeUsine'])) {
                 $BonSortieManager = new BonSortieManager();
-                $achat = $BonSortieManager->findStatisticByUsine($request['codeUsine']);
-                if ($achat != null)
-                    $this->doSuccessO($achat);
+                $sortie = $BonSortieManager->findQuantiteSortieByUsine();
+                if ($sortie != null)
+                    $this->doSuccessO($sortie);
                 else
                     echo json_encode(array());
-            } else {
-                $this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
-                $this->logger->log->error('View : Params not enough');
-            }
+            
         } catch (Exception $e) {
-            $this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
+            $this->doError('-1', 'Impossible de charger les statistiques globales');
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
