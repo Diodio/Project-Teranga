@@ -549,8 +549,10 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             
             loadBons();
+            var bonId=0;
             loadBonSelected = function(bonsortieId)
             {
+                bonId=bonsortieId;
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
                  
@@ -585,7 +587,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             {
                  var id = $(this).closest('tr').attr('id');
                 // var counter = id.substring(4);
-                getColis(id);
+                getColis(bonId, id);
             });
             
              showPopover = function(idButton, colis){
@@ -598,11 +600,11 @@ $codeUsine = $_COOKIE['codeUsine'];
             }).popover('toggle');
          };
          
-            function getColis(produitId){
+            function getColis(bonsortieId, produitId){
             var html='';
              var html="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
-            var urlColis = '<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php';
-                $.post(urlColis, {produitId: produitId, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS_BONSORTIE; ?>"}, function(dataColis) {
+            var urlColis = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
+                $.post(urlColis, {bonsortieId:bonsortieId,produitId: produitId,ACTION: "<?php echo App::ACTION_GET_COLIS_BONSORTIE; ?>"}, function(dataColis) {
                   dataColis = $.parseJSON(dataColis);
                 dataColis = dataColis[0];
                 $(dataColis).each(function(index, element){

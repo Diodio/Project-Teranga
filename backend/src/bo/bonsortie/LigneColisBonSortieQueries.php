@@ -54,4 +54,19 @@ class LigneColisBonSortieQueries {
         return $connexion->executeUpdate("DELETE FROM carton WHERE id=$colisId");
     }
     
+    public function getAllColisBonSortie($bonsortieId, $produitId) {
+            $sql = 'SELECT nombreCarton as nbCarton,quantiteParCarton FROM ligne_colis_bonsortie WHERE bonsortie_id='.$bonsortieId.' and produit_id=' . $produitId . '';
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $clients = $stmt->fetchAll();
+        $arrayContact = array();
+        $i = 0;
+        foreach ($clients as $key => $value) {
+            $arrayContact [$i] ['nbCarton'] = $value ['nbCarton'];
+            $arrayContact [$i] ['quantiteParCarton'] = $value ['quantiteParCarton'];
+            $i ++;
+        }
+        return $arrayContact;
+    }
 }

@@ -8,6 +8,7 @@ use BonSortie\BonSortie as BonSortie;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use BonSortie\LigneBonSortie as LigneBonSortie;
+use BonSortie\LigneColisBonSortieManager as LigneColisBonSortieManager;
 use BonSortie\BonSortieManager as BonSortieManager;
 use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
@@ -72,6 +73,9 @@ class BonSortieController extends BaseController implements BaseAction {
                     case \App::ACTION_GET_COLISAGES:
                         $this->doGetInfoColisages($request);
                         break;
+                        case \App::ACTION_GET_COLIS_BONSORTIE:
+                                $this->doGetColisBonSortie($request);
+                                break;
                 }
             } else {
                 throw new Exception('NO_ACTION');
@@ -353,6 +357,26 @@ class BonSortieController extends BaseController implements BaseAction {
         }
     }
 
+    
+        
+        public function doGetColisBonSortie($request) {
+		try {
+			if (isset($request['produitId'])) {
+				$colisManager = new LigneColisBonSortieManager();
+				$infoscolis = $colisManager->getAllColisBonSortie($request['bonsortieId'],$request['produitId']);
+				if($infoscolis!= NULL){
+					$this->doSuccessO($infoscolis);
+				}  else {
+					echo json_encode(array());
+				}
+			} else{
+				$this->doError('-1', 'Données invalides');
+			}
+
+		}catch (Exception $e) {
+			$this->doError('-1', $e->getMessage());
+		}
+	}
 }
 
 $oBonSortieController = new BonSortieController($_REQUEST);
