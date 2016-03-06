@@ -101,12 +101,14 @@ public function findStatisticByUsine($codeUsine) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
                 $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
                 $bonSortieDetail ['date']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
+                $bonSortieDetail ['heure']  = $value ['heureSortie'];
                 $bonSortieDetail ['numCamion']  =  $value ['numeroCamion'];
                 $bonSortieDetail ['chauffeur']  =  $value ['nomChauffeur'];
                 $usineOrigine = $usineManager->findByCodeUsine($value ['origine']);
                 $bonSortieDetail ['origine']  =  $usineOrigine['nomUsine'];
                 $usineDestination = $usineManager->findByCodeUsine($value ['destination']);
                 $bonSortieDetail ['destination']  =  $usineDestination ['nomUsine'];
+                $bonSortieDetail ['totalColis']  =  $value ['totalColis'];
                 $bonSortieDetail ['poidsTotal']  =  $value ['poidsTotal'];
                 $userManager = new \Utilisateur\UtilisateurManager();
                 $user = $userManager->findByLogin($value ['login'], $value ['codeUsine']);

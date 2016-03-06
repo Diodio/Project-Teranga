@@ -232,6 +232,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <th class="text-center">
                                             DÃ©signation
                                     </th>
+                                    <th class="text-center" style="width: 120px;">
+                                            DÃ©tail colis
+                                    </th>
                                     <th class="text-center">
                                             Quantite (kg)
                                     </th>
@@ -242,6 +245,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 				</tbody>
 			</table>
                         <div class="profile-user-info">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Total colis </div>
+                                <div class="profile-info-value">
+                                    <span id="totalColis"></span>
+                                </div>
+                            </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Poids Total </div>
                                 <div class="profile-info-value">
@@ -452,7 +461,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                             },
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
-                                console.log(data);
                                 if (data == 0)
                                     src += '<span class=" tooltip-error" title="Non validÃ©"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
@@ -491,10 +499,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
@@ -531,23 +539,27 @@ $codeUsine = $_COOKIE['codeUsine'];
             {
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
-
+                 
                 $.post(url, {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero bonsortie: "+ data.numero);
-                    $('#Date').text(data.date);
-                    $('#NomClient').text(data.nomClient);
+                    $('#Date').text(data.date+' Ã  '+ data.heure);
                     $('#Origine').text(data.origine);
                     $('#NumeroCamion').text(data.numCamion);
                     $('#Chauffeur').text(data.chauffeur);
                     $('#Destination').text(data.destination);
                     $('#User').text(data.user);
+                    $('#totalColis').text(data.totalColis);
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#TABLE_BONS tbody').html("");
                     var table = data.ligneBonSortie;
                     var trHTML='';
                     $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.quantite + '</td></tr>';
+                        var pid=element.id;
+                        trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><button id="colis'+pid+'" class="btnColis center btn btn-warning btn-mini" href="#">'+
+                            '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
+                            '</button></td><td>' + element.quantite + '</td></tr>';
+                        
                     });
                     $('#TABLE_BONS tbody').append(trHTML);
                     trHTML='';
@@ -555,7 +567,38 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#TAB_MSG_VIEW').show();
                }).error(function(error) { });
             };
-
+            $('#TABLE_BONS').on('click', '.btnColis', function()
+            {
+                 var id = $(this).closest('tr').attr('id');
+                // var counter = id.substring(4);
+                getColis(id);
+            });
+            
+             showPopover = function(idButton, colis){
+            $("#" + idButton).popover({
+                html: true,
+                trigger: 'focus',
+                placement: 'left',
+                title: '<i class="icon-group icon-"></i> DÃ©tail colis ',
+                content: colis
+            }).popover('toggle');
+         };
+         
+            function getColis(produitId){
+            var html='';
+             var html="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
+            var urlColis = '<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php';
+                $.post(urlColis, {produitId: produitId, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS_BONSORTIE; ?>"}, function(dataColis) {
+                  dataColis = $.parseJSON(dataColis);
+                dataColis = dataColis[0];
+                $(dataColis).each(function(index, element){
+                        html+="<span><b>"+element.nbCarton+" colis de "+element.quantiteParCarton+" kg<b></span><br /><hr>";
+                });
+                 html+="</div>";
+                 showPopover("colis"+produitId, ""+html+"");
+                });
+               
+            }
             $("#MNU_VALIDATION").click(function()
             {
                 if (checkedBon.length == 0)

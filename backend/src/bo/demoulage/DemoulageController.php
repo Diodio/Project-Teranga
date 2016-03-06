@@ -49,6 +49,9 @@ class DemoulageController extends BaseController  {
                                         case \App::ACTION_REMOVE:
                                             $this->doRemove($request);
                                             break;
+					case \App::ACTION_GET_COLIS_BONSORTIE:
+						$this->doGetColisBonSortie($request);
+						break;
                         }
 			} else {
 				throw new Exception('NO ACTION');
@@ -113,6 +116,25 @@ class DemoulageController extends BaseController  {
 			if (isset($request['produitId'])) {
 				$demoulageManager = new Produit\DemoulageManager();
 				$infoscolis = $demoulageManager->getAllColis($request['produitId'], $request['codeUsine']);
+				if($infoscolis!= NULL){
+					$this->doSuccessO($infoscolis);
+				}  else {
+					echo json_encode(array());
+				}
+			} else{
+				$this->doError('-1', 'Données invalides');
+			}
+
+		}catch (Exception $e) {
+			$this->doError('-1', $e->getMessage());
+		}
+	}
+        
+        public function doGetColisBonSortie($request) {
+		try {
+			if (isset($request['produitId'])) {
+				$demoulageManager = new Produit\DemoulageManager();
+				$infoscolis = $demoulageManager->getAllColisBonSortie($request['produitId'], $request['codeUsine']);
 				if($infoscolis!= NULL){
 					$this->doSuccessO($infoscolis);
 				}  else {

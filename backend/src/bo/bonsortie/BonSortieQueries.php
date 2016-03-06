@@ -153,7 +153,7 @@ class BonSortieQueries {
 
     public function findAllProduitByBon($sortieId) {
         if ($sortieId != null) {
-            $sql = 'SELECT p.libelle designation, al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
+            $sql = 'SELECT p.id, p.libelle designation, al.quantite quantite FROM bon_sortie a, ligne_bonsortie al, produit p WHERE a.id=al.bonsortie_id AND al.produit_id=p.id AND a.id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $sortie = $stmt->fetchAll();
