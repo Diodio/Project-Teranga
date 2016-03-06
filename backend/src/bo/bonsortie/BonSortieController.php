@@ -97,6 +97,8 @@ class BonSortieController extends BaseController implements BaseAction {
             $bonSortie->setLogin($request['login']);
             $bonSortie->setStatus(1);
             $bonSortie->setPoidsTotal($request['poidsTotal']);
+            $bonSortie->setTotalColis($request['totalColis']);
+            $codeUsineDestination = $request['codeUsineDestination'];
             $Added = $bonSortieManager->insert($bonSortie);
             if ($Added->getId() != null) {
                 $jsonBonSortie = json_decode($_POST['jsonProduit'], true);
@@ -113,24 +115,22 @@ class BonSortieController extends BaseController implements BaseAction {
                         $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
                         $InsertedLB = $ligneBonSortieManager->insert($ligneBonSortie);
                         if ($InsertedLB->getId() != null) {
-                        $stockManager = new \Stock\StockManager();
+                            $stockManager = new \Stock\StockManager();
                             if ($ligne['qte'] != "")
                                 $nbStock = $ligne['qte'];
-                            if ($request['origine'] != 'usine_dakar') {
-                                $stockManager->destockageReel($produitId, $request['origine'], $nbStock);
-                                $stock = $stockManager->findStockReelByProduitId($produitId, $request['destination']);
-                                if ($stock == 0) {
-                                    $stockReel = new \Stock\StockReel();
-                                    $stockReel->setCodeUsine('usine_dakar');
-                                    $stockReel->setLogin($request ['login']);
-                                    $stockReel->setProduit($produit);
-                                    $stockReel->setStock($nbStock);
-                                    $stockManager->insert($stockReel);
-                                } else {
-                                    $stockManager->updateNbStockReel($produitId, 'usine_dakar', $nbStock);
-                                }
+                            $stockManager->destockageReel($produitId, $request['origine'], $nbStock);
+                            $stock = $stockManager->findStockReelByProduitId($produitId, $codeUsineDestination);
+                            if ($stock == 0) {
+                                $stockReel = new \Stock\StockReel();
+                                $stockReel->setCodeUsine('usine_dakar');
+                                $stockReel->setLogin($request ['login']);
+                                $stockReel->setProduit($produit);
+                                $stockReel->setStock($nbStock);
+                                $stockManager->insert($stockReel);
+                            } else {
+                                $stockManager->updateNbStockReel($produitId, $codeUsineDestination, $nbStock);
                             }
-                    }
+                        }
                     }
                     $jsonColis = json_decode($_POST['jsonColis'], true);
                     foreach ($jsonColis as $key => $ligneC) {
@@ -144,18 +144,19 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $ligneColisManager = new \BonSortie\LigneColisBonSortieManager();
                                 $insertedLC = $ligneColisManager->insert($colis);
                                 if ($insertedLC->getId() != null) {
-                                    $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
+                                    $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
                                     $cartonManager = new \Produit\CartonManager();
-                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, 'usine_dakar');
+                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineDestination);
                                     if ($existColisage == 0) {
                                         $carton = new \Produit\Carton();
                                         $carton->setNombreCarton($ligneC["nbColis"]);
                                         $carton->setQuantiteParCarton($ligneC["qte"]);
                                         $carton->setTotal($ligneC["nbColis"] * $ligneC["qte"]);
                                         $carton->setProduitId($ligneC["produitId"]);
+                                        $carton->setCodeUsine($codeUsineDestination);
                                         $cartonManager->insert($carton);
                                     } else {
-                                        $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], 'usine_dakar');
+                                        $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $codeUsineDestination);
                                     }
                                 }
                             }

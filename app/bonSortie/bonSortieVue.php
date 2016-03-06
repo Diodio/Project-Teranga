@@ -57,7 +57,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label>Chauffeur</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
+						<input type="text" name="nomChauffeur" id="nomChauffeur" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -67,7 +67,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label> Numéro Camion</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" id="numeroCamion" placeholder=""
+                                            <input type="text" name="numeroCamion" id="numeroCamion" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -693,9 +693,10 @@ $(document).ready(function () {
             var heureSortie= $('#heureSortie').val();
             var numeroCamion = $("#numeroCamion").val();
             var nomChauffeur = $("#nomChauffeur").val();
-            var destination = 'usine_dakar';
-            var poidsTotal = $("#poidsTotal").val();
+            var totalColis = $("#totalColis").val();
+            var poidsTotal = $("#qteTotal").val();
             var codeUsine = "<?php echo $codeUsine ?>";
+            var codeUsineDestination = $("#CMBDESTINATIONS").val();
             var login = "<?php echo $login ?>";
             var $table = $("#tab_produit");
             rows = [],
@@ -727,11 +728,12 @@ $(document).ready(function () {
             formData.append('numeroBonSortie', numeroBonSortie);
             formData.append('numeroCamion', numeroCamion);
             formData.append('nomChauffeur', nomChauffeur);
-            formData.append('destination', destination);
             formData.append('jsonProduit', tbl);
             formData.append('jsonColis', JSON.stringify(colisage));
+            formData.append('totalColis', totalColis);
             formData.append('poidsTotal', poidsTotal);
             formData.append('codeUsine', codeUsine);
+            formData.append('codeUsineDestination', codeUsineDestination);
             formData.append('login', login);
             $.ajax({
                 url: '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php',
@@ -779,16 +781,38 @@ $(document).ready(function () {
 			ignore: "",
 			rules: {
 				
-                            poidsTotal: {
-                                required:true
-					}
-				
+                        qteTotal: {
+                            required:true
+                        },
+                        
+			 totalColis: {
+                            required:true
+                        },
+                        
+			 nomChauffeur: {
+                            required:true
+                        },
+                        
+			 numeroCamion: {
+                            required:true
+                        }	
 			},
 	
 			messages: {
-                            poidsTotal: {
+                            qteTotal: {
                                 required:"Champ obligatoire."
-                            }
+                            },
+                             totalColis: {
+                                required:"Champ obligatoire."
+                        },
+                        
+			 nomChauffeur: {
+                            required:"Champ obligatoire."
+                        },
+                        
+			 numeroCamion: {
+                            required:"Champ obligatoire."
+                        }
 			},
 	
 	

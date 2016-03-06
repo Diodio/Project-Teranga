@@ -125,8 +125,15 @@ class Carton {
     function setTotal($total) {
         $this->total = $total;
     }
+    function getCodeUsine() {
+        return $this->codeUsine;
+    }
 
-                 /** @PrePersist */
+    function setCodeUsine($codeUsine) {
+        $this->codeUsine = $codeUsine;
+    }
+
+                     /** @PrePersist */
     public function doPrePersist() {
         $this->status = 0;
         $this->createdDate = new \DateTime("now");
