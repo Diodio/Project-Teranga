@@ -558,7 +558,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                  
                 $.post(url, {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
-                    $('#TAB_MSG_TITLE').text("Numero bonsortie: "+ data.numero);
+                    $('#TAB_MSG_TITLE').text("Numero: "+ data.numero);
                     $('#Date').text(data.date+' à '+ data.heure);
                     $('#Origine').text(data.origine);
                     $('#NumeroCamion').text(data.numCamion);
