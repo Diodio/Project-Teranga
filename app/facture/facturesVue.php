@@ -28,51 +28,6 @@ $codeUsine = $_COOKIE['codeUsine'];
          <form  id="validation-form" method="get">
              
              <div class="row">
-           <div class="col-sm-6" >
-                <div class="row" >
-                        <div class="col-sm-2">
-                            <label> Client</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <select id="CMB_CLIENTS" name="nomClient" data-placeholder=""  style="width:100%"     >
-                                <option value="*" class="clients"></option>
-                            </select>
-                        </div>
-                    <a id="NEW_CLIENT" class="btn btn-primary btn-sm"  title="Nouveau client"
-                        alt="Nouveau client"><i
-                        class="ace-icon fa fa-plus-square"></i>  
-                    </a>
-                 </div>
-               <div class="space-6"></div>
-                 <div class="row">
-                        <div class="col-sm-2">
-                            <label> Refèrence</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="reference" name="reference"  style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
-               <div class="space-6"></div>
-                 <div class="row">
-                        <div class="col-sm-2">
-                            <label> Origine</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="origine" name="origine" placeholder=""  style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
-                 <div class="space-6"></div>
-                <div class="row" >
-                        <div class="col-sm-2">
-                            <label> Pays</label>
-                        </div>
-                            <div class="col-sm-6">
-                                <input type="text" id="pays" placeholder="" style="width:100%" 
-                                       class="col-xs-10 col-sm-7">
-                            </div>
-                 </div>
                  <div class="space-6"></div>
                 </div>
                     <div class="col-sm-6">
@@ -99,18 +54,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <input name="heureReception" id="heureFacture" type="text" class="col-xs-10 col-sm-7" />
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 132px;">
-                    <div class="col-sm-2">
-                        <label style="margin-left: 24%"> Devise</label>
-                    </div>
-                    <div class="col-sm-6" style="margin-left: 74px;">
-                        <select id="devise" data-placeholder=""      >
-                            <option value="&euro;">&euro;</option>
-                            <option value="FCFA">FCFA</option>
-                            <option value="$">US$</option>
-                        </select>
-                    </div>
-                </div>
                        
                </div>
     </div>
@@ -145,18 +88,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                              <div class="space-6"></div>
-                            <div class="row">
-                                
-                                <div class="col-sm-3">
-                                    <label>  Prix <span id="labeldevise"></span> </label>
-                                </div>
-                                <div class="col-sm-8">
-                                        <div class="clearfix">
-                                                <input type="text" id="prixUnitaire" placeholder=""
-                                                        class="col-xs-12 col-sm-12">
-                                        </div>
-                                </div>
-                            </div>
            
                 </div>
                 <div class="col-sm-6">
