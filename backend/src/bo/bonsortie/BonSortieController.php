@@ -231,7 +231,23 @@ class BonSortieController extends BaseController implements BaseAction {
     }
 
     public function doRemove($request) {
-        
+        $this->logger->log->info('Action Remove user');
+        $this->logger->log->info(json_encode($request));
+        try {
+            if ($request['bonsortieId'] != null) {
+                $sortieManager = new BonSortieManager();
+                $this->logger->log->info('Remove with params : ' . $request['bonsortieId']);
+                $bonId = $request['bonsortieId'];
+                $nbModified = $sortieManager->remove($bonId);
+                $this->doSuccess($nbModified, 'bon de sortie supprime');
+            } else {
+                $this->logger->log->error('Remove : Params not enough');
+                $this->doError('-1', 'Impossible de supprimer cet achat');
+            }
+        } catch (Exception $e) {
+            $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            throw new Exception('Erreur lors du traitement de votre requete');
+        }
     }
 
     public function doUpdate($request) {
@@ -262,13 +278,9 @@ class BonSortieController extends BaseController implements BaseAction {
         try {
             if ($request['bonsortieId'] != null) {
                 $sortieManager = new BonSortieManager();
-                $annul = $sortieManager->annulerBonSortie($request['bonsortieId']);
-                if ($annul == 1) {
-                    $sortieManager->remettreStockParBonSortie($request['bonsortieId']);
-                    $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
-                } else {
-                    $this->doError('-1', 'Impossible d\'annuler ce bon de sortie');
-                }
+                $sortieManager->remettreStockParBonSortie($request['bonsortieId']);
+                $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                
             } else {
                 $this->doError('-1', 'Params not enough');
             }

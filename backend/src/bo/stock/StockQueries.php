@@ -243,9 +243,9 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         return NULL;
     }
 
-    public function destockageReel($produitId, $codeUsine, $nbStock ) {			
+    public function destockageReel($produitId, $codeUsineDestination, $nbStock ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+        return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsineDestination."'");
 		
 	}
         

@@ -50,9 +50,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
+                                        <li id='MNU_IMPRIMER' class="disabled"><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
                                          <li class="divider"></li>
                                         <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
@@ -383,6 +383,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             MessageSelected = function(click)
             {
+                enableRelevantAchatMenu();
                 if (checkedBon.length == 1){
                     loadBonSelected(checkedBon[0]);
                     $('#TAB_MSG_VIEW').show();
@@ -397,8 +398,51 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('table th input:checkbox').prop('checked', true);
                 }
             };
+            
+            
+            
+            
+            enableRelevantAchatMenu = function()
+	{   
+            if (checkedBon.length == 1)
+            {
+                $('#MNU_ANNULATION').removeClass('disabled');
+                $('#MNU_IMPRIMER').removeClass('disabled');
+                $('#MNU_REMOVE').removeClass('disabled');
+                var state = $('#stag' + checkedBon[0]).val();
+                 if (state == 1) {
+                        $('#MNU_REMOVE').addClass('disabled');
+                        $('#MNU_ANNULATION').addClass('disabled');
+                       // $('#MNU_REMOVE').removeClass('disabled');
+                  } 
+                  else if (state == 2) {
+                       $('#MNU_REMOVE').removeClass('disabled');
+                  }
+                          
+            }
+            else if (checkedBon.length > 1){
+                $('#MNU_ANNULATION').removeClass('enable');
+                $('#MNU_IMPRIMER').removeClass('enable');
+                $('#MNU_REMOVE').removeClass('enable');
+                $('#MNU_IMPRIMER').addClass('disabled');
+                $('#MNU_REMOVE').addClass('disabled');
+                $('#MNU_ANNULATION').addClass('disabled');
+                 bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
+                 loadBons();
+            }
+            else{
+                $('#MNU_ANNULATION').removeClass('enable');
+                $('#MNU_IMPRIMER').removeClass('enable');
+                $('#MNU_ANNULATION').addClass('disabled');
+                $('#MNU_IMPRIMER').addClass('disabled');
+
+            }
+            };
+            
+            
             MessageUnSelected = function()
             {
+                   enableRelevantAchatMenu();
                if (checkedBon.length === 1){
                     loadBonSelected(checkedBon[0]);
 		    $('#TAB_MSG_VIEW').show();
@@ -670,6 +714,35 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
 
+            $("#MNU_REMOVE").click(function()
+            {
+                if (checkedBon.length == 0)
+                    bootbox.alert("Veuillez selectionnez un bon de sortie");
+                else if (checkedBon.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment supprimer ce bon de sortie", function(result) {
+                    if(result){
+                    var bonsortieId = checkedBon[0];
+                    $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Bon de sortie supprimé");
+                            getIndicator();
+                            loadBons();
+                            
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                    
+                         }
+                    });
+                }
+            });
+            
             $("#MNU_IMPRIMER").click(function()
                     {
                         if (checkedBon.length == 0)

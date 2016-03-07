@@ -34,6 +34,18 @@ class BonSortieQueries {
     
     
     
+    
+    public function delete($bonId) {
+        $bon = $this->findById($bonId);
+        if ($bon != null && $bon->getStatus()==2) {
+            Bootstrap::$entityManager->remove($bon);
+            Bootstrap::$entityManager->flush();
+            return $bon;
+        } else {
+            return null;
+        }
+    }
+    
     public function findAll() {
         $clientRepository = Bootstrap::$entityManager->getRepository($this->classString);
         $clients = $clientRepository->findAll();
@@ -180,6 +192,20 @@ class BonSortieQueries {
     public function findInfoByBonSortie($sortieId) {
         if ($sortieId != null) {
             $sql = 'SELECT produit_id, codeUsine,quantite FROM ligne_bonsortie lb, bon_sortie b WHERE b.id=bonsortie_id  AND b.id=' . $sortieId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
+    
+    
+    public function findInfoColisByBonSortie($sortieId) {
+        if ($sortieId != null) {
+            $sql = 'SELECT produit_id, nombreCarton,quantiteParCarton FROM ligne_colis_bonsortie WHERE bonsortie_id=' . $sortieId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $achat = $stmt->fetchAll();
