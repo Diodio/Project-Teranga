@@ -53,6 +53,11 @@ class BonSortie {
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="produit") */
     public $produit;
   
+    /**
+     * @Column(type="integer", nullable=false) 
+     **/
+    protected $totalColis;
+    
     
    /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
@@ -222,6 +227,14 @@ class BonSortie {
     function setHeureSortie($heureSortie) {
         $this->heureSortie = $heureSortie;
     }
+    function getTotalColis() {
+        return $this->totalColis;
+    }
+
+    function setTotalColis($totalColis) {
+        $this->totalColis = $totalColis;
+    }
+
 
 
 

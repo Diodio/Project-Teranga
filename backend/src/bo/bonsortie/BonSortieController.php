@@ -8,6 +8,7 @@ use BonSortie\BonSortie as BonSortie;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
 use BonSortie\LigneBonSortie as LigneBonSortie;
+use BonSortie\LigneColisBonSortieManager as LigneColisBonSortieManager;
 use BonSortie\BonSortieManager as BonSortieManager;
 use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
@@ -72,6 +73,9 @@ class BonSortieController extends BaseController implements BaseAction {
                     case \App::ACTION_GET_COLISAGES:
                         $this->doGetInfoColisages($request);
                         break;
+                        case \App::ACTION_GET_COLIS_BONSORTIE:
+                                $this->doGetColisBonSortie($request);
+                                break;
                 }
             } else {
                 throw new Exception('NO_ACTION');
@@ -84,6 +88,7 @@ class BonSortieController extends BaseController implements BaseAction {
     public function doInsert($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
+            $codeUsineDestination = $request['codeUsineDestination'];
             $bonSortieManager = new BonSortieManager();
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
@@ -92,11 +97,12 @@ class BonSortieController extends BaseController implements BaseAction {
             $bonSortie->setNumeroCamion($request['numeroCamion']);
             $bonSortie->setNomChauffeur($request['nomChauffeur']);
             $bonSortie->setOrigine($request['origine']);
-            $bonSortie->setDestination($request['destination']);
+            $bonSortie->setDestination($codeUsineDestination);
             $bonSortie->setCodeUsine($request['codeUsine']);
             $bonSortie->setLogin($request['login']);
             $bonSortie->setStatus(1);
             $bonSortie->setPoidsTotal($request['poidsTotal']);
+            $bonSortie->setTotalColis($request['totalColis']);
             $Added = $bonSortieManager->insert($bonSortie);
             if ($Added->getId() != null) {
                 $jsonBonSortie = json_decode($_POST['jsonProduit'], true);
@@ -113,24 +119,22 @@ class BonSortieController extends BaseController implements BaseAction {
                         $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
                         $InsertedLB = $ligneBonSortieManager->insert($ligneBonSortie);
                         if ($InsertedLB->getId() != null) {
-                        $stockManager = new \Stock\StockManager();
+                            $stockManager = new \Stock\StockManager();
                             if ($ligne['qte'] != "")
                                 $nbStock = $ligne['qte'];
-                            if ($request['origine'] != 'usine_dakar') {
-                                $stockManager->destockageReel($produitId, $request['origine'], $nbStock);
-                                $stock = $stockManager->findStockReelByProduitId($produitId, $request['destination']);
-                                if ($stock == 0) {
-                                    $stockReel = new \Stock\StockReel();
-                                    $stockReel->setCodeUsine('usine_dakar');
-                                    $stockReel->setLogin($request ['login']);
-                                    $stockReel->setProduit($produit);
-                                    $stockReel->setStock($nbStock);
-                                    $stockManager->insert($stockReel);
-                                } else {
-                                    $stockManager->updateNbStockReel($produitId, 'usine_dakar', $nbStock);
-                                }
+                            $stockManager->destockageReel($produitId, $request['origine'], $nbStock);
+                            $stock = $stockManager->findStockReelByProduitId($produitId, $codeUsineDestination);
+                            if ($stock == 0) {
+                                $stockReel = new \Stock\StockReel();
+                                $stockReel->setCodeUsine('usine_dakar');
+                                $stockReel->setLogin($request ['login']);
+                                $stockReel->setProduit($produit);
+                                $stockReel->setStock($nbStock);
+                                $stockManager->insert($stockReel);
+                            } else {
+                                $stockManager->updateNbStockReel($produitId, $codeUsineDestination, $nbStock);
                             }
-                    }
+                        }
                     }
                     $jsonColis = json_decode($_POST['jsonColis'], true);
                     foreach ($jsonColis as $key => $ligneC) {
@@ -144,18 +148,19 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $ligneColisManager = new \BonSortie\LigneColisBonSortieManager();
                                 $insertedLC = $ligneColisManager->insert($colis);
                                 if ($insertedLC->getId() != null) {
-                                    $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
+                                    $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
                                     $cartonManager = new \Produit\CartonManager();
-                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, 'usine_dakar');
+                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineDestination);
                                     if ($existColisage == 0) {
                                         $carton = new \Produit\Carton();
                                         $carton->setNombreCarton($ligneC["nbColis"]);
                                         $carton->setQuantiteParCarton($ligneC["qte"]);
                                         $carton->setTotal($ligneC["nbColis"] * $ligneC["qte"]);
                                         $carton->setProduitId($ligneC["produitId"]);
+                                        $carton->setCodeUsine($codeUsineDestination);
                                         $cartonManager->insert($carton);
                                     } else {
-                                        $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], 'usine_dakar');
+                                        $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $codeUsineDestination);
                                     }
                                 }
                             }
@@ -284,19 +289,15 @@ class BonSortieController extends BaseController implements BaseAction {
 
     public function doStat($request) {
         try {
-            if (isset($request['codeUsine'])) {
                 $BonSortieManager = new BonSortieManager();
-                $achat = $BonSortieManager->findStatisticByUsine($request['codeUsine']);
-                if ($achat != null)
-                    $this->doSuccessO($achat);
+                $sortie = $BonSortieManager->findQuantiteSortieByUsine();
+                if ($sortie != null)
+                    $this->doSuccessO($sortie);
                 else
                     echo json_encode(array());
-            } else {
-                $this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
-                $this->logger->log->error('View : Params not enough');
-            }
+            
         } catch (Exception $e) {
-            $this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
+            $this->doError('-1', 'Impossible de charger les statistiques globales');
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
@@ -356,6 +357,26 @@ class BonSortieController extends BaseController implements BaseAction {
         }
     }
 
+    
+        
+        public function doGetColisBonSortie($request) {
+		try {
+			if (isset($request['produitId'])) {
+				$colisManager = new LigneColisBonSortieManager();
+				$infoscolis = $colisManager->getAllColisBonSortie($request['bonsortieId'],$request['produitId']);
+				if($infoscolis!= NULL){
+					$this->doSuccessO($infoscolis);
+				}  else {
+					echo json_encode(array());
+				}
+			} else{
+				$this->doError('-1', 'Données invalides');
+			}
+
+		}catch (Exception $e) {
+			$this->doError('-1', $e->getMessage());
+		}
+	}
 }
 
 $oBonSortieController = new BonSortieController($_REQUEST);

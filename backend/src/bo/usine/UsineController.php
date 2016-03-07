@@ -33,6 +33,9 @@ class UsineController extends BaseController implements BaseAction {
                     case \App::ACTION_LIST:
                         $this->doList($request);
                         break;
+                    case \App::ACTION_LIST_VALID:
+                        $this->doListValid($request);
+                        break;
                     case \App::ACTION_REMOVE:
                         $this->doRemove($request);
                         break;
@@ -93,6 +96,26 @@ class UsineController extends BaseController implements BaseAction {
             if (isset($request['ACTION'])) {
                 $usineManager = new UsineManager();
                 $usine = $usineManager->retrieveAll();
+                if ($usine != NULL) {
+                    $this->doSuccessO($this->listObjectToArray($usine));
+                } else
+                    echo json_encode(array());
+            }else {
+
+                throw new ConstraintException('Données invalides');
+            }
+        } catch (ConstraintException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
+        }
+    }
+    
+    public function doListValid($request) {
+        try {
+            if (isset($request['ACTION'])) {
+                $usineManager = new UsineManager();
+                $usine = $usineManager->retrieveAllByUsine($request['codeUsine']);
                 if ($usine != NULL) {
                     $this->doSuccessO($this->listObjectToArray($usine));
                 } else

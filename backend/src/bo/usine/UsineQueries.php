@@ -68,6 +68,15 @@ class UsineQueries {
         else
             return null;
     }
+    
+    public function retrieveAllByUsine($codeUsine) {
+        $query = Bootstrap::$entityManager->createQuery("select u.code as value, u.nomUsine as text from Usine\Usine u where u.code!='$codeUsine'");
+        $types = $query->getResult();
+        if ($types != null)
+            return $types;
+        else
+            return null;
+    }
     public function view($familleId) {
         $query = Bootstrap::$entityManager->createQuery("select f.id as familleId, f.libelle as familleName from Produit\FamilleProduit f where f.id = :familleId");
         $query->setParameter('familleId', $familleId);

@@ -37,7 +37,7 @@ class CartonQueries {
     }
  
     public function findCartonByProduitId($produitId, $codeUsine) {
-        $sql = 'SELECT c.id FROM carton c, demoulage d WHERE d.id=c.demoulage_id and produit_id = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT c.id FROM carton c, demoulage d WHERE d.id=c.demoulage_id and produit_id = "'.$produitId.'" and c.codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $cartonId = $stmt->fetchAll();

@@ -46,8 +46,9 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label> Destination</label>
 					</div>
 					<div class="col-sm-6">
-                                            <input type="text" name="destination" id="destination" placeholder=""
-                                                       style="width: 100%" class="col-xs-10 col-sm-7" value="Dakar" readonly="readonly">
+                                            <select id="CMBDESTINATIONS" name="CMBDESTINATIONS"  data-placeholder="" style="width: 99%">
+                                                        <option value="*" class="usines">Selectionnez</option>
+                                                </select>
 					</div>
 				</div>
 				<div class="space-6"></div>
@@ -56,7 +57,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label>Chauffeur</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" name="numeroBonSortie" id="nomChauffeur" placeholder=""
+						<input type="text" name="nomChauffeur" id="nomChauffeur" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -66,7 +67,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 						<label> Numéro Camion</label>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" id="numeroCamion" placeholder=""
+                                            <input type="text" name="numeroCamion" id="numeroCamion" placeholder=""
 							style="width: 100%" class="col-xs-10 col-sm-7">
 					</div>
 				</div>
@@ -326,7 +327,8 @@ $(document).ready(function () {
                 $("#numeroBonSortie").val(sData.oId);
             }
     });
-    $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST; ?>"}, function (data) {
+    loadUsine = function(codeUsine){
+    $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID; ?>", codeUsine:codeUsine}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -338,6 +340,8 @@ $(document).ready(function () {
                  $("#CMBDESTINATIONS").loadJSON('{"usines":' + data + '}');
             }
     });
+    };
+    loadUsine("<?php echo $codeUsine;?>");
     loadProduit = function(){
         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
@@ -689,9 +693,10 @@ $(document).ready(function () {
             var heureSortie= $('#heureSortie').val();
             var numeroCamion = $("#numeroCamion").val();
             var nomChauffeur = $("#nomChauffeur").val();
-            var destination = 'usine_dakar';
-            var poidsTotal = $("#poidsTotal").val();
+            var totalColis = $("#totalColis").val();
+            var poidsTotal = $("#qteTotal").val();
             var codeUsine = "<?php echo $codeUsine ?>";
+            var codeUsineDestination = $("#CMBDESTINATIONS").val();
             var login = "<?php echo $login ?>";
             var $table = $("#tab_produit");
             rows = [],
@@ -723,11 +728,12 @@ $(document).ready(function () {
             formData.append('numeroBonSortie', numeroBonSortie);
             formData.append('numeroCamion', numeroCamion);
             formData.append('nomChauffeur', nomChauffeur);
-            formData.append('destination', destination);
             formData.append('jsonProduit', tbl);
             formData.append('jsonColis', JSON.stringify(colisage));
+            formData.append('totalColis', totalColis);
             formData.append('poidsTotal', poidsTotal);
             formData.append('codeUsine', codeUsine);
+            formData.append('codeUsineDestination', codeUsineDestination);
             formData.append('login', login);
             $.ajax({
                 url: '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php',
@@ -768,23 +774,55 @@ $(document).ready(function () {
         
         //Validate
         $("#SAVE").bind("click", function () {
+        $.validator.addMethod("notEqual", function(value, element, param) {
+            return this.optional(element) || value != param;
+        });     
         $('#validation-form').validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
 			focusInvalid: false,
 			ignore: "",
 			rules: {
-				
-                            poidsTotal: {
-                                required:true
-					}
-				
+			
+                        CMBDESTINATIONS: {
+                            notEqual: "*" 
+                        },
+                        
+                        qteTotal: {
+                            required:true
+                        },
+                        
+			 totalColis: {
+                            required:true
+                        },
+                        
+			 nomChauffeur: {
+                            required:true
+                        },
+                        
+			 numeroCamion: {
+                            required:true
+                        }	
 			},
 	
 			messages: {
-                            poidsTotal: {
+                            CMBDESTINATIONS: {
+                                notEqual:"Champ obligatoire."
+                            },
+                            qteTotal: {
                                 required:"Champ obligatoire."
-                            }
+                            },
+                             totalColis: {
+                                required:"Champ obligatoire."
+                        },
+                        
+			 nomChauffeur: {
+                            required:"Champ obligatoire."
+                        },
+                        
+			 numeroCamion: {
+                            required:"Champ obligatoire."
+                        }
 			},
 	
 	

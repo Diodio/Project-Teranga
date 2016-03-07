@@ -91,6 +91,29 @@ public function findStatisticByUsine($codeUsine) {
             return 0;
     }
     
+    public function findQuantiteSortieByUsine() {
+            $sortieDakar = $this->bonSortieQuery->findQuantiteSortieByUsine('usine_dakar');
+            $sortieRufisque = $this->bonSortieQuery->findQuantiteSortieByUsine('usine_rufisque');
+            $sortieStlouis = $this->bonSortieQuery->findQuantiteSortieByUsine('usine_stlouis');
+            $bonSortieTab = array();
+                if ($sortieDakar != null)
+                    $bonSortieTab['nbDakar'] = $sortieDakar;
+                else
+                    $bonSortieTab['nbDakar'] = 0;
+                if ($sortieRufisque != null)
+                    $bonSortieTab['nbRufisque'] = $sortieRufisque;
+                else
+                    $bonSortieTab['nbRufisque']= 0;
+                if ($sortieStlouis != null)
+                    $bonSortieTab['nbStLouis'] = $sortieStlouis;
+                else
+                    $bonSortieTab['nbStLouis'] = 0;
+                
+               
+            return $bonSortieTab;
+       
+    }
+    
     public function findBonSortieDetails($bonSortieId) {
         if ($bonSortieId != null) {
             $bonSortie = $this->bonSortieQuery->findBonDetails($bonSortieId);
@@ -101,12 +124,14 @@ public function findStatisticByUsine($codeUsine) {
                // $bonSortieDetail ['id'] = $value ['sortie.id'];
                 $bonSortieDetail ['numero'] = $value ['numeroBonSortie'];
                 $bonSortieDetail ['date']  = date_format(date_create($value ['dateBonSortie']), 'd/m/Y');
+                $bonSortieDetail ['heure']  = $value ['heureSortie'];
                 $bonSortieDetail ['numCamion']  =  $value ['numeroCamion'];
                 $bonSortieDetail ['chauffeur']  =  $value ['nomChauffeur'];
                 $usineOrigine = $usineManager->findByCodeUsine($value ['origine']);
                 $bonSortieDetail ['origine']  =  $usineOrigine['nomUsine'];
                 $usineDestination = $usineManager->findByCodeUsine($value ['destination']);
                 $bonSortieDetail ['destination']  =  $usineDestination ['nomUsine'];
+                $bonSortieDetail ['totalColis']  =  $value ['totalColis'];
                 $bonSortieDetail ['poidsTotal']  =  $value ['poidsTotal'];
                 $userManager = new \Utilisateur\UtilisateurManager();
                 $user = $userManager->findByLogin($value ['login'], $value ['codeUsine']);

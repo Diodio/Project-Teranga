@@ -130,6 +130,8 @@ class App
      const ACTION_DETAIL_PRODUIT='DETAIL_PRODUIT';
      const ACTION_LIST_INVENTAIRE_ACHATS='LIST_INVENTAIRE_ACHATS';
      const ACTION_STAT_GERANT='LIST_STAT_GERANT';
+     const ACTION_GET_COLIS_BONSORTIE='GET_COLIS_BONSORTIE';
+     
      
      static function getBoPath() {
          

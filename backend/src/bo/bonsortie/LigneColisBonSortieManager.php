@@ -1,7 +1,6 @@
 <?php
 
 namespace BonSortie;
-use Facture\LigneColisQueries as LigneColisQueries;
 
 
 
@@ -24,5 +23,9 @@ class LigneColisBonSortieManager {
     
     public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine) {	
          return $this->ligneColisQuery->misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine);
+    }
+    
+     public function getAllColisBonSortie($bonsortieId, $produitId) {
+        return $this->ligneColisQuery->getAllColisBonSortie($bonsortieId, $produitId);
     }
 }

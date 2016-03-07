@@ -62,7 +62,7 @@ class DemoulageQueries {
 
     public function getAllColis($produitId, $codeUsine) {
         if ($codeUsine !== '*')
-            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND codeUsine="' . $codeUsine . '" AND d.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.codeUsine="' . $codeUsine . '" AND d.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
         else
             $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -78,11 +78,13 @@ class DemoulageQueries {
         return $arrayContact;
     }
 
+    
+    
     public function getAllColisDemoulage($demoulageId, $codeUsine) {
         if ($codeUsine !== '*')
-            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND codeUsine="' . $codeUsine . '" AND d.id=' . $demoulageId . ' GROUP BY quantiteParCarton';
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.codeUsine="' . $codeUsine . '" AND d.id=' . $demoulageId . ' GROUP BY quantiteParCarton';
         else
-            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.id=' . $demoulageId . ' GROUP BY quantiteParCarton';
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.id=' . $demoulageId . ' GROUP BY quantiteParCarton';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $clients = $stmt->fetchAll();
@@ -108,7 +110,7 @@ class DemoulageQueries {
     }
 
     public function getQuantiteColisage($produitId, $codeUsine) {
-        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.produit_id='$produitId' and codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
+        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.produit_id='$produitId' and d.codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();
@@ -123,9 +125,9 @@ class DemoulageQueries {
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== "*") {
             if ($status !== "*")
-                $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAvantDemoulage, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
+                $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAvantDemoulage, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" and d.codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
             else {
-                $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAvantDemoulage, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
+                $sql = 'select distinct(d.id) as demoulageId, status, d.createdDate date, numero,p.libelle libelle, quantiteAvantDemoulage, quantiteDemoulee, codeUsine, p.id produitId, (SELECT SUM(nombreCarton) FROM carton WHERE d.id=carton.demoulage_id) as nbColis from demoulage d, produit p where d.produit_id=p.id and d.codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
             }
         } else {
             if ($status !== "*")
@@ -144,9 +146,9 @@ class DemoulageQueries {
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== "*") {
             if ($status !== "*")
-                $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+                $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and status ="' . $status . '" and d.codeUsine="' . $codeUsine . '" ' . $sWhere . '';
             else
-                $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+                $sql = 'select count(*) as nb from demoulage d, produit p where d.produit_id=p.id and d.codeUsine="' . $codeUsine . '" ' . $sWhere . '';
         }
         else {
             if ($status !== "*")
