@@ -606,11 +606,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             var urlColis = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
                 $.post(urlColis, {bonsortieId:bonsortieId,produitId: produitId,ACTION: "<?php echo App::ACTION_GET_COLIS_BONSORTIE; ?>"}, function(dataColis) {
                   dataColis = $.parseJSON(dataColis);
-                dataColis = dataColis[0];
+               // dataColis = dataColis[0];
+                 console.log(dataColis);
                 $(dataColis).each(function(index, element){
                         html+="<span><b>"+element.nbCarton+" colis de "+element.quantiteParCarton+" kg<b></span><br /><hr>";
                 });
                  html+="</div>";
+                 console.log(html);
                  showPopover("colis"+produitId, ""+html+"");
                 });
                
@@ -645,7 +647,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_ANNULATION").click(function()
             {
                 if (checkedBon.length == 0)
-                    bootbox.alert("Veuillez selectionnez un bonsortie");
+                    bootbox.alert("Veuillez selectionnez un bon de sortie");
                 else if (checkedBon.length >= 1)
                 {
                      bootbox.confirm("Voulez vous vraiment annuler cet bon de sortie", function(result) {
@@ -662,9 +664,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/bonSortieListe.php", function () {
-                        });
-                         }
+                   loadBons();
+                       }
                     });
                 }
             });

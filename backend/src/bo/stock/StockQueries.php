@@ -216,6 +216,13 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
 
     }
+    
+    
+    public function updateSortieNbStockReel($produitId, $codeUsineOrigine, $codeUsineDestination,$nbStock ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        return $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $nbStock, codeUsine='".$codeUsineDestination."' WHERE produit_id = $produitId AND codeUsine='".$codeUsineOrigine."'");
+
+    }
     public function updateSeuilStock($produitId, $codeUsine, $nbSeuil ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
         return $connexion->executeUpdate("UPDATE stock_reel SET seuil = $nbSeuil WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");

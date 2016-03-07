@@ -105,6 +105,12 @@ class StockManager {
        $stockQueries = new StockQueries();
     	return $stockQueries->updateNbStockReel($produitId, $codeUsine, $nbStock);
   }
+  
+  public function updateSortieNbStockReel($produitId, $codeUsineOrigine, $codeUsineDestination, $nbStock ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->updateSortieNbStockReel($produitId, $codeUsineOrigine, $codeUsineDestination, $nbStock);
+  }
+  
   public function updateSeuilStock($produitId, $codeUsine, $nbSeuil ) {	
        $stockQueries = new StockQueries();
     	return $stockQueries->updateSeuilStock($produitId, $codeUsine, $nbSeuil);

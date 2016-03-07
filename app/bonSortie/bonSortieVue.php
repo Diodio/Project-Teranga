@@ -482,7 +482,8 @@ $(document).ready(function () {
         });
         
       //  var produitId = $('#CMB_DESIGNATIONS').val();
-        var designation = $('#CMB_DESIGNATIONS').select2('data').text;
+        var designationR = $('#CMB_DESIGNATIONS').select2('data').text;
+        var designation = designationR.replace(/\(.*?\)/g, '');
         var quantiteSortie = $('#quantiteSortie').val();
        //var rows=[];
        
