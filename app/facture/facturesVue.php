@@ -597,7 +597,7 @@ $(document).ready(function () {
     
         });
     loadProduit = function(){
-        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "usine_dakar", ACTION: "<?php echo App::ACTION_LIST_PRODUITS
+        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_REEL_PAR_USINE
                 ; ?>"}, function(data) {
             sData=$.parseJSON(data);
             if(sData.rc==-1){
