@@ -247,11 +247,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <th class="text-center">
                                             Désignation
                                     </th>
-                                    <th class="text-center" style="width: 120px;">
-                                            Détail colis
-                                    </th>
                                     <th class="text-center">
                                             Quantite (kg)
+                                    </th>
+                                    <th class="text-center" style="width: 120px;">
+                                            Détail colis
                                     </th>
                             </tr>
                         </thead>
@@ -572,9 +572,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     var trHTML='';
                     $(table).each(function(index, element){
                         var pid=element.id;
-                        trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><button id="colis'+pid+'" class="btnColis center btn btn-warning btn-mini" href="#">'+
+                        trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td>' + element.quantite + '</td><td><button id="colis'+pid+'" class="btnColis center btn btn-warning btn-mini" href="#">'+
                             '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
-                            '</button></td><td>' + element.quantite + '</td></tr>';
+                            '</button></td></tr>';
                         
                     });
                     $('#TABLE_BONS tbody').append(trHTML);
