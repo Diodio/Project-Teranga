@@ -62,7 +62,7 @@ class DemoulageQueries {
 
     public function getAllColis($produitId, $codeUsine) {
         if ($codeUsine !== '*')
-            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.codeUsine="' . $codeUsine . '" AND d.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c WHERE nombreCarton<>0 and c.codeUsine="' . $codeUsine . '" AND c.produitId=' . $produitId . ' GROUP BY quantiteParCarton';
         else
             $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

@@ -71,9 +71,9 @@ class ProduitQueries {
        if($sWhere !== "")
             $sWhere = " and " . $sWhere;
            if($codeUsine !== '*')  {
-                $sql = 'SELECT DISTINCT produit.id id, libelle,stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId AND demoulage.id=demoulage_id) as nbColis FROM produit, stock_reel, demoulage 
+                $sql = 'SELECT DISTINCT produit.id id, libelle,stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId and codeUsine="'.$codeUsine.'" ) as nbColis FROM produit, stock_reel 
                     WHERE produit.id=stock_reel.produit_id
-                    AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" group by produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+                    AND stock_reel.codeUsine="'.$codeUsine.'" group by produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
            }
            else {
                $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM carton WHERE produit.id=carton.produitId AND demoulage.id=demoulage_id) as nbColis FROM produit, stock_reel, demoulage

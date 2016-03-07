@@ -126,13 +126,13 @@ class BonSortieController extends BaseController implements BaseAction {
                             $stock = $stockManager->findStockReelByProduitId($produitId, $codeUsineDestination);
                             if ($stock == 0) {
                                 $stockReel = new \Stock\StockReel();
-                                $stockReel->setCodeUsine('usine_dakar');
+                                $stockReel->setCodeUsine($codeUsineDestination);
                                 $stockReel->setLogin($request ['login']);
                                 $stockReel->setProduit($produit);
                                 $stockReel->setStock($nbStock);
                                 $stockManager->insert($stockReel);
                             } else {
-                                $stockManager->updateNbStockReel($produitId, $codeUsineDestination, $nbStock);
+                                $stockManager->updateSortieNbStockReel($produitId, $request['origine'],$codeUsineDestination, $nbStock);
                             }
                         }
                     }

@@ -606,11 +606,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             var urlColis = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
                 $.post(urlColis, {bonsortieId:bonsortieId,produitId: produitId,ACTION: "<?php echo App::ACTION_GET_COLIS_BONSORTIE; ?>"}, function(dataColis) {
                   dataColis = $.parseJSON(dataColis);
-                dataColis = dataColis[0];
+               // dataColis = dataColis[0];
+                 console.log(dataColis);
                 $(dataColis).each(function(index, element){
                         html+="<span><b>"+element.nbCarton+" colis de "+element.quantiteParCarton+" kg<b></span><br /><hr>";
                 });
                  html+="</div>";
+                 console.log(html);
                  showPopover("colis"+produitId, ""+html+"");
                 });
                
