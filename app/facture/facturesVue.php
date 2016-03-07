@@ -1307,9 +1307,9 @@ $(document).ready(function () {
 				portDechargement: {
 					required: true
 				},
-				montantHt: {
-					required: true
-				},
+// 				montantHt: {
+// 					required: true
+// 				},
 				tva: {
 					required: true
 				},
@@ -1344,9 +1344,9 @@ $(document).ready(function () {
 				tva: {
 					required: "Champ obligatoire."
 				},
-				montantTtc: {
-					required: "Champ obligatoire."
-				},
+// 				montantTtc: {
+// 					required: "Champ obligatoire."
+// 				},
 				modePaiement: {
 					required: "Champ obligatoire."
 				}
