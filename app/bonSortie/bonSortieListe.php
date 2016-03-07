@@ -647,7 +647,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_ANNULATION").click(function()
             {
                 if (checkedBon.length == 0)
-                    bootbox.alert("Veuillez selectionnez un bonsortie");
+                    bootbox.alert("Veuillez selectionnez un bon de sortie");
                 else if (checkedBon.length >= 1)
                 {
                      bootbox.confirm("Voulez vous vraiment annuler cet bon de sortie", function(result) {
@@ -664,9 +664,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonsortie/bonSortieListe.php", function () {
-                        });
-                         }
+                   loadBons();
+                       }
                     });
                 }
             });
