@@ -17,7 +17,7 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="page-header">
         <h1>
             Gestion des factures <small> <i
-                    class="ace-icon fa fa-angle-double-right"></i> Facture
+                    class="ace-icon fa fa-angle-double-right"></i> Empotage
             </small>
         </h1>
     </div>
@@ -28,6 +28,51 @@ $codeUsine = $_COOKIE['codeUsine'];
          <form  id="validation-form" method="get">
              
              <div class="row">
+           <div class="col-sm-6" >
+                <div class="row" >
+                        <div class="col-sm-2">
+                            <label> Client</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select id="CMB_CLIENTS" name="nomClient" data-placeholder=""  style="width:100%"     >
+                                <option value="*" class="clients"></option>
+                            </select>
+                        </div>
+                    <a id="NEW_CLIENT" class="btn btn-primary btn-sm"  title="Nouveau client"
+                        alt="Nouveau client"><i
+                        class="ace-icon fa fa-plus-square"></i>  
+                    </a>
+                 </div>
+               <div class="space-6"></div>
+                 <div class="row">
+                        <div class="col-sm-2">
+                            <label> Refèrence</label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="reference" name="reference"  style="width:100%" 
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
+               <div class="space-6"></div>
+                 <div class="row">
+                        <div class="col-sm-2">
+                            <label> Destination</label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="origine" name="origine" placeholder=""  style="width:100%" 
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
+                 <div class="space-6"></div>
+                <div class="row" >
+                        <div class="col-sm-2">
+                            <label> Pays</label>
+                        </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="pays" placeholder="" style="width:100%" 
+                                       class="col-xs-10 col-sm-7">
+                            </div>
+                 </div>
                  <div class="space-6"></div>
                 </div>
                     <div class="col-sm-6">
@@ -54,6 +99,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 <input name="heureReception" id="heureFacture" type="text" class="col-xs-10 col-sm-7" />
                             </div>
                         </div>
+                        <div class="row" style="margin-top: 132px;">
+                    <div class="col-sm-2">
+                        <label style="margin-left: 24%"> Devise</label>
+                    </div>
+                    <div class="col-sm-6" style="margin-left: 74px;">
+                        <select id="devise" data-placeholder=""      >
+                            <option value="&euro;">&euro;</option>
+                            <option value="FCFA">FCFA</option>
+                            <option value="$">US$</option>
+                        </select>
+                    </div>
+                </div>
                        
                </div>
     </div>
@@ -88,6 +145,18 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                              <div class="space-6"></div>
+                            <div class="row">
+                                
+                                <div class="col-sm-3">
+                                    <label>  Prix <span id="labeldevise"></span> </label>
+                                </div>
+                                <div class="col-sm-8">
+                                        <div class="clearfix">
+                                                <input type="text" id="prixUnitaire" placeholder=""
+                                                        class="col-xs-12 col-sm-12">
+                                        </div>
+                                </div>
+                            </div>
            
                 </div>
                 <div class="col-sm-6">
@@ -288,100 +357,100 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="space-6"></div>
-                            <div class="row">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                        for="form-field-1"> Tva </label>
-                                <div class="col-sm-7">
-                                    <div class="clearfix">
-                                        <input type="text" id="tva" name="tva" placeholder=""
-                                               class="col-xs-12 col-sm-3" value="0">  &nbsp;%
-                                    </div>
-                                </div>
-                            </div>
+<!--                             <div class="row"> -->
+<!--                                 <label class="col-sm-3 control-label no-padding-right" -->
+<!--                                         for="form-field-1"> Tva </label> -->
+<!--                                 <div class="col-sm-7"> -->
+<!--                                     <div class="clearfix"> -->
+<!--                                         <input type="text" id="tva" name="tva" placeholder="" -->
+<!--                                                class="col-xs-12 col-sm-3" value="0">  &nbsp;% -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             <div class="space-6"></div>
-                            <div class="row">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                        for="form-field-1"> Montant TTC <span id="labelmontantTtc"></span> </label>
-                                <div class="col-sm-7">
-                                    <div class="clearfix">
-                                        <input type="text" id="montantTtc" name="montantTtc" placeholder=""
-                                                    class="col-xs-12 col-sm-10">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-6"></div>
-                            <div class="row">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                        for="form-field-1"> Reglé </label>
-                                <div class="col-sm-7">
-                                    <div class="clearfix">
-                                           <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder="" />
-                                    </div>
-                                </div>
-                            </div>
+<!--                             <div class="row"> -->
+<!--                                 <label class="col-sm-3 control-label no-padding-right" -->
+<!--                                         for="form-field-1"> Montant TTC <span id="labelmontantTtc"></span> </label> -->
+<!--                                 <div class="col-sm-7"> -->
+<!--                                     <div class="clearfix"> -->
+<!--                                         <input type="text" id="montantTtc" name="montantTtc" placeholder="" -->
+<!--                                                     class="col-xs-12 col-sm-10"> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="space-6"></div> -->
+<!--                             <div class="row"> -->
+<!--                                 <label class="col-sm-3 control-label no-padding-right" -->
+<!--                                         for="form-field-1"> Reglé </label> -->
+<!--                                 <div class="col-sm-7"> -->
+<!--                                     <div class="clearfix"> -->
+<!--                                            <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder="" /> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             
                              
-                        </div>
-                        <div class="col-sm-4">
+<!--                         </div> -->
+<!--                         <div class="col-sm-4"> -->
                             
-                            <div class="row">
-                                        <label class="col-sm-5 control-label no-padding-right"
-                                                for="form-field-1"> Mode de paiement </label>
-                                        <div class="col-sm-7">
-                                                <div class="clearfix">
-                                                    <select id="modePaiement" name="modePaiement" class="col-xs-12 col-sm-10">
-                                                                <option value="ESPECE">Especes</option>
-                                                                <option value="CHEQUE">Cheque</option>
-                                                                <option value="VIREMENT">Virement</option>
-                                                        </select>
-                                                </div>
-                                </div>
-                            </div>
-                            <div class="space-6"></div>
-                            <div class="row">
-                                <label class="col-sm-5 control-label no-padding-right"
-                                        for="form-field-1"> No Cheque </label>
-                                <div class="col-sm-7">
-                                        <div class="clearfix">
-                                                <input type="text" readonly id="numCheque" placeholder=""
-                                                        class="col-xs-12 col-sm-10">
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="space-6"></div>
-                            <div class="row">
-                                        <label class="col-sm-5 control-label no-padding-right"
-                                                for="form-field-1"> Date paiement </label>
+<!--                             <div class="row"> -->
+<!--                                         <label class="col-sm-5 control-label no-padding-right" -->
+<!--                                                 for="form-field-1"> Mode de paiement </label> -->
+<!--                                         <div class="col-sm-7"> -->
+<!--                                                 <div class="clearfix"> -->
+<!--                                                     <select id="modePaiement" name="modePaiement" class="col-xs-12 col-sm-10"> -->
+<!--                                                                 <option value="ESPECE">Especes</option> -->
+<!--                                                                 <option value="CHEQUE">Cheque</option> -->
+<!--                                                                 <option value="VIREMENT">Virement</option> -->
+<!--                                                         </select> -->
+<!--                                                 </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="space-6"></div> -->
+<!--                             <div class="row"> -->
+<!--                                 <label class="col-sm-5 control-label no-padding-right" -->
+<!--                                         for="form-field-1"> No Cheque </label> -->
+<!--                                 <div class="col-sm-7"> -->
+<!--                                         <div class="clearfix"> -->
+<!--                                                 <input type="text" readonly id="numCheque" placeholder="" -->
+<!--                                                         class="col-xs-12 col-sm-10"> -->
+<!--                                         </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="space-6"></div> -->
+<!--                             <div class="row"> -->
+<!--                                         <label class="col-sm-5 control-label no-padding-right" -->
+<!--                                                 for="form-field-1"> Date paiement </label> -->
                                         
-                                            <div class="col-sm-7">
-                                                    <div class="clearfix">
-                                                            <input type="text" readonly id="datePaiement" placeholder=""
-                                                                    class="col-xs-12 col-sm-10">
-                                                    </div>
-                                            </div>
-                            </div>
-                            <div class="space-6"></div>
-                            <div class="row">
-                                <label class="col-sm-5 control-label no-padding-right"
-                                        for="form-field-1"> Avance <span id="labelavance"></span> </label>
-                                <div class="col-sm-7">
-                                        <div class="clearfix">
-                                                <input type="text" id="avance" name="avance" placeholder=""
-                                                        class="col-xs-12 col-sm-10">
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="space-6"></div>
-                            <div class="row">
-                                <label class="col-sm-5 control-label no-padding-right"
-                                        for="form-field-1"> Reliquat <span id="labelreliquat"></span> </label>
-                                <div class="col-sm-7">
-                                        <div class="clearfix">
-                                                <input type="text" id="reliquat" name="reliquat" placeholder=""
-                                                        class="col-xs-12 col-sm-10">
-                                        </div>
-                                </div>
-                        </div>
+<!--                                             <div class="col-sm-7"> -->
+<!--                                                     <div class="clearfix"> -->
+<!--                                                             <input type="text" readonly id="datePaiement" placeholder="" -->
+<!--                                                                     class="col-xs-12 col-sm-10"> -->
+<!--                                                     </div> -->
+<!--                                             </div> -->
+<!--                             </div> -->
+<!--                             <div class="space-6"></div> -->
+<!--                             <div class="row"> -->
+<!--                                 <label class="col-sm-5 control-label no-padding-right" -->
+<!--                                         for="form-field-1"> Avance <span id="labelavance"></span> </label> -->
+<!--                                 <div class="col-sm-7"> -->
+<!--                                         <div class="clearfix"> -->
+<!--                                                 <input type="text" id="avance" name="avance" placeholder="" -->
+<!--                                                         class="col-xs-12 col-sm-10"> -->
+<!--                                         </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="space-6"></div> -->
+<!--                             <div class="row"> -->
+<!--                                 <label class="col-sm-5 control-label no-padding-right" -->
+<!--                                         for="form-field-1"> Reliquat <span id="labelreliquat"></span> </label> -->
+<!--                                 <div class="col-sm-7"> -->
+<!--                                         <div class="clearfix"> -->
+<!--                                                 <input type="text" id="reliquat" name="reliquat" placeholder="" -->
+<!--                                                         class="col-xs-12 col-sm-10"> -->
+<!--                                         </div> -->
+<!--                                 </div> -->
+<!--                         </div> -->
                         </div>
                 </div>
         </div>
