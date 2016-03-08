@@ -168,8 +168,8 @@ public function findStatisticByUsine($codeUsine) {
         $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
         foreach ($sortie as $key => $value) {
             $stockManager = new \Stock\StockManager();
-            $stockManager->destockageReel($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
-            $stockManager->updateNbStockReel($value ['produit_id'], $codeUsineOrigine, $value ['quantite']);
+            $stockManager->destockageSortieReel($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
+            $stockManager->updateSortieNbStockReel($value ['produit_id'], $codeUsineOrigine, $value ['quantite']);
         }
         $infosColis = $this->bonSortieQuery->findInfoColisByBonSortie($sortieId);
         foreach ($infosColis as $key => $value) {

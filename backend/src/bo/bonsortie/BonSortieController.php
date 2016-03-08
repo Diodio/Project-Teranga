@@ -144,7 +144,7 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $colis->setNombreCarton($ligneC["nbColis"]);
                                 $colis->setQuantiteParCarton($ligneC["qte"]);
                                 $colis->setProduit_id($ligneC["produitId"]);
-                                $colis->setBonSortie_id($Added->getId());
+                                $colis->setBonSortie_id($Added);
                                 $ligneColisManager = new \BonSortie\LigneColisBonSortieManager();
                                 $insertedLC = $ligneColisManager->insert($colis);
                                 if ($insertedLC->getId() != null) {
