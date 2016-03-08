@@ -35,7 +35,17 @@ class LigneColisBonSortieQueries {
         $connexion->executeUpdate("UPDATE carton,demoulage  SET nombreCarton = nombreCarton - $nbCarton WHERE demoulage.id=carton.demoulage_id AND produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine'");
     }
     
-    public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine ) {			
+     public function dimunieSortieNbColis($produitId, $quantite, $nbCarton, $codeUsineDestination ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineDestination'");
+    }
+    
+    public function misAjourColisSortieOrigine($produitId, $quantite, $nbCarton, $codeUsineOrigine ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineOrigine'");
+    }
+    
+     public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
         $connexion->executeUpdate("UPDATE carton,demoulage  SET nombreCarton = nombreCarton + $nbCarton WHERE demoulage.id=carton.demoulage_id AND produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine'");
     }

@@ -27,7 +27,9 @@ class BonSortieManager {
     	$this->bonSortieQuery=$this->bonSortieQuery->findAll();
     	return $this->bonSortieQuery;
     }
-
+    public function remove($achatId) {
+        return $this->bonSortieQuery->delete($achatId);
+    }
 
    public function findById($colisageId) {
        return $this->bonSortieQuery->findById($colisageId);
@@ -160,12 +162,22 @@ public function findStatisticByUsine($codeUsine) {
     }
     
     public function remettreStockParBonSortie($sortieId) {
+        $bonSortie= $this->bonSortieQuery->findById($sortieId);
+        $codeUsineOrigine=$bonSortie->getOrigine();
+        $codeUsineDestination=$bonSortie->getDestination();
         $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
         foreach ($sortie as $key => $value) {
             $stockManager = new \Stock\StockManager();
-            $stockManager->destockageReel($value ['produit_id'], 'usine_dakar', $value ['quantite']);
-            $stockManager->updateNbStockReel($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+            $stockManager->destockageReel($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
+            $stockManager->updateNbStockReel($value ['produit_id'], $codeUsineOrigine, $value ['quantite']);
         }
+        $infosColis = $this->bonSortieQuery->findInfoColisByBonSortie($sortieId);
+        foreach ($infosColis as $key => $value) {
+            $colisManager = new LigneColisBonSortieManager();
+            $colisManager->dimunieSortieNbColis($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'],$codeUsineDestination);
+            $colisManager->misAjourColisSortieOrigine($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsineOrigine);
+        }
+        $this->annulerBonSortie($sortieId);
     }
     
     public function listbonValid() {

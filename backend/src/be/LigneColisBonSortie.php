@@ -26,9 +26,9 @@ class LigneColisBonSortie {
      * */
     protected $produit_id;
 
-     /**
-     * @Column(type="integer", nullable=false)
-     * */
+     /** @ManyToOne(targetEntity="BonSortie\BonSortie", inversedBy="bonSortie") 
+     * @JoinColumn(name="bonSortie_id", referencedColumnName="id",
+      onDelete="CASCADE") */
     protected $bonSortie_id;
     
 
