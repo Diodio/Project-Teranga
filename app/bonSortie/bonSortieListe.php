@@ -48,12 +48,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         ">
                                         <i class="icon-group icon-only icon-on-right"></i> Action
                                     </button>
-
+                                    
                                     <ul class="dropdown-menu dropdown-info">
-                                        <li id='MNU_IMPRIMER'><a href="#" id="GRP_NEW">Imprimer</a></li>
+                                        <li id='MNU_IMPRIMER' class="disabled" ><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
-                                        <li id='MNU_ANNULATION'><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                         <li class="divider"></li>
+                                        <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
+                                        <li class="divider"></li>
                                         <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
                                     </ul>
                                 </div>
@@ -383,6 +383,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             MessageSelected = function(click)
             {
+            	EnableAction();
                 if (checkedBon.length == 1){
                     loadBonSelected(checkedBon[0]);
                     $('#TAB_MSG_VIEW').show();
@@ -399,6 +400,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             MessageUnSelected = function()
             {
+            	EnableAction();
                if (checkedBon.length === 1){
                     loadBonSelected(checkedBon[0]);
 		    $('#TAB_MSG_VIEW').show();
@@ -413,6 +415,46 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 $('table th input:checkbox').removeAttr('checked');
             };
+
+            EnableAction = function()
+        	{   
+                    if (checkedBon.length == 1)
+                    {
+                        $('#MNU_ANNULATION').removeClass('disabled');
+                        $('#MNU_IMPRIMER').removeClass('disabled');
+                        var state = $('#stag' + checkedBon[0]).val();
+                         if (state == 1) {
+                                 $('#MNU_ANNULATION').addClass('disabled');
+                              if($.cookie('profil')=='directeur') {
+                                $('#MNU_ANNULATION').removeClass('disabled');
+                             }
+                          } 
+                          else if (state == 2) {
+                              
+                              $('#MNU_ANNULATION').addClass('disabled');
+                              if($.cookie('profil')=='directeur') {
+                                $('#MNU_REMOVE').removeClass('disabled');
+                            }
+                          }
+                    }
+                    else if (checkedBon.length > 1){
+                        $('#MNU_ANNULATION').removeClass('enable');
+                        $('#MNU_IMPRIMER').removeClass('enable');
+                        $('#MNU_REMOVE').addClass('disabled');
+                         if($.cookie('profil')=='directeur') {
+                            $('#MNU_ANNULATION').addClass('disabled');
+                            $('#MNU_REMOVE').addClass('disabled');
+                         }
+                         bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                         loadBons('*');
+                    }
+                    else{
+                        $('#MNU_ANNULATION').removeClass('enable');
+                        $('#MNU_IMPRIMER').removeClass('enable');
+                        $('#MNU_ANNULATION').addClass('disabled');
+                        $('#MNU_IMPRIMER').addClass('disabled');
+                    }
+           };
 
             // Add checked item to the array
             checkedBonAdd = function(item) {
