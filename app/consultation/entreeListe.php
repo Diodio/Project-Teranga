@@ -15,10 +15,10 @@ $nomUsine = $_COOKIE['nomUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des bons sortie
+            Gestion des Entrées de stocks réels
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des bons de sortie
+                Entrées
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -65,7 +65,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des bons de sortie
+                            Liste des entrées venant des autres usines
                         </h4>
 
                         <div class="widget-toolbar">
@@ -143,7 +143,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
-                                                <?php if($codeUsine=='usine_dakar') {?>
+                                               
                                                     <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
@@ -157,7 +157,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 
                                                         </div>
                                                     </div>
-                                                <?php }?>
+                                            
                                                     <div class="space-6"></div>
                                                     <br/>
 
@@ -266,7 +266,7 @@ $nomUsine = $_COOKIE['nomUsine'];
             var checkedBon = new Array();
             // Check if an item is in the array
            // var interval = 500;
-            getIndicator = function() {
+            getIndicator = function(codeUsineDest) {
                 var url;
                 var user;
                 url = '<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php';
@@ -275,19 +275,19 @@ $nomUsine = $_COOKIE['nomUsine'];
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: 'ACTION=<?php echo App::ACTION_STAT; ?>',
+                    data: '&codeUsineDest='+codeUsineDest+'&ACTION=<?php echo App::ACTION_STAT_ENTREE; ?>',
                     cache: false,
                     success: function(data) {
                         
-                        $('#INDIC_BON_STLOUIS').text(data.nbStLouis);
-                        $('#INDIC_BON_RUFISQUE').text(data.nbRufisque);
-                        $('#INDIC_BON').text(data.nbDakar+" kg");
+//                        $('#INDIC_BON_STLOUIS').text(data.nbStLouis);
+//                        $('#INDIC_BON_RUFISQUE').text(data.nbRufisque);
+                        $('#INDIC_BON').text(data.nbEntree+" kg");
 
 //                        
                     }
                 });
             };
-            getIndicator();
+            getIndicator("<?php echo $codeUsine?>");
 
             loadUsine = function(codeUsine){
                 $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID; ?>", codeUsine:codeUsine}, function (data) {
@@ -421,7 +421,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                 $('#MNU_IMPRIMER').addClass('disabled');
                 $('#MNU_REMOVE').addClass('disabled');
                 $('#MNU_ANNULATION').addClass('disabled');
-                 bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
+                 bootbox.alert("Veuillez selectionnez une seule entrée SVP!");
                  loadBons();
             }
             else{

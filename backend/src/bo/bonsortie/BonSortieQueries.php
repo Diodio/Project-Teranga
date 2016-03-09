@@ -206,6 +206,13 @@ class BonSortieQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
+     public function findQuantiteEntreeByUsine($codeUsineDest) {
+        $sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE destination="'.$codeUsineDest.'" ';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $Achat = $stmt->fetch();
+        return $Achat['nb'];
+    }
     public function findBonDetails($sortieId) {
         if ($sortieId != null) {
             $sql = 'SELECT * from bon_sortie where bon_sortie.id=' . $sortieId;

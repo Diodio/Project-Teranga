@@ -132,6 +132,7 @@ class App
      const ACTION_STAT_GERANT='LIST_STAT_GERANT';
      const ACTION_GET_COLIS_BONSORTIE='GET_COLIS_BONSORTIE';
      const ACTION_GET_ENTREE='GET_ENTREE';
+     const ACTION_STAT_ENTREE='LIST_STAT_ENTREE';
      
      
      static function getBoPath() {

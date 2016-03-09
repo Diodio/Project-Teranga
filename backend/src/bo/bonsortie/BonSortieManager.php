@@ -121,6 +121,29 @@ public function findStatisticByUsine($codeUsine) {
        
     }
     
+     public function findQuantiteEntreeByUsine($codeUsineDest) {
+            $entree= $this->bonSortieQuery->findQuantiteEntreeByUsine($codeUsineDest);
+//            $sortieRufisque = $this->bonSortieQuery->findQuantiteSortieByUsine('usine_rufisque');
+//            $sortieStlouis = $this->bonSortieQuery->findQuantiteSortieByUsine('usine_stlouis');
+            $bonEntreeTab = array();
+//                if ($sortieDakar != null)
+//                    $bonSortieTab['nbDakar'] = $sortieDakar;
+//                else
+//                    $bonSortieTab['nbDakar'] = 0;
+//                if ($sortieRufisque != null)
+//                    $bonSortieTab['nbRufisque'] = $sortieRufisque;
+//                else
+//                    $bonSortieTab['nbRufisque']= 0;
+                if ($entree != null)
+                    $bonEntreeTab['nbEntree'] = $entree;
+                else
+                    $bonEntreeTab['nbEntree'] = 0;
+                
+               
+            return $bonEntreeTab;
+       
+    }
+    
     public function findBonSortieDetails($bonSortieId) {
         if ($bonSortieId != null) {
             $bonSortie = $this->bonSortieQuery->findBonDetails($bonSortieId);
