@@ -152,7 +152,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                                         <div class="infobox-data">
                                                             
 
-                                                            <div class="infobox-content" style="width:150px">Entrées <?php echo $nomUsine?> </div>
+                                                            <div class="infobox-content" style="width:150px">Entrées <?php echo $nomUsine?> (kg) </div>
                                                             <div class="infobox-content" id="INDIC_BON">0 kg</div>
 
                                                         </div>

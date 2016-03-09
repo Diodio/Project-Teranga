@@ -806,10 +806,11 @@ $(document).ready(function () {
        
 
        
-        if(produitId==='*' || nbColis===0 || prix===''){
+//        if(produitId==='*' || nbColis===0 || prix===''){
+            if(produitId==='*' || nbColis===0 || prix===''){
                $.gritter.add({
                     title: 'Notification',
-                    text: 'Les champs ne doivent pas etre vide',
+                    text: 'Veuillez renseigner le prix SVP!',
                     class_name: 'gritter-error gritter-light'
                 });
         }
