@@ -185,7 +185,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Origine </div>
+                        <div class="profile-info-name">Destination </div>
                         <div class="profile-info-value">
                             <span id="origine"></span>
                         </div>
@@ -203,42 +203,71 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </div>
                     </div>
                 </div>
-                
-                            <h4 class="widget-title lighter">
+                <h4 class="widget-title lighter">
                         <i class="ace-icon fa fa-star orange"></i>
-                        Liste des colis
+                        Conteneur et Numero Plomb
                     </h4>
-                <table class="table table-bordered table-hover"id="tab_colis">
-                            <thead>
-                                <tr>
-                                        <th class="text-center">Désignation</th>
-                                        <th class="text-center">Nombre de colis</th>
-                                        <th class="text-center">Quantite</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <div class="profile-info-row">
+                                <div class="profile-info-name">Numero conteneur </div>
+                                <div class="profile-info-value">
+                                    <span id="PoidsTotal"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Numero plomb </div>
+                                <div class="profile-info-value">
+                                    <span id="MontantHt"></span>
+                                </div>
+                            </div>
+<!--                             <h4 class="widget-title lighter"> -->
+<!--                         <i class="ace-icon fa fa-star orange"></i> -->
+<!--                         Liste des colis -->
+<!--                     </h4> -->
+<!--                 <table class="table table-bordered table-hover"id="tab_colis"> -->
+<!--                             <thead> -->
+<!--                                 <tr> -->
+<!--                                         <th class="text-center">Désignation</th> -->
+<!--                                         <th class="text-center">Nombre de colis</th> -->
+<!--                                         <th class="text-center">Quantite</th> -->
+<!--                                 </tr> -->
+<!--                             </thead> -->
+<!--                             <tbody> -->
 
-                            </tbody>
-                    </table>
+<!--                             </tbody> -->
+<!--                     </table> -->
                                 
                 <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des produits
                         </h4>
-                    <table class="table table-bordered table-hover"id="tab_produit">
-				<thead>
-                                    <tr>
-                                            <th class="text-center">Nombre de colis</th>
+                        <table class="table table-bordered table-hover"id="tab_produit"> 
+                           <thead>
+                            <tr>
+                                    <th class="text-center">Détail de colis</th>
                                             <th class="text-center">Désignation</th>
                                             <th class="text-center">Poids net</th>
                                             <th class="text-center">Prix unitaire</th>
                                             <th class="text-center">Montant</th>
-                                    </tr>
-                                </thead>
+                            </tr>
+                        </thead>
 				<tbody>
-					
+				
 				</tbody>
 			</table>
+<!--                     <table class="table table-bordered table-hover"id="tab_produit"> -->
+<!-- 				<thead> -->
+<!--                                     <tr> -->
+<!--                                             <th class="text-center">Nombre de colis</th> -->
+<!--                                             <th class="text-center">Désignation</th> -->
+<!--                                             <th class="text-center">Poids net</th> -->
+<!--                                             <th class="text-center">Prix unitaire</th> -->
+<!--                                             <th class="text-center">Montant</th> -->
+<!--                                     </tr> -->
+<!--                                 </thead> -->
+<!-- 				<tbody> -->
+					
+<!-- 				</tbody> -->
+<!-- 			</table> -->
                                 
                         <div class="profile-user-info">
                             <div class="profile-info-row">
@@ -259,43 +288,131 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantHt"></span>
                                 </div>
                             </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Montant TTC </div>
-                                <div class="profile-info-value">
-                                    <span id="MontantTtc"></span>
+                             <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Mode de paiement </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                    <select  id="modePaiement" class="col-xs-12 col-sm-10">
+                                                                <option value="ESPECES">Especes</option>
+                                                                <option value="CHEQUE">Cheque</option>
+                                                                <option value="VIREMENT">Virement</option>
+                                                        </select>
+                                                </div>
+                                        </div>
                                 </div>
                             </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> No Cheque </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" readonly id="numCheque" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Date de paiement </label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" readonly id="datePaiement" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Montant payé  (FCFA)</label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                        <input type="text" class="bolder"  id="avance" name="avance" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="row">
+                                <div class="form-group">
+                                        <label class="col-sm-5 control-label no-padding-right"
+                                                for="form-field-1"> Reliquat (FCFA)</label>
+                                        <div class="col-sm-7">
+                                                <div class="clearfix">
+                                                    <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder=""
+                                                                class="col-xs-12 col-sm-10">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                             <div class="space-6"></div>
+                            <div class="row">
+                                <div class="space-12"></div>
+                                    <div class="form-group">
+                                            <label class="col-sm-5 control-label no-padding-right"
+                                                    for="form-field-1"> Reglé </label>
+                                            <div class="col-sm-7">
+                                                    <div class="clearfix">
+                                                        <input type="checkbox" disabled="disabled" id="regleAchat" name="regleAchat" placeholder=""
+                                                                    >
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                        
+                                
+                                <div style="float: right">
+                        <button id="SAVE" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+<!--                             <div class="profile-info-row"> -->
+<!--                                 <div class="profile-info-name">Montant TTC </div> -->
+<!--                                 <div class="profile-info-value"> -->
+<!--                                     <span id="MontantTtc"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Mode paiement </div>
-                                <div class="profile-info-value">
-                                    <span id="modePaiement"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">N° chèque </div>
-                                <div class="profile-info-value">
-                                    <span id="numCheque"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Date Paiement </div>
-                                <div class="profile-info-value">
-                                    <span id="datePaiement"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Avance </div>
-                                <div class="profile-info-value">
-                                    <span id="Avance"></span>
-                                </div>
-                            </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Reliquat </div>
-                                <div class="profile-info-value">
-                                    <span id="Reliquat"></span>
-                                </div>
-                            </div>
+<!--                             <div class="profile-info-row"> -->
+<!--                                 <div class="profile-info-name">Mode paiement </div> -->
+<!--                                 <div class="profile-info-value"> -->
+<!--                                     <span id="modePaiement"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="profile-info-row"> -->
+<!--                                 <div class="profile-info-name">N° chèque </div> -->
+<!--                                 <div class="profile-info-value"> -->
+<!--                                     <span id="numCheque"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="profile-info-row"> -->
+<!--                                 <div class="profile-info-name">Date Paiement </div> -->
+<!--                                 <div class="profile-info-value"> -->
+<!--                                     <span id="datePaiement"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="profile-info-row"> -->
+<!--                                 <div class="profile-info-name">Avance </div> -->
+<!--                                 <div class="profile-info-value"> -->
+<!--                                     <span id="Avance"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="profile-info-row"> -->
+<!--                                 <div class="profile-info-name">Reliquat </div> -->
+<!--                                 <div class="profile-info-value"> -->
+<!--                                     <span id="Reliquat"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                         </div>
                                             </div>
                                         </div>

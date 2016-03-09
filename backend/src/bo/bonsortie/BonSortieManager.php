@@ -44,8 +44,13 @@ class BonSortieManager {
     public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->bonSortieQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
+    public function retrieveAllEntree($codeUsineDest, $codeUsineOrigine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	return $this->bonSortieQuery->retrieveAllEntree($codeUsineDest, $codeUsineOrigine,$offset, $rowCount, $sOrder, $sWhere);
+    }
 
-   
+    public function countEntree($codeUsineDest, $codeUsineOrigine,$where="") {
+    	return $this->bonSortieQuery->countEntree($codeUsineDest, $codeUsineOrigine,$where);
+    }
     public function count($codeUsine,$where="") {
         return $this->bonSortieQuery->count($codeUsine,$where);
     }

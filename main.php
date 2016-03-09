@@ -363,10 +363,15 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 Consultation  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
+                        <li id="CONSULTATION_ENTREES" class=""><a id="ENTREE" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Entrées
+                                </a> <b class="arrow"></b>
+                            </li>
                             <li id="CONSULTATION_PRODUITS" class=""><a id="PROD" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Détails Produits en Stock
                                 </a> <b class="arrow"></b>
                             </li>
+                            
                         </ul>
                     </li>
 
@@ -953,8 +958,32 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                       $("#LIST_USERS").attr("Class", "no-active");
                       $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                      $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/produitDetail.php", function () {
+                      });
+                   });
+
+                  $("#CONSULTATION_ENTREES").click(function (e) {
+                      $("#MNU_PRODUITS").attr("Class", "no-active");
+                      $("#MNU_MAREYEURS").attr("Class", "no-active");
+                      $("#MNU_BORD").attr("Class", "no-active");
+                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                      $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                      $("#LISTE_ACHATS").attr("Class", "no-active");
+                      $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_SORTIE").attr("Class", "no-active");
+                      $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                      $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                      $("#LIST_USERS").attr("Class", "no-active");
+                      $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#CONSULTATION_ENTREES").attr("Class", "active");
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/entreeListe.php", function () {
                       });
                    });
 

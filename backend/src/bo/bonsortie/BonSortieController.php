@@ -73,8 +73,11 @@ class BonSortieController extends BaseController implements BaseAction {
                     case \App::ACTION_GET_COLISAGES:
                         $this->doGetInfoColisages($request);
                         break;
-                        case \App::ACTION_GET_COLIS_BONSORTIE:
-                                $this->doGetColisBonSortie($request);
+                   case \App::ACTION_GET_COLIS_BONSORTIE:
+                         $this->doGetColisBonSortie($request);
+                                break;
+                   case \App::ACTION_GET_ENTREE:
+                                $this->doEntree($request);
                                 break;
                 }
             } else {
@@ -387,6 +390,61 @@ class BonSortieController extends BaseController implements BaseAction {
 
 		}catch (Exception $e) {
 			$this->doError('-1', $e->getMessage());
+		}
+	}
+	
+	
+	public function doEntree($request) {
+		try {
+			$achatManager = new BonSortieManager();
+			if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
+				// Begin order from dataTable
+				$sOrder = "";
+				$aColumns = array('dateBonSortie', 'numeroBonSortie');
+				if (isset($request['iSortCol_0'])) {
+					$sOrder = "ORDER BY  ";
+					for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
+						if ($request['bSortable_' . intval($request['iSortCol_' . $i])] == "true") {
+							$sOrder .= "" . $aColumns[intval($request['iSortCol_' . $i])] . " " .
+									($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+						}
+					}
+	
+					$sOrder = substr_replace($sOrder, "", -2);
+					if ($sOrder == "ORDER BY") {
+						$sOrder .= " dateBonSortie desc";
+					}
+				}
+				// End order from DataTable
+				// Begin filter from dataTable
+				$sWhere = "";
+				if (isset($request['sSearch']) && $request['sSearch'] != "") {
+					$sSearchs = explode(" ", $request['sSearch']);
+					for ($j = 0; $j < count($sSearchs); $j++) {
+						$sWhere .= " ";
+						for ($i = 0; $i < count($aColumns); $i++) {
+							$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+							if ($i == count($aColumns) - 1)
+								$sWhere = substr_replace($sWhere, "", -3);
+						}
+						// $sWhere = $sWhere .=")";
+					}
+				}
+				// End filter from dataTable
+				$achats = $achatManager->retrieveAllEntree($request['codeUsineDest'], $request['codeUsineOrigine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+				if ($achats != null) {
+					$nbBonSorties = $achatManager->countEntree($request['codeUsineDest'], $request['codeUsineOrigine'], $sWhere);
+					$this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbBonSorties));
+				} else {
+					$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
+				}
+			} else {
+				throw new Exception('list failed');
+			}
+		} catch (Exception $e) {
+			throw $e;
+		} catch (Exception $e) {
+			throw new Exception('ERREUR SERVEUR');
 		}
 	}
 }

@@ -81,6 +81,53 @@ class BonSortieQueries {
         return $arrayAchats;
     }
 
+    
+    public function retrieveAllEntree($codeUsineDest, $codeUsineOrigine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+    
+    	if($codeUsineOrigine !=='*') {
+    		$sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE destination="'.$codeUsineDest.'" and origine="'.$codeUsineOrigine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    	}
+    	else {
+    		if($sWhere !== "")
+    			$sWhere = " where " . $sWhere;
+    		$sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie where destination="'.$codeUsineDest.'"  ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    	}
+    	$sql = str_replace("`", "", $sql);
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$products = $stmt->fetchAll();
+    	$arrayAchats = array();
+    	$i = 0;
+    	foreach ($products as $key => $value) {
+    		$arrayAchats [$i] [] = $value ['id'];
+    		$arrayAchats [$i] [] = $value ['status'];
+    		$arrayAchats [$i] [] = $value ['dateBonSortie'];
+    		$arrayAchats [$i] [] = $value ['numeroBonSortie'];
+    		$arrayAchats [$i] [] = $value ['totalColis'];
+    		$arrayAchats [$i] [] = $value ['poidsTotal'];
+    		$i++;
+    	}
+    	return $arrayAchats;
+    }
+
+    public function countEntree($codeUsineDest, $codeUsineOrigine, $sWhere = "") {
+    
+    	if($codeUsineOrigine !=='*') {
+    		$sql = 'select count(bon_sortie.id) as nb
+                    from bon_sortie where destination="'.$codeUsineDest.'" and origine="'.$codeUsineOrigine.'" ' . $sWhere . '';
+    	}
+    	else {
+    		if($sWhere !== "")
+    			$sWhere = " where " . $sWhere;
+    		$sql = 'select count(bon_sortie.id) as nb
+                    from bon_sortie where destination="'.$codeUsineDest.'"  ' . $sWhere . '';
+    	}
+    
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$nbBon = $stmt->fetch();
+    	return $nbBon['nb'];
+    }
  
   
 
@@ -111,6 +158,7 @@ class BonSortieQueries {
         $nbBon = $stmt->fetch();
         return $nbBon['nb'];
     }
+    
     
     public function getLastNumberBonSortie() {
         $sql = 'select max(id)+1 as lastNumber from bon_sortie';
