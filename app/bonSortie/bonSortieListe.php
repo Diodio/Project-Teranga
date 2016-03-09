@@ -743,13 +743,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc === 0)
                         {
                             bootbox.alert("Bon(s) de sortie annulés(s)");
+                            loadBons();
                         }
                         else
                         {
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                   loadBons();
+                   
                        }
                     });
                 }

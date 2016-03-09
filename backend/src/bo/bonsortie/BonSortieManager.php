@@ -166,7 +166,7 @@ public function findStatisticByUsine($codeUsine) {
         }
     }
     
-    public function remettreStockParBonSortie($sortieId) {
+   public function remettreStockParBonSortie($sortieId) {
         $bonSortie= $this->bonSortieQuery->findById($sortieId);
         $codeUsineOrigine=$bonSortie->getOrigine();
         $codeUsineDestination=$bonSortie->getDestination();

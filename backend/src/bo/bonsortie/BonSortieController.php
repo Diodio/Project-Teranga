@@ -139,6 +139,7 @@ class BonSortieController extends BaseController implements BaseAction {
                             }
                         }
                     }
+                }
                     $jsonColis = json_decode($_POST['jsonColis'], true);
                     foreach ($jsonColis as $key => $ligneC) {
                         if (isset($ligneC["nbColis"])) {
@@ -169,7 +170,7 @@ class BonSortieController extends BaseController implements BaseAction {
                             }
                         }
                     }
-                }
+                
                 $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
             } else {
                 $this->doError('-1', 'Impossible d\'inserer cet achat');

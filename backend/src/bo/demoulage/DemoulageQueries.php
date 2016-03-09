@@ -202,7 +202,7 @@ class DemoulageQueries {
 
     public function diminueCartonParDemoulageId($produitId, $nombreCarton, $quantiteParCarton) {
         $connexion = Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nombreCarton , quantiteParCarton = quantiteParCarton - $quantiteParCarton  WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton");
+        return $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nombreCarton , quantiteParCarton = quantiteParCarton - $quantiteParCarton  WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton   AND nombreCarton > 0");
     }
 
 }
