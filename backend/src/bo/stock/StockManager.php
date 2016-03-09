@@ -134,6 +134,11 @@ class StockManager {
     	return $stockQueries->destockageReel($produitId, $codeUsineDestination, $nbStock);
   }
   
+  public function deleteStockReel($produitId, $codeUsineDestination, $nbStock ) {	
+       $stockQueries = new StockQueries();
+    	return $stockQueries->deleteStockReel($produitId, $codeUsineDestination, $nbStock);
+  }
+  
   public function findStockProvisoireByProduitId($produitId, $codeUsine) {
       $stockQueries = new StockQueries();
       $stock=$stockQueries->findStockProvisoireByProduitId($produitId, $codeUsine);
@@ -149,6 +154,15 @@ class StockManager {
         return $stock['id'];
     return 0;
   }
+  
+  public function findQuantiteReelByProduitId($produitId, $codeUsine) {
+      $stockQueries = new StockQueries();
+      $stock=$stockQueries->findQuantiteReelByProduitId($produitId, $codeUsine);
+      if($stock!=null)
+        return $stock['stock'];
+    return 0;
+  }
+  
   public function ajoutStockReelParProduit($produitId, $codeUsine, $login, $stockProvisoire, $quantiteDemoulee) {
         $stockReel = $this->findStockReelByProduitId($produitId, $codeUsine);
         if ($stockReel == 0) {
