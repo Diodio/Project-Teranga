@@ -130,6 +130,7 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $nbStock = $ligne['qte'];
                             $stockManager->destockageReel($produitId, $request['origine'], $nbStock);
                             $stock = $stockManager->findStockReelByProduitId($produitId, $codeUsineDestination);
+                            $this->logger->log->trace("stock" . $stock);
                             if ($stock == 0) {
                                 $stockReel = new \Stock\StockReel();
                                 $stockReel->setCodeUsine($codeUsineDestination);
