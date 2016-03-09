@@ -159,7 +159,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
                                                     </div>
                                                 <?php }?>
-                                                <?php if($codeUsine=='usine_dakar' || $codeUsine=='usine_rufisque') {?>
+                                                <?php if($codeUsine=='usine_rufisque') {?>
                                                     <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon fa-play"></i>
@@ -173,7 +173,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     </div>
                                                 <?php }?>
                                                 
-                                                <?php if($codeUsine=='usine_dakar'  || $codeUsine=='usine_stlouis') {?>
+                                                <?php if($codeUsine=='usine_stlouis') {?>
                                                     <div class="infobox infobox-blue2 infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
