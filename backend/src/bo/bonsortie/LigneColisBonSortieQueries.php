@@ -32,12 +32,12 @@ class LigneColisBonSortieQueries {
     }
     public function dimunieNbColis($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton,demoulage  SET nombreCarton = nombreCarton - $nbCarton WHERE demoulage.id=carton.demoulage_id AND produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine'");
+        $connexion->executeUpdate("UPDATE carton,demoulage  SET nombreCarton = nombreCarton - $nbCarton WHERE demoulage.id=carton.demoulage_id AND produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine' AND nombreCarton > 0");
     }
     
      public function dimunieSortieNbColis($produitId, $quantite, $nbCarton, $codeUsineDestination ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineDestination'");
+        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineDestination'  AND nombreCarton > 0");
     }
     
     public function misAjourColisSortieOrigine($produitId, $quantite, $nbCarton, $codeUsineOrigine ) {			
