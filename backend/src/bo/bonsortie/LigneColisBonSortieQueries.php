@@ -79,4 +79,15 @@ class LigneColisBonSortieQueries {
         }
         return $arrayContact;
     }
+    
+    public function verifieColisage($produitId, $quantite, $codeUsineOrigine) {
+        $sql = 'SELECT id FROM carton WHERE quantiteParCarton='.$quantite.' AND produitId='.$produitId.' AND codeUsine="'.$codeUsineOrigine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if ($stock != null)
+            return $stock[0];
+        else
+            return null;
+    }
 }

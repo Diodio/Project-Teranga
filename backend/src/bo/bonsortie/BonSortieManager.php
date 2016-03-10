@@ -210,7 +210,20 @@ public function findStatisticByUsine($codeUsine) {
         foreach ($infosColis as $key => $value) {
             $colisManager = new LigneColisBonSortieManager();
             $colisManager->dimunieSortieNbColis($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'],$codeUsineDestination);
-            $colisManager->misAjourColisSortieOrigine($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsineOrigine);
+  //          $isExist = $colisManager->verifieColisage($value ['produit_id'], $value ['quantiteParCarton'],$codeUsineOrigine);
+ //           if($isExist !==0)
+                $colisManager->misAjourColisSortieOrigine($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsineOrigine);
+//            else {
+//                $carton = new \Produit\Carton();
+//                $cartonManager = new \Produit\CartonManager();
+//                $carton->setNombreCarton($value ['nombreCarton']);
+//                $carton->setQuantiteParCarton($value ['quantiteParCarton']);
+//                $carton->setTotal($value ['nombreCarton'] * $value ['quantiteParCarton']);
+//                $carton->setProduitId($value ['produit_id']);
+//                $carton->setCodeUsine($codeUsineOrigine);
+//                $cartonManager->insert($carton);
+//                
+//            }
         }
         $this->annulerBonSortie($sortieId);
     }
