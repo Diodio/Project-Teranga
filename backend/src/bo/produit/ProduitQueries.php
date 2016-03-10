@@ -115,7 +115,7 @@ class ProduitQueries {
     }
 
     public function retrieveDetail($produitId, $codeUsine) {
-        $sql = 'SELECT p.id id, libelle, libelleFacture,(SELECT stock FROM stock_provisoire sp WHERE p.id=sp.produit_id and sp.codeUsine="'.$codeUsine.'") stockProvisoire,  (SELECT stock FROM stock_reel sr WHERE p.id=sr.produit_id  and sr.codeUsine="'.$codeUsine.'") stockReel FROM produit p WHERE p.id="' . $produitId . '"';
+        $sql = 'SELECT p.id id, libelle, libelleFacture,(SELECT stock FROM stock_provisoire sp WHERE p.id=sp.produit_id and sp.codeUsine="'.$codeUsine.'") stockProvisoire,  (SELECT sum(stock) FROM stock_reel sr WHERE p.id=sr.produit_id  and sr.codeUsine="'.$codeUsine.'") stockReel FROM produit p WHERE p.id="' . $produitId . '"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll();

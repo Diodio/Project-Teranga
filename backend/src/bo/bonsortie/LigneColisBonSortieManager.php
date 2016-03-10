@@ -35,4 +35,12 @@ class LigneColisBonSortieManager {
      public function getAllColisBonSortie($bonsortieId, $produitId) {
         return $this->ligneColisQuery->getAllColisBonSortie($bonsortieId, $produitId);
     }
+  
+  public function verifieColisage($produitId, $quantite, $codeUsineOrigine) {
+      $stockQueries = new StockQueries();
+      $stock=$stockQueries->verifieColisage($produitId, $quantite, $codeUsineOrigine);
+      if($stock!=null)
+        return $stock['id'];
+    return 0;
+  }
 }
