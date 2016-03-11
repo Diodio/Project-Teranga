@@ -12,7 +12,7 @@ class StockReel {
     protected $id;
     
     /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true, options={"unsigned":true})
      * */
     protected $stock;
     /**
