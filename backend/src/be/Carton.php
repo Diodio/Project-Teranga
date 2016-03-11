@@ -12,12 +12,12 @@ class Carton {
     protected $id;
     
     /**
-     * @Column(type="integer", nullable=false)
+     * @Column(type="integer", nullable=false, options={"unsigned":true})
      * */
     protected $nombreCarton;
     
     /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true, options={"unsigned":true})
      * */
     protected $quantiteParCarton;
     
