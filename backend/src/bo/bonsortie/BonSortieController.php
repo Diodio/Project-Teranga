@@ -114,6 +114,7 @@ class BonSortieController extends BaseController implements BaseAction {
                 $jsonBonSortie = json_decode($_POST['jsonProduit'], true);
                 foreach ($jsonBonSortie as $key => $ligne) {
                     if (isset($ligne["produitId"])) {
+                        if($ligne["produitId"]!=="" && $ligne["nombreCarton"]!=="" && $ligne["qte"]!==""){
                         $ligneBonSortie = new LigneBonSortie();
                         $ligneBonSortie->setBonSortie($bonSortie);
                         $produitId = $ligne["produitId"];
@@ -139,9 +140,14 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $stockReel->setStock($nbStock);
                                 $stockManager->insert($stockReel);
                             } else {
-                                $stockManager->updateSortieNbStockReel($produitId, $request['origine'],$codeUsineDestination, $nbStock);
+                                $stockManager->updateSortieNbStockReel($produitId, $codeUsineDestination, $nbStock);
                             }
                         }
+                    }
+                    else {
+                        throw new Exceptions('Veuillez verifier vos parametre');
+                    }
+                    
                     }
                 }
                     $jsonColis = json_decode($_POST['jsonColis'], true);
