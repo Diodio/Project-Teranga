@@ -807,10 +807,10 @@ $(document).ready(function () {
 
        
 //        if(produitId==='*' || nbColis===0 || prix===''){
-            if(produitId==='*' || nbColis===0 || prix===''){
+            if(produitId==='*' || nbColis===0 ){
                $.gritter.add({
                     title: 'Notification',
-                    text: 'Veuillez renseigner le prix SVP!',
+                    text: 'La designation ou le colisage ne doit être vide!',
                     class_name: 'gritter-error gritter-light'
                 });
         }
@@ -862,11 +862,14 @@ $(document).ready(function () {
         //console.log('colis'+ch);
        // colisage.push(tblColis);
         //console.log(colisage);    
+        var montant=0;
         console.log(JSON.stringify(colisage));
-        var montant = parseFloat(prix) * pNet;
-        totalColis+=nbColis;
-        qteTotal+=pNet;
-        mtTotal+=montant;
+        if(prix !=='') {
+            montant = parseFloat(prix) * pNet;
+            totalColis+=nbColis;
+            qteTotal+=pNet;
+            mtTotal+=montant;
+        }  
         var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pNet+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
         $('#tab_produit tbody').append(data);
         $('#totalColis').val(totalColis);
