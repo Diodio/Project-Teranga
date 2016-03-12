@@ -96,6 +96,8 @@ class BonSortieController extends BaseController implements BaseAction {
             $this->logger->log->trace("debut insertion bon de sortie");
             $codeUsineDestination = $request['codeUsineDestination'];
             $bonSortieManager = new BonSortieManager();
+            $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
+            if($isExist==NULL){
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
             $bonSortie->setHeureSortie(new \DateTime($request['heureSortie']));
@@ -185,7 +187,11 @@ class BonSortieController extends BaseController implements BaseAction {
             } else {
                 $this->doError('-1', 'Impossible d\'inserer cet achat');
             }
-        } catch (Exception $e) {
+        }
+        else {
+            $this->doError('-1', 'Ce bon de sortie éxiste déja');
+        }
+        }catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR' . $e->getMessage());
         }
     }

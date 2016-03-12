@@ -687,7 +687,7 @@ $(document).ready(function () {
          
           BonSortieProcess = function ()
         {
-            
+            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var origine = '<?php echo $codeUsine?>';
             var numeroBonSortie = $("#numeroBonSortie").val();
@@ -762,6 +762,7 @@ $(document).ready(function () {
                             text: data.error,
                             class_name: 'gritter-error gritter-light'
                         });
+                         $('#SAVE').attr("disabled", false);
                         
                     };
                     

@@ -60,6 +60,11 @@ class BonSortieManager {
     public function annulerBonSortie($bonSortieId) {
         return $this->bonSortieQuery->annulerBon($bonSortieId);
     }
+    
+    public function isBonSortieExist($numero) {
+        return $this->bonSortieQuery->isBonSortieExist($numero);
+    }
+    
 public function getLastNumberBonSortie() {
     $lastBonSortieId=$this->bonSortieQuery->getLastNumberBonSortie();
     if($lastBonSortieId !=null){

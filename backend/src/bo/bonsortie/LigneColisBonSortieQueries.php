@@ -47,7 +47,7 @@ class LigneColisBonSortieQueries {
     
      public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE cartonSET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine'");
+        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine'");
     }
     public function recupereColisFini($produitId, $quantite, $nbCarton ) {
         $sql = "SELECT id,nombreCarton FROM carton WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";
