@@ -8,12 +8,15 @@ INSERT INTO `mareyeur` (`id`, `nom`, `adresse`, `telephone`, `montantFinancement
 INSERT INTO `profil` (`id`, `libelle`, `description`, `createdDate`, `updatedDate`, `deleteDate`) VALUES
 (1, 'admin', 'Administrateur', '2015-09-20 00:00:00', NULL, NULL),
 (2, 'magasinier', 'Magasinier', NULL, NULL, NULL),
-(3, 'comptable', 'Comptable', NULL, NULL, NULL);
+(3, 'comptable', 'Comptable', NULL, NULL, NULL),
+(4, 'gerant', 'Gérant de bon d''achat', '2016-01-29 00:00:00', NULL, NULL),
+(5, 'directeur', 'Directeur', NULL, NULL, NULL);
 
 INSERT INTO `usine` (`id`, `code`, `nomUsine`, `emplacement`, `typeUsine`, `telephone`, `fax`, `codePostal`, `createdDate`, `updatedDate`, `deleteDate`, `couleur`) VALUES
-(1, 'usine_dakar', 'Dakar', 'Dakar', 'usine', NULL, NULL, NULL, '2015-09-20 00:00:00', NULL, NULL, '#68BC31'),
-(2, 'usine_rufisque', 'Rufisque', 'Rufisque', 'usine', NULL, NULL, NULL, NULL, NULL, NULL, '#2091CF'),
-(3, 'usine_stlouis', 'St Louis', 'St Louis', 'usine', NULL, NULL, NULL, '2015-12-12 00:00:00', NULL, NULL, '#2091CF');
+(1, 'usine_dakar', 'Dakar', 'Dakar', 'usine', NULL, NULL, NULL, '2015-09-20 00:00:00', NULL, NULL, '#25FDE9'),
+(2, 'usine_rufisque', 'Rufisque', 'Rufisque', 'usine', NULL, NULL, NULL, NULL, NULL, NULL, '#f929db'),
+(3, 'usine_stlouis', 'St Louis', 'St Louis', 'usine', NULL, NULL, NULL, '2015-12-12 00:00:00', NULL, NULL, '#FFFF00');
+
 
 
 INSERT INTO `utilisateur` (`id`, `usine_id`, `profil_id`, `login`, `password`, `nomUtilisateur`, `status`, `etatCompte`, `createdDate`, `updatedDate`, `deleteDate`, `connected`, `connectedDate`, `disconnectedDate`) VALUES

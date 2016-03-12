@@ -257,6 +257,17 @@ class BonSortieQueries {
         }
     }
     
+    public function isBonSortieExist($numero) {
+            $sql = 'SELECT * FROM bon_sortie WHERE numeroBonSortie=' . $numero;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $bon = $stmt->fetchAll();
+            if ($bon != null)
+                return $bon;
+            else
+                return null;
+    }
+    
     
     public function findInfoColisByBonSortie($sortieId) {
         if ($sortieId != null) {

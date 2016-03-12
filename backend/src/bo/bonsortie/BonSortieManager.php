@@ -60,6 +60,11 @@ class BonSortieManager {
     public function annulerBonSortie($bonSortieId) {
         return $this->bonSortieQuery->annulerBon($bonSortieId);
     }
+    
+    public function isBonSortieExist($numero) {
+        return $this->bonSortieQuery->isBonSortieExist($numero);
+    }
+    
 public function getLastNumberBonSortie() {
     $lastBonSortieId=$this->bonSortieQuery->getLastNumberBonSortie();
     if($lastBonSortieId !=null){
@@ -202,9 +207,8 @@ public function findStatisticByUsine($codeUsine) {
                     $stockManager->destockageSortieReel($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
                 else
                     $stockManager->deleteStockReel ($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
-               $stockManager->updateSortieNbStockReel($value ['produit_id'], $codeUsineOrigine, $codeUsineDestination, $value ['quantite']);
+               $stockManager->updateSortieNbStockReel($value ['produit_id'], $codeUsineOrigine, $value ['quantite']);
             }
-            
         }
         $infosColis = $this->bonSortieQuery->findInfoColisByBonSortie($sortieId);
         foreach ($infosColis as $key => $value) {
