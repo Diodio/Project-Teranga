@@ -769,6 +769,7 @@ $(document).ready(function () {
                 },
                 error: function () {
                     alert("failure - controller");
+                    $('#SAVE').attr("disabled", false);
                 }
             });
 

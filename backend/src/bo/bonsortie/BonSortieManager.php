@@ -232,6 +232,45 @@ public function findStatisticByUsine($codeUsine) {
         $this->annulerBonSortie($sortieId);
     }
     
+    public function dataValidation($jsonBonSortie, $jsonColisage, $codeUsineOrigine) {
+        $test = 0;
+        //$trouveColis = 0;
+        $jsonBon = json_decode($jsonBonSortie, true);
+        foreach ($jsonBon as $key => $ligne) {
+            if (isset($ligne["produitId"])) {
+                if ($ligne["produitId"] !== "" && $ligne["nombreCarton"] !== "" && $ligne["qte"] !== "") {
+                    $stockManager = new \Stock\StockManager();
+                    $produitId = $ligne["produitId"];
+                    if ($ligne['qte'] != "")
+                        $quantite = $ligne['qte'];
+                    $isstock = $stockManager->findStockReelByProduitId($produitId, $codeUsineOrigine);
+                    
+                    if($isstock !==0 ){
+                        $stock = $stockManager->recupereNombreStockParProduit($produitId, $codeUsineOrigine);
+                    if ($stock['nbStocks'] < $quantite)
+                        $test++;
+                    }
+                }
+            }
+        }
+        $jsonColis = json_decode($jsonColisage, true);
+        foreach ($jsonColis as $key => $ligneC) {
+            if (isset($ligneC["nbColis"])) {
+                if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
+                    $cartonManager = new \Produit\CartonManager();
+                    $produitId = $ligneC["produitId"];
+                    $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineOrigine);
+                    if ($existColisage !== 0) {
+                        $colis = $cartonManager->getColisage($produitId, $ligneC["qte"], $codeUsineOrigine);
+                        if ($colis['nombreCarton'] < $ligneC["nbColis"])
+                            $test++;
+                    }
+                }
+            }
+        }
+        return $test;
+    }
+
     public function listbonValid() {
         $sorties = $this->bonSortieQuery->listbonValid();
 //        $list = array();
