@@ -90,20 +90,20 @@ class BonSortieController extends BaseController implements BaseAction {
             $this->doError('-1', $e->getMessage());
         }
     }
+//    public function doInsert($request) {
+//        $bonSortieManager = new BonSortieManager();
+//        $isExist = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
+//        var_dump($isExist);
+//    }
     public function doInsert($request) {
-        $bonSortieManager = new BonSortieManager();
-        $isExist = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
-        var_dump($isExist);
-    }
-    public function doInsertFF($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
             $codeUsineDestination = $request['codeUsineDestination'];
             $bonSortieManager = new BonSortieManager();
-            
             $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
             if($isExist==NULL){
-                //test sur les 
+            $validate = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
+            if($validate==0) {
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
             $bonSortie->setHeureSortie(new \DateTime($request['heureSortie']));
@@ -195,8 +195,14 @@ class BonSortieController extends BaseController implements BaseAction {
             }
         }
         else {
-            $this->doError('-1', 'Ce bon de sortie éxiste déja');
+           $this->doError('-1', 'Impossible d\'inserer ce bon de sortie. Veuillez vérifier vos parametres');
+            }
+            
         }
+        else {
+            $this->doError('-1', 'Ce bon de sortie éxiste déja');
+       } 
+            
         }catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR' . $e->getMessage());
         }
