@@ -48,6 +48,14 @@ class CartonQueries {
     }
     
  
+    public function getColisage($produitId, $quantite, $codeUsine) {
+            $sql = 'SELECT nombreCarton FROM carton WHERE produitId='.$produitId.' and quantiteParCarton='.$quantite.' and codeUsine="' .$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $colis= $stmt->fetchAll();
+        return $colis;
+    }
+    
     public function getEntityManager() {
         return $this->entityManager;
     }

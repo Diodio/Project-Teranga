@@ -27,4 +27,11 @@ class CartonManager {
         return $carton['id'];
     return 0;
   }
+  
+  public function getColisage($produitId, $quantite, $codeUsine) {
+      $colis=$this->cartonQueries->getColisage($produitId, $quantite, $codeUsine);
+      if($colis!=null)
+        return $colis[0];
+    return 0;
+  }
 }
