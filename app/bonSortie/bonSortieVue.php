@@ -376,26 +376,34 @@ $(document).ready(function () {
 		 }
 	 });
      $("#delete_row_produit").click(function(){
-     $('#tab_produit tbody tr:last').remove();
-     console.log(colisage.length);
-     var ln= colisage.length -1;
-     delete colisage[ln];
-     var nc=0;
-     var qt=0;
-     var mont=0;
-     $('#tab_produit tbody').find('tr').each(function(){
-        var $this = $(this);
-        nc+=parseFloat($('td:eq(1)', $this).text());
-        qt+=parseFloat($('td:eq(3)', $this).text());
-        mont+=parseFloat($('td:eq(5)', $this).text());
-        console.log(nc);
-      });
-      $('#totalColis').val(nc);
-      $('#qteTotal').val(qt);
-      $('#montantHt').val(mont);
-      var Ttc = mont+(mont * (parseFloat($("#tva").val())/100));
-        // montantTtc +=Ttc;
-        $('#montantTtc').val(Ttc);
+     var produit = $('#tab_produit tbody tr:last').attr('id');
+     jQuery.each(colisage, function(i, val) {
+   if(val.produitId === produit) // delete index
+   {
+      delete colisage[i];
+   }
+});
+    console.log(JSON.stringify(colisage));
+//     $('#tab_produit tbody tr:last').remove();
+//     console.log(colisage.length);
+//     var ln= colisage.length -1;
+//     delete colisage[ln];
+//     var nc=0;
+//     var qt=0;
+//     var mont=0;
+//     $('#tab_produit tbody').find('tr').each(function(){
+//        var $this = $(this);
+//        nc+=parseFloat($('td:eq(1)', $this).text());
+//        qt+=parseFloat($('td:eq(3)', $this).text());
+//        mont+=parseFloat($('td:eq(5)', $this).text());
+//        console.log(nc);
+//      });
+//      $('#totalColis').val(nc);
+//      $('#qteTotal').val(qt);
+//      $('#montantHt').val(mont);
+//      var Ttc = mont+(mont * (parseFloat($("#tva").val())/100));
+//        // montantTtc +=Ttc;
+//        $('#montantTtc').val(Ttc);
         });
   
  
@@ -565,7 +573,7 @@ $(document).ready(function () {
         console.log(JSON.stringify(colisage));
         totalColis+=nbColis;
         qteTotal+=pNet;
-        var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pNet+"</td></tr>";
+        var data="<tr id="+produitId+" ><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pNet+"</td></tr>";
         $('#tab_produit tbody').append(data);
         $('#totalColis').val(totalColis);
         $('#qteTotal').val(qteTotal);
