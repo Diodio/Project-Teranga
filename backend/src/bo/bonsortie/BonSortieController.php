@@ -90,11 +90,7 @@ class BonSortieController extends BaseController implements BaseAction {
             $this->doError('-1', $e->getMessage());
         }
     }
-//    public function doInsert($request) {
-//        $bonSortieManager = new BonSortieManager();
-//        $isExist = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
-//        var_dump($isExist);
-//    }
+
     public function doInsert($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
