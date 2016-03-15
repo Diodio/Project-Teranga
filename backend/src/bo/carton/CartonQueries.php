@@ -36,8 +36,8 @@ class CartonQueries {
         }
     }
  
-    public function findCartonByProduitId($produitId, $codeUsine) {
-        $sql = 'SELECT id FROM carton WHERE produitId = "'.$produitId.'" and codeUsine="'.$codeUsine.'"';
+    public function findCartonByProduitId($produitId, $codeUsine, $quantite,$nbColis) {
+        $sql = 'SELECT distinct id FROM carton WHERE produitId = "'.$produitId.'" and codeUsine="'.$codeUsine.'" and nombreCarton >='.$nbColis.' and quantiteParCarton='.$quantite.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $cartonId = $stmt->fetchAll();
@@ -48,8 +48,8 @@ class CartonQueries {
     }
     
  
-    public function getColisage($produitId, $quantite, $codeUsine) {
-            $sql = 'SELECT nombreCarton FROM carton WHERE produitId='.$produitId.' and quantiteParCarton='.$quantite.' and codeUsine="' .$codeUsine.'"';
+    public function getColisage($produitId, $quantite,$codeUsine, $nbColis) {
+            $sql = 'SELECT distinct nombreCarton FROM carton WHERE produitId='.$produitId.' and quantiteParCarton='.$quantite.' and codeUsine="' .$codeUsine.'" and nombreCarton >='.$nbColis.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $colis= $stmt->fetchAll();

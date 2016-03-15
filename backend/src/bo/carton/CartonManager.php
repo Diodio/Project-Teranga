@@ -20,16 +20,16 @@ class CartonManager {
     	return $carton;
     }
     
-    public function findCartonByProduitId($produitId, $codeUsine) {
+    public function findCartonByProduitId($produitId, $codeUsine,$quantite,$nbColis) {
       $stockQueries = new CartonQueries();
-      $carton=$stockQueries->findCartonByProduitId($produitId, $codeUsine);
+      $carton=$stockQueries->findCartonByProduitId($produitId, $codeUsine,$quantite, $nbColis);
       if($carton!=null)
         return $carton['id'];
     return 0;
   }
   
-  public function getColisage($produitId, $quantite, $codeUsine) {
-      $colis=$this->cartonQueries->getColisage($produitId, $quantite, $codeUsine);
+  public function getColisage($produitId, $quantite, $codeUsine,$nbColis) {
+      $colis=$this->cartonQueries->getColisage($produitId, $quantite, $codeUsine,$nbColis);
       if($colis!=null)
         return $colis[0];
     return 0;

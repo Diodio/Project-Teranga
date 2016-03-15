@@ -531,7 +531,6 @@ $(document).ready(function () {
                 var qte = $('#qteColis'+it).select2('data').text;
                 if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
                     pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
-                    
                     it++;
                 }
         });
@@ -561,7 +560,8 @@ $(document).ready(function () {
             var quantite=0;
             colis=$(this).find('#nbColis'+iter).val();
             quantite = $(this).find('#qteColis'+iter).select2('data').text;
-             if(typeof colis!=='function' && typeof quantite!=='function'){
+            
+            if(typeof colis!=='function' && typeof quantite!=='function'){
                     row["produitId"] = produitId;
                     row["nbColis"] = colis;
                     row["qte"] = quantite;
