@@ -115,7 +115,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
             $infoColis = $this->demoulageQueries->findInfoColisByDemoulage($demoulageId);
             if ($infoColis != NULL) {
                 foreach ($infoColis as $key => $value) {
-                    $this->demoulageQueries->diminueCartonParDemoulageId($value ['produitId'], $value ['nombreCarton'], $value ['quantiteParCarton']);
+                    $this->demoulageQueries->diminueCartonParDemoulageId($demoulageId, $value ['produitId'], $value ['nombreCarton'], $value ['quantiteParCarton'], $codeUsine);
                 }
                 
                 

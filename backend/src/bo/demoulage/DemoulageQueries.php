@@ -110,7 +110,7 @@ class DemoulageQueries {
     }
 
     public function getQuantiteColisage($produitId, $codeUsine) {
-        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c, demoulage d WHERE d.id=c.demoulage_id AND d.produit_id='$produitId' and d.codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
+        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c WHERE c.produitId='$produitId' and c.codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();
@@ -200,9 +200,9 @@ class DemoulageQueries {
         }
     }
 
-    public function diminueCartonParDemoulageId($produitId, $nombreCarton, $quantiteParCarton) {
+    public function diminueCartonParDemoulageId($demoulageId, $produitId, $nombreCarton, $quantiteParCarton, $codeUsine) {
         $connexion = Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nombreCarton , quantiteParCarton = quantiteParCarton - $quantiteParCarton  WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton   AND nombreCarton > 0");
+        return $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nombreCarton  WHERE demoulage_id=$demoulageId and produitId = $produitId AND quantiteParCarton=$quantiteParCarton  AND codeUsine='$codeUsine'  AND nombreCarton > 0");
     }
 
 }

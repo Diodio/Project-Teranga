@@ -130,7 +130,7 @@ class FactureQueries {
         return $query->getResult();
     }
     public function annulerFacture($achatId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Facture\Facture a set a.status=2 WHERE a.id IN( '$achatId')");
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Facture\Facture a set a.status=0 WHERE a.id IN( '$achatId')");
         return $query->getResult();
     }
     public function findValidFactureByUsine($codeUsine) {
@@ -228,6 +228,18 @@ class FactureQueries {
         }
     }
     
+     public function findConteneurByFacture($factureId) {
+        if ($factureId != null) {
+            $sql = 'SELECT numConteneur, numPlomb FROM conteneur WHERE facture_id=' . $factureId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $conteneur = $stmt->fetchAll();
+            if ($conteneur != null)
+                return $conteneur;
+            else
+                return null;
+        }
+    }
     
     public function getTotalReglementByFacture($achatId) {
         if ($achatId != null) {
@@ -253,6 +265,32 @@ class FactureQueries {
             $achat = $stmt->fetchAll();
             if ($achat != null)
                 return $achat;
+            else
+                return null;
+        }
+    }
+    
+    public function findInfoByFacture($facturId) {
+        if ($facturId != null) {
+            $sql = 'SELECT produit,quantite FROM ligne_facture WHERE facture_id=' . $facturId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $achat = $stmt->fetchAll();
+            if ($achat != null)
+                return $achat;
+            else
+                return null;
+        }
+    }
+    
+    public function findColisageByFactureId($factureId) {
+        if ($factureId != null) {
+            $sql = 'SELECT produitId, nombreCarton, quantiteParCarton FROM ligne_colis WHERE factureId=' . $factureId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $colis = $stmt->fetchAll();
+            if ($colis != null)
+                return $colis;
             else
                 return null;
         }

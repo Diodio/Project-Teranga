@@ -90,11 +90,7 @@ class BonSortieController extends BaseController implements BaseAction {
             $this->doError('-1', $e->getMessage());
         }
     }
-//    public function doInsert($request) {
-//        $bonSortieManager = new BonSortieManager();
-//        $isExist = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
-//        var_dump($isExist);
-//    }
+
     public function doInsert($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
@@ -172,7 +168,7 @@ class BonSortieController extends BaseController implements BaseAction {
                                 if ($insertedLC->getId() != null) {
                                     $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
                                     $cartonManager = new \Produit\CartonManager();
-                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineDestination);
+                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineDestination,$ligneC["nbColis"],$ligneC["qte"]);
                                     if ($existColisage == 0) {
                                         $carton = new \Produit\Carton();
                                         $carton->setNombreCarton($ligneC["nbColis"]);
