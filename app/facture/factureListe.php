@@ -207,35 +207,26 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <i class="ace-icon fa fa-star orange"></i>
                         Conteneur et Numero Plomb
                     </h4>
-                    <div class="profile-info-row">
-                                <div class="profile-info-name">Numero conteneur </div>
-                                <div class="profile-info-value">
-                                    <span id="PoidsTotal"></span>
-                                </div>
+                    
+                        <table class="table table-bordered table-hover"id="tab_conteneur"> 
+                           <thead>
+                            <tr>
+                                    <th class="text-center">Numero Conteneur</th>
+                                     <th class="text-center">numero plomb</th>
+                            </tr>
+                        </thead>
+				<tbody>
+				
+				</tbody>
+			</table>
+                    <div class="profile-user-info">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">Port de dechargement  </div>
+                            <div class="profile-info-value">
+                                <span id="portDechargement"></span>
                             </div>
-                            <div class="profile-info-row">
-                                <div class="profile-info-name">Numero plomb </div>
-                                <div class="profile-info-value">
-                                    <span id="MontantHt"></span>
-                                </div>
-                            </div>
-<!--                             <h4 class="widget-title lighter"> -->
-<!--                         <i class="ace-icon fa fa-star orange"></i> -->
-<!--                         Liste des colis -->
-<!--                     </h4> -->
-<!--                 <table class="table table-bordered table-hover"id="tab_colis"> -->
-<!--                             <thead> -->
-<!--                                 <tr> -->
-<!--                                         <th class="text-center">Désignation</th> -->
-<!--                                         <th class="text-center">Nombre de colis</th> -->
-<!--                                         <th class="text-center">Quantite</th> -->
-<!--                                 </tr> -->
-<!--                             </thead> -->
-<!--                             <tbody> -->
-
-<!--                             </tbody> -->
-<!--                     </table> -->
-                                
+                    </div>
+                    </div>
                 <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des produits
@@ -477,8 +468,50 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $(this).closest('tr').toggleClass('selected');
                 });
             });
+            
+            EnableAction = function()
+        	{   
+                    if (checkedFacture.length == 1)
+                    {
+                        $('#MNU_ANNULATION').removeClass('disabled');
+                        $('#MNU_IMPRIMER').removeClass('disabled');
+                        var state = $('#stag' + checkedFacture[0]).val();
+                         if (state == 1) {
+                                 $('#MNU_ANNULATION').addClass('disabled');
+                              if($.cookie('profil')=='directeur') {
+                                $('#MNU_ANNULATION').removeClass('disabled');
+                             }
+                          } 
+                          else if (state == 2) {
+                              
+                              $('#MNU_ANNULATION').addClass('disabled');
+                              if($.cookie('profil')=='directeur') {
+                                $('#MNU_REMOVE').removeClass('disabled');
+                            }
+                          }
+                    }
+                    else if (checkedFacture.length > 1){
+                        $('#MNU_ANNULATION').removeClass('enable');
+                        $('#MNU_IMPRIMER').removeClass('enable');
+                        $('#MNU_REMOVE').addClass('disabled');
+                         if($.cookie('profil')=='directeur') {
+                            $('#MNU_ANNULATION').addClass('disabled');
+                            $('#MNU_REMOVE').addClass('disabled');
+                         }
+                         bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                         loadBons('*');
+                    }
+                    else{
+                        $('#MNU_ANNULATION').removeClass('enable');
+                        $('#MNU_IMPRIMER').removeClass('enable');
+                        $('#MNU_ANNULATION').addClass('disabled');
+                        $('#MNU_IMPRIMER').addClass('disabled');
+                    }
+           };
+           
             MessageSelected = function(click)
             {
+                EnableAction();
                 if (checkedFacture.length == 1){
                     loadFactureSelected(checkedFacture[0]);
                     $('#TAB_MSG_VIEW').show();
@@ -495,6 +528,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             MessageUnSelected = function()
             {
+                EnableAction();
                if (checkedFacture.length === 1){
                     loadFactureSelected(checkedFacture[0]);
 		    $('#TAB_MSG_VIEW').show();
@@ -652,6 +686,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#MontantHt').text(data.montantHt);
                     $('#MontantTtc').text(data.montantTtc);
                     $('#modePaiement').text(data.modePaiement);
+                    $('#portDechargement').text(data.portDechargement);
                     if(data.numCheque !==null && data.numCheque!=="")
                         $('#numCheque').text(data.numCheque);
                     else
@@ -669,6 +704,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                     $('#tab_colis tbody').append(trColisHTML);
                     trColisHTML='';
+                    
+                    $('#tab_conteneur tbody').html("");
+                    var tableConteneur = data.conteneurs;
+                    var trHTMLConteneur='';
+                    $(tableConteneur).each(function(indexC, elementC){
+                        trHTMLConteneur += '<tr><td>' + elementC.numConteneur + '</td><td>' + elementC.numPlomb + '</td></tr>';
+                    });
+                    $('#tab_conteneur tbody').append(trHTMLConteneur);
+                    trHTMLConteneur=''; 
                     
                     $('#tab_produit tbody').html("");
                     var table = data.ligneFacture;
@@ -730,7 +774,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 else if (checkedFacture.length > 1)
                 {
-                	bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                	bootbox.alert("Veuillez selectionnez un seule facture SVP!");
                 }
             });
              $("#MNU_IMPRIMER").click(function()
@@ -745,8 +789,67 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 else if (checkedFacture.length > 1)
                 {
-                	bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                	bootbox.alert("Veuillez selectionnez une seul facture SVP!");
                 }
                  });
+                 
+                 
+            $("#MNU_ANNULATION").click(function()
+            {
+                if (checkedFacture.length == 0)
+                    bootbox.alert("Veuillez selectionnez une facture");
+                else if (checkedFacture.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment annuler cette facture", function(result) {
+                    if(result){
+                    var factureId = checkedFacture[0];
+                    $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Facture annulée");
+                            loadFactures();
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                   
+                       }
+                    });
+                }
+            });
+
+
+                 $("#MNU_REMOVE").click(function()
+            {
+                if (checkedBon.length == 0)
+                    bootbox.alert("Veuillez selectionnez une facture");
+                else if (checkedBon.length >= 1)
+                {
+                     bootbox.confirm("Voulez vous vraiment supprimer cette facture", function(result) {
+                    if(result){
+                    var bonsortieId = checkedBon[0];
+                    $.post("<?php echo App::getBoPath(); ?>/facture/FactureeController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function(data)
+                    {
+                        if (data.rc === 0)
+                        {
+                            bootbox.alert("Bon de sortie supprimé");
+                            getIndicator();
+                            loadFactures();
+                            
+                        }
+                        else
+                        {
+                            bootbox.alert(data.error);
+                        }
+                    }, "json");
+                    
+                         }
+                    });
+                }
+            });
+            
             });
         </script>

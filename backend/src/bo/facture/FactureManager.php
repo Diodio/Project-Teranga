@@ -54,7 +54,34 @@ class FactureManager {
         return $this->factureQuery->validFacture($factureId);
     }
     public function annulerFacture($factureId) {
-        return $this->factureQuery->annulerFacture($factureId);
+        $facture= $this->factureQuery->findById($factureId);
+        $nbTotalColis=$facture->getNbTotalColis();
+        $nbTotalPoids=$facture->getNbTotalPoids();
+        $codeUsine=$facture->getCodeUsine();
+        $ligneFacture = $this->factureQuery->findInfoByFacture($factureId);
+        foreach ($ligneFacture as $key => $value) {
+            $stockManager = new \Stock\StockManager();
+            $stockManager->updateNbStockReel($value ['produit'], $codeUsine, $value ['quantite']);
+        }
+        $infosColis = $this->factureQuery->findColisageByFactureId($factureId);
+        foreach ($infosColis as $key => $value) {
+            $colisManager = new \Produit\CartonManager();
+            $isExist = $colisManager->verifieColisage($value ['produitId'], $value ['quantiteParCarton'],$value ['nombreCarton'],$codeUsine);
+            if($isExist !==0)
+                $colisManager->misAjourColis($value ['produitId'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsine);
+            else{
+                 $carton = new \Produit\Carton();
+                $cartonManager = new \Produit\CartonManager();
+                $carton->setNombreCarton($value ['nombreCarton']);
+                $carton->setQuantiteParCarton($value ['quantiteParCarton']);
+                $carton->setTotal($value ['nombreCarton'] * $value ['quantiteParCarton']);
+                $carton->setProduitId($value ['produitId']);
+                $carton->setCodeUsine($codeUsine);
+                $cartonManager->insert($carton);
+            }
+                
+        }
+        $this->factureQuery->annulerFacture($factureId);
     }
 public function getLastNumberFacture() {
     $lastFactureId=$this->factureQuery->getLastNumberFacture();
@@ -124,6 +151,7 @@ public function findStatisticByUsine($codeUsine) {
              $ligneFacture = $this->factureQuery->findAllProduitByFacture($factureId);
              $colis = $this->factureQuery->findColisByFacture($factureId);
              $reglement = $this->factureQuery->findReglementByFacture($factureId);
+             $conteneurs = $this->factureQuery->findConteneurByFacture($factureId);
             $factureDetail = array();
             foreach ($facture as $key => $value) {
                // $factureDetail ['id'] = $value ['achat.id'];
@@ -143,9 +171,11 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['numCheque']  =  $value ['numCheque'];
                 $factureDetail ['datePaiement']  =  $value ['datePaiement'];
                 $factureDetail ['regle']  =  $value ['regle'];
+                $factureDetail ['portDechargement']  =  $value ['portDechargement'];
                 $factureDetail['colis'] = $colis;
                 $factureDetail['ligneFacture'] = $ligneFacture;
                 $factureDetail['reglement'] = $reglement;
+                $factureDetail['conteneurs'] = $conteneurs;
                 
             }
             return $factureDetail;

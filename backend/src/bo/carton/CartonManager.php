@@ -34,4 +34,15 @@ class CartonManager {
         return $colis[0];
     return 0;
   }
+  
+  public function misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) {
+     $this->cartonQueries->misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) ;
+  }
+  
+  public function verifieColisage($produitId, $quantite, $nombreCarton, $codeUsine) {
+      $stock=$this->cartonQueries->verifieColisage($produitId, $quantite, $nombreCarton, $codeUsine);
+      if($stock!=null)
+        return $stock['id'];
+    return 0;
+  }
 }

@@ -59,6 +59,19 @@ class CartonQueries {
     public function getEntityManager() {
         return $this->entityManager;
     }
-    
+     public function misAjourColis($produitId, $quantite, $nombreCarton, $codeUsine) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine' and nombreCarton>='.$nombreCarton.'");
+    }
   
+    public function verifieColisage($produitId, $quantite, $nombreCarton, $codeUsine) {
+        $sql = 'SELECT distinct quantiteParCarton FROM carton WHERE quantiteParCarton='.$quantite.' AND produitId='.$produitId.' AND codeUsine="'.$codeUsine.'" and nombreCarton>='.$nombreCarton.'';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if ($stock != null)
+            return $stock[0];
+        else
+            return null;
+    }
 }

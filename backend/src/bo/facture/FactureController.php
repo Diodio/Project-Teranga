@@ -360,10 +360,10 @@ private $logger;
     
     public function doAnnuleFacture($request) {
         try {
-            if ($request['achatId'] != null) {
+            if ($request['factureId'] != null) {
                 $factureManager = new FactureManager();
-                $factureManager->annulerFacture($request['achatId']);
-                $this->doSuccess($request['achatId'], 'Annulation effectuée avec succes');
+                $factureManager->annulerFacture($request['factureId']);
+                $this->doSuccess($request['factureId'], 'Annulation effectuée avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
