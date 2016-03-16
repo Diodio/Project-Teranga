@@ -214,12 +214,15 @@ public function retrieveTypes()
                 $stockPro = $stockManager->recupereNbStockProvisoire($value ['id'], $codeUsine);
                 $quantiteAchetee = $stockManager->recupereQuantiteAchete($value ['id'], $codeUsine);
                 $quantiteDemoulee = $stockManager->recupereQuantiteDemoulee($value ['id'], $codeUsine);
+                $quantiteEntree = $stockManager->recupereQuantiteEntree($value ['id'], $codeUsine);
+                $quantiteSortie = $stockManager->recupereQuantiteSortie($value ['id'], $codeUsine);
                 $quantiteFacturee = $stockManager->recupereQuantiteFacturee($value ['id'], $codeUsine);
                 $stockReel = $stockManager->recupereStockReel($value ['id'], $codeUsine);
     		$arrayProduits [$i] [] = $stockPro;
     		$arrayProduits [$i] [] = $quantiteAchetee;
     		$arrayProduits [$i] [] = $quantiteDemoulee;
-    		$arrayProduits [$i] [] = $quantiteFacturee;
+    		$arrayProduits [$i] [] = $quantiteEntree;
+    		$arrayProduits [$i] [] = $quantiteSortie;
     		$arrayProduits [$i] [] = $stockReel;
 //    		$arrayProduits [$i] [] = $value ['stockReel'];
 //    		if($value ['nbColis'] !=null)

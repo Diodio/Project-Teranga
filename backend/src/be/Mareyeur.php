@@ -17,7 +17,7 @@ class Mareyeur {
     protected $nom;
     
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="string", length=60, nullable=false, unique=true)
      * */
     protected $reference;
     

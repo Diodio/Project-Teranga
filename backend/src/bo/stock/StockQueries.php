@@ -317,6 +317,25 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         if($stock!=null)
             return $stock[0];
          return null;
-        
+    }
+    
+    public function recupereQuantiteEntree($produitId, $codeUsine ) {
+    	$sql = "SELECT SUM(lbs.quantite) quantiteEntree FROM ligne_bonsortie lbs, bon_sortie bs WHERE bs.id=lbs.bonSortie_id and lbs.produit_id=$produitId and bs.destination='".$codeUsine."'";
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$stock = $stmt->fetchAll();
+    	if($stock!=null)
+    		return $stock[0];
+    	return null;
+    }
+    public function recupereQuantiteSortie($produitId, $codeUsine ) {
+    	$sql = "SELECT SUM(lbs.quantite) quantiteSortie FROM ligne_bonsortie lbs, bon_sortie bs WHERE bs.id=lbs.bonSortie_id and lbs.produit_id=$produitId and bs.origine='".$codeUsine."'";
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$stock = $stmt->fetchAll();
+    	if($stock!=null)
+    		return $stock[0];
+    	return null;
+    
     }
 }

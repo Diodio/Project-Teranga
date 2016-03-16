@@ -556,7 +556,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
                         $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
-//                          $('#MNU_CONSULTATION').removeClass("hidden");
+                        $('#MNU_CONSULTATION').removeClass("hidden");
                         if($.cookie('codeUsine')!=='usine_dakar')
                             $('#BONSORTIE').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");

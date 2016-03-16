@@ -68,6 +68,12 @@
                                     Quantité démoulée
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
+                                    Entrées
+                                </th>
+                                 <th style="border-left: 0px none;border-right: 0px none;">
+                                    Sorties Usine
+                                </th>
+                                <th style="border-left: 0px none;border-right: 0px none;">
                                     Quantité Facturée
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">

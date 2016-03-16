@@ -12,7 +12,7 @@ class Demoulage {
     protected $id;
      
     /**
-     * @Column(type="string", length=60, nullable=true)
+     * @Column(type="string", length=60, nullable=true, unique=true)
      * */
     protected $numero;
     

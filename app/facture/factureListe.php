@@ -210,13 +210,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="profile-info-row">
                                 <div class="profile-info-name">Numero conteneur </div>
                                 <div class="profile-info-value">
-                                    <span id="PoidsTotal"></span>
+                                    <span id="PoidsTotal1"></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Numero plomb </div>
                                 <div class="profile-info-value">
-                                    <span id="MontantHt"></span>
+                                    <span id="MontantHt1"></span>
                                 </div>
                             </div>
 <!--                             <h4 class="widget-title lighter"> -->

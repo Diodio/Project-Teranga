@@ -17,7 +17,7 @@ class Produit {
     protected $libelle;
     
     /**
-     * @Column(type="string", length=120, nullable=true)
+     * @Column(type="string", length=120, nullable=true, unique=true)
      * */
     protected $libelleFacture;
     

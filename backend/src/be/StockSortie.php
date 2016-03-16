@@ -1,11 +1,10 @@
 <?php
 
-
-namespace Utilisateur;
+namespace Stock;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="profil") * */
-class Profil {
+ * @Table(name="stock_sortie") * */
+class StockSortie {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -13,16 +12,20 @@ class Profil {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false, unique=true)
+     * @Column(type="integer",nullable=true)
      * */
-    protected $libelle;
+    protected $sortieId;
+    
     /**
-     * @Column(type="string", length=60, nullable=false)
+     * @Column(type="integer",nullable=true)
      * */
-    protected $description;
-   
-    /** @OneToMany(targetEntity="Utilisateur\Utilisateur", mappedBy="utilisateur", cascade={"persist"}) */
-    protected $utilisateur;
+    protected $produitId;
+    
+    /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
+    public $quantiteSortie;
+    
     
     /** @Column(type="datetime", nullable=true) */
     public $createdDate;
@@ -37,16 +40,16 @@ class Profil {
         return $this->id;
     }
 
-    function getLibelle() {
-        return $this->libelle;
+    function getSortieId() {
+        return $this->sortieId;
     }
 
-    function getDescription() {
-        return $this->description;
+    function getProduitId() {
+        return $this->produitId;
     }
 
-    function getUtilisateur() {
-        return $this->utilisateur;
+    function getQuantiteSortie() {
+        return $this->quantiteAchetee;
     }
 
     function getCreatedDate() {
@@ -65,16 +68,16 @@ class Profil {
         $this->id = $id;
     }
 
-    function setLibelle($libelle) {
-        $this->libelle = $libelle;
+    function setSortieId($sortieId) {
+        $this->sortieId = $sortieId;
     }
 
-    function setDescription($description) {
-        $this->description = $description;
+    function setProduitId($produitId) {
+        $this->produitId = $produitId;
     }
 
-    function setUtilisateur($utilisateur) {
-        $this->utilisateur = $utilisateur;
+    function setQuantiteSortie($quantiteAchetee) {
+        $this->quantiteAchetee = $quantiteAchetee;
     }
 
     function setCreatedDate($createdDate) {
@@ -89,7 +92,9 @@ class Profil {
         $this->deleteDate = $deleteDate;
     }
 
-    /** @PrePersist */
+    
+        
+/** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');
         $this->createdDate = new \DateTime("now");
@@ -101,5 +106,6 @@ class Profil {
         date_default_timezone_set('GMT');
         $this->updatedDate = new \DateTime("now");
     }
+   
 
     }

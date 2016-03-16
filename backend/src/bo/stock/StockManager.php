@@ -235,7 +235,26 @@ class StockManager {
         if($stock['stockReel']!=NULL)
             $stockPro=$stock['stockReel'];
         return $stockPro;
-       
+  }
+  public function recupereQuantiteEntree($produitId, $codeUsine ) {
+  	$stockQueries = new StockQueries();
+  	$stock = $stockQueries->recupereQuantiteEntree($produitId, $codeUsine);
+  	$arrayStock = array();
+  	$stockPro = 0;
+  	if($stock['quantiteEntree']!=NULL)
+  		$stockPro=$stock['quantiteEntree'];
+  	return $stockPro;
+  	 
+  }
+  public function recupereQuantiteSortie($produitId, $codeUsine ) {
+  	$stockQueries = new StockQueries();
+  	$stock = $stockQueries->recupereQuantiteSortie($produitId, $codeUsine);
+  	$arrayStock = array();
+  	$stockPro = 0;
+  	if($stock['quantiteSortie']!=NULL)
+  		$stockPro=$stock['quantiteSortie'];
+  	return $stockPro;
+  
   }
 
 }
