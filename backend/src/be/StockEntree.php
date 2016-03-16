@@ -3,7 +3,7 @@
 namespace Stock;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="stock_sortie") * */
+ * @Table(name="stock_entree") * */
 class StockEntree {
 
     /** @Id
