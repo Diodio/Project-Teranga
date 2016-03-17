@@ -877,6 +877,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             bootbox.alert("Achat(s) validé(s)");
                             getIndicator();
                              loadAchats('*');
+                             $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                                $('#TAB_MSG_VIEW').hide();
                         }
                         else
                         {

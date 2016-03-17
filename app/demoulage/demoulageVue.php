@@ -580,14 +580,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (data.rc == 0)
                         {
                             bootbox.alert("Demoulages(s) validé(s)");
+                            loadDemoulages();
+                           
                         }
                         else
                         {
                             bootbox.alert(data.error);
                         }
                     }, "json");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
-                        });
+//                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListe.php", function () {
+//                        });
                          }
                     });
                 }
