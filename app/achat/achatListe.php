@@ -273,13 +273,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <label class="col-sm-5 control-label no-padding-right"
                                                 for="form-field-1"> Mode de paiement </label>
                                         <div class="col-sm-7">
-                                                <div class="clearfix">
                                                     <select  id="modePaiement" class="col-xs-12 col-sm-10">
-                                                                <option value="ESPECES">Especes</option>
-                                                                <option value="CHEQUE">Cheque</option>
-                                                                <option value="VIREMENT">Virement</option>
+                                                        <option value="ESPECES" selected="selected">Especes</option>
+                                                        <option value="CHEQUE">Cheque</option>
+                                                        <option value="VIREMENT">Virement</option>
                                                         </select>
-                                                </div>
                                         </div>
                                 </div>
                             </div>
@@ -726,6 +724,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             loadAchatSelected = function(achatId)
             {
+                //$('#modePaiement').val("ESPECES").change;
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
                  $('#regleAchat').prop('checked', false);
@@ -787,7 +786,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         $('#reliquat').val("");
                                         $('#datePaiement').val("");
                                         $('#numCheque').val("");
-                                        $('#modePaiement').val("-1").change;
+                                        //$('#modePaiement').val("-1").change;
                                         $('#transport').val("");
                                         }
                                       //console.log(tot);
