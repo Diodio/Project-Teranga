@@ -36,7 +36,7 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('dateBonSortie' => NULL, 'numeroCamion' => NULL, 'produit' => NULL);
+    public static $lazyPropertiesDefaults = array('dateBonSortie' => NULL, 'heureSortie' => NULL, 'numeroCamion' => NULL, 'produit' => NULL);
 
 
 
@@ -46,7 +46,7 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->dateBonSortie, $this->numeroCamion, $this->produit);
+        unset($this->dateBonSortie, $this->heureSortie, $this->numeroCamion, $this->produit);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,10 +108,10 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'numeroBonSortie', 'dateBonSortie', 'numeroCamion', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'produit', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate');
+            return array('__isInitialized__', 'id', 'numeroBonSortie', 'dateBonSortie', 'heureSortie', 'numeroCamion', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'produit', 'totalColis', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate');
         }
 
-        return array('__isInitialized__', 'id', 'numeroBonSortie', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate');
+        return array('__isInitialized__', 'id', 'numeroBonSortie', 'nomChauffeur', 'origine', 'destination', 'codeUsine', 'login', 'totalColis', 'poidsTotal', 'status', 'createdDate', 'updatedDate', 'deletedDate');
     }
 
     /**
@@ -133,7 +133,7 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
                 }
             };
 
-            unset($this->dateBonSortie, $this->numeroCamion, $this->produit);
+            unset($this->dateBonSortie, $this->heureSortie, $this->numeroCamion, $this->produit);
         }
     }
 
@@ -594,6 +594,50 @@ class BonSortie extends \BonSortie\BonSortie implements \Doctrine\ORM\Proxy\Prox
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPoidsTotal', array($poidsTotal));
 
         return parent::setPoidsTotal($poidsTotal);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getHeureSortie()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHeureSortie', array());
+
+        return parent::getHeureSortie();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setHeureSortie($heureSortie)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHeureSortie', array($heureSortie));
+
+        return parent::setHeureSortie($heureSortie);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTotalColis()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTotalColis', array());
+
+        return parent::getTotalColis();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTotalColis($totalColis)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTotalColis', array($totalColis));
+
+        return parent::setTotalColis($totalColis);
     }
 
 }

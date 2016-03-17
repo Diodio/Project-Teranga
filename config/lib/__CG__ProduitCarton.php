@@ -64,10 +64,10 @@ class Carton extends \Produit\Carton implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'nombreCarton', 'quantiteParCarton', 'total', 'produitId', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'demoulage');
+            return array('__isInitialized__', 'id', 'nombreCarton', 'quantiteParCarton', 'total', 'produitId', 'codeUsine', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'demoulage');
         }
 
-        return array('__isInitialized__', 'id', 'nombreCarton', 'quantiteParCarton', 'total', 'produitId', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'demoulage');
+        return array('__isInitialized__', 'id', 'nombreCarton', 'quantiteParCarton', 'total', 'produitId', 'codeUsine', 'status', 'createdDate', 'updatedDate', 'deletedDate', 'demoulage');
     }
 
     /**
@@ -373,6 +373,28 @@ class Carton extends \Produit\Carton implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTotal', array($total));
 
         return parent::setTotal($total);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCodeUsine()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCodeUsine', array());
+
+        return parent::getCodeUsine();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCodeUsine($codeUsine)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCodeUsine', array($codeUsine));
+
+        return parent::setCodeUsine($codeUsine);
     }
 
     /**

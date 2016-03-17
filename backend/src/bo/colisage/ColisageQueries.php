@@ -38,7 +38,7 @@ class ColisageQueries {
  
    public function findById($colisageId) {
         if ($colisageId != null) {
-                return Bootstrap::$entityManager->find('Colisage\Colisage', $colisageId);
+                return Bootstrap::$entityManager->find('Produit\Colisage', $colisageId);
         }
     }
     

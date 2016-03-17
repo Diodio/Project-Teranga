@@ -108,10 +108,10 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'numero', 'dateAchat', 'heureReception', 'poidsTotal', 'montantTotal', 'reliquat', 'modePaiement', 'numCheque', 'datePaiement', 'codeUsine', 'login', 'produit', 'reglement', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'mareyeur');
+            return array('__isInitialized__', 'id', 'numero', 'dateAchat', 'heureReception', 'poidsTotal', 'montantTotal', 'reliquat', 'transport', 'modePaiement', 'numCheque', 'datePaiement', 'codeUsine', 'login', 'produit', 'reglement', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'mareyeur');
         }
 
-        return array('__isInitialized__', 'id', 'numero', 'poidsTotal', 'montantTotal', 'reliquat', 'modePaiement', 'numCheque', 'codeUsine', 'login', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'mareyeur');
+        return array('__isInitialized__', 'id', 'numero', 'poidsTotal', 'montantTotal', 'reliquat', 'transport', 'modePaiement', 'numCheque', 'codeUsine', 'login', 'status', 'regle', 'createdDate', 'updatedDate', 'deletedDate', 'mareyeur');
     }
 
     /**
@@ -693,6 +693,28 @@ class Achat extends \Achat\Achat implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDatePaiement', array($datePaiement));
 
         return parent::setDatePaiement($datePaiement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTransport()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTransport', array());
+
+        return parent::getTransport();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTransport($transport)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTransport', array($transport));
+
+        return parent::setTransport($transport);
     }
 
 }

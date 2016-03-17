@@ -36,7 +36,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('quantiteAdemouler' => NULL, 'quantiteDemoulee' => NULL, 'carton' => NULL);
+    public static $lazyPropertiesDefaults = array('quantiteAvantDemoulage' => NULL, 'quantiteDemoulee' => NULL, 'carton' => NULL);
 
 
 
@@ -46,7 +46,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->quantiteAdemouler, $this->quantiteDemoulee, $this->carton);
+        unset($this->quantiteAvantDemoulage, $this->quantiteDemoulee, $this->carton);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
@@ -108,7 +108,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'numero', 'quantiteAdemouler', 'quantiteDemoulee', 'codeUsine', 'status', 'login', 'carton', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
+            return array('__isInitialized__', 'id', 'numero', 'quantiteAvantDemoulage', 'quantiteDemoulee', 'codeUsine', 'status', 'login', 'carton', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
         }
 
         return array('__isInitialized__', 'id', 'numero', 'codeUsine', 'status', 'login', 'produit', 'createdDate', 'updatedDate', 'deletedDate');
@@ -133,7 +133,7 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->quantiteAdemouler, $this->quantiteDemoulee, $this->carton);
+            unset($this->quantiteAvantDemoulage, $this->quantiteDemoulee, $this->carton);
         }
     }
 
@@ -412,17 +412,6 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getQuantiteAdemouler()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getQuantiteAdemouler', array());
-
-        return parent::getQuantiteAdemouler();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getQuantiteDemoulee()
     {
 
@@ -440,17 +429,6 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumero', array($numero));
 
         return parent::setNumero($numero);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setQuantiteAdemouler($quantiteAdemouler)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setQuantiteAdemouler', array($quantiteAdemouler));
-
-        return parent::setQuantiteAdemouler($quantiteAdemouler);
     }
 
     /**
@@ -484,6 +462,28 @@ class Demoulage extends \Produit\Demoulage implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
 
         return parent::setStatus($status);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getQuantiteAvantDemoulage()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getQuantiteAvantDemoulage', array());
+
+        return parent::getQuantiteAvantDemoulage();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setQuantiteAvantDemoulage($quantiteAvantDemoulage)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setQuantiteAvantDemoulage', array($quantiteAvantDemoulage));
+
+        return parent::setQuantiteAvantDemoulage($quantiteAvantDemoulage);
     }
 
     /**

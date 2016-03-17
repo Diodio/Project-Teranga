@@ -51,6 +51,7 @@ class DemoulageQueries {
                 $codeUsine = $demoulage->getCodeUsine();
                 $login = $demoulage->getLogin();
                 $quantiteDemoulee = $demoulage->getQuantiteDemoulee();
+                $connexion = Bootstrap::$entityManager->getConnection();
                 $stockManager = new \Stock\StockManager();
                 $stockReel = $stockManager->findStockReelByProduitId($produitId, $codeUsine);
                 if ($stockReel == 0) {
@@ -63,11 +64,10 @@ class DemoulageQueries {
                     $stockReel->setStock($quantiteDemoulee);
                     $seuil = ($quantiteDemoulee * 25) / 100;
                     $stockReel->setSeuil($seuil);
-                    Bootstrap::$entityManager->persist($colisage);
+                    Bootstrap::$entityManager->persist($stockReel);
                     Bootstrap::$entityManager->flush();
                     //$this->insert($stockReel);
                 } else {
-                    $connexion = Bootstrap::$entityManager->getConnection();
                     $valueStock = $stockManager->getStockValueParProduit($produitId, $codeUsine);
                     $seuil = (($valueStock + $quantiteDemoulee) * 25 / 100);
                     $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantiteDemoulee, seuil=$seuil WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");

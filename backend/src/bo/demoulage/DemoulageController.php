@@ -77,8 +77,8 @@ class DemoulageController extends BaseController {
                 $jsonCarton = json_decode($_POST['jsonCarton'], true);
                 $added = $demoulageManager->insert($demoulage, $jsonCarton);
                 if ($added != NULL) {
-                    $stockManager = new \Stock\StockManager();
-                    $stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockProvisoire'], $request['quantiteDemoulee']);
+//                    $stockManager = new \Stock\StockManager();
+//                    $stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockProvisoire'], $request['quantiteDemoulee']);
                     $this->doSuccess($demoulage->getId(), 'Produit demoulé avec succes');
                 }
                 else
