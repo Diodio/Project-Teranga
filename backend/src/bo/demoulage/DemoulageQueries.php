@@ -40,20 +40,49 @@ class DemoulageQueries {
                 }
                 if ($listColisage != null) {
                     foreach ($listColisage as $colisage) {
-                        if($colisage->getId()==null)
+                        if ($colisage->getId() == null)
                             Bootstrap::$entityManager->persist($colisage);
                         else
                             Bootstrap::$entityManager->merge($colisage);
                         Bootstrap::$entityManager->flush();
                     }
                 }
+                $produitId = $demoulage->getProduit()->getId();
+                $codeUsine = $demoulage->getCodeUsine();
+                $login = $demoulage->getLogin();
+                $quantiteDemoulee = $demoulage->getQuantiteDemoulee();
+                $stockManager = new \Stock\StockManager();
+                $stockReel = $stockManager->findStockReelByProduitId($produitId, $codeUsine);
+                if ($stockReel == 0) {
+                    $stockReel = new \Stock\StockReel();
+                    $stockReel->setCodeUsine($codeUsine);
+                    $stockReel->setLogin($login);
+                    $produitManger = new \Produit\ProduitManager();
+                    $produit = $produitManger->findById($produitId);
+                    $stockReel->setProduit($produit);
+                    $stockReel->setStock($quantiteDemoulee);
+                    $seuil = ($quantiteDemoulee * 25) / 100;
+                    $stockReel->setSeuil($seuil);
+                    Bootstrap::$entityManager->persist($colisage);
+                    Bootstrap::$entityManager->flush();
+                    //$this->insert($stockReel);
+                } else {
+                    $connexion = Bootstrap::$entityManager->getConnection();
+                    $valueStock = $stockManager->getStockValueParProduit($produitId, $codeUsine);
+                    $seuil = (($valueStock + $quantiteDemoulee) * 25 / 100);
+                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantiteDemoulee, seuil=$seuil WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");
+                    //$stockManager->updateNbStockReel($demoulage->getProduit()->getId(), $demoulage->getCodeUsine(), $quantiteDemoulee);
+                    // $stockManager->updateSeuilStock($demoulage->getProduit()->getId(), $demoulage->getCodeUsine(), $seuil);
+                }
+                $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $quantiteDemoulee WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");
+                //$this->resetStockProvisoire($demoulage->getProduit()->getId(), $demoulage->getCodeUsine(), $quantiteDemoulee);
                 Bootstrap::$entityManager->getConnection()->commit();
                 return $demoulage;
             } catch (\Exception $e) {
                 $this->logger->log->error($e->getMessage());
                 Bootstrap::$entityManager->getConnection()->rollback();
                 Bootstrap::$entityManager->close();
-                $b=new Bootstrap();
+                $b = new Bootstrap();
                 Bootstrap::$entityManager = $b->getEntityManager();
                 return null;
             }

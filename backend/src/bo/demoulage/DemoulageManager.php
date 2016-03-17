@@ -55,6 +55,7 @@ public function verifieDemoulage($produitId, $codeUsine) {
                         $listColisage[]=$colisage;
                     }
         }
+        
         return $this->demoulageQueries->insert($demoulage, $listCarton, $listColisage);
         }
         }

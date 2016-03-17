@@ -227,7 +227,7 @@ $codeUsine = $_COOKIE['codeUsine'];
            var quantiteDemoulee=parseFloat($("#quantiteDemoulee").val());
            var sqte=0;
            var tot = 0;
-           tot = cart*qte;
+           tot = cart * qte;
            if(!isNaN(tot)) {
                $("#tot"+index).val(tot);
                $('#tab_logic .tot').each(function () {
@@ -251,8 +251,11 @@ $codeUsine = $_COOKIE['codeUsine'];
             }
        }
          $(document).delegate('#tab_logic tr td', 'click', function (event) {
-        var id = $(this).closest('tr').attr('id');
-        var counter = id.slice(-1);
+       // var id = $(this).closest('tr').attr('id');
+       // var counter = id.slice(-1);
+        
+       var id = $(this).closest('tr').attr('id');
+       var counter = id.substring(4);
        
       $( "#qte"+counter ).keyup(function() {
             calculPoids(counter);
