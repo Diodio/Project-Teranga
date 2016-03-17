@@ -4,6 +4,7 @@ namespace Produit;
 
 use Racine\Bootstrap as Bootstrap;
 use Exception as Exception;
+use Log\Loggers as Logger;
 
 class DemoulageQueries {
     /*
@@ -12,6 +13,7 @@ class DemoulageQueries {
 
     private $entityManager;
     private $classString;
+    private $logger;
 
     /*
      *
@@ -20,17 +22,41 @@ class DemoulageQueries {
     public function __construct() {
         $this->entityManager = Bootstrap::$entityManager;
         $this->classString = 'Demoulage\Demoulage';
+        $this->logger = new Logger(__NAMESPACE__);
     }
 
-    public function insert($demoulage) {
+    public function insert($demoulage, $listCarton, $listColisage) {
+        $this->logger->log->trace('insert contact ');
+        Bootstrap::$entityManager->getConnection()->beginTransaction();
         if ($demoulage != null) {
-            if ($demoulage->getId() != null) {
-                Bootstrap::$entityManager->merge($demoulage);
-            } else {
+            try {
                 Bootstrap::$entityManager->persist($demoulage);
+                Bootstrap::$entityManager->flush();
+                if ($listCarton != null) {
+                    foreach ($listCarton as $carton) {
+                        Bootstrap::$entityManager->persist($carton);
+                        Bootstrap::$entityManager->flush();
+                    }
+                }
+                if ($listColisage != null) {
+                    foreach ($listColisage as $colisage) {
+                        if($colisage->getId()==null)
+                            Bootstrap::$entityManager->persist($colisage);
+                        else
+                            Bootstrap::$entityManager->merge($colisage);
+                        Bootstrap::$entityManager->flush();
+                    }
+                }
+                Bootstrap::$entityManager->getConnection()->commit();
+                return $demoulage;
+            } catch (\Exception $e) {
+                $this->logger->log->error($e->getMessage());
+                Bootstrap::$entityManager->getConnection()->rollback();
+                Bootstrap::$entityManager->close();
+                $b=new Bootstrap();
+                Bootstrap::$entityManager = $b->getEntityManager();
+                return null;
             }
-            Bootstrap::$entityManager->flush();
-            return $demoulage;
         }
     }
 

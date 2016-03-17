@@ -12,12 +12,12 @@ class Produit {
     protected $id;
     
     /**
-     * @Column(type="string", length=120, nullable=false)
+     * @Column(type="string", length=120, nullable=false, unique=true)
      * */
     protected $libelle;
     
     /**
-     * @Column(type="string", length=120, nullable=true, unique=true)
+     * @Column(type="string", length=120, nullable=true)
      * */
     protected $libelleFacture;
     

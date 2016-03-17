@@ -20,9 +20,45 @@ public function verifieDemoulage($produitId, $codeUsine) {
         return $demoulage['id'];
     return 0;
   }
-    public function insert($demoulage) {
-        $this->demoulageQueries->insert($demoulage);
-    	return $demoulage;
+    public function insert($demoulage, $jsonCarton) {
+        $listCarton=null;
+        $listColisage=null;
+        if($demoulage !=null){
+        if($jsonCarton!=NULL){
+           
+                foreach ($jsonCarton as $key => $ligneCarton) {
+                    if (isset($ligneCarton["nbCarton"])) {
+                        $carton = new \Produit\Carton();
+                        $carton->setDemoulage($demoulage);
+                        $carton->setCodeUsine($demoulage->getCodeUsine());
+                        $carton->setNombreCarton($ligneCarton['nbCarton']);
+                        $carton->setQuantiteParCarton($ligneCarton['qte']);
+                        $carton->setTotal($ligneCarton['total']);
+                        $carton->setProduitId($demoulage->getProduit()->getId());
+                        $listCarton[]=$carton;
+                        
+                        $colisageManager=new ColisageManager();
+                        $colisageId=$colisageManager->verifieColisage($demoulage->getProduit()->getId(), $ligneCarton['qte'], $demoulage->getCodeUsine());
+                        if($colisageId!=0){
+                            $colisage=$colisageManager->findById($colisageId);
+                            $nb=$colisage->getNombreCarton();
+                            $nombreCarton=$ligneCarton['nbCarton']+$nb;
+                        }
+                        else {
+                           $colisage = new \Produit\Colisage(); 
+                           $nombreCarton=$ligneCarton['nbCarton'];
+                        }
+                        $colisage->setNombreCarton($nombreCarton);
+                        $colisage->setProduitId($demoulage->getProduit()->getId());
+                        $colisage->setQuantiteParCarton($ligneCarton['qte']);
+                        $colisage->setCodeUsine($demoulage->getCodeUsine());
+                        $listColisage[]=$colisage;
+                    }
+        }
+        return $this->demoulageQueries->insert($demoulage, $listCarton, $listColisage);
+        }
+        }
+    	return NULL;
     }
     public function getAllColis($produitId, $codeUsine) {
         return $this->demoulageQueries->getAllColis($produitId, $codeUsine);

@@ -67,47 +67,28 @@ class DemoulageController extends BaseController {
                 $produitManager = new \Produit\ProduitManager();
                 $produit = $produitManager->findById($request['produitId']);
                 $demoulageManager = new Produit\DemoulageManager();
-                // $demou = $demoulageManager->verifieDemoulage($request['produitId'], $request['codeUsine']);
                 $demoulage = new Produit\Demoulage();
-                //if($demou == 0)
-                //    $demoulage->setId ($demou);
-                // $demoulage->setNombreCarton($request['nombreCarton']);
-                //  $demoulage->setNombreParCarton($request['nombreParCarton']);
                 $demoulage->setProduit($produit);
                 $demoulage->setNumero($request['numero']);
                 $demoulage->setQuantiteAvantDemoulage($request['stockProvisoire']);
                 $demoulage->setQuantiteDemoulee($request['quantiteDemoulee']);
                 $demoulage->setCodeUsine($request['codeUsine']);
                 $demoulage->setLogin($request['login']);
-                $demoulageAdded = $demoulageManager->insert($demoulage);
-                if ($demoulageAdded->getId() != null) {
-                    if ($request['quantiteDemoulee'] != "") {
-                        $stockManager = new \Stock\StockManager();
-                        $stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockProvisoire'], $request['quantiteDemoulee']);
-                        $jsonCarton = json_decode($_POST['jsonCarton'], true);
-                        foreach ($jsonCarton as $key => $ligneCarton) {
-                            if (isset($ligneCarton["nbCarton"])) {
-                                $carton = new \Produit\Carton();
-                                $carton->setDemoulage($demoulage);
-                                $carton->setCodeUsine($request['codeUsine']);
-                                $carton->setNombreCarton($ligneCarton['nbCarton']);
-                                $carton->setQuantiteParCarton($ligneCarton['qte']);
-                                $carton->setTotal($ligneCarton['total']);
-                                $carton->setProduitId($request['produitId']);
-                                $cartonManager = new Produit\CartonManager();
-                                $cartonManager->insert($carton);
-                            }
-                        }
-                    }
-                    $this->doSuccess($demoulageAdded->getId(), 'Produit demoulé avec succes');
-                } else {
-                    throw new Exception('Insertion impossible');
+                $jsonCarton = json_decode($_POST['jsonCarton'], true);
+                $added = $demoulageManager->insert($demoulage, $jsonCarton);
+                if ($added != NULL) {
+                    $stockManager = new \Stock\StockManager();
+                    $stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockProvisoire'], $request['quantiteDemoulee']);
+                    $this->doSuccess($demoulage->getId(), 'Produit demoulé avec succes');
                 }
-            } else {
-                throw new Exception('Données invalides');
+                else
+                    $this->doError('-1', 'Impossible de créer ce demoulage');
+            }
+            else {
+                $this->doError('-1', 'Veuillez vérifier vos parametres');
             }
         } catch (Exception $e) {
-            throw new Exception('ERREUR SERVEUR');
+            $this->doError('-1', 'Impossible de créer ce demoulage');
         }
     }
 

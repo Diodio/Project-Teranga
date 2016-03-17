@@ -3,8 +3,8 @@
 namespace Produit;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="stock_final") * */
-class StockFinal {
+ * @Table(name="colisage"), uniqueConstraints={@UniqueConstraint(name="colisage_idx", columns={"produitId", "quantiteParCarton","codeUsine"})) * */
+class Colisage {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
