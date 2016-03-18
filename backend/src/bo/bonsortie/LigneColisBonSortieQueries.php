@@ -32,25 +32,25 @@ class LigneColisBonSortieQueries {
     }
     public function dimunieNbColis($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton  SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine' AND nombreCarton > 0");
+        $connexion->executeUpdate("UPDATE colisage  SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine' AND nombreCarton > 0");
     }
     
      public function dimunieSortieNbColis($produitId, $quantite, $nbCarton, $codeUsineDestination ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineDestination'  AND nombreCarton > 0");
+        $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineDestination'  AND nombreCarton > 0");
     }
     
     public function misAjourColisSortieOrigine($produitId, $quantite, $nbCarton, $codeUsineOrigine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineOrigine'");
+        $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsineOrigine'");
     }
     
      public function misAjourColisDestination($produitId, $quantite, $nbCarton, $codeUsine ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and carton.codeUsine='$codeUsine'");
+        $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton + $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine'");
     }
     public function recupereColisFini($produitId, $quantite, $nbCarton ) {
-        $sql = "SELECT id,nombreCarton FROM carton WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";
+        $sql = "SELECT id,nombreCarton FROM colisage WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $colis = $stmt->fetchAll();

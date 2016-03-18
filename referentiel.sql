@@ -38,13 +38,13 @@ INSERT INTO `utilisateur` (`id`, `usine_id`, `profil_id`, `login`, `password`, `
 
 
 
---Unicité des stocks
+--Unicitï¿½ des stocks
 ALTER TABLE `colisage` ADD UNIQUE( `produitId`, `quantiteParCarton`, `codeUsine`);
 ALTER TABLE `stock_reel` ADD UNIQUE( `produit_id`, `stock`, `codeUsine`);
 ALTER TABLE `stock_provisoire` ADD UNIQUE( `produit_id`, `stock`, `codeUsine`);
 
-ALTER TABLE `stock_sortie` ADD UNIQUE( `produitId`, `quantiteSortie`);
-ALTER TABLE `stock_facture` ADD UNIQUE( `produitId`, `quantiteFacturee`);
-ALTER TABLE `stock_entree` ADD UNIQUE( `produitId`, `quantiteEntree`);
-ALTER TABLE `stock_achete` ADD UNIQUE( `produitId`, `quantiteAchetee`);
+ALTER TABLE `stock_sortie` ADD UNIQUE( `produitId`, `sortieId`);
+ALTER TABLE `stock_facture` ADD UNIQUE( `produitId`, `factureId`);
+ALTER TABLE `stock_entree` ADD UNIQUE( `produitId`, `sortieId`);
+ALTER TABLE `stock_achete` ADD UNIQUE( `produitId`, `achatId`);
 

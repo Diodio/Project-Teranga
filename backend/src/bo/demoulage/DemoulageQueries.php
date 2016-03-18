@@ -53,8 +53,8 @@ class DemoulageQueries {
                 $quantiteDemoulee = $demoulage->getQuantiteDemoulee();
                 $connexion = Bootstrap::$entityManager->getConnection();
                 $stockManager = new \Stock\StockManager();
-                $stockReel = $stockManager->findStockReelByProduitId($produitId, $codeUsine);
-                if ($stockReel == 0) {
+                $idStock = $stockManager->findStockReelByProduitId($produitId, $codeUsine);
+                if ($idStock == 0) {
                     $stockReel = new \Stock\StockReel();
                     $stockReel->setCodeUsine($codeUsine);
                     $stockReel->setLogin($login);
@@ -143,9 +143,9 @@ class DemoulageQueries {
 
     public function getAllColis($produitId, $codeUsine) {
         if ($codeUsine !== '*')
-            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c WHERE nombreCarton<>0 and c.codeUsine="' . $codeUsine . '" AND c.produitId=' . $produitId . ' GROUP BY quantiteParCarton';
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM colisage c WHERE nombreCarton<>0 and c.codeUsine="' . $codeUsine . '" AND c.produitId=' . $produitId . ' GROUP BY quantiteParCarton';
         else
-            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM carton c, demoulage d WHERE nombreCarton<>0 and d.id=c.demoulage_id AND d.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
+            $sql = 'SELECT *, sum(nombreCarton) as nbCarton FROM colisage c WHERE nombreCarton<>0 AND c.produit_id=' . $produitId . ' GROUP BY quantiteParCarton';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $clients = $stmt->fetchAll();
@@ -191,7 +191,7 @@ class DemoulageQueries {
     }
 
     public function getQuantiteColisage($produitId, $codeUsine) {
-        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM carton c WHERE c.produitId='$produitId' and c.codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
+        $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM colisage c WHERE c.produitId='$produitId' and c.codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();

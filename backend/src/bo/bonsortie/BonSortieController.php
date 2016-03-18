@@ -134,9 +134,9 @@ class BonSortieController extends BaseController implements BaseAction {
                             if ($ligne['qte'] != "")
                                 $nbStock = $ligne['qte'];
                             $stockManager->destockageReel($produitId, $request['origine'], $nbStock);
-                            $stock = $stockManager->findStockReelByProduitId($produitId, $codeUsineDestination);
-                            $this->logger->log->trace("stock" . $stock);
-                            if ($stock == 0) {
+                            $stockId = $stockManager->findStockReelByProduitId($produitId, $codeUsineDestination);
+                            $this->logger->log->trace("stock" . $stockId);
+                            if ($stockId == 0) {
                                 $stockReel = new \Stock\StockReel();
                                 $stockReel->setCodeUsine($codeUsineDestination);
                                 $stockReel->setLogin($request ['login']);
@@ -167,23 +167,12 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $insertedLC = $ligneColisManager->insert($colis);
                                 if ($insertedLC->getId() != null) {
                                     $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
-                                    $cartonManager = new \Produit\CartonManager();
-                                    $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineDestination,$ligneC["nbColis"],$ligneC["qte"]);
-                                    if ($existColisage == 0) {
-                                        $carton = new \Produit\Carton();
-                                        $carton->setNombreCarton($ligneC["nbColis"]);
-                                        $carton->setQuantiteParCarton($ligneC["qte"]);
-                                        $carton->setTotal($ligneC["nbColis"] * $ligneC["qte"]);
-                                        $carton->setProduitId($ligneC["produitId"]);
-                                        $carton->setCodeUsine($codeUsineDestination);
-                                        $cartonManager->insert($carton);
-                                    } else {
-                                        $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $codeUsineDestination);
+                                    $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $codeUsineDestination);
                                     }
                                 }
                             }
                         }
-                    }
+                    
                 
                 $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
             } else {
@@ -200,7 +189,7 @@ class BonSortieController extends BaseController implements BaseAction {
        } 
             
         }catch (Exception $e) {
-            $this->doError('-1', 'ERREUR SERVEUR' . $e->getMessage());
+            $this->doError('-1', 'Impossible d\'inserer cet achat' . $e->getMessage());
         }
     }
 
