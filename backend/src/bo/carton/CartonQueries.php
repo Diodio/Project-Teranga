@@ -36,6 +36,17 @@ class CartonQueries {
         }
     }
  
+    public function findColisByProduitId($produitId, $codeUsine, $quantiteParCarton) {
+        $sql = 'SELECT id FROM colisage WHERE produitId = "'.$produitId.'" and codeUsine="'.$codeUsine.'" and quantiteParCarton='.$quantiteParCarton.'';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $colisageId = $stmt->fetchAll();
+        if ($colisageId != null)
+            return $colisageId[0];
+        else
+            return null;
+    }
+    
     public function findCartonByProduitId($produitId, $codeUsine, $quantite,$nbColis) {
         $sql = 'SELECT distinct id FROM carton WHERE produitId = "'.$produitId.'" and codeUsine="'.$codeUsine.'" and nombreCarton >='.$nbColis.' and quantiteParCarton='.$quantite.'';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

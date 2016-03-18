@@ -167,8 +167,19 @@ class BonSortieController extends BaseController implements BaseAction {
                                 $insertedLC = $ligneColisManager->insert($colis);
                                 if ($insertedLC->getId() != null) {
                                     $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
-                                    $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $codeUsineDestination);
+                                    $cartonManager = new \Produit\CartonManager();
+                                    $existColisage = $cartonManager->findColisByProduitId($produitId, $codeUsineDestination, $ligneC["qte"]);
+                                    if ($existColisage == 0) {
+                                        $colisage = new \Produit\Colisage();
+                                        $colisage->setNombreCarton($ligneC["nbColis"]);
+                                        $colisage->setQuantiteParCarton($ligneC["qte"]);
+                                        $colisage->setProduitId($ligneC["produitId"]);
+                                        $colisage->setCodeUsine($codeUsineDestination);
+                                        $cartonManager->insert($colisage);
+                                    } else {
+                                        $ligneColisManager->misAjourColisDestination($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $codeUsineDestination);
                                     }
+                                }
                                 }
                             }
                         }
