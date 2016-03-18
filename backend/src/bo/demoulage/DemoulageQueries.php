@@ -89,6 +89,32 @@ class DemoulageQueries {
         }
     }
 
+    public function annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis) {
+        try{
+            Bootstrap::$entityManager->getConnection()->beginTransaction();
+            $connexion = Bootstrap::$entityManager->getConnection();
+            $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock + $quantiteDemoulee WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+            $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantiteDemoulee WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+            $connexion->executeUpdate("UPDATE demoulage set status=0 WHERE status=1 AND id IN( '$demoulageId')");
+            foreach ($infoColis as $key => $value) {
+                $nombreCarton=$value ['nombreCarton'];
+                $quantiteParCarton=$value ['quantiteParCarton'];
+                $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nombreCarton  WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton  AND codeUsine='$codeUsine'");
+                    //$this->demoulageQueries->diminueCartonParDemoulageId($demoulageId, $value ['produitId'], $value ['nombreCarton'], $value ['quantiteParCarton'], $codeUsine);
+                }
+            Bootstrap::$entityManager->getConnection()->commit();
+            return 1;
+        }
+        catch (\Exception $e) {
+               // $this->logger->log->error($e->getMessage());
+                Bootstrap::$entityManager->getConnection()->rollback();
+                Bootstrap::$entityManager->close();
+                $b = new Bootstrap();
+                Bootstrap::$entityManager = $b->getEntityManager();
+                return null;
+            }
+    }
+    
     public function delete($demoulageId) {
         $demoulage = $this->findById($demoulageId);
         if ($demoulage != null && $demoulage->getStatus() == 0) {
@@ -233,10 +259,7 @@ class DemoulageQueries {
         }
     }
 
-    public function annulerDemoulageId($achatId) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Produit\Demoulage d set d.status=0 WHERE d.status =1 AND d.id IN( '$achatId')");
-        return $query->getResult();
-    }
+    
 
     /*     * *
      * recuperer les infos de l'achat pour l'annuation

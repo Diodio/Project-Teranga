@@ -231,8 +231,11 @@ class DemoulageController extends BaseController {
         try {
             if ($request['demoulageId'] != null) {
                 $demoulageManager = new DemoulageManager();
-                $demoulageManager->annulerParDemoulagId($request['demoulageId']);
-                $this->doSuccess($request['demoulageId'], 'Annulation effectuee avec succes');
+                $demou = $demoulageManager->annulerParDemoulagId($request['demoulageId']);
+                if($demou!=NULL)
+                    $this->doSuccess($request['demoulageId'], 'Annulation effectuee avec succes');
+                else
+                    $this->doError('-1', 'Impossible d\'annuler ce demoulage');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
