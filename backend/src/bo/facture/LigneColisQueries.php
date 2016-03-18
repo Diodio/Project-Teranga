@@ -32,11 +32,11 @@ class LigneColisQueries {
     }
     public function dimunieNbColis($produitId, $quantite, $nbCarton ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        $connexion->executeUpdate("UPDATE carton SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite AND nombreCarton > 0");
+        $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite");
         $this->recupereColisFini($produitId, $quantite, $nbCarton);
     }
     public function recupereColisFini($produitId, $quantite, $nbCarton ) {
-        $sql = "SELECT id,nombreCarton FROM carton WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";
+        $sql = "SELECT id,nombreCarton FROM colisage WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $colis = $stmt->fetchAll();
@@ -47,7 +47,7 @@ class LigneColisQueries {
     }
     public function supprimeNbColis($colisId ) {			
         $connexion=  Bootstrap::$entityManager->getConnection();
-        return $connexion->executeUpdate("DELETE FROM carton WHERE id=$colisId");
+        return $connexion->executeUpdate("DELETE FROM colisage WHERE id=$colisId");
     }
     
 }

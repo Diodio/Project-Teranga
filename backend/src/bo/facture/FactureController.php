@@ -163,7 +163,7 @@ private $logger;
                             $inserted = $ligneFactureManager->insert($ligneFacture);
                             if ($inserted->getId() != null) {
                                 $stockManager = new \Stock\StockManager();
-                                $stockManager->destockageReel($ligne["produitId"], 'usine_dakar', $ligne["pnet"]);
+                                $stockManager->destockageReel($ligne["produitId"],$request['codeUsine'], $ligne["pnet"]);
                             }
                         }
                     }

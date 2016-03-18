@@ -731,7 +731,7 @@ $(document).ready(function () {
      var mont=0;
      $('#tab_produit tbody').find('tr').each(function(){
         var $this = $(this);
-        nc+=parseFloat($('td:eq(1)', $this).text());
+        nc+=$('td:eq(1)', $this).text();
         qt+=parseFloat($('td:eq(3)', $this).text());
         mont+=parseFloat($('td:eq(5)', $this).text());
         console.log(nc);
@@ -863,17 +863,24 @@ $(document).ready(function () {
         //console.log(colisage);    
         var montant=0;
         console.log(JSON.stringify(colisage));
-        if(prix !=='') {
+        //if(prix !=='') {
             montant = parseFloat(prix) * pNet;
             totalColis+=nbColis;
             qteTotal+=pNet;
             mtTotal+=montant;
-        }  
+             if(isNaN(mtTotal))
+                 montant=0;
+             
+       // }  
         var data="<tr><td class='hidden'>"+produitId+"</td><td>"+nbColis+"</td><td>"+designation+"</td> <td>"+pNet+"</td><td>"+prix+"</td><td>"+montant+"</td></tr>";
         $('#tab_produit tbody').append(data);
         $('#totalColis').val(totalColis);
         $('#qteTotal').val(qteTotal);
-        $('#montantHt').val(mtTotal);
+        if(isNaN(mtTotal))
+            $('#montantHt').val('0');
+        else
+            $('#montantHt').val(mtTotal);
+        
          var Ttc = mtTotal+(mtTotal * (parseFloat($("#tva").val())/100));
          montantTtc +=Ttc;
         $('#montantTtc').val(Ttc);
