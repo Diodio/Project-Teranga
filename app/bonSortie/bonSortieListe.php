@@ -245,13 +245,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <table class="table table-bordered table-hover"id="TABLE_BONS">
                         <thead>
                             <tr>
-                                    <th class="text-center">
+                                    <th class="">
                                             Désignation
                                     </th>
-                                    <th class="text-center">
+                                    <th class="">
                                             Quantite (kg)
                                     </th>
-                                    <th class="text-center" style="width: 120px;">
+                                    <th class="" style="width: 120px;">
                                             Détail colis
                                     </th>
                             </tr>
