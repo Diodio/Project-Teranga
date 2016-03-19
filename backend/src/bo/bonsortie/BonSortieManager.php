@@ -260,7 +260,7 @@ public function findStatisticByUsine($codeUsine) {
                     $cartonManager = new \Produit\CartonManager();
                     $produitId = $ligneC["produitId"];
                     $existColisage = $cartonManager->findCartonByProduitId($produitId, $codeUsineOrigine,$ligneC["qte"],$ligneC["nbColis"]);
-                    if ($existColisage == 0) {
+                    if ($existColisage !== 0) {
                         $colis = $cartonManager->getColisage($produitId, $ligneC["qte"], $codeUsineOrigine, $ligneC["nbColis"]);
                         if ($colis['nombreCarton'] < $ligneC["nbColis"])
                             $test++;

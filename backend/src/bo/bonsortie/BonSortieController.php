@@ -187,7 +187,7 @@ class BonSortieController extends BaseController implements BaseAction {
                 
                 $this->doSuccess($Added->getId(), 'Bon de sortie enregistré avec succes');
             } else {
-                $this->doError('-1', 'Impossible d\'inserer cet achat');
+                $this->doError('-1', 'Impossible d\'inserer ce bon de sortie');
             }
         }
         else {
@@ -200,7 +200,7 @@ class BonSortieController extends BaseController implements BaseAction {
        } 
             
         }catch (Exception $e) {
-            $this->doError('-1', 'Impossible d\'inserer cet achat' . $e->getMessage());
+            $this->doError('-1', 'Impossible d\'inserer ce bon de sortie' . $e->getMessage());
         }
     }
 

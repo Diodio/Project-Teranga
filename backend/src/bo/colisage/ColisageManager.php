@@ -15,9 +15,9 @@ class ColisageManager {
         
     
 
-    public function insert($carton) {
-        $this->colisageQueries->insert($carton);
-    	return $carton;
+    public function insert($colisage) {
+        $this->colisageQueries->insert($colisage);
+    	return $colisage;
     }
     
    public function findById($colisageId) {
@@ -30,5 +30,9 @@ class ColisageManager {
       if($colisage!=null)
         return $colisage['id'];
     return 0;
+  }
+  
+  public function misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) {
+     $this->cartonQueries->misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) ;
   }
 }

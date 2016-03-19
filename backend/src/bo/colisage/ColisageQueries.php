@@ -23,16 +23,16 @@ class ColisageQueries {
     }
 
    
-    public function insert($carton) {
-        if ($carton != null) {
-            if ($carton->getId() != null){
-                Bootstrap::$entityManager->merge($carton);
+    public function insert($colisage) {
+        if ($colisage != null) {
+            if ($colisage->getId() != null){
+                Bootstrap::$entityManager->merge($colisage);
             }
             else {
-                Bootstrap::$entityManager->persist($carton);
+                Bootstrap::$entityManager->persist($colisage);
             }
             Bootstrap::$entityManager->flush();
-            return $carton;
+            return $colisage;
         }
     }
  
@@ -56,4 +56,11 @@ class ColisageQueries {
         else
             return null;
     }
+    
+    
+     public function misAjourColis($produitId, $quantite, $nombreCarton, $codeUsine) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton + $nombreCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine'");
+    }
+    
 }

@@ -65,19 +65,18 @@ class FactureManager {
         }
         $infosColis = $this->factureQuery->findColisageByFactureId($factureId);
         foreach ($infosColis as $key => $value) {
-            $colisManager = new \Produit\CartonManager();
+            $colisManager = new \Produit\ColisageManager();
             $isExist = $colisManager->verifieColisage($value ['produitId'], $value ['quantiteParCarton'],$value ['nombreCarton'],$codeUsine);
             if($isExist !==0)
                 $colisManager->misAjourColis($value ['produitId'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsine);
             else{
-                 $carton = new \Produit\Carton();
-                $cartonManager = new \Produit\CartonManager();
-                $carton->setNombreCarton($value ['nombreCarton']);
-                $carton->setQuantiteParCarton($value ['quantiteParCarton']);
-                $carton->setTotal($value ['nombreCarton'] * $value ['quantiteParCarton']);
-                $carton->setProduitId($value ['produitId']);
-                $carton->setCodeUsine($codeUsine);
-                $cartonManager->insert($carton);
+                 $colisage = new \Produit\Colisage();
+                $colisage->setNombreCarton($value ['nombreCarton']);
+                $colisage->setQuantiteParCarton($value ['quantiteParCarton']);
+               // $colisage->setTotal($value ['nombreCarton'] * $value ['quantiteParCarton']);
+                $colisage->setProduitId($value ['produitId']);
+                $colisage->setCodeUsine($codeUsine);
+                $colisManager->insert($colisage);
             }
                 
         }

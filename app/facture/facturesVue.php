@@ -207,7 +207,7 @@ $codeUsine = $_COOKIE['codeUsine'];
              <div class="col-sm-2" style="margin-top: 3.2%;margin-left: -9%;">
                  <div class="row">
                       <div class="form-group">
-                          <button id="VOIR_COLISAGE" type="button" class="btn btn-lg btn-warning" data-toggle="popover" title="Voir démoulage" >Voir démoulage</button>
+                          <button id="VOIR_COLISAGE" type="button" class="btn btn-lg btn-warning" data-toggle="popover" title="Voir colisage" >Voir colisage</button>
                      </div>
                  </div>
                     <div class="row">
