@@ -223,12 +223,13 @@ public function retrieveTypes()
     		$arrayProduits [$i] [] = $quantiteDemoulee;
     		$arrayProduits [$i] [] = $quantiteEntree;
     		$arrayProduits [$i] [] = $quantiteSortie;
+    		$arrayProduits [$i] [] = $quantiteFacturee;
     		$arrayProduits [$i] [] = $stockReel;
 //    		$arrayProduits [$i] [] = $value ['stockReel'];
 //    		if($value ['nbColis'] !=null)
 //    			$arrayProduits [$i] [] = $value ['nbColis'];
 //    		else $arrayProduits [$i] [] = 0;
-    		$arrayProduits [$i] [] = $value ['id'];
+    		//$arrayProduits [$i] [] = $value ['id'];
     
     		$i++;
     	}
