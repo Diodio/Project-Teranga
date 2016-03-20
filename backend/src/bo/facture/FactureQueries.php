@@ -193,7 +193,7 @@ class FactureQueries {
     
     public function findAllProduitByFacture($factureId) {
         if ($factureId != null) {
-            $sql = 'SELECT nbColis, libelle produit, quantite,prixUnitaire,montant FROM ligne_facture lf, facture f,produit p WHERE f.id=lf.facture_id AND p.id = lf.produit AND f.id=' . $factureId;
+            $sql = 'SELECT lf.id, nbColis, libelle produit, quantite,prixUnitaire,montant FROM ligne_facture lf, facture f,produit p WHERE f.id=lf.facture_id AND p.id = lf.produit AND f.id=' . $factureId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $facture = $stmt->fetchAll();

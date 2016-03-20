@@ -234,31 +234,19 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <table class="table table-bordered table-hover"id="tab_produit"> 
                            <thead>
                             <tr>
-                                    <th class="text-center">Détail de colis</th>
-                                            <th class="text-center">Désignation</th>
-                                            <th class="text-center">Poids net</th>
-                                            <th class="text-center">Prix unitaire</th>
-                                            <th class="text-center">Montant</th>
+                                    <th class=""></th>
+                                    <th class="">Détail de colis</th>
+                                    <th class="">Désignation</th>
+                                    <th class="">Poids net</th>
+                                    <th class="">Prix unitaire</th>
+                                    <th class="">Montant</th>
                             </tr>
                         </thead>
 				<tbody>
 				
 				</tbody>
 			</table>
-<!--                     <table class="table table-bordered table-hover"id="tab_produit"> -->
-<!-- 				<thead> -->
-<!--                                     <tr> -->
-<!--                                             <th class="text-center">Nombre de colis</th> -->
-<!--                                             <th class="text-center">Désignation</th> -->
-<!--                                             <th class="text-center">Poids net</th> -->
-<!--                                             <th class="text-center">Prix unitaire</th> -->
-<!--                                             <th class="text-center">Montant</th> -->
-<!--                                     </tr> -->
-<!--                                 </thead> -->
-<!-- 				<tbody> -->
-					
-<!-- 				</tbody> -->
-<!-- 			</table> -->
+
                                 
                         <div class="profile-user-info">
                             <div class="profile-info-row">
@@ -279,18 +267,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <span id="MontantHt"></span>
                                 </div>
                             </div>
+                        </div>
                              <div class="row">
                                 <div class="form-group">
                                         <label class="col-sm-5 control-label no-padding-right"
                                                 for="form-field-1"> Mode de paiement </label>
                                         <div class="col-sm-7">
-                                                <div class="clearfix">
-                                                    <select  id="modePaiement" class="col-xs-12 col-sm-10">
-                                                                <option value="ESPECES">Especes</option>
-                                                                <option value="CHEQUE">Cheque</option>
-                                                                <option value="VIREMENT">Virement</option>
-                                                        </select>
-                                                </div>
+                                            <select id="modePaiement" class="col-xs-12 col-sm-10">
+                                                    <option value="ESPECES">Especes</option>
+                                                    <option value="CHEQUE">Cheque</option>
+                                                    <option value="VIREMENT">Virement</option>
+                                            </select>
                                         </div>
                                 </div>
                             </div>
@@ -354,7 +341,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     for="form-field-1"> Reglé </label>
                                             <div class="col-sm-7">
                                                     <div class="clearfix">
-                                                        <input type="checkbox" disabled="disabled" id="regleAchat" name="regleAchat" placeholder=""
+                                                        <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder=""
                                                                     >
                                                     </div>
                                             </div>
@@ -362,48 +349,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                         
                                 
-                                <div style="float: right">
-                        <button id="SAVE" class="btn btn-small btn-info" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Enregistrer
-                            </button>
-<!--                             <div class="profile-info-row"> -->
-<!--                                 <div class="profile-info-name">Montant TTC </div> -->
-<!--                                 <div class="profile-info-value"> -->
-<!--                                     <span id="MontantTtc"></span> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-                            
-<!--                             <div class="profile-info-row"> -->
-<!--                                 <div class="profile-info-name">Mode paiement </div> -->
-<!--                                 <div class="profile-info-value"> -->
-<!--                                     <span id="modePaiement"></span> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="profile-info-row"> -->
-<!--                                 <div class="profile-info-name">N° chèque </div> -->
-<!--                                 <div class="profile-info-value"> -->
-<!--                                     <span id="numCheque"></span> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="profile-info-row"> -->
-<!--                                 <div class="profile-info-name">Date Paiement </div> -->
-<!--                                 <div class="profile-info-value"> -->
-<!--                                     <span id="datePaiement"></span> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="profile-info-row"> -->
-<!--                                 <div class="profile-info-name">Avance </div> -->
-<!--                                 <div class="profile-info-value"> -->
-<!--                                     <span id="Avance"></span> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="profile-info-row"> -->
-<!--                                 <div class="profile-info-name">Reliquat </div> -->
-<!--                                 <div class="profile-info-value"> -->
-<!--                                     <span id="Reliquat"></span> -->
-<!--                                 </div> -->
-<!--                             </div> -->
+                        <div style="float: right">
+                            <button id="SAVE" class="btn btn-small btn-info" >
+                                    <i class="ace-icon fa fa-save"></i>
+                                    Enregistrer
+                                </button>
+
                         </div>
                                             </div>
                                         </div>
@@ -685,7 +636,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.nbTotalPoids);
                     $('#MontantHt').text(data.montantHt);
                     $('#MontantTtc').text(data.montantTtc);
-                    $('#modePaiement').text(data.modePaiement);
+                    if(data.modePaiement == '' && data.modePaiement=='undefined')
+                        $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
                     if(data.numCheque !==null && data.numCheque!=="")
                         $('#numCheque').text(data.numCheque);
@@ -697,6 +649,64 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#datePaiement').text('Non dédini'); 
                     //colis
                     $('#tab_colis tbody').html("");
+                    loadEditable = function(compteur)
+                    {
+                    $('#prix'+compteur).editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            placement:"right",
+                            validate:function(value){
+                                
+                                    
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= prix * parseFloat(qte);
+                                        if(!isNaN(montant)){
+                                            $('#montant'+compteur).text(montant);
+                                        $('#tab_produit .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                        $('#avance').val("");
+                                        $('#reliquat').val("");
+                                        $('#datePaiement').val("");
+                                        $('#numCheque').val("");
+                                        //$('#modePaiement').val("-1").change;
+                                        $('#transport').val("");
+                                        }
+                                      //console.log(tot);
+                                      $('#MontantHt').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                    }
                     var tableColis = data.colis;
                     var trColisHTML='';
                     $(tableColis).each(function(index, element){
@@ -718,7 +728,24 @@ $codeUsine = $_COOKIE['codeUsine'];
                     var table = data.ligneFacture;
                     var trHTML='';
                     $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
+                        var row = $('<tr id='+element.id+' />');
+                        $("#tab_produit tbody").append(row); 
+                        var pu='';
+                        var mt=0;
+                        if(element.prixUnitaire !== 0 && element.prixUnitaire !== null){
+                            pu=element.prixUnitaire;
+                        }
+                        if(element.montant !== 0 && element.montant !== null){
+                            mt=element.montant;
+                        }
+                        row.append($('<td id="ligneId'+index+'">'+element.id+'</td>'));
+                        row.append($('<td id="nbColis'+index+'">'+element.nbColis+'</td>'));
+                        row.append($('<td id="designation'+index+'">'+element.produit+'</td>'));
+                        row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
+                        row.append($('<td  id="quantite'+index+'">'+element.quantite+'</td>'));
+                        row.append($('<td class="montant" id="montant'+index+'">'+mt+'</td>'));
+                        loadEditable(index);
+                       // trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#tab_produit tbody').append(trHTML);
                     trHTML=''; 
@@ -747,6 +774,82 @@ $codeUsine = $_COOKIE['codeUsine'];
               }).error(function(error) { });
             };
 
+            
+            $("#modePaiement").change(function() {
+        if($("#modePaiement").val() =='CHEQUE') {
+            $("#numCheque").prop("readonly", false);
+            $("#datePaiement").prop("readonly", true);
+        }
+        else if($("#modePaiement").val() == 'VIREMENT') {
+            $("#numCheque").prop("readonly",true );
+            $("#datePaiement").prop("readonly", false);
+        }
+        else{
+            $("#numCheque").prop("readonly", true);
+            $("#datePaiement").prop("readonly", true);
+            
+        }
+    });
+     $("#datePaiement").datepicker({
+                        autoclose: true,
+                        todayHighlight: true
+                })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                });
+      $("#avance").keyup(function() {
+          calculReliquat();
+      });
+      
+       $("#tva").keyup(function() {
+           var tva = parseFloat($("#tva").val());
+           if(!isNaN(tva) && tva >= 0){
+                $('#montantTtc').val('');
+                var mtHt=parseFloat($('#montantHt').val());
+                var mtTtc=0;
+                mtTtc = mtHt+(mtHt * (tva/100));
+                $('#montantTtc').val(mtTtc);
+            }
+//        
+      });
+ function calculReliquat(){
+          var rel=0;
+           var mt=parseFloat($("#MontantHt").text());
+           var avance=parseFloat($("#avance").val());
+           if(!isNaN(avance) && !isNaN(avance)) {
+           rel = mt - avance;
+           if(!isNaN(rel) && rel>0) {
+              $("#reliquat").val(rel);
+              $('#regleFacture').attr("disabled", true);
+              $('#regleFacture').prop('checked', false);
+          }
+           else if(!isNaN(rel) && rel===0) {
+              $('#regleFacture').attr("disabled", false);
+              $('#regleFacture').prop('checked', true);
+              $("#reliquat").val(0);
+          }  
+          else{
+              $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant saisi ne doit pas être supérieur au montant TTC',
+                    class_name: 'gritter-error gritter-light'
+                });
+              $("#avance").val("");
+              $("#reliquat").val("");
+              $('#regleFacture').attr("disabled", true);
+              $('#regleFacture').prop('checked', false);
+          }
+        }
+        else {
+             $.gritter.add({
+                    title: 'Notification',
+                    text: 'Le montant avance ne doit pas être vide',
+                    class_name: 'gritter-error gritter-light'
+                });
+        }
+        }
+        
         $("#MNU_VALIDATION").click(function()
             {
                 if (checkedFacture.length == 0)
