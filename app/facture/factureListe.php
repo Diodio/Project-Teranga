@@ -237,8 +237,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <th class=""></th>
                                     <th class="">Détail de colis</th>
                                     <th class="">Désignation</th>
-                                    <th class="">Poids net</th>
                                     <th class="">Prix unitaire</th>
+                                    <th class="">Poids net</th>
                                     <th class="">Montant</th>
                             </tr>
                         </thead>
@@ -550,7 +550,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             "mRender": function(data, type, full) {
                                var src = '<input type="hidden" id="stag' + full[0] + '" value="' + data + '">';
                                 if (data == 0)
-                                    src += '<span class=" tooltip-error" title="Non validé"><i class="ace-icon fa fa-wrench orange bigger-130 icon-only"></i></span>';
+                                    src += '<span class=" tooltip-error" title="Annulé"><i class="ace-icon fa fa-trash red bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
                                     src += '<span class="badge badge-transparent tooltip-error" title="Validé"><i class="ace-icon fa fa-check green bigger-130 icon-only"></i></span>';
                                 return src;

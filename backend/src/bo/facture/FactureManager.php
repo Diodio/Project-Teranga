@@ -66,7 +66,7 @@ class FactureManager {
         $infosColis = $this->factureQuery->findColisageByFactureId($factureId);
         foreach ($infosColis as $key => $value) {
             $colisManager = new \Produit\ColisageManager();
-            $isExist = $colisManager->verifieColisage($value ['produitId'], $value ['quantiteParCarton'],$value ['nombreCarton'],$codeUsine);
+            $isExist = $colisManager->verifieColisage($value ['produitId'], $value ['quantiteParCarton'],$codeUsine);
             if($isExist !==0)
                 $colisManager->misAjourColis($value ['produitId'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsine);
             else{

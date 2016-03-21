@@ -33,6 +33,7 @@ class ColisageManager {
   }
   
   public function misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) {
-     $this->cartonQueries->misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) ;
+      $colisageQueries = new ColisageQueries();
+      $colisageQueries->misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) ;
   }
 }
