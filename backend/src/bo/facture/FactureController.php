@@ -1,9 +1,8 @@
 <?php
 
-
 require_once '../../../../common/app.php';
-require_once App::AUTOLOAD;         
-$lang='fr';
+require_once App::AUTOLOAD;
+$lang = 'fr';
 
 use Facture\Facture as Facture;
 use Facture\FactureTemp as FactureTemp;
@@ -14,68 +13,67 @@ use BonSortie\BonSortieManager as BonSortieManager;
 use Log\Loggers as Logger;
 use Exceptions\ConstraintException as ConstraintException;
 use App as App;
-                        
+
 class FactureController extends BaseController implements BaseAction {
-private $logger;
-    
+
+    private $logger;
     private $parameters;
-            function __construct($request) {
-       $this->logger = new Logger(__CLASS__);
-       // $this->parameters = parse_ini_file("../../../../lang/trad_fr.ini");
+
+    function __construct($request) {
+        $this->logger = new Logger(__CLASS__);
+        // $this->parameters = parse_ini_file("../../../../lang/trad_fr.ini");
         try {
-            if(isset($request['ACTION'])) 
-                {
-                    switch ($request['ACTION']) {
-                        case \App::ACTION_INSERT:
-                                $this->doInsert($request);
-                                break;
-                        case \App::ACTION_INSERT_TEMP:
-                                $this->doInsertTemp($request);
-                                break;
-                        case \App::ACTION_UPDATE:
-                                $this->doUpdate($request);
-                                break;
-                        case \App::ACTION_VIEW:
-                                $this->doView($request);
-                                break;
-                        case \App::ACTION_LIST:
-                                $this->doList($request);
-                                break;
-                        case \App::ACTION_REMOVE:
-                                $this->doRemove($request);
-                                break;
-                        case \App::ACTION_GET_PRODUCT:
-                                $this->doGetInfoProduct($request);
-                                break;
-                        case \App::ACTION_SEARCH:
-                                $this->doSearch($request);
-                                break;
-                        case \App::ACTION_LIST_PAR_USINE:
-                                $this->doGetFactureParUsine($request);
-                                break;
-                        case \App::ACTION_ACTIVER:
-                                $this->doValidFacture($request);
-                                break;
-                        case \App::ACTION_DESACTIVER:
-                                $this->doAnnuleFacture($request);
-                                break;
-                        case \App::ACTION_GET_LAST_NUMBER:
-                                $this->doGetLastNumber($request);
-                                break;
-                        case \App::ACTION_STAT:
-                                $this->doStat($request);
-                                break;
-                        case \App::ACTION_VIEW_DETAILS:
-                            $this->doViewDetails($request);
-                            break;
-                        case \App::ACTION_LIST_REGLEMENTS:
-                                $this->doListReglements($request);
-                                break;
-                        case \App::ACTION_STAT_REGLEMENTS:
-                                $this->doStatReglements($request);
-                                break;
-                        
-                    }
+            if (isset($request['ACTION'])) {
+                switch ($request['ACTION']) {
+                    case \App::ACTION_INSERT:
+                        $this->doInsert($request);
+                        break;
+                    case \App::ACTION_INSERT_TEMP:
+                        $this->doInsertTemp($request);
+                        break;
+                    case \App::ACTION_UPDATE:
+                        $this->doUpdate($request);
+                        break;
+                    case \App::ACTION_VIEW:
+                        $this->doView($request);
+                        break;
+                    case \App::ACTION_LIST:
+                        $this->doList($request);
+                        break;
+                    case \App::ACTION_REMOVE:
+                        $this->doRemove($request);
+                        break;
+                    case \App::ACTION_GET_PRODUCT:
+                        $this->doGetInfoProduct($request);
+                        break;
+                    case \App::ACTION_SEARCH:
+                        $this->doSearch($request);
+                        break;
+                    case \App::ACTION_LIST_PAR_USINE:
+                        $this->doGetFactureParUsine($request);
+                        break;
+                    case \App::ACTION_ACTIVER:
+                        $this->doValidFacture($request);
+                        break;
+                    case \App::ACTION_DESACTIVER:
+                        $this->doAnnuleFacture($request);
+                        break;
+                    case \App::ACTION_GET_LAST_NUMBER:
+                        $this->doGetLastNumber($request);
+                        break;
+                    case \App::ACTION_STAT:
+                        $this->doStat($request);
+                        break;
+                    case \App::ACTION_VIEW_DETAILS:
+                        $this->doViewDetails($request);
+                        break;
+                    case \App::ACTION_LIST_REGLEMENTS:
+                        $this->doListReglements($request);
+                        break;
+                    case \App::ACTION_STAT_REGLEMENTS:
+                        $this->doStatReglements($request);
+                        break;
+                }
             } else {
                 throw new Exception('NO_ACTION');
             }
@@ -87,112 +85,110 @@ private $logger;
     public function doInsert($request) {
         try {
             if ($request['client'] != "null" || $request['client'] != "undefined") {
-            $factureManager = new FactureManager();
-            $facture = new Facture();
-            $facture->setNumero($request['numFacture']);
-            $facture->setDateFacture(new \DateTime("now"));
-            $facture->setHeureFacture(new \DateTime($request['heureFacture']));
-            $facture->setDevise($request['devise']);
-            $facture->setPortDechargement($request['portDechargement']);
-            $facture->setMontantHt($request['montantHt']);
-            $facture->setMontantTtc($request['montantTtc']);
-            $facture->setModePaiement($request['modePaiement']);
-            if($request['modePaiement'] == 'CHEQUE')
+                $factureManager = new FactureManager();
+                $facture = new Facture();
+                $facture->setNumero($request['numFacture']);
+                $facture->setDateFacture(new \DateTime("now"));
+                $facture->setHeureFacture(new \DateTime($request['heureFacture']));
+                $facture->setDevise($request['devise']);
+                $facture->setPortDechargement($request['portDechargement']);
+                $facture->setMontantHt($request['montantHt']);
+                $facture->setMontantTtc($request['montantTtc']);
+                $facture->setModePaiement($request['modePaiement']);
+                if ($request['modePaiement'] == 'CHEQUE')
                     $facture->setNumCheque($request['numCheque']);
-            else if($request['modePaiement'] == 'VIREMENT')
-                $facture->setDatePaiement(new \DateTime($request['datePaiement']));
-            $facture->setAvance($request['avance']);
-            $facture->setReliquat($request['reliquat']);
-            $facture->setNbTotalColis($request['nbTotalColis']);
-            $facture->setNbTotalPoids($request['nbTotalPoids']);
-            $facture->setStatus(1);
-            if ($request['regle'] == "true")
-                $facture->setRegle(2);
-            else {
-                if ($request['avance'] != "") {
-                    $facture->setRegle(1);
-                    $reliquat = $request['montantTtc'] - $request['avance'];
-                    if ($reliquat == 0)
-                        $facture->setRegle(2);
-                    $facture->setReliquat($reliquat);
-                    $reglement = new Reglement\ReglementFacture();
-                    $reglement->setFacture($facture);
-                    $reglement->setDatePaiement(new \DateTime("now"));
-                    $reglement->setAvance($request['avance']);
-                }
+                else if ($request['modePaiement'] == 'VIREMENT')
+                    $facture->setDatePaiement(new \DateTime($request['datePaiement']));
+                $facture->setAvance($request['avance']);
+                $facture->setReliquat($request['reliquat']);
+                $facture->setNbTotalColis($request['nbTotalColis']);
+                $facture->setNbTotalPoids($request['nbTotalPoids']);
+                $facture->setStatus(1);
+                if ($request['regle'] == "true")
+                    $facture->setRegle(2);
                 else {
-                    $facture->setRegle(0);
-                }
-            }
-            $facture->setCodeUsine($request['codeUsine']);
-            $facture->setLogin($request['login']);
-            $clientManager = new \Client\ClientManager();
-            $client = $clientManager->findById($request['client']);
-            $facture->setClient($client);
-            $factureAdded = $factureManager->insert($facture);
-            if ($factureAdded->getId() != null) {
-                if ($request['avance'] != "" && $request['regle'] != "true") {
-                    $reglementManager = new Reglement\ReglementManager();
-                    $reglementManager->insert($reglement);
-                }
-                $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
-                foreach ($jsonConteneur as $key => $ligneConteneur) {
-                    if (isset($ligneConteneur["nConteneur"])) {
-                        if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
-                            $conteneur = new \Facture\Conteneur();
-                            $conteneur->setFacture($facture);
-                            $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
-                            $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
-                            $conteneurManager = new \Facture\ConteneurManager();
-                            $conteneurManager->insert($conteneur);
-                        }
+                    if ($request['avance'] != "") {
+                        $facture->setRegle(1);
+                        $reliquat = $request['montantTtc'] - $request['avance'];
+                        if ($reliquat == 0)
+                            $facture->setRegle(2);
+                        $facture->setReliquat($reliquat);
+                        $reglement = new Reglement\ReglementFacture();
+                        $reglement->setFacture($facture);
+                        $reglement->setDatePaiement(new \DateTime("now"));
+                        $reglement->setAvance($request['avance']);
+                    }
+                    else {
+                        $facture->setRegle(0);
                     }
                 }
-                $jsonProduit = json_decode($_POST['jsonProduit'], true);
-                foreach ($jsonProduit as $key => $ligne) {
-                    if (isset($ligne["nColis"])) {
-                        if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                            $ligneFacture = new \Facture\LigneFacture;
-                            $ligneFacture->setFacture($facture);
-                            $ligneFacture->setNbColis($ligne["nColis"]);
-                            $ligneFacture->setProduit($ligne["produitId"]);
-                            $ligneFacture->setQuantite($ligne["pnet"]);
-                            $ligneFacture->setPrixUnitaire($ligne["pu"]);
-                            $ligneFacture->setMontant($ligne["montant"]);
-                            $ligneFactureManager = new \Facture\LigneFactureManager();
-                            $inserted = $ligneFactureManager->insert($ligneFacture);
-                            if ($inserted->getId() != null) {
-                                $stockManager = new \Stock\StockManager();
-                                $stockManager->destockageReel($ligne["produitId"],$request['codeUsine'], $ligne["pnet"]);
+                $facture->setCodeUsine($request['codeUsine']);
+                $facture->setLogin($request['login']);
+                $clientManager = new \Client\ClientManager();
+                $client = $clientManager->findById($request['client']);
+                $facture->setClient($client);
+                $factureAdded = $factureManager->insert($facture);
+                if ($factureAdded->getId() != null) {
+                    if ($request['avance'] != "" && $request['regle'] != "true") {
+                        $reglementManager = new Reglement\ReglementManager();
+                        $reglementManager->insert($reglement);
+                    }
+                    $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
+                    foreach ($jsonConteneur as $key => $ligneConteneur) {
+                        if (isset($ligneConteneur["nConteneur"])) {
+                            if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
+                                $conteneur = new \Facture\Conteneur();
+                                $conteneur->setFacture($facture);
+                                $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
+                                $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
+                                $conteneurManager = new \Facture\ConteneurManager();
+                                $conteneurManager->insert($conteneur);
                             }
                         }
                     }
-                }
+                    $jsonProduit = json_decode($_POST['jsonProduit'], true);
+                    foreach ($jsonProduit as $key => $ligne) {
+                        if (isset($ligne["nColis"])) {
+                            if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
+                                $ligneFacture = new \Facture\LigneFacture;
+                                $ligneFacture->setFacture($facture);
+                                $ligneFacture->setNbColis($ligne["nColis"]);
+                                $ligneFacture->setProduit($ligne["produitId"]);
+                                $ligneFacture->setQuantite($ligne["pnet"]);
+                                $ligneFacture->setPrixUnitaire($ligne["pu"]);
+                                $ligneFacture->setMontant($ligne["montant"]);
+                                $ligneFactureManager = new \Facture\LigneFactureManager();
+                                $inserted = $ligneFactureManager->insert($ligneFacture);
+                                if ($inserted->getId() != null) {
+                                    $stockManager = new \Stock\StockManager();
+                                    $stockManager->destockageReel($ligne["produitId"], $request['codeUsine'], $ligne["pnet"]);
+                                }
+                            }
+                        }
+                    }
 
-                $jsonColis = json_decode($_POST['jsonColis'], true);
-                foreach ($jsonColis as $key => $ligneC) {
-                    if (isset($ligneC["nbColis"])) {
-                        if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-                            $colis = new \Facture\LigneColis();
-                            $colis->setNombreCarton($ligneC["nbColis"]);
-                            $colis->setQuantiteParCarton($ligneC["qte"]);
-                            $colis->setProduitId($ligneC["produitId"]);
-                            $colis->setFactureId($factureAdded->getId());
-                            $ligneColisManager = new \Facture\LigneColisManager;
-                            $inserted = $ligneColisManager->insert($colis);
-                            if ($inserted->getId() != null) {
-                                $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                    $jsonColis = json_decode($_POST['jsonColis'], true);
+                    foreach ($jsonColis as $key => $ligneC) {
+                        if (isset($ligneC["nbColis"])) {
+                            if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
+                                $colis = new \Facture\LigneColis();
+                                $colis->setNombreCarton($ligneC["nbColis"]);
+                                $colis->setQuantiteParCarton($ligneC["qte"]);
+                                $colis->setProduitId($ligneC["produitId"]);
+                                $colis->setFactureId($factureAdded->getId());
+                                $ligneColisManager = new \Facture\LigneColisManager;
+                                $inserted = $ligneColisManager->insert($colis);
+                                if ($inserted->getId() != null) {
+                                    $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                                }
                             }
                         }
                     }
+                    $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
+                } else {
+                    $this->doError('-1', 'Impossible d\'inserer ce facture');
                 }
-                $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
-            }
-            else {
-                $this->doError('-1', 'Impossible d\'inserer ce facture');
-            }
-            }
-            else 
+            } else
                 $this->doError('-1', 'Impossible d\'inserer ce facture');
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
@@ -223,7 +219,7 @@ private $logger;
             $facture->setClient($request['clientId']);
             $factureAdded = $factureManager->insert($facture);
             if ($factureAdded->getId() != null) {
-                
+
                 $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
                 foreach ($jsonConteneur as $key => $ligneConteneur) {
                     if (isset($ligneConteneur["nConteneur"])) {
@@ -241,7 +237,7 @@ private $logger;
                 foreach ($jsonProduit as $key => $ligne) {
                     if (isset($ligne["nColis"])) {
                         if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                            $colis= new \Facture\LigneFactureTemp();
+                            $colis = new \Facture\LigneFactureTemp();
                             $colis->setFacture($factureAdded->getId());
                             $colis->setNbColis($ligne["nColis"]);
                             $colis->setProduit($ligne["produitId"]);
@@ -250,22 +246,20 @@ private $logger;
                             $colis->setMontant($ligne["montant"]);
                             $ligneFactureManager = new \Facture\LigneFactureManager();
                             $inserted = $ligneFactureManager->insert($colis);
-                            
                         }
                     }
                 }
-              $jsonColis = json_decode($_POST['jsonColis'], true);
+                $jsonColis = json_decode($_POST['jsonColis'], true);
                 foreach ($jsonColis as $key => $ligneC) {
                     if (isset($ligneC["nbColis"])) {
                         if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-                            $colis= new \Facture\LigneColisTemp();
+                            $colis = new \Facture\LigneColisTemp();
                             $colis->setNombreCarton($ligneC["nbColis"]);
                             $colis->setQuantiteParCarton($ligneC["qte"]);
                             $colis->setProduitId($ligneC["produitId"]);
                             $colis->setFactureId($factureAdded->getId());
                             $ligneColisManager = new \Facture\LigneColisManager;
                             $inserted = $ligneColisManager->insert($colis);
-                            
                         }
                     }
                 }
@@ -277,6 +271,7 @@ private $logger;
             $this->doError('-1', 'ERREUR SERVEUR');
         }
     }
+
     public function doList($request) {
         try {
             $factureManager = new FactureManager();
@@ -310,19 +305,19 @@ private $logger;
                             if ($i == count($aColumns) - 1)
                                 $sWhere = substr_replace($sWhere, "", -3);
                         }
-                       // $sWhere = $sWhere .=")";
+                        // $sWhere = $sWhere .=")";
                     }
                 }
                 // End filter from dataTable
-                $facture = $factureManager->retrieveAll($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $facture = $factureManager->retrieveAll($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($facture != null) {
-                    $nbFactures = $factureManager->count($request['codeUsine'],$sWhere);
+                    $nbFactures = $factureManager->count($request['codeUsine'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($facture, $request['sEcho'], $nbFactures));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }
             } else {
-                 throw new Exception('list failed');
+                throw new Exception('list failed');
             }
         } catch (Exception $e) {
             throw $e;
@@ -342,22 +337,23 @@ private $logger;
     public function doView($request) {
         
     }
-     public function doValidFacture($request) {
+
+    public function doValidFacture($request) {
         try {
             if ($request['achatId'] != null) {
                 $factureManager = new FactureManager();
                 $valid = $factureManager->validFacture($request['achatId']);
-                if($valid==1)
-                    $factureManager->ajoutStockParAchact ($request['achatId']);
+                if ($valid == 1)
+                    $factureManager->ajoutStockParAchact($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
-        }  catch (Exception $e) {
+        } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
     }
-    
+
     public function doAnnuleFacture($request) {
         try {
             if ($request['factureId'] != null) {
@@ -367,39 +363,40 @@ private $logger;
             } else {
                 $this->doError('-1', 'Params not enough');
             }
-        }  catch (Exception $e) {
+        } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
     }
+
     public function doGetLastNumber($request) {
         try {
-                $factureManager = new FactureManager();
-                $lastFacture = $factureManager->getLastNumberFacture();
-                $this->doSuccess($lastFacture,'Dernier bon de sortie');
-        }  catch (Exception $e) {
+            $factureManager = new FactureManager();
+            $lastFacture = $factureManager->getLastNumberFacture();
+            $this->doSuccess($lastFacture, 'Dernier bon de sortie');
+        } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
     }
-    
+
     public function doStat($request) {
-    	try {
-    		if (isset($request['codeUsine'])) {
-    			$FactureManager = new FactureManager();
-    			$achat = $FactureManager->findStatisticByUsine($request['codeUsine']);
-    			if($achat != null)
-    				$this->doSuccessO($achat);
-    			else
-    				echo json_encode(array());
-    		} else {
-    			$this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
-    			$this->logger->log->error('View : Params not enough');
-    		}
-    	} catch (Exception $e) {
-    		$this -> doError('-1', $this->parameters['CANNOT_GET_MSG']);
-    		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-    	}
+        try {
+            if (isset($request['codeUsine'])) {
+                $FactureManager = new FactureManager();
+                $achat = $FactureManager->findStatisticByUsine($request['codeUsine']);
+                if ($achat != null)
+                    $this->doSuccessO($achat);
+                else
+                    echo json_encode(array());
+            } else {
+                $this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
+                $this->logger->log->error('View : Params not enough');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
+            $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
     }
-    
+
     public function doViewDetails($request) {
         try {
             if (isset($request['factureId'])) {
@@ -410,14 +407,13 @@ private $logger;
                 else
                     echo json_encode(array());
             } else {
-                $this -> doError('-1', 'Chargement detail impossible');
+                $this->doError('-1', 'Chargement detail impossible');
             }
-        
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR_SERVEUR');
         }
     }
-    
+
     public function doListReglements($request) {
         try {
             $factureManager = new FactureManager();
@@ -451,19 +447,19 @@ private $logger;
                             if ($i == count($aColumns) - 1)
                                 $sWhere = substr_replace($sWhere, "", -3);
                         }
-                       $sWhere = $sWhere .=")";
+                        $sWhere = $sWhere .=")";
                     }
                 }
                 // End filter from dataTable
-                $achats = $factureManager->retrieveAllReglements($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $achats = $factureManager->retrieveAllReglements($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbAchats = $factureManager->count($request['codeUsine'],$sWhere);
+                    $nbAchats = $factureManager->count($request['codeUsine'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }
             } else {
-                 throw new Exception('list failed');
+                throw new Exception('list failed');
             }
         } catch (Exception $e) {
             throw $e;
@@ -471,28 +467,26 @@ private $logger;
             throw new Exception('ERREUR SERVEUR');
         }
     }
-    
-    
-    
+
     public function doStatReglements($request) {
-    	try {
-    		if (isset($request['codeUsine'])) {
-    			$factureManager = new FactureManager();
-    			$facture = $factureManager->findStatisticReglementByUsine($request['codeUsine']);
-    			if($facture != null)
-    				$this->doSuccessO($facture);
-    			else
-    				echo json_encode(array());
-    		} else {
-    			$this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
-    			$this->logger->log->error('View : Params not enough');
-    		}
-    	} catch (Exception $e) {
-    		$this -> doError('-1', $this->parameters['CANNOT_GET_MSG']);
-    		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
-    	}
+        try {
+            if (isset($request['codeUsine'])) {
+                $factureManager = new FactureManager();
+                $facture = $factureManager->findStatisticReglementByUsine($request['codeUsine']);
+                if ($facture != null)
+                    $this->doSuccessO($facture);
+                else
+                    echo json_encode(array());
+            } else {
+                $this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
+                $this->logger->log->error('View : Params not enough');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
+            $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
     }
-   
+
 }
 
-        $oFactureController = new FactureController($_REQUEST);
+$oFactureController = new FactureController($_REQUEST);
