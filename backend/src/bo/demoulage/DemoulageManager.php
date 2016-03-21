@@ -36,10 +36,12 @@ public function verifieDemoulage($produitId, $codeUsine) {
                         $carton->setTotal($ligneCarton['total']);
                         $carton->setProduitId($demoulage->getProduit()->getId());
                         $listCarton[]=$carton;
-                        
                         $colisageManager=new ColisageManager();
+                        
                         $colisageId=$colisageManager->verifieColisage($demoulage->getProduit()->getId(), $ligneCarton['qte'], $demoulage->getCodeUsine());
+                        
                         $colisage = new \Produit\Colisage(); 
+                        
                         if($colisageId!=0){
                             $colisage=$colisageManager->findById($colisageId);
                             $colisage->setId($colisageId);
@@ -56,7 +58,6 @@ public function verifieDemoulage($produitId, $codeUsine) {
                         $listColisage[]=$colisage;
                     }
         }
-        
         return $this->demoulageQueries->insert($demoulage, $listCarton, $listColisage);
         }
         }
