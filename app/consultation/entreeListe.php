@@ -422,7 +422,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                 $('#MNU_REMOVE').addClass('disabled');
                 $('#MNU_ANNULATION').addClass('disabled');
                  bootbox.alert("Veuillez selectionnez une seule entrée SVP!");
-                 loadBons();
+//                  loadBons();
             }
             else{
                 $('#MNU_ANNULATION').removeClass('enable');

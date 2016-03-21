@@ -488,8 +488,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             $('#MNU_ANNULATION').addClass('disabled');
                             $('#MNU_REMOVE').addClass('disabled');
                          }
-                         bootbox.alert("Veuillez selectionnez un seul achat SVP!");
-                         loadBons('*');
+                         bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
+//                          loadBons('*');
                     }
                     else{
                         $('#MNU_ANNULATION').removeClass('enable');
