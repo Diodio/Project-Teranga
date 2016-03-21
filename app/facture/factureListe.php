@@ -42,8 +42,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         </button>
 
                         <ul class="dropdown-menu dropdown-info">
-                            <li id='MNU_VALIDATION' class="disabled" ><a href="#" id="GRP_NEW">Valider </a></li>
-                            <li class="divider"></li>
+<!--                            <li id='MNU_VALIDATION' class="disabled" ><a href="#" id="GRP_NEW">Valider </a></li>-->
+<!--                            <li class="divider"></li>-->
                             <li id='MNU_IMPRIMER' class="disabled"><a href="#" id="GRP_NEW">Imprimer </a></li>
                             <li class="divider"></li>
                             <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
@@ -529,7 +529,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "oLanguage": {
                         "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
                     },
-                    "sDom": '<"top"i>rt<"bottom"lp><"clear">',
+                    //"sDom": '<"top"i>rt<"bottom"lp><"clear">',
                     "aoColumnDefs": [
                         {
                             "aTargets": [0],
@@ -559,6 +559,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     ],
                     "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                         persistChecked();
+                        $(nRow).css('cursor','pointer');
                         $(nRow).on('click', 'td:not(:first-child)', function () {
                             checkbox = $(this).parent().find('input:checkbox:first');
                             if (!checkbox.is(':checked')) {
@@ -583,11 +584,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
-                    "bInfo": false,
+                    "bInfo": true,
                     "sAjaxSource": url,
-                    "sPaginationType": "simple",
+                    "sPaginationType": "full_numbers",
                     "fnServerData": function (sSource, aoData, fnCallback) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
