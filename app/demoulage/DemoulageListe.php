@@ -519,7 +519,7 @@
                $('#MNU_REMOVE').addClass('disabled');
                 $('#MNU_ANNULATION').addClass('disabled');
                 bootbox.alert("Veuillez selectionnez un seul démoulage SVP!");
-                loadDemoulages('*');
+//                 loadDemoulages('*');
             }
             else{
                 $('#MNU_REMOVE').addClass('disabled');

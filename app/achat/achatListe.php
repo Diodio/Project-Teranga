@@ -530,7 +530,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#MNU_ANNULATION').addClass('disabled');
                  }
                  bootbox.alert("Veuillez selectionnez un seul achat SVP!");
-                 loadAchats('*');
+//                  loadAchats('*');
             }
             else{
                 $('#MNU_VALIDATION').removeClass('enable');
