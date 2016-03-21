@@ -677,8 +677,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": false,
                     "bFilter": true,
-                    //afficher nombre �l�ment
-                    "bInfo": true,
+                    "bInfo": false,
                     "sAjaxSource": url,
                   //afficher nombre �l�ment
                     "sPaginationType": "full_numbers",
