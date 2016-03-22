@@ -364,7 +364,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
                         <li id="CONSULTATION_ENTREES" class=""><a id="ENTREE" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Entrées
+                                        class="menu-icon fa fa-caret-right"></i> Entrées de bons de sortie
                                 </a> <b class="arrow"></b>
                             </li>
                             <li id="CONSULTATION_PRODUITS" class=""><a id="PROD" href="#"> <i
@@ -604,9 +604,13 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_FACTURE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
+                    $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active")
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function () {
@@ -624,8 +628,12 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 					$("#LISTE_ACHATS").attr("Class", "no-active");
 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
 					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+					$("#LIST_USERS").attr("Class", "no-active");
+					$("#STOCK_REEL").attr("Class", "no-active");
 					$("#LISTE_FACTURE").attr("Class", "no-active");
 					$("#LISTE_SORTIE").attr("Class", "no-active");
+					$("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active")
 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
 					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE").attr("Class", "no-active");
@@ -644,12 +652,16 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
                     $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active")
+                    $("#LIST_USERS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/client/clientsVue.php", function () {
 
@@ -668,9 +680,13 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 					$("#LISTE_FACTURE").attr("Class", "no-active");
 					$("#LISTE_SORTIE").attr("Class", "no-active");
 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
+					$("#STOCK_REEL").attr("Class", "no-active");
 					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+					$("#LIST_USERS").attr("Class", "no-active");
+					$("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active")
 					$("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
 
@@ -705,9 +721,12 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     if("<?php echo $profil?>"!=='gerant'){
@@ -733,6 +752,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
@@ -758,7 +779,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
  					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
  					$("#MNU_DEMOULAGE").attr("Class", "no-active");
  					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+ 					$("#LIST_USERS").attr("Class", "no-active");
+ 					$("#STOCK_REEL").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/facturesVue.php", function () {
 
@@ -780,7 +804,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
  					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
  					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
  					$("#MNU_DEMOULAGE").attr("Class", "no-active");
+ 					$("#LIST_USERS").attr("Class", "no-active");
+ 					$("#STOCK_REEL").attr("Class", "no-active");
  					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+ 					 $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
@@ -803,7 +830,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/bonSortie/bonSortieListe.php", function () {
 
@@ -823,8 +853,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
  					$("#LISTE_SORTIE").attr("Class", "no-active");
  					$("#REGLEMENT_FACTURE").attr("Class", "active");
  					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
+ 					$("#STOCK_REEL").attr("Class", "no-active");
  					$("#MNU_DEMOULAGE").attr("Class", "no-active");
  					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+ 					$("#LIST_USERS").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementFacture.php", function () {
@@ -847,8 +879,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#REGLEMENT_ACHAT").attr("Class", "active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementAchat.php", function () {
 
                     });
@@ -869,7 +904,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/demoulageVue.php", function () {
                  });
@@ -882,6 +920,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                    $("#LIST_USERS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
                     $("#AJOUTER_FACTURE").attr("Class", "no-active");
@@ -890,12 +929,15 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/demoulage/DemoulageListe.php", function () {
                  });
                  });
+                
                   $("#STOCK_REEL").click(function (e) {
                 	  $("#MNU_PRODUITS").attr("Class", "no-active");
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
@@ -909,11 +951,13 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
   					$("#LISTE_SORTIE").attr("Class", "no-active");
   					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
   					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
+  					$("#LIST_USERS").attr("Class", "no-active");
   					$("#MNU_DEMOULAGE").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE_LIST").attr("Class", "active");
   					$("#STOCK_REEL").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/stock/stockReelListe.php", function () {
                  });
                  });
@@ -935,7 +979,9 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#LIST_USERS").attr("Class", "active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                    $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/utilisateur/utilisateurListe.php", function () {
                     });
                  });
@@ -957,9 +1003,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                       $("#MNU_DEMOULAGE").attr("Class", "no-active");
                       $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
-                      $("#LIST_USERS").attr("Class", "no-active");
                       $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                       $("#CONSULTATION_ENTREES").attr("Class", "no-active");
+                      $("#LIST_USERS").attr("Class", "no-active");
+                      $("#STOCK_REEL").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/produitDetail.php", function () {
                       });
@@ -983,6 +1030,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#LIST_USERS").attr("Class", "no-active");
                       $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#INVENTAIRE_ACHAT").attr("Class", "no-active");
+                      $("#STOCK_REEL").attr("Class", "no-active");
                       $("#CONSULTATION_ENTREES").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/entreeListe.php", function () {
                       });
@@ -1006,6 +1055,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#LIST_USERS").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                       $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                      $("#STOCK_REEL").attr("Class", "no-active");
                       $("#INVENTAIRE_ACHAT").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/achatInventaire.php", function () {
                       });
@@ -1029,6 +1079,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                       $("#LIST_USERS").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#STOCK_REEL").attr("Class", "no-active");
                       $("#INVENTAIRE_ACHAT").attr("Class", "no-active");
                       $("#INVENTAIRE_FACTURE").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/factureInventaire.php", function () {
@@ -1050,6 +1101,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                       $("#MNU_DEMOULAGE").attr("Class", "no-active");
                       $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                      $("#STOCK_REEL").attr("Class", "no-active");
                       $("#LIST_USERS").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                       $("#INVENTAIRE_ACHAT").attr("Class", "no-active");
@@ -1057,51 +1109,6 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/factureInventaire.php", function () {
                       });
                    });
-
-//                  $("#LISTE_ACHATS_MAGASINIER").click(function (e) {
-//                  	$("#MNU_PRODUITS").attr("Class", "no-active");
-//                    $("#MNU_MAREYEURS").attr("Class", "no-active");
-//                    $("#MNU_BORD").attr("Class", "no-active");
-//                    $("#MNU_CLIENTS").attr("Class", "no-active");
-//                    $("#AJOUTER_ACHATS").attr("Class", "no-active");
-//                    $("#LISTE_ACHATS").attr("Class", "no-active");
-//                    $("#AJOUTER_SORTIE").attr("Class", "no-active");
-//                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
-//                    $("#LISTE_FACTURE").attr("Class", "no-active");
-//                    $("#LISTE_SORTIE").attr("Class", "no-active");
-//                    $("#REGLEMENT_FACTURE").attr("Class", "no-active");
-//                    $("#REGLEMENT_ACHAT").attr("Class", "no-active");
-//                    $("#MNU_DEMOULAGE").attr("Class", "no-active");
-//                    $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
-//                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
-//                      $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-//                      $("#AJOUTER_ACHATS_MAGASINIER").attr("Class", "no-active");
-//                      $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatListeMagasinier.php", function () {
-//                      });
-//                  });
-
-//                  $("#AJOUTER_ACHATS_MAGASINIER").click(function (e) {
-//                  	$("#MNU_PRODUITS").attr("Class", "no-active");
-//                      $("#MNU_MAREYEURS").attr("Class", "no-active");
-//                      $("#MNU_BORD").attr("Class", "no-active");
-//                      $("#MNU_CLIENTS").attr("Class", "no-active");
-//  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
-//  					$("#LISTE_ACHATS").attr("Class", "no-active");
-//  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
-//  					$("#AJOUTER_FACTURE").attr("Class", "no-active");
-//  					$("#LISTE_FACTURE").attr("Class", "no-active");
-//  					$("#LISTE_SORTIE").attr("Class", "no-active");
-//  					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
-//  					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
-//  					$("#MNU_DEMOULAGE").attr("Class", "no-active");
-//  					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
-//  					$("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-//  					$("#AJOUTER_ACHATS_MAGASINIER").attr("Class", "active");
-//                      $("#MAIN_CONTENT").load("<?php// echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
-//
-//                      });
-//                  });
-
 
             });
         </script>

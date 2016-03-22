@@ -15,7 +15,7 @@ $nomUsine = $_COOKIE['nomUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des Entrées de stocks réels
+            Entrées de bon de sortie
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
                 Entrées
@@ -32,20 +32,9 @@ $nomUsine = $_COOKIE['nomUsine'];
                                                         <option value="*" class="usines">Filtrer par usine</option>
                                                 </select>
                             </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                     <div class="col-lg-1">
                         <div class="btn-group">
-                                    <button data-toggle="dropdown"
-                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="
-                                            height: 32px;
-                                            width: 80px;
-                                            margin-top: -1px;
-                                            margin-left: -40%;
-                                        ">
-                                        <i class="icon-group icon-only icon-on-right"></i> Action
-                                    </button>
                                     
 <!--                                     <ul class="dropdown-menu dropdown-info"> -->
 
@@ -65,7 +54,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des entrées venant des autres usines
+                            Liste des entrées: sorties venant des autres usines
                         </h4>
 
                         <div class="widget-toolbar">

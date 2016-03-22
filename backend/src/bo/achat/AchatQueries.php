@@ -101,11 +101,11 @@ class AchatQueries {
         if($codeUsine !=='*') {
             if($regle !=='*'){
                 $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and montantTotal<>0 and regle='.$regle.'  and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
             $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and montantTotal<>0 and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
@@ -115,7 +115,7 @@ class AchatQueries {
             }
             else {
             $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,montantTotal, regle
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and montantTotal<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   
         $sql = str_replace("`", "", $sql);
@@ -425,7 +425,7 @@ class AchatQueries {
     }
     
     public function getInfoMontantTotal($codeUsine) {
-        $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and montantTotal<>0 and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $infos = $stmt->fetch();
