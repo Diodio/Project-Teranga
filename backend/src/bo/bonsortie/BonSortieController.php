@@ -98,7 +98,7 @@ class BonSortieController extends BaseController implements BaseAction {
             $bonSortieManager = new BonSortieManager();
             $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
             if($isExist==NULL){
-            $validate = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
+                $validate = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
             if($validate==0) {
             $bonSortie = new BonSortie();
             $bonSortie->setNumeroBonSortie($request['numeroBonSortie']);
