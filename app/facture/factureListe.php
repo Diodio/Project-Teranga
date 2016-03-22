@@ -664,13 +664,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
                     if (data.numCheque !== null && data.numCheque !== "")
-                        $('#numCheque').text(data.numCheque);
+                        $('#numCheque').val(data.numCheque);
                     else
-                        $('#numCheque').text('Non dédini');
+                        $('#numCheque').val('');
                     if (data.datePaiement !== null && data.datePaiement !== "")
-                        $('#datePaiement').text(data.datePaiement);
+                        $('#datePaiement').val(data.datePaiement);
                     else
-                        $('#datePaiement').text('Non dédini');
+                        $('#datePaiement').val('');
                     //colis
                     $('#tab_colis tbody').html("");
                     loadEditable = function (compteur)
