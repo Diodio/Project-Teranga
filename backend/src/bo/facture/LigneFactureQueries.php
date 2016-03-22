@@ -30,4 +30,10 @@ class LigneFactureQueries {
             return $ligneFacture;
         }
     }
+    
+    public function findById($ligneFactureId) {
+            if ($ligneFactureId != null) {
+                    return Bootstrap::$entityManager->find('Facture\LigneFacture', $ligneFactureId);
+            }
+    }
 }

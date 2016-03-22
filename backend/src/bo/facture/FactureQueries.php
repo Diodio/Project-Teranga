@@ -31,7 +31,29 @@ class FactureQueries {
         }
     }
 
-    
+    public function update($facture, $listLigneFacture) {
+        Bootstrap::$entityManager->getConnection()->beginTransaction();
+        if ($facture != null) {
+            try {
+                Bootstrap::$entityManager->merge($facture);
+                Bootstrap::$entityManager->flush();
+                if ($listLigneFacture != null) {
+                    foreach ($listLigneFacture as $ligneFacture) {
+                        Bootstrap::$entityManager->merge($ligneFacture);
+                        Bootstrap::$entityManager->flush();
+                    }
+                }
+                Bootstrap::$entityManager->getConnection()->commit();
+                return $facture;
+            } catch (\Exception $e) {
+                Bootstrap::$entityManager->getConnection()->rollback();
+                Bootstrap::$entityManager->close();
+                $b = new Bootstrap();
+                Bootstrap::$entityManager = $b->getEntityManager();
+                return null;
+            }
+        }
+    }
     
     
     public function findAll() {
@@ -97,10 +119,10 @@ class FactureQueries {
     }
 
      public function findById($factureId) {
-		if ($factureId != null) {
-			return Bootstrap::$entityManager->find('Facture\Facture', $factureId);
-		}
-	}
+            if ($factureId != null) {
+                    return Bootstrap::$entityManager->find('Facture\Facture', $factureId);
+            }
+    }
     public function count($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;

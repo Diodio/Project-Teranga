@@ -23,6 +23,9 @@ class FactureManager {
     	return $facture;
     }
     
+    public function update($facture, $listLigneFacture) {
+       return $this->factureQuery->update($facture, $listLigneFacture);
+    }
     public function listAll() {
     	$this->factureQuery=$this->factureQuery->findAll();
     	return $this->factureQuery;

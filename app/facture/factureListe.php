@@ -271,9 +271,31 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Tva </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" id="tva" name="tva" placeholder=""
+                                                                       class="" value="0.18">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Montant Ttc </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" readonly id="montantTtc" name="montantTtc" placeholder=""
+                                                                       class="" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
                                                                    for="form-field-1"> Mode de paiement </label>
                                                             <div class="col-sm-7">
-                                                                <select id="modePaiement" class="col-xs-12 col-sm-10">
+                                                                <select id="modePaiement" class="">
                                                                     <option value="ESPECES">Especes</option>
                                                                     <option value="CHEQUE">Cheque</option>
                                                                     <option value="VIREMENT">Virement</option>
@@ -289,7 +311,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" readonly id="numCheque" placeholder=""
-                                                                           class="col-xs-12 col-sm-10">
+                                                                           class="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -302,7 +324,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" readonly id="datePaiement" placeholder=""
-                                                                           class="col-xs-12 col-sm-10">
+                                                                           class="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -315,7 +337,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" class="bolder"  id="avance" name="avance" placeholder=""
-                                                                           class="col-xs-12 col-sm-10">
+                                                                           class="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -328,7 +350,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder=""
-                                                                           class="col-xs-12 col-sm-10">
+                                                                           class="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -449,8 +471,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#MNU_ANNULATION').addClass('disabled');
                         $('#MNU_REMOVE').addClass('disabled');
                     }
-                    bootbox.alert("Veuillez selectionnez un seul achat SVP!");
-                    loadBons('*');
+                    bootbox.alert("Veuillez selectionnez une seule facture  SVP!");
+                    //loadBons('*');
                 }
                 else {
                     $('#MNU_ANNULATION').removeClass('enable');
@@ -637,7 +659,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#totalColis').text(data.nbTotalColis);
                     $('#PoidsTotal').text(data.nbTotalPoids);
                     $('#MontantHt').text(data.montantHt);
-                    $('#MontantTtc').text(data.montantTtc);
+                    $('#montantTtc').val(data.montantTtc);
                     if (data.modePaiement == '' && data.modePaiement == 'undefined')
                         $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
@@ -683,6 +705,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         if ($(this).html() !== 0)
                                                             tot += parseFloat($(this).html());
                                                     });
+                                                    var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
                                                     $('#avance').val("");
                                                     $('#reliquat').val("");
                                                     $('#datePaiement').val("");
@@ -692,6 +715,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 }
                                                 //console.log(tot);
                                                 $('#MontantHt').text(tot);
+                                                $('#montantTtc').val(Ttc);
                                                 // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                             }
                                             else {
@@ -763,14 +787,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if (!isNaN(mtAv)) {
                             rel = data.montantTtc - mtAv;
                         }
-                        $('#Avance').text(mtAv);
-                        $('#Reliquat').text(rel);
+                        $('#avance').val(mtAv);
+                        $('#reliquat').val(rel);
 //                    } 
 //                    
                     }
                     else {
-                        $('#Avance').text("0");
-                        $('#Reliquat').text(data.montantTtc);
+                        $('#avance').val("0.00");
+                        $('#reliquat').val(data.montantTtc);
                     }
 
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
@@ -809,18 +833,23 @@ $codeUsine = $_COOKIE['codeUsine'];
 
             $("#tva").keyup(function () {
                 var tva = parseFloat($("#tva").val());
-                if (!isNaN(tva) && tva >= 0) {
+                if (!isNaN(tva) && tva > 0) {
                     $('#montantTtc').val('');
-                    var mtHt = parseFloat($('#montantHt').val());
+                    var mtHt = parseFloat($('#MontantHt').text());
                     var mtTtc = 0;
                     mtTtc = mtHt + (mtHt * (tva / 100));
-                    $('#montantTtc').val(mtTtc);
+                    if(!isNaN(mtTtc) && mtTtc >0)
+                        $('#montantTtc').val(mtTtc);
+                    else
+                        $('#montantTtc').val('');
                 }
+                else
+                    $('#montantTtc').val('');
 //        
             });
             function calculReliquat() {
                 var rel = 0;
-                var mt = parseFloat($("#MontantHt").text());
+                var mt = parseFloat($("#montantTtc").val());
                 var avance = parseFloat($("#avance").val());
                 if (!isNaN(avance) && !isNaN(avance)) {
                     rel = mt - avance;
@@ -958,6 +987,116 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                 }
             });
+            
+            ReglementProcess = function (factureId)
+        {
+           $('#SAVE').attr("disabled", true);
+            var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
+            var frmData;
+            //var achatId= factureId;
+            var montantHt = $("#MontantHt").text();
+            var tva = $("#tva").val();
+            var montantTtc = $("#montantTtc").val();
+            var modePaiement = $("#modePaiement").val();
+            var numCheque = $("#numCheque").val();
+            var datePaiement = $("#datePaiement").val();
+            var avance = $("#avance").val();
+            var reliquat = $("#reliquat").val();
+            var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
+            var regle=false;
+            if(Aregle === 'on')
+                 regle=true;
+             
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            var $table = $("#tab_produit");
+            rows = [],
+            header = [];
+
+//$table.find("thead th").each(function () {
+//    header.push($(this).html().trim());
+//});
+            header = ["ligneId","nbColis","libelle","pu","qte","montant"];
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                        valueEditable = $(this).find('span').text();
+                        valueTd = $(this).text();
+                    if (typeof valueEditable !== "undefined")
+                        value=valueEditable;
+                    if (typeof valueTd !== "undefined")
+                        value=valueTd;
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+    
+    
+            var tbl=JSON.stringify(rows);
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('factureId', factureId);
+            formData.append('montantHt', montantHt);
+            formData.append('montantTtc', montantTtc);
+            formData.append('tva', tva);
+            formData.append('modePaiement', modePaiement);
+            formData.append('numCheque', numCheque);
+            formData.append('datePaiement', datePaiement);
+            formData.append('avance', avance);
+            formData.append('jsonProduit', tbl);
+            formData.append('reliquat', reliquat);
+            formData.append('regle', regle);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
+                    $('#TAB_INFO_VIEW').show();
+                   loadFactures();
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                        $('#SAVE').attr("disabled", false);
+                    };
+                    
+                },
+                error: function () {
+                    $('#SAVE').attr("disabled", false);
+                    alert("failure - controller");
+                }
+            });
+
+        };
+        
+        $("#SAVE").bind("click", function () {
+            // alert(checkedAchat[0]);
+             ReglementProcess(checkedFacture[0]);
+         });
+
 
         });
     </script>

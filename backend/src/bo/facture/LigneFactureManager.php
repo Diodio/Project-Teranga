@@ -1,22 +1,26 @@
 <?php
 
 namespace Facture;
-use Facture\LigneColisQueries as LigneColisQueries;
+use Facture\LigneFactureQueries as LigneFactureQueries;
 
 
 
 class LigneFactureManager {
 
-    private $conteneurQuery;
+    private $ligneFactureQuery;
    
 
     public function __construct() {
-        $this->conteneurQuery = new ConteneurQueries();
+        $this->ligneFactureQuery = new LigneFactureQueries();
     }
     
-    public function insert($conteneur) {
-        $this->conteneurQuery->insert($conteneur);
-    	return $conteneur;
+    public function insert($ligneFacture) {
+        $this->ligneFactureQuery->insert($ligneFacture);
+    	return $ligneFacture;
+    }
+    
+    public function findById($ligneFactureId) {
+        return $this->ligneFactureQuery->findById($ligneFactureId);
     }
    
 }

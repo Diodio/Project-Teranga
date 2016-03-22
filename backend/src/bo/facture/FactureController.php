@@ -331,8 +331,72 @@ class FactureController extends BaseController implements BaseAction {
     }
 
     public function doUpdate($request) {
-        
+        try {
+            if (isset($request['factureId']) && $request['factureId'] != "") {
+                $factureId = $request['factureId'];
+                $factureManager = new FactureManager();
+                $facture = $factureManager->findById($factureId);
+                $facture->setMontantHt($request['montantHt']);
+                $facture->setMontantTtc($request['montantTtc']);
+                $facture->setModePaiement($request['modePaiement']);
+                if ($request['modePaiement'] == 'CHEQUE')
+                    $facture->setNumCheque($request['numCheque']);
+                else if ($request['modePaiement'] == 'VIREMENT')
+                    $facture->setDatePaiement(new \DateTime($request['datePaiement']));
+                // $achat->setCodeUsine($request['codeUsine']);
+                // $achat->setLogin($request['login']);
+                if ($request['avance'] != "" && $request['avance']!=0) {
+                    if ($request['regle'] == "true")
+                        $facture->setRegle(2);
+                    else
+                        $facture->setRegle(1);
+                    $reliquat = $request['montantTtc'] - $request['avance'];
+                    $facture->setReliquat($reliquat);
+                    $reglement = new Reglement\ReglementFacture();
+                    $reglement->setFacture($facture);
+                    $reglement->setDatePaiement(new \DateTime("now"));
+                    $reglement->setAvance($request['avance']);
+                    $reglementManager = new Reglement\ReglementManager();
+                    $reglementManager->insert($reglement);
+                }
+                else {
+                    $facture->setRegle(0);
+                }
+                //$factureAdded = $factureManager->update($facture);
+               // if ($factureAdded->getId() != null) {
+                $listLigneFacture=NULL;
+                    $ligneFactureManager = new \Facture\LigneFactureManager();
+                    $jsonProduit = json_decode($_POST['jsonProduit'], true);
+                    foreach ($jsonProduit as $key => $ligne) {
+                        if (isset($ligne["ligneId"])) {
+                            $ligneFacture = $ligneFactureManager->findById($ligne["ligneId"]);
+                            //$ligneAchat->setId($ligne["ligneId"]);
+                            //$ligneAchat->setAchat($achat);
+                            //$produitId = $ligne["ligneId"];
+                            // $produitManager = new Produit\ProduitManager();
+                            //$produit= $produitManager->findById($produitId);
+                            // $ligneAchat->setProduit($produit);
+                            $ligneFacture->setPrixUnitaire($ligne['pu']);
+                            $ligneFacture->setQuantite($ligne['qte']);
+                            $ligneFacture->setMontant($ligne['montant']);
+                            $listLigneFacture[]=$ligneFacture;
+                            //$ligneFactureManager->update($ligneFacture);
+                        }
+                    }
+                    $factureAdded = $factureManager->update($facture, $listLigneFacture);
+                    if($factureAdded !=NULL)
+                     $this->doSuccess($factureAdded->getId(), 'Facture mise à jour avec succes');
+                else {
+                    $this->doError('-1', 'Impossible d\'effectuer cette mise à jour');
+                }
+            } else {
+                $this->doError('-1', 'Impossible d\'effectuer cette mise à jour');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', 'Erreur lors du traitement de votre requete');
+        }
     }
+
 
     public function doView($request) {
         
