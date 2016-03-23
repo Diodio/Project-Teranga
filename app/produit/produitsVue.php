@@ -129,7 +129,7 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockReel" name="stockReel" readonly placeholder="" class="col-xs-10 col-sm-7" value="0.00">
+                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
                                     </div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
          var oTableProduits = null;
             var nbTotalProduitsChecked=0;
             var checkedProduits = new Array();
-            $("#stockReel").prop("readonly", true);
+//             $("#stockReel").prop("readonly", true);
             var produit=0;
             
             checkedProduitsContains = function(item) {
