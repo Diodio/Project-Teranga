@@ -208,8 +208,7 @@ public function retrieveTypes()
     	$i = 0;
         $stockManager = new \Stock\StockManager();
     	foreach ($produits as $key => $value) {
-    		$arrayProduits [$i] [] = $value ['id'];
-    		$arrayProduits [$i] [] = $value ['libelle'];
+    		
                //var_dump($value ['id']);
                 $stockPro = $stockManager->recupereNbStockProvisoire($value ['id'], $codeUsine);
                 $quantiteAchetee = $stockManager->recupereQuantiteAchete($value ['id'], $codeUsine);
@@ -218,13 +217,18 @@ public function retrieveTypes()
                 $quantiteSortie = $stockManager->recupereQuantiteSortie($value ['id'], $codeUsine);
                 $quantiteFacturee = $stockManager->recupereQuantiteFacturee($value ['id'], $codeUsine);
                 $stockReel = $stockManager->recupereStockReel($value ['id'], $codeUsine);
-    		$arrayProduits [$i] [] = $stockPro;
-    		$arrayProduits [$i] [] = $quantiteAchetee;
-    		$arrayProduits [$i] [] = $quantiteDemoulee;
-    		$arrayProduits [$i] [] = $quantiteEntree;
-    		$arrayProduits [$i] [] = $quantiteSortie;
-    		$arrayProduits [$i] [] = $quantiteFacturee;
-    		$arrayProduits [$i] [] = $stockReel;
+                
+                if($quantiteAchetee!=0 ){
+                	$arrayProduits [$i] [] = $value ['id'];
+                	$arrayProduits [$i] [] = $value ['libelle'];
+		    		$arrayProduits [$i] [] = $stockPro;
+		    		$arrayProduits [$i] [] = $quantiteAchetee;
+		    		$arrayProduits [$i] [] = $quantiteDemoulee;
+		    		$arrayProduits [$i] [] = $quantiteEntree;
+		    		$arrayProduits [$i] [] = $quantiteSortie;
+		    		$arrayProduits [$i] [] = $quantiteFacturee;
+		    		$arrayProduits [$i] [] = $stockReel;
+                }
 //    		$arrayProduits [$i] [] = $value ['stockReel'];
 //    		if($value ['nbColis'] !=null)
 //    			$arrayProduits [$i] [] = $value ['nbColis'];

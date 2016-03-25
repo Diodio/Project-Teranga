@@ -266,7 +266,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
 	}
         
     public function recupereNbStockProvisoire($produitId, $codeUsine ) {
-        $sql = "SELECT SUM(stock) stockProvisoire FROM stock_provisoire spr WHERE spr.produit_id=$produitId and codeUsine='".$codeUsine."'";
+        $sql = "SELECT SUM(stock) stockProvisoire FROM stock_provisoire spr WHERE spr.produit_id=$produitId and stock<>0.00  and codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -277,7 +277,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     }
     
     public function recupereQuantiteAchete($produitId, $codeUsine ) {
-        $sql = "SELECT SUM(quantiteAchetee) quantiteAchetee FROM stock_achete sat, achat a WHERE a.id=sat.achatId AND sat.produitId=$produitId and a.codeUsine='".$codeUsine."'";
+        $sql = "SELECT SUM(quantiteAchetee) quantiteAchetee FROM stock_achete sat, achat a WHERE a.id=sat.achatId  and quantiteAchetee<>0.00 AND sat.produitId=$produitId and a.codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -288,7 +288,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     }
     
      public function recupereQuantiteDemoulee($produitId, $codeUsine ) {
-        $sql = "SELECT SUM(quantiteDemoulee) quantiteDemoulee FROM demoulage WHERE produit_id=$produitId and codeUsine='".$codeUsine."'";
+        $sql = "SELECT SUM(quantiteDemoulee) quantiteDemoulee FROM demoulage WHERE produit_id=$produitId and quantiteDemoulee<>0.00 and codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -299,7 +299,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     }
     
     public function recupereQuantiteFacturee($produitId, $codeUsine ) {
-        $sql = "SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, facture f WHERE sfa.produitId=$produitId and f.codeUsine='".$codeUsine."'";
+        $sql = "SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, facture f WHERE sfa.produitId=$produitId and quantiteFacturee<>0.00 and f.codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -310,7 +310,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     }
     
     public function recupereStockReel($produitId, $codeUsine ) {
-        $sql = "SELECT SUM(stock) stockReel FROM stock_reel sre WHERE sre.produit_id=$produitId and codeUsine='".$codeUsine."'";
+        $sql = "SELECT SUM(stock) stockReel FROM stock_reel sre WHERE sre.produit_id=$produitId and stock<>0.00 and codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
@@ -320,7 +320,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     }
     
     public function recupereQuantiteEntree($produitId, $codeUsine ) {
-    	$sql = "SELECT SUM(lbs.quantite) quantiteEntree FROM ligne_bonsortie lbs, bon_sortie bs WHERE bs.id=lbs.bonSortie_id and lbs.produit_id=$produitId and bs.destination='".$codeUsine."'";
+    	$sql = "SELECT SUM(se.quantiteEntree) quantiteEntree FROM stock_entree se, bon_sortie bs WHERE bs.id=se.sortieId and quantiteEntree<>0.00 and se.produitId=$produitId and bs.destination='".$codeUsine."'";
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$stock = $stmt->fetchAll();
@@ -329,7 +329,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     	return null;
     }
     public function recupereQuantiteSortie($produitId, $codeUsine ) {
-    	$sql = "SELECT SUM(lbs.quantite) quantiteSortie FROM ligne_bonsortie lbs, bon_sortie bs WHERE bs.id=lbs.bonSortie_id and lbs.produit_id=$produitId and bs.origine='".$codeUsine."'";
+    	$sql = "SELECT SUM(ss.quantiteSortie) quantiteSortie FROM stock_sortie ss, bon_sortie bs WHERE bs.id=ss.sortieId and quantiteSortie<>0.00 and ss.produitId=$produitId and bs.origine='".$codeUsine."'";
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$stock = $stmt->fetchAll();

@@ -130,7 +130,20 @@ class BonSortieController extends BaseController implements BaseAction {
                         $ligneBonSortieManager = new \BonSortie\LigneBonSortieManager();
                         $InsertedLB = $ligneBonSortieManager->insert($ligneBonSortie);
                         if ($InsertedLB->getId() != null) {
+                        	
+                        	$stockSortie = new \Stock\StockSortie();
                             $stockManager = new \Stock\StockManager();
+                            $stockSortie->setProduitId($produitId);
+                            $stockSortie->setQuantiteSortie($ligne['qte']);
+                            $stockSortie->setSortieId($Added->getId());
+                            $stockManager->insert($stockSortie);
+                            
+                            $stockEntree = new \Stock\StockEntree();
+                            $stockEntree->setProduitId($produitId);
+                            $stockEntree->setQuantiteEntree($ligne['qte']);
+                            $stockEntree->setSortieId($Added->getId());
+                            $stockManager->insert($stockEntree);
+                            
                             if ($ligne['qte'] != "")
                                 $nbStock = $ligne['qte'];
                             $stockManager->destockageReel($produitId, $request['origine'], $nbStock);

@@ -49,7 +49,7 @@ class StockSortie {
     }
 
     function getQuantiteSortie() {
-        return $this->quantiteAchetee;
+        return $this->quantiteSortie;
     }
 
     function getCreatedDate() {
@@ -76,8 +76,8 @@ class StockSortie {
         $this->produitId = $produitId;
     }
 
-    function setQuantiteSortie($quantiteAchetee) {
-        $this->quantiteAchetee = $quantiteAchetee;
+    function setQuantiteSortie($quantiteSortie) {
+        $this->quantiteSortie = $quantiteSortie;
     }
 
     function setCreatedDate($createdDate) {
