@@ -204,10 +204,10 @@ public function findStatisticByUsine($codeUsine) {
             $stockManager = new \Stock\StockManager();
             $quantiteReel = $stockManager->findQuantiteReelByProduitId($value ['produit_id'], $codeUsineDestination);
             if($quantiteReel !==0){
-                if($quantiteReel != $value ['quantite'])
+               // if($quantiteReel != $value ['quantite'])
                     $stockManager->destockageSortieReel($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
-                else
-                    $stockManager->deleteStockReel ($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
+//                else
+//                    $stockManager->deleteStockReel ($value ['produit_id'], $codeUsineDestination, $value ['quantite']);
                $stockManager->updateSortieNbStockReel($value ['produit_id'], $codeUsineOrigine, $value ['quantite']);
             }
         }
@@ -218,20 +218,7 @@ public function findStatisticByUsine($codeUsine) {
             $stockManager->deleteStockSortie($sortieId, $value ['produit_id']);
             $stockManager->deleteStockEntree($sortieId, $value ['produit_id']);
             $colisManager->dimunieSortieNbColis($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'],$codeUsineDestination);
-  //          $isExist = $colisManager->verifieColisage($value ['produit_id'], $value ['quantiteParCarton'],$codeUsineOrigine);
- //           if($isExist !==0)
-                $colisManager->misAjourColisSortieOrigine($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsineOrigine);
-//            else {
-//                $carton = new \Produit\Carton();
-//                $cartonManager = new \Produit\CartonManager();
-//                $carton->setNombreCarton($value ['nombreCarton']);
-//                $carton->setQuantiteParCarton($value ['quantiteParCarton']);
-//                $carton->setTotal($value ['nombreCarton'] * $value ['quantiteParCarton']);
-//                $carton->setProduitId($value ['produit_id']);
-//                $carton->setCodeUsine($codeUsineOrigine);
-//                $cartonManager->insert($carton);
-//                
-//            }
+            $colisManager->misAjourColisSortieOrigine($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsineOrigine);
         }
         $this->annulerBonSortie($sortieId);
     }

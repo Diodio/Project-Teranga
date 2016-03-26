@@ -160,7 +160,12 @@ class FactureController extends BaseController implements BaseAction {
                                 $ligneFactureManager = new \Facture\LigneFactureManager();
                                 $inserted = $ligneFactureManager->insert($ligneFacture);
                                 if ($inserted->getId() != null) {
+                                    $stockFacturee = new \Stock\StockFacture();
+                                    $stockFacturee->setFactureId($factureAdded->getId());
+                                    $stockFacturee->setProduitId($ligne["produitId"]);
+                                    $stockFacturee->setQuantiteFacturee($ligne["pnet"]);
                                     $stockManager = new \Stock\StockManager();
+                                    $stockManager->insert($stockFacturee);
                                     $stockManager->destockageReel($ligne["produitId"], $request['codeUsine'], $ligne["pnet"]);
                                 }
                             }

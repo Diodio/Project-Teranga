@@ -24,7 +24,7 @@ class StockFacture {
     /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
-    public $quantiteFacturee;
+    protected $quantiteFacturee;
     
     
     /** @Column(type="datetime", nullable=true) */
@@ -52,5 +52,61 @@ class StockFacture {
         $this->updatedDate = new \DateTime("now");
     }
    
+    function getId() {
+        return $this->id;
+    }
+
+    function getFactureId() {
+        return $this->factureId;
+    }
+
+    function getProduitId() {
+        return $this->produitId;
+    }
+
+    function getQuantiteFacturee() {
+        return $this->quantiteFacturee;
+    }
+
+    function getCreatedDate() {
+        return $this->createdDate;
+    }
+
+    function getUpdatedDate() {
+        return $this->updatedDate;
+    }
+
+    function getDeleteDate() {
+        return $this->deleteDate;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setFactureId($factureId) {
+        $this->factureId = $factureId;
+    }
+
+    function setProduitId($produitId) {
+        $this->produitId = $produitId;
+    }
+
+    function setQuantiteFacturee($quantiteFacturee) {
+        $this->quantiteFacturee = $quantiteFacturee;
+    }
+
+    function setCreatedDate($createdDate) {
+        $this->createdDate = $createdDate;
+    }
+
+    function setUpdatedDate($updatedDate) {
+        $this->updatedDate = $updatedDate;
+    }
+
+    function setDeleteDate($deleteDate) {
+        $this->deleteDate = $deleteDate;
+    }
+
 
     }

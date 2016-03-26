@@ -94,6 +94,7 @@ class BonSortieController extends BaseController implements BaseAction {
     public function doInsert($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
+            $this->logger->log->trace(json_encode($request));
             $codeUsineDestination = $request['codeUsineDestination'];
             $bonSortieManager = new BonSortieManager();
             $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
