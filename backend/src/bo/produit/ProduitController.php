@@ -574,7 +574,7 @@ class ProduitController extends BaseController implements BaseAction {
     			$details = $produitManager->retrieveConsultDetailProduit($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     			if ($details != null) {
     				$nb = $produitManager->countAllProduits($request['codeUsine'],$sWhere);
-    				$this->doSuccessO($this->dataTableFormat($details, $request['sEcho'], count($details)));
+    				$this->doSuccessO($this->dataTableFormat($details, $request['sEcho'], $nb));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
     			}

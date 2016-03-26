@@ -54,13 +54,13 @@ class BonSortieQueries {
 
    
     public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
-        
+        if($sWhere !== "")
+                $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-             if($sWhere !== "")
-                $sWhere = " where " . $sWhere;
+             
             $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie  ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
@@ -141,14 +141,15 @@ class BonSortieQueries {
                 return null;
         }
     public function count($codeUsine, $sWhere = "") {
-       
+        if($sWhere !== "")
+                $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             $sql = 'select count(bon_sortie.id) as nb
                     from bon_sortie where codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             if($sWhere !== "")
-            $sWhere = " where " . $sWhere;
+//             if($sWhere !== "")
+//            $sWhere = " where " . $sWhere;
              $sql = 'select count(bon_sortie.id) as nb
                     from bon_sortie ' . $sWhere . '';
         }
