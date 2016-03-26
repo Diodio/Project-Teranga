@@ -190,13 +190,13 @@ class DemoulageController extends BaseController {
                 if (isset($request['sSearch']) && $request['sSearch'] != "") {
                 	//$sSearchs = explode(" ", $request['sSearch']);
                 	//  for ($j = 0; $j < count($sSearchs); $j++) {
-                	//      $sWhere .= " ";
+                	      $sWhere .= "( ";
                 	for ($i = 0; $i < count($aColumns); $i++) {
                 		$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $request['sSearch'] . "%') OR";
                 		if ($i == count($aColumns) - 1)
                 			$sWhere = substr_replace($sWhere, "", -3);
                 	}
-                	// $sWhere = $sWhere .=")";
+                	 $sWhere = $sWhere .=")";
                 	//    }
                 }
 //                 if (isset($request['sSearch']) && $request['sSearch'] != "") {
