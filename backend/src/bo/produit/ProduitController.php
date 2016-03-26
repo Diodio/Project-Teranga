@@ -571,10 +571,10 @@ class ProduitController extends BaseController implements BaseAction {
     				}
     			}
     			// End filter from dataTable
-    			$demoulages = $produitManager->retrieveConsultDetailProduit($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-    			if ($demoulages != null) {
+    			$details = $produitManager->retrieveConsultDetailProduit($request['codeUsine'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			if ($details != null) {
     				$nb = $produitManager->countAllProduits($request['codeUsine'],$sWhere);
-    				$this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
+    				$this->doSuccessO($this->dataTableFormat($details, $request['sEcho'], count($details)));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
     			}
