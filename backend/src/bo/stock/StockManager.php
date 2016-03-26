@@ -256,5 +256,15 @@ class StockManager {
   	return $stockPro;
   
   }
+  
+  public function deleteStockSortie($sortieId, $produitId) {
+  	$stockQueries = new StockQueries();
+  	$stock=$stockQueries->deleteStockSortie($sortieId, $produitId);
+  }
+  
+  public function deleteStockEntree($sortieId, $produitId) {
+  	$stockQueries = new StockQueries();
+  	$stock=$stockQueries->deleteStockEntree($sortieId, $produitId);
+  }
 
 }

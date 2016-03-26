@@ -2,6 +2,7 @@
 
 namespace BonSortie;
 use BonSortie\BonSortieQueries as BonSortieQueries;
+use Stock\StockManager;
 /**
  * Cette classe communique avec la classe ContactQueries
  * Elle sert d'intermédiaire entre le controleur ContactControleur et les queries 
@@ -213,6 +214,9 @@ public function findStatisticByUsine($codeUsine) {
         $infosColis = $this->bonSortieQuery->findInfoColisByBonSortie($sortieId);
         foreach ($infosColis as $key => $value) {
             $colisManager = new LigneColisBonSortieManager();
+            $stockManager= new StockManager();
+            $stockManager->deleteStockSortie($sortieId, $value ['produit_id']);
+            $stockManager->deleteStockEntree($sortieId, $value ['produit_id']);
             $colisManager->dimunieSortieNbColis($value ['produit_id'], $value ['quantiteParCarton'], $value ['nombreCarton'],$codeUsineDestination);
   //          $isExist = $colisManager->verifieColisage($value ['produit_id'], $value ['quantiteParCarton'],$codeUsineOrigine);
  //           if($isExist !==0)
