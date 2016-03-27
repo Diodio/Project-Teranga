@@ -94,6 +94,7 @@ class BonSortieController extends BaseController implements BaseAction {
     public function doInsert($request) {
         try {
             $this->logger->log->trace("debut insertion bon de sortie");
+            $this->logger->log->trace(json_encode($request));
             $codeUsineDestination = $request['codeUsineDestination'];
             $bonSortieManager = new BonSortieManager();
             $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
@@ -181,7 +182,7 @@ class BonSortieController extends BaseController implements BaseAction {
                                 if ($insertedLC->getId() != null) {
                                     $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
                                     $cartonManager = new \Produit\CartonManager();
-                                    $existColisage = $cartonManager->findColisByProduitId($produitId, $codeUsineDestination, $ligneC["qte"]);
+                                    $existColisage = $cartonManager->findColisByProduitId($ligneC["produitId"], $codeUsineDestination, $ligneC["qte"]);
                                     if ($existColisage == 0) {
                                         $colisage = new \Produit\Colisage();
                                         $colisage->setNombreCarton($ligneC["nbColis"]);
@@ -242,16 +243,16 @@ class BonSortieController extends BaseController implements BaseAction {
                 // Begin filter from dataTable
                 $sWhere = "";
                 if (isset($request['sSearch']) && $request['sSearch'] != "") {
-                    $sSearchs = explode(" ", $request['sSearch']);
-                    for ($j = 0; $j < count($sSearchs); $j++) {
-                        $sWhere .= " ";
+                   // $sSearchs = explode(" ", $request['sSearch']);
+                   // for ($j = 0; $j < count($sSearchs); $j++) {
+                        $sWhere .= "( ";
                         for ($i = 0; $i < count($aColumns); $i++) {
-                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $request['sSearch'] . "%') OR";
                             if ($i == count($aColumns) - 1)
                                 $sWhere = substr_replace($sWhere, "", -3);
                         }
-                        // $sWhere = $sWhere .=")";
-                    }
+                        $sWhere = $sWhere .=")";
+                 //   }
                 }
                 // End filter from dataTable
                 $achats = $achatManager->retrieveAll($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
@@ -319,8 +320,11 @@ class BonSortieController extends BaseController implements BaseAction {
         try {
             if ($request['bonsortieId'] != null) {
                 $sortieManager = new BonSortieManager();
-                $sortieManager->remettreStockParBonSortie($request['bonsortieId']);
-                $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                $result = $sortieManager->annulerBonSortie($request['bonsortieId']);
+                if($result==1)
+                    $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                else
+                     $this->doError('-1', 'impossible d\'annuler ce bon de sortie');
                 
             } else {
                 $this->doError('-1', 'Params not enough');

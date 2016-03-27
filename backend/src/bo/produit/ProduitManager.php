@@ -217,7 +217,7 @@ public function retrieveTypes()
                 $quantiteSortie = $stockManager->recupereQuantiteSortie($value ['id'], $codeUsine);
                 $quantiteFacturee = $stockManager->recupereQuantiteFacturee($value ['id'], $codeUsine);
                 $stockReel = $stockManager->recupereStockReel($value ['id'], $codeUsine);
-                if(intval($quantiteAchetee) != '0' ){
+               // if(intval($quantiteAchetee) != '0' ){
                 	$arrayProduits [$i] [] = $value ['id'];
                 	$arrayProduits [$i] [] = $value ['libelle'];
                         $arrayProduits [$i] [] = $stockPro;
@@ -227,7 +227,7 @@ public function retrieveTypes()
                         $arrayProduits [$i] [] = $quantiteSortie;
                         $arrayProduits [$i] [] = $quantiteFacturee;
                         $arrayProduits [$i] [] = $stockReel;
-                }
+              //  }
 //    		$arrayProduits [$i] [] = $value ['stockReel'];
 //    		if($value ['nbColis'] !=null)
 //    			$arrayProduits [$i] [] = $value ['nbColis'];
