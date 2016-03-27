@@ -52,21 +52,21 @@ class AchatQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             if($typeAchat !=='*'){
-                $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
+                $sql = 'select achat.id,status, dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id,status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
+            $sql = 'select achat.id,status,dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
             if($typeAchat !=='*'){
-                $sql = 'select achat.id, status,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
+                $sql = 'select achat.id, status,dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status='.$typeAchat.' ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
-            $sql = 'select achat.id, status, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom
+            $sql = 'select achat.id, status, dateAchat, numero, nom
                     from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   

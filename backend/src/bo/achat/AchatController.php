@@ -151,7 +151,7 @@ class AchatController extends BaseController implements BaseAction {
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder .= " numero desc";
+                        $sOrder .= " dateAchat desc";
                     }
                 }
                 // End order from DataTable
