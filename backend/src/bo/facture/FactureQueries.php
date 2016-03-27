@@ -68,10 +68,10 @@ class FactureQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE  facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE status<>0 and  facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE facture.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE status<>0 and facture.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

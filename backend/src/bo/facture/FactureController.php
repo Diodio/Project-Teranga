@@ -269,11 +269,12 @@ class FactureController extends BaseController implements BaseAction {
                     }
                 }
                 $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
-            } else {
-                $this->doError('-1', 'Impossible d\'inserer ce facture');
             }
+//              else {
+//                 $this->doError('-1', 'Impossible d\'inserer cette facture');
+//             }
         } catch (Exception $e) {
-            $this->doError('-1', 'ERREUR SERVEUR');
+            $this->doError('-1', 'Impossible d\'inserer cette facture');
         }
     }
 

@@ -489,7 +489,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             $('#MNU_REMOVE').addClass('disabled');
                          }
                          bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
-//                          loadBons('*');
+                         loadBons('*');
                     }
                     else{
                         $('#MNU_ANNULATION').removeClass('enable');

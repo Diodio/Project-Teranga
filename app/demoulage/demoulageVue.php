@@ -388,7 +388,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 } else  if (checkedDemoulages.length > 1){
                 {
                     bootbox.alert("Veuillez selectionnez un seul produit SVP!");
-//                     loadDemoulages();
+                    loadDemoulages();
                     $('#SAVE').attr("disabled", true);
                     $('#numero').val("");
                     $('#nomProduit').text("");

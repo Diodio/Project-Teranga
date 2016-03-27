@@ -53,10 +53,10 @@ class BonSortieQueries {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
-            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE status<>2 and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         } else {
 
-            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie  ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie where status<>2 ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -183,7 +183,7 @@ class BonSortieQueries {
                 $stockManager = new \Stock\StockManager();
                 $this->logger->log->trace('recuperation de la quantite reel du produit id '. $value ['produit_id']);
                 $quantiteReel = $stockManager->findQuantiteReelByProduitId($value ['produit_id'], $codeUsineDestination);
-                $this->logger->log->trace('Quantite reel recupereree . la valeur est '. $quantiteReel);
+                $this->logger->log->trace('Quantite reelle recupereree . la valeur est '. $quantiteReel);
                /// if ($quantiteReel !== 0) {
                     $this->logger->log->trace('Quantite reel different de 0');
                     $quantite = $value ['quantite'];
