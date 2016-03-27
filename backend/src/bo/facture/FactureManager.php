@@ -65,6 +65,7 @@ class FactureManager {
         foreach ($ligneFacture as $key => $value) {
             $stockManager = new \Stock\StockManager();
             $stockManager->updateNbStockReel($value ['produit'], $codeUsine, $value ['quantite']);
+            $stockManager->deleteStockFacturee($factureId, $value ['produit']);
         }
         $infosColis = $this->factureQuery->findColisageByFactureId($factureId);
         foreach ($infosColis as $key => $value) {
@@ -76,7 +77,6 @@ class FactureManager {
                  $colisage = new \Produit\Colisage();
                 $colisage->setNombreCarton($value ['nombreCarton']);
                 $colisage->setQuantiteParCarton($value ['quantiteParCarton']);
-               // $colisage->setTotal($value ['nombreCarton'] * $value ['quantiteParCarton']);
                 $colisage->setProduitId($value ['produitId']);
                 $colisage->setCodeUsine($codeUsine);
                 $colisManager->insert($colisage);

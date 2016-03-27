@@ -266,5 +266,11 @@ class StockManager {
   	$stockQueries = new StockQueries();
   	$stock=$stockQueries->deleteStockEntree($sortieId, $produitId);
   }
+  
+  public function deleteStockFacturee($factureId, $produitId) {
+  	$stockQueries = new StockQueries();
+  	return $stockQueries->deleteStockFacturee($factureId, $produitId);
+  }
+  
 
 }

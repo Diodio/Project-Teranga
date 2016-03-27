@@ -343,8 +343,9 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     	$connexion=  Bootstrap::$entityManager->getConnection();
     	return $connexion->executeUpdate('delete  FROM stock_sortie where produitId = "'.$produitId.'" and sortieId="'.$sortieId.'"');
     }
-    public function deleteStockEntree($sortieId, $produitId) {
+    public function deleteStockFacturee($factureId, $produitId) {
     	$connexion=  Bootstrap::$entityManager->getConnection();
-    	return $connexion->executeUpdate('delete  FROM stock_entree where produitId = "'.$produitId.'" and sortieId="'.$sortieId.'"');
+    	return $connexion->executeUpdate('delete  FROM stock_facture where produitId = "'.$produitId.'" and factureId="'.$factureId.'"');
     }
+    
 }
