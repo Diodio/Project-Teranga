@@ -74,7 +74,7 @@
                                     Sorties Usine
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    QuantitÃ© FacturÃ©e
+                                    QuantitÃ© empotÃ©e
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Stock RÃ©el
@@ -414,10 +414,10 @@
                     "bServerSide": true,
                     "bLengthChange": true,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_DETAIL_PRODUIT; ?>"});

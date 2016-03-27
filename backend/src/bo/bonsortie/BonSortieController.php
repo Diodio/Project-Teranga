@@ -182,7 +182,7 @@ class BonSortieController extends BaseController implements BaseAction {
                                 if ($insertedLC->getId() != null) {
                                     $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['origine']);
                                     $cartonManager = new \Produit\CartonManager();
-                                    $existColisage = $cartonManager->findColisByProduitId($produitId, $codeUsineDestination, $ligneC["qte"]);
+                                    $existColisage = $cartonManager->findColisByProduitId($ligneC["produitId"], $codeUsineDestination, $ligneC["qte"]);
                                     if ($existColisage == 0) {
                                         $colisage = new \Produit\Colisage();
                                         $colisage->setNombreCarton($ligneC["nbColis"]);
@@ -320,8 +320,11 @@ class BonSortieController extends BaseController implements BaseAction {
         try {
             if ($request['bonsortieId'] != null) {
                 $sortieManager = new BonSortieManager();
-                $sortieManager->remettreStockParBonSortie($request['bonsortieId']);
-                $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                $result = $sortieManager->annulerBonSortie($request['bonsortieId']);
+                if($result==1)
+                    $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                else
+                     $this->doError('-1', 'impossible d\'annuler ce bon de sortie');
                 
             } else {
                 $this->doError('-1', 'Params not enough');

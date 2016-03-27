@@ -35,7 +35,7 @@ hr {
 </style>
 <page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="33mm" style="font-size: 12pt">
     <bookmark title="Lettre" level="0" ></bookmark>
-    <table cellspacing="0" style="width: 98%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="width: 90%; text-align: center; font-size: 12px; margin-top: 20px;">
         <tr>
             <td style="width: 40%; ">
                 <span style="font-size: 18px;color:#68BC31" >MACFISH</span>
@@ -57,10 +57,13 @@ hr {
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="margin-top:-10px;color:#444444";width: 98%; text-align: center; font-size: 14px">
+    <div style="margin-left:40px;">
+    <table cellspacing="0" style="margin-top:-10px;color:#444444;width: 90%; text-align: left;  font-size: 14px">
         <tr>
             <td >
+                
                 Mareyeur: <?php echo $row['nom']; ?>
+                
             </td>
         </tr>
         <tr>
@@ -74,11 +77,13 @@ hr {
         </td>
         </tr>
     </table>
+    </div>
     <br>
-    <span  style="font-size: 14px;margin-top:-13px;font-weight: bold;" >Liste des produits</span>
+     <div style="margin-left:40px;">
+    <span  style="font-size: 12px;margin-top:-13px;font-weight: bold;" >Liste des produits</span>
 <!--     <hr> -->
     <br>
-    <table cellspacing="0" style="margin-top:-10px;width: 98%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="margin-top:-10px;width: 90%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 9pt;">
         <tr>
             <th style="width: 18%; text-align: left;">Désignation</th>
             <th style="width: 35%; text-align: right;">Prix Unitaire</th>
@@ -96,7 +101,7 @@ hr {
        $totalPrix = floatval($totalPrix) + floatval($rowProduit['prixUnitaire']);
        $totalQuantite = floatval($totalQuantite) + floatval($rowProduit['quantite']);
 ?>
-    <table cellspacing="0" style="width: 98%; border: solid 0px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="width: 90%; border: solid 0px black; background: #F7F7F7; text-align: left; font-size: 9pt;">
         <tr>
             <td style="width: 18%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
             <td style="width: 31%; text-align: right"><?php echo $rowProduit['prixUnitaire']; ?> </td>
@@ -107,7 +112,7 @@ hr {
 <?php
     }
 ?>
-    <table cellspacing="0" style="margin-top:3px;width: 98%; border: solid 0px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="margin-top:3px;width: 90%; border: solid 0px black; background: #E7E7E7; text-align: center; font-size: 9pt;">
         <tr>
             <th style="width: 18%; text-align: left;">Total : </th>
             <th style="width: 31%; text-align: right;"><?php echo $totalPrix; ?> </th>
@@ -116,53 +121,55 @@ hr {
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="text-align: center; font-size: 13px;">
+    <div style="margin-left:40px;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px; margin-left: " >
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Mode de paiement </td>
-            <td style="width: 25%; text-align: right;"><?php echo $row['modePaiement'] ?> </td>
+            <td style="width: 25%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Mode de paiement </td>
+            <td style="width: 30%;"><?php echo $row['modePaiement'] ?> </td>
         </tr>
     </table>
     <?php if($row['modePaiement'] =='CHEQUE') {?>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">N° chèque </td>
-            <td style="width: 25%; text-align: right;"><?php echo $row['numCheque'] ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">N° chèque </td>
+            <td style="width: 25%;"><?php echo $row['numCheque'] ?> </td>
         </tr>
     </table>
     <?php }?>
     <?php if($row['modePaiement'] =='VIREMENT') {?>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Date paiement </td>
-            <td style="width: 25%; text-align: right;"><?php echo $row['datePaiement'] ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Date paiement </td>
+            <td style="width: 25%;"><?php echo $row['datePaiement'] ?> </td>
         </tr>
     </table>
     <?php }?>
    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Avance </td>
-            <td style="width: 25%; text-align: right;"><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0 ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Avance </td>
+            <td style="width: 25%;"><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0.00 ?> </td>
         </tr>
     </table>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Reliquat </td>
-            <td style="width: 25%; text-align: right;"><?php echo  $total - $rowAvance['sommeAvance'] ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Reliquat </td>
+            <td style="width: 25%;"><?php echo  $total - $rowAvance['sommeAvance'] ?> </td>
         </tr>
     </table>
-    <nobreak>
+     </div>
+<!--    <nobreak>
         <br>
-        <table cellspacing="0" style="margin-top:0px;width: 98%; text-align: left;">
+        <table cellspacing="0" style="margin-top:0px;width: 90%; text-align: left;">
             <tr>
                 <td style="width:25%;">Le Comptable</td>
                 <td style="width:25%"></td>
@@ -170,16 +177,17 @@ hr {
                 <td style="width:25%"> Le Mareyeur</td>
             </tr>
         </table>
-    </nobreak>
-    <br/><br/><br/><br/>
+    </nobreak>-->
+     </div>
+    <br/>
     <hr>
-    <br/><br/><br/><br/>
-    <table cellspacing="0" style="margin-top:-45px;width: 98%; text-align: center; font-size: 14px">
+    <br/>
+       <table cellspacing="0" style="width: 90%; text-align: center; font-size: 12px">
         <tr>
             <td style="width: 40%; ">
-                <span style="font-size: 20px;color:#68BC31" >MACFISH</span>
+                <span style="font-size: 18px;color:#68BC31" >MACFISH</span>
                 <br>
-                 <span style="font-size: 20px;color:#68BC31" >PRODUCTION SUARL</span>
+                 <span style="font-size: 18px;color:#68BC31" >PRODUCTION SUARL</span>
                  <br><br>
                 <span >TEL : 338218470 / 338363512</span>
             </td>
@@ -196,10 +204,13 @@ hr {
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="margin-top:-10px;color:#444444";width: 98%; text-align: center; font-size: 14px">
+    <div style="margin-left:40px;">
+    <table cellspacing="0" style="margin-top:-10px;color:#444444;width: 90%; text-align: left;  font-size: 14px">
         <tr>
             <td >
+                
                 Mareyeur: <?php echo $row['nom']; ?>
+                
             </td>
         </tr>
         <tr>
@@ -213,11 +224,13 @@ hr {
         </td>
         </tr>
     </table>
+    </div>
     <br>
-    <span  style="font-size: 14px;margin-top:-13px;font-weight: bold;" >Liste des produits</span>
+     <div style="margin-left:40px;">
+    <span  style="font-size: 12px;margin-top:-13px;font-weight: bold;" >Liste des produits</span>
 <!--     <hr> -->
     <br>
-    <table cellspacing="0" style="margin-top:-10px;width: 98%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="margin-top:-10px;width: 90%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 9pt;">
         <tr>
             <th style="width: 18%; text-align: left;">Désignation</th>
             <th style="width: 35%; text-align: right;">Prix Unitaire</th>
@@ -227,15 +240,15 @@ hr {
     </table>
     
 <?php
-    $total =0.0;
-    $totalPrix=0.0;
-    $totalQuantite=0.0;
+    $total1 =0.0;
+    $totalPrix1=0.0;
+    $totalQuantite1=0.0;
    while ($rowProduit1 = mysqli_fetch_array($ResultProduit1)) {
-       $total = floatval($total) + floatval($rowProduit1['montant']);
-       $totalPrix = floatval($totalPrix) + floatval($rowProduit1['prixUnitaire']);
-       $totalQuantite = floatval($totalQuantite) + floatval($rowProduit1['quantite']);
+       $total1 = floatval($total1) + floatval($rowProduit1['montant']);
+       $totalPrix1 = floatval($totalPrix1) + floatval($rowProduit1['prixUnitaire']);
+       $totalQuantite1 = floatval($totalQuantite1) + floatval($rowProduit1['quantite']);
 ?>
-    <table cellspacing="0" style="width: 98%; border: solid 0px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="width: 90%; border: solid 0px black; background: #F7F7F7; text-align: left; font-size: 9pt;">
         <tr>
             <td style="width: 18%; text-align: left"><?php echo $rowProduit1['designation']; ?></td>
             <td style="width: 31%; text-align: right"><?php echo $rowProduit1['prixUnitaire']; ?> </td>
@@ -246,62 +259,64 @@ hr {
 <?php
     }
 ?>
-    <table cellspacing="0" style="width: 98%; border: solid 0px black; background: #E7E7E7; font-size: 10pt;">
+    <table cellspacing="0" style="margin-top:3px;width: 90%; border: solid 0px black; background: #E7E7E7; text-align: center; font-size: 9pt;">
         <tr>
             <th style="width: 18%; text-align: left;">Total : </th>
-            <th style="width: 31%; text-align: right;"><?php echo $totalPrix; ?> </th>
-            <th style="width: 28%; text-align: right;"><?php echo $totalQuantite; ?> kg </th>
-            <th style="width: 23%; text-align: right;"><?php echo $total; ?> </th>
+            <th style="width: 31%; text-align: right;"><?php echo $totalPrix1; ?> </th>
+            <th style="width: 28%; text-align: right;"><?php echo $totalQuantite1; ?> kg </th>
+            <th style="width: 23%; text-align: right;"><?php echo $total1; ?> </th>
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="text-align: center ;margin-left: 50%;  font-size: 13px;">
+    <div style="margin-left:40px;">
+    <table cellspacing="0" style="text-align: center; font-size: 13px; margin-left: " >
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Mode de paiement </td>
-            <td style="width: 25%; text-align: right;"><?php echo $row['modePaiement'] ?> </td>
+            <td style="width: 25%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Mode de paiement </td>
+            <td style="width: 30%;"><?php echo $row['modePaiement'] ?> </td>
         </tr>
     </table>
     <?php if($row['modePaiement'] =='CHEQUE') {?>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">N° chèque </td>
-            <td style="width: 25%; text-align: right;"><?php echo $row['numCheque'] ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">N° chèque </td>
+            <td style="width: 25%;"><?php echo $row['numCheque'] ?> </td>
         </tr>
     </table>
     <?php }?>
     <?php if($row['modePaiement'] =='VIREMENT') {?>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Date paiement </td>
-            <td style="width: 25%; text-align: right;"><?php echo $row['datePaiement'] ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Date paiement </td>
+            <td style="width: 25%;"><?php echo $row['datePaiement'] ?> </td>
         </tr>
     </table>
     <?php }?>
    <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Avance </td>
-            <td style="width: 25%; text-align: right;"><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0 ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Avance </td>
+            <td style="width: 25%;"><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0.00 ?> </td>
         </tr>
     </table>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
         <tr>
-            <td style="width: 18%; text-align: left;"> </td>
-            <td style="width: 31%; text-align: right;"></td>
-            <td style="width: 26%; text-align: right;">Reliquat </td>
-            <td style="width: 25%; text-align: right;"><?php echo  $total - $rowAvance['sommeAvance'] ?> </td>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Reliquat </td>
+            <td style="width: 25%;"><?php echo  $total - $rowAvance['sommeAvance'] ?> </td>
         </tr>
     </table>
-    <nobreak>
+     </div>
+<!--    <nobreak>
         <br>
-        <table cellspacing="0" style="margin-top:0px;width: 98%; text-align: left;">
+        <table cellspacing="0" style="margin-top:0px;width: 90%; text-align: left;">
             <tr>
                 <td style="width:25%;">Le Comptable</td>
                 <td style="width:25%"></td>
@@ -309,5 +324,6 @@ hr {
                 <td style="width:25%"> Le Mareyeur</td>
             </tr>
         </table>
-    </nobreak>
+    </nobreak>-->
+     </div>
 </page>

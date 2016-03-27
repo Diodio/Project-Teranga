@@ -299,7 +299,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     }
     
     public function recupereQuantiteFacturee($produitId, $codeUsine ) {
-        $sql = "SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, facture f WHERE sfa.produitId=$produitId and quantiteFacturee<>0.00 and f.codeUsine='".$codeUsine."'";
+        $sql = "SELECT SUM(quantiteFacturee) quantiteFacturee FROM stock_facture sfa, facture f WHERE f.id= sfa.factureId and sfa.produitId=$produitId and quantiteFacturee<>0.00 and f.codeUsine='".$codeUsine."'";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll();
