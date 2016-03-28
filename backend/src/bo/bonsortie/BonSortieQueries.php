@@ -49,14 +49,14 @@ class BonSortieQueries {
         return $clients;
     }
 
-    public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAll($status, $codeUsine, $offset, $rowCount, $orderBy = "", $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
-            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE status<>2 and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE status='.$status.' and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         } else {
 
-            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie where status<>2 ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie where status='.$status.' ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -131,17 +131,17 @@ class BonSortieQueries {
             return null;
     }
 
-    public function count($codeUsine, $sWhere = "") {
+    public function count($status, $codeUsine, $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
             $sql = 'select count(bon_sortie.id) as nb
-                    from bon_sortie where codeUsine="' . $codeUsine . '" ' . $sWhere . '';
+                    from bon_sortie where codeUsine="' . $codeUsine . '"  and status='.$status.' '  . $sWhere . '';
         } else {
 //             if($sWhere !== "")
 //            $sWhere = " where " . $sWhere;
             $sql = 'select count(bon_sortie.id) as nb
-                    from bon_sortie ' . $sWhere . '';
+                    from bon_sortie where status='.$status.' ' . $sWhere . '';
         }
 
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
