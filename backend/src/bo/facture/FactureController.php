@@ -621,7 +621,7 @@ class FactureController extends BaseController implements BaseAction {
     			// End filter from dataTable
     			$facture = $factureManager->retrieveAllFactureAnnules($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     			if ($facture != null) {
-    				$nbFactures = $factureManager->count($request['codeUsine'], $sWhere);
+    				$nbFactures = $factureManager->countFactureAnnules($request['codeUsine'], $sWhere);
     				$this->doSuccessO($this->dataTableFormat($facture, $request['sEcho'], $nbFactures));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

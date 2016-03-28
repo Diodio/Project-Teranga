@@ -160,6 +160,23 @@ class FactureQueries {
         return $nbClients['nbFactures'];
     }
     
+    
+    public function countFactureAnnules($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            $sql = 'SELECT count(*) as nbFactures FROM facture, client WHERE facture.client_id =client.id and facture.status=0 AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+        }
+        else {
+             $sql = 'SELECT count(*) as nbFactures  FROM facture, client WHERE facture.client_id = client.id and facture.status=0 ' . $sWhere . '';
+        }
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return $nbClients['nbFactures'];
+    }
+    
     public function getLastNumberFacture() {
         $sql = 'select max(id)+1 as last from facture';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -177,7 +194,7 @@ class FactureQueries {
         return $query->getResult();
     }
     public function findValidFactureByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM facture WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Facture = $stmt->fetch();
@@ -185,14 +202,14 @@ class FactureQueries {
     }
     
     public function findNonValidFactureByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM facture WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Facture = $stmt->fetch();
         return $Facture['nb'];
     }
     public function findFactureAnnulerByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=2 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM facture WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Facture = $stmt->fetch();

@@ -379,7 +379,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             getIndicator = function() {
                 var url;
                 var user;
-                url = '<?php echo App::getBoPath(); ?>/achat/FactureController.php';
+                url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
                 userProfil=$.cookie('profil');
                 if(userProfil==='admin')
                    user = 'login=<?php echo $login; ?>';
@@ -390,9 +390,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     data: user+'&ACTION=<?php echo App::ACTION_STAT_ANNULE; ?>&login=<?php echo $login?>&codeUsine=<?php echo $codeUsine; ?>',
                     cache: false,
                     success: function(data) {
-                        $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
-                        $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
-                        $('#"INDIC_FACTURE_ANNULES"').text(data.nbAnnule);
+                      //  $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
+                      //  $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
+                        $('#INDIC_FACTURE_ANNULES').text(data.nbAnnule);
 
 //                        gStatTimer = setTimeout(function() {
 //                            getIndicator();

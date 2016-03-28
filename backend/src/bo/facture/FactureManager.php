@@ -57,6 +57,10 @@ class FactureManager {
     public function count($codeUsine,$where="") {
         return $this->factureQuery->count($codeUsine,$where);
     }
+    
+    public function countFactureAnnules($codeUsine,$where="") {
+        return $this->factureQuery->countFactureAnnules($codeUsine,$where);
+    }
     public function validFacture($factureId) {
         return $this->factureQuery->validFacture($factureId);
     }
@@ -217,18 +221,10 @@ public function findStatisticByUsine($codeUsine) {
     
     public function findStatisticAnnuleByUsine($codeUsine) {
     	if ($codeUsine != null) {
-    		$validFacture = $this->factureQuery->findValidFactureByUsine($codeUsine);
-    		$nonValidFacture = $this->factureQuery->findNonValidFactureByUsine($codeUsine);
+    		//$validFacture = $this->factureQuery->findValidFactureByUsine($codeUsine);
+    		//$nonValidFacture = $this->factureQuery->findNonValidFactureByUsine($codeUsine);
     		$factureAnnuler = $this->factureQuery->findFactureAnnulerByUsine($codeUsine);
     		$factureTab = array();
-    		if ($validFacture != null)
-    			$factureTab['nbValid'] = $validFacture;
-    		else
-    			$factureTab['nbValid'] = 0;
-    		if ($nonValidFacture != null)
-    			$factureTab['nbNonValid'] = $nonValidFacture;
-    		else
-    			$factureTab['nbNonValid']= 0;
     		if ($factureAnnuler != null)
     			$factureTab['nbAnnule'] = $factureAnnuler;
     		else
