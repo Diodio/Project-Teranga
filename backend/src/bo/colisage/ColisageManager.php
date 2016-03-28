@@ -32,6 +32,15 @@ class ColisageManager {
     return 0;
   }
   
+  
+  public function getNombreCartonColisage($produitId, $quantite, $codeUsine) {
+      $colisageQueries = new ColisageQueries();
+      $colisage=$colisageQueries->getNombreCartonColisage($produitId, $quantite, $codeUsine);
+      if($colisage!=null)
+        return $colisage['nombreCarton'];
+    return 0;
+  }
+  
   public function misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) {
       $colisageQueries = new ColisageQueries();
       $colisageQueries->misAjourColis($produitId, $quantite, $nbCarton, $codeUsine) ;

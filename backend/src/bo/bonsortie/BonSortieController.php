@@ -314,11 +314,15 @@ class BonSortieController extends BaseController implements BaseAction {
         try {
             if ($request['bonsortieId'] != null) {
                 $sortieManager = new BonSortieManager();
-                $result = $sortieManager->annulerBonSortie($request['bonsortieId']);
-                if ($result == 1)
-                    $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
-                else
-                    $this->doError('-1', 'impossible d\'annuler ce bon de sortie');
+                $testAnulle = $sortieManager->testAnulle($request['bonsortieId']);
+                if ($testAnulle == 0) {
+                    $result = $sortieManager->annulerBonSortie($request['bonsortieId']);
+                    if ($result == 1)
+                        $this->doSuccess($request['bonsortieId'], 'Annulation effectuée avec succes');
+                    else
+                        $this->doError('-1', 'impossible d\'annuler ce bon de sortie');
+                } else
+                    $this->doError('-1', 'impossible d\'annuler ce bon de sortie. Il contient des produits utilisés');
             } else {
                 $this->doError('-1', 'Params not enough');
             }

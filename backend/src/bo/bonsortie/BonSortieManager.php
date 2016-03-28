@@ -4,6 +4,7 @@ namespace BonSortie;
 
 use BonSortie\BonSortieQueries as BonSortieQueries;
 use Stock\StockManager;
+use Log\Loggers as Logger;
 
 /**
  * Cette classe communique avec la classe ContactQueries
@@ -13,8 +14,10 @@ use Stock\StockManager;
 class BonSortieManager {
 
     private $bonSortieQuery;
+    private $logger;
 
     public function __construct() {
+        $this->logger = new Logger(__NAMESPACE__);
         $this->bonSortieQuery = new BonSortieQueries();
     }
 
@@ -240,6 +243,55 @@ class BonSortieManager {
         return $test;
     }
 
+    public function testAnulle($sortieId) {
+        
+        $test = 0;
+        //$trouveColis = 0;
+        $bonSortie = $this->findById($sortieId);
+            $codeUsineOrigine = $bonSortie->getOrigine();
+            $codeUsineDestination = $bonSortie->getDestination();
+            $this->logger->log->trace('codeUsine Origine ' . $codeUsineOrigine);
+            $this->logger->log->trace('codeUsine Destination ' . $codeUsineDestination);
+            $this->logger->log->trace('recuperation des elements de la ligne bon de sortie ');
+            $sortie = $this->bonSortieQuery->findInfoByBonSortie($sortieId);
+            $this->logger->log->trace('Fin recuperation des elements de la ligne bon de sortie ');
+            foreach ($sortie as $key => $value) {
+                $this->logger->log->trace('traitement du produit id ' . $value ['produit_id']);
+                $stockManager = new \Stock\StockManager();
+                $this->logger->log->trace('recuperation de la quantite reel du produit id ' . $value ['produit_id']);
+                $quantiteStock = $stockManager->findQuantiteReelByProduitId($value ['produit_id'], $codeUsineDestination);
+                $this->logger->log->trace('Quantite reelle recupereree . la valeur est ' . $quantiteStock);
+                $quantite = $value ['quantite'];
+                $produitId = $value ['produit_id'];
+                $this->logger->log->trace('Quantite stock : '. $quantiteStock);
+                $this->logger->log->trace('Quantite ligne colis : '. $quantite);
+                if ($quantiteStock < $quantite) {
+                    $this->logger->log->trace('Quantite stock inferieur a la ligne');
+                    $test++;
+                }
+            }
+            $infosColis = $this->bonSortieQuery->findInfoColisByBonSortie($sortieId);
+            foreach ($infosColis as $key => $val) {
+                $produitId = $val['produit_id'];
+                $quantiteParCarton = $val['quantiteParCarton'];
+                $nombreCarton = $val['nombreCarton'];
+                $colisageManger =new \Produit\ColisageManager();
+                $nombreCartonColisage = $colisageManger->getNombreCartonColisage($produitId, $quantiteParCarton, $codeUsineDestination);
+                $this->logger->log->trace('nombre de carton dans colisage  : '. $nombreCartonColisage);
+                $this->logger->log->trace('nombre de carton dans  ligne colis : '. $nombreCarton);
+                if($nombreCartonColisage != 0){
+                    if($nombreCartonColisage < $nombreCarton)
+                        $test++;
+                }
+                else if($nombreCartonColisage == 0)
+                    $test++;
+                
+            }
+            
+        return $test;
+    }
+
+    
     public function listbonValid() {
         $sorties = $this->bonSortieQuery->listbonValid();
 //        $list = array();

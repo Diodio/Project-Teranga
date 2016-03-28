@@ -56,6 +56,16 @@ class ColisageQueries {
         else
             return null;
     }
+    public function getNombreCartonColisage($produitId, $quantite, $codeUsine) {
+        $sql = 'SELECT nombreCarton FROM colisage WHERE quantiteParCarton='.$quantite.' AND produitId='.$produitId.' AND codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if ($stock != null)
+            return $stock[0];
+        else
+            return null;
+    }
     
     
      public function misAjourColis($produitId, $quantite, $nombreCarton, $codeUsine) {			
