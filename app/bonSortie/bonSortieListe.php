@@ -54,8 +54,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <li id='MNU_IMPRIMER' class="disabled"><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                         <li class="divider"></li>
-                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
+<!--                                          <li class="divider"></li> -->
+<!--                                         <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li> -->
                                     </ul>
                                 </div>
                     </div>
