@@ -183,18 +183,17 @@ class BonSortieQueries {
                 $stockManager = new \Stock\StockManager();
                 $this->logger->log->trace('recuperation de la quantite reel du produit id ' . $value ['produit_id']);
                 $quantiteReel = $stockManager->findQuantiteReelByProduitId($value ['produit_id'], $codeUsineDestination);
-                $this->logger->log->trace('Quantite reelle recupereree . la valeur est '. $quantiteReel);
-               /// if ($quantiteReel !== 0) {
-                    $this->logger->log->trace('Quantite reel different de 0');
-                    $quantite = $value ['quantite'];
-                    $produitId = $value ['produit_id'];
-                    $this->logger->log->trace(' debut destockage du produit id '. $value ['produit_id']);
-                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineDestination . "'");
-                    $this->logger->log->trace(' fin destockage du produit id '. $value ['produit_id']);
-                    $this->logger->log->trace(' debut stockage du produit id '. $value ['produit_id']);
-                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineOrigine . "'");
-                    $this->logger->log->trace(' fin stockage du produit id '. $value ['produit_id']);
-                
+                $this->logger->log->trace('Quantite reelle recupereree . la valeur est ' . $quantiteReel);
+                /// if ($quantiteReel !== 0) {
+                $this->logger->log->trace('Quantite reel different de 0');
+                $quantite = $value ['quantite'];
+                $produitId = $value ['produit_id'];
+                $this->logger->log->trace(' debut destockage du produit id ' . $value ['produit_id']);
+                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineDestination . "'");
+                $this->logger->log->trace(' fin destockage du produit id ' . $value ['produit_id']);
+                $this->logger->log->trace(' debut stockage du produit id ' . $value ['produit_id']);
+                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineOrigine . "'");
+                $this->logger->log->trace(' fin stockage du produit id ' . $value ['produit_id']);
             }
             $infosColis = $this->findInfoColisByBonSortie($sortieId);
             foreach ($infosColis as $key => $val) {
