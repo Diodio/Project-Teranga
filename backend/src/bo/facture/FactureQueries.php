@@ -89,6 +89,27 @@ class FactureQueries {
         }
         return $arrayFactures;
     }
+    
+    public function retrieveAllFactureAnnules($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+    	if($sWhere !== "")
+    		$sWhere = " and " . $sWhere;
+    	$sql = 'SELECT facture.id, facture.status, dateFacture, numero, nom FROM facture, client WHERE status=0 and  facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    	$sql = str_replace("`", "", $sql);
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$products = $stmt->fetchAll();
+    	$arrayFactures = array();
+    	$i = 0;
+    	foreach ($products as $key => $value) {
+    		$arrayFactures [$i] [] = $value ['id'];
+    		$arrayFactures [$i] [] = $value ['status'];
+    		$arrayFactures [$i] [] = $value ['dateFacture'];
+    		$arrayFactures [$i] [] = $value ['numero'];
+    		$arrayFactures [$i] [] = $value ['nom'];
+    		$i++;
+    	}
+    	return $arrayFactures;
+    }
 
  
     public function retrieveAllReglements($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
@@ -316,5 +337,13 @@ class FactureQueries {
             else
                 return null;
         }
+    }
+    
+    public function findStatisticAnnuleByUsine($codeUsine) {
+    	$sql = 'SELECT COUNT(STATUS) AS nb FROM achat WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$Facture = $stmt->fetch();
+    	return $Facture['nb'];
     }
 }

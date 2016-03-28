@@ -64,6 +64,9 @@ class FactureController extends BaseController implements BaseAction {
                     case \App::ACTION_STAT:
                         $this->doStat($request);
                         break;
+                    case \App::ACTION_STAT_ANNULE:
+                        $this->doStatAnnule($request);
+                        break;
                     case \App::ACTION_VIEW_DETAILS:
                         $this->doViewDetails($request);
                         break;
@@ -72,6 +75,9 @@ class FactureController extends BaseController implements BaseAction {
                         break;
                     case \App::ACTION_STAT_REGLEMENTS:
                         $this->doStatReglements($request);
+                        break;
+                    case \App::ACTION_LIST_FACTURE_ANNULES:
+                        $this->doListFactureAnnules($request);
                         break;
                 }
             } else {
@@ -466,6 +472,25 @@ class FactureController extends BaseController implements BaseAction {
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
     }
+    
+    public function doStatAnnule($request) {
+    	try {
+    		if (isset($request['codeUsine'])) {
+    			$FactureManager = new FactureManager();
+    			$achat = $FactureManager->findStatisticAnnuleByUsine($request['codeUsine']);
+    			if ($achat != null)
+    				$this->doSuccessO($achat);
+    			else
+    				echo json_encode(array());
+    		} else {
+    			$this->doError('-1', $this->parameters['PARAM_NOT_ENOUGH']);
+    			$this->logger->log->error('View : Params not enough');
+    		}
+    	} catch (Exception $e) {
+    		$this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
+    		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+    	}
+    }
 
     public function doViewDetails($request) {
         try {
@@ -555,6 +580,60 @@ class FactureController extends BaseController implements BaseAction {
             $this->doError('-1', $this->parameters['CANNOT_GET_MSG']);
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
+    }
+    
+    public function doListFactureAnnules($request) {
+    	try {
+    		$factureManager = new FactureManager();
+    		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
+    			// Begin order from dataTable
+    			$sOrder = "";
+    			$aColumns = array('dateFacture', 'numero', 'nom');
+    			if (isset($request['iSortCol_0'])) {
+    				$sOrder = "ORDER BY  ";
+    				for ($i = 1; $i < intval($request['iSortingCols']); $i++) {
+    					if ($request['bSortable_' . intval($request['iSortCol_' . $i])] == "true") {
+    						$sOrder .= "" . $aColumns[intval($request['iSortCol_' . $i])] . " " .
+    								($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+    					}
+    				}
+    
+    				$sOrder = substr_replace($sOrder, "", -2);
+    				if ($sOrder == "ORDER BY") {
+    					$sOrder .= " dateFacture desc";
+    				}
+    			}
+    			// End order from DataTable
+    			// Begin filter from dataTable
+    			$sWhere = "";
+    			if (isset($request['sSearch']) && $request['sSearch'] != "") {
+    				//$sSearchs = explode(" ", $request['sSearch']);
+    				//  for ($j = 0; $j < count($sSearchs); $j++) {
+    				//      $sWhere .= " ";
+    				for ($i = 0; $i < count($aColumns); $i++) {
+    					$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $request['sSearch'] . "%') OR";
+    					if ($i == count($aColumns) - 1)
+    						$sWhere = substr_replace($sWhere, "", -3);
+    				}
+    				// $sWhere = $sWhere .=")";
+    				//    }
+    			}
+    			// End filter from dataTable
+    			$facture = $factureManager->retrieveAllFactureAnnules($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			if ($facture != null) {
+    				$nbFactures = $factureManager->count($request['codeUsine'], $sWhere);
+    				$this->doSuccessO($this->dataTableFormat($facture, $request['sEcho'], $nbFactures));
+    			} else {
+    				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
+    			}
+    		} else {
+    			throw new Exception('list failed');
+    		}
+    	} catch (Exception $e) {
+    		throw $e;
+    	} catch (Exception $e) {
+    		throw new Exception('ERREUR SERVEUR');
+    	}
     }
 
 }

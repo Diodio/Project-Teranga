@@ -260,6 +260,13 @@ class BonSortieQueries {
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
+    public function findQuantiteSortieByUsineAnnule($codeUsineOrigine) {
+    	$sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE STATUS=2 and origine="' . $codeUsineOrigine . '"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$Achat = $stmt->fetch();
+    	return $Achat['nb'];
+    }
 
     public function findQuantiteEntreeByUsine($codeUsineDest) {
         $sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE STATUS=1 and destination="' . $codeUsineDest . '" ';

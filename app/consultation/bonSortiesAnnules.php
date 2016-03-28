@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des bons sortie
+            Gestion des bons sortie annulés
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des bons de sortie
+                Liste des bons de sortie annulés
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -42,7 +42,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des bons de sortie
+                            Liste des bons de sortie annulés
                         </h4>
 
                         <div class="widget-toolbar">
@@ -121,7 +121,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                             <div class="span12 infobox-container">
                                                 <?php if($codeUsine=='usine_dakar') {?>
-                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -135,7 +135,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     </div>
                                                 <?php }?>
                                                 <?php if($codeUsine=='usine_rufisque') {?>
-                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon fa-play"></i>
                                                         </div>
@@ -143,13 +143,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data" >
                                                             <div class="infobox-content" id="INDIC_BON_RUFISQUE">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Sortie Rufisqie </div>
+                                                            <div class="infobox-content" style="width:150px">Sortie Rufisque </div>
                                                         </div>
                                                     </div>
                                                 <?php }?>
                                                 
                                                 <?php if($codeUsine=='usine_stlouis') {?>
-                                                    <div class="infobox infobox-blue2 infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -157,7 +157,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <div class="infobox-data">
                                                             <div class="infobox-content" id="INDIC_BON_STLOUIS">0</div>
 
-                                                            <div class="infobox-content" style="width:150px">Sortie Saint Louis recus</div>
+                                                            <div class="infobox-content" style="width:150px">Sortie Saint Louis recues</div>
 
                                                         </div>
                                                     </div>
@@ -283,7 +283,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: 'ACTION=<?php echo App::ACTION_STAT; ?>',
+                    data: 'ACTION=<?php echo App::ACTION_STAT_ANNULE; ?>',
                     cache: false,
                     success: function(data) {
                         
@@ -571,7 +571,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
                     //afficher nombre �l�ment
                     "bInfo": true,

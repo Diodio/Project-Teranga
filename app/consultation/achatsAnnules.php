@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des bons d'achat
+            Gestion des bons d'achat annulés
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des bons d'achat
+                Liste des bons d'achat annulés
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -44,7 +44,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Liste des bons d'achat
+                            Liste des bons d'achat annulés
                         </h4>
 
                         <div class="widget-toolbar">

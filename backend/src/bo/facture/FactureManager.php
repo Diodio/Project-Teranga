@@ -45,6 +45,10 @@ class FactureManager {
     public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->factureQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
+    
+    public function retrieveAllFactureAnnules($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	return $this->factureQuery->retrieveAllFactureAnnules($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    }
 
    public function retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
         return $this->factureQuery->retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
@@ -209,6 +213,31 @@ public function findStatisticByUsine($codeUsine) {
             $stockManager = new \Produit\StockManager();
             $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
         }
+    }
+    
+    public function findStatisticAnnuleByUsine($codeUsine) {
+    	if ($codeUsine != null) {
+    		$validFacture = $this->factureQuery->findValidFactureByUsine($codeUsine);
+    		$nonValidFacture = $this->factureQuery->findNonValidFactureByUsine($codeUsine);
+    		$factureAnnuler = $this->factureQuery->findFactureAnnulerByUsine($codeUsine);
+    		$factureTab = array();
+    		if ($validFacture != null)
+    			$factureTab['nbValid'] = $validFacture;
+    		else
+    			$factureTab['nbValid'] = 0;
+    		if ($nonValidFacture != null)
+    			$factureTab['nbNonValid'] = $nonValidFacture;
+    		else
+    			$factureTab['nbNonValid']= 0;
+    		if ($factureAnnuler != null)
+    			$factureTab['nbAnnule'] = $factureAnnuler;
+    		else
+    			$factureTab['nbAnnule'] = 0;
+    
+    		 
+    		return $factureTab;
+    	} else
+    		return 0;
     }
 
 }

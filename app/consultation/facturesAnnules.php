@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des factures
+            Gestion des factures annulées
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des factures
+                Liste des factures annulées
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -29,26 +29,6 @@ $codeUsine = $_COOKIE['codeUsine'];
             <div class="col-sm-3"></div>
             <div class="col-sm-9">
                 <div class="col-lg-1">
-                    <div class="btn-group">
-                        <button data-toggle="dropdown"
-                                class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                data-rel="tooltip" data-placement="top" title="Famille de produit" style="
-                                height: 32px;
-                                width: 80px;
-                                margin-top: -1px;
-                                margin-left: -40%;
-                                ">
-                            <i class="icon-group icon-only icon-on-right"></i> Action
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-info">
-<!--                            <li id='MNU_VALIDATION' class="disabled" ><a href="#" id="GRP_NEW">Valider </a></li>-->
-<!--                            <li class="divider"></li>-->
-                            <li id='MNU_IMPRIMER' class="disabled"><a href="#" id="GRP_NEW">Imprimer </a></li>
-                            <li class="divider"></li>
-                            <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -57,7 +37,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter">
                                 <i class="ace-icon fa fa-star orange"></i>
-                                Liste des factures
+                                Liste des factures annulées
                             </h4>
 
                             <div class="widget-toolbar">
@@ -130,28 +110,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <div class="tab-content padding-4">
                                         <div id="TAB_INFO" class="tab-pane in active">
                                             <div>
-
-                                                <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon-pause"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_CPG_PAUSE">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Factures validées</div>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                              <div class="span12 infobox-container">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-calendar"></i>
                                                         </div>
 
                                                         <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_CPG_SCHEDULED">0</div>
+                                                            <div class="infobox-content" id="INDIC_FACTURE_ANNULES">0</div>
 
                                                             <div class="infobox-content" style="width:150px">Factures annulées</div>
 
@@ -372,12 +338,12 @@ $codeUsine = $_COOKIE['codeUsine'];
 
 
                                                     <div style="float: right">
-                                                        <button id="SAVE" class="btn btn-small btn-info" >
-                                                            <i class="ace-icon fa fa-save"></i>
-                                                            Enregistrer
-                                                        </button>
+<!--                                                         <button id="SAVE" class="btn btn-small btn-info" > -->
+<!--                                                             <i class="ace-icon fa fa-save"></i> -->
+<!--                                                             Enregistrer -->
+<!--                                                         </button> -->
 
-                                                    </div>
+<!--                                                     </div> -->
                                                 </div>
                                             </div>
 
@@ -409,6 +375,33 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 return false;
             };
+
+            getIndicator = function() {
+                var url;
+                var user;
+                url = '<?php echo App::getBoPath(); ?>/achat/FactureController.php';
+                userProfil=$.cookie('profil');
+                if(userProfil==='admin')
+                   user = 'login=<?php echo $login; ?>';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: user+'&ACTION=<?php echo App::ACTION_STAT_ANNULE; ?>&login=<?php echo $login?>&codeUsine=<?php echo $codeUsine; ?>',
+                    cache: false,
+                    success: function(data) {
+                        $('#INDIC_ACHAT_VALIDES').text(data.nbValid);
+                        $('#INDIC_ACHAT_NONVALIDES').text(data.nbNonValid);
+                        $('#"INDIC_FACTURE_ANNULES"').text(data.nbAnnule);
+
+//                        gStatTimer = setTimeout(function() {
+//                            getIndicator();
+//                        }, interval);
+                    }
+                });
+            };
+            getIndicator();
+            
             // Persist checked Message when navigating
             persistChecked = function () {
                 $('input[type="checkbox"]', "#LIST_FACTURES").each(function () {
@@ -612,7 +605,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "sAjaxSource": url,
                     "sPaginationType": "full_numbers",
                     "fnServerData": function (sSource, aoData, fnCallback) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST; ?>"});
+                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_FACTURE_ANNULES; ?>"});
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "profil", "value": $.cookie('profil')});

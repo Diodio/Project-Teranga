@@ -111,6 +111,31 @@ class BonSortieManager {
         } else
             return 0;
     }
+    
+    public function findStatisticByUsineAnnule($codeUsine) {
+    	if ($codeUsine != null) {
+    		$validBonSortie = $this->bonSortieQuery->findStatisticByUsineAnnule($codeUsine);
+    		$nonValidBonSortie = $this->bonSortieQuery->findStatisticByUsineAnnule($codeUsine);
+    		$bonSortieAnnuler = $this->bonSortieQuery->findStatisticByUsineAnnule($codeUsine);
+    		$bonSortieTab = array();
+    		if ($validBonSortie != null)
+    			$bonSortieTab['nbValid'] = $validBonSortie;
+    		else
+    			$bonSortieTab['nbValid'] = 0;
+    		if ($nonValidBonSortie != null)
+    			$bonSortieTab['nbNonValid'] = $nonValidBonSortie;
+    		else
+    			$bonSortieTab['nbNonValid'] = 0;
+    		if ($bonSortieAnnuler != null)
+    			$bonSortieTab['nbAnnule'] = $bonSortieAnnuler;
+    		else
+    			$bonSortieTab['nbAnnule'] = 0;
+    
+    
+    		return $bonSortieTab;
+    	} else
+    		return 0;
+    }
 
     public function findQuantiteSortieByUsine() {
         $sortieDakar = $this->bonSortieQuery->findQuantiteSortieByUsine('usine_dakar');
@@ -132,6 +157,28 @@ class BonSortieManager {
 
 
         return $bonSortieTab;
+    }
+    
+    public function findQuantiteSortieAnnuleByUsine() {
+    	$sortieDakar = $this->bonSortieQuery->findQuantiteSortieByUsineAnnule('usine_dakar');
+    	$sortieRufisque = $this->bonSortieQuery->findQuantiteSortieByUsineAnnule('usine_rufisque');
+    	$sortieStlouis = $this->bonSortieQuery->findQuantiteSortieByUsineAnnule('usine_stlouis');
+    	$bonSortieTab = array();
+    	if ($sortieDakar != null)
+    		$bonSortieTab['nbDakar'] = $sortieDakar;
+    	else
+    		$bonSortieTab['nbDakar'] = 0;
+    	if ($sortieRufisque != null)
+    		$bonSortieTab['nbRufisque'] = $sortieRufisque;
+    	else
+    		$bonSortieTab['nbRufisque'] = 0;
+    	if ($sortieStlouis != null)
+    		$bonSortieTab['nbStLouis'] = $sortieStlouis;
+    	else
+    		$bonSortieTab['nbStLouis'] = 0;
+    
+    
+    	return $bonSortieTab;
     }
 
     public function findQuantiteEntreeByUsine($codeUsineDest) {

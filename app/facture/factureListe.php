@@ -132,7 +132,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             <div>
 
                                                 <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
@@ -145,7 +145,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
                                                     </div>
 
-                                                    <div class="infobox infobox-grey infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-calendar"></i>
                                                         </div>

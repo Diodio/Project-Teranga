@@ -14,10 +14,10 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Démoulage
+            Démoulage annulés
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste démoulages
+                Liste démoulages annulés
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -30,7 +30,7 @@
                     <div class="widget-header widget-header-flat">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-users orange"></i>
-                            Liste démoulages
+                            Liste démoulages annulés
                         </h4>
 <!--                                        <div class="btn-group"> -->
 <!--                                             <button id="MNU_ANNULATION" -->

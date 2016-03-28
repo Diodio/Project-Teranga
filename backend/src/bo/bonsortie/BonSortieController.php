@@ -64,6 +64,9 @@ class BonSortieController extends BaseController implements BaseAction {
                     case \App::ACTION_STAT:
                         $this->doStat($request);
                         break;
+                    case \App::ACTION_STAT_ANNULE:
+                        $this->doStatAnnule($request);
+                        break;
                     case \App::ACTION_VIEW_DETAILS:
                         $this->doViewDetails($request);
                         break;
@@ -357,6 +360,20 @@ class BonSortieController extends BaseController implements BaseAction {
             $this->doError('-1', 'Impossible de charger les statistiques globales');
             $this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
+    }
+    
+    public function doStatAnnule($request) {
+    	try {
+    		$BonSortieManager = new BonSortieManager();
+    		$sortie = $BonSortieManager->findQuantiteSortieAnnuleByUsine();
+    		if ($sortie != null)
+    			$this->doSuccessO($sortie);
+    		else
+    			echo json_encode(array());
+    	} catch (Exception $e) {
+    		$this->doError('-1', 'Impossible de charger les statistiques globales');
+    		$this->logger->log->error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+    	}
     }
 
     public function doStatEntree($request) {

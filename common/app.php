@@ -57,6 +57,7 @@ class App
      const ACTION_LIST_VALID='LIST_VALID';
      const ACTION_DRAFT='DRAFT';
      const ACTION_STAT='STAT';
+     const ACTION_STAT_ANNULE='STAT_ANNULE';
      const ACTION_STAT_FAMILLE='STAT_FAMILLE';
      const ACTION_VIEW_DETAILS='VIEW_DETAILS';
      const ACTION_SAVE='SAVE';
@@ -134,6 +135,7 @@ class App
      const ACTION_GET_COLIS_BONSORTIE='GET_COLIS_BONSORTIE';
      const ACTION_GET_ENTREE='GET_ENTREE';
      const ACTION_STAT_ENTREE='LIST_STAT_ENTREE';
+     const  ACTION_LIST_FACTURE_ANNULES='LIST_FACTURE_ANNULES';
      
      
      static function getBoPath() {

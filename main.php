@@ -1028,6 +1028,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#CONSULTATION_BONSORTIESANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_DEMOULAGESANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_ENTREES").attr("Class", "no-active");
+                      $("#CONSULTATION_FACTURESANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_PRODUITS").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/produitDetail.php", function () {
                       });
@@ -1056,7 +1057,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#CONSULTATION_ACHATSANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_BONSORTIESANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_DEMOULAGESANNULES").attr("Class", "no-active");
-                      $("#CONSULTATION_ENTREES").attr("Class", "no-active");
+                      $("#CONSULTATION_ENTREES").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/entreeListe.php", function () {
                       });
                    });
@@ -1172,6 +1173,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#CONSULTATION_ACHATSANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_BONSORTIESANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_DEMOULAGESANNULES").attr("Class", "no-active");
+                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                       $("#CONSULTATION_FACTURESANNULES").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/facturesAnnules.php", function () {
                       });

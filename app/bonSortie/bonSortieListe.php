@@ -146,7 +146,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                             <div class="span12 infobox-container">
                                                 <?php if($codeUsine=='usine_dakar') {?>
-                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
+                                                    <div class="infobox infobox-blue infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
                                                             <i class="icon-pause"></i>
                                                         </div>
