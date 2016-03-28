@@ -57,7 +57,7 @@ class AchatQueries {
             }
             else {
             $sql = 'select achat.id,status,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status<>2 and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
         }
         else {
@@ -67,7 +67,7 @@ class AchatQueries {
             }
             else {
             $sql = 'select achat.id, status, dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status<>2 ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             }   
         $sql = str_replace("`", "", $sql);

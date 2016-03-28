@@ -28,10 +28,10 @@ $codeUsine = $_COOKIE['codeUsine'];
         <div class="row">
             <div class="col-sm-4"> 
                 <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="col-xs-10 col-sm-7">
-                        <option value="*" class="types">Filtrer par type achat</option>
+                        <option value="*" class="black bigger-130 icon-only">Filtrer par type achat</option>
                          <option value="0" class="orange bigger-130 icon-only">Achats non validés</option>
                          <option value="1" class="green bigger-130 icon-only">Achats validés</option>
-                         <option value="2" class="red bigger-130 icon-only">Achats annulés</option>
+<!--                          <option value="2" class="red bigger-130 icon-only">Achats annulés</option> -->
                 </select>
                                             <button id="BTN_NEW"
                                                     class="btn btn-primary btn-mini tooltip-info"
@@ -62,8 +62,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <li id='MNU_IMPRIMER' class="disabled" ><a href="#" id="GRP_NEW">Imprimer</a></li>
                                         <li class="divider"></li>
                                         <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                        <li class="divider"></li>
-                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
+<!--                                         <li class="divider"></li> -->
+<!--                                         <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li> -->
                                     </ul>
                                 </div>
                     </div>
@@ -675,9 +675,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
-                    "bInfo": false,
+                    "bInfo": true,
                     "sAjaxSource": url,
                   //afficher nombre �l�ment
                     "sPaginationType": "full_numbers",

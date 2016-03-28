@@ -247,9 +247,9 @@ class DemoulageController extends BaseController {
                 if($demou!=NULL)
                     $this->doSuccess($request['demoulageId'], 'Annulation effectuee avec succes');
                 else
-                    $this->doError('-1', 'Impossible d\'annuler ce demoulage');
+                    $this->doError('-1', 'Impossible d\'annuler ce demoulage car les cartons sont  deja utilises');
             } else {
-                $this->doError('-1', 'Params not enough');
+                $this->doError('-1', 'Veuiillez verifier vos parametres SVP!');
             }
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());

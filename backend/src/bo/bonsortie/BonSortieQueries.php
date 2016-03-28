@@ -53,10 +53,10 @@ class BonSortieQueries {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
-            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie WHERE status<>2 and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         } else {
 
-            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie  ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
+            $sql = 'SELECT bon_sortie.id,status,dateBonSortie, numeroBonSortie,totalColis, poidsTotal FROM bon_sortie where status<>2 ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -183,17 +183,18 @@ class BonSortieQueries {
                 $stockManager = new \Stock\StockManager();
                 $this->logger->log->trace('recuperation de la quantite reel du produit id ' . $value ['produit_id']);
                 $quantiteReel = $stockManager->findQuantiteReelByProduitId($value ['produit_id'], $codeUsineDestination);
-                $this->logger->log->trace('Quantite reel recupereree . la valeur est ' . $quantiteReel);
-                /// if ($quantiteReel !== 0) {
-                $this->logger->log->trace('Quantite reel different de 0');
-                $quantite = $value ['quantite'];
-                $produitId = $value ['produit_id'];
-                $this->logger->log->trace(' debut destockage du produit id ' . $value ['produit_id']);
-                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineDestination . "'");
-                $this->logger->log->trace(' fin destockage du produit id ' . $value ['produit_id']);
-                $this->logger->log->trace(' debut stockage du produit id ' . $value ['produit_id']);
-                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineOrigine . "'");
-                $this->logger->log->trace(' fin stockage du produit id ' . $value ['produit_id']);
+                $this->logger->log->trace('Quantite reelle recupereree . la valeur est '. $quantiteReel);
+               /// if ($quantiteReel !== 0) {
+                    $this->logger->log->trace('Quantite reel different de 0');
+                    $quantite = $value ['quantite'];
+                    $produitId = $value ['produit_id'];
+                    $this->logger->log->trace(' debut destockage du produit id '. $value ['produit_id']);
+                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineDestination . "'");
+                    $this->logger->log->trace(' fin destockage du produit id '. $value ['produit_id']);
+                    $this->logger->log->trace(' debut stockage du produit id '. $value ['produit_id']);
+                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineOrigine . "'");
+                    $this->logger->log->trace(' fin stockage du produit id '. $value ['produit_id']);
+                
             }
             $infosColis = $this->findInfoColisByBonSortie($sortieId);
             foreach ($infosColis as $key => $val) {
@@ -254,7 +255,7 @@ class BonSortieQueries {
     }
 
     public function findQuantiteSortieByUsine($codeUsineOrigine) {
-        $sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE origine="' . $codeUsineOrigine . '"';
+        $sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE STATUS=1 and origine="' . $codeUsineOrigine . '"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -262,7 +263,7 @@ class BonSortieQueries {
     }
 
     public function findQuantiteEntreeByUsine($codeUsineDest) {
-        $sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE destination="' . $codeUsineDest . '" ';
+        $sql = 'SELECT SUM(poidsTotal) AS nb FROM bon_sortie WHERE STATUS=1 and destination="' . $codeUsineDest . '" ';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();

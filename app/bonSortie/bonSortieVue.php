@@ -530,14 +530,14 @@ $(document).ready(function () {
         if(pNet>quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
-                text: 'La quantité définie ne doit pas etre supérieure à la quantité de sortie (voir demoulage)',
+                text: 'La quantité définie ne doit pas etre supérieure à la quantité de sortie (voir colisage)',
                 class_name: 'gritter-error gritter-light'
             });
         }
         else  if(pNet<quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
-                text: 'La quantité définie ne doit pas etre inférieure à la quantité de sortie (voir demoulage)',
+                text: 'La quantité définie ne doit pas etre inférieure à la quantité de sortie (voir colisage)',
                 class_name: 'gritter-error gritter-light'
             });
         }

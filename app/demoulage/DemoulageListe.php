@@ -45,14 +45,14 @@
                                                 <i class="icon-cloud-download icon-only"></i> Annuler
                                             </button>
                                         </div>
-                                        <div class="btn-group">
-                                            <button id="MNU_REMOVE"
-                                                    class="btn btn-primary btn-mini tooltip-info disabled"
-                                                    data-rel="tooltip" data-placement="top"
-                                                    title="Supprimer D�moulage">
-                                                <i class="icon-cloud-download icon-only"></i> Supprimer
-                                            </button>
-                                        </div>
+<!--                                         <div class="btn-group"> -->
+<!--                                             <button id="MNU_REMOVE" -->
+<!--                                                     class="btn btn-primary btn-mini tooltip-info disabled" -->
+<!--                                                     data-rel="tooltip" data-placement="top" -->
+<!--                                                     title="Supprimer D�moulage"> -->
+<!--                                                 <i class="icon-cloud-download icon-only"></i> Supprimer -->
+<!--                                             </button> -->
+<!--                                         </div> -->
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>

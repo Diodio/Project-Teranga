@@ -26,39 +26,14 @@ $codeUsine = $_COOKIE['codeUsine'];
     <div class="row">
         <div class="space-6"></div>
         <div class="row">
-                          <div class="col-sm-4"> 
-       									  <button id="BTN_NEW"
-                                                    class="btn btn-primary btn-mini tooltip-info"
+                <div class="btn-group">
+                                            <button id="MNU_REMOVE"
+                                                    class="btn btn-primary btn-mini tooltip-info disabled"
                                                     data-rel="tooltip" data-placement="top"
-                                                    title="Nouveau Bon de Sortie">
-                                                <i class="icon-cloud-upload icon-only"></i> Nouveau
+                                                    title="Supprimer D�moulage">
+                                                <i class="icon-cloud-download icon-only"></i> Supprimer
                                             </button>
-                            </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-8">
-                    <div class="col-lg-1">
-                        <div class="btn-group">
-                                    <button data-toggle="dropdown"
-                                            class="btn btn-mini btn-primary dropdown-toggle tooltip-info"
-                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="
-                                            height: 32px;
-                                            width: 80px;
-                                            margin-top: -1px;
-                                            margin-left: -40%;
-                                        ">
-                                        <i class="icon-group icon-only icon-on-right"></i> Action
-                                    </button>
-                                    
-                                    <ul class="dropdown-menu dropdown-info">
-
-                                        <li id='MNU_IMPRIMER' class="disabled"><a href="#" id="GRP_NEW">Imprimer</a></li>
-                                        <li class="divider"></li>
-                                        <li id='MNU_ANNULATION' class="disabled"><a href="#" id="GRP_EDIT">Annuler</a></li>
-                                         <li class="divider"></li>
-                                        <li id='MNU_REMOVE' class="disabled"><a href="#" id="GRP_REMOVE">Supprimer</a></li>
-                                    </ul>
-                                </div>
-                    </div>
+                                        </div>          
         </div>
         <div class="row">
             <div class="col-sm-5">
@@ -489,7 +464,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             $('#MNU_REMOVE').addClass('disabled');
                          }
                          bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
-//                          loadBons('*');
+                         loadBons(2);
                     }
                     else{
                         $('#MNU_ANNULATION').removeClass('enable');

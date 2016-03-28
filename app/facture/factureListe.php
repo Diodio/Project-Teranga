@@ -472,7 +472,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#MNU_REMOVE').addClass('disabled');
                     }
                     bootbox.alert("Veuillez selectionnez une seule facture  SVP!");
-                    //loadBons('*');
+                    loadFactures();
                 }
                 else {
                     $('#MNU_ANNULATION').removeClass('enable');
