@@ -184,7 +184,7 @@ class FactureController extends BaseController implements BaseAction {
                                 $ligneColisManager = new \Facture\LigneColisManager;
                                 $inserted = $ligneColisManager->insert($colis);
                                 if ($inserted->getId() != null) {
-                                    $ligneColisManager->dimunieNbColis($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"]);
+                                    $ligneColisManager->dimunieColisFacturee($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
                                 }
                             }
                         }

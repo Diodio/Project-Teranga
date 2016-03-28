@@ -21,4 +21,8 @@ class LigneColisManager {
     public function dimunieNbColis($produitId, $quantite, $nbCarton) {	
          return $this->ligneColisQuery->dimunieNbColis($produitId, $quantite, $nbCarton);
     }
+    
+    public function dimunieColisFacturee($produitId, $quantite, $nbCarton, $codeUsine) {	
+         return $this->ligneColisQuery->dimunieColisFacturee($produitId, $quantite, $nbCarton, $codeUsine);
+    }
 }

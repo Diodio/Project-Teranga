@@ -35,7 +35,13 @@ class LigneColisQueries {
         $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite");
        // $this->recupereColisFini($produitId, $quantite, $nbCarton);
     }
-    public function recupereColisFini($produitId, $quantite, $nbCarton ) {
+    public function dimunieColisFacturee($produitId, $quantite, $nbCarton,$codeUsine ) {			
+        $connexion=  Bootstrap::$entityManager->getConnection();
+        $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nbCarton WHERE produitId = $produitId AND quantiteParCarton=$quantite and codeUsine='$codeUsine'");
+       // $this->recupereColisFini($produitId, $quantite, $nbCarton);
+    }
+    
+    public function recupereColisFini($produitId, $quantite, $nbCarton ) { 
         $sql = "SELECT id,nombreCarton FROM colisage WHERE nombreCarton=0 AND produitId = $produitId AND quantiteParCarton=$quantite";
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
