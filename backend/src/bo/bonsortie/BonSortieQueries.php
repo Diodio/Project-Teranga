@@ -172,8 +172,8 @@ class BonSortieQueries {
             $this->logger->log->trace('Fin recuperation des elements du bon de sortie ');
             $codeUsineOrigine = $bonSortie->getOrigine();
             $codeUsineDestination = $bonSortie->getDestination();
-            $this->logger->log->trace('codeUsine Origine '. $codeUsineOrigine);
-            $this->logger->log->trace('codeUsine Destination '. $codeUsineDestination);
+            $this->logger->log->trace('codeUsine Origine ' . $codeUsineOrigine);
+            $this->logger->log->trace('codeUsine Destination ' . $codeUsineDestination);
             $this->logger->log->trace('recuperation des elements de la ligne bon de sortie ');
             $sortie = $this->findInfoByBonSortie($sortieId);
             $this->logger->log->trace('Fin recuperation des elements de la ligne bon de sortie ');
@@ -181,20 +181,19 @@ class BonSortieQueries {
             foreach ($sortie as $key => $value) {
                 $this->logger->log->trace('traitement du produit id ' . $value ['produit_id']);
                 $stockManager = new \Stock\StockManager();
-                $this->logger->log->trace('recuperation de la quantite reel du produit id '. $value ['produit_id']);
+                $this->logger->log->trace('recuperation de la quantite reel du produit id ' . $value ['produit_id']);
                 $quantiteReel = $stockManager->findQuantiteReelByProduitId($value ['produit_id'], $codeUsineDestination);
-                $this->logger->log->trace('Quantite reel recupereree . la valeur est '. $quantiteReel);
-               /// if ($quantiteReel !== 0) {
-                    $this->logger->log->trace('Quantite reel different de 0');
-                    $quantite = $value ['quantite'];
-                    $produitId = $value ['produit_id'];
-                    $this->logger->log->trace(' debut destockage du produit id '. $value ['produit_id']);
-                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineDestination . "'");
-                    $this->logger->log->trace(' fin destockage du produit id '. $value ['produit_id']);
-                    $this->logger->log->trace(' debut stockage du produit id '. $value ['produit_id']);
-                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineOrigine . "'");
-                    $this->logger->log->trace(' fin stockage du produit id '. $value ['produit_id']);
-                
+                $this->logger->log->trace('Quantite reel recupereree . la valeur est ' . $quantiteReel);
+                /// if ($quantiteReel !== 0) {
+                $this->logger->log->trace('Quantite reel different de 0');
+                $quantite = $value ['quantite'];
+                $produitId = $value ['produit_id'];
+                $this->logger->log->trace(' debut destockage du produit id ' . $value ['produit_id']);
+                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineDestination . "'");
+                $this->logger->log->trace(' fin destockage du produit id ' . $value ['produit_id']);
+                $this->logger->log->trace(' debut stockage du produit id ' . $value ['produit_id']);
+                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantite WHERE produit_id = $produitId AND codeUsine='" . $codeUsineOrigine . "'");
+                $this->logger->log->trace(' fin stockage du produit id ' . $value ['produit_id']);
             }
             $infosColis = $this->findInfoColisByBonSortie($sortieId);
             foreach ($infosColis as $key => $val) {
@@ -202,22 +201,22 @@ class BonSortieQueries {
                 $quantiteParCarton = $val['quantiteParCarton'];
                 $nombreCarton = $val['nombreCarton'];
                 $this->logger->log->trace('traitement colisage du produit id ' . $val ['produit_id']);
-                $this->logger->log->trace(' debut suppression stock sortie du produit id '. $value ['produit_id']);
+                $this->logger->log->trace(' debut suppression stock sortie du produit id ' . $value ['produit_id']);
                 $connexion->executeUpdate('delete  FROM stock_sortie where produitId = "' . $produitId . '" and sortieId="' . $sortieId . '"');
-                $this->logger->log->trace(' fin suppression stock sortie du produit id '. $value ['produit_id']);
-                $this->logger->log->trace(' debut suppression stock entree du produit id '. $value ['produit_id']);
+                $this->logger->log->trace(' fin suppression stock sortie du produit id ' . $value ['produit_id']);
+                $this->logger->log->trace(' debut suppression stock entree du produit id ' . $value ['produit_id']);
                 $connexion->executeUpdate('delete  FROM stock_entree where produitId = "' . $produitId . '" and sortieId="' . $sortieId . '"');
-                $this->logger->log->trace(' fin suppression stock entree du produit id '. $value ['produit_id']);
-                $this->logger->log->trace(' debut dimunition colisage du produit id '. $value ['produit_id']);
+                $this->logger->log->trace(' fin suppression stock entree du produit id ' . $value ['produit_id']);
+                $this->logger->log->trace(' debut dimunition colisage du produit id ' . $value ['produit_id']);
                 $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nombreCarton WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton and codeUsine='$codeUsineDestination'");
-                $this->logger->log->trace(' fin dimunition colisage du produit id '. $value ['produit_id']);
-                $this->logger->log->trace(' debut mis a jour colisage du produit id '. $value ['produit_id']);
+                $this->logger->log->trace(' fin dimunition colisage du produit id ' . $value ['produit_id']);
+                $this->logger->log->trace(' debut mis a jour colisage du produit id ' . $value ['produit_id']);
                 $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton + $nombreCarton WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton and codeUsine='$codeUsineOrigine'");
-                $this->logger->log->trace(' fin mis a jour colisage du produit id '. $value ['produit_id']);
+                $this->logger->log->trace(' fin mis a jour colisage du produit id ' . $value ['produit_id']);
             }
-            $this->logger->log->trace(' debut annulation du bon sortie '. $sortieId);
+            $this->logger->log->trace(' debut annulation du bon sortie ' . $sortieId);
             $connexion->executeUpdate("UPDATE bon_sortie set status=2 WHERE status=1 and id IN( '$sortieId')");
-            $this->logger->log->trace(' fin annulation du bon sortie  '. $sortieId);
+            $this->logger->log->trace(' fin annulation du bon sortie  ' . $sortieId);
             Bootstrap::$entityManager->getConnection()->commit();
             return 1;
         } catch (\Exception $e) {
