@@ -43,8 +43,8 @@ class BonSortieManager {
         return $this->bonSortieQuery->findTypeBonSortieById($typeproduitId);
     }
 
-    public function retrieveAll($codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->bonSortieQuery->retrieveAll($codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($status, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->bonSortieQuery->retrieveAll($status, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
     public function retrieveAllEntree($codeUsineDest, $codeUsineOrigine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
@@ -55,8 +55,8 @@ class BonSortieManager {
         return $this->bonSortieQuery->countEntree($codeUsineDest, $codeUsineOrigine, $where);
     }
 
-    public function count($codeUsine, $where = "") {
-        return $this->bonSortieQuery->count($codeUsine, $where);
+    public function count($status, $codeUsine, $where = "") {
+        return $this->bonSortieQuery->count($status, $codeUsine, $where);
     }
 
     public function validBonSortie($bonSortieId) {
@@ -247,7 +247,7 @@ class BonSortieManager {
         
         $test = 0;
         //$trouveColis = 0;
-        $bonSortie = $this->findById($sortieId);
+            $bonSortie = $this->findById($sortieId);
             $codeUsineOrigine = $bonSortie->getOrigine();
             $codeUsineDestination = $bonSortie->getDestination();
             $this->logger->log->trace('codeUsine Origine ' . $codeUsineOrigine);

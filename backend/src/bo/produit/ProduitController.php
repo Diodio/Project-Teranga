@@ -391,13 +391,13 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if (isset($request['codeUsine'])) {
                 $produitManager = new ProduitManager();
-                $produit = $produitManager->listByUsine($request['codeUsine']);
+                $produit = $produitManager->retrieveListStockProduitParUsine($request['codeUsine']);
                 if($produit !=null)
                     $this->doSuccessO($produit);
                 else
                    echo json_encode(array());  
             } else {
-                throw new Exception('PARAM_NOT_ENOUGH');
+                throw new Exception('Parametre insuffisant');
             }
         } catch (Exception $e) {
             throw $e;

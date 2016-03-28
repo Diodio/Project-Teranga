@@ -205,6 +205,22 @@ class ProduitQueries {
             return $stock[0];
         else return null;
     }
+    
+    
+    public function retrieveListStockProduitParUsine($codeUsine){
+        if($codeUsine !=='*') {
+            $sql = 'SELECT produit.id pid, libelle, stock FROM stock_reel, produit WHERE produit_id=produit.id AND stock<>0 AND codeUsine="'. $codeUsine .'"';
+        }
+        else {
+            $sql = 'SELECT produit.id pid, libelle, stock FROM stock_reel, produit WHERE produit_id=produit.id AND stock<>0 ';
+        }
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $stock = $stmt->fetchAll();
+        if($stock!=null)
+            return $stock;
+        else return null;
+    }
   public function retrieveTypes() {
         $query = Bootstrap::$entityManager->createQuery("select t.id as value, t.libelle as text from Produit\TypeProduit t");
         $types = $query->getResult();

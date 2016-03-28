@@ -198,6 +198,20 @@ public function retrieveTypes()
     }
     
    
+    public function retrieveListStockProduitParUsine($codeUsine){
+        $produits = $this->produitQuery->retrieveListStockProduitParUsine($codeUsine);
+        $list = array();
+        $i = 0;
+        if($produits!=null)
+        foreach ($produits as $key => $value) {
+            $list [$i]['value'] = $value ['pid'];
+            $stockFinal = $value ['stock']; 
+            $list [$i]['text'] = $value ['libelle'] . '(' .$stockFinal . ')'; 
+            $i++;
+        }
+        return $list;
+    }
+    
     public function findProduitsByName($name) {
         return $this->produitQuery->findProduitsByName($name);
     }

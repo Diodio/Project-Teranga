@@ -96,6 +96,7 @@ class BonSortieController extends BaseController implements BaseAction {
             $this->logger->log->trace("debut insertion bon de sortie");
             $this->logger->log->trace(json_encode($request));
             $codeUsineDestination = $request['codeUsineDestination'];
+            if(isset($request['numeroBonSortie']) && $request['numeroBonSortie'] !=""){
             $bonSortieManager = new BonSortieManager();
             $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
             if ($isExist == NULL) {
@@ -207,6 +208,9 @@ class BonSortieController extends BaseController implements BaseAction {
             } else {
                 $this->doError('-1', 'Ce bon de sortie éxiste déja');
             }
+            } else {
+                $this->doError('-1', 'Impossible d\'inserer ce bon de sortie');
+            }
         } catch (Exception $e) {
             $this->doError('-1', 'Impossible d\'inserer ce bon de sortie' . $e->getMessage());
         }
@@ -249,9 +253,9 @@ class BonSortieController extends BaseController implements BaseAction {
                     //   }
                 }
                 // End filter from dataTable
-                $achats = $achatManager->retrieveAll($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $achats = $achatManager->retrieveAll($request['status'],$request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbBonSorties = $achatManager->count($request['codeUsine'], $sWhere);
+                    $nbBonSorties = $achatManager->count($request['status'],$request['codeUsine'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbBonSorties));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -322,9 +326,9 @@ class BonSortieController extends BaseController implements BaseAction {
                     else
                         $this->doError('-1', 'impossible d\'annuler ce bon de sortie');
                 } else
-                    $this->doError('-1', 'impossible d\'annuler ce bon de sortie. Il contient des produits utilisés');
+                    $this->doError('-1', 'impossible d\'annuler ce bon de sortie. Il contient des produits deja utilisés');
             } else {
-                $this->doError('-1', 'Params not enough');
+                $this->doError('-1', 'Paramêtre invalide');
             }
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
