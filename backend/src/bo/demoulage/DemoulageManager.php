@@ -117,6 +117,31 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
     	}
     	return $arrayDemoulages;
     }
+    
+    public function retrieveAllAnnules($status,$codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	$demoulage = $this->demoulageQueries->retrieveAllAnnules($status,$codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    	$arrayDemoulages = array();
+    	$i = 0;
+    	foreach ($demoulage as $key => $value) {
+    		$arrayDemoulages [$i] [] = $value ['demoulageId'];
+    		$arrayDemoulages [$i] [] = $value ['status'];
+    		$arrayDemoulages [$i] [] = $value ['date'];
+    		$arrayDemoulages [$i] [] = $value ['numero'];
+    		$arrayDemoulages [$i] [] = $value ['libelle'];
+    		$arrayDemoulages [$i] [] = $value ['quantiteAvantDemoulage'] ;
+    		$arrayDemoulages [$i] [] = $value ['quantiteDemoulee'];
+    		if($value ['nbColis'] !=null)
+    			$arrayDemoulages [$i] [] = $value ['nbColis'];
+    		else $arrayDemoulages [$i] [] = 0;
+    		$arrayDemoulages [$i] [] = $value ['demoulageId'];
+    		//    		$colis=$this->demoulageQueries->getAllColis($value ['produitId'], $value ['codeUsine']);
+    		//    		$arrayDemoulages [$i] []=$colis;
+    
+    		$i++;
+    	}
+    	return $arrayDemoulages;
+    }
+    
     public function getLastNumber() {
     $lastNumero=$this->demoulageQueries->getLastNumber();
     if($lastNumero !=null){

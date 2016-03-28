@@ -363,12 +363,12 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 Consultation  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                        <li id="CONSULTATION_ENTREES" class=""><a id="ENTREE" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Entrées de bons de sortie
-                                </a> <b class="arrow"></b>
-                            </li>
                             <li id="CONSULTATION_PRODUITS" class=""><a id="PROD" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Détails Produits en Stock
+                                </a> <b class="arrow"></b>
+                            </li>
+                        <li id="CONSULTATION_ENTREES" class=""><a id="ENTREE" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Entrées de bons de sortie
                                 </a> <b class="arrow"></b>
                             </li>
                             <li id="CONSULTATION_ACHATSANNULES" class=""><a id="PROD" href="#"> <i

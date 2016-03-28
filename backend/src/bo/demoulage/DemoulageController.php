@@ -40,6 +40,9 @@ class DemoulageController extends BaseController {
                     case \App::ACTION_LIST_DEMOULE:
                         $this->doListeDemoule($request);
                         break;
+                    case \App::ACTION_LIST_DEMOULE_ANNULE:
+                        $this->doListeDemouleAnnnule($request);
+                        break;
                     case \App::ACTION_GET_COLIS_DEMOULAGE:
                         $this->doGetColisColisage($request);
                         break;
@@ -269,6 +272,73 @@ class DemoulageController extends BaseController {
         } catch (Exception $e) {
             throw new Exception('Erreur lors du traitement de votre requete');
         }
+    }
+    
+    public function doListeDemouleAnnnule($request) {
+    	try {
+    		$this->logger->log->info(json_encode($request));
+    		$demoulageManager = new DemoulageManager();
+    		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
+    			// Begin order from dataTable
+    			$sOrder = "";
+    			$aColumns = array('numero', 'libelle', 'quantiteDemoulee');
+    			if (isset($request['iSortCol_0'])) {
+    				$sOrder = "ORDER BY  ";
+    				for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
+    					if ($request['bSortable_' . intval($request['iSortCol_' . $i])] == "true") {
+    						$sOrder .= "" . $aColumns[intval($request['iSortCol_' . $i])] . " " .
+    								($request['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+    					}
+    				}
+    
+    				$sOrder = substr_replace($sOrder, "", -2);
+    				if ($sOrder == "ORDER BY") {
+    					$sOrder .= " numero desc";
+    				}
+    			}
+    			// End order from DataTable
+    			// Begin filter from dataTable
+    			$sWhere = "";
+    			if (isset($request['sSearch']) && $request['sSearch'] != "") {
+    				//$sSearchs = explode(" ", $request['sSearch']);
+    				//  for ($j = 0; $j < count($sSearchs); $j++) {
+    				$sWhere .= "( ";
+    				for ($i = 0; $i < count($aColumns); $i++) {
+    					$sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $request['sSearch'] . "%') OR";
+    					if ($i == count($aColumns) - 1)
+    						$sWhere = substr_replace($sWhere, "", -3);
+    				}
+    				$sWhere = $sWhere .=")";
+    				//    }
+    			}
+    			//                 if (isset($request['sSearch']) && $request['sSearch'] != "") {
+    			//                     $sSearchs = explode(" ", $request['sSearch']);
+    			//                     for ($j = 0; $j < count($sSearchs); $j++) {
+    			//                         $sWhere .= "( ";
+    			//                         for ($i = 0; $i < count($aColumns); $i++) {
+    			//                             $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+    			//                             if ($i == count($aColumns) - 1)
+    				//                                 $sWhere = substr_replace($sWhere, "", -3);
+    				//                         }
+    				//                         $sWhere = $sWhere .=")";
+    				//                     }
+    				//                 }
+    			// End filter from dataTable
+    			$demoulages = $demoulageManager->retrieveAllAnnules($request['etat'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			if ($demoulages != null) {
+    				$nb = $demoulageManager->countAll($request['etat'], $request['usineCode'], $sWhere);
+    				$this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
+    			} else {
+    				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
+    			}
+    		} else {
+    			throw new Exception('list failed');
+    		}
+    	} catch (Exception $e) {
+    		throw $e;
+    	} catch (Exception $e) {
+    		throw new Exception('ERREUR SERVEUR');
+    	}
     }
 
 }
