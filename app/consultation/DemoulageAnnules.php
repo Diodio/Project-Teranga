@@ -32,27 +32,22 @@
                             <i class="ace-icon fa fa-users orange"></i>
                             Liste démoulages
                         </h4>
-                        <select id="CMB_TYPE" name="CMB_TYPE" data-placeholder="" class="" style="width: 200px;margin-right: 10px;">
-                        <option value="*" class="types">Filtrer par type </option>
-                         <option value="0" class="red bigger-120 icon-only">Démoulages annulés</option>
-                         <option value="1" class="green bigger-120 icon-only">Démoulages validés</option>
-                </select>
-                                       <div class="btn-group">
-                                            <button id="MNU_ANNULATION"
-                                                    class="btn btn-primary btn-mini tooltip-info disabled"
-                                                    data-rel="tooltip" data-placement="top"
-                                                    title="Annuler Demoulage">
-                                                <i class="icon-cloud-download icon-only"></i> Annuler
-                                            </button>
-                                        </div>
-<!--                                         <div class="btn-group"> -->
-<!--                                             <button id="MNU_REMOVE" -->
+<!--                                        <div class="btn-group"> -->
+<!--                                             <button id="MNU_ANNULATION" -->
 <!--                                                     class="btn btn-primary btn-mini tooltip-info disabled" -->
 <!--                                                     data-rel="tooltip" data-placement="top" -->
-<!--                                                     title="Supprimer D�moulage"> -->
-<!--                                                 <i class="icon-cloud-download icon-only"></i> Supprimer -->
+<!--                                                     title="Annuler Demoulage"> -->
+<!--                                                 <i class="icon-cloud-download icon-only"></i> Annuler -->
 <!--                                             </button> -->
 <!--                                         </div> -->
+                                        <div class="btn-group">
+                                            <button id="MNU_REMOVE"
+                                                    class="btn btn-primary btn-mini tooltip-info disabled"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Supprimer D�moulage">
+                                                <i class="icon-cloud-download icon-only"></i> Supprimer
+                                            </button>
+                                        </div>
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>
@@ -484,14 +479,14 @@
                 });
             };
             
-            loadDemoulages('*');
+            loadDemoulages(0);
             
             $('#CMB_TYPE').change(function() {
                 if($('#CMB_TYPE').val()!=='*') {
                     loadDemoulages($('#CMB_TYPE').val());
                 }
                 else {
-                    loadDemoulages('*');
+                    loadDemoulages(0);
                 }
             });
             
@@ -519,7 +514,7 @@
                $('#MNU_REMOVE').addClass('disabled');
                 $('#MNU_ANNULATION').addClass('disabled');
                 bootbox.alert("Veuillez selectionnez un seul démoulage SVP!");
-//                 loadDemoulages('*');
+                loadDemoulages(0);
             }
             else{
                 $('#MNU_REMOVE').addClass('disabled');

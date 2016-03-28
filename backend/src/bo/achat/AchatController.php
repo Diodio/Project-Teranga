@@ -178,12 +178,12 @@ class AchatController extends BaseController implements BaseAction {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }
             } else {
-                throw new Exception('list failed');
+                throw new Exception('Impossible d\'afficher la liste');
             }
         } catch (Exception $e) {
             throw $e;
         } catch (Exception $e) {
-            throw new Exception('ERREUR SERVEUR');
+            throw new Exception('Impossible d\'afficher la liste');
         }
     }
     

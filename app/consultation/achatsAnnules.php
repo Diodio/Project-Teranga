@@ -21,7 +21,19 @@ $codeUsine = $_COOKIE['codeUsine'];
             </small>
         </h1>
     </div><!-- /.page-header -->
-
+   
+   <div class="col-sm-8">
+                    <div class="col-lg-1">
+                        <div class="btn-group">
+                                            <button id="MNU_REMOVE"
+                                                    class="btn btn-primary btn-mini tooltip-info disabled"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Supprimer ahat">
+                                                <i class="icon-cloud-upload icon-only"></i> Supprimer
+                                            </button>
+                          </div>
+                    </div>
+        </div>
 
     <div class="row">
         <div class="space-6"></div>
@@ -110,30 +122,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div>
 
                                             <div class="span12 infobox-container">
-                                                    <div class="infobox infobox-orange infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon fa-play"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data" >
-                                                            <div class="infobox-content" id="INDIC_ACHAT_NONVALIDES">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Achats non validés </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="infobox infobox-green infobox-small infobox-dark" style="width:200px">
-                                                        <div class="infobox-icon">
-                                                            <i class="icon-pause"></i>
-                                                        </div>
-
-                                                        <div class="infobox-data">
-                                                            <div class="infobox-content" id="INDIC_ACHAT_VALIDES">0</div>
-
-                                                            <div class="infobox-content" style="width:150px">Achats validés</div>
-
-                                                        </div>
-                                                    </div>
+                                                 
 
                                                     <div class="infobox infobox-red infobox-small infobox-dark" style="width:200px">
                                                         <div class="infobox-icon">
@@ -386,7 +375,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#MNU_ANNULATION').addClass('disabled');
                  }
                  bootbox.alert("Veuillez selectionnez un seul achat SVP!");
-//                  loadAchats('*');
+                 loadAchats(2);
             }
             else{
                 $('#MNU_VALIDATION').removeClass('enable');
@@ -531,9 +520,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     },
                     "bProcessing": true,
                     "bServerSide": true,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": true,
-                    "bInfo": false,
+                    "bInfo": true,
                     "sAjaxSource": url,
                   //afficher nombre �l�ment
                     "sPaginationType": "full_numbers",
