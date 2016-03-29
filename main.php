@@ -370,24 +370,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                         <li id="CONSULTATION_ENTREES" class=""><a id="ENTREE" href="#"> <i
                                         class="menu-icon fa fa-caret-right"></i> Entrées de bons de sortie
                                 </a> <b class="arrow"></b>
-                            </li>
-                            <li id="CONSULTATION_ACHATSANNULES" class=""><a id="PROD" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Achats annulés
-                                </a> <b class="arrow"></b>
-                            </li>
-                            <li id="CONSULTATION_DEMOULAGESANNULES" class=""><a id="PROD" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Démoulages annulés
-                                </a> <b class="arrow"></b>
-                            </li>
-                            <li id="CONSULTATION_BONSORTIESANNULES" class=""><a id="PROD" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Bon de sorties annulés
-                                </a> <b class="arrow"></b>
-                            </li>
-                            <li id="CONSULTATION_FACTURESANNULES" class=""><a id="PROD" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Factures annulés
-                                </a> <b class="arrow"></b>
-                            </li>
-                            
+                         </li>
                             
                         </ul>
                     </li>
@@ -424,7 +407,33 @@ $nomUsine = $_COOKIE['nomUsine'];
 
                         </ul>
                     </li>
-                </ul>
+                    
+                     <li id="MNU_CORBEILLE class="hidden"><a href="#" class="dropdown-toggle"> <i
+                                class="menu-icon fa fa-list"></i> <span class="menu-text">
+                                Corbeille  </span>  <b class="arrow fa fa-angle-down"></b>
+                        </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li id="CONSULTATION_ACHATSANNULES" class=""><a id="PROD" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Achats annulés
+                                </a> <b class="arrow"></b>
+                            </li>
+                            <li id="CONSULTATION_DEMOULAGESANNULES" class=""><a id="PROD" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Démoulages annulés
+                                </a> <b class="arrow"></b>
+                            </li>
+                            <li id="CONSULTATION_BONSORTIESANNULES" class=""><a id="PROD" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Bon de sorties annulés
+                                </a> <b class="arrow"></b>
+                            </li>
+                            <li id="CONSULTATION_FACTURESANNULES" class=""><a id="PROD" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Factures annulés
+                                </a> <b class="arrow"></b>
+                            </li>
+                            
+                            
+                        </ul>
+                    </li>
+              </ul>
                 <!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse"></div>
