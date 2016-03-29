@@ -275,6 +275,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                                         class="menu-icon fa fa-list"></i> <span class="menu-text">
                                         Stock Réel </span>
                                 </a> <b class="arrow"></b>
+                                
                         </li>
 
                         
@@ -408,7 +409,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                         </ul>
                     </li>
                     
-                     <li id="MNU_CORBEILLE class="hidden"><a href="#" class="dropdown-toggle"> <i
+                     <li id="MNU_CORBEILLE" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-list"></i> <span class="menu-text">
                                 Corbeille  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
@@ -590,6 +591,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     else if(profil==='gerant') {
 //                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
+//                         $('#STOCK_REEL').addClass("hidden");
+//                         $('#LIST_USERS').addClass("hidden");
                     }
                     else if(profil==='admin'){
                         $('#PARAMETRAGE').removeClass("hidden");
@@ -615,6 +618,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_CONSULTATION').removeClass("hidden");
                         $('#MNU_INVENTAIRE').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
+                        
                     }
                 }
                 manageProfil("<?php echo $profil;?>");
@@ -706,11 +710,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 					$("#LISTE_FACTURE").attr("Class", "no-active");
 					$("#LISTE_SORTIE").attr("Class", "no-active");
 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
-					$("#STOCK_REEL").attr("Class", "no-active");
+// 					$("#STOCK_REEL").attr("Class", "no-active");
 					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE").attr("Class", "no-active");
 					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
-					$("#LIST_USERS").attr("Class", "no-active");
+// 					$("#LIST_USERS").attr("Class", "no-active");
 					$("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#CONSULTATION_ENTREES").attr("Class", "no-active")
 					$("#INVENTAIRE_FACTURE").attr("Class", "no-active");
@@ -724,7 +728,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     //alert($.cookie('userId') );
                     $.post("<?php echo App::getBoPath(); ?>/utilisateur/UtilisateurController.php", {userId:$.cookie('userId'), ACTION: "<?php echo App::ACTION_SIGNOUT; ?>"}, function (data) {
                         if (data === '0') {
-                            alert('Utilisateur dejadeconnect�');
+                            alert('Utilisateur deja deconnect�');
                         } else {
                             var cookies = $.cookie();
                             $.each(cookies, function (k) {
@@ -747,12 +751,12 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
-                    $("#STOCK_REEL").attr("Class", "no-active");
                     $("#REGLEMENT_ACHAT").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE").attr("Class", "no-active");
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#CONSULTATION_ENTREES").attr("Class", "no-active");
-                    $("#LIST_USERS").attr("Class", "no-active");
+//                     $("#LIST_USERS").attr("Class", "no-active");
+//                     $("#STOCK_REEL").attr("Class", "no-active");
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                     if("<?php echo $profil?>"!=='gerant'){
