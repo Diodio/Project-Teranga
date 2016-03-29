@@ -1145,7 +1145,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#CONSULTATION_ACHATSANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_DEMOULAGESANNULES").attr("Class", "no-active");
                       $("#CONSULTATION_BONSORTIESANNULES").attr("Class", "active");
-                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/BonSortiesAnnules.php", function () {
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/consultation/bonSortiesAnnules.php", function () {
                       });
                    });
                    

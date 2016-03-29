@@ -741,7 +741,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
                     
-                    if(data.modePaiement !== "")
+                    if(data.modePaiement !== null)
                         $('#modePaiement').val(data.modePaiement);
                    // else
                   //     $('#modePaiement').text('Non dedini'); 

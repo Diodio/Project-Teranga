@@ -256,9 +256,9 @@ class BonSortieController extends BaseController implements BaseAction {
                     //   }
                 }
                 // End filter from dataTable
-                $achats = $achatManager->retrieveAll($request['status'],$request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $achats = $achatManager->retrieveAll($request['statut'],$request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbBonSorties = $achatManager->count($request['status'],$request['codeUsine'], $sWhere);
+                    $nbBonSorties = $achatManager->count($request['statut'],$request['codeUsine'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbBonSorties));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

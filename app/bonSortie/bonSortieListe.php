@@ -608,7 +608,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "profil", "value": $.cookie('profil')});
-                        aoData.push({"name": "status", "value": "1"});
+                        aoData.push({"name": "statut", "value": "1"});
                         aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine;?>"});
                         $.ajax( {
                           "dataType" : 'json',
