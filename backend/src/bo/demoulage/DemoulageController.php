@@ -54,7 +54,10 @@ class DemoulageController extends BaseController {
                         break;
                     case \App::ACTION_REMOVE:
                         $this->doRemove($request);
-                        break;
+                        break; 
+                    case \App::ACTION_VERIFY_COLISAGE:
+                        $this->doVerifieColisage($request);
+                        break; 
                 }
             } else {
                 throw new Exception('NO ACTION');
@@ -146,6 +149,22 @@ class DemoulageController extends BaseController {
         }
     }
 
+    public function doVerifieColisage($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $demoulageManager = new Produit\DemoulageManager();
+                $infoscolis = $demoulageManager->verificationColisage($request['produitId'], $request['nombreCarton'], $request['quantiteParCarton'], $request['codeUsine']);
+                $this->doSuccess($infoscolis, 'get colisage');
+            } else {
+                $this->doError('-1', 'Données invalides');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+            $this->logger->log->trace($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
+    }
+    
+    
     public function doGetQuantite($request) {
         try {
             if (isset($request['produitId'])) {

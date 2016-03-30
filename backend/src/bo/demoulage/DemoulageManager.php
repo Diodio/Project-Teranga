@@ -93,6 +93,16 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
 
         return $res;
     }
+    
+    
+    public function verificationColisage($produitId, $nbCarton, $quantite, $codeUsine) {
+        $res = 0;
+        $carton = $this->demoulageQueries->verifieColisage($produitId, $nbCarton, $quantite, $codeUsine);
+        if ($carton != null) {
+            $res = 1;
+        }
+        return $res;
+    }
 
     public function retrieveAll($status,$codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
     	$demoulage = $this->demoulageQueries->retrieveAll($status,$codeUsine,$offset, $rowCount, $sOrder, $sWhere);

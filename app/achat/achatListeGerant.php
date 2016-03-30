@@ -282,16 +282,16 @@ $codeUsine = $_COOKIE['codeUsine'];
            // var interval = 500;
             getIndicator = function() {
                 var url;
-                var user;
+                var user='';
                 url = '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
                 userProfil=$.cookie('profil');
-                if(userProfil==='admin')
-                   user = 'login="<?php echo $login; ?>"';
+               // if(userProfil==='admin')
+                //   user = 'login="<?php echo $login; ?>"';
                 $.ajax({
                     url: url,
                     type: 'POST',
                     dataType: 'JSON',
-                    data: user+'&ACTION="<?php echo App::ACTION_STAT_GERANT; ?>"&login="<?php echo $login;?>"&codeUsine="<?php echo $codeUsine; ?>"',
+                    data: 'ACTION="<?php echo App::ACTION_STAT; ?>"&login="<?php echo $login;?>"&codeUsine="<?php echo $codeUsine; ?>"',
                     cache: false,
                     success: function(data) {
                         $('#INDIC_ACHAT_VALIDES').text(data.nbValid);

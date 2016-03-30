@@ -363,7 +363,7 @@ class AchatController extends BaseController implements BaseAction {
     public function doGetLastNumberAchat($request) {
         try {
             $achatManager = new AchatManager();
-            $lastAchat = $achatManager->getLastNumberAchat();
+            $lastAchat = $achatManager->getLastNumberAchat($request['codeUsine']);
             $this->doSuccess($lastAchat, 'Dernier bon d\'achat');
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
@@ -497,7 +497,7 @@ class AchatController extends BaseController implements BaseAction {
     
     				$sOrder = substr_replace($sOrder, "", -2);
     				if ($sOrder == "ORDER BY") {
-    					$sOrder .= " numero desc";
+    					$sOrder .= " dateAchat desc";
     				}
     			}
     			// End order from DataTable

@@ -83,8 +83,8 @@ class AchatManager {
         return $this->achatQuery->modifReglement($achatId, $status);
     }
 
-    public function getLastNumberAchat() {
-        $lastAchatId = $this->achatQuery->getLastNumberAchat();
+    public function getLastNumberAchat($codeUsine) {
+        $lastAchatId = $this->achatQuery->getLastNumberAchat($codeUsine);
         if ($lastAchatId != null) {
             if (strlen($lastAchatId) == 1)
                 $lastAchatId = "0000" . $lastAchatId;

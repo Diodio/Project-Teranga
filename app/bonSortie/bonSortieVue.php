@@ -440,6 +440,20 @@ $(document).ready(function () {
        $( "#AJOUT_PRODUIT" ).click(function(){
         ajoutLigne();
         });
+       function validColisage(produitId, nombreCarton, quantiteParCarton){
+           var bool=0;
+            $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId,nombreCarton:nombreCarton,quantiteParCarton:quantiteParCarton, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VERIFY_COLISAGE
+                            ; ?>"}, function(data) {
+                        sData=$.parseJSON(data);
+                        //if(sData.rc==0){
+                            if(sData.oId===0){
+                                bool=1;
+                                
+                            }
+                     //   }
+                    });
+            return bool;        
+       }
       function ajoutLigne(){
         var pd=0;
         var nbColis=0;
@@ -512,29 +526,43 @@ $(document).ready(function () {
         }
        
         else  {
-            var header=["nbColis","qte"];
+       var header=["nbColis","qte"];
        var tblColis=[];
       var pNet=0;
         var it=0;
         //var row={};
+        var bool=0;
+        var tr=0;
         $('#tab_logic_colis tbody tr').find('td').each(function(){
+            
                 var $this = $(this);
                 var ncolis=$('#nbColis'+it).val();
                 var qte = $('#qteColis'+it).select2('data').text;
                 if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
+                   bool = validColisage(produitId, $('#nbColis'+it).val(), $('#qteColis'+it).select2('data').text);
+                   if(bool==1)
+                       tr++;
                     pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
-                    
                     it++;
+                    console.log(tr);
                 }
+                
         });
-        if(pNet>quantiteSortie){
+        console.log(tr);
+        if(tr==1){
+            $.gritter.add({
+                title: 'Notification',
+                text: 'Les informations du colisage saisies n\'est pas conforme au colisage du produit (voir colisage)',
+                class_name: 'gritter-error gritter-light'
+            });
+        } else if(pNet>quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
                 text: 'La quantité définie ne doit pas etre supérieure à la quantité de sortie (voir colisage)',
                 class_name: 'gritter-error gritter-light'
             });
         }
-        else  if(pNet<quantiteSortie){
+        else if(pNet<quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
                 text: 'La quantité définie ne doit pas etre inférieure à la quantité de sortie (voir colisage)',

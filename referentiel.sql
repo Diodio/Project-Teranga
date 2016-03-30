@@ -42,6 +42,7 @@ INSERT INTO `utilisateur` (`id`, `usine_id`, `profil_id`, `login`, `password`, `
 ALTER TABLE `colisage` ADD UNIQUE( `produitId`, `quantiteParCarton`, `codeUsine`);
 ALTER TABLE `stock_reel` ADD UNIQUE( `produit_id`, `stock`, `codeUsine`);
 ALTER TABLE `stock_provisoire` ADD UNIQUE( `produit_id`, `stock`, `codeUsine`);
+ALTER TABLE `achat` ADD UNIQUE( `numero`, `codeUsine`);
 
 ALTER TABLE `stock_sortie` ADD UNIQUE( `produitId`, `sortieId`);
 ALTER TABLE `stock_facture` ADD UNIQUE( `produitId`, `factureId`);

@@ -3,7 +3,7 @@
 namespace Achat;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="achat") * */
+ * @Table(name="achat", uniqueConstraints={@UniqueConstraint(name="numero_idx", columns={"numero", "codeUsine"})}) * */
 class Achat {
 
     /** @Id
@@ -12,7 +12,7 @@ class Achat {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false, unique=true)
+     * @Column(type="string", length=60, nullable=false)
      * */
     protected $numero;
     

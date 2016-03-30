@@ -189,6 +189,17 @@ class DemoulageQueries {
         else
             return null;
     }
+    
+    public function verifieColisage($produitId, $nbCarton, $quantite, $codeUsine) {
+        $sql = 'SELECT id FROM colisage WHERE quantiteParCarton=' . $quantite . ' AND produitId=' . $produitId . ' and nombreCarton>='.$nbCarton.' and codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $demoulage = $stmt->fetch();
+        if ($demoulage != null)
+            return $demoulage;
+        else
+            return null;
+    }
 
     public function getQuantiteColisage($produitId, $codeUsine) {
         $query = "SELECT SUM(nombreCarton) AS value, quantiteParCarton AS text FROM colisage c WHERE c.produitId='$produitId' and c.codeUsine='".$codeUsine."' and nombreCarton<>0 GROUP BY quantiteParCarton";

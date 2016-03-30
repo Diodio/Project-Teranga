@@ -258,8 +258,8 @@ class AchatQueries {
     }
     
     
-    public function getLastNumberAchat() {
-        $sql = 'select max(id)+1 as lastAchats from achat';
+    public function getLastNumberAchat($codeUsine) {
+        $sql = 'select max(numero)+1 as lastAchats from achat where codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $lastAchat = $stmt->fetch();
@@ -446,12 +446,12 @@ class AchatQueries {
             $sWhere = " and " . $sWhere;
         if ($codeUsine !== '*') {
 
-            $sql = 'select distinct achat.id,achat.status,date_format(dateAchat, "' . \Common\Common::setFormatDate() . '") as dateAchat, numero, nom
+            $sql = 'select distinct achat.id,achat.status, dateAchat, numero, nom
                     from achat, mareyeur, utilisateur WHERE achat.login=utilisateur.login and utilisateur.profil_id=4  and achat.login="' . $login . '"
                      and mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         } else {
 
-            $sql = 'select distinct achat.id, status, date_format(dateAchat, "' . \Common\Common::setFormatDate() . '") as dateAchat, numero, nom
+            $sql = 'select distinct achat.id, status, dateAchat, numero, nom
                     from achat, mareyeur, utilisateur WHERE mareyeur.id=achat.mareyeur_id  and achat.login=utilisateur.login and utilisateur.profil_id=4 and achat.login="' . $login . '"' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount . '';
         }
         $sql = str_replace("`", "", $sql);

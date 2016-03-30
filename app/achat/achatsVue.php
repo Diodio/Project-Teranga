@@ -297,7 +297,7 @@ $(document).ready(function () {
     $('#CMB_MAREYEURS').select2();
     $('#designation0').select2();
     var mareyeurId;
-    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+    $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
