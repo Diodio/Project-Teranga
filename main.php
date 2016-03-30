@@ -591,8 +591,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     else if(profil==='gerant') {
 //                         $('#PARAMETRAGE').removeClass("hidden");
                         $('#BONACHAT').removeClass("hidden");
-                        $('#STOCK_REEL').addClass("hidden");
-                        $('#LIST_USERS').addClass("hidden");
+//                         $('#STOCK_REEL').addClass("hidden");
+//                         $('#LIST_USERS').addClass("hidden");
                     }
                     else if(profil==='admin'){
                         $('#PARAMETRAGE').removeClass("hidden");
