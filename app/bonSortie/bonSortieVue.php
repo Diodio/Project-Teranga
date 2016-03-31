@@ -408,7 +408,16 @@ $(document).ready(function () {
 //        }
 //    });
     
-   
+//    $('#tab_logic_colis').on('keyup', '.nbColis', function()
+//    {
+//        alert('dd');
+//    });
+//    
+//    $('#tab_logic_colis').on('change', '.qte', function()
+//    {
+//       alert('oo'); 
+//    });
+    
     
      function verifierPoids(qte, counter ){
            var nbColis=parseFloat($("#nbColis"+counter).val());
@@ -440,33 +449,54 @@ $(document).ready(function () {
        $( "#AJOUT_PRODUIT" ).click(function(){
         ajoutLigne();
         });
-       function validColisage(produitId, nombreCarton, quantiteParCarton){
-           var bool=0;
-            $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: produitId,nombreCarton:nombreCarton,quantiteParCarton:quantiteParCarton, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VERIFY_COLISAGE
-                            ; ?>"}, function(data) {
-                        sData=$.parseJSON(data);
-                        //if(sData.rc==0){
-                            if(sData.oId===0){
-                                bool=1;
-                                
-                            }
-                     //   }
-                    });
-            return bool;        
+       function validColisage(){
+           var res=0;
+           var tabColis=[];
+           var produitId = $('#CMB_DESIGNATIONS').val();
+           $("#tab_logic_colis tbody tr").each(function(iter) {
+            
+        var row={};
+            var colis=0;
+            var quantite=0;
+            colis=$(this).find('#nbColis'+iter).val();
+            quantite = $(this).find('#qteColis'+iter).select2('data').text;
+             if(typeof colis!=='function' && typeof quantite!=='function'){
+                    row["produitId"] = produitId;
+                    row["nombreCarton"] = colis;
+                    row["quantiteParCarton"] = quantite;
+            }
+            tabColis.push(row);
+        });
+        var jsonColis=JSON.stringify(tabColis);
+        return jsonColis;        
        }
       function ajoutLigne(){
         var pd=0;
         var nbColis=0;
         var i=0;
+        var jsonColis = validColisage();
+        console.log(jsonColis);
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {jsonColis:jsonColis, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VERIFY_COLISAGE
+                            ; ?>"}, function(data) {
+        data=$.parseJSON(data);
+         if(data.rc==0)
+            if(data.oId>0){
+               $.gritter.add({
+                title: 'Notification',
+                text: 'Les informations du colisage saisies ne sont pas conformes au colisage du produit (voir colisage)',
+                class_name: 'gritter-error gritter-light'
+            }); 
+            }
+            else {
         var produitId = $('#CMB_DESIGNATIONS').val();
          var flag = false;
-            $('#tab_produit tbody').find('tr').each(function(){
-                var $this = $(this);
-                if(produitId == $('td:eq(0)', $this).text()){
-                    flag = true;
-                    return false;
-                }
-            });
+        $('#tab_produit tbody').find('tr').each(function(){
+            var $this = $(this);
+            if(produitId == $('td:eq(0)', $this).text()){
+                flag = true;
+                return false;
+            }
+        });
         if(flag){
              $.gritter.add({
                     title: 'Notification',
@@ -531,31 +561,19 @@ $(document).ready(function () {
       var pNet=0;
         var it=0;
         //var row={};
-        var bool=0;
-        var tr=0;
         $('#tab_logic_colis tbody tr').find('td').each(function(){
             
                 var $this = $(this);
                 var ncolis=$('#nbColis'+it).val();
                 var qte = $('#qteColis'+it).select2('data').text;
                 if(typeof ncolis!=='undefined' && typeof qte!=='undefined'){
-                   bool = validColisage(produitId, $('#nbColis'+it).val(), $('#qteColis'+it).select2('data').text);
-                   if(bool==1)
-                       tr++;
+                   
                     pNet+=parseFloat($('#nbColis'+it).val()) * parseFloat($('#qteColis'+it).select2('data').text);
                     it++;
-                    console.log(tr);
                 }
                 
         });
-        console.log(tr);
-        if(tr==1){
-            $.gritter.add({
-                title: 'Notification',
-                text: 'Les informations du colisage saisies n\'est pas conforme au colisage du produit (voir colisage)',
-                class_name: 'gritter-error gritter-light'
-            });
-        } else if(pNet>quantiteSortie){
+        if(pNet>quantiteSortie){
             $.gritter.add({
                 title: 'Notification',
                 text: 'La quantité définie ne doit pas etre supérieure à la quantité de sortie (voir colisage)',
@@ -609,6 +627,8 @@ $(document).ready(function () {
         $('#stockReel').val('');
        }
        }
+       
+       } });
     }
     $('#CMB_DESIGNATIONS').change(function() {
         if($('#CMB_DESIGNATIONS').val()!=='*') {

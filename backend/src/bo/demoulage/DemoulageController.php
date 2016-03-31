@@ -150,11 +150,20 @@ class DemoulageController extends BaseController {
     }
 
     public function doVerifieColisage($request) {
+        
         try {
-            if (isset($request['produitId'])) {
+            $trouve=0;
+            if (isset($_POST['jsonColis'])) {
                 $demoulageManager = new Produit\DemoulageManager();
-                $infoscolis = $demoulageManager->verificationColisage($request['produitId'], $request['nombreCarton'], $request['quantiteParCarton'], $request['codeUsine']);
-                $this->doSuccess($infoscolis, 'get colisage');
+                $jsonColis = json_decode($_POST['jsonColis'], true);
+                foreach ($jsonColis as $key => $ligneC) {
+                    if(isset($ligneC['produitId']) && isset($ligneC['nombreCarton']) && isset($ligneC['quantiteParCarton']) && isset($request['codeUsine']))
+                        $infoscolis = $demoulageManager->verificationColisage($ligneC['produitId'], $ligneC['nombreCarton'], $ligneC['quantiteParCarton'], $request['codeUsine']);
+                        if($infoscolis==0){
+                            $trouve++;
+                    }
+                }
+                $this->doSuccess($trouve, 'get colisage');
             } else {
                 $this->doError('-1', 'Données invalides');
             }
