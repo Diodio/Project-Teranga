@@ -646,7 +646,7 @@ $(document).ready(function () {
                if(quantiteSortie > stockReel){
                    $.gritter.add({
                         title: 'Notification',
-                        text: 'La quantite de sortie ne doit pas être supérieur au stock réel (voir demoulage)',
+                        text: 'La quantite de sortie ne doit pas être supérieur au stock réel (voir colisage)',
                         class_name: 'gritter-error gritter-light'
                     });
                    $("#quantiteSortie").val('');
@@ -719,7 +719,7 @@ $(document).ready(function () {
         data=$.parseJSON(data);
 
         var htmlString="<a class='close' id='closed' style='position: absolute; top: 0; right: 6px;'>&times;</a>";
-        htmlString+="<div class='popover-medium' style='width: 550px;'> Liste des colis disponible<hr>";
+        htmlString+="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
         $.each(data , function(i) { 
             str= data [i].toString();
             var substr = str.split(',');
