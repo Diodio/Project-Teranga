@@ -702,15 +702,15 @@ $(document).ready(function () {
             }
         });
     };
-     showPopover = function(idButton, colis){
-            $("#" + idButton).popover({
-                html: true,
-                trigger: 'auto',
-                placement: 'top',
-                title: '<i class="icon-group icon-"></i> Détail colis ',
-                content: colis
-            }).popover('toggle');
-         };    
+    showPopover = function(idButton, colis){
+        $("#" + idButton).popover({
+            html: true,
+            trigger: 'auto',
+            placement: 'top',
+            title: '<i class="icon-group icon-"></i> Détail colis ',
+            content: colis
+        }).popover('toggle');
+     };    
          
      $( "#VOIR_COLISAGE" ).click(function(){
          if( $('#CMB_DESIGNATIONS').val() !=='*') {
