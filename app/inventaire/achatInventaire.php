@@ -24,25 +24,10 @@
 
      <div class="row">
           <div class="row">
-         <div style="margin-bottom: 20px;" >
-                    <div class="infobox infobox-green" style="width: 360px; height: 40px;">
-                                 <div class="infobox-data">
-                                     <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
-                                 </div>
-                         </div>
-                         <div class="infobox infobox-blue" style=" width: 360px; height: 40px;">
-
-
-                                 <div class="infobox-data" style="width:640px">
-                                         <span class="infobox-data-number">Montant total : <span id='montantTotal'></span> F CFA</span>
-                                 </div>
-                         </div>
-                     </div>
-          </div>
                 <div class="widget-box transparent">
                     
                     <div class="widget-header widget-header-flat" >
-                         <span class="col-sm-4">
+                         <span class="col-sm-2">
                              
                             <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
@@ -50,13 +35,13 @@
                         </h4>
 
                         </span>
-                        <span class="col-sm-8">
-                            <select id="regle" name="regle" style="margin-left: -40px;">
+                        <span class="col-sm-10">
+                            <select id="regle" name="regle" style="margin-left: -15px;">
                                     <option value="*" class="">Filtrer par type achat</option>
                                     <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
                                     <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option>
                             </select>
-                            <span id="labelTo" style="margin-left: -1px;">Periode du</span>
+                            <span id="labelTo" style="margin-left: 20px;">Periode du</span>
                             <input
 					        class="date-picker" id="dateDebut"
 					        name="dateDebut" type="text"
@@ -82,9 +67,23 @@
                                      
                         </span>
                          
-                                    
                     </div>
                  
+         <div style="margin-bottom: 20px;" >
+                    <div class="infobox infobox-green" style="width: 400px; height: 40px;">
+                                 <div class="infobox-data">
+                                     <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
+                                 </div>
+                         </div>
+                         <div class="infobox infobox-blue" style=" width: 400px; height: 40px;">
+
+
+                                 <div class="infobox-data" style="width:640px">
+                                         <span class="infobox-data-number">Montant total : <span id='montantTotal'></span> F CFA</span>
+                                 </div>
+                         </div>
+            </div>
+          </div>
                                         
                     <div class="widget-body">
                      <div class="widget-main no-padding" style="margin-top:20px">
