@@ -483,7 +483,7 @@ $(document).ready(function () {
             if(data.oId>0){
                $.gritter.add({
                 title: 'Notification',
-                text: 'Les informations du colisage saisies ne sont pas conformes au colisage du produit (voir colisage)',
+                text: 'Le nombre de colis saisi est supérieur à celui du stock réel. Veuillez voir le colisage SVP!',
                 class_name: 'gritter-error gritter-light'
             }); 
             }
