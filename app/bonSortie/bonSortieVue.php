@@ -315,7 +315,7 @@ $(document).ready(function () {
             showSeconds: false,
             showMeridian: false
         });
-    $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+    $.post("<?php echo App::getBoPath(); ?>/bonsortie/BonSortieController.php", {codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({

@@ -23,6 +23,10 @@ class AchatManager {
         return $achat;
     }
 
+    public function isExist($numero, $codeUsine) {
+        return $this->achatQuery->isExist($numero, $codeUsine);
+    }
+    
     public function listAll() {
         $this->achatQuery = $this->achatQuery->findAll();
         return $this->achatQuery;

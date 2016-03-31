@@ -39,7 +39,16 @@ class AchatQueries {
         }
     }
     
-    
+    public function isExist($numero, $codeUsine) {
+        $sql = 'SELECT * FROM achat WHERE numero="' . $numero .'" and codeUsine="'.$codeUsine.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $bon = $stmt->fetchAll();
+        if ($bon != null)
+            return $bon;
+        else
+            return null;
+    }
     
     public function findAll() {
         $clientRepository = Bootstrap::$entityManager->getRepository($this->classString);
@@ -259,7 +268,7 @@ class AchatQueries {
     
     
     public function getLastNumberAchat($codeUsine) {
-        $sql = 'select max(numero)+1 as lastAchats from achat where codeUsine="'.$codeUsine.'"';
+        $sql = 'select max(id)+1 as lastAchats from achat where codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $lastAchat = $stmt->fetch();

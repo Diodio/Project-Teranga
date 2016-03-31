@@ -70,9 +70,6 @@ class BonSortieController extends BaseController implements BaseAction {
                     case \App::ACTION_VIEW_DETAILS:
                         $this->doViewDetails($request);
                         break;
-                    case \App::ACTION_GET_LAST_NUMBER:
-                        $this->doGetLastNumberMareyeur($request);
-                        break;
                     case \App::ACTION_GET_COLISAGES:
                         $this->doGetInfoColisages($request);
                         break;
@@ -101,7 +98,7 @@ class BonSortieController extends BaseController implements BaseAction {
             $codeUsineDestination = $request['codeUsineDestination'];
             if(isset($request['numeroBonSortie']) && $request['numeroBonSortie'] !=""){
             $bonSortieManager = new BonSortieManager();
-            $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie']);
+            $isExist = $bonSortieManager->isBonSortieExist($request['numeroBonSortie'], $request['codeUsine']);
             if ($isExist == NULL) {
                 $validate = $bonSortieManager->dataValidation($_POST['jsonProduit'], $_POST['jsonColis'], $request['origine']);
                 if ($validate == 0) {
@@ -341,7 +338,7 @@ class BonSortieController extends BaseController implements BaseAction {
     public function doGetLastNumberBonSortie($request) {
         try {
             $bonSortieManager = new BonSortieManager();
-            $lastBonSortie = $bonSortieManager->getLastNumberBonSortie();
+            $lastBonSortie = $bonSortieManager->getLastNumberBonSortie($request['codeUsine']);
             $this->doSuccess($lastBonSortie, 'Dernier numero bon de sortie');
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());

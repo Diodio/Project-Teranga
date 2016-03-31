@@ -3,7 +3,7 @@
 namespace BonSortie;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="bon_sortie") * */
+ * @Table(name="bon_sortie", uniqueConstraints={@UniqueConstraint(name="numero_idx", columns={"numeroBonSortie", "codeUsine"})}) * */
 class BonSortie {
 
     /** @Id
@@ -12,7 +12,7 @@ class BonSortie {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false, unique=true)
+     * @Column(type="string", length=60, nullable=false)
      * */
     protected $numeroBonSortie;
     

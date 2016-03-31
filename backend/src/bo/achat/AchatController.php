@@ -95,41 +95,48 @@ class AchatController extends BaseController implements BaseAction {
             $this->logger->log->info(json_encode($request));
             if ($request['mareyeur'] != "null") {
                 $achatManager = new AchatManager();
-                $achat = new Achat();
-                $achat->setNumero($request['numAchat']);
-                $achat->setHeureReception(new \DateTime($request['heureReception']));
-                $achat->setDateAchat(new \DateTime($request['dateAchat']));
-                $achat->setPoidsTotal($request['poidsTotal']);
-                $mareyeurManager = new \Mareyeur\MareyeurManager();
-                $mareyeur = $mareyeurManager->findById($request['mareyeur']);
-                $achat->setMareyeur($mareyeur);
-                $achat->setCodeUsine($request['codeUsine']);
-                $achat->setLogin($request['login']);
-                $achatAdded = $achatManager->insert($achat);
-                if ($achatAdded->getId() != null) {
-                    $jsonAchat = json_decode($_POST['jsonProduit'], true);
-                    foreach ($jsonAchat as $key => $ligne) {
-                        if (isset($ligne["designation"]) && $ligne["designation"] !== "-1") {
-                            $ligneAchat = new \Achat\LigneAchat();
-                            $ligneAchat->setAchat($achat);
-                            $produitId = $ligne["designation"];
-                            $produitManager = new Produit\ProduitManager();
-                            $produit = $produitManager->findById($produitId);
-                            $ligneAchat->setProduit($produit);
-                            $ligneAchat->setQuantite($ligne['qte']);
-                            $ligneAchatManager = new \Achat\LigneAchatManager();
-                            $ligneAchatManager->insert($ligneAchat);
+                $isExist = $achatManager->isExist($request['numAchat'], $request['codeUsine']);
+                if ($isExist == NULL) {
+                    $achat = new Achat();
+                    $achat->setNumero($request['numAchat']);
+                    $achat->setHeureReception(new \DateTime($request['heureReception']));
+                    $achat->setDateAchat(new \DateTime($request['dateAchat']));
+                    $achat->setPoidsTotal($request['poidsTotal']);
+                    $mareyeurManager = new \Mareyeur\MareyeurManager();
+                    $mareyeur = $mareyeurManager->findById($request['mareyeur']);
+                    $achat->setMareyeur($mareyeur);
+                    $achat->setCodeUsine($request['codeUsine']);
+                    $achat->setLogin($request['login']);
+                     $this->logger->log->info('debut insertion achat');
+                    $achatAdded = $achatManager->insert($achat);
+                     $this->logger->log->info('debut insertion achat');
+                    if ($achatAdded->getId() != null) {
+                        $jsonAchat = json_decode($_POST['jsonProduit'], true);
+                        foreach ($jsonAchat as $key => $ligne) {
+                            if (isset($ligne["designation"]) && $ligne["designation"] !== "-1") {
+                                $ligneAchat = new \Achat\LigneAchat();
+                                $ligneAchat->setAchat($achat);
+                                $produitId = $ligne["designation"];
+                                $produitManager = new Produit\ProduitManager();
+                                $produit = $produitManager->findById($produitId);
+                                $ligneAchat->setProduit($produit);
+                                $ligneAchat->setQuantite($ligne['qte']);
+                                $ligneAchatManager = new \Achat\LigneAchatManager();
+                                $ligneAchatManager->insert($ligneAchat);
+                            }
                         }
+                        $this->doSuccess($achatAdded->getId(), 'Achat enregistr� avec succes');
+                    } else {
+                        $this->doError('-1', 'Impossible d\'inserer cet achat');
                     }
-                    $this->doSuccess($achatAdded->getId(), 'Achat enregistr� avec succes');
                 } else {
-                    $this->doError('-1', 'Impossible d\'inserer cet achat');
+                    $this->doError('-1', 'Ce numero d\'achat éxiste déja');
                 }
             } else {
                 $this->doError('-1', 'Impossible d\'inserer cet achat');
             }
         } catch (Exception $e) {
-            $this->doError('-1', 'ERREUR SERVEUR');
+            $this->doError('-1', 'ERREUR SERVEUR'. $e->getMessage());
         }
     }
 

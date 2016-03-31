@@ -150,8 +150,8 @@ class BonSortieQueries {
         return $nbBon['nb'];
     }
 
-    public function getLastNumberBonSortie() {
-        $sql = 'select max(id)+1 as lastNumber from bon_sortie';
+    public function getLastNumberBonSortie($codeUsine) {
+        $sql = 'select max(id)+1 as lastNumber from bon_sortie where codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $lastNumber = $stmt->fetch();
@@ -319,8 +319,8 @@ class BonSortieQueries {
         }
     }
 
-    public function isBonSortieExist($numero) {
-        $sql = 'SELECT * FROM bon_sortie WHERE numeroBonSortie=' . $numero;
+    public function isBonSortieExist($numero, $codeUsine) {
+        $sql = 'SELECT * FROM bon_sortie WHERE numeroBonSortie=' . $numero. ' and codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $bon = $stmt->fetchAll();

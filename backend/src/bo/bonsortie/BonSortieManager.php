@@ -67,12 +67,12 @@ class BonSortieManager {
         return $this->bonSortieQuery->annulerBonSortie($bonSortieId);
     }
 
-    public function isBonSortieExist($numero) {
-        return $this->bonSortieQuery->isBonSortieExist($numero);
+    public function isBonSortieExist($numero, $codeUsine) {
+        return $this->bonSortieQuery->isBonSortieExist($numero, $codeUsine);
     }
 
-    public function getLastNumberBonSortie() {
-        $lastBonSortieId = $this->bonSortieQuery->getLastNumberBonSortie();
+    public function getLastNumberBonSortie($codeUsine) {
+        $lastBonSortieId = $this->bonSortieQuery->getLastNumberBonSortie($codeUsine);
         if ($lastBonSortieId != null) {
             if (strlen($lastBonSortieId) == 1)
                 $lastBonSortieId = "0000" . $lastBonSortieId;
