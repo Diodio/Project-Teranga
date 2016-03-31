@@ -73,12 +73,12 @@ class ProduitQueries {
            if($codeUsine !== '*')  {
                 $sql = 'SELECT DISTINCT produit.id id, libelle,stock, (SELECT SUM(nombreCarton) FROM colisage WHERE produit.id=colisage.produitId and codeUsine="'.$codeUsine.'" ) as nbColis FROM produit, stock_reel 
                     WHERE produit.id=stock_reel.produit_id
-                    AND stock_reel.codeUsine="'.$codeUsine.'" and stock<>0 group by produit.id' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+                    AND stock_reel.codeUsine="'.$codeUsine.'" and stock<>0 ' . $sWhere . ' group by produit.id ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
            }
            else {
                $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM colisage WHERE produit.id=colisage.produitId) as nbColis FROM produit, stock_reel
                          WHERE produit.id=stock_reel.produit_id
-                        AND stock<>0 group by produit.id ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
+                        AND stock<>0 ' . $sWhere . ' group by produit.id ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
            }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -144,12 +144,29 @@ class ProduitQueries {
         if($codeUsine !=='*') {
             $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM colisage WHERE produit.id=colisage.produitId) as nbColis FROM produit, stock_reel, demoulage 
                     WHERE produit.id=stock_reel.produit_id
-                    AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" group by produit.id' . $sWhere . '';
+                    AND produit.id=demoulage.produit_id  and stock_reel.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
              $sql = 'SELECT DISTINCT produit.id id, libelle, stock, (SELECT SUM(nombreCarton) FROM colisage WHERE produit.id=colisage.produitId) as nbColis FROM produit, stock_reel, demoulage 
                     WHERE produit.id=stock_reel.produit_id
                     AND produit.id=demoulage.produit_id  group by produit.id' . $sWhere . '';
+        }
+       
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $nbClients = $stmt->fetch();
+        return count($nbClients);
+    }
+    
+    public function countAllProduitsDemoulee($codeUsine, $sWhere = "") {
+        if($sWhere !== "")
+            $sWhere = " and " . $sWhere;
+        if($codeUsine !=='*') {
+            $sql = 'SELECT * FROM produit, stock_reel WHERE produit.id=stock_reel.produit_id and stock_reel.codeUsine="'.$codeUsine.'" ' . $sWhere . ' group by produit.id';
+        }
+        else {
+             $sql = 'SELECT * FROM produit, stock_reel WHERE produit.id=stock_reel.produit_id
+                    ' . $sWhere . ' group by produit.id';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

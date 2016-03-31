@@ -141,6 +141,12 @@ class ProduitManager {
       public function countAllProduitsDemoulages($codeUsine,$where="") {
         return $this->produitQuery->countAllDemoulages($codeUsine,$where);
     }
+    
+    public function countAllProduitsDemoulee($codeUsine,$where="") {
+        return $this->produitQuery->countAllProduitsDemoulee($codeUsine,$where);
+    }
+    
+    
 public function retrieveTypes()
     {
         return $this->produitQuery->retrieveTypes();

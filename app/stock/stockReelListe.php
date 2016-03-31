@@ -45,7 +45,7 @@
 			</div>
                     <div class="widget-body">
                         <div class="widget-main no-padding">
-                          <table id="LIST_DEMOULAGES" class="table table-striped table-bordered table-hover">
+                          <table id="LIST_STOCK" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th  style="border-left: 0px none;">
@@ -171,7 +171,7 @@
             
             
             persistChecked = function() {
-                $('input[type="checkbox"]', "#LIST_DEMOULAGES").each(function() {
+                $('input[type="checkbox"]', "#LIST_STOCK").each(function() {
                     if (checkedDemoulagesContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
@@ -202,7 +202,7 @@
                 });
             });
             
-             $('#LIST_DEMOULAGES tbody').on('click', 'input[type="checkbox"]', function() {
+             $('#LIST_STOCK tbody').on('click', 'input[type="checkbox"]', function() {
                 context=$(this);
                 if ($(this).is(':checked') && $(this).val() != '*') {
                     checkedDemoulagesAdd($(this).val());
@@ -314,7 +314,7 @@
                 if (oTableDemoulages != null)
                     oTableDemoulages.fnDestroy();
 
-                oTableDemoulages = $('#LIST_DEMOULAGES').dataTable({
+                oTableDemoulages = $('#LIST_STOCK').dataTable({
                     "oLanguage": {
                     "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
                     "oPaginate": {

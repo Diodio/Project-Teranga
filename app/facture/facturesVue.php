@@ -744,15 +744,36 @@ $(document).ready(function () {
         $('#montantTtc').val(Ttc);
         });
   
-       $(document).delegate('#tab_logic_colis tr td select', 'change', function (event) {
-        var id = $(this).closest('tr').attr('id');
-        var counter = id.slice(-1);
-       // $( "#qteColis"+counter ).change(function() {
-            //alert("gg");
-                verifierPoids($('#qteColis'+counter).val(), counter);
-        //   });
-            });      
-    
+//       $(document).delegate('#tab_logic_colis tr td select', 'change', function (event) {
+//        var id = $(this).closest('tr').attr('id');
+//        var counter = id.slice(-1);
+//       // $( "#qteColis"+counter ).change(function() {
+//            //alert("gg");
+//                verifierPoids($('#qteColis'+counter).val(), counter);
+//        //   });
+//            });      
+    function validColisage(){
+           var res=0;
+           var tabColis=[];
+           var produitId = $('#CMB_DESIGNATIONS').val();
+           $("#tab_logic_colis tbody tr").each(function(iter) {
+            
+        var row={};
+            var colis=0;
+            var quantite=0;
+            colis=$(this).find('#nbColis'+iter).val();
+            quantite = $(this).find('#qteColis'+iter).select2('data').text;
+             if(typeof colis!=='function' && typeof quantite!=='function'){
+                    row["produitId"] = produitId;
+                    row["nombreCarton"] = colis;
+                    row["quantiteParCarton"] = quantite;
+            }
+            tabColis.push(row);
+        });
+        var jsonColis=JSON.stringify(tabColis);
+        return jsonColis;        
+       }
+       
     function ajoutLigne(){
         var nbColis=1;
         var pd=0;
@@ -760,6 +781,21 @@ $(document).ready(function () {
         var mtTtc=0;
         var i=0;
         var trouve=0;
+        var jsonColis = validColisage();
+        console.log(jsonColis);
+        $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {jsonColis:jsonColis, codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_VERIFY_COLISAGE
+                            ; ?>"}, function(data) {
+        data=$.parseJSON(data);
+         if(data.rc==0)
+            if(data.oId>0){
+               $.gritter.add({
+                title: 'Notification',
+                text: 'Le nombre de colis saisi est supérieur à celui du stock réel. Veuillez voir le colisage SVP!',
+                class_name: 'gritter-error gritter-light'
+            }); 
+            }
+            else {
+        
         var produitId = $('#CMB_DESIGNATIONS').val();
          var flag = false;
             $('#tab_produit tbody').find('tr').each(function(){
@@ -895,6 +931,7 @@ $(document).ready(function () {
         $('#prixUnitaire').val(''); 
         $('#stockReel').val('');
        }
+        } });
     }
     //ajout des lignes
      $( "#AJOUT_PRODUIT" ).click(function(){

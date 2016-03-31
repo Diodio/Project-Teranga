@@ -500,7 +500,7 @@ class ProduitController extends BaseController implements BaseAction {
                 // End filter from dataTable
                 $demoulages = $produitManager->retrieveAllProduitsDemoulages($request['usineCode'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($demoulages != null) {
-                    $nb = $produitManager->countAllProduitsDemoulages($request['usineCode'],$sWhere);
+                    $nb = $produitManager->countAllProduitsDemoulee($request['usineCode'],$sWhere);
                     $this->doSuccessO($this->dataTableFormat($demoulages, $request['sEcho'], $nb));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
