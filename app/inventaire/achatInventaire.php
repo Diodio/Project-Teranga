@@ -69,7 +69,7 @@
                          
                     </div>
                  
-         <div style="margin-bottom: 20px;" >
+         <div style="margin-top: 15px; text-align:center" >
                     <div class="infobox infobox-green" style="width: 400px; height: 40px;">
                                  <div class="infobox-data">
                                      <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
