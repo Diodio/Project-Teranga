@@ -254,9 +254,9 @@ class AchatManager {
         }
     }
 
-    public function getInfoInventaire($codeUsine) {
-        $infosP = $this->achatQuery->getInfoPoidsTotal($codeUsine);
-        $infosM = $this->achatQuery->getInfoMontantTotal($codeUsine);
+    public function getInfoInventaire($typeAchat, $dateDebut, $dateFin, $codeUsine) {
+        $infosP = $this->achatQuery->getInfoPoidsTotal($typeAchat, $dateDebut, $dateFin, $codeUsine);
+        $infosM = $this->achatQuery->getInfoMontantTotal($typeAchat, $dateDebut, $dateFin, $codeUsine);
         $infosTab = array();
         //var_dump($infos);
         if ($infosP != null && $infosM !=null) {

@@ -784,6 +784,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $(infoAvance).each(function (index, element) {
                             mtAv += parseFloat(element.avance);
                         });
+                        var tot = 0;
+                        $('#tab_produit .montant').each(function () {
+                            if ($(this).html() !== 0)
+                                tot += parseFloat($(this).html());
+                        });
+                         
+                        var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
+                        $('#montantTtc').val(Ttc);
                         if (!isNaN(mtAv)) {
                             rel = data.montantTtc - mtAv;
                         }

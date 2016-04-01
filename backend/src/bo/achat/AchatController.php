@@ -543,7 +543,7 @@ class AchatController extends BaseController implements BaseAction {
     public function doGetInfoInventaire($request) {
         try {
             $achatManager = new AchatManager();
-            $infos = $achatManager->getInfoInventaire($request['codeUsine']);
+            $infos = $achatManager->getInfoInventaire($request['typeAchat'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
             $this->doSuccessO($infos);
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());

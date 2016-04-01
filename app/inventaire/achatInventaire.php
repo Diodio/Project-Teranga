@@ -132,15 +132,34 @@
             var checkedAchats = new Array();
             // Check if an item is in the array
            // var interval = 500;
-    
+    getDate=function(debut){
+        // GET CURRENT DATE
+        var date = new Date();
+
+        // GET YYYY, MM AND DD FROM THE DATE OBJECT
+        var yyyy = date.getFullYear().toString();
+        var mm = (date.getMonth()+1).toString();
+        var dd  = date.getDate().toString();
+
+        // CONVERT mm AND dd INTO chars
+        var mmChars = mm.split('');
+        var ddChars = dd.split('');
+
+        // CONCAT THE STRINGS IN YYYY-MM-DD FORMAT
+        if(debut)
+            return '01-'+(mmChars[1]?mm:"0"+mmChars[0]) + '-' +yyyy   ;
+        return (ddChars[1]?dd:"0"+ddChars[0])+'-'+(mmChars[1]?mm:"0"+mmChars[0]) + '-' +yyyy   ;
+    }
     $('#dateDebut').datepicker({autoclose: true,language:'fr',todayHighlight:true}).on(ace.click_event, function(){
              });
     $('#dateFin').datepicker({autoclose: true,language:'fr', todayHighlight:true}).prev().on(ace.click_event, function(){
 //            $(this).prev().focus();
     });
     
-    loadInfosInventaire = function () {
-        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
+    $('#dateDebut').val(getDate(true));
+    $('#dateFin').val(getDate());
+    loadInfosInventaire = function (typeAchat, dateDebut, dateFin) {
+        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {typeAchat:typeAchat,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -155,7 +174,7 @@
             }
     });
     };
-    loadInfosInventaire();
+    
                 
          function calculPoids(index){
            var cart=parseFloat($("#cart"+index).val());
@@ -293,14 +312,17 @@
                     return arr[2] + '-' + arr[1] + '-' + arr[0];
                 }
             };
+            loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
             loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
 
             $('#regle').change(function() {
+                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
                 loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
             });
             
             $("#BTN_SEARCH").click(function()
             {
+                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
                 loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
                // alert("dd");
             });
