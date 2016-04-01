@@ -139,7 +139,7 @@
 //            $(this).prev().focus();
     });
     
-    loadInfosInventaire = function () {
+    loadInfosInventaire = function (dateDebut, dateFin, typeAchat) {
         $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
@@ -155,7 +155,7 @@
             }
     });
     };
-    loadInfosInventaire();
+    loadInfosInventaire(dateDebut, dateFin, typeAchat);
                 
          function calculPoids(index){
            var cart=parseFloat($("#cart"+index).val());
