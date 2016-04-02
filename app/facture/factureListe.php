@@ -274,7 +274,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                                    for="form-field-1"> Tva </label>
                                                             <div class="col-sm-7">
                                                                 <input type="text" id="tva" name="tva" placeholder=""
-                                                                       class="" value="0.18">
+                                                                       class="" value="18"> %
                                                             </div>
                                                         </div>
                                                     </div>
@@ -777,6 +777,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                     $('#tab_produit tbody').append(trHTML);
                     trHTML = '';
+                    var tot = 0;
+                    $('#tab_produit .montant').each(function () {
+                        if ($(this).html() !== 0)
+                            tot += parseFloat($(this).html());
+                    });
+                         
+                    var Ttc = tot+(tot * ($("#tva").val()/100));
+                    $('#montantTtc').val(Ttc);
                     var infoAvance = data.reglement;
                     var mtAv = 0;
                     var rel = 0;
@@ -784,14 +792,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $(infoAvance).each(function (index, element) {
                             mtAv += parseFloat(element.avance);
                         });
-                        var tot = 0;
-                        $('#tab_produit .montant').each(function () {
-                            if ($(this).html() !== 0)
-                                tot += parseFloat($(this).html());
-                        });
-                         
-                        var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
-                        $('#montantTtc').val(Ttc);
+                        
                         if (!isNaN(mtAv)) {
                             rel = data.montantTtc - mtAv;
                         }
@@ -802,7 +803,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                     else {
                         $('#avance').val("0.00");
-                        $('#reliquat').val(data.montantTtc);
+                        $('#reliquat').val(Ttc);
                     }
 
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
@@ -889,6 +890,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         text: 'Le montant avance ne doit pas être vide',
                         class_name: 'gritter-error gritter-light'
                     });
+                    $("#reliquat").val("");
                 }
             }
 

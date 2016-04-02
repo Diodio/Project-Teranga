@@ -471,7 +471,7 @@ $nomUsine = $_COOKIE['nomUsine'];
                             $('#MNU_REMOVE').addClass('disabled');
                          }
                          bootbox.alert("Veuillez selectionnez un seul achat SVP!");
-                         loadBons('*');
+                        loadBons('*', "<?php echo $codeUsine;?>");
                     }
                     else{
                         $('#MNU_ANNULATION').removeClass('enable');

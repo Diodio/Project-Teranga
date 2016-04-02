@@ -443,9 +443,9 @@ class AchatQueries {
         if($dateFin=="")
             $dateFin="2900-01-01";
         if($typeAchat=='*')
-            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(ra.datePaiement) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
         else
-            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle='.$typeAchat.' and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(ra.datePaiement) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle='.$typeAchat.' and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $infos = $stmt->fetch();
@@ -464,7 +464,7 @@ class AchatQueries {
         if($typeAchat=='*')
             $sql = 'SELECT SUM(poidsTotal) poidsTotal FROM achat WHERE status=1 and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'"';
         else 
-            $sql = 'SELECT SUM(poidsTotal) poidsTotal FROM achat a, reglement_achat ra WHERE achat_id=a.id AND status=1 and regle='.$typeAchat.' and codeUsine="'.$codeUsine.'" and date(ra.datePaiement) between "'.$dateDebut.'" and "'.$dateFin.'"';
+            $sql = 'SELECT SUM(poidsTotal) poidsTotal FROM achat a, reglement_achat ra WHERE achat_id=a.id AND status=1 and regle='.$typeAchat.' and codeUsine="'.$codeUsine.'" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$infos = $stmt->fetch();
