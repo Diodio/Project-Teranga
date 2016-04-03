@@ -58,7 +58,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
     public function retrieveAllByUsine($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
-             $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
+             $sql = 'SELECT produit.id pid, libelle, seuil, codeUsine, SUM(stock) AS stock
                     FROM produit,stock_reel WHERE produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' and stock!=0.00 group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
      
         $sql = str_replace("`", "", $sql);
@@ -71,6 +71,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
             $arrayStocks [$i] [] = $value ['libelle'];
             $arrayStocks [$i] [] = $value ['stock'];
             $arrayStocks [$i] [] = $value ['seuil'];
+            $arrayStocks [$i] [] = $value ['pid'];
             $i++;
         }
         return $arrayStocks;
