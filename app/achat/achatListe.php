@@ -774,7 +774,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     if($.trim(prix) !== ""){
                                         var tot=0;
                                         var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
+                                        var montant= parseFloat(prix * qte).toFixed(2);
                                         if(!isNaN(montant)){
                                             $('#montant'+compteur).text(montant);
                                         $('#TABLE_ACHATS .montant').each(function () {

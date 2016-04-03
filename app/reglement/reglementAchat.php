@@ -646,10 +646,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": true,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_REGLEMENTS; ?>"});
@@ -719,7 +719,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     var table = data.ligneAchat;
                     var trHTML='';
                     $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                      var prixUnit=0
+                        var mont=0
+                    if(element.prixUnitaire!==null)
+                        prixUnit=element.prixUnitaire;
+                    if(element.montant!==null)
+                        mont=element.montant;
+                        trHTML += '<tr><td>' + element.designation + '</td><td>' + prixUnit + '</td><td>' + element.quantite + '</td><td>' + mont + '</td></tr>';
                     });
                     $('#TABLE_ACHATS tbody').append(trHTML);
                     trHTML='';
