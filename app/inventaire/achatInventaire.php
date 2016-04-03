@@ -170,7 +170,8 @@
             }else{
                 console.log(sData.poidsTotal);
                 $("#poidsTotal").text(sData.poidsTotal);
-                $("#montantTotal").text(sData.montantTotal);
+               // $("#montantTotal").text(sData.montantTotal);
+                $("#montantTotal").text(parseFloat(sData.montantTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1.").toString())
             }
     });
     };
