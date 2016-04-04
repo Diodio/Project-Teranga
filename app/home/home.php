@@ -179,10 +179,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                         "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                             $(nTd).css('text-align', 'center');
                             $(nTd).text('');
+                            $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[3], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_NBCOLIS; ?>"}, function(dataC) {
+                                dataVP=$.parseJSON(dataC);
+                                
+                               // console.log();
+                               $(nTd).append(''+dataVP[0].nbCarton);
+                               
+                            });
+                            
                             $(nTd).addClass('td-actions');
                             action=$('<div></div>');
                             action.addClass('hidden-phone pull-right visible-desktop action-buttons');
-                            
                             btnGrps=$('<button id="colis'+oData[3]+'" class="center btn btn-warning btn-mini" href="#">'+
                             '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
                             '</button>');

@@ -31,6 +31,9 @@ class DemoulageController extends BaseController {
                     case \App::ACTION_GET_COLIS:
                         $this->doGetColis($request);
                         break;
+                    case \App::ACTION_GET_NBCOLIS:
+                        $this->doGetNbColis($request);
+                        break;
                     case \App::ACTION_GET_COLISAGES:
                         $this->doVerifieColis($request);
                         break;
@@ -192,7 +195,25 @@ class DemoulageController extends BaseController {
             throw new Exception('ERREUR SERVEUR');
         }
     }
-
+    public function doGetNbColis($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $demoulageManager = new Produit\DemoulageManager();
+                $colis = $demoulageManager->getNBColis($request['produitId'], $request['codeUsine']);
+                if ($colis != null)
+                    $this->doSuccessO($colis);
+                else
+                    echo json_encode(array());
+            } else {
+                throw new Exception('PARAM_NOT_ENOUGH');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
+        }
+    }
+    
     public function doListeDemoule($request) {
         try {
             $this->logger->log->info(json_encode($request));

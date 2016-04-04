@@ -94,6 +94,9 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
         return $res;
     }
     
+    public function getNbColis($produitId, $codeUsine) {
+        return $this->demoulageQueries->getNbColis($produitId, $codeUsine);
+    }
     
     public function verificationColisage($produitId, $nbCarton, $quantite, $codeUsine) {
         $res = 0;
