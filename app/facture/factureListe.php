@@ -900,7 +900,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     bootbox.alert("Veuillez selectionnez un facture");
                 else if (checkedFacture.length == 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment valider cet facture", "Non", "Oui", function (result) {
+                    bootbox.confirm("Voulez vous vraiment valider cet facture?", "Non", "Oui", function (result) {
                         if (result) {
                             var factureId = checkedFacture[0];
                             $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function (data)
@@ -927,7 +927,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_IMPRIMER").click(function ()
             {
                 if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez un facture");
+                    bootbox.alert("Veuillez selectionnez une facture SVP!");
                 else if (checkedFacture.length == 1)
                 {
                     var factureId = checkedFacture[0];
@@ -1078,6 +1078,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
+                        window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                          $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_INFO_VIEW').show();
                    loadFactures();

@@ -39,7 +39,7 @@ td    { vertical-align: top; }
             <table cellspacing="0" style="width: 40%; text-align: center; font-size: 14px">
                 <tr>
                     <td style="width: 100%; " >
-                        <img alt="" src="../../assets/img/logo2.png" style="margin-left:-5px">  
+                        <img alt="" src="../../assets/img/logo.png" style="margin-left:-5px">  
                     </td>
                 </tr>
             </table> 

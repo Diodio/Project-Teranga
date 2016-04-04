@@ -808,7 +808,7 @@ $(document).ready(function () {
         if(flag){
              $.gritter.add({
                     title: 'Notification',
-                    text: 'Ce produit existe deja, Veuillez changer de produit',
+                    text: 'Ce produit existe deja, Veuillez changer de produit SVP!',
                     class_name: 'gritter-error gritter-light'
                 });
                 var rowCount = $('#tab_logic_colis tr').length;
@@ -1297,7 +1297,7 @@ $(document).ready(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                       // window.open('<?php //echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
 
                             $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
                              });
