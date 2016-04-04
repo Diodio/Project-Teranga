@@ -39,7 +39,7 @@ td    { vertical-align: top; }
             <table cellspacing="0" style="width: 40%; text-align: center; font-size: 14px">
                 <tr>
                     <td style="width: 100%; " >
-                        <img alt="" src="../../assets/images/logo2.png" style="margin-left:-5px">  
+                        <img alt="" src="../../assets/img/logo2.png" style="margin-left:-5px">  
                     </td>
                 </tr>
             </table> 
@@ -67,7 +67,7 @@ td    { vertical-align: top; }
                 </table>
             </td>
             <td>
-                        <img alt="" src="../../assets/images/trait.png">  
+                        <img alt="" src="../../assets/img/trait.png">  
             </td>
              <td style="width:52.6%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 12px">
@@ -110,7 +110,7 @@ td    { vertical-align: top; }
     
     <br>
     <br>
-    <table cellspacing="0" style="color:#444444";width: 100%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="color:#444444;width: 100%; text-align: center; font-size: 14px">
         <tr>
             <td style="width:50%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
