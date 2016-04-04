@@ -38,19 +38,66 @@ td    { vertical-align: top; }
             <td>
             <table cellspacing="0" style="width: 40%; text-align: center; font-size: 14px">
                 <tr>
-                    <td style="width: 100%; " >
-                        <img alt="" src="../../assets/img/logo.png" style="margin-left:-5px">  
-                    </td>
+                    
                 </tr>
             </table> 
             </td>
         </tr>
     </table>
-    <table cellspacing="0" style="margin-top:-2px;border:1px;color:#444444;width: 100%; text-align: center; font-size: 14px">
+    
+     <table cellspacing="0" style="margin-top:-10px;border:1px;color:#444444;width: 90.6%; text-align: left;margin-left:40px; font-size: 14px">
         <tr>
             <td style="width:45%;">
-                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
+                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 100px">
                     <tr>
+                        <td  >
+                        <img alt="" src="../../assets/img/logo.png" style="margin-left:50px">  
+                    </td>
+                       <td>
+                        <img  alt="" src="../../assets/img/trait.png" style="margin-left:60px">  
+            </td>  
+                    </tr>
+                </table>
+            </td>
+           
+             <td >
+                <table cellspacing="0" style="width: 89%; text-align: left;font-size: 12px;">
+                    <tr>
+                        <td style="font-size: 16px;color:blue; ">
+                            <b>MACFISH PRODUCTION SUARL</b>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td style="height: 15px;" >
+                           <b> Quai de P�che Mole 10</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 15px;">
+                            <b>Tel : (00) 221 33 821 84 70 � (00) 221 77 637 09 48</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 15px;">
+                            <b>E-mail : macfishport@live.fr / macfish@macfishproduction.com</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 15px;">
+                            <b>Site : www.macfishproduction.sn</b>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+    </table>
+    
+    <table cellspacing="0" style="margin-top:-1px;border:1px;color:#444444;width: 90%; margin-left:40px; font-size: 14px">
+        <tr>
+            <td style="width:45%;">
+                <table cellspacing="0" style="width: 90%; text-align: left;font-size: 10pt">
+                    <tr >
                         <td>
                             Client (NOM, ADRESSE, PAYS, TELEPHONE)
                            
@@ -110,7 +157,7 @@ td    { vertical-align: top; }
     
     <br>
     <br>
-    <table cellspacing="0" style="color:#444444;width: 100%; text-align: center; font-size: 14px">
+    <table cellspacing="0" style="color:#444444;width: 60%; text-align: center;margin-left:40px; font-size: 14px">
         <tr>
             <td style="width:50%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
@@ -133,14 +180,14 @@ td    { vertical-align: top; }
             </td>
              <td >
                  
-                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
+                <table cellspacing="0" style="width: 90%; text-align: left;margin-left:2px;font-size: 10pt">
                    <?php while ($rowConteneur = mysqli_fetch_array($ResultConteneur)) {?>
                     <tr>
-                        <td style="width: 42%">
-                            Numero conteneur: <b><?php echo $rowConteneur['numConteneur'];?></b>
-                        </td style="width: 52%">
+                        <td style="width: 60%">
+                            No conteneur: <b><?php echo $rowConteneur['numConteneur'];?></b>
+                        </td style="width: 60%">
                         <td >
-                           Numero plomb : <b><?php echo $rowConteneur['numPlomb'];?></b>
+                           No plomb : <b><?php echo $rowConteneur['numPlomb'];?></b>
                         </td>
                     </tr>
                    <?php } ?>
@@ -152,7 +199,7 @@ td    { vertical-align: top; }
     </table>
     <br>
     <br>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 0px black; background: #E7E7E7; text-align: left;margin-left:40px; font-size: 10pt;">
         <tr>
             <th style="width: 20%">Nombre de colis</th>
             <th style="width: 30%">Désignation</th>
@@ -165,7 +212,7 @@ td    { vertical-align: top; }
 <?php
     while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
 ?>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 0px black; background: #F7F7F7; text-align: left;margin-left:40px; font-size: 10pt;">
         <tr>
             <td style="width: 20%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
             <td style="width: 30%; text-align: left"><?php echo $rowProduit['libelle'];?></td>
@@ -177,7 +224,7 @@ td    { vertical-align: top; }
 <?php
     }
 ?>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 0px black; background: #E7E7E7; text-align: center;margin-left:40px; font-size: 10pt;">
         <tr>
             <th style="width: 20%; text-align: left;"><?php echo $row['nbTotalColis'];?></th>
             <th style="width: 30%; text-align: left;"></th>
@@ -188,8 +235,6 @@ td    { vertical-align: top; }
     </table>
     <br>
     
-    <br>
-    <br>
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
             <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantTtc'];?></b> <?php echo $row['devise'];?> TTC</td>
@@ -197,7 +242,6 @@ td    { vertical-align: top; }
             <td ></td>
         </tr>
     </table>
-    <br>
     <br>
      <table cellspacing="0" style="width: 100%; text-align: left;;font-size: 10pt">
             <tr>
@@ -210,7 +254,6 @@ td    { vertical-align: top; }
                 </td>
             </tr>
         </table>
-    <br>
     
  
 </page>

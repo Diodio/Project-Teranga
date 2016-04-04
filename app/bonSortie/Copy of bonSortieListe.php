@@ -84,7 +84,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <tr>
                                 <th class="center" style="border-right: 0px none;">
                                     <label>
-                                        <input type="checkbox" value="*" name="allchecked"/>
+                                        <input type="radio" value="*" value="Sim" class="radio" name="allchecked[]"/>
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
@@ -180,6 +180,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         </div>
 
                                                         <div class="infobox-data">
+                                                         <div class="infobox-content" style="width:150px">Sortie Saint Louis (kg)</div>
                                                             <div class="infobox-content" id="INDIC_BON_STLOUIS">0</div>
                                                         </div>
                                                     </div>
@@ -329,7 +330,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             
             persistChecked = function() {
-                $('input[type="checkbox"]', "#LIST_BONS").each(function() {
+                $('input[type="radio"]', "#LIST_BONS").each(function() {
                     if (checkedBonContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
@@ -337,9 +338,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                 });
             };
-             $('table th input:checkbox').on('click', function() {
+             $('table th input:radio').on('click', function() {
                 var that = this;
-                $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
+                $(this).closest('table').find('tr > td:first-child input:radio').each(function() {
                     this.checked = that.checked;
                     if (this.checked)
                     {
@@ -360,7 +361,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             });
             
-            $('#LIST_BONS tbody').on('click', 'input[type="checkbox"]', function() {
+            $('#LIST_BONS tbody').on('click', 'input[type="radio"]', function() {
                 context=$(this);
                 if ($(this).is(':checked') && $(this).val() != '*') {
                     checkedBonAdd($(this).val());
@@ -371,10 +372,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
                 ;
                 if(!context.is(':checked')){
-                    $('table th input:checkbox').removeAttr('checked');
+                    $('table th input:radio').removeAttr('checked');
                 }else{
                     if(checkedBon.length==nbTotalBonChecked){
-                        $('table th input:checkbox').prop('checked', true);
+                        $('table th input:radio').prop('checked', true);
                     }
                 }
             });
@@ -393,7 +394,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     
                 }
                 if(checkedBon.length==nbTotalBonChecked){
-                    $('table th input:checkbox').prop('checked', true);
+                    $('table th input:radio').prop('checked', true);
                 }
             };
             
@@ -453,7 +454,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $("#BTN_MSG_GROUP").popover('destroy');
                     $("#BTN_MSG_CONTENT").popover('destroy');
                 }
-                $('table th input:checkbox').removeAttr('checked');
+                $('table th input:radio').removeAttr('checked');
             };
 
             EnableAction = function()
@@ -485,8 +486,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             $('#MNU_ANNULATION').addClass('disabled');
                             $('#MNU_REMOVE').addClass('disabled');
                          }
-                         bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
-                         loadBons('*');
+//                          bootbox.alert("Veuillez selectionnez un seul bon de sortie SVP!");
+//                          loadBons('*');
                     }
                     else{
                         $('#MNU_ANNULATION').removeClass('enable');
@@ -546,7 +547,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 $(nTd).css('text-align', 'center');
                             },
                             "mRender": function(data, type, full) {
-                                return '<label><input type="checkbox" id="' + data + '" value="' + data + '"><span class="lbl"></span></label>';
+                                return '<label><input type="radio" id="' + data + '" value="' + data + '"name="allchecked[]"><span class="lbl"></span></label>';
                             }
                         },
                         {
@@ -571,14 +572,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                         persistChecked();
                         $(nRow).css('cursor','pointer');
                         $(nRow).on('click', 'td:not(:first-child)', function(){
-                            checkbox=$(this).parent().find('input:checkbox:first');
-                            if(!checkbox.is(':checked')){
-                                checkbox.prop('checked', true);;
+                            radio=$(this).parent().find('input:radio:first');
+                            if(!radio.is(':checked')){
+                                radio.prop('checked', true);;
                                 checkedBonAdd(aData[0]);
                                 MessageSelected();
                                 
                             }else{
-                                checkbox.removeAttr('checked');
+                                radio.removeAttr('checked');
                                 
                                 checkedBonRemove(aData[0]);
                                 MessageUnSelected();
@@ -620,7 +621,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     class_name: 'gritter-error gritter-light'
                                 }); 
                               }else{
-                                  $('table th input:checkbox').removeAttr('checked');
+                                  $('table th input:radio').removeAttr('checked');
                                   fnCallback(json);
                                   nbTotalBonChecked=json.iTotalRecords;
                               }
