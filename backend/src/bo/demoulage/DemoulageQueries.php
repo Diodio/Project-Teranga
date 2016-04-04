@@ -179,8 +179,8 @@ class DemoulageQueries {
         return $arrayContact;
     }
 
-    public function verifieCarton($produitId, $quantite) {
-        $sql = 'SELECT id, SUM(nombreCarton) as nbCarton, quantiteParCarton FROM carton WHERE quantiteParCarton=' . $quantite . ' AND produitId=' . $produitId . ' GROUP BY quantiteParCarton';
+    public function getNbColis($produitId, $codeUsine) {
+        $sql = 'SELECT SUM(nombreCarton) as nbCarton FROM colisage WHERE produitId=' . $produitId . ' and codeUsine="'.$codeUsine.'" ';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $demoulage = $stmt->fetchAll();
@@ -189,6 +189,7 @@ class DemoulageQueries {
         else
             return null;
     }
+    
     
     public function verifieColisage($produitId, $nbCarton, $quantite, $codeUsine) {
         $sql = 'SELECT id FROM colisage WHERE quantiteParCarton=' . $quantite . ' AND produitId=' . $produitId . ' and nombreCarton>='.$nbCarton.' and codeUsine="'.$codeUsine.'"';

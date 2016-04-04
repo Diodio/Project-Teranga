@@ -137,6 +137,9 @@ class App
      const ACTION_STAT_ENTREE='LIST_STAT_ENTREE';
      const  ACTION_LIST_FACTURE_ANNULES='LIST_FACTURE_ANNULES';
      const  ACTION_VERIFY_COLISAGE='VERIFY_COLISAGE';
+     const  ACTION_GET_NBCOLIS='GET_NBCOLIS';
+     
+     
      
      
      
