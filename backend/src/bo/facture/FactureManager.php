@@ -170,6 +170,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['nomClient']  = $value ['nom'];
                 $factureDetail ['adresse']  =  $value ['adresse'];
                 $factureDetail ['pays']  =  $value ['pays'];
+                $factureDetail ['devise']  =  $value ['devise'];
                 $userManager = new \Utilisateur\UtilisateurManager();
                 $user = $userManager->findByLogin($value ['login'],$value ['codeUsine']);
                 $factureDetail ['user']  =  $user;

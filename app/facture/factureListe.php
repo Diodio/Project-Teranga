@@ -235,7 +235,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         <thead>
                                                             <tr>
                                                                 <th class=""></th>
-                                                                <th class="">Détail de colis</th>
+                                                                <th class="">Nombre de colis</th>
                                                                 <th class="">Désignation</th>
                                                                 <th class="">Prix unitaire</th>
                                                                 <th class="">Poids net</th>
@@ -256,13 +256,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             </div>
                                                         </div>
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name">Poids Total </div>
+                                                            <div class="profile-info-name" >Poids Total </div>
                                                             <div class="profile-info-value">
                                                                 <span id="PoidsTotal"></span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name">Montant HT </div>
+                                                            <div class="profile-info-name" id="labelmontantHt">Montant HT </div>
                                                             <div class="profile-info-value">
                                                                 <span id="MontantHt"></span>
                                                             </div>
@@ -282,7 +282,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Montant Ttc </label>
+                                                                   for="form-field-1" id="labelmontantTtc"> Montant Ttc </label>
                                                             <div class="col-sm-7">
                                                                 <input type="text" readonly id="montantTtc" name="montantTtc" placeholder=""
                                                                        class="" >
@@ -333,7 +333,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Montant payé  (FCFA)</label>
+                                                                   for="form-field-1" id="labelmontantPaye"> Montant payé  (FCFA)</label>
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" class="bolder"  id="avance" name="avance" placeholder=""
@@ -657,9 +657,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#pays').text(data.pays);
                     $('#user').text(data.user);
                     $('#totalColis').text(data.nbTotalColis);
-                    $('#PoidsTotal').text(data.nbTotalPoids);
-                    $('#MontantHt').text(data.montantHt);
-                    $('#montantTtc').val(data.montantTtc);
+                    $('#PoidsTotal').text(data.nbTotalPoids+ ' kg');
+                    $('#MontantHt').text(data.montantHt+ ' ' + data.devise);
+                    $('#montantTtc').val(data.montantTtc );
                     if (data.modePaiement == '' && data.modePaiement == 'undefined')
                         $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
