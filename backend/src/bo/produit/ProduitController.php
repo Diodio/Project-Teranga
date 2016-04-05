@@ -432,16 +432,16 @@ class ProduitController extends BaseController implements BaseAction {
                 // Begin filter from dataTable
                 $sWhere = "";
                 if (isset($request['sSearch']) && $request['sSearch'] != "") {
-                    $sSearchs = explode(" ", $request['sSearch']);
-                    for ($j = 0; $j < count($sSearchs); $j++) {
+                    //$sSearchs = explode(" ", $request['sSearch']);
+                   //for ($j = 0; $j < count($sSearchs); $j++) {
                         $sWhere .= "( ";
                         for ($i = 0; $i < count($aColumns); $i++) {
-                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $sSearchs[$j] . "%') OR";
+                            $sWhere .= "(" . $aColumns[$i] . " LIKE '%" . $request['sSearch'] . "%') OR";
                             if ($i == count($aColumns) - 1)
                                 $sWhere = substr_replace($sWhere, "", -3);
                         }
                        $sWhere = $sWhere .=")";
-                    }
+                   // }
                 }
                 // End filter from dataTable
                 $demoulages = $produitManager->retrieveAllDemoulages($request['usineCode'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);

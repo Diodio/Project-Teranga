@@ -282,7 +282,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1" id="labelmontantTtc"> Montant Ttc </label>
+                                                                   for="form-field-1" id=""> Montant Ttc (<span id="deviseTextTtc"></span>)</label>
+                                                            
                                                             <div class="col-sm-7">
                                                                 <input type="text" readonly id="montantTtc" name="montantTtc" placeholder=""
                                                                        class="" >
@@ -333,7 +334,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1" id="labelmontantPaye"> Montant payé  (FCFA)</label>
+                                                                   for="form-field-1" id="labelmontantPaye"> Montant payé (<span id="deviseTextMontantPaye"></span>)</label>
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" class="bolder"  id="avance" name="avance" placeholder=""
@@ -346,7 +347,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Reliquat (FCFA)</label>
+                                                                   for="form-field-1"> Reliquat  (<span id="deviseTextReliquat"></span>)</label>
                                                             <div class="col-sm-7">
                                                                 <div class="clearfix">
                                                                     <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder=""
@@ -649,6 +650,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                 $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                     data = $.parseJSON(data);
+                    $('#deviseTextTtc').text(data.devise);
+                    $('#deviseTextMontantPaye').text(data.devise);
+                    $('#deviseTextReliquat').text(data.devise);
                     $('#TAB_MSG_TITLE').text("Numero facture: " + data.numero);
                     $('#FactureDate').text(data.dateFacture);
                     $('#numFacture').text(data.numero);
