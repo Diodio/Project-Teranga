@@ -738,8 +738,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#AchatNomMareyeur').text(data.nomMareyeur);
                     $('#achatAdresseMareyeur').text(data.adresse);
                     $('#achatUser').text(data.user);
-                    $('#PoidsTotal').text(data.poidsTotal);
-                    $('#MontantTotal').text(data.montantTotal);
+                    $('#PoidsTotal').text(data.poidsTotal +" Kg");
+                    if(data.montantTotal!=null)
+                    $('#MontantTotal').text(data.montantTotal+ " FCFA");
+                    else
+                    	$('#MontantTotal').text(0+ " FCFA");
                     
                     if(data.modePaiement !== null)
                         $('#modePaiement').val(data.modePaiement);
