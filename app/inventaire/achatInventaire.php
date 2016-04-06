@@ -156,9 +156,15 @@
 //            $(this).prev().focus();
     });
     
-    $('#dateDebut').val(getDate(true));
-    $('#dateFin').val(getDate());
-    loadInfosInventaire = function (typeAchat, dateDebut, dateFin) {
+   // $('#dateDebut').val(getDate(true));
+   // $('#dateFin').val(getDate());
+    loadInfosInventaire = function (typeAchat, dateD, dateF) {
+        var dateDebut='';
+        var dateFin='';
+        if(typeof(dateD)!=='undefined')
+            dateDebut=dateD;
+        if(typeof(dateF)!=='undefined')
+            dateFin=dateF;
         $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {typeAchat:typeAchat,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
