@@ -120,7 +120,7 @@ class AchatQueries {
         else {
             if($regle !=='*'){
                 $sql = 'select achat.id,date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,sum(avance) montantTotal, regle
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and achat.id=achat_id and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle='.$regle.' and achat.id=achat_id and montantTotal<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
             }
             else {
             $sql = 'select achat.id, date_format(dateAchat, "'.\Common\Common::setFormatDate().'") as dateAchat, numero, nom,poidsTotal,sum(avance) montantTotal , regle
