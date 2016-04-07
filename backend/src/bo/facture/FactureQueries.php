@@ -363,4 +363,95 @@ class FactureQueries {
     	$Facture = $stmt->fetch();
     	return $Facture['nb'];
     }
+    
+    public function getInfoMontantTotal($typeFacture, $dateDebut, $dateFin, $codeUsine) {
+    	if($dateDebut=='')
+    		$dateDebut="1900-01-01";
+    	if($dateFin=="")
+    		$dateFin="2900-01-01";
+    	if($dateDebut=="")
+    		$dateDebut="1900-01-01";
+    	if($dateFin=="")
+    		$dateFin="2900-01-01";
+    	if($typeFacture=='*')
+    		$sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+    	else
+    		$sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle='.$typeFacture.' and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$infos = $stmt->fetch();
+    	return $infos;
+    }
+    
+    public function getInfoPoidsTotal($typeFacture, $dateDebut, $dateFin, $codeUsine) {
+    	if($dateDebut=='')
+    		$dateDebut="1900-01-01";
+    	if($dateFin=="")
+    		$dateFin="2900-01-01";
+    	if($dateDebut=="")
+    		$dateDebut="1900-01-01";
+    	if($dateFin=="")
+    		$dateFin="2900-01-01";
+    	if($typeFacture=='*')
+    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture WHERE status=1 and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'"';
+    	else
+    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture f WHERE status=1 and regle='.$typeFacture.' and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'"';
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$infos = $stmt->fetch();
+    	return $infos;
+    }
+    
+    public function retrieveFactureInventaire($dateDebut, $dateFin, $regle,$codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+    	if($sWhere !== "")
+    		$sWhere = " and " . $sWhere;
+    	if($dateDebut=='')
+    		$dateDebut="1900-01-01";
+    	if($dateFin=='')
+    		$dateFin="2900-01-01";
+    	if($dateDebut=='')
+    		$dateDebut="1900-01-01";
+    	if($dateFin=='')
+    		$dateFin="2900-01-01";
+    	if($codeUsine !=='*') {
+    		if($regle !=='*'){
+    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(avance) montantTotal, regle
+                    from facture, client,reglement_facture where client.id=facture.mareyeur_id and  facture.id=facture_id and montantHt<>0 and regle='.$regle.'  and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    		}
+    		else {
+    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, sum(avance) montantTotal, regle
+                    frofactureat, client, reglement_facture  where client.id=facture.client_id and facture.id=facture_id AND (regle=2 OR regle=1) and montantHt<>0 and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    		}
+    	}
+    	else {
+    		if($regle !=='*'){
+    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(avance) montantTotal, regle
+                    frofactureat, client where client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    		}
+    		else {
+    			$sql = 'select facture.id, date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(avance) montantTotal , regle
+                    from facture, client,reglement_facture where client.id=facture.client_id AND (regle=2 OR regle=1) and montantHt<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    		}
+    	}
+    	$sql = str_replace("`", "", $sql);
+    	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$products = $stmt->fetchAll();
+    	$arrayAchats = array();
+    	$i = 0;
+    	foreach ($products as $key => $value) {
+    		// $arrayAchats [$i] [] = $value ['id'];
+    		$reglement = $this->getTotalReglementByAchat($value ['id']);
+    		$arrayAchats [$i] [] = $value ['regle'];
+    		$arrayAchats [$i] [] = $value ['numero'];
+    		$arrayAchats [$i] [] = $value ['dateFacture'];
+    		$arrayAchats [$i] [] = $value ['nom'];
+    		$arrayAchats [$i] [] = $value ['nbTotalPoids'];
+    		$arrayAchats [$i] [] = $value ['montantHt'];
+    		$reliquat = floatval($value ['montantHt']) - floatval($reglement);
+    		$arrayAchats [$i] [] = $reliquat;
+    		$i++;
+    	}
+    	return $arrayAchats;
+    }
 }

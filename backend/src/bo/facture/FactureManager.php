@@ -236,5 +236,32 @@ public function findStatisticByUsine($codeUsine) {
     	} else
     		return 0;
     }
+    
+    public function getInfoInventaire($typeFacture, $dateDebut, $dateFin, $codeUsine) {
+    	$infosP = $this->factureQuery->getInfoPoidsTotal($typeFacture, $dateDebut, $dateFin, $codeUsine);
+    	$infosM = $this->factureQuery->getInfoMontantTotal($typeFacture, $dateDebut, $dateFin, $codeUsine);
+    	$infosTab = array();
+    	//var_dump($infos);
+    	if ($infosP != null && $infosM !=null) {
+    		if($infosM['montantTotal'] !=null)
+    			$infosTab['montantTotal'] = $infosM['montantTotal'];
+    		else
+    			$infosTab['montantTotal'] = 0.00;
+    		if($infosP['poidsTotal'] !=null)
+    			$infosTab['poidsTotal'] = $infosP['poidsTotal'];
+    		else
+    			$infosTab['poidsTotal'] = 0.00;
+    	}
+    	else {
+    		$infosTab['poidsTotal'] =0.00;
+    		$infosTab['montantTotal'] =0.00;
+    	}
+    
+    	return $infosTab;
+    }
+    
+    public function retrieveFactureInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	return $this->factureQuery->retrieveFactureInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    }
 
 }
