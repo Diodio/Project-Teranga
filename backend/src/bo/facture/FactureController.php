@@ -363,7 +363,7 @@ class FactureController extends BaseController implements BaseAction {
                     $facture->setDatePaiement(new \DateTime($request['datePaiement']));
                 // $achat->setCodeUsine($request['codeUsine']);
                 // $achat->setLogin($request['login']);
-                if ($request['avance'] != "" && $request['avance']!=0) {
+                if ($request['avance'] != "" && $request['avance'] != "undefined" && $request['avance']!=0) {
                     if ($request['regle'] == "true")
                         $facture->setRegle(2);
                     else
