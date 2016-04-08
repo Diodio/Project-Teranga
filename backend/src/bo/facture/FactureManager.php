@@ -61,6 +61,7 @@ class FactureManager {
     public function countFactureAnnules($codeUsine,$where="") {
         return $this->factureQuery->countFactureAnnules($codeUsine,$where);
     }
+    
     public function validFacture($factureId) {
         return $this->factureQuery->validFacture($factureId);
     }
@@ -264,4 +265,7 @@ public function findStatisticByUsine($codeUsine) {
     	return $this->factureQuery->retrieveFactureInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
+    public function countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
+        return $this->factureQuery->countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $where);
+    }
 }
