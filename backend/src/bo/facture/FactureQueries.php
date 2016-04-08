@@ -427,7 +427,7 @@ class FactureQueries {
     	else {
     		if($regle !=='*'){
     			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(avance) montantTotal, regle
-                    frofactureat, client where client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    frofactureat, client,reglement_facture  where client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
     			$sql = 'select facture.id, date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(avance) montantTotal , regle
