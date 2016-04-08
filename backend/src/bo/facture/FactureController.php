@@ -119,7 +119,7 @@ class FactureController extends BaseController implements BaseAction {
                 if ($request['regle'] == "true")
                     $facture->setRegle(2);
                 else {
-                    if ($request['avance'] != "") {
+                    if ($request['avance'] != "" && $request['avance'] != "undefined") {
                         $facture->setRegle(1);
                         $reliquat = $request['montantTtc'] - $request['avance'];
                         if ($reliquat == 0)
@@ -141,7 +141,7 @@ class FactureController extends BaseController implements BaseAction {
                 $facture->setClient($client);
                 $factureAdded = $factureManager->insert($facture);
                 if ($factureAdded->getId() != null) {
-                    if ($request['avance'] != "" && $request['regle'] != "true") {
+                    if ($request['avance'] != "" && $request['avance'] != "undefined" && $request['regle'] != "true") {
                         $reglementManager = new Reglement\ReglementManager();
                         $reglementManager->insert($reglement);
                     }
@@ -363,7 +363,7 @@ class FactureController extends BaseController implements BaseAction {
                     $facture->setDatePaiement(new \DateTime($request['datePaiement']));
                 // $achat->setCodeUsine($request['codeUsine']);
                 // $achat->setLogin($request['login']);
-                if ($request['avance'] != "" && $request['avance']!=0) {
+                if ($request['avance'] != "" && $request['avance'] != "undefined" && $request['avance']!=0) {
                     if ($request['regle'] == "true")
                         $facture->setRegle(2);
                     else
