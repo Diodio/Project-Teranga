@@ -213,7 +213,7 @@ class AchatQueries {
         return $nbClients['nbAchats'];
     }
         
-        public function countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $sWhere = "") {
+          public function countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($dateDebut=='')
@@ -227,18 +227,18 @@ class AchatQueries {
         if ($codeUsine !== '*') {
             if ($regle !== '*') {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from achat, mareyeur,reglement_achat where mareyeur.id=achat.mareyeur_id and achat.id=achat_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and avance<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
             } else {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="' . $codeUsine . '" AND (regle=2 OR regle=1) and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from achat, mareyeur,reglement_achat where mareyeur.id=achat.mareyeur_id and achat.id=achat_id and codeUsine="' . $codeUsine . '" AND (regle=2 OR regle=1) and avance<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
             }
         } else {
             if ($regle !== '*') {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and regle=' . $regle . ' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from achat, mareyeur,reglement_achat where mareyeur.id=achat.mareyeur_id and achat.id=achat_id and regle=' . $regle . ' and avance<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '  ';
             } else {
                 $sql = 'select count(achat.id) as nbAchats
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id AND (regle=2 OR regle=1) and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from achat, mareyeur,reglement_achat where mareyeur.id=achat.mareyeur_id and achat.id=achat_id AND (regle=2 OR regle=1) and avance<>0 and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             }
         }
 

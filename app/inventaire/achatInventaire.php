@@ -176,7 +176,7 @@
             }else{
                 console.log(sData.poidsTotal);
 //                 $("#poidsTotal").text(sData.poidsTotal);
-                $("#poidsTotal").text(parseFloat(sData.montantTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString())
+                $("#poidsTotal").text(parseFloat(sData.poidsTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString())
                // $("#montantTotal").text(sData.montantTotal);
                 $("#montantTotal").text(parseFloat(sData.montantTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString())
             }
