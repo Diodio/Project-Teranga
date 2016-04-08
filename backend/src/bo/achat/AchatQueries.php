@@ -443,9 +443,9 @@ class AchatQueries {
         if($dateFin=="")
             $dateFin="2900-01-01";
         if($typeAchat=='*')
-            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND (regle=2 OR regle=1) and  montantTotal<>0.00 AND avance<>0.00 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
         else
-            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle='.$typeAchat.' and montantTotal<>0 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+            $sql = 'SELECT SUM(avance) montantTotal FROM reglement_achat ra, achat a WHERE achat_id=a.id AND regle='.$typeAchat.' and  montantTotal<>0.00 AND avance<>0.00 and codeUsine="'.$codeUsine.'"  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $infos = $stmt->fetch();
