@@ -13,6 +13,17 @@
 
  require_once('../../html2pdf.class.php');
 $factureId = $_GET['factureId'];
+$paramsConnexion = parse_ini_file("../../config/parameters.ini");
+// $usineCode = $_GET['codeUsine'];
+$hostname = $paramsConnexion['host'];
+$database = $paramsConnexion['dbname'];
+$username = $paramsConnexion['user'];
+$password = $paramsConnexion['password'];
+$connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
+mysqli_select_db($connexion, $database);
+$sql = "SELECT numero FROM facture where id=$factureId";
+$Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
+$row = mysqli_fetch_array($Result);
     // get the HTML
     ob_start();
     include(dirname(__FILE__).'/factureContenuPdf.php');
@@ -27,7 +38,7 @@ $factureId = $_GET['factureId'];
         $html2pdf->pdf->SetDisplayMode('fullpage');
 //      $html2pdf->pdf->SetProtection(array('print'), 'spipu');
         $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-        $html2pdf->Output('Facture_'.$factureId.'.pdf');
+        $html2pdf->Output('Facture_'.$row['numero'].'.pdf');
     }
     catch(HTML2PDF_exception $e) {
         echo $e;

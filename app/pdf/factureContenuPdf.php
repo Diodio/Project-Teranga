@@ -130,7 +130,7 @@ td    { vertical-align: top; }
                     </tr>
                     <tr >
                         <td style="height: 15px;">
-                            Mode de paiement: <b><?php echo $row['modePaiement'];?></b>
+                            Mode de paiement: <b><?php if($row['modePaiement']!="undefined") echo $row['modePaiement'];?></b>
                         </td>
                     </tr>
                      <tr >
@@ -268,7 +268,7 @@ td    { vertical-align: top; }
      <div style="color:green;text-align: center; border-top: 1px solid">
          QUAI DE PECHE - BP:27122 Dakar Colis
         RC: SN-DKR-2006B17900 NINEA: 0025442782V2
-        SWIFT: BICISNDXXXX   N°COMPTE: SN08 SN01 0015 2001 7895 7000 0733
+        SWIFT: BICISNDXXXX   Nï¿½COMPTE: SN08 SN01 0015 2001 7895 7000 0733
      </div>
      
  </page_footer>
