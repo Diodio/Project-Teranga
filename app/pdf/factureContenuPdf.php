@@ -273,16 +273,5 @@ td    { vertical-align: top; }
      
  </page_footer>
     
-<<<<<<< HEAD
-=======
- <page_footer> 
-     <div style="text-align: center; border-top: 1px solid">
-         QUAI DE PECHE - BP:27122 Dakar Colis
-        RC: SN-DKR-2006B17900 NINEA: 0025442782V2
-        SWIFT: BICISNDXXXX   N°COMPTE: SN08 SN01 0015 2001 7895 7000 0733
-     </div>
-     
- </page_footer>
->>>>>>> branch 'master' of https://github.com/Diodio/Project-Teranga/
 </page>
 
