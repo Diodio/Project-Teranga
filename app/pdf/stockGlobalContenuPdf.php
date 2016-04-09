@@ -13,7 +13,7 @@ $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 //Cette requete permet de recuperer les produits d'une usine
 $sqlProduit="SELECT p.id,nomUsine,p.libelle designation, sr.stock stock FROM produit p, usine u, stock_reel sr 
-				WHERE p.id=sr.produit_id 
+				WHERE stock<>0.00 AND p.id=sr.produit_id 
 				AND u.code=sr.codeUsine
 				GROUP BY codeUsine,p.id";
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
@@ -46,8 +46,8 @@ td    { vertical-align: top; }
             </td>
         </tr>
     </table>
-    <br>
-    <br>
+<!--     <br> -->
+<!--     <br> -->
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
             <td style="width:40%;"></td>
@@ -57,8 +57,8 @@ td    { vertical-align: top; }
     </table>
     
     <br>
-    <br>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
+<!--     <br> -->
+    <table cellspacing="0" style="width: 100%; border: solid 0px black; background: #E7E7E7; text-align: left; font-size: 10pt;">
         <tr>
             <th style="width: 40%">Usine</th>
             <th style="width: 50%">Désignation</th>
@@ -75,7 +75,7 @@ td    { vertical-align: top; }
 //        $totalPrix =$totalPrix+ $rowProduit['prixUnitaire'];
        $totalQuantite =$totalQuantite+ $rowProduit['stock'];
 ?>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
+    <table cellspacing="0" style="width: 100%; border: solid 0px black; background: #F7F7F7; text-align: left; font-size: 10pt;">
         <tr>
             <td style="width: 40%; text-align: left"><?php echo $rowProduit['nomUsine']; ?></td>
             <td style="width: 50%; text-align: left"><?php echo $rowProduit['designation']; ?></td>
@@ -85,7 +85,7 @@ td    { vertical-align: top; }
 <?php
     }
 ?>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
+    <table cellspacing="0" style="width: 100%; border: solid 0px black; background: #E7E7E7; text-align: center; font-size: 10pt;">
         <tr>
             <th style="width: 90%; text-align: left;">Total : </th>
             <th style="width: 10%; text-align: left;"><?php echo number_format($totalQuantite, 0, ',', ' '); ?>kg </th>
