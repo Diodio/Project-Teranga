@@ -121,6 +121,10 @@ td    { vertical-align: top; }
                     <tr>
                         <td style="height: 15px;">
                             NUMERO FACTURE: <b><?php echo $row['numero'];?></b>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="height: 15px;">
                             DATE FACTURE: <b><?php echo date('d/m/Y');?></b>
                         </td>
                     </tr>
@@ -180,12 +184,12 @@ td    { vertical-align: top; }
             </td>
              <td >
                  
-                <table cellspacing="0" style="width: 90%; text-align: left;margin-left:2px;font-size: 10pt">
+                <table cellspacing="0" style="width: 80%; text-align: left;margin-left:2px;font-size: 10pt">
                    <?php while ($rowConteneur = mysqli_fetch_array($ResultConteneur)) {?>
                     <tr>
                         <td style="width: 60%">
                             No conteneur: <b><?php echo $rowConteneur['numConteneur'];?></b>
-                        </td style="width: 60%">
+                        </td style="width: 40%">
                         <td >
                            No plomb : <b><?php echo $rowConteneur['numPlomb'];?></b>
                         </td>
@@ -199,7 +203,7 @@ td    { vertical-align: top; }
     </table>
     <br>
     <br>
-    <table cellspacing="0" style="width: 82%; border: solid 0px black; background: #E7E7E7; text-align: left;margin-left:40px; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 1px black; background: #E7E7E7; text-align: left;margin-left:40px; font-size: 10pt;">
         <tr>
             <th style="width: 20%">Nombre de colis</th>
             <th style="width: 30%">Désignation</th>
@@ -212,7 +216,7 @@ td    { vertical-align: top; }
 <?php
     while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
 ?>
-    <table cellspacing="0" style="width: 82%; border: solid 0px black; background: #F7F7F7; text-align: left;margin-left:40px; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 1px black; background: #F7F7F7; text-align: left;margin-left:40px; font-size: 10pt;">
         <tr>
             <td style="width: 20%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
             <td style="width: 30%; text-align: left"><?php echo $rowProduit['libelle'];?></td>
@@ -224,26 +228,26 @@ td    { vertical-align: top; }
 <?php
     }
 ?>
-    <table cellspacing="0" style="width: 82%; border: solid 0px black; background: #E7E7E7; text-align: center;margin-left:40px; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 1px black; background: #E7E7E7; text-align: center;margin-left:40px; font-size: 10pt;">
         <tr>
             <th style="width: 20%; text-align: left;"><?php echo $row['nbTotalColis'];?></th>
             <th style="width: 30%; text-align: left;"></th>
             <th style="width: 20%; text-align: left;"></th>
             <th style="width: 20%; text-align: left;"><?php echo $row['nbTotalPoids'];?></th>
-            <th style="width: 20%; text-align: left;"><?php echo $row['montantTtc'];?></th>
+            <th style="width: 20%; text-align: left;"><?php echo $row['montantHt'];?></th>
         </tr>
     </table>
     <br>
     
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantTtc'];?></b> <?php echo $row['devise'];?> TTC</td>
+            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantHt'];?></b> <?php echo $row['devise'];?> TTC</td>
             <td style="width:50%; "><span  style="font-size: 25px;" ></span></td>
             <td ></td>
         </tr>
     </table>
     <br>
-     <table cellspacing="0" style="width: 100%; text-align: left;;font-size: 10pt">
+     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
             <tr>
                 <td style="width:25%;"></td>
                 <td style="width:25%"></td>
