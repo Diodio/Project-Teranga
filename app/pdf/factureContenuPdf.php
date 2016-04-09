@@ -45,9 +45,9 @@ td    { vertical-align: top; }
         </tr>
     </table>
     
-     <table cellspacing="0" style="margin-top:-10px;border:1px;color:#444444;width: 90.6%; text-align: left;margin-left:40px; font-size: 14px">
+     <table cellspacing="0" style="margin-top:-10px;border:1px;color:#444444;width: 92%; text-align: left;margin-left:40px; font-size: 14px">
         <tr>
-            <td style="width:45%;">
+            <td style="width:57.6%;">
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 100px">
                     <tr>
                         <td  >
@@ -61,10 +61,10 @@ td    { vertical-align: top; }
             </td>
            
              <td >
-                <table cellspacing="0" style="width: 89%; text-align: left;font-size: 12px;">
+                <table cellspacing="0" style="width: 100%; text-align: left;font-size: 12px;">
                     <tr>
                         <td style="font-size: 16px;color:blue; ">
-                            <b>MACFISH PRODUCTION SUARL</b>
+                            <b>MACFISH PRODUCTION SURL</b>
                         </td>
                     </tr>
                     <tr >
@@ -189,7 +189,7 @@ td    { vertical-align: top; }
             </td>
              <td >
                  
-                <table cellspacing="0" style="width: 80%; text-align: left;margin-left:2px;font-size: 10pt">
+                <table cellspacing="0" style="width: 85%; text-align: left;margin-left:2px;font-size: 10pt">
                    <?php while ($rowConteneur = mysqli_fetch_array($ResultConteneur)) {?>
                     <tr>
                         <td style="width: 60%">
@@ -263,7 +263,15 @@ td    { vertical-align: top; }
                 </td>
             </tr>
         </table>
+        
+        <page_footer> 
+     <div style="color:green;text-align: center; border-top: 1px solid">
+         QUAI DE PECHE - BP:27122 Dakar Colis
+        RC: SN-DKR-2006B17900 NINEA: 0025442782V2
+        SWIFT: BICISNDXXXX   N°COMPTE: SN08 SN01 0015 2001 7895 7000 0733
+     </div>
+     
+ </page_footer>
     
- 
 </page>
 

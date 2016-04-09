@@ -26,7 +26,7 @@
         $html2pdf->pdf->SetDisplayMode('fullpage');
 //      $html2pdf->pdf->SetProtection(array('print'), 'spipu');
         $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-        $html2pdf->Output('exemple07.pdf');
+        $html2pdf->Output('bon_sortie.pdf');
     }
     catch(HTML2PDF_exception $e) {
         echo $e;
