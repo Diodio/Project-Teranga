@@ -268,7 +268,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+<!--                                                    <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
                                                                    for="form-field-1"> Tva </label>
@@ -289,7 +289,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                                        class="" >
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                     <div class="space-6"></div>
                                                     <div class="row">
                                                         <div class="form-group">
@@ -663,7 +663,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#totalColis').text(data.nbTotalColis);
                     $('#PoidsTotal').text(data.nbTotalPoids+ ' kg');
                     $('#MontantHt').text(data.montantHt+ ' ' + data.devise);
-                    $('#montantTtc').val(data.montantTtc );
+//                    $('#montantTtc').val(data.montantTtc );
                     if (data.modePaiement == '' && data.modePaiement == 'undefined')
                         $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
@@ -719,7 +719,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 }
                                                 //console.log(tot);
                                                 $('#MontantHt').text(tot);
-                                                $('#montantTtc').val(Ttc);
+//                                                $('#montantTtc').val(Ttc);
                                                 // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                             }
                                             else {
@@ -788,7 +788,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                          
                     var Ttc = tot+(tot * ($("#tva").val()/100));
-                    $('#montantTtc').val(Ttc);
+//                    $('#montantTtc').val(Ttc);
                     var infoAvance = data.reglement;
                     var mtAv = 0;
                     var rel = 0;
@@ -798,10 +798,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                         });
                         
                         if (!isNaN(mtAv)) {
-                            rel = data.montantTtc - mtAv;
+                            if(!isNaN(rel) && rel>0){
+                                rel = tot - mtAv;
+                                $('#reliquat').val(rel);
+                            }
+                            else
+                                $('#reliquat').val("");
                         }
                         $('#avance').val(mtAv);
-                        $('#reliquat').val(rel);
+                       
 //                    } 
 //                    
                     }
