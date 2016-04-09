@@ -393,9 +393,9 @@ class FactureQueries {
     	if($dateFin=="")
     		$dateFin="2900-01-01";
     	if($typeFacture=='*'){
-    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture, reglement_facture WHERE facture.id=facture_id and (regle=2 OR regle=1) and status=1 and montantHt<>0.00 and reglement_facture.avance<>0 and nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'"';
+    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture WHERE (regle=2 OR regle=1) and status=1 and montantHt<>0.00 and  nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'"';
         } else   
-    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture, reglement_facture WHERE facture.id=facture_id and status=1 and montantHt<>0.00 and reglement_facture.avance<>0 AND nbTotalPoids<>0.00 and regle='.$typeFacture.' and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'"';
+    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture WHERE status=1 and montantHt<>0.00  AND nbTotalPoids<>0.00 and regle='.$typeFacture.' and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'"';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$infos = $stmt->fetch();

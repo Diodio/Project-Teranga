@@ -261,7 +261,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">Montant HT </div>
+                                <div class="profile-info-name">Montant Total </div>
                                 <div class="profile-info-value">
                                     <span id="MontantHt"></span>
                                 </div>
