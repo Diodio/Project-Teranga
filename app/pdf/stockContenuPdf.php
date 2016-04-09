@@ -12,7 +12,7 @@ $sql = "SELECT nomUsine FROM usine WHERE code='$usineCode'";
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 //Cette requete permet de recuperer les produits d'une usine
-$sqlProduit="SELECT p.libelle designation, sr.stock stock FROM produit p, usine u, stock_reel sr WHERE stock<>0.00 and p.id=sr.produit_id AND u.code='$usineCode' group by p.id";
+$sqlProduit="SELECT p.libelle designation, sr.stock stock FROM produit p, stock_reel sr WHERE stock<>0.00 AND p.id=sr.produit_id AND codeUsine='$usineCode' GROUP BY p.id";
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 ?>
 
