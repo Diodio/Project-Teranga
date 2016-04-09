@@ -116,24 +116,25 @@ class FactureController extends BaseController implements BaseAction {
                 $facture->setNbTotalColis($request['nbTotalColis']);
                 $facture->setNbTotalPoids($request['nbTotalPoids']);
                 $facture->setStatus(1);
-                if ($request['regle'] == "true")
-                    $facture->setRegle(2);
-                else {
-                    if ($request['avance'] != "" && $request['avance'] != "undefined") {
-                        $facture->setRegle(1);
-                        $reliquat = $request['montantTtc'] - $request['avance'];
-                        if ($reliquat == 0)
-                            $facture->setRegle(2);
-                        $facture->setReliquat($reliquat);
-                        $reglement = new Reglement\ReglementFacture();
-                        $reglement->setFacture($facture);
-                        $reglement->setDatePaiement(new \DateTime("now"));
-                        $reglement->setAvance($request['avance']);
-                    }
-                    else {
-                        $facture->setRegle(0);
-                    }
-                }
+                $facture->setRegle(0);
+//                if ($request['regle'] == "true")
+//                    $facture->setRegle(2);
+//                else {
+//                    if ($request['avance'] != "" && $request['avance'] != "undefined") {
+//                        $facture->setRegle(1);
+//                        $reliquat = $request['montantTtc'] - $request['avance'];
+//                        if ($reliquat == 0)
+//                            $facture->setRegle(2);
+//                        $facture->setReliquat($reliquat);
+//                        $reglement = new Reglement\ReglementFacture();
+//                        $reglement->setFacture($facture);
+//                        $reglement->setDatePaiement(new \DateTime("now"));
+//                        $reglement->setAvance($request['avance']);
+//                    }
+//                    else {
+//                        $facture->setRegle(0);
+//                    }
+//                }
                 $facture->setCodeUsine($request['codeUsine']);
                 $facture->setLogin($request['login']);
                 $clientManager = new \Client\ClientManager();

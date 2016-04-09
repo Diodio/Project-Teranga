@@ -101,7 +101,7 @@
                                     Date
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
-                                    Maréyeur
+                                    Client
                                 </th>
                                 <th style="border-left: 0px none;border-right: 0px none;">
                                     Quantité

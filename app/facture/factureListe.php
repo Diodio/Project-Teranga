@@ -809,7 +809,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#avance').val("0.00");
                         $('#reliquat').val(Ttc);
                     }
-
+                    if(data.regle==2)
+                         $('#regleFacture').prop('checked', true);
+                    else
+                         $('#regleFacture').prop('checked', false);
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();
                 }).error(function (error) {
@@ -1016,7 +1019,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var datePaiement = $("#datePaiement").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
-            var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
+            var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
             var regle=false;
             if(Aregle === 'on')
                  regle=true;
