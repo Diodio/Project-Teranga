@@ -79,7 +79,7 @@ td    { vertical-align: top; }
                     </tr>
                     <tr>
                         <td style="height: 15px;">
-                            <b>E-mail : macfishport@live.fr / macfish@macfishproduction.com</b>
+                            <b>E-mail : macfishport@live.fr</b>
                         </td>
                     </tr>
                     <tr>
@@ -133,6 +133,11 @@ td    { vertical-align: top; }
                             Mode de paiement: <b><?php echo $row['modePaiement'];?></b>
                         </td>
                     </tr>
+                     <tr >
+                        <td style="height: 15px; font-family:arial">
+                            Bénéficiaire: <b>MACFISH PRODUCTION SURL</b>
+                        </td>
+                    </tr>
                     <tr>
                         <td style="height: 15px;">
                             Notre banque: <b>BICIS (SENEGAL)</b>
@@ -150,7 +155,7 @@ td    { vertical-align: top; }
                     </tr>
                     <tr>
                         <td style="height: 15px;">
-                            Numero compte: <b>SN08 SN01 0015 2001 7895 7000 0733</b>
+                            IBAN: <b>SN08 SN01 0015 2001 7895 7000 0733</b>
                         </td>
                     </tr>
                 </table>
@@ -203,11 +208,11 @@ td    { vertical-align: top; }
     </table>
     <br>
     <br>
-    <table cellspacing="0" style="width: 82%; border: solid 1px black; background: #E7E7E7; text-align: left;margin-left:40px; font-size: 10pt;">
+    <table cellspacing="0"  style="width: 82%; border: solid 1px black; ; text-align: left;margin-left:40px; font-size: 10pt;">
         <tr>
-            <th style="width: 20%">Nombre de colis</th>
-            <th style="width: 30%">Désignation</th>
-            <th style="width: 20%">Prix Unitaire</th>
+            <th style="width: 15%">Nb colis</th>
+            <th style="width: 40%">Désignation</th>
+            <th style="width: 15%">Prix Unitaire</th>
             <th style="width: 20%;">Quantité</th>
             <th style="width: 20%;">Montant</th>
         </tr>
@@ -216,32 +221,32 @@ td    { vertical-align: top; }
 <?php
     while ($rowProduit = mysqli_fetch_array($ResultProduit)) {
 ?>
-    <table cellspacing="0" style="width: 82%; border: solid 1px black; background: #F7F7F7; text-align: left;margin-left:40px; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 0px black;  text-align: left;margin-left:40px; font-size: 10pt;">
         <tr>
-            <td style="width: 20%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
-            <td style="width: 30%; text-align: left"><?php echo $rowProduit['libelle'];?></td>
-            <td style="width: 20%; text-align: left"><?php echo $rowProduit['prixUnitaire'];?></td>
-            <td style="width: 20%; text-align: left"><?php echo $rowProduit['quantite'];?></td>
-            <td style="width: 20%; text-align: left;"><?php echo $rowProduit['montant'];?></td>
+            <td style="border-left: 1px solid #000;border-right: 1px solid #000;width: 15%; text-align: left"><?php echo $rowProduit['nbColis'];?></td>
+            <td style="border-right: 1px solid #000;width: 40%; text-align: left"><?php echo $rowProduit['libelle'];?></td>
+            <td style="border-right: 1px solid #000;width: 15%; text-align: left"><?php echo $rowProduit['prixUnitaire'];?></td>
+            <td style="border-right: 1px solid #000;width: 20%; text-align: left"><?php echo $rowProduit['quantite'];?></td>
+            <td style="border-right: 1px solid #000;width: 20%; text-align: left;"><?php echo $rowProduit['montant'];?></td>
         </tr>
     </table>
 <?php
     }
 ?>
-    <table cellspacing="0" style="width: 82%; border: solid 1px black; background: #E7E7E7; text-align: center;margin-left:40px; font-size: 10pt;">
+    <table cellspacing="0" style="width: 82%; border: solid 1px black; ; text-align: center;margin-left:40px; font-size: 10pt;">
         <tr>
             <th style="width: 20%; text-align: left;"><?php echo $row['nbTotalColis'];?></th>
             <th style="width: 30%; text-align: left;"></th>
             <th style="width: 20%; text-align: left;"></th>
-            <th style="width: 20%; text-align: left;"><?php echo $row['nbTotalPoids'];?></th>
-            <th style="width: 20%; text-align: left;"><?php echo $row['montantHt'];?></th>
+            <th style="border-left: 1px solid #000;width: 20%; text-align: left;"><?php echo $row['nbTotalPoids'];?></th>
+            <th style="border-left: 1px solid #000;width: 20%; text-align: left;"><?php echo $row['montantHt'];?></th>
         </tr>
     </table>
     <br>
     
     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantHt'];?></b> <?php echo $row['devise'];?> TTC</td>
+            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantHt'];?></b> <?php echo $row['devise'];?> HTVA</td>
             <td style="width:50%; "><span  style="font-size: 25px;" ></span></td>
             <td ></td>
         </tr>
