@@ -798,8 +798,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         });
                         
                         if (!isNaN(mtAv)) {
+                            rel = tot - mtAv;
                             if(!isNaN(rel) && rel>0){
-                                rel = tot - mtAv;
                                 $('#reliquat').val(rel);
                             }
                             else
@@ -812,7 +812,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                     else {
                         $('#avance').val("0.00");
-                        $('#reliquat').val(Ttc);
+                        $('#reliquat').val(tot);
                     }
                     if(data.regle==2)
                          $('#regleFacture').prop('checked', true);
