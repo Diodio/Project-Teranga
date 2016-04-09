@@ -261,11 +261,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">Montant Total </div>
+                                <div class="profile-info-name">Montant HT </div>
                                 <div class="profile-info-value">
-                                    <span id="MontantTotal"></span>
+                                    <span id="MontantHt"></span>
                                 </div>
                             </div>
+                            
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Status </div>
                                 <div class="profile-info-value">
@@ -659,10 +660,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                     "bServerSide": true,
                     "bLengthChange": true,
                     "bFilter": true,
-                    //afficher nombre élément
+                    //afficher nombre ï¿½lï¿½ment
                     "bInfo": true,
                     "sAjaxSource": url,
-                  //afficher nombre élément
+                  //afficher nombre ï¿½lï¿½ment
                     "sPaginationType": "full_numbers",
                     "fnServerData": function ( sSource, aoData, fnCallback ) {
                         aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_REGLEMENTS; ?>"});
@@ -708,7 +709,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#adresse').text(data.adresse);
                     $('#pays').text(data.pays);
                     $('#factureUser').text(data.user);
-                    $('#MontantTotal').text(data.montantTtc);
+                    $('#MontantHt').text(data.montantHt);
                     $('#TABLE_FACTURES tbody').html("");
                     var table = data.ligneFacture;
                     var trHTML='';
@@ -745,7 +746,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                     $('#tab_versement tbody').append(trHTMLAv);
                     if(!isNaN(mtAv)) {
-                        rel = data.montantTtc - mtAv;
+                        rel = data.montantHt - mtAv;
                         $('#sommeAvance').text(mtAv);
                          if(!isNaN(rel))
                             $('#reliquat').text(rel);
