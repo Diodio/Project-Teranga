@@ -38,6 +38,7 @@
                         <span class="col-sm-10">
                             <select id="regle" name="regle" style="margin-left: -15px;">
                                     <option value="*" class="">Filtrer par type factures</option>
+                                    <option value="0" class="red bigger-130 icon-only">Factures non réglées</option>
                                     <option value="2" class="green bigger-130 icon-only">Factures réglées</option>
                                     <option value="1" class="orange bigger-130 icon-only">Factures avec reliquat</option>
                             </select>
@@ -246,6 +247,8 @@
                                     src += '<span class="badge badge-transparent tooltip-error" title="Réglé:"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
                                 else if (data == 1)
                                     src += '<span class="badge badge-transparent tooltip-error" title="Reliquat: '+full[6]+' F CFA"><i class="ace-icon fa fa-check-square-o orange red bigger-130 icon-only"></i></span>';
+                                else if (data == 0)
+                                    src += '<span class="badge badge-transparent tooltip-error" title=""><i class="ace-icon fa fa-check-square-o red bigger-130 icon-only"></i></span>';
                                 return src;
                             }
                         }

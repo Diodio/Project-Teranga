@@ -419,7 +419,7 @@ class FactureQueries {
                     from facture, client,reglement_facture where client.id=facture.client_id and  facture.id=facture_id and montantHt<>0.00 and reglement_facture.avance<>0.00  and regle='.$regle.'  and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
-    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, sum(reglement_facture.avance) montantTotal, regle
+                     $sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, sum(reglement_facture.avance) montantTotal, regle
                      from facture, client, reglement_facture where client.id=facture.client_id and facture.id=facture_id AND (regle=2 OR regle=1) and montantHt<>0.00 and reglement_facture.avance<>0.00 and codeUsine="'.$codeUsine.'" and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}

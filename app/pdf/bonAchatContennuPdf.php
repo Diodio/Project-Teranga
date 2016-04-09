@@ -171,7 +171,7 @@ hr {
             <td style="width: 30%;"> </td>
             <td style="width: 25%;"></td>
             <td style="width: 20%;">Transport </td>
-            <td style="width: 25%;"><b><?php echo  $row['transport'] ?>  FCFA</b> </td>
+            <td style="width: 25%;"><b><?php if($row['transport']>0) echo $row['transport']; else echo "0"; ?>  FCFA</b> </td>
         </tr>
     </table>
      </div>
@@ -319,6 +319,14 @@ hr {
             <td style="width: 25%;"></td>
             <td style="width: 20%;">Reliquat </td>
             <td style="width: 25%;"><b><?php echo  $total - $rowAvance['sommeAvance'] ?> FCFA</b> </td>
+        </tr>
+    </table>
+        <table cellspacing="0" style="text-align: center; font-size: 13px;">
+        <tr>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Transport </td>
+            <td style="width: 25%;"><b><?php if($row['transport']>0) echo $row['transport']; else echo "0"; ?>  FCFA</b> </td>
         </tr>
     </table>
      </div>
