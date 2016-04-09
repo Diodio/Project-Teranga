@@ -29,7 +29,7 @@ td    { vertical-align: top; }
 
 -->
 </style>
-<page backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" footer="date;heure;page" style="font-size: 12pt">
+<page backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="30mm" style="font-size: 12pt">
     <bookmark title="Lettre" level="0" ></bookmark>
     <br>
     <br>
@@ -69,12 +69,12 @@ td    { vertical-align: top; }
                     </tr>
                     <tr >
                         <td style="height: 15px;" >
-                           <b> Quai de Pêche Mole 10</b>
+                           <b> Quai de Pï¿½che Mole 10</b>
                         </td>
                     </tr>
                     <tr>
                         <td style="height: 15px;">
-                            <b>Tel : (00) 221 33 821 84 70 – (00) 221 77 637 09 48</b>
+                            <b>Tel : (00) 221 33 821 84 70 ï¿½ (00) 221 77 637 09 48</b>
                         </td>
                     </tr>
                     <tr>
@@ -264,6 +264,13 @@ td    { vertical-align: top; }
             </tr>
         </table>
     
- 
+ <page_footer> 
+     <div style="text-align: center; border-top: 1px solid">
+         QUAI DE PECHE - BP:27122 Dakar Colis
+        RC: SN-DKR-2006B17900 NINEA: 0025442782V2
+        SWIFT: BICISNDXXXX   NÂ°COMPTE: SN08 SN01 0015 2001 7895 7000 0733
+     </div>
+     
+ </page_footer>
 </page>
 
