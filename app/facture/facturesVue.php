@@ -1233,9 +1233,9 @@ $(document).ready(function () {
             var montantTtc = $("#montantTtc").val();
             var nbTotalColis = $("#totalColis").val();
             var nbTotalPoids = $("#qteTotal").val();
-            var modePaiement = $("#modePaiement").val();
-            var numCheque = $("#numCheque").val();
-            var datePaiement = $("#datePaiement").val();
+            var modePaiement = "";
+            var numCheque =  "";
+            var datePaiement = "";
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
             var codeUsine = "<?php echo $codeUsine ?>";
