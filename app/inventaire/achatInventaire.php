@@ -35,7 +35,13 @@
                         </h4>
 
                         </span>
-                        <span class="col-sm-10">
+                        <span class="span5" style="margin-right: 5%;">
+                            <select id="CMB_MAREYEURS" name="CMB_MAREYEURS" style="width: 180px;">
+                                <option value="*" class="mareyeurs">Filtrer par mareyeur</option>
+                                    
+                            </select>
+                        </span>
+                        <span class="span7">
                             <select id="regle" name="regle" style="margin-left: -15px;">
                                     <option value="*" class="">Filtrer par type achat</option>
                                     <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
@@ -131,6 +137,7 @@
             var oTableAchats= null;
             var nbTotalAchatsChecked=0;
             var checkedAchats = new Array();
+            $('#CMB_MAREYEURS').select2();
             // Check if an item is in the array
            // var interval = 500;
     getDate=function(debut){
@@ -159,14 +166,29 @@
     
    // $('#dateDebut').val(getDate(true));
    // $('#dateFin').val(getDate());
-    loadInfosInventaire = function (typeAchat, dateD, dateF) {
+    loadMareyeur = function(){
+    $.post("<?php echo App::getBoPath(); ?>/mareyeur/MareyeurController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                 $("#CMB_MAREYEURS").loadJSON('{"mareyeurs":' + data + '}');
+            }
+    });
+    };
+    loadMareyeur();
+        loadInfosInventaire = function (mareyeurId,typeAchat, dateD, dateF) {
         var dateDebut='';
         var dateFin='';
         if(typeof(dateD)!=='undefined')
             dateDebut=dateD;
         if(typeof(dateF)!=='undefined')
             dateFin=dateF;
-        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {typeAchat:typeAchat,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
+        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {mareyeurId:mareyeurId, typeAchat:typeAchat,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -216,7 +238,7 @@
          
             // Persist checked Message when navigating
             
-             loadAchats = function(dateDebut, dateFin, regle) {
+             loadAchats = function(mareyeurId, dateDebut, dateFin, regle) {
                 nbTotalAchatsChecked = 0;
                 checkedAchats = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
@@ -289,6 +311,7 @@
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "profil", "value": $.cookie('profil')});
                         aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
+                        aoData.push({"name": "mareyeurId", "value": mareyeurId});
                         aoData.push({"name": "dateDebut", "value": dateDebut});
                         aoData.push({"name": "dateFin", "value": dateFin});
                         aoData.push({"name": "regle", "value": regle});
@@ -321,18 +344,23 @@
                     return arr[2] + '-' + arr[1] + '-' + arr[0];
                 }
             };
-            loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-            loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+            loadInfosInventaire($('#CMB_MAREYEURS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+            loadAchats($('#CMB_MAREYEURS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
 
             $('#regle').change(function() {
-                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-                loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+                loadInfosInventaire($('#CMB_MAREYEURS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+                loadAchats($('#CMB_MAREYEURS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+            });
+            
+            $('#CMB_MAREYEURS').change(function() {
+                loadInfosInventaire($('#CMB_MAREYEURS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+                loadAchats($('#CMB_MAREYEURS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
             });
             
             $("#BTN_SEARCH").click(function()
             {
-                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-                loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+                loadInfosInventaire($('#CMB_MAREYEURS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+                loadAchats($('#CMB_MAREYEURS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
                // alert("dd");
             });
         $("#MNU_IMPRIMER").click(function()

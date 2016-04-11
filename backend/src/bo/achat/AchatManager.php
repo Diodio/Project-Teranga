@@ -47,8 +47,8 @@ class AchatManager {
     	return $this->achatQuery->retrieveAllAchatGerant($login,$codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
     
-    public function retrieveAchatInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->achatQuery->retrieveAchatInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAchatInventaire($mareyeurId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->achatQuery->retrieveAchatInventaire($mareyeurId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
     public function retrieveAllReglements($codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
@@ -63,8 +63,8 @@ class AchatManager {
         return $this->achatQuery->count($typeAchat, $codeUsine, $where);
     }
     
-    public function countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
-        return $this->achatQuery->countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $where);
+    public function countInventaires($mareyeurId,$dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
+        return $this->achatQuery->countInventaires($mareyeurId,$dateDebut, $dateFin, $regle, $codeUsine, $where);
     }
 
     public function countReglement($codeUsine, $where = "") {
@@ -254,9 +254,9 @@ class AchatManager {
         }
     }
 
-    public function getInfoInventaire($typeAchat, $dateDebut, $dateFin, $codeUsine) {
-        $infosP = $this->achatQuery->getInfoPoidsTotal($typeAchat, $dateDebut, $dateFin, $codeUsine);
-        $infosM = $this->achatQuery->getInfoMontantTotal($typeAchat, $dateDebut, $dateFin, $codeUsine);
+    public function getInfoInventaire($mareyeurId,$typeAchat, $dateDebut, $dateFin, $codeUsine) {
+        $infosP = $this->achatQuery->getInfoPoidsTotal($mareyeurId,$typeAchat, $dateDebut, $dateFin, $codeUsine);
+        $infosM = $this->achatQuery->getInfoMontantTotal($mareyeurId,$typeAchat, $dateDebut, $dateFin, $codeUsine);
         $infosTab = array();
         //var_dump($infos);
         if ($infosP != null && $infosM !=null) {

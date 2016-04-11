@@ -469,9 +469,9 @@ class AchatController extends BaseController implements BaseAction {
                     }
                 }
                 // End filter from dataTable
-                $achats = $achatManager->retrieveAchatInventaire($request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $achats = $achatManager->retrieveAchatInventaire($request['mareyeurId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($achats != null) {
-                    $nbAchats = $achatManager->countInventaires($request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $sWhere);
+                    $nbAchats = $achatManager->countInventaires($request['mareyeurId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($achats, $request['sEcho'], $nbAchats));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
@@ -543,7 +543,7 @@ class AchatController extends BaseController implements BaseAction {
     public function doGetInfoInventaire($request) {
         try {
             $achatManager = new AchatManager();
-            $infos = $achatManager->getInfoInventaire($request['typeAchat'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
+            $infos = $achatManager->getInfoInventaire($request['mareyeurId'], $request['typeAchat'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
             $this->doSuccessO($infos);
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
