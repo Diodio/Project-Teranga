@@ -70,8 +70,8 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         foreach ($products as $key => $value) {
             $arrayStocks [$i] [] = $value ['libelle'];
             $arrayStocks [$i] [] = $value ['stock'];
-            $arrayStocks [$i] [] = $value ['seuil'];
             $arrayStocks [$i] [] = $value ['pid'];
+            $arrayStocks [$i] [] = $value ['seuil'];
             $i++;
         }
         return $arrayStocks;

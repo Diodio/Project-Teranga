@@ -58,11 +58,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         </th>
 
                                         <th class="hidden-480">
-                                            <i class="ace-icon fa fa-caret-right blue"></i>Etat
+                                            <i class="ace-icon fa fa-caret-right blue"></i>Colisage
                                         </th>
 
                                         <th class="hidden-480">
-                                            <i class="ace-icon fa fa-caret-right blue"></i>Colisage
+                                            <i class="ace-icon fa fa-caret-right blue"></i>Etat
                                         </th>
                                     </tr>
                                 </thead>
@@ -158,7 +158,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                      },
                
                "aoColumnDefs": [{
-                        "aTargets": [2],
+                        "aTargets": [3],
                         "bSortable": false,
                         "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                             $(nTd).css('text-align', 'center');
@@ -174,12 +174,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                     },
                         {
-                        "aTargets": [3],
+                        "aTargets": [2],
                         "bSortable": false,
                         "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                             $(nTd).css('text-align', 'center');
                             $(nTd).text('');
-                            $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[3], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_NBCOLIS; ?>"}, function(dataC) {
+                            $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[2], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_NBCOLIS; ?>"}, function(dataC) {
                                 dataVP=$.parseJSON(dataC);
                                 
                                // console.log();
@@ -190,11 +190,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                             $(nTd).addClass('td-actions');
                             action=$('<div></div>');
                             action.addClass('hidden-phone pull-right visible-desktop action-buttons');
-                            btnGrps=$('<button id="colis'+oData[3]+'" class="center btn btn-warning btn-mini" href="#">'+
+                            btnGrps=$('<button id="colis'+oData[2]+'" class="center btn btn-warning btn-mini" href="#">'+
                             '<i class="ace-icon fa fa-pencil bigger-130"></i>'+
                             '</button>');
                             btnGrps.click(function(){
-                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[3], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
+                                $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {produitId: oData[2], codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_COLIS; ?>"}, function(data) {
                                 data=$.parseJSON(data);
                                 var htmlString="<div class='popover-medium' style='width: 550px;'> Liste des colis disponibles<hr>";
                                 $.each(data , function(i) { 
@@ -206,7 +206,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     //console.log(data [i]); 
                                   });
                                   htmlString+="</div>";
-                                showPopover("colis"+oData[3], ""+htmlString+"");
+                                showPopover("colis"+oData[2], ""+htmlString+"");
                                 });
                             });
                             btnGrps.tooltip({
