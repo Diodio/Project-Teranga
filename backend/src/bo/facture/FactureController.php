@@ -646,7 +646,7 @@ class FactureController extends BaseController implements BaseAction {
     public function doGetInfoInventaire($request) {
     	try {
     		$factureManager = new FactureManager();
-    		$infos = $factureManager->getInfoInventaire($request['typeFacture'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
+    		$infos = $factureManager->getInfoInventaire($request['clientId'],$request['typeFacture'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
     		$this->doSuccessO($infos);
     	} catch (Exception $e) {
     		$this->doError('-1', $e->getMessage());
@@ -690,9 +690,9 @@ class FactureController extends BaseController implements BaseAction {
     				}
     			}
     			// End filter from dataTable
-    			$factures = $factureManager->retrieveFactureInventaire($request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			$factures = $factureManager->retrieveFactureInventaire($request['clientId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
     			if ($factures != null) {
-    				$nbAchats = $factureManager->countInventaires($request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $sWhere);
+    				$nbAchats = $factureManager->countInventaires($request['clientId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $sWhere);
     				$this->doSuccessO($this->dataTableFormat($factures, $request['sEcho'], $nbAchats));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

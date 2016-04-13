@@ -35,7 +35,13 @@
                         </h4>
 
                         </span>
-                        <span class="col-sm-10">
+                        <span class="span5" style="margin-right: 5%;">
+                            <select id="CMB_CLIENTS" name="CMB_CLIENTS" style="width: 180px;">
+                                <option value="*" class="clients">Filtrer par client</option>
+                                    
+                            </select>
+                        </span>
+                        <span class="span5">
                             <select id="regle" name="regle" style="margin-left: -15px;">
                                     <option value="*" class="">Filtrer par type factures</option>
                                     <option value="0" class="red bigger-130 icon-only">Factures non réglées</option>
@@ -129,10 +135,30 @@
        <script type="text/javascript">
             jQuery(function ($) {
             var oTableAchats= null;
+            $('#CMB_CLIENTS').select2();
             var nbTotalAchatsChecked=0;
             var checkedAchats = new Array();
             // Check if an item is in the array
            // var interval = 500;
+           
+           
+    loadClients = function(){
+        $.post("<?php echo App::getBoPath(); ?>/client/ClientController.php", {ACTION: "<?php echo App::ACTION_LIST_VALID
+                ; ?>"}, function(data) {
+            sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#CMB_CLIENTS").loadJSON('{"clients":' + data + '}');
+            }
+        });
+    };
+    loadClients();
+    
     getDate=function(debut){
         // GET CURRENT DATE
         var date = new Date();
@@ -159,14 +185,14 @@
     
    // $('#dateDebut').val(getDate(true));
    // $('#dateFin').val(getDate());
-    loadInfosInventaire = function (typeFacture, dateD, dateF) {
+    loadInfosInventaire = function (clientId, typeFacture, dateD, dateF) {
         var dateDebut='';
         var dateFin='';
         if(typeof(dateD)!=='undefined')
             dateDebut=dateD;
         if(typeof(dateF)!=='undefined')
             dateFin=dateF;
-        $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {typeFacture:typeFacture,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
+        $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {clientId:clientId, typeFacture:typeFacture,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -216,7 +242,7 @@
          
             // Persist checked Message when navigating
             
-             loadAchats = function(dateDebut, dateFin, regle) {
+             loadAchats = function(clientId, dateDebut, dateFin, regle) {
                 nbTotalAchatsChecked = 0;
                 checkedAchats = new Array();
                 var url =  '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
@@ -290,6 +316,7 @@
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "profil", "value": $.cookie('profil')});
+                        aoData.push({"name": "clientId", "value": clientId});
                         aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
                         aoData.push({"name": "dateDebut", "value": dateDebut});
                         aoData.push({"name": "dateFin", "value": dateFin});
@@ -317,25 +344,29 @@
                     }
                 });
             };
-            dateformat = function (date) {
+            $('#CMB_CLIENTS').val(),dateformat = function (date) {
                 if(date!==''){
                     var arr = date.split('-');
                     return arr[2] + '-' + arr[1] + '-' + arr[0];
                 }
             };
-            loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-            loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+            loadInfosInventaire($('#CMB_CLIENTS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+            loadAchats($('#CMB_CLIENTS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
 
             $('#regle').change(function() {
-                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-                loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+                loadInfosInventaire($('#CMB_CLIENTS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+                loadAchats($('#CMB_CLIENTS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+            });
+            
+             $('#CMB_CLIENTS').change(function() {
+                loadInfosInventaire($('#CMB_CLIENTS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+                loadAchats($('#CMB_CLIENTS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
             });
             
             $("#BTN_SEARCH").click(function()
             {
-                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-                loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
-               // alert("dd");
+                loadInfosInventaire($('#CMB_CLIENTS').val(),$('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
+                loadAchats($('#CMB_CLIENTS').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
             });
         $("#MNU_IMPRIMER").click(function()
         {

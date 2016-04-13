@@ -134,7 +134,8 @@ class ProduitController extends BaseController implements BaseAction {
         try {
             if ($request['designation'] != "") {
                 $produitManager = new ProduitManager();
-               
+               $checkProduit = $produitManager->findProduitsByName($request['designation']);
+                if ($checkProduit == NULL) {
                     $produit = new Produit();
                     $produit->setId($request['produitId']);
                     $produit->setLibelle($request['designation']);
@@ -179,6 +180,10 @@ class ProduitController extends BaseController implements BaseAction {
                     } else {
                         $this->doError('-1', 'Impossible d\'inserer ce produit');
                     }
+                    
+                }else {
+                    $this->doError('-1', 'Ce produit éxiste déja');
+                }
                
             } else {
                 $this->doError('-1', 'Veuillez vérifier vos parametres');

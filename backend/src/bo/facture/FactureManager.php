@@ -238,9 +238,9 @@ public function findStatisticByUsine($codeUsine) {
     		return 0;
     }
     
-    public function getInfoInventaire($typeFacture, $dateDebut, $dateFin, $codeUsine) {
-    	$infosP = $this->factureQuery->getInfoPoidsTotal($typeFacture, $dateDebut, $dateFin, $codeUsine);
-    	$infosM = $this->factureQuery->getInfoMontantTotal($typeFacture, $dateDebut, $dateFin, $codeUsine);
+    public function getInfoInventaire($clientId,$typeFacture, $dateDebut, $dateFin, $codeUsine) {
+    	$infosP = $this->factureQuery->getInfoPoidsTotal($clientId,$typeFacture, $dateDebut, $dateFin, $codeUsine);
+    	$infosM = $this->factureQuery->getInfoMontantTotal($clientId,$typeFacture, $dateDebut, $dateFin, $codeUsine);
     	$infosTab = array();
     	//var_dump($infos);
     	if ($infosP != null && $infosM !=null) {
@@ -261,11 +261,11 @@ public function findStatisticByUsine($codeUsine) {
     	return $infosTab;
     }
     
-    public function retrieveFactureInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	return $this->factureQuery->retrieveFactureInventaire($dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveFactureInventaire($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
+    	return $this->factureQuery->retrieveFactureInventaire($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
-    public function countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
-        return $this->factureQuery->countInventaires($dateDebut, $dateFin, $regle, $codeUsine, $where);
+    public function countInventaires($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
+        return $this->factureQuery->countInventaires($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $where);
     }
 }
