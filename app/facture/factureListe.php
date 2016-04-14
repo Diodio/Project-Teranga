@@ -370,7 +370,24 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                     
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Inconterm  </label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <select id="Inconterm" class="width-25" >
+                                                                        <option value=""></option>
+                                                                    <option value="CNF">CNF</option>
+                                                                    <option value="FOB">FOB</option>
+                                                                    <option value="CAF">CAF</option>
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>           
 
                                                     <div style="float: right">
                                                         <button id="SAVE" class="btn btn-small btn-info" >
@@ -814,6 +831,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#avance').val("0.00");
                         $('#reliquat').val(tot);
                     }
+                     $('#Inconterm').val(data.inconterm).change();
                     if(data.regle==2)
                          $('#regleFacture').prop('checked', true);
                     else
@@ -1024,6 +1042,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var datePaiement = $("#datePaiement").val();
             var avance = $("#avance").val();
             var reliquat = $("#reliquat").val();
+            var inconterm = $("#Inconterm").val();
             var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
             var regle=false;
             if(Aregle === 'on')
@@ -1071,6 +1090,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('avance', avance);
             formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
+            formData.append('inconterm', inconterm);
             formData.append('regle', regle);
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);

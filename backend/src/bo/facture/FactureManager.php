@@ -182,6 +182,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['modePaiement']  =  $value ['modePaiement'];
                 $factureDetail ['numCheque']  =  $value ['numCheque'];
                 $factureDetail ['datePaiement']  =  $value ['datePaiement'];
+                $factureDetail ['inconterm']  =  $value ['inconterm'];
                 $factureDetail ['regle']  =  $value ['regle'];
                 $factureDetail ['portDechargement']  =  $value ['portDechargement'];
                 $factureDetail['colis'] = $colis;

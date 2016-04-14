@@ -358,6 +358,7 @@ class FactureController extends BaseController implements BaseAction {
                 $facture->setMontantHt($request['montantHt']);
                 $facture->setMontantTtc($request['montantTtc']);
                 $facture->setModePaiement($request['modePaiement']);
+                $facture->setInconterm($request['inconterm']);
                 if ($request['modePaiement'] == 'CHEQUE')
                     $facture->setNumCheque($request['numCheque']);
                 else if ($request['modePaiement'] == 'VIREMENT')

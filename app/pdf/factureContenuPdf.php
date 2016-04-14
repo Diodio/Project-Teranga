@@ -244,11 +244,24 @@ td    { vertical-align: top; }
     </table>
     <br>
     
-    <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
+    <table cellspacing="0" style="margin-left: 35px;width: 90%; text-align: left;font-size: 10pt">
         <tr>
             <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantHt'];?></b> <?php echo $row['devise'];?> HTVA</td>
             <td style="width:50%; "><span  style="font-size: 25px;" ></span></td>
-            <td ></td>
+            <td >
+            </td>
+        </tr>
+        <tr>
+             <td >
+                 
+            </td>  
+            
+        </tr>
+        <tr>
+             <td >
+                 inconterm <b> <?php if($row['inconterm'] !="") echo $row['inconterm'];?></b>
+            </td>  
+            
         </tr>
     </table>
     <br>

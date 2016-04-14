@@ -70,6 +70,12 @@ class Facture {
      * */
     protected $reliquat;
     
+    
+    /**
+     * @Column(type="string", length=60, nullable=true)
+     * */
+    protected $inconterm;
+    
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
@@ -306,6 +312,14 @@ class Facture {
 
     function setDatePaiement($datePaiement) {
         $this->datePaiement = $datePaiement;
+    }
+
+    function getInconterm() {
+        return $this->inconterm;
+    }
+
+    function setInconterm($inconterm) {
+        $this->inconterm = $inconterm;
     }
 
 
