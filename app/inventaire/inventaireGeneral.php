@@ -36,12 +36,7 @@
 
                         </span>
                         <span class="col-sm-10">
-                            <select id="regle" name="regle" style="margin-left: -15px;">
-                                    <option value="*" class="">Filtrer par type achat</option>
-                                    <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
-                                    <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option>
-                                    <option value="0" class="red bigger-130 icon-only">Achats non réglés</option>
-                            </select>
+                            <
                             <span id="labelTo" style="margin-left: 20px;">Periode du</span>
                             <input
 					        class="date-picker" id="dateDebut"
@@ -84,80 +79,23 @@
                                  </div>
                          </div>
             </div>
+                 
+         <div style="margin-top: 15px; text-align:center" >
+                    <div class="infobox infobox-green" style="width: 400px; height: 40px;">
+                                 <div class="infobox-data">
+                                     <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
+                                 </div>
+                         </div>
+                         <div class="infobox infobox-blue" style=" width: 400px; height: 40px;">
+
+
+                                 <div class="infobox-data" style="width:640px">
+                                         <span class="infobox-data-number">Montant total : <span id='montantTotal'></span> F CFA</span>
+                                 </div>
+                         </div>
+            </div>
           </div>
-                    <div class="vspace-12-sm"></div>                    
-                    <div class="widget-body col-sm-6">
-                     <div class="widget-main no-padding" style="margin-top:20px">
-                      
-                          <table id="LIST_ACHATS_INVENTAIRES" class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="center" style="border-right: 0px none;">
-                               
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Numéro
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Date
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Maréyeur
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Quantité
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Montant
-                                </th>
-
-                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
-                                </th>-->
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                        </div><!-- /.widget-main -->
-                        <div class="widget-body col-sm-5">
-                         <div class="widget-main no-padding" style="margin-top:20px">
-                      
-                          <table id="LIST_FACTURES_INVENTAIRES" class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="center" style="border-right: 0px none;">
-                               
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Numéro
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Date
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Maréyeur
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Quantité
-                                </th>
-                                <th style="border-left: 0px none;border-right: 0px none;">
-                                    Montant
-                                </th>
-
-                                <!--<th class="hidden-phone" style="border-left: 0px none;border-right: 0px none;">
-                                </th>-->
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                        </div><!-- /.widget-main -->
-                        </div>
-                        </div>
+                   
                     </div><!-- /.widget-body -->
                 </div><!-- /.widget-box -->
             </div><!-- /.col -->
