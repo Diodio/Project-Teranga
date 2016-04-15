@@ -14,10 +14,10 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Inventaires Achats
+            Inventaire Général
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Achats
+                Inventaire Général
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -31,13 +31,12 @@
                              
                             <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Achats
+                            Inventaire
                         </h4>
 
                         </span>
                         <span class="col-sm-10">
-                            <
-                            <span id="labelTo" style="margin-left: 20px;">Periode du</span>
+                          <span id="labelTo" style="margin-left: 20px;">Période du</span>
                             <input
 					        class="date-picker" id="dateDebut"
 					        name="dateDebut" type="text"
@@ -64,18 +63,18 @@
                         </span>
                          
                     </div>
-                 
+                    <div style="margin-top: 8%">       
          <div style="margin-top: 15px; text-align:center" >
                     <div class="infobox infobox-green" style="width: 400px; height: 40px;">
                                  <div class="infobox-data">
-                                     <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
+                                     <span class="infobox-data-number">Somme Achat : <span id='sommeAchat'>0.00</span> F CFA</span>
                                  </div>
                          </div>
                          <div class="infobox infobox-blue" style=" width: 400px; height: 40px;">
 
 
                                  <div class="infobox-data" style="width:640px">
-                                         <span class="infobox-data-number">Montant total : <span id='montantTotal'></span> F CFA</span>
+                                         <span class="infobox-data-number">Somme vente : <span id='sommeVente'>0.00</span> F CFA</span>
                                  </div>
                          </div>
             </div>
@@ -83,17 +82,18 @@
          <div style="margin-top: 15px; text-align:center" >
                     <div class="infobox infobox-green" style="width: 400px; height: 40px;">
                                  <div class="infobox-data">
-                                     <span class="infobox-data-number">Poids total : <span id='poidsTotal'></span> KG</span>
+                                     <span class="infobox-data-number">Bénéfice globale : <span id='beneficeGlobal'>0.00</span> F CFA</span>
                                  </div>
                          </div>
                          <div class="infobox infobox-blue" style=" width: 400px; height: 40px;">
 
 
                                  <div class="infobox-data" style="width:640px">
-                                         <span class="infobox-data-number">Montant total : <span id='montantTotal'></span> F CFA</span>
+                                         <span class="infobox-data-number">Bénéfice actuelle : <span id='beneficeActuelle'>0.00</span> F CFA</span>
                                  </div>
                          </div>
             </div>
+          </div>
           </div>
                    
                     </div><!-- /.widget-body -->
