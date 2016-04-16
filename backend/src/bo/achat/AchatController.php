@@ -284,6 +284,7 @@ class AchatController extends BaseController implements BaseAction {
                     $achat->setDatePaiement(new \DateTime($request['datePaiement']));
                 // $achat->setCodeUsine($request['codeUsine']);
                 // $achat->setLogin($request['login']);
+                if($achat->getRegle() != 2) {
                 if ($request['avance'] != "") {
                     if ($request['regle'] == "true")
                         $achat->setRegle(2);
@@ -301,6 +302,7 @@ class AchatController extends BaseController implements BaseAction {
                 }
                 else {
                     $achat->setRegle(0);
+                }
                 }
                 $achatAdded = $achatManager->update($achat);
                 if ($achatAdded->getId() != null) {
