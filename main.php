@@ -214,6 +214,12 @@ $nomUsine = $_COOKIE['nomUsine'];
                                 </a> <b class="arrow"></b>
                             </li>
 
+                            <li id="MNU_DEVISE" class=""><a id="DEVISE" href="#"> <i
+                                        class="menu-icon fa fa-desktop"></i> <span class="menu-text">
+                                        Devise </span>
+                                </a> <b class="arrow"></b>
+                            </li>
+
                           
                         </ul>
                     </li>
@@ -630,6 +636,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -656,6 +663,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
 					$("#AJOUTER_ACHATS").attr("Class", "no-active");
 					$("#LISTE_ACHATS").attr("Class", "no-active");
 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -680,6 +688,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -705,6 +714,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
 					$("#AJOUTER_ACHATS").attr("Class", "active");
 					$("#LISTE_ACHATS").attr("Class", "no-active");
 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -746,6 +756,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -777,6 +788,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "active");
@@ -801,6 +813,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
  					$("#LISTE_ACHATS").attr("Class", "no-active");
  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -827,6 +840,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
  					$("#LISTE_ACHATS").attr("Class", "no-active");
  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -852,6 +866,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -877,6 +892,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
  					$("#LISTE_ACHATS").attr("Class", "no-active");
  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -901,6 +917,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -926,6 +943,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -951,6 +969,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LIST_USERS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
@@ -975,6 +994,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
   					$("#AJOUTER_ACHATS").attr("Class", "no-active");
   					$("#LISTE_ACHATS").attr("Class", "no-active");
   					$("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -999,6 +1019,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#MNU_MAREYEURS").attr("Class", "no-active");
                     $("#MNU_BORD").attr("Class", "no-active");
                     $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1025,6 +1046,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1054,6 +1076,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1082,6 +1105,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1111,6 +1135,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                        $("#MNU_MAREYEURS").attr("Class", "no-active");
                        $("#MNU_BORD").attr("Class", "no-active");
                        $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                        $("#AJOUTER_ACHATS").attr("Class", "no-active");
                        $("#LISTE_ACHATS").attr("Class", "no-active");
                        $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1140,6 +1165,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1225,6 +1251,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1275,6 +1302,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#MNU_MAREYEURS").attr("Class", "no-active");
                       $("#MNU_BORD").attr("Class", "no-active");
                       $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "no-active");
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
@@ -1293,6 +1321,32 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
                       $("#INVENTAIRE_GENERALE").attr("Class", "active");
                        $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/inventaire/inventaireGeneral.php", function () {
+                      });
+                   });
+                   $("#MNU_DEVISE").click(function (e) {
+                      $("#MNU_PRODUITS").attr("Class", "no-active");
+                      $("#MNU_MAREYEURS").attr("Class", "no-active");
+                      $("#MNU_BORD").attr("Class", "no-active");
+                      $("#MNU_CLIENTS").attr("Class", "no-active");
+                    $("#MNU_DEVISE").attr("Class", "active");
+                      $("#AJOUTER_ACHATS").attr("Class", "no-active");
+                      $("#LISTE_ACHATS").attr("Class", "no-active");
+                      $("#AJOUTER_SORTIE").attr("Class", "no-active");
+                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_FACTURE").attr("Class", "no-active");
+                      $("#LISTE_SORTIE").attr("Class", "no-active");
+                      $("#REGLEMENT_FACTURE").attr("Class", "no-active");
+                      $("#REGLEMENT_ACHAT").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE").attr("Class", "no-active");
+                      $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+                      $("#STOCK_REEL").attr("Class", "no-active");
+                      $("#LIST_USERS").attr("Class", "no-active");
+                      $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                      $("#INVENTAIRE_ACHAT").attr("Class", "no-active");
+                      $("#CONSULTATION_DEMOULAGESANNULES").attr("Class", "no-active");
+                      $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                      $("#INVENTAIRE_GENERALE").attr("Class", "active");
+                       $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/devise/devise.php", function () {
                       });
                    });
 

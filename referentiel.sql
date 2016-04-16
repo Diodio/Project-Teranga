@@ -36,7 +36,8 @@ INSERT INTO `utilisateur` (`id`, `usine_id`, `profil_id`, `login`, `password`, `
 (19, 2, 5, 'jojo', 'jojo', 'Diodio MBODJ', '1', '1', '2016-03-01 10:13:36', '2016-03-01 10:13:36', NULL, 1, '2016-03-08 20:18:04', '2016-03-08 20:11:36'),
 (20, 3, 4, 'KADY03', 'KADY03', 'KHADISSATOU', '1', '0', NULL, '2016-03-03 11:34:52', NULL, 0, '2016-03-08 10:26:10', '2016-03-08 10:55:33');
 
-
+insert into `devise` (`id`, `devise`, `montant`, `createdDate`, `updatedDate`) values('1','€','320.00',NULL,'2016-04-16 09:25:58');
+insert into `devise` (`id`, `devise`, `montant`, `createdDate`, `updatedDate`) values('2','‎$','5544.00',NULL,'2016-04-15 23:51:19');
 
 --Unicit� des stocks
 ALTER TABLE `colisage` ADD UNIQUE( `produitId`, `quantiteParCarton`, `codeUsine`);
