@@ -35,13 +35,13 @@
                         </h4>
 
                         </span>
-                        <span class="span5" style="margin-right: 5%;">
+                        <span class="span3" style="margin-right: 5%;">
                             <select id="CMB_CLIENTS" name="CMB_CLIENTS" style="width: 180px;">
                                 <option value="*" class="clients">Filtrer par client</option>
                                     
                             </select>
                         </span>
-                        <span class="span5">
+                        <span class="span9">
                             <select id="regle" name="regle" style="margin-left: -15px;">
                                     <option value="*" class="">Filtrer par type factures</option>
                                     <option value="0" class="red bigger-130 icon-only">Factures non réglées</option>

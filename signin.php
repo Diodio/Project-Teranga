@@ -42,7 +42,7 @@
         <![endif]-->
     </head>
 
-    <body class="login-layout" style="background:image/sr">
+    <body class="login-layout  light-login" style="background:image/sr">
         <div class="main-container">
             <div class="main-content">
                 <div class="row">

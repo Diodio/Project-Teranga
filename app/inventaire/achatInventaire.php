@@ -35,13 +35,13 @@
                         </h4>
 
                         </span>
-                        <span class="span5" style="margin-right: 5%;">
+                        <span class="span4" style="margin-right: 5%;">
                             <select id="CMB_MAREYEURS" name="CMB_MAREYEURS" style="width: 180px;">
                                 <option value="*" class="mareyeurs">Filtrer par mareyeur</option>
                                     
                             </select>
                         </span>
-                        <span class="span7">
+                        <span class="span8">
                             <select id="regle" name="regle" style="margin-left: -15px;">
                                     <option value="*" class="">Filtrer par type achat</option>
                                     <option value="2" class="green bigger-130 icon-only">Achats réglés</option>
