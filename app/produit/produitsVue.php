@@ -123,13 +123,13 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock provisoire</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockProvisoire" name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
+                                        <input type="text" id="stockProvisoire" readonly name="stockProvisoire" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Stock reel</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="stockReel" name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
+                                        <input type="text" id="stockReel" readonly name="stockReel" placeholder="" class="col-xs-10 col-sm-7" value="0.00">
                                     </div>
                             </div>
                         </div>
