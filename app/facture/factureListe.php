@@ -888,7 +888,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
             function calculReliquat() {
                 var rel = 0;
-                var mt = parseFloat($("#montantTtc").val());
+                var mt = parseFloat($("#MontantHt").text());
                 var avance = parseFloat($("#avance").val());
                 if (!isNaN(avance) && !isNaN(avance)) {
                     rel = mt - avance;
@@ -905,7 +905,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     else {
                         $.gritter.add({
                             title: 'Notification',
-                            text: 'Le montant saisi ne doit pas être supérieur au montant TTC',
+                            text: 'Le montant saisi ne doit pas être supérieur au montant HT',
                             class_name: 'gritter-error gritter-light'
                         });
                         $("#avance").val("");

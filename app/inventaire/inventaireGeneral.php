@@ -35,7 +35,13 @@
                         </h4>
 
                         </span>
-                        <span class="col-sm-10">
+                        
+                         
+                    </div>
+                    <div class="space-6"></div>
+                    <div class="row">
+                        <span class="col-sm-3"></span>
+                    <span class="col-sm-8">
                           <span id="labelTo" style="margin-left: 20px;">Période du</span>
                             <input
 					        class="date-picker" id="dateDebut"
@@ -61,35 +67,35 @@
                                             
                                      
                         </span>
-                         
-                    </div>
+                        </div>
                     <div style="margin-top: 8%">       
+                        
          <div style="margin-top: 15px; text-align:center" >
-                    <div class="infobox infobox-green" style="width: 400px; height: 40px;">
+                    <div class="infobox infobox-green" style="width: 500px; height: 40px;">
                                  <div class="infobox-data">
-                                     <span class="infobox-data-number">Somme Achat : <span id='sommeAchat'>0.00</span> F CFA</span>
+                                     <span class="infobox-data-number"><span class="medium-high">Somme Achat : </span><span id='sommeAchat'>0.00</span> F CFA</span>
                                  </div>
                          </div>
                          <div class="infobox infobox-blue" style=" width: 400px; height: 40px;">
 
 
                                  <div class="infobox-data" style="width:640px">
-                                         <span class="infobox-data-number">Somme vente : <span id='sommeVente'>0.00</span> F CFA</span>
+                                     <span class="infobox-data-number"><span class="medium-high">Somme vente : </span><span id='sommeVente'>0.00</span> F CFA</span>
                                  </div>
                          </div>
             </div>
                  
          <div style="margin-top: 15px; text-align:center" >
-                    <div class="infobox infobox-green" style="width: 400px; height: 40px;">
+                    <div class="infobox infobox-green" style="width: 500px; height: 40px;">
                                  <div class="infobox-data">
-                                     <span class="infobox-data-number">Bénéfice globale : <span id='beneficeGlobal'>0.00</span> F CFA</span>
+                                     <span class="infobox-data-number"><span class="medium-high">Bénéfice globale : </span><span id='beneficeGlobal'>0.00</span> F CFA</span>
                                  </div>
                          </div>
                          <div class="infobox infobox-blue" style=" width: 400px; height: 40px;">
 
 
                                  <div class="infobox-data" style="width:640px">
-                                         <span class="infobox-data-number">Bénéfice actuelle : <span id='beneficeActuelle'>0.00</span> F CFA</span>
+                                     <span class="infobox-data-number"><span class="medium-high">Bénéfice actuelle : </span><span id='beneficeActuelle'>0.00</span> F CFA</span>
                                  </div>
                          </div>
             </div>
@@ -134,14 +140,14 @@
     
    // $('#dateDebut').val(getDate(true));
    // $('#dateFin').val(getDate());
-    loadInfosInventaire = function (typeAchat, dateD, dateF) {
+    loadInfosInventaire = function (dateD, dateF) {
         var dateDebut='';
         var dateFin='';
         if(typeof(dateD)!=='undefined')
             dateDebut=dateD;
         if(typeof(dateF)!=='undefined')
             dateFin=dateF;
-        $.post("<?php echo App::getBoPath(); ?>/achat/AchatController.php", {typeAchat:typeAchat,dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
+        $.post("<?php echo App::getBoPath(); ?>/inventaire/InventaireController.php", {dateDebut:dateDebut,dateFin:dateFin,codeUsine:"<?php echo $codeUsine;?>",ACTION: "<?php echo App::ACTION_GET_INFOS; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -151,164 +157,28 @@
                     });
             }else{
                 console.log(sData.poidsTotal);
-//                 $("#poidsTotal").text(sData.poidsTotal);
-                $("#poidsTotal").text(parseFloat(sData.poidsTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString())
-               // $("#montantTotal").text(sData.montantTotal);
-                $("#montantTotal").text(parseFloat(sData.montantTotal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString())
+                $("#sommeAchat").text(parseFloat(sData.sommeAchat, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString());
+                $("#sommeVente").text(parseFloat(sData.sommeVente, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString());
+                $("#beneficeGlobal").text(parseFloat(sData.beneficeGlobal, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString());
+                $("#beneficeActuelle").text(parseFloat(sData.beneficeActuel, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ").toString());
             }
     });
     };
     
-                
-         function calculPoids(index){
-           var cart=parseFloat($("#cart"+index).val());
-           var qte=parseFloat($("#qte"+index).val());
-           var stockReel=parseFloat($("#stockReel").val());
-           var sqte=0;
-           var tot = 0;
-           tot = cart*qte;
-           if(!isNaN(tot)) {
-               $("#tot"+index).val(tot);
-               $('#tab_logic .tot').each(function () {
-                if($(this).val()!=='')
-                  sqte += parseFloat($(this).val());
-                });
-                if(sqte > stockReel){
-                    $.gritter.add({
-                        title: 'Notification',
-                        text: 'La quantité totale définie est supérieure au stock réel',
-                        class_name: 'gritter-error gritter-light'
-                    }); 
-                    $("#qte"+index).val(""); 
-                   $("#tot"+index).val("0"); 
-               }
-            }
-            else {
-                $("#tot"+index).val("0");
-            }
-       }
-       
-         
             // Persist checked Message when navigating
             
-             loadAchats = function(dateDebut, dateFin, regle) {
-                nbTotalAchatsChecked = 0;
-                checkedAchats = new Array();
-                var url =  '<?php echo App::getBoPath(); ?>/achat/AchatController.php';
-
-                if (oTableAchats != null)
-                    oTableAchats.fnDestroy();
-
-                oTableAchats = $('#LIST_ACHATS_INVENTAIRES').dataTable({
-                    "oLanguage": {
-                    "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt",
-                    "oPaginate": {
-                        "sNext": "",
-                        "sLast": "",
-                        "sFirst": null,
-                        "sPrevious": null
-                      }
-                    },
-                    "aoColumnDefs": [
-                        {
-                            "aTargets": [0],
-                            "bSortable": false,
-                            "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
-                                $(nTd).css('text-align', 'center');
-                            },
-                            "mRender": function(data, type, full) {
-                               var src = '<input type="hidden" id="stag' + full[1] + '" value="' + data + '">';
-                                if (data == 2)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Réglé:"><i class="ace-icon fa fa-check-square-o green bigger-130 icon-only"></i></span>';
-                                else if (data == 1)
-                                    src += '<span class="badge badge-transparent tooltip-error" title="Reliquat: '+full[6]+' F CFA"><i class="ace-icon fa fa-check-square-o orange red bigger-130 icon-only"></i></span>';
-                                return src;
-                            }
-                        }
-                    ],
-                    "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                        $(nRow).css('cursor','pointer');
-                        $(nRow).on('click', 'td:not(:first-child)', function(){
-                            checkbox=$(this).parent().find('input:checkbox:first');
-                            if(!checkbox.is(':checked')){
-                                checkbox.prop('checked', true);;
-                                checkedAchatsAdd(aData[0]);
-                                MessageSelected();
-                                
-                            }else{
-                                checkbox.removeAttr('checked');
-                                
-                                checkedAchatsRemove(aData[0]);
-                                MessageUnSelected();
-                            }
-                        });
-                    },
-                    "fnDrawCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                       
-                    },
-                    "preDrawCallback": function( settings ) {
-                       
-                    },
-                    "bProcessing": true,
-                    "bServerSide": true,
-                    "bLengthChange": true,
-                    "bFilter": true,
-                    //afficher nombre �l�ment
-                    "bInfo": true,
-                    "sAjaxSource": url,
-                  //afficher nombre �l�ment
-                    "sPaginationType": "full_numbers",
-                    "fnServerData": function ( sSource, aoData, fnCallback ) {
-                        aoData.push({"name": "ACTION", "value": "<?php echo App::ACTION_LIST_INVENTAIRE_ACHATS; ?>"});
-                        aoData.push({"name": "offset", "value": "1"});
-                        aoData.push({"name": "rowCount", "value": "10"});
-                        aoData.push({"name": "profil", "value": $.cookie('profil')});
-                        aoData.push({"name": "usineCode", "value": "<?php echo $codeUsine;?>"});
-                        aoData.push({"name": "dateDebut", "value": dateDebut});
-                        aoData.push({"name": "dateFin", "value": dateFin});
-                        aoData.push({"name": "regle", "value": regle});
-                        $.ajax( {
-                          "dataType" : 'json',
-                          "type" : "POST",
-                          "url" : sSource,
-                          "data" : aoData,
-                          "success" : function(json) {
-                              if(json.rc==-1){
-                                 $.gritter.add({
-                                    title: 'Notification',
-                                    text: json.error,
-                                    class_name: 'gritter-error gritter-light'
-                                }); 
-                              }else{
-                                  $('table th input:checkbox').removeAttr('checked');
-                                  fnCallback(json);
-                                  nbTotalAchatsChecked=json.iTotalRecords;
-                              }
-                                
-                           }
-                        });
-                    }
-                });
-            };
+   
             dateformat = function (date) {
                 if(date!==''){
                     var arr = date.split('-');
                     return arr[2] + '-' + arr[1] + '-' + arr[0];
                 }
             };
-            loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-            loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
+            loadInfosInventaire(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
 
-            $('#regle').change(function() {
-                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-                loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
-            });
-            
             $("#BTN_SEARCH").click(function()
             {
-                loadInfosInventaire($('#regle').val(),dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
-                loadAchats(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()), $('#regle').val());
-               // alert("dd");
+                loadInfosInventaire(dateformat($('#dateDebut').val()),dateformat($('#dateFin').val()));
             });
         $("#MNU_IMPRIMER").click(function()
         {
