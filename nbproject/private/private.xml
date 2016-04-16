@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/macfish/app/inventaire/factureInventaire.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/devise/devise.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/devise/DeviseManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/be/Facture.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/common/app.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/inventaire/InventaireController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatQueries.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/devise/DeviseController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/inventaire/achatInventaire.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/BaseController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/signin.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/log/logFile.log</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/devise/DeviseQueries.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/achat/AchatManager.php</file>
+        </group>
     </open-files>
 </project-private>
