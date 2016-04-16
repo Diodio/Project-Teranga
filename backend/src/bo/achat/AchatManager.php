@@ -258,7 +258,6 @@ class AchatManager {
         $infosP = $this->achatQuery->getInfoPoidsTotal($mareyeurId,$typeAchat, $dateDebut, $dateFin, $codeUsine);
         $infosM = $this->achatQuery->getInfoMontantTotal($mareyeurId,$typeAchat, $dateDebut, $dateFin, $codeUsine);
         $infosTab = array();
-        //var_dump($infos);
         if ($infosP != null && $infosM !=null) {
             if($infosM['montantTotal'] !=null)
                 $infosTab['montantTotal'] = $infosM['montantTotal'];

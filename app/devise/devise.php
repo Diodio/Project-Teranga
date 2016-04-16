@@ -76,7 +76,24 @@ $codeUsine = $_COOKIE['codeUsine'];
     <script type="text/javascript">
             jQuery(function ($) {
                 
-                
+        loadDevise = function () {
+        $.post("<?php echo App::getBoPath(); ?>/devise/DeviseController.php", {ACTION: "<?php echo App::ACTION_GET_DEVISE; ?>"}, function (data) {
+        sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#euro").text(sData.euro);
+                $("#dollar").text(sData.dollar);
+            }
+        });
+    };
+    
+    loadDevise();
+    
             $('#euro').editable({
                             type: 'text',
                             name: 'prix',
@@ -183,7 +200,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     class_name: 'gritter-error gritter-light'
                                 });
                             };
-                            $.loader.close(true);
                         },
                         error: function() {
                             alert('error');

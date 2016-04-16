@@ -22,4 +22,20 @@ class DeviseManager {
         $this->deviseQuery->update($devise);
         return $devise;
     }
+    
+    public function getInfoDevise() {
+        $devise = $this->deviseQuery->getInfoDevise();
+        $infosTab = array();
+        if ($devise != NULL) {
+            foreach ($devise as $key => $value) {
+                if ($value['devise'] == '€')
+                    $infosTab['euro'] = $value['montant'];
+                else if ($value['devise'] == '‎$')
+                    $infosTab['dollar'] = $value['montant'];
+            }
+        }
+
+        return $infosTab;
+    }
+
 }

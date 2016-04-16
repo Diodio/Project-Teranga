@@ -23,6 +23,9 @@ class DeviseController extends BaseController {
                     case \App::ACTION_UPDATE:
                         $this->doUpdate($request);
                         break;
+                    case \App::ACTION_GET_DEVISE:
+                        $this->doGetDevise($request);
+                        break;
                 }
             } else {
                 throw new Exception('NO_ACTION');
@@ -51,6 +54,15 @@ class DeviseController extends BaseController {
         }
     }
 
+    public function doGetDevise($request) {
+        try {
+            $deviseManager = new DeviseManager();
+            $infos = $deviseManager->getInfoDevise();
+            $this->doSuccessO($infos);
+        } catch (Exception $e) {
+            $this->doError('-1', $e->getMessage());
+        }
+    }
     
 }
 

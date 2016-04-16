@@ -139,7 +139,7 @@ class App
      const  ACTION_LIST_FACTURE_ANNULES='LIST_FACTURE_ANNULES';
      const  ACTION_VERIFY_COLISAGE='VERIFY_COLISAGE';
      const  ACTION_GET_NBCOLIS='GET_NBCOLIS';
-     
+     const  ACTION_GET_DEVISE='GET_DEVISE';
      
      
      

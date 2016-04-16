@@ -27,4 +27,12 @@ class DeviseQueries {
             return $devise;
         }
     }
+    
+    public function getInfoDevise() {
+       $sql = 'SELECT * FROM devise';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+    	$stmt->execute();
+    	$infos = $stmt->fetchAll();
+    	return $infos;
+    }
 }
