@@ -380,7 +380,7 @@ class FactureQueries {
     	if($typeFacture=='*')
     		$sql = 'SELECT SUM(montantHt * d.montant) montantTotal FROM facture f, devise d WHERE f.devise=d.devise and status=1 and montantHt<>0.00 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'" '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ';
     	else
-    		$sql = 'SELECT SUM(rf.avance  * d.montant) montantTotal FROM reglement_facture rf, facture f, devise d WHERE  f.devise=d.devise and status=1 and facture_id=f.id AND regle='.$typeFacture.' and montantHt<>0.00 and rf.avance<>0 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.'  and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+    		$sql = 'SELECT SUM(montantHt  * d.montant) montantTotal FROM facture f, devise d WHERE  f.devise=d.devise and status=1 AND regle='.$typeFacture.' and montantHt<>0.00 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.'  and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$infos = $stmt->fetch();
@@ -428,22 +428,22 @@ class FactureQueries {
         }
     	if($codeUsine !=='*') {
     		if($regle !=='*'){
-    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(reglement_facture.avance) montantTotal, regle, devise
-                    from facture, client,reglement_facture where status=1 and client.id=facture.client_id and  facture.id=facture_id and montantHt<>0.00 and reglement_facture.avance<>0.00  and regle='.$regle.'  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
+                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 and regle='.$regle.'  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
-                     $sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, sum(montantHt) montantTotal, regle, devise
+                     $sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
                      from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}
     	else {
     		if($regle !=='*'){
-    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(reglement_facture.avance) montantTotal, regle, devise
-                    from factureat, client where status=1 and client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 and reglement_facture.avance<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
+                    from facture, client where status=1 and client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
-    			$sql = 'select facture.id, date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,sum(montantHt) montantTotal , regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id  and montantHt<>0.00 and reglement_facture.avance<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    			$sql = 'select facture.id, date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,montantHt montantTotal , regle, devise
+                    from facture, client where status=1 and client.id=facture.client_id  and montantHt<>0.00 '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}
     	$sql = str_replace("`", "", $sql);
