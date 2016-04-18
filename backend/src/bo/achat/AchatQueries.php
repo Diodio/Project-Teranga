@@ -481,7 +481,7 @@ class AchatQueries {
             $sql = 'SELECT SUM(poidsTotal) poidsTotal FROM achat WHERE status=1 AND poidsTotal<>0.00 and montantTotal<>0.00 and codeUsine="'.$codeUsine.'" '.$sqlMareyeur.'  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'"';
         }else {
              $sql ='SELECT SUM(poidsTotal) poidsTotal FROM achat WHERE STATUS=1 AND regle='.$typeAchat.'
-							      AND poidsTotal<>0.00 and codeUsine="'.$codeUsine.'" '.$sqlMareyeur.'  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'"';
+							      AND poidsTotal<>0.00 and montantTotal<>0.00  and codeUsine="'.$codeUsine.'" '.$sqlMareyeur.'  and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'"';
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();

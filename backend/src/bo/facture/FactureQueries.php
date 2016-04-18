@@ -429,21 +429,21 @@ class FactureQueries {
     	if($codeUsine !=='*') {
     		if($regle !=='*'){
     			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 and regle='.$regle.'  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00 and regle='.$regle.'  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
                      $sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
-                     from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                     from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}
     	else {
     		if($regle !=='*'){
     			$sql = 'select facture.id,date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from facture, client where status=1 and client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
     			$sql = 'select facture.id, date_format(dateFacture, "'.\Common\Common::setFormatDate().'") as dateFacture, numero, nom,nbTotalPoids,montantHt montantTotal , regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id  and montantHt<>0.00 '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from facture, client where status=1 and client.id=facture.client_id  and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}
     	$sql = str_replace("`", "", $sql);
@@ -487,18 +487,18 @@ class FactureQueries {
         if ($codeUsine !== '*') {
             if ($regle !== '*') {
                 $sql = 'select count(facture.id) as nbFacture
-                    from facture, client,reglement_facture where status=1 and client.id=facture.client_id and facture.id=facture_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and montantHt<>0.00 and reglement_facture.avance<>0.00  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
+                    from facture, client where status=1 and client.id=facture.client_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
             } else {
                 $sql = 'select count(facture.id) as nbFacture
-                    from facture, client where status=1 and client.id=facture.client_id and codeUsine="' . $codeUsine . '" AND montantHt<>0.00 '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
+                    from facture, client where status=1 and client.id=facture.client_id and codeUsine="' . $codeUsine . '" AND montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
             }
         } else {
             if ($regle !== '*') {
                 $sql = 'select count(facture.id) as nbFacture
-                    from facture, client,reglement_facture where status=1 and client.id=facture.client_id and facture.id=facture_id and regle=' . $regle . ' and montantHt<>0.00 and reglement_facture.avance<>0.00  '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '  ';
+                    from facture, client where status=1 and client.id=facture.client_id and regle=' . $regle . ' and montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '  ';
             } else {
                 $sql = 'select count(facture.id) as nbFacture
-                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 '.$sqlClients.'  and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.'  and date(dateFacture) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             }
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
