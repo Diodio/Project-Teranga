@@ -42,7 +42,7 @@
         <![endif]-->
     </head>
 
-    <body class="login-layout  light-login" style="background:image/sr">
+    <body class="login-layout " style="background: #1c5d5a;">
         <div class="main-container">
             <div class="main-content">
                 <div class="row">
@@ -52,9 +52,9 @@
                                 <h1>
                                     <i class="ace-icon fa fa-leaf green"></i>
                                     <span class="red">MacFish</span>
-                                    <span class="white" id="id-text2">Application</span>
+                                    <span class="white" id="id-text2"> Banque</span>
                                 </h1>
-                                <h4 class="blue" id="id-company-text">&copy; MacFish Production</h4>
+                                <h4 class="white" id="id-company-text">&copy; MacFish Production - Banque</h4>
                             </div>
 
                             <div class="space-6"></div>
@@ -65,7 +65,7 @@
                                         <div class="widget-main">
                                             <h4 class="header blue lighter bigger">
                                                 <i class="ace-icon fa fa-coffee green"></i>
-                                                Connectez vous à MacFish
+                                                Connectez vous à MacFish - Banque
                                             </h4>
 
                                             <div class="space-6"></div>
@@ -86,7 +86,7 @@
                                                         </span>
                                                     </label>
                                                     <div class="space"></div>
-                                                        <button id="btn-connect" class="width-50 btn btn-sm btn-primary" style="margin-left: 28%;
+                                                        <button id="btn-connect" class="width-50 btn btn-sm" style="background:#1c5d5a !important;border-color: #394557 !important; margin-left: 28%;"
 ">
                                                             <i class="ace-icon fa fa-key"></i>
                                                             <span class="bigger-110">Se connecter</span>
@@ -199,24 +199,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     e.preventDefault();
                 });
                 
-                
-         $("#LISTE_USINE").select2();       
-        loadUsine = function(){
-            $.post("<?php echo App::getBoPath(); ?>/usine/UsineController.php", {ACTION: "<?php echo App::ACTION_LIST; ?>"}, function(data) {
-                sData=$.parseJSON(data);
-                if(sData.rc==-1){
-                    $.gritter.add({
-                            title: 'Notification',
-                            text: sData.error,
-                            class_name: 'gritter-error gritter-light'
-                        });
-                }else{
-//                 
-                    $("#LISTE_USINE").loadJSON('{"usineIds":' + data + '}');
-                }
-            });
-        };
-        loadUsine();
+       
                 
                  seConnecter=function(){
                       var username=$('#username').val();

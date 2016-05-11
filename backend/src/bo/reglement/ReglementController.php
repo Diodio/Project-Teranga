@@ -93,6 +93,17 @@ private $logger;
             $reliquat = $montantTotal - $somAvance;
             if($reliquat !=0){
             if ($request['versement'] <= $reliquat) {
+                $ligneAchatManager = new \Achat\LigneAchatManager();
+                    $jsonAchat = json_decode($_POST['jsonProduit'], true);
+                    foreach ($jsonAchat as $key => $ligne) {
+                        if (isset($ligne["ligneId"])) {
+                            $ligneAchat = $ligneAchatManager->findById($ligne["ligneId"]);
+                            $ligneAchat->setPrixUnitaire($ligne['pu']);
+                            $ligneAchat->setQuantite($ligne['qte']);
+                            $ligneAchat->setMontant($ligne['montant']);
+                            $ligneAchatManager->update($ligneAchat);
+                        }
+                    }
                 $reglement = new \Reglement\ReglementAchat();
                 $reglement->setAchat($achat);
                 $reglement->setAvance($request['versement']);

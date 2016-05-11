@@ -200,7 +200,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div id="TAB_MSG" class="tab-pane">
                         <div class="slim-scroll" data-height="100">
                             <div class="span12">
+                                <h4 class="blue">
+                                    <span class="middle blue" id="status"></span>
+                                    <span id="isStatus"
 
+                                        </span>
+                                </span>
+                                </h4>
                               <div class="profile-user-info">
                     <div class="profile-info-row">
                         <div class="profile-info-name">Date achat </div>
@@ -734,6 +740,17 @@ $codeUsine = $_COOKIE['codeUsine'];
                 $.post(url, {achatId: achatId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function(data) {
                     data = $.parseJSON(data);
                     $('#TAB_MSG_TITLE').text("Numero achat: "+ data.numero);
+                   
+                  if(data.regle==2){
+                    $("#isStatus").empty().append("");
+                    $("#isStatus").append('<span class="infobox-green tooltip-error" title="Reglé"><i class="smaller fa fa-circle"></i> Reglé</span>');
+                  }else if(data.regle==1){
+                      $("#isStatus").empty().append("");
+                        $("#isStatus").append('<span class="infobox-orange tooltip-error" title="Reliquat a verser"><i class="fa fa-circle"></i> Reliquat a verser</span>');
+                  }else if(data.regle==0){
+                     $("#isStatus").empty().append("");
+                        $("#isStatus").append('<span class="infobox-red tooltip-error" title="Nom reglé"><i class="fa fa-circle"></i> Non reglé</span>');
+                 }
                     $('#AchatDate').text(data.dateAchat+' à '+ data.heureReception);
                     $('#AchatNomMareyeur').text(data.nomMareyeur);
                     $('#achatAdresseMareyeur').text(data.adresse);

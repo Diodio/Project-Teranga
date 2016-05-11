@@ -219,6 +219,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <table class="table table-bordered table-hover"id="TABLE_ACHATS">
                         <thead>
                             <tr>
+                                <th class="text-center">
+                                 </th>
                                     <th class="text-center">
                                             Désignation
                                     </th>
@@ -291,7 +293,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     <i class="ace-icon fa fa-plus orange"></i>
                                     Ajouter un versement
                                 </h4>
-                               <div class="profile-user-info">
+                             <div class="profile-user-info">
                             <div class="profile-info-row">
                                 <div class="profile-info-name">Date </div>
                                 <div class="profile-info-value">
@@ -306,12 +308,27 @@ $codeUsine = $_COOKIE['codeUsine'];
                             </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">Montant </div>
-                                <div class="profile-info-value">
-                                    <span id="versement"></span>
+                            <div class="profile-info-name">Montant </div>
+                            <div class="profile-info-value">
+                                <div class="col-xs-8 col-sm-5">
+                                        <div class="input-group">
+                                            <input class="form-control" id="versement" name="versement" type="text" />
+                                                <span class="input-group-addon">
+                                                        <i class="fa fa-money bigger-110"></i>
+                                                </span>
+                                        </div>
+                                </div>
                                 </div>
                             </div>
+                            
+                                   
                            </div>
+                               <div style="float: right">
+                        <button id="SAVE" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                                </div>
                         </div>
                                             </div>
                                         </div>
@@ -352,47 +369,73 @@ $codeUsine = $_COOKIE['codeUsine'];
                 .next().on(ace.click_event, function(){
                         $(this).prev().focus();
                 });
-              $('#versement').editable({
-                            type: 'text',
-                            name: 'versement',
-                            title: "Saisir un montant",
-                            id: 'id',
-                            submit : 'OK',
-                            emptytext: "Saisir un montant",
-                            validate:function(value){
-                                //alert($('.date-picker').val());
-                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
-                                if($('.date-picker').val()==='') return 'Veuillez saisir  une date S.V.P.!';
-                                   
-                            },
-                            placement: 'right',
-                            url: function(editParams) {                             
-                                var versement = editParams.value;
-                                //alert(code);
-                                function save() {
-                                    if(versement !== ""){
-                                        saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                    }
-                                    else {
-                                            
-                                            $.gritter.add({
-                                                title: 'Server notification',
-                                                text: "Veuillez saisir  un montant S.V.P.",
-                                                class_name: 'gritter-error gritter-light'
-                                            });
-                                    }
-                                }
-                                
-                                save(function() {});
-
-                            }
-                          
-                        });
+//              $('#versement').editable({
+//                            type: 'text',
+//                            name: 'versement',
+//                            title: "Saisir un montant",
+//                            id: 'id',
+//                            submit : 'OK',
+//                            emptytext: "Saisir un montant",
+//                            validate:function(value){
+//                                //alert($('.date-picker').val());
+//                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+//                                if($('.date-picker').val()==='') return 'Veuillez saisir  une date S.V.P.!';
+//                                   
+//                            },
+//                            placement: 'right',
+//                            url: function(editParams) {                             
+//                                var versement = editParams.value;
+//                                //alert(code);
+//                                function save() {
+//                                    if(versement !== ""){
+//                                        saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+//                                    }
+//                                    else {
+//                                            
+//                                            $.gritter.add({
+//                                                title: 'Server notification',
+//                                                text: "Veuillez saisir  un montant S.V.P.",
+//                                                class_name: 'gritter-error gritter-light'
+//                                            });
+//                                    }
+//                                }
+//                                
+//                                save(function() {});
+//
+//                            }
+//                          
+//                        });
                         
                          
            function saveAvance(achatId, versement, dateVersement)
                 {
                     var ACTION = "<?php echo App::ACTION_INSERT; ?>";
+                     var $table = $("#TABLE_ACHATS");
+            rows = [],
+            header = [];
+
+//$table.find("thead th").each(function () {
+//    header.push($(this).html().trim());
+//});
+            header = ["ligneId","libelle","pu","qte","montant"];
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                        valueEditable = $(this).find('span').text();
+                        valueTd = $(this).text();
+                    if (typeof valueEditable !== "undefined")
+                        value=valueEditable;
+                    if (typeof valueTd !== "undefined")
+                        value=valueTd;
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+            var tbl=JSON.stringify(rows);
                     $.ajax({
                         url: '<?php echo App::getBoPath(); ?>/reglement/ReglementController.php',
                         type: 'POST',
@@ -401,7 +444,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                             ACTION: ACTION,
                             achatId: achatId,
                             versement: versement,
-                            dateVersement: dateVersement
+                            dateVersement: dateVersement,
+                            jsonProduit: tbl
                         },
                         success: function(data)
                         {
@@ -697,12 +741,71 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#PoidsTotal').text(data.poidsTotal);
                     $('#MontantTotal').text(data.montantTotal);
                     $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneAchat;
-                    var trHTML='';
-                    $(table).each(function(index, element){
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
-                    });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
+                    
+                    loadEditable = function(compteur)
+                    {
+                    $('#prix'+compteur).editable({
+                            type: 'text',
+                            name: 'prix',
+                            title: "Saisir un montant",
+                            id: 'id',
+                            submit : 'OK',
+                            emptytext: "Saisir un montant",
+                            validate:function(value){
+                                if(value==='') return 'Veuillez saisir  un montant S.V.P.';
+                            },
+                            placement: 'right',
+                            url: function(editParams) {                             
+                                var prix = editParams.value;
+                                function save() {
+                                    if($("#tab_versement tbody").html()==''){
+                                    var produitId = $('#prix'+compteur).closest('tr').attr('id');
+                                    
+                                    if($.trim(prix) !== ""){
+                                        var tot=0;
+                                        var qte=$('#quantite'+compteur).text();
+                                        var montant= parseFloat(prix * qte).toFixed(2);
+                                        if(!isNaN(montant)){
+                                            $('#montant'+compteur).text(montant);
+                                        $('#TABLE_ACHATS .montant').each(function () {
+                                            if($(this).html()!== 0)
+                                                tot += parseFloat($(this).html());
+                                        });
+                                        //$('#avance').val("");
+                                        $('#reliquat').text(tot);
+                                        $('#dateVersement').val("");
+                                        //$('#modePaiement').val("-1").change;
+                                        //$('#transport').val("");
+                                        }
+                                      //console.log(tot);
+                                      $('#MontantTotal').text(tot);
+                                       // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                    }
+                                    else {
+                                            
+                                            $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Veuillez saisir  un montant S.V.P.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                    }
+                                }
+                                else {
+                                     $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Les prix ne doivent pas etre modifies car des versements sont deja effectues.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                }
+                                }
+                                
+                                save(function() {});
+
+                            }
+                          
+                        });
+                    }
+                   
                     if(data.regle==0){
                         $('#status').text('Non reglé');
                         $('#VERSEMENT_FORM').css("visibility", 'visible');
@@ -716,18 +819,27 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#VERSEMENT_FORM').css("visibility", 'hidden');
                     } 
                     $('#TABLE_ACHATS tbody').html("");
-                    var table = data.ligneAchat;
+                   var table = data.ligneAchat;
                     var trHTML='';
                     $(table).each(function(index, element){
-                      var prixUnit=0
-                        var mont=0
-                    if(element.prixUnitaire!==null)
-                        prixUnit=element.prixUnitaire;
-                    if(element.montant!==null)
-                        mont=element.montant;
-                        trHTML += '<tr><td>' + element.designation + '</td><td>' + prixUnit + '</td><td>' + element.quantite + '</td><td>' + mont + '</td></tr>';
+                        var row = $('<tr id='+element.id+' />');
+                        $("#TABLE_ACHATS tbody").append(row); 
+                        var pu='';
+                        var mt=0;
+                        if(element.prixUnitaire !== 0 && element.prixUnitaire !== null){
+                            pu=element.prixUnitaire;
+                        }
+                        if(element.montant !== 0 && element.montant !== null){
+                            mt=element.montant;
+                        }
+                        row.append($('<td  id="ligneId'+index+'">'+element.id+'</td>'));
+                        row.append($('<td  id="designation'+index+'">'+element.designation+'</td>'));
+                        row.append($('<td ><span class="editText" id="prix'+index+'">'+pu+'</span></td>'));
+                        row.append($('<td id="quantite'+index+'">'+element.quantite+'</td>'));
+                        row.append($('<td class="montant" id="montant'+index+'">'+mt+'</td>'));
+                        //trHTML += '<tr id='+element.id+'><td>' + element.designation + '</td><td><span id="prix"></span></td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                         loadEditable(index);
                     });
-                    $('#TABLE_ACHATS tbody').append(trHTML);
                     trHTML='';
                     
                   $('#tab_versement tbody').html("");
@@ -787,16 +899,120 @@ $codeUsine = $_COOKIE['codeUsine'];
 //                }
 //            });
 
-            $("#MNU_IMPRIMER").click(function()
+            ReglementProcess = function (achatId)
+        {
+           $('#SAVE').attr("disabled", true);
+            var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
+            var frmData;
+            var achatId= achatId;
+            //var MontantTotal = $("#MontantTotal").text();
+           // var modePaiement = $("#modePaiement").val();
+            //var numCheque = $("#numCheque").val();
+            var datePaiement = $("#datePaiement").val();
+            var versement = $("#versement").val();
+           // var reliquat = $("#reliquat").val();
+            //var transport = $("#transport").val();
+            //var Aregle = $("input:checkbox[name=regleAchat]:checked").val();
+//            var regle=false;
+//            if(Aregle === 'on')
+//                 regle=true;
+//             
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            var $table = $("#TABLE_ACHATS");
+            rows = [],
+            header = [];
+
+//$table.find("thead th").each(function () {
+//    header.push($(this).html().trim());
+//});
+            header = ["ligneId","libelle","pu","qte","montant"];
+            $table.find("tbody tr").each(function () {
+                var row = {};
+
+                $(this).find("td").each(function (i) {
+                    var key = header[i];
+                    var value;
+                        valueEditable = $(this).find('span').text();
+                        valueTd = $(this).text();
+                    if (typeof valueEditable !== "undefined")
+                        value=valueEditable;
+                    if (typeof valueTd !== "undefined")
+                        value=valueTd;
+                    row[key] = value;
+                });
+
+                rows.push(row);
+            });
+    
+    
+            var tbl=JSON.stringify(rows);
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('achatId', achatId);
+//            formData.append('montantTotal', MontantTotal);
+//            formData.append('modePaiement', modePaiement);
+//            formData.append('numCheque', numCheque);
+           // formData.append('datePaiement', datePaiement);
+           /// formData.append('avance', avance);
+            formData.append('jsonProduit', tbl);
+//            formData.append('reliquat', reliquat);
+//            formData.append('transport', transport);
+//            formData.append('regle', regle);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/achat/AchatController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
                     {
-                        if (checkedAchat.length == 0)
-                            bootbox.alert("Veuillez selectionnez un achat");
-                        else if (checkedAchat.length >= 1)
-                        {
-                        	window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedAchat[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
-                            
-                        }
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                   // window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/reglement/reglementAchat.php", function () {
                     });
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                        $('#SAVE').attr("disabled", false);
+                    };
+                    
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
+
+        };
+        
+        $("#SAVE").bind("click", function () {
+            saveAvance(checkedAchat[0], $('#versement').val(), $('.date-picker').val());
+         });
+        $("#MNU_IMPRIMER").click(function()
+                {
+                    if (checkedAchat.length == 0)
+                        bootbox.alert("Veuillez selectionnez un achat");
+                    else if (checkedAchat.length >= 1)
+                    {
+                            window.open('<?php echo App::getHome(); ?>/app/pdf/achatPdf.php?achatId='+checkedAchat[0],'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1000, height=650');
+
+                    }
+                });
             
             $("#MNU_ANNULATION").click(function()
             {
