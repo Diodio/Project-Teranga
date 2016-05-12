@@ -88,9 +88,12 @@ private $logger;
             $reglementManager = new Reglement\ReglementManager();
             $achatManager = new AchatManager();
             $achat = $achatManager->findById($request['achatId']);
-            $montantTotal = $achat->getMontantTotal();
+            $achat->setMontantTotal($request['montantTotal']);
+            $montantTotal = $request['montantTotal'];
             $somAvance = $achatManager->getTotalReglementByAchat($request['achatId']);
             $reliquat = $montantTotal - $somAvance;
+            $achat->setReliquat($reliquat);
+            $achatAdded = $achatManager->update($achat);
             if($reliquat !=0){
             if ($request['versement'] <= $reliquat) {
                 $ligneAchatManager = new \Achat\LigneAchatManager();

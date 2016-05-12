@@ -443,6 +443,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         data: {
                             ACTION: ACTION,
                             achatId: achatId,
+                            montantTotal: $('#MontantTotal').text(),
                             versement: versement,
                             dateVersement: dateVersement,
                             jsonProduit: tbl
