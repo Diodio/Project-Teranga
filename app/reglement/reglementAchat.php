@@ -409,6 +409,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                          
            function saveAvance(achatId, versement, dateVersement)
                 {
+                    $('#SAVE').attr("disabled", true);
                     var ACTION = "<?php echo App::ACTION_INSERT; ?>";
                      var $table = $("#TABLE_ACHATS");
             rows = [],
@@ -466,10 +467,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     text: data.error,
                                     class_name: 'gritter-error gritter-light'
                                 });
+                                $('#SAVE').attr("disabled", false);
                             };
                         },
                         error: function() {
                             alert("error");
+                            $('#SAVE').attr("disabled", false);
                         }
                     });
 
