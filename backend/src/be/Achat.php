@@ -186,6 +186,7 @@ class Achat {
     public function doPrePersist() {
         $this->status = 0;
         $this->regle = 0;
+        $this->modePaiement="ESPECES";
        $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
