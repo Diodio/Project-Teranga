@@ -1165,6 +1165,7 @@ $codeUsine = $_COOKIE['codeUsine'];
            $("#BTN_REFRESH").click(function()
                 {
         	  loadAchats('*');
+                  $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                 });
   });
         </script>
