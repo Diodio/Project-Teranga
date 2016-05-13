@@ -493,6 +493,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
             getIndicator();
+            
+            enableRelevantAchatMenu = function()
+	{   
+            if (checkedAchat.length > 1){
+                 bootbox.alert("Veuillez selectionnez un seul achat SVP!");
+                 loadAchats();
+            }
+            };
+            
             checkedAchatContains = function(item) {
                 for (var i = 0; i < checkedAchat.length; i++) {
                     if (checkedAchat[i] == item)
@@ -556,6 +565,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             
             MessageSelected = function(click)
             {
+                enableRelevantAchatMenu();
                 if (checkedAchat.length == 1){
                     loadAchatSelected(checkedAchat[0]);
                     $('#TAB_MSG_VIEW').show();
@@ -572,6 +582,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             MessageUnSelected = function()
             {
+                enableRelevantAchatMenu();
                if (checkedAchat.length === 1){
                     loadAchatSelected(checkedAchat[0]);
 		    $('#TAB_MSG_VIEW').show();
