@@ -140,6 +140,7 @@ class App
      const  ACTION_VERIFY_COLISAGE='VERIFY_COLISAGE';
      const  ACTION_GET_NBCOLIS='GET_NBCOLIS';
      const  ACTION_GET_DEVISE='GET_DEVISE';
+     const  ACTION_UPDATE_LIGNE='UPDATE_LIGNE';
      
      
      

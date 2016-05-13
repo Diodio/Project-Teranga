@@ -30,6 +30,9 @@ class AchatController extends BaseController implements BaseAction {
                     case \App::ACTION_UPDATE:
                         $this->doUpdate($request);
                         break;
+                    case \App::ACTION_UPDATE_LIGNE:
+                        $this->doUpdateLigne($request);
+                        break;
                     case \App::ACTION_VIEW:
                         $this->doView($request);
                         break;
@@ -269,7 +272,6 @@ class AchatController extends BaseController implements BaseAction {
             throw new Exception('Erreur lors du traitement de votre requete');
         }
     }
-
     public function doUpdate($request) {
         try {
             if (isset($request['achatId']) && $request['achatId'] != "") {
@@ -323,6 +325,36 @@ class AchatController extends BaseController implements BaseAction {
                             $ligneAchatManager->update($ligneAchat);
                         }
                     }
+                    $this->doSuccess($achatAdded->getId(), 'Achat mis à jour avec succes');
+                } else {
+                    $this->doError('-1', 'Impossible d\'effectuer ce reglement');
+                }
+            } else {
+                $this->doError('-1', 'Impossible d\'effectuer ce reglement');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', 'Erreur lors du traitement de votre requete');
+        }
+    }
+
+     public function doUpdateLigne($request) {
+        try {
+            if (isset($request['achatId']) && $request['achatId'] != "") {
+                $achatId = $request['achatId'];
+                $ligneId = $request['ligneId'];
+                $pu = $request['pu'];
+                $montant = $request['montant'];
+                $montantTotal = $request['montantTotal'];
+                $achatManager = new AchatManager();
+                $achat = $achatManager->findById($achatId);
+                $achat->setMontantTotal($montantTotal);
+                $achatAdded = $achatManager->update($achat);
+                if ($achatAdded->getId() !== null) {
+                    $ligneAchatManager = new \Achat\LigneAchatManager();
+                    $ligneAchat = $ligneAchatManager->findById($ligneId);
+                    $ligneAchat->setPrixUnitaire($pu);
+                    $ligneAchat->setMontant($montant);
+                    $ligneAchatManager->update($ligneAchat);
                     $this->doSuccess($achatAdded->getId(), 'Achat mis à jour avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'effectuer ce reglement');
