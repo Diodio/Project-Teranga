@@ -47,12 +47,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                           
                                     <button data-toggle="dropdown"
                                             class="btn btn-mini btn-primary dropdown-toggle tooltip-info" 
-                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="
-                                            height: 32px;
-                                            width: 80px;
-                                            margin-top: -1px;
-                                            margin-left: -40%;
-                                        ">
+                                            data-rel="tooltip" data-placement="top" title="Famille de produit" style="height: 32px;width: 80px;margin-top: -1px;margin-left: -40%;">
                                         <i class="icon-group icon-only icon-on-right"></i> Action
                                     </button>
 
@@ -67,6 +62,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     </ul>
                                 </div>
                     </div>
+                                          
         </div>
         <div class="row">
             <div class="col-sm-5">
@@ -77,7 +73,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                             <i class="ace-icon fa fa-star orange"></i>
                             Liste des bons d'achat
                         </h4>
-
+                              <button id="BTN_REFRESH"
+                                                    class="btn btn-grey btn-mini tooltip-info"
+                                                    data-rel="tooltip" data-placement="top"
+                                                    title="Cliquer ici pour rafraîchir la liste " style="width: 100px;margin-left: 1%">
+                                                <i class="icon-cloud-upload icon-only"></i> Rafraîchir Liste
+                                </button>
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-up"></i>
@@ -1159,6 +1160,11 @@ $codeUsine = $_COOKIE['codeUsine'];
 			$("#LISTE_ACHATS").attr("Class", "no-active");
         	   $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/achat/achatsVue.php", function () {
                });
+                });
+                
+           $("#BTN_REFRESH").click(function()
+                {
+        	  loadAchats('*');
                 });
   });
         </script>
