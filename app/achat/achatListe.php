@@ -782,14 +782,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             submit : 'OK',
                             emptytext: "Saisir un montant",
                             validate:function(value){
-                                
-                                    
                                 if(value==='') return 'Veuillez saisir  un montant S.V.P.';
                             },
                             placement: 'right',
                             url: function(editParams) {                             
                                 var prix = editParams.value;
                                 function save() {
+                                    if(data.reglement==null){
                                     var produitId = $('#prix'+compteur).closest('tr').attr('id');
                                     
                                     if($.trim(prix) !== ""){
@@ -821,6 +820,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 class_name: 'gritter-error gritter-light'
                                             });
                                     }
+                                   }
+                                else {
+                                     $.gritter.add({
+                                                title: 'Server notification',
+                                                text: "Les prix ne doivent pas etre modifies car des versements sont deja effectues.",
+                                                class_name: 'gritter-error gritter-light'
+                                            });
+                                }
                                 }
                                 
                                 save(function() {});

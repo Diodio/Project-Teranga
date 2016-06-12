@@ -19,6 +19,11 @@ $ResultProduit1 = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($con
 $sqlAvance="SELECT SUM(avance) sommeAvance FROM reglement_achat WHERE achat_id=" . $achatId;
 $ResultAvance = mysqli_query($connexion, $sqlAvance) or die(mysqli_error($connexion));
 $rowAvance = mysqli_fetch_array($ResultAvance);
+
+function extractDateFormat($date){
+    $time = strtotime($date);
+    return date('d-m-Y', $time);
+}
 ?>
 
 <style type="text/css">
@@ -33,7 +38,7 @@ hr {
 }
 -->
 </style>
-<page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="33mm" style="font-size: 12pt; background-image: url("../../assets/img/logo.png")">
+<page orientation="portrait" format="A4" backcolor="#FEFEFE" backimg="" backimgx="center" backimgy="bottom" backimgw="100%" backtop="0" backbottom="33mm" style="font-size: 12pt; background-image: url(../../assets/img/logo.png)>
     <bookmark title="Lettre" level="0" ></bookmark>
     <table cellspacing="0" style="width: 90%; text-align: center; font-size: 12px; margin-top: 20px;">
         <tr>
@@ -51,7 +56,7 @@ hr {
                 N° <?php echo $row['numero']; ?></span>
             </td>
             <td style="width: 25%; color: #444444;">
-                Dakar, le <?php echo date("d-m-Y");  ;?>
+                Dakar, le <?php echo extractDateFormat($row['dateAchat']); ?>
                 
             </td>
         </tr>
@@ -206,7 +211,7 @@ hr {
                 N° <?php echo $row['numero']; ?></span>
             </td>
             <td style="width: 25%; color: #444444;">
-                Dakar, le <?php echo date("d-m-Y");  ;?>
+                Dakar, le <?php echo extractDateFormat($row['dateAchat']); ?>
                 
             </td>
         </tr>
