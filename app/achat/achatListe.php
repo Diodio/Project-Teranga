@@ -500,7 +500,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                          // $('#MNU_VALIDATION').removeClass('enable');
                          $('#MNU_VALIDATION').addClass('disabled');
                          $('#MNU_ANNULATION').addClass('disabled');
-                      if($.cookie('profil')=='directeur') {
+                      if($.cookie('profil')=='directeur' || $.cookie('profil')=='comptable') {
                          $('#MNU_VALIDATION').addClass('disabled');
                         $('#MNU_ANNULATION').removeClass('disabled');
                      }
@@ -516,7 +516,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     }
                   }
                   else if (state == 0) {
-                      if($.cookie('profil')=='directeur') {
+                      if($.cookie('profil')=='directeur' || $.cookie('profil')=='comptable') {
                         $('#SAVE').attr("disabled", false);
                        $('#MNU_VALIDATION').removeClass('disabled');
                     }

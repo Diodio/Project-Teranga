@@ -610,7 +610,6 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_CONSULTATION').removeClass("hidden");
                         $('#MNU_INVENTAIRE').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
-                        $('#LIST_USERS').removeClass("hidden");
                         $('#MNU_CORBEILLE').removeClass("hidden");
                     }
                     else if(profil==='directeur'){
@@ -624,6 +623,18 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
                         $('#MNU_CONSULTATION').removeClass("hidden");
                         $('#MNU_INVENTAIRE').removeClass("hidden");
+                        $('#STOCK_REEL').removeClass("hidden");
+                        $('#MNU_CORBEILLE').removeClass("hidden");
+                        
+                    }
+
+                    else if(profil==='comptable'){
+                        $('#PARAMETRAGE').removeClass("hidden");
+                        $('#BONACHAT').removeClass("hidden");
+                        $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
+                        $('#BONSORTIE').removeClass("hidden");
+                        $('#MNU_LIST_DEMOULAGES').removeClass("hidden");
+                        $('#MNU_CONSULTATION').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
                         $('#MNU_CORBEILLE').removeClass("hidden");
                         
