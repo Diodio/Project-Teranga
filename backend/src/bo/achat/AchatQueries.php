@@ -160,11 +160,11 @@ class AchatQueries {
         if($codeUsine !=='*') {
             
             $sql = 'select achat.id,regle,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status =1 and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
             $sql = 'select achat.id, regle,dateAchat, numero, nom
-                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id and status =1' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    from achat, mareyeur where mareyeur.id=achat.mareyeur_id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
