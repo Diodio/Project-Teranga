@@ -63,7 +63,7 @@ td    { vertical-align: top; }
              <td >
                 <table cellspacing="0" style="width: 100%; text-align: left;font-size: 12px;">
                     <tr>
-                        <td style="font-size: 16px;color:blue; ">
+                        <td style="font-size: 16px;color:#007360; ">
                             <b>MACFISH PRODUCTION SURL</b>
                         </td>
                     </tr>

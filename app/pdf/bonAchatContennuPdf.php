@@ -8,7 +8,7 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM mareyeur,achat WHERE mareyeur.id=mareyeur_id AND achat.id=" . $achatId;
+$sql = "SELECT *,achat.createdDate createDate FROM mareyeur,achat,usine WHERE mareyeur.id=mareyeur_id AND codeUsine=code AND achat.id=" . $achatId;
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
 //Cette requete permet de recuperer les produits d'un achat
@@ -56,7 +56,7 @@ hr {
                 N° <?php echo $row['numero']; ?></span>
             </td>
             <td style="width: 25%; color: #444444;">
-                Dakar, le <?php echo extractDateFormat($row['dateAchat']); ?>
+                Dakar, le <?php echo extractDateFormat($row['createDate']); ?>
                 
             </td>
         </tr>
@@ -64,6 +64,13 @@ hr {
     <br>
     <div style="margin-left:40px; ">
     <table cellspacing="0" style="margin-top:-10px;color:#444444;width: 90%; text-align: left;  font-size: 12px">
+        <tr>
+             <td >
+                
+                Usine: <?php echo $row['nomUsine']; ?>
+                
+            </td>
+        </tr>
         <tr>
             <td >
                 
@@ -78,7 +85,7 @@ hr {
         </tr>
         <tr>
         <td >
-                Heure de reception: <?php echo $row['heureReception']; ?>
+               Date d'entrée: <?php echo extractDateFormat($row['dateAchat']); ?> à <?php echo $row['heureReception']; ?>
         </td>
         </tr>
     </table>
@@ -120,7 +127,7 @@ hr {
     <table cellspacing="0" style="margin-top:3px;width: 90%; border: solid 0px black; background: #E7E7E7; text-align: center; font-size: 9pt;">
         <tr>
             <th style="width: 25%; text-align: left;">Total : </th>
-            <th style="width: 31%; text-align: right;"><?php echo $totalPrix; ?> </th>
+            <th style="width: 31%; text-align: right;"></th>
             <th style="width: 28%; text-align: right;"><?php echo $totalQuantite; ?> kg </th>
             <th style="width: 23%; text-align: right;"><?php echo $total; ?> </th>
         </tr>
@@ -133,6 +140,14 @@ hr {
             <td style="width: 25%;"></td>
             <td style="width: 20%;">Mode de paiement </td>
             <td style="width: 30%;"><b><?php echo $row['modePaiement'] ?></b> </td>
+        </tr>
+    </table>
+   <table cellspacing="0" style="text-align: center; font-size: 13px;">
+        <tr>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Transport </td>
+            <td style="width: 25%;"><b><?php if($row['transport']>0) echo $row['transport']; else echo "0"; ?>  FCFA</b> </td>
         </tr>
     </table>
     <?php if($row['modePaiement'] =='CHEQUE') {?>
@@ -159,8 +174,8 @@ hr {
         <tr>
             <td style="width: 30%;"> </td>
             <td style="width: 25%;"></td>
-            <td style="width: 20%;">Avance </td>
-            <td style="width: 25%;"><b><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0.00 ?> FCFA </b> </td>
+            <td style="width: 20%;">Montant total </td>
+            <td style="width: 25%;"><b><?php echo intval($rowAvance['sommeAvance']) + intval($row['transport'])?> FCFA </b> </td>
         </tr>
     </table>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
@@ -171,14 +186,7 @@ hr {
             <td style="width: 25%;"><b><?php echo  $total - $rowAvance['sommeAvance'] ?>  FCFA</b> </td>
         </tr>
     </table>
-    <table cellspacing="0" style="text-align: center; font-size: 13px;">
-        <tr>
-            <td style="width: 30%;"> </td>
-            <td style="width: 25%;"></td>
-            <td style="width: 20%;">Transport </td>
-            <td style="width: 25%;"><b><?php if($row['transport']>0) echo $row['transport']; else echo "0"; ?>  FCFA</b> </td>
-        </tr>
-    </table>
+    
      </div>
 <!--    <nobreak>
         <br>
@@ -211,7 +219,7 @@ hr {
                 N° <?php echo $row['numero']; ?></span>
             </td>
             <td style="width: 25%; color: #444444;">
-                Dakar, le <?php echo extractDateFormat($row['dateAchat']); ?>
+                Dakar, le <?php echo extractDateFormat($row['createDate']); ?>
                 
             </td>
         </tr>
@@ -220,6 +228,13 @@ hr {
     <div style="margin-left:40px;">
     <table cellspacing="0" style="margin-top:-10px;color:#444444;width: 90%; text-align: left;  font-size: 12px">
         <tr>
+        <tr>
+             <td >
+                
+                Usine: <?php echo $row['nomUsine']; ?>
+                
+            </td>
+        </tr>
             <td >
                 
                 Mareyeur: <?php echo $row['nom']; ?>
@@ -233,7 +248,7 @@ hr {
         </tr>
         <tr>
         <td >
-                Heure de reception: <?php echo $row['heureReception']; ?>
+               Date d'entrée : <?php echo extractDateFormat($row['dateAchat']); ?> à <?php echo $row['heureReception']; ?>
         </td>
         </tr>
     </table>
@@ -275,7 +290,7 @@ hr {
     <table cellspacing="0" style="margin-top:3px;width: 90%; border: solid 0px black; background: #E7E7E7; text-align: center; font-size: 9pt;">
         <tr>
             <th style="width: 25%; text-align: left;">Total : </th>
-            <th style="width: 31%; text-align: right;"><?php echo $totalPrix1; ?> </th>
+            <th style="width: 31%; text-align: right;"></th>
             <th style="width: 28%; text-align: right;"><?php echo $totalQuantite1; ?> kg </th>
             <th style="width: 23%; text-align: right;"><?php echo $total1; ?> </th>
         </tr>
@@ -288,6 +303,14 @@ hr {
             <td style="width: 25%;"></td>
             <td style="width: 20%;">Mode de paiement </td>
             <td style="width: 30%;"><b><?php echo $row['modePaiement'] ?></b> </td>
+        </tr>
+    </table>
+         <table cellspacing="0" style="text-align: center; font-size: 13px;">
+        <tr>
+            <td style="width: 30%;"> </td>
+            <td style="width: 25%;"></td>
+            <td style="width: 20%;">Transport </td>
+            <td style="width: 25%;"><b><?php if($row['transport']>0) echo $row['transport']; else echo "0"; ?>  FCFA</b> </td>
         </tr>
     </table>
     <?php if($row['modePaiement'] =='CHEQUE') {?>
@@ -314,8 +337,8 @@ hr {
         <tr>
             <td style="width: 30%;"> </td>
             <td style="width: 25%;"></td>
-            <td style="width: 20%;">Avance </td>
-            <td style="width: 25%;"><b><?php if($rowAvance['sommeAvance']!="") echo $rowAvance['sommeAvance']; else echo 0.00 ?> FCFA</b></td>
+            <td style="width: 20%;">Montant total </td>
+            <td style="width: 25%;"><b><?php echo intval($rowAvance['sommeAvance']) + intval($row['transport'])?> FCFA </b> </td>
         </tr>
     </table>
     <table cellspacing="0" style="text-align: center; font-size: 13px;">
@@ -326,14 +349,7 @@ hr {
             <td style="width: 25%;"><b><?php echo  $total - $rowAvance['sommeAvance'] ?> FCFA</b> </td>
         </tr>
     </table>
-        <table cellspacing="0" style="text-align: center; font-size: 13px;">
-        <tr>
-            <td style="width: 30%;"> </td>
-            <td style="width: 25%;"></td>
-            <td style="width: 20%;">Transport </td>
-            <td style="width: 25%;"><b><?php if($row['transport']>0) echo $row['transport']; else echo "0"; ?>  FCFA</b> </td>
-        </tr>
-    </table>
+        
      </div>
 <!--    <nobreak>
         <br>
