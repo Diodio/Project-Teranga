@@ -91,7 +91,7 @@
                                 </th>
                                 <th class="center"><i class="smaller-70"></i>
                                                 Statut</th>
-                                <th class="center" style="width: 10%;"></th>
+                                <th class="center" style="width: 10%;">Modifier/Supprimer</th>
                             </tr>
                         </thead>
 
