@@ -324,30 +324,35 @@ $nomUsine = $_COOKIE['nomUsine'];
                             </li>
                         </ul>
                     </li>
-                      <li id="MNU_FACTURE" class="hidden"><a href="#" class="dropdown-toggle"> <i
+                      <li id="MNU_EMPOTAGE" class="hidden"><a href="#" class="dropdown-toggle"> <i
                                 class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
-                                Facture  </span>  <b class="arrow fa fa-angle-down"></b>
+                                Empotage  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
-                            <li id="AJOUTER_FACTURE" class=""><a id="FACTURE" href="#"> <i
-                                        class="menu-icon fa fa-caret-right"></i> Empotage
+                            <li id="AJOUTER_EMPOTAGE" class=""><a id="FACTURE" href="#"> <i
+                                        class="menu-icon fa fa-caret-right"></i> Nouveau
                                 </a> <b class="arrow"></b>
                             </li>
 
-                            <li id="LISTE_FACTURE" class=""><a id="LISTEFACTURE" href="#"> <i
+                            <li id="LISTE_EMPOTAGE" class=""><a id="LISTEFACTURE" href="#"> <i
                                         class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-                                        Facturation </span>
+                                        Consulter Liste </span>
                                 </a> <b class="arrow"></b>
                             </li>
 
                         </ul>
-                    </li>
-
-                      
+                       </li>
+                       
+                      <li id="MNU_FACTURE" class="hidden"><a id="LISTE_FACTURE" href="#" class="dropdown-toggle"> <i
+                                        class="menu-icon fa fa-pencil"></i> <span class="menu-text">
+                                        Facture </span>
+                                </a> <b class="arrow"></b>
+                                
+                        </li>
 
 
                     <li id="MNU_REGLEMENT" class="hidden"><a href="#" class="dropdown-toggle"> <i
-                                class="menu-icon fa fa-pencil fa-fw"></i> <span class="menu-text">
+                                class="menu-icon fa fa-pencil"></i> <span class="menu-text">
                                 Réglement  </span>  <b class="arrow fa fa-angle-down"></b>
                         </a> <b class="arrow"></b>
                         <ul class="submenu">
@@ -610,7 +615,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_CONSULTATION').removeClass("hidden");
                         $('#MNU_INVENTAIRE').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
-                        $('#MNU_CORBEILLE').removeClass("hidden");
+                        $('#MNU_EMPOTAGE').removeClass("hidden");
                     }
                     else if(profil==='directeur'){
                         $('#PARAMETRAGE').removeClass("hidden");
@@ -625,6 +630,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_INVENTAIRE').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
                         $('#MNU_CORBEILLE').removeClass("hidden");
+                        $('#MNU_EMPOTAGE').removeClass("hidden");
                         
                     }
 
@@ -637,6 +643,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                         $('#MNU_CONSULTATION').removeClass("hidden");
                         $('#STOCK_REEL').removeClass("hidden");
                         $('#MNU_CORBEILLE').removeClass("hidden");
+                        $('#MNU_EMPOTAGE').removeClass("hidden");
                         
                     }
                 }
@@ -651,7 +658,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#STOCK_REEL").attr("Class", "no-active");
@@ -663,6 +670,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#CONSULTATION_ENTREES").attr("Class", "no-active")
                     $("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                    $("#LISTE_EMPOTAGE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/produit/produitsVue.php", function () {
                     });
 
@@ -678,7 +687,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 					$("#AJOUTER_ACHATS").attr("Class", "no-active");
 					$("#LISTE_ACHATS").attr("Class", "no-active");
 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
-					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+					$("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
 					$("#LIST_USERS").attr("Class", "no-active");
 					$("#STOCK_REEL").attr("Class", "no-active");
 					$("#LISTE_FACTURE").attr("Class", "no-active");
@@ -703,7 +712,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#STOCK_REEL").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
@@ -729,7 +738,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 					$("#AJOUTER_ACHATS").attr("Class", "active");
 					$("#LISTE_ACHATS").attr("Class", "no-active");
 					$("#AJOUTER_SORTIE").attr("Class", "no-active");
-					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+					$("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
 					$("#LISTE_FACTURE").attr("Class", "no-active");
 					$("#LISTE_SORTIE").attr("Class", "no-active");
 					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -771,7 +780,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -803,7 +812,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -819,7 +828,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     });
                 });
 
-                $("#AJOUTER_FACTURE").click(function (e) {
+                $("#AJOUTER_EMPOTAGE").click(function (e) {
                 	 $("#MNU_PRODUITS").attr("Class", "no-active");
                      $("#MNU_MAREYEURS").attr("Class", "no-active");
                      $("#MNU_BORD").attr("Class", "no-active");
@@ -828,7 +837,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
  					$("#LISTE_ACHATS").attr("Class", "no-active");
  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
- 					$("#AJOUTER_FACTURE").attr("Class", "active");
+ 					$("#AJOUTER_EMPOTAGE").attr("Class", "active");
  					$("#LISTE_FACTURE").attr("Class", "no-active");
  					$("#LISTE_SORTIE").attr("Class", "no-active");
  					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -840,10 +849,38 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
                     $("#CONSULTATION_ENTREES").attr("Class", "no-active");
                     $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
-                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/facturesVue.php", function () {
+                    $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/empotage/empotagesVue.php", function () {
 
                     });
                 });
+
+                $("#LISTE_EMPOTAGE").click(function (e) {
+               	 $("#MNU_PRODUITS").attr("Class", "no-active");
+                    $("#MNU_MAREYEURS").attr("Class", "no-active");
+                    $("#MNU_BORD").attr("Class", "no-active");
+                    $("#MNU_CLIENTS").attr("Class", "no-active");
+                   $("#MNU_DEVISE").attr("Class", "no-active");
+					$("#AJOUTER_ACHATS").attr("Class", "no-active");
+					$("#LISTE_ACHATS").attr("Class", "no-active");
+					$("#AJOUTER_SORTIE").attr("Class", "no-active");
+					$("#LISTE_EMPOTAGE").attr("Class", "active");
+					$("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
+					$("#LISTE_EMPOTAGE").attr("Class", "active");
+					$("#LISTE_FACTURE").attr("Class", "no-active");
+					$("#LISTE_SORTIE").attr("Class", "no-active");
+					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
+					$("#REGLEMENT_ACHAT").attr("Class", "no-active");
+					$("#MNU_DEMOULAGE").attr("Class", "no-active");
+					$("#MNU_DEMOULAGE_LIST").attr("Class", "no-active");
+					$("#LIST_USERS").attr("Class", "no-active");
+					$("#STOCK_REEL").attr("Class", "no-active");
+                   $("#CONSULTATION_PRODUITS").attr("Class", "no-active");
+                   $("#CONSULTATION_ENTREES").attr("Class", "no-active");
+                   $("#INVENTAIRE_FACTURE").attr("Class", "no-active");
+                   $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/empotage/empotageListe.php", function () {
+
+                   });
+               });
 
 
                 $("#LISTE_FACTURE").click(function (e) {
@@ -855,7 +892,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
  					$("#LISTE_ACHATS").attr("Class", "no-active");
  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
- 					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+ 					$("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
  					$("#LISTE_FACTURE").attr("Class", "active");
  					$("#LISTE_SORTIE").attr("Class", "no-active");
  					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -881,7 +918,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -907,7 +944,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
  					$("#AJOUTER_ACHATS").attr("Class", "no-active");
  					$("#LISTE_ACHATS").attr("Class", "no-active");
  					$("#AJOUTER_SORTIE").attr("Class", "no-active");
- 					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+ 					$("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
  					$("#LISTE_FACTURE").attr("Class", "no-active");
  					$("#LISTE_SORTIE").attr("Class", "no-active");
  					$("#REGLEMENT_FACTURE").attr("Class", "active");
@@ -932,7 +969,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -958,7 +995,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -985,7 +1022,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#LIST_USERS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1009,7 +1046,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
   					$("#AJOUTER_ACHATS").attr("Class", "no-active");
   					$("#LISTE_ACHATS").attr("Class", "no-active");
   					$("#AJOUTER_SORTIE").attr("Class", "no-active");
-  					$("#AJOUTER_FACTURE").attr("Class", "no-active");
+  					$("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
   					$("#LISTE_FACTURE").attr("Class", "no-active");
   					$("#LISTE_SORTIE").attr("Class", "no-active");
   					$("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1034,7 +1071,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     $("#AJOUTER_ACHATS").attr("Class", "no-active");
                     $("#LISTE_ACHATS").attr("Class", "no-active");
                     $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                    $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                    $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                     $("#LISTE_FACTURE").attr("Class", "no-active");
                     $("#LISTE_SORTIE").attr("Class", "no-active");
                     $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1061,7 +1098,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1091,7 +1128,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1120,7 +1157,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1150,7 +1187,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                        $("#AJOUTER_ACHATS").attr("Class", "no-active");
                        $("#LISTE_ACHATS").attr("Class", "no-active");
                        $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                       $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                       $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                        $("#LISTE_FACTURE").attr("Class", "no-active");
                        $("#LISTE_SORTIE").attr("Class", "no-active");
                        $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1180,7 +1217,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1209,7 +1246,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1239,7 +1276,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1267,7 +1304,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1295,7 +1332,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
@@ -1321,7 +1358,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                       $("#AJOUTER_ACHATS").attr("Class", "no-active");
                       $("#LISTE_ACHATS").attr("Class", "no-active");
                       $("#AJOUTER_SORTIE").attr("Class", "no-active");
-                      $("#AJOUTER_FACTURE").attr("Class", "no-active");
+                      $("#AJOUTER_EMPOTAGE").attr("Class", "no-active");
                       $("#LISTE_FACTURE").attr("Class", "no-active");
                       $("#LISTE_SORTIE").attr("Class", "no-active");
                       $("#REGLEMENT_FACTURE").attr("Class", "no-active");
