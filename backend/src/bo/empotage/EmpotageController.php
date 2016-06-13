@@ -4,17 +4,15 @@ require_once '../../../../common/app.php';
 require_once App::AUTOLOAD;
 $lang = 'fr';
 
-use Facture\Facture as Facture;
-use Facture\FactureTemp as FactureTemp;
+use Empotage\Empotage as Empotage;
+use Empotage\EmpotageTemp as EmpotageTemp;
 use Bo\BaseController as BaseController;
 use Bo\BaseAction as BaseAction;
-use Facture\FactureManager as FactureManager;
-use BonSortie\BonSortieManager as BonSortieManager;
+use Empotage\EmpotageManager as EmpotageManager;
 use Log\Loggers as Logger;
-use Exceptions\ConstraintException as ConstraintException;
 use App as App;
 
-class FactureController extends BaseController implements BaseAction {
+class EmpotageController extends BaseController implements BaseAction {
 
     private $logger;
     private $parameters;
@@ -50,13 +48,13 @@ class FactureController extends BaseController implements BaseAction {
                         $this->doSearch($request);
                         break;
                     case \App::ACTION_LIST_PAR_USINE:
-                        $this->doGetFactureParUsine($request);
+                        $this->doGetEmpotageParUsine($request);
                         break;
                     case \App::ACTION_ACTIVER:
-                        $this->doValidFacture($request);
+                        $this->doValidEmpotage($request);
                         break;
                     case \App::ACTION_DESACTIVER:
-                        $this->doAnnuleFacture($request);
+                        $this->doAnnuleEmpotage($request);
                         break;
                     case \App::ACTION_GET_LAST_NUMBER:
                         $this->doGetLastNumber($request);
@@ -77,13 +75,13 @@ class FactureController extends BaseController implements BaseAction {
                         $this->doStatReglements($request);
                         break;
                     case \App::ACTION_LIST_FACTURE_ANNULES:
-                        $this->doListFactureAnnules($request);
+                        $this->doListEmpotageAnnules($request);
                         break;
                     case \App::ACTION_GET_INFOS:
                         $this->doGetInfoInventaire($request);
                         break;
                     case \App::ACTION_LIST_INVENTAIRE_FACTURES:
-                        $this->doListInventaireFacture($request);
+                        $this->doListInventaireEmpotage($request);
                         break;
                 }
             } else {
@@ -97,51 +95,33 @@ class FactureController extends BaseController implements BaseAction {
     public function doInsert($request) {
         try {
             if ($request['client'] != "null" || $request['client'] != "undefined") {
-                $factureManager = new FactureManager();
-                $facture = new Facture();
-                $facture->setNumero($request['numFacture']);
-                $facture->setDateFacture(new \DateTime("now"));
-                $facture->setHeureFacture(new \DateTime($request['heureFacture']));
-                $facture->setDevise($request['devise']);
-                $facture->setPortDechargement($request['portDechargement']);
-                $facture->setMontantHt($request['montantHt']);
-                $facture->setMontantTtc($request['montantTtc']);
-                $facture->setModePaiement($request['modePaiement']);
+                $empotageManager = new EmpotageManager();
+                $empotage = new Empotage();
+                $empotage->setNumero($request['numEmpotage']);
+                $empotage->setDateEmpotage(new \DateTime("now"));
+                $empotage->setHeureEmpotage(new \DateTime($request['heureEmpotage']));
+                $empotage->setDevise($request['devise']);
+                $empotage->setPortDechargement($request['portDechargement']);
+                $empotage->setMontantHt($request['montantHt']);
+                $empotage->setMontantTtc($request['montantTtc']);
+                $empotage->setModePaiement($request['modePaiement']);
                 if ($request['modePaiement'] == 'CHEQUE')
-                    $facture->setNumCheque($request['numCheque']);
+                    $empotage->setNumCheque($request['numCheque']);
                 else if ($request['modePaiement'] == 'VIREMENT')
-                    $facture->setDatePaiement(new \DateTime($request['datePaiement']));
-                $facture->setAvance($request['avance']);
-                $facture->setReliquat($request['reliquat']);
-                $facture->setNbTotalColis($request['nbTotalColis']);
-                $facture->setNbTotalPoids($request['nbTotalPoids']);
-                $facture->setStatus(1);
-                $facture->setRegle(0);
-//                if ($request['regle'] == "true")
-//                    $facture->setRegle(2);
-//                else {
-//                    if ($request['avance'] != "" && $request['avance'] != "undefined") {
-//                        $facture->setRegle(1);
-//                        $reliquat = $request['montantTtc'] - $request['avance'];
-//                        if ($reliquat == 0)
-//                            $facture->setRegle(2);
-//                        $facture->setReliquat($reliquat);
-//                        $reglement = new Reglement\ReglementFacture();
-//                        $reglement->setFacture($facture);
-//                        $reglement->setDatePaiement(new \DateTime("now"));
-//                        $reglement->setAvance($request['avance']);
-//                    }
-//                    else {
-//                        $facture->setRegle(0);
-//                    }
-//                }
-                $facture->setCodeUsine($request['codeUsine']);
-                $facture->setLogin($request['login']);
+                    $empotage->setDatePaiement(new \DateTime($request['datePaiement']));
+                $empotage->setAvance($request['avance']);
+                $empotage->setReliquat($request['reliquat']);
+                $empotage->setNbTotalColis($request['nbTotalColis']);
+                $empotage->setNbTotalPoids($request['nbTotalPoids']);
+                $empotage->setStatus(1);
+                $empotage->setRegle(0);
+                $empotage->setCodeUsine($request['codeUsine']);
+                $empotage->setLogin($request['login']);
                 $clientManager = new \Client\ClientManager();
                 $client = $clientManager->findById($request['client']);
-                $facture->setClient($client);
-                $factureAdded = $factureManager->insert($facture);
-                if ($factureAdded->getId() != null) {
+                $empotage->setClient($client);
+                $empotageAdded = $$empotageManager->insert($empotage);
+                if ($empotageAdded->getId() != null) {
                     if ($request['avance'] != "" && $request['avance'] != "undefined" && $request['regle'] != "true") {
                         $reglementManager = new Reglement\ReglementManager();
                         $reglementManager->insert($reglement);
@@ -150,11 +130,11 @@ class FactureController extends BaseController implements BaseAction {
                     foreach ($jsonConteneur as $key => $ligneConteneur) {
                         if (isset($ligneConteneur["nConteneur"])) {
                             if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
-                                $conteneur = new \Facture\Conteneur();
-                                $conteneur->setFacture($facture);
+                                $conteneur = new \Empotage\Conteneur();
+                                $conteneur->setEmpotage($empotage);
                                 $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
                                 $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
-                                $conteneurManager = new \Facture\ConteneurManager();
+                                $conteneurManager = new \Empotage\ConteneurManager();
                                 $conteneurManager->insert($conteneur);
                             }
                         }
@@ -163,22 +143,22 @@ class FactureController extends BaseController implements BaseAction {
                     foreach ($jsonProduit as $key => $ligne) {
                         if (isset($ligne["nColis"])) {
                             if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                                $ligneFacture = new \Facture\LigneFacture;
-                                $ligneFacture->setFacture($facture);
-                                $ligneFacture->setNbColis($ligne["nColis"]);
-                                $ligneFacture->setProduit($ligne["produitId"]);
-                                $ligneFacture->setQuantite($ligne["pnet"]);
-                               // $ligneFacture->setPrixUnitaire($ligne["pu"]);
-                               // $ligneFacture->setMontant($ligne["montant"]);
-                                $ligneFactureManager = new \Facture\LigneFactureManager();
-                                $inserted = $ligneFactureManager->insert($ligneFacture);
+                                $ligneEmpotage = new \Empotage\LigneEmpotage;
+                                $ligneEmpotage->setEmpotage($empotage);
+                                $ligneEmpotage->setNbColis($ligne["nColis"]);
+                                $ligneEmpotage->setProduit($ligne["produitId"]);
+                                $ligneEmpotage->setQuantite($ligne["pnet"]);
+                               // $ligneEmpotage->setPrixUnitaire($ligne["pu"]);
+                               // $ligneEmpotage->setMontant($ligne["montant"]);
+                                $ligneEmpotageManager = new \Empotage\LigneEmpotageManager();
+                                $inserted = $ligneEmpotageManager->insert($ligneEmpotage);
                                 if ($inserted->getId() != null) {
-                                    $stockFacturee = new \Stock\StockFacture();
-                                    $stockFacturee->setFactureId($factureAdded->getId());
-                                    $stockFacturee->setProduitId($ligne["produitId"]);
-                                    $stockFacturee->setQuantiteFacturee($ligne["pnet"]);
+                                    $stockEmpotagee = new \Stock\StockEmpotage();
+                                    $stockEmpotagee->setEmpotageId($empotageAdded->getId());
+                                    $stockEmpotagee->setProduitId($ligne["produitId"]);
+                                    $stockEmpotagee->setQuantiteEmpotagee($ligne["pnet"]);
                                     $stockManager = new \Stock\StockManager();
-                                    $stockManager->insert($stockFacturee);
+                                    $stockManager->insert($stockEmpotagee);
                                     $stockManager->destockageReel($ligne["produitId"], $request['codeUsine'], $ligne["pnet"]);
                                 }
                             }
@@ -189,20 +169,20 @@ class FactureController extends BaseController implements BaseAction {
                     foreach ($jsonColis as $key => $ligneC) {
                         if (isset($ligneC["nbColis"])) {
                             if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-                                $colis = new \Facture\LigneColis();
+                                $colis = new \Empotage\LigneColis();
                                 $colis->setNombreCarton($ligneC["nbColis"]);
                                 $colis->setQuantiteParCarton($ligneC["qte"]);
                                 $colis->setProduitId($ligneC["produitId"]);
-                                $colis->setFactureId($factureAdded->getId());
-                                $ligneColisManager = new \Facture\LigneColisManager;
+                                $colis->setEmpotageId($empotageAdded->getId());
+                                $ligneColisManager = new \Empotage\LigneColisManager;
                                 $inserted = $ligneColisManager->insert($colis);
                                 if ($inserted->getId() != null) {
-                                    $ligneColisManager->dimunieColisFacturee($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
+                                    $ligneColisManager->dimunieColisEmpotagee($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
                                 }
                             }
                         }
                     }
-                    $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
+                    $this->doSuccess($empotageAdded->getId(), 'Empotage enregistré avec succes');
                 } else {
                     $this->doError('-1', 'Impossible d\'inserer ce facture');
                 }
@@ -213,91 +193,14 @@ class FactureController extends BaseController implements BaseAction {
         }
     }
 
-    public function doInsertTemp($request) {
-        try {
-            $factureManager = new FactureManager();
-            $facture = new FactureTemp();
-            $facture->setNumero($request['numFacture']);
-            $facture->setDateFacture(new \DateTime("now"));
-            $facture->setHeureFacture(new \DateTime($request['heureFacture']));
-            $facture->setDevise($request['devise']);
-            $facture->setPortDechargement($request['portDechargement']);
-            $facture->setMontantHt($request['montantHt']);
-            $facture->setMontantTtc($request['montantTtc']);
-            $facture->setModePaiement($request['modePaiement']);
-            $facture->setNumCheque($request['numCheque']);
-            $facture->setAvance($request['avance']);
-            $facture->setReliquat($request['reliquat']);
-            $facture->setNbTotalColis($request['nbTotalColis']);
-            $facture->setNbTotalPoids($request['nbTotalPoids']);
-            $facture->setStatus(1);
-            $facture->setRegle(0);
-            $facture->setCodeUsine($request['codeUsine']);
-            $facture->setLogin($request['login']);
-            $facture->setClient($request['clientId']);
-            $factureAdded = $factureManager->insert($facture);
-            if ($factureAdded->getId() != null) {
-
-                $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
-                foreach ($jsonConteneur as $key => $ligneConteneur) {
-                    if (isset($ligneConteneur["nConteneur"])) {
-                        if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
-                            $conteneur = new \Facture\ConteneurTemp();
-                            $conteneur->setFacture($factureAdded->getId());
-                            $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
-                            $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
-                            $conteneurManager = new \Facture\ConteneurManager();
-                            $conteneurManager->insert($conteneur);
-                        }
-                    }
-                }
-                $jsonProduit = json_decode($_POST['jsonProduit'], true);
-                foreach ($jsonProduit as $key => $ligne) {
-                    if (isset($ligne["nColis"])) {
-                        if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                            $colis = new \Facture\LigneFactureTemp();
-                            $colis->setFacture($factureAdded->getId());
-                            $colis->setNbColis($ligne["nColis"]);
-                            $colis->setProduit($ligne["produitId"]);
-                            $colis->setQuantite($ligne["pnet"]);
-                            $colis->setPrixUnitaire($ligne["pu"]);
-                            $colis->setMontant($ligne["montant"]);
-                            $ligneFactureManager = new \Facture\LigneFactureManager();
-                            $inserted = $ligneFactureManager->insert($colis);
-                        }
-                    }
-                }
-                $jsonColis = json_decode($_POST['jsonColis'], true);
-                foreach ($jsonColis as $key => $ligneC) {
-                    if (isset($ligneC["nbColis"])) {
-                        if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-                            $colis = new \Facture\LigneColisTemp();
-                            $colis->setNombreCarton($ligneC["nbColis"]);
-                            $colis->setQuantiteParCarton($ligneC["qte"]);
-                            $colis->setProduitId($ligneC["produitId"]);
-                            $colis->setFactureId($factureAdded->getId());
-                            $ligneColisManager = new \Facture\LigneColisManager;
-                            $inserted = $ligneColisManager->insert($colis);
-                        }
-                    }
-                }
-                $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
-            }
-//              else {
-//                 $this->doError('-1', 'Impossible d\'inserer cette facture');
-//             }
-        } catch (Exception $e) {
-            $this->doError('-1', 'Impossible d\'inserer cette facture');
-        }
-    }
 
     public function doList($request) {
         try {
-            $factureManager = new FactureManager();
+            $empotageManager = new EmpotageManager();
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateFacture', 'numero', 'nom');
+                $aColumns = array('dateEmpotage', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 1; $i < intval($request['iSortingCols']); $i++) {
@@ -309,7 +212,7 @@ class FactureController extends BaseController implements BaseAction {
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder .= " dateFacture desc";
+                        $sOrder .= " dateEmpotage desc";
                     }
                 }
                 // End order from DataTable
@@ -328,10 +231,10 @@ class FactureController extends BaseController implements BaseAction {
                 //    }
                 }
                 // End filter from dataTable
-                $facture = $factureManager->retrieveAll($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-                if ($facture != null) {
-                    $nbFactures = $factureManager->count($request['codeUsine'], $sWhere);
-                    $this->doSuccessO($this->dataTableFormat($facture, $request['sEcho'], $nbFactures));
+                $empotage = $empotageManager->retrieveAll($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                if ($empotage != null) {
+                    $nbEmpotages = $empotageManager->count($request['codeUsine'], $sWhere);
+                    $this->doSuccessO($this->dataTableFormat($empotage, $request['sEcho'], $nbEmpotages));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }
@@ -352,60 +255,60 @@ class FactureController extends BaseController implements BaseAction {
     public function doUpdate($request) {
         try {
             if (isset($request['factureId']) && $request['factureId'] != "") {
-                $factureId = $request['factureId'];
-                $factureManager = new FactureManager();
-                $facture = $factureManager->findById($factureId);
-                $facture->setMontantHt($request['montantHt']);
-                $facture->setMontantTtc($request['montantTtc']);
-                $facture->setModePaiement($request['modePaiement']);
-                $facture->setInconterm($request['inconterm']);
+                $empotageId = $request['factureId'];
+                $empotageManager = new EmpotageManager();
+                $empotage = $empotageManager->findById($empotageId);
+                $empotage->setMontantHt($request['montantHt']);
+                $empotage->setMontantTtc($request['montantTtc']);
+                $empotage->setModePaiement($request['modePaiement']);
+                $empotage->setInconterm($request['inconterm']);
                 if ($request['modePaiement'] == 'CHEQUE')
-                    $facture->setNumCheque($request['numCheque']);
+                    $empotage->setNumCheque($request['numCheque']);
                 else if ($request['modePaiement'] == 'VIREMENT')
-                    $facture->setDatePaiement(new \DateTime($request['datePaiement']));
+                    $empotage->setDatePaiement(new \DateTime($request['datePaiement']));
                 // $achat->setCodeUsine($request['codeUsine']);
                 // $achat->setLogin($request['login']);
                 if ($request['avance'] != "" && $request['avance'] != "undefined" && $request['avance']!=0) {
                     if ($request['regle'] == "true")
-                        $facture->setRegle(2);
+                        $empotage->setRegle(2);
                     else
-                        $facture->setRegle(1);
+                        $empotage->setRegle(1);
                     $reliquat = $request['montantTtc'] - $request['avance'];
-                    $facture->setReliquat($reliquat);
-                    $reglement = new Reglement\ReglementFacture();
-                    $reglement->setFacture($facture);
+                    $empotage->setReliquat($reliquat);
+                    $reglement = new Reglement\ReglementEmpotage();
+                    $reglement->setEmpotage($empotage);
                     $reglement->setDatePaiement(new \DateTime("now"));
                     $reglement->setAvance($request['avance']);
                     $reglementManager = new Reglement\ReglementManager();
                     $reglementManager->insert($reglement);
                 }
                 else {
-                    $facture->setRegle(0);
+                    $empotage->setRegle(0);
                 }
-                //$factureAdded = $factureManager->update($facture);
-               // if ($factureAdded->getId() != null) {
-                $listLigneFacture=NULL;
-                    $ligneFactureManager = new \Facture\LigneFactureManager();
+                //$empotageAdded = $empotageManager->update($empotage);
+               // if ($empotageAdded->getId() != null) {
+                $listLigneEmpotage=NULL;
+                    $ligneEmpotageManager = new \Empotage\LigneEmpotageManager();
                     $jsonProduit = json_decode($_POST['jsonProduit'], true);
                     foreach ($jsonProduit as $key => $ligne) {
                         if (isset($ligne["ligneId"])) {
-                            $ligneFacture = $ligneFactureManager->findById($ligne["ligneId"]);
+                            $ligneEmpotage = $ligneEmpotageManager->findById($ligne["ligneId"]);
                             //$ligneAchat->setId($ligne["ligneId"]);
                             //$ligneAchat->setAchat($achat);
                             //$produitId = $ligne["ligneId"];
                             // $produitManager = new Produit\ProduitManager();
                             //$produit= $produitManager->findById($produitId);
                             // $ligneAchat->setProduit($produit);
-                            $ligneFacture->setPrixUnitaire($ligne['pu']);
-                            $ligneFacture->setQuantite($ligne['qte']);
-                            $ligneFacture->setMontant($ligne['montant']);
-                            $listLigneFacture[]=$ligneFacture;
-                            //$ligneFactureManager->update($ligneFacture);
+                            $ligneEmpotage->setPrixUnitaire($ligne['pu']);
+                            $ligneEmpotage->setQuantite($ligne['qte']);
+                            $ligneEmpotage->setMontant($ligne['montant']);
+                            $listLigneEmpotage[]=$ligneEmpotage;
+                            //$ligneEmpotageManager->update($ligneEmpotage);
                         }
                     }
-                    $factureAdded = $factureManager->update($facture, $listLigneFacture);
-                    if($factureAdded !=NULL)
-                     $this->doSuccess($factureAdded->getId(), 'Facture mise à jour avec succes');
+                    $empotageAdded = $empotageManager->update($empotage, $listLigneEmpotage);
+                    if($empotageAdded !=NULL)
+                     $this->doSuccess($empotageAdded->getId(), 'Empotage mise à jour avec succes');
                 else {
                     $this->doError('-1', 'Impossible d\'effectuer cette mise à jour');
                 }
@@ -422,13 +325,13 @@ class FactureController extends BaseController implements BaseAction {
         
     }
 
-    public function doValidFacture($request) {
+    public function doValidEmpotage($request) {
         try {
             if ($request['achatId'] != null) {
-                $factureManager = new FactureManager();
-                $valid = $factureManager->validFacture($request['achatId']);
+                $empotageManager = new EmpotageManager();
+                $valid = $empotageManager->validEmpotage($request['achatId']);
                 if ($valid == 1)
-                    $factureManager->ajoutStockParAchact($request['achatId']);
+                    $empotageManager->ajoutStockParAchact($request['achatId']);
                 $this->doSuccess($request['achatId'], 'Validation effectué avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
@@ -438,11 +341,11 @@ class FactureController extends BaseController implements BaseAction {
         }
     }
 
-    public function doAnnuleFacture($request) {
+    public function doAnnuleEmpotage($request) {
         try {
             if ($request['factureId'] != null) {
-                $factureManager = new FactureManager();
-                $factureManager->annulerFacture($request['factureId']);
+                $empotageManager = new EmpotageManager();
+                $empotageManager->annulerEmpotage($request['factureId']);
                 $this->doSuccess($request['factureId'], 'Annulation effectuée avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
@@ -454,9 +357,9 @@ class FactureController extends BaseController implements BaseAction {
 
     public function doGetLastNumber($request) {
         try {
-            $factureManager = new FactureManager();
-            $lastFacture = $factureManager->getLastNumberFacture();
-            $this->doSuccess($lastFacture, 'Dernier bon de sortie');
+            $empotageManager = new EmpotageManager();
+            $lastEmpotage = $empotageManager->getLastNumberEmpotage();
+            $this->doSuccess($lastEmpotage, 'Dernier bon de sortie');
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }
@@ -465,8 +368,8 @@ class FactureController extends BaseController implements BaseAction {
     public function doStat($request) {
         try {
             if (isset($request['codeUsine'])) {
-                $FactureManager = new FactureManager();
-                $achat = $FactureManager->findStatisticByUsine($request['codeUsine']);
+                $EmpotageManager = new EmpotageManager();
+                $achat = $EmpotageManager->findStatisticByUsine($request['codeUsine']);
                 if ($achat != null)
                     $this->doSuccessO($achat);
                 else
@@ -484,8 +387,8 @@ class FactureController extends BaseController implements BaseAction {
     public function doStatAnnule($request) {
     	try {
     		if (isset($request['codeUsine'])) {
-    			$FactureManager = new FactureManager();
-    			$achat = $FactureManager->findStatisticAnnuleByUsine($request['codeUsine']);
+    			$EmpotageManager = new EmpotageManager();
+    			$achat = $EmpotageManager->findStatisticAnnuleByUsine($request['codeUsine']);
     			if ($achat != null)
     				$this->doSuccessO($achat);
     			else
@@ -503,10 +406,10 @@ class FactureController extends BaseController implements BaseAction {
     public function doViewDetails($request) {
         try {
             if (isset($request['factureId'])) {
-                $factureManager = new FactureManager();
-                $factureDetails = $factureManager->findFactureDetails($request['factureId']);
-                if ($factureDetails != null)
-                    $this->doSuccessO($factureDetails);
+                $empotageManager = new EmpotageManager();
+                $empotageDetails = $empotageManager->findEmpotageDetails($request['factureId']);
+                if ($empotageDetails != null)
+                    $this->doSuccessO($empotageDetails);
                 else
                     echo json_encode(array());
             } else {
@@ -519,11 +422,11 @@ class FactureController extends BaseController implements BaseAction {
 
     public function doListReglements($request) {
         try {
-            $factureManager = new FactureManager();
+            $empotageManager = new EmpotageManager();
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateFacture', 'numero', 'nom');
+                $aColumns = array('dateEmpotage', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -535,7 +438,7 @@ class FactureController extends BaseController implements BaseAction {
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder .= " dateFacture desc";
+                        $sOrder .= " dateEmpotage desc";
                     }
                 }
                 // End order from DataTable
@@ -554,10 +457,10 @@ class FactureController extends BaseController implements BaseAction {
                     }
                 }
                 // End filter from dataTable
-                $factures = $factureManager->retrieveAllReglements($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-                if ($factures != null) {
-                    $nbAchats = $factureManager->count($request['codeUsine'], $sWhere);
-                    $this->doSuccessO($this->dataTableFormat($factures, $request['sEcho'], $nbAchats));
+                $empotages = $empotageManager->retrieveAllReglements($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                if ($empotages != null) {
+                    $nbAchats = $empotageManager->count($request['codeUsine'], $sWhere);
+                    $this->doSuccessO($this->dataTableFormat($empotages, $request['sEcho'], $nbAchats));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
                 }
@@ -574,10 +477,10 @@ class FactureController extends BaseController implements BaseAction {
     public function doStatReglements($request) {
         try {
             if (isset($request['codeUsine'])) {
-                $factureManager = new FactureManager();
-                $facture = $factureManager->findStatisticReglementByUsine($request['codeUsine']);
-                if ($facture != null)
-                    $this->doSuccessO($facture);
+                $empotageManager = new EmpotageManager();
+                $empotage = $empotageManager->findStatisticReglementByUsine($request['codeUsine']);
+                if ($empotage != null)
+                    $this->doSuccessO($empotage);
                 else
                     echo json_encode(array());
             } else {
@@ -590,13 +493,13 @@ class FactureController extends BaseController implements BaseAction {
         }
     }
     
-    public function doListFactureAnnules($request) {
+    public function doListEmpotageAnnules($request) {
     	try {
-    		$factureManager = new FactureManager();
+    		$empotageManager = new EmpotageManager();
     		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
     			// Begin order from dataTable
     			$sOrder = "";
-    			$aColumns = array('dateFacture', 'numero', 'nom');
+    			$aColumns = array('dateEmpotage', 'numero', 'nom');
     			if (isset($request['iSortCol_0'])) {
     				$sOrder = "ORDER BY  ";
     				for ($i = 1; $i < intval($request['iSortingCols']); $i++) {
@@ -608,7 +511,7 @@ class FactureController extends BaseController implements BaseAction {
     
     				$sOrder = substr_replace($sOrder, "", -2);
     				if ($sOrder == "ORDER BY") {
-    					$sOrder .= " dateFacture desc";
+    					$sOrder .= " dateEmpotage desc";
     				}
     			}
     			// End order from DataTable
@@ -627,10 +530,10 @@ class FactureController extends BaseController implements BaseAction {
     				//    }
     			}
     			// End filter from dataTable
-    			$facture = $factureManager->retrieveAllFactureAnnules($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-    			if ($facture != null) {
-    				$nbFactures = $factureManager->countFactureAnnules($request['codeUsine'], $sWhere);
-    				$this->doSuccessO($this->dataTableFormat($facture, $request['sEcho'], $nbFactures));
+    			$empotage = $empotageManager->retrieveAllEmpotageAnnules($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			if ($empotage != null) {
+    				$nbEmpotages = $empotageManager->countEmpotageAnnules($request['codeUsine'], $sWhere);
+    				$this->doSuccessO($this->dataTableFormat($empotage, $request['sEcho'], $nbEmpotages));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
     			}
@@ -646,21 +549,21 @@ class FactureController extends BaseController implements BaseAction {
     
     public function doGetInfoInventaire($request) {
     	try {
-    		$factureManager = new FactureManager();
-    		$infos = $factureManager->getInfoInventaire($request['clientId'],$request['typeFacture'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
+    		$empotageManager = new EmpotageManager();
+    		$infos = $empotageManager->getInfoInventaire($request['clientId'],$request['typeEmpotage'],$request['dateDebut'],$request['dateFin'], $request['codeUsine']);
     		$this->doSuccessO($infos);
     	} catch (Exception $e) {
     		$this->doError('-1', $e->getMessage());
     	}
     }
     
-    function doListInventaireFacture($request) {
+    function doListInventaireEmpotage($request) {
     	try {
-    		$factureManager = new FactureManager();
+    		$empotageManager = new EmpotageManager();
     		if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
     			// Begin order from dataTable
     			$sOrder = "";
-    			$aColumns = array('dateFacture', 'numero', 'nom');
+    			$aColumns = array('dateEmpotage', 'numero', 'nom');
     			if (isset($request['iSortCol_0'])) {
     				$sOrder = "ORDER BY  ";
     				for ($i = 0; $i < intval($request['iSortingCols']); $i++) {
@@ -691,10 +594,10 @@ class FactureController extends BaseController implements BaseAction {
     				}
     			}
     			// End filter from dataTable
-    			$factures = $factureManager->retrieveFactureInventaire($request['clientId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
-    			if ($factures != null) {
-    				$nbAchats = $factureManager->countInventaires($request['clientId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $sWhere);
-    				$this->doSuccessO($this->dataTableFormat($factures, $request['sEcho'], $nbAchats));
+    			$empotages = $empotageManager->retrieveEmpotageInventaire($request['clientId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+    			if ($empotages != null) {
+    				$nbAchats = $empotageManager->countInventaires($request['clientId'],$request['dateDebut'], $request['dateFin'], $request['regle'], $request['usineCode'], $sWhere);
+    				$this->doSuccessO($this->dataTableFormat($empotages, $request['sEcho'], $nbAchats));
     			} else {
     				$this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));
     			}
@@ -710,4 +613,4 @@ class FactureController extends BaseController implements BaseAction {
 
 }
 
-$oFactureController = new FactureController($_REQUEST);
+$oEmpotageController = new EmpotageController($_REQUEST);

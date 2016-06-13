@@ -1,10 +1,10 @@
 <?php
 
-namespace Facture;
+namespace Empotage;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="facture") * */
-class Facture {
+ * @Table(name="empotage") * */
+class Empotage {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -23,10 +23,6 @@ class Facture {
     public $heureFacture;
     
    /** @Column(type="string", length=60, nullable=true) */
-    public $devise;
-    
-    
-   /** @Column(type="string", length=60, nullable=true) */
     public $portDechargement;
     
    /**
@@ -40,42 +36,7 @@ class Facture {
     public $nbTotalPoids;
     
     
-   /** @Column(type="decimal", scale=2, precision=10, nullable=true) */
-    public $montantHt;
-    /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=false)
-     * */
-    protected $montantTtc;
-    
-    /**
-     * @Column(type="string", length=60, nullable=true)
-     * */
-    protected $modePaiement;
-    
-    /**
-     * @Column(type="string", length=60, nullable=true)
-     * */
-    protected $numCheque;
-    
-   /** @Column(type="datetime", nullable=true) */
-    public $datePaiement;
-    
-    /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=true)
-     * */
-    protected $avance;
-    
-    /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=true)
-     * */
-    protected $reliquat;
-    
-    
-    /**
-     * @Column(type="string", length=60, nullable=true)
-     * */
-    protected $inconterm;
-    
+   
     /**
      * @Column(type="string", length=60, nullable=false)
      * */
@@ -92,11 +53,6 @@ class Facture {
      **/
     protected $status;
     
-    /**
-     * @Column(type="integer", options={"default":0}) 
-     **/
-    protected $regle;
-    
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
 
@@ -106,12 +62,12 @@ class Facture {
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
     
-    /**
-     * @OneToOne(targetEntity="Empotage\Empotage")
-     * @JoinColumn(name="empotage_id", referencedColumnName="id")
-     **/
+    /** @ManyToOne(targetEntity="Client\Client", inversedBy="client") */
+    protected $client;
     
-    private $empotage;
+   /** @OneToMany(targetEntity="Facture\Conteneur", mappedBy="conteneur") */
+    public $conteneur;
+    
     
     function getId() {
         return $this->id;
@@ -129,10 +85,6 @@ class Facture {
         return $this->heureFacture;
     }
 
-    function getDevise() {
-        return $this->devise;
-    }
-
     function getPortDechargement() {
         return $this->portDechargement;
     }
@@ -143,38 +95,6 @@ class Facture {
 
     function getNbTotalPoids() {
         return $this->nbTotalPoids;
-    }
-
-    function getMontantHt() {
-        return $this->montantHt;
-    }
-
-    function getMontantTtc() {
-        return $this->montantTtc;
-    }
-
-    function getModePaiement() {
-        return $this->modePaiement;
-    }
-
-    function getNumCheque() {
-        return $this->numCheque;
-    }
-
-    function getDatePaiement() {
-        return $this->datePaiement;
-    }
-
-    function getAvance() {
-        return $this->avance;
-    }
-
-    function getReliquat() {
-        return $this->reliquat;
-    }
-
-    function getInconterm() {
-        return $this->inconterm;
     }
 
     function getCodeUsine() {
@@ -189,10 +109,6 @@ class Facture {
         return $this->status;
     }
 
-    function getRegle() {
-        return $this->regle;
-    }
-
     function getCreatedDate() {
         return $this->createdDate;
     }
@@ -205,8 +121,12 @@ class Facture {
         return $this->deletedDate;
     }
 
-    function getEmpotage() {
-        return $this->empotage;
+    function getClient() {
+        return $this->client;
+    }
+
+    function getConteneur() {
+        return $this->conteneur;
     }
 
     function setId($id) {
@@ -225,10 +145,6 @@ class Facture {
         $this->heureFacture = $heureFacture;
     }
 
-    function setDevise($devise) {
-        $this->devise = $devise;
-    }
-
     function setPortDechargement($portDechargement) {
         $this->portDechargement = $portDechargement;
     }
@@ -239,38 +155,6 @@ class Facture {
 
     function setNbTotalPoids($nbTotalPoids) {
         $this->nbTotalPoids = $nbTotalPoids;
-    }
-
-    function setMontantHt($montantHt) {
-        $this->montantHt = $montantHt;
-    }
-
-    function setMontantTtc($montantTtc) {
-        $this->montantTtc = $montantTtc;
-    }
-
-    function setModePaiement($modePaiement) {
-        $this->modePaiement = $modePaiement;
-    }
-
-    function setNumCheque($numCheque) {
-        $this->numCheque = $numCheque;
-    }
-
-    function setDatePaiement($datePaiement) {
-        $this->datePaiement = $datePaiement;
-    }
-
-    function setAvance($avance) {
-        $this->avance = $avance;
-    }
-
-    function setReliquat($reliquat) {
-        $this->reliquat = $reliquat;
-    }
-
-    function setInconterm($inconterm) {
-        $this->inconterm = $inconterm;
     }
 
     function setCodeUsine($codeUsine) {
@@ -285,10 +169,6 @@ class Facture {
         $this->status = $status;
     }
 
-    function setRegle($regle) {
-        $this->regle = $regle;
-    }
-
     function setCreatedDate($createdDate) {
         $this->createdDate = $createdDate;
     }
@@ -301,9 +181,23 @@ class Facture {
         $this->deletedDate = $deletedDate;
     }
 
-    function setEmpotage($empotage) {
-        $this->empotage = $empotage;
+    function setClient($client) {
+        $this->client = $client;
     }
+
+    function setConteneur($conteneur) {
+        $this->conteneur = $conteneur;
+    }
+
+
+    
+        /** @PrePersist */
+    public function doPrePersist() {
+        $this->createdDate = new \DateTime("now");
+        $this->updatedDate = new \DateTime("now");
+    }
+
+
 
 
     }

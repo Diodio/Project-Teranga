@@ -1251,7 +1251,7 @@ $(document).ready(function () {
             var login = "<?php echo $login ?>";
             var headerColis = ["#","nColis","qteColis"];
             var headerConteneur = ["#","nConteneur","nPlomb"];
-            var headerProduit = ["produitId","nColis","designation","pnet","pu","montant"];
+            var headerProduit = ["produitId","nColis","designation","pnet"];
             var tblColis=tabToJson('tab_logic_colis', headerColis );
             var tblConteneur=tabToJson('tab_conteneur', headerConteneur );
             var tblProduit=SimpletabToJson('tab_produit', headerProduit );
