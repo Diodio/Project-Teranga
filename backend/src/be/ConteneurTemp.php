@@ -1,10 +1,10 @@
 <?php
 
-namespace Facture;
+namespace Empotage;
 
 /** @Entity @HasLifecycleCallbacks 
- * @Table(name="conteneur") * */
-class Conteneur {
+ * @Table(name="conteneur_temp") * */
+class ConteneurTemp {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -12,7 +12,7 @@ class Conteneur {
     protected $id;
   
     /** @ManyToOne(targetEntity="Facture\Facture", inversedBy="facture", cascade={"persist"}) */
-    protected $facture;
+    protected $empotage_id;
     
     /**
      * @Column(type="string", length=60, nullable=true)
@@ -25,37 +25,39 @@ class Conteneur {
     protected $numPlomb;
     
     
-    public function getId() {
+    function getId() {
         return $this->id;
     }
 
-    public function getFacture() {
-        return $this->facture;
+    function getEmpotage_id() {
+        return $this->empotage_id;
     }
 
-    public function getNumConteneur() {
+    function getNumConteneur() {
         return $this->numConteneur;
     }
 
-    public function getNumPlomb() {
+    function getNumPlomb() {
         return $this->numPlomb;
     }
 
-    public function setId($id) {
+    function setId($id) {
         $this->id = $id;
     }
 
-    public function setFacture($facture) {
-        $this->facture = $facture;
+    function setEmpotage_id($empotage_id) {
+        $this->empotage_id = $empotage_id;
     }
 
-    public function setNumConteneur($numConteneur) {
+    function setNumConteneur($numConteneur) {
         $this->numConteneur = $numConteneur;
     }
 
-    public function setNumPlomb($numPlomb) {
+    function setNumPlomb($numPlomb) {
         $this->numPlomb = $numPlomb;
     }
+
+
 
 
 

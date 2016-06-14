@@ -17,10 +17,10 @@ class Empotage {
     protected $numero;
     
    /** @Column(type="datetime", nullable=true) */
-    public $dateFacture;
+    public $date;
     
    /** @Column(type="time", nullable=true) */
-    public $heureFacture;
+    public $heure;
     
    /** @Column(type="string", length=60, nullable=true) */
     public $portDechargement;
@@ -65,7 +65,7 @@ class Empotage {
     /** @ManyToOne(targetEntity="Client\Client", inversedBy="client") */
     protected $client;
     
-   /** @OneToMany(targetEntity="Facture\Conteneur", mappedBy="conteneur") */
+   /** @OneToMany(targetEntity="Empotage\Conteneur", mappedBy="conteneur") */
     public $conteneur;
     
     
@@ -77,12 +77,12 @@ class Empotage {
         return $this->numero;
     }
 
-    function getDateFacture() {
-        return $this->dateFacture;
+    function getDate() {
+        return $this->date;
     }
 
-    function getHeureFacture() {
-        return $this->heureFacture;
+    function getHeure() {
+        return $this->heure;
     }
 
     function getPortDechargement() {
@@ -137,12 +137,12 @@ class Empotage {
         $this->numero = $numero;
     }
 
-    function setDateFacture($dateFacture) {
-        $this->dateFacture = $dateFacture;
+    function setDate($date) {
+        $this->date = $date;
     }
 
-    function setHeureFacture($heureFacture) {
-        $this->heureFacture = $heureFacture;
+    function setHeure($heure) {
+        $this->heure = $heure;
     }
 
     function setPortDechargement($portDechargement) {
@@ -189,7 +189,7 @@ class Empotage {
         $this->conteneur = $conteneur;
     }
 
-
+    
     
         /** @PrePersist */
     public function doPrePersist() {

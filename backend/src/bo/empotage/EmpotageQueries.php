@@ -23,11 +23,77 @@ class EmpotageQueries {
     }
 
    
-    public function insert($achat) {
-        if ($achat != null) {
-            Bootstrap::$entityManager->persist($achat);
-            Bootstrap::$entityManager->flush();
-            return $achat;
+    public function insert($empotage,$listConteneur,$jsonProduit,$jsonColis) {
+        Bootstrap::$entityManager->getConnection()->beginTransaction();
+        if ($empotage != null) {
+            try {
+                Bootstrap::$entityManager->persist($empotage);
+                Bootstrap::$entityManager->flush();
+                if ($listConteneur != null) {
+                    foreach ($listConteneur as $conteneur) {
+                        Bootstrap::$entityManager->persist($conteneur);
+                        Bootstrap::$entityManager->flush();
+                    }
+                }
+                
+                foreach ($jsonProduit as $key => $ligne) {
+                        if (isset($ligne["nColis"])) {
+                            if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
+                                $ligneEmpotage = new \Empotage\LigneEmpotage;
+                                $ligneEmpotage->setEmpotage($empotage);
+                                $ligneEmpotage->setNbColis($ligne["nColis"]);
+                                $ligneEmpotage->setProduit_id($ligne["produitId"]);
+                                $ligneEmpotage->setQuantite($ligne["pnet"]);
+                                Bootstrap::$entityManager->persist($ligneEmpotage);
+                                Bootstrap::$entityManager->flush();
+//                                if ($inserted->getId() != null) {
+//                                    $stockEmpotagee = new \Stock\StockEmpotage();
+//                                    $stockEmpotagee->setEmpotageId($empotageAdded->getId());
+//                                    $stockEmpotagee->setProduitId($ligne["produitId"]);
+//                                    $stockEmpotagee->setQuantiteEmpotagee($ligne["pnet"]);
+//                                    $stockManager = new \Stock\StockManager();
+//                                    $stockManager->insert($stockEmpotagee);
+                                   // $stockManager->destockageReel($ligne["produitId"], $request['codeUsine'], $ligne["pnet"]);
+                                $nbStock=$ligne["pnet"];
+                                $produitId=$ligne["produitId"];
+                                $codeUsine=$empotage->getCodeUsine();
+                                $connexion=Bootstrap::$entityManager->getConnection();
+                                $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $nbStock WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
+                              //  }
+                            }
+                        }
+                    }
+                $jsonColis = json_decode($_POST['jsonColis'], true);
+                    foreach ($jsonColis as $key => $ligneC) {
+                        if (isset($ligneC["nbColis"])) {
+                            if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
+                                $colis = new \Empotage\LigneColis();
+                                $colis->setNombreCarton($ligneC["nbColis"]);
+                                $colis->setQuantiteParCarton($ligneC["qte"]);
+                                $colis->setProduitId($ligneC["produitId"]);
+                                $colis->setEmpotage_id($empotage->getId());
+                                //$ligneColisManager = new \Empotage\LigneColisManager;
+                                Bootstrap::$entityManager->persist($colis);
+                                Bootstrap::$entityManager->flush();
+                               // if ($inserted->getId() != null) {
+                               //     $ligneColisManager->dimunieColisEmpotagee($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
+                                $connexion=Bootstrap::$entityManager->getConnection();
+                                $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - ".$ligneC["nbColis"]." WHERE produitId = ".$ligneC["produitId"]." AND quantiteParCarton=".$ligneC["qte"]." and codeUsine='".$empotage->getCodeUsine()."'");
+
+                              //  }
+                            }
+                        }
+                    }
+                Bootstrap::$entityManager->getConnection()->commit();
+                return $empotage;
+            } catch (\Exception $e) {
+                //$this->logger->log->error($e->getMessage());
+                Bootstrap::$entityManager->getConnection()->rollback();
+                Bootstrap::$entityManager->close();
+                $b = new Bootstrap();
+                Bootstrap::$entityManager = $b->getEntityManager();
+                return null;
+            }
         }
     }
 
@@ -177,8 +243,8 @@ class EmpotageQueries {
         return $nbClients['nbEmpotages'];
     }
     
-    public function getLastNumberEmpotage() {
-        $sql = 'select max(id)+1 as last from facture';
+    public function getLastNumberEmpotage($codeUsine) {
+        $sql = 'select max(id)+1 as last from empotage where codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $lastEmpotage = $stmt->fetch();

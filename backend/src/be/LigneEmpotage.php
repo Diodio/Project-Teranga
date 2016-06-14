@@ -1,10 +1,10 @@
 <?php
 
-namespace Facture;
+namespace Empotage;
 
 /** @Entity @HasLifecycleCallbacks
- * @Table(name="ligne_facture") * */
-class LigneFacture {
+ * @Table(name="ligne_empotage") * */
+class LigneEmpotage {
 
     /** @Id
      * @Column(type="integer"), @GeneratedValue
@@ -16,8 +16,6 @@ class LigneFacture {
      * */
     protected $nbColis;
     
-    
-    
     /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
@@ -28,9 +26,9 @@ class LigneFacture {
     /**
      * @Column(type="integer", nullable=true)
      * */
-    protected $produit;
+    protected $produit_id;
     
-      /** @ManyToOne(targetEntity="Facture\Facture", inversedBy="empotage") 
+      /** @ManyToOne(targetEntity="Empotage\Empotage", inversedBy="empotage") 
      * @JoinColumn(name="empotage_id", referencedColumnName="id",
       onDelete="CASCADE") */
     protected $empotage;
@@ -56,8 +54,8 @@ class LigneFacture {
         return $this->quantite;
     }
 
-    function getProduit() {
-        return $this->produit;
+    function getProduit_id() {
+        return $this->produit_id;
     }
 
     function getEmpotage() {
@@ -88,8 +86,8 @@ class LigneFacture {
         $this->quantite = $quantite;
     }
 
-    function setProduit($produit) {
-        $this->produit = $produit;
+    function setProduit_id($produit_id) {
+        $this->produit_id = $produit_id;
     }
 
     function setEmpotage($empotage) {
@@ -108,7 +106,7 @@ class LigneFacture {
         $this->deletedDate = $deletedDate;
     }
 
-    
+        
     
         /** @PrePersist */
     public function doPrePersist() {

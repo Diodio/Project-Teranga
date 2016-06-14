@@ -78,25 +78,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                     <div class="col-sm-6">
                         <div class="form-group" style="margin-bottom: 45px;width: 173%;" >
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Numero Facture</label>
+                                   for="form-field-1"> Numero Empotage</label>
                             <div class="col-sm-6">
-                                <input type="text" id="numFacture" placeholder=""
+                                <input type="text" id="numEmpotage" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom: 56px;width: 173%;">
                             <label class="col-sm-2 control-label no-padding-right"
-                                   for="form-field-1"> Date Facture</label>
+                                   for="form-field-1"> Date Empotage</label>
                             <div class="col-sm-6">
-                                <input type="text" id="dateFacture" placeholder=""
+                                <input type="text" id="dateEmpotage" placeholder=""
                                        class="col-xs-10 col-sm-7">
                             </div>
                         </div>
                         <div class="input-append bootstrap-timepicker form-group" style="margin-top: 88px;" >
                             <label class="col-sm-4 control-label no-padding-right"
-                                   for="form-field-1"> Heure de Facture</label>
+                                   for="form-field-1"> Heure de Empotage</label>
                             <div class="bootstrap-timepicker col-sm-6" style="margin-left: -22px;;width: 70%;">
-                                <input name="heureReception" id="heureFacture" type="text" class="col-xs-10 col-sm-7" />
+                                <input name="heureReception" id="heureEmpotage" type="text" class="col-xs-10 col-sm-7" />
                             </div>
                         </div>
                         <div class="row" style="margin-top: 132px;">
@@ -384,7 +384,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 <!--                                         for="form-field-1"> Reglé </label> -->
 <!--                                 <div class="col-sm-7"> -->
 <!--                                     <div class="clearfix"> -->
-<!--                                            <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder="" /> -->
+<!--                                            <input type="checkbox" disabled="disabled" id="regleEmpotage" name="regleEmpotage" placeholder="" /> -->
 <!--                                     </div> -->
 <!--                                 </div> -->
 <!--                             </div> -->
@@ -464,7 +464,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         </div>
             <div class="col-sm-2" style="margin-top: 20px;">
                     <button id="FACTURE_PROFORMA" class="btn btn-small btn-info pull-right">
-                            <i class="fa fa-plus-square "></i> Facture ProForma
+                            <i class="fa fa-plus-square "></i> Empotage ProForma
                     </button>
             </div>
             <div class="col-sm-2" style="margin-top: 20px;">
@@ -552,7 +552,7 @@ $(document).ready(function () {
      var mtTotal=0;
      var montantTtc=0;
         var ch="[";
-    $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+    $.post("<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php", {codeUsine:"<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
         sData=$.parseJSON(data);
             if(sData.rc==-1){
                 $.gritter.add({
@@ -561,7 +561,7 @@ $(document).ready(function () {
                         class_name: 'gritter-error gritter-light'
                     });
             }else{
-                $("#numFacture").val(sData.oId);
+                $("#numEmpotage").val(sData.oId);
             }
     });
     var today = new Date();
@@ -571,9 +571,9 @@ $(document).ready(function () {
 
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateAchat=yyyy+'-'+mm+'-'+dd;
-    $('#dateFacture').attr('value', today);
+    $('#dateEmpotage').attr('value', today);
     
-    $('#heureFacture').timepicker({
+    $('#heureEmpotage').timepicker({
             minuteStep: 1,
             showSeconds: false,
             showMeridian: false
@@ -1098,12 +1098,12 @@ $(document).ready(function () {
            rel= mt - avance;
            if(!isNaN(rel) && rel>0) {
               $("#reliquat").val(rel);
-              $('#regleFacture').attr("disabled", true);
-              $('#regleFacture').prop('checked', false);
+              $('#regleEmpotage').attr("disabled", true);
+              $('#regleEmpotage').prop('checked', false);
           }
            else if(!isNaN(rel) && rel===0) {
-              $('#regleFacture').attr("disabled", false);
-              $('#regleFacture').prop('checked', true);
+              $('#regleEmpotage').attr("disabled", false);
+              $('#regleEmpotage').prop('checked', true);
               $("#reliquat").val(0);
           }  
           else{
@@ -1114,8 +1114,8 @@ $(document).ready(function () {
                 });
               $("#avance").val("");
               $("#reliquat").val("");
-              $('#regleFacture').attr("disabled", true);
-              $('#regleFacture').prop('checked', false);
+              $('#regleEmpotage').attr("disabled", true);
+              $('#regleEmpotage').prop('checked', false);
           }
         }
         else {
@@ -1219,13 +1219,13 @@ $(document).ready(function () {
             return JSON.stringify(rows);
        }
        
-        factureProcess = function (Action)
+        empotageProcess = function (Action)
         {
             
             var ACTION = Action;
             var client = clientId;
-            var numFacture= $('#numFacture').val();
-            var heureFacture= $('#heureFacture').val();
+            var numEmpotage= $('#numEmpotage').val();
+            var heureEmpotage= $('#heureEmpotage').val();
             var devise= $('#devise').val();
             var pays= $('#pays').val();
             var portDechargement = $("#portDechargement").val();
@@ -1244,7 +1244,7 @@ $(document).ready(function () {
            // ch+=']';
             console.log('colis'+JSON.stringify(colisage));
            // var obj = $.parseJSON(ch);
-            var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
+            var Aregle = $("input:checkbox[name=regleEmpotage]:checked").val();
             var regle=false;
             if(Aregle === 'on')
                  regle=true;
@@ -1259,8 +1259,8 @@ $(document).ready(function () {
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('client', client);
-            formData.append('numFacture', numFacture);
-            formData.append('heureFacture', heureFacture);
+            formData.append('numEmpotage', numEmpotage);
+            formData.append('heureEmpotage', heureEmpotage);
             formData.append('devise', devise);
             formData.append('pays', pays);
             formData.append('portDechargement', portDechargement);
@@ -1280,7 +1280,7 @@ $(document).ready(function () {
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
+                url: '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -1297,13 +1297,13 @@ $(document).ready(function () {
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                       // window.open('<?php //echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                       // window.open('<?php //echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
 
-                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/factureListe.php", function () {
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/empotage/empotageListe.php", function () {
                              });
                         }
                         else {
-                            window.open('<?php echo App::getHome(); ?>/app/pdf/factureProformaPdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                            window.open('<?php echo App::getHome(); ?>/app/pdf/empotageProformaPdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                         }
                             
                     } 
@@ -1326,7 +1326,7 @@ $(document).ready(function () {
         };
 //        $("#SAVE").click(function()
 //        {
-//          factureProcess();
+//          empotageProcess();
 //           
 //        });
         
@@ -1414,7 +1414,7 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-                          factureProcess(action);
+                          empotageProcess(action);
 			},
 			invalidHandler: function (form) {
 			}
@@ -1506,7 +1506,7 @@ $(document).ready(function () {
 			},
 	
 			submitHandler: function (form) {
-                            factureProcess(action);
+                            empotageProcess(action);
 			},
 			invalidHandler: function (form) {
 			}

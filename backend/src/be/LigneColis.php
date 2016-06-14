@@ -1,6 +1,6 @@
 <?php
 
-namespace Facture;
+namespace Empotage;
 
 /** @Entity @HasLifecycleCallbacks
  * @Table(name="ligne_colis") * */
@@ -29,7 +29,7 @@ class LigneColis {
      /**
      * @Column(type="integer", nullable=false)
      * */
-    protected $factureId;
+    protected $empotage_id;
     
 
     /** @Column(type="datetime", nullable=true) */
@@ -57,8 +57,8 @@ class LigneColis {
         return $this->produitId;
     }
 
-    function getFactureId() {
-        return $this->factureId;
+    function getEmpotage_id() {
+        return $this->empotage_id;
     }
 
     function getCreatedDate() {
@@ -89,8 +89,8 @@ class LigneColis {
         $this->produitId = $produitId;
     }
 
-    function setFactureId($factureId) {
-        $this->factureId = $factureId;
+    function setEmpotage_id($empotage_id) {
+        $this->empotage_id = $empotage_id;
     }
 
     function setCreatedDate($createdDate) {
@@ -105,7 +105,7 @@ class LigneColis {
         $this->deletedDate = $deletedDate;
     }
 
-    
+        
         
         /** @PrePersist */
     public function doPrePersist() {

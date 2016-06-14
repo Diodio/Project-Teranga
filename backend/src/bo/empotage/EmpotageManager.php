@@ -11,72 +11,72 @@ use Empotage\EmpotageQueries as EmpotageQueries;
 
 class EmpotageManager {
 
-    private $factureQuery;
+    private $empotageQuery;
    
 
     public function __construct() {
-        $this->factureQuery = new EmpotageQueries();
+        $this->empotageQuery = new EmpotageQueries();
     }
     
-    public function insert($facture) {
-        $this->factureQuery->insert($facture);
-    	return $facture;
-    }
+      public function insert($empotage,$listConteneur,$jsonProduit,$jsonColis) {
+       return $this->empotageQuery->insert($empotage,$listConteneur,$jsonProduit,$jsonColis);
+    } 
+   
     
     public function update($facture, $listLigneEmpotage) {
-       return $this->factureQuery->update($facture, $listLigneEmpotage);
+       return $this->empotageQuery->update($facture, $listLigneEmpotage);
     }
     public function listAll() {
-    	$this->factureQuery=$this->factureQuery->findAll();
-    	return $this->factureQuery;
+    	$this->empotageQuery=$this->empotageQuery->findAll();
+    	return $this->empotageQuery;
     }
 
 
    public function findById($produitId) {
-       return $this->factureQuery->findById($produitId);
+       return $this->empotageQuery->findById($produitId);
     }
    
     
     public function findTypeEmpotageById($typeproduitId) {
-        return $this->factureQuery->findTypeEmpotageById($typeproduitId);
+        return $this->empotageQuery->findTypeEmpotageById($typeproduitId);
     }
 
     
     public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->factureQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+        return $this->empotageQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
     
     public function retrieveAllEmpotageAnnules($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	return $this->factureQuery->retrieveAllEmpotageAnnules($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    	return $this->empotageQuery->retrieveAllEmpotageAnnules($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
 
    public function retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->factureQuery->retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+        return $this->empotageQuery->retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
     
     public function count($codeUsine,$where="") {
-        return $this->factureQuery->count($codeUsine,$where);
+        return $this->empotageQuery->count($codeUsine,$where);
     }
     
     public function countEmpotageAnnules($codeUsine,$where="") {
-        return $this->factureQuery->countEmpotageAnnules($codeUsine,$where);
+        return $this->empotageQuery->countEmpotageAnnules($codeUsine,$where);
     }
     
     public function validEmpotage($factureId) {
-        return $this->factureQuery->validEmpotage($factureId);
+        return $this->empotageQuery->validEmpotage($factureId);
     }
     public function annulerEmpotage($factureId) {
-        $facture= $this->factureQuery->findById($factureId);
+        $facture= $this->empotageQuery->findById($factureId);
         $nbTotalColis=$facture->getNbTotalColis();
         $nbTotalPoids=$facture->getNbTotalPoids();
         $codeUsine=$facture->getCodeUsine();
-        $ligneEmpotage = $this->factureQuery->findInfoByEmpotage($factureId);
+        $ligneEmpotage = $this->empotageQuery->findInfoByEmpotage($factureId);
         foreach ($ligneEmpotage as $key => $value) {
             $stockManager = new \Stock\StockManager();
             $stockManager->updateNbStockReel($value ['produit'], $codeUsine, $value ['quantite']);
             $stockManager->deleteStockEmpotagee($factureId, $value ['produit']);
         }
-        $infosColis = $this->factureQuery->findColisageByEmpotageId($factureId);
+        $infosColis = $this->empotageQuery->findColisageByEmpotageId($factureId);
         foreach ($infosColis as $key => $value) {
             $colisManager = new \Produit\ColisageManager();
             $isExist = $colisManager->verifieColisage($value ['produitId'], $value ['quantiteParCarton'],$codeUsine);
@@ -92,10 +92,10 @@ class EmpotageManager {
             }
                 
         }
-        $this->factureQuery->annulerEmpotage($factureId);
+        $this->empotageQuery->annulerEmpotage($factureId);
     }
-public function getLastNumberEmpotage() {
-    $lastEmpotageId=$this->factureQuery->getLastNumberEmpotage();
+public function getLastNumberEmpotage($codeUsine) {
+    $lastEmpotageId=$this->empotageQuery->getLastNumberEmpotage($codeUsine);
     if($lastEmpotageId !=null){
     if(strlen($lastEmpotageId)==1) $lastEmpotageId="0000".$lastEmpotageId;
     else if(strlen($lastEmpotageId)==2) $lastEmpotageId="000".$lastEmpotageId;
@@ -109,9 +109,9 @@ public function getLastNumberEmpotage() {
 
 public function findStatisticByUsine($codeUsine) {
         if ($codeUsine != null) {
-            $validEmpotage = $this->factureQuery->findValidEmpotageByUsine($codeUsine);
-            $nonValidEmpotage = $this->factureQuery->findNonValidEmpotageByUsine($codeUsine);
-            $factureAnnuler = $this->factureQuery->findEmpotageAnnulerByUsine($codeUsine);
+            $validEmpotage = $this->empotageQuery->findValidEmpotageByUsine($codeUsine);
+            $nonValidEmpotage = $this->empotageQuery->findNonValidEmpotageByUsine($codeUsine);
+            $factureAnnuler = $this->empotageQuery->findEmpotageAnnulerByUsine($codeUsine);
             $factureTab = array();
                 if ($validEmpotage != null)
                     $factureTab['nbValid'] = $validEmpotage;
@@ -134,9 +134,9 @@ public function findStatisticByUsine($codeUsine) {
     
     public function findStatisticReglementByUsine($codeUsine) {
         if ($codeUsine != null) {
-            $regle = $this->factureQuery->findRegleByUsine($codeUsine);
-            $nonRegle = $this->factureQuery->findNonRegleByUsine($codeUsine);
-            $actureAnnuler = $this->factureQuery->findARegleByUsine($codeUsine);
+            $regle = $this->empotageQuery->findRegleByUsine($codeUsine);
+            $nonRegle = $this->empotageQuery->findNonRegleByUsine($codeUsine);
+            $actureAnnuler = $this->empotageQuery->findARegleByUsine($codeUsine);
             $achatTab = array();
                 if ($regle != null)
                     $achatTab['nbRegle'] = $regle;
@@ -158,11 +158,11 @@ public function findStatisticByUsine($codeUsine) {
     }
     public function findEmpotageDetails($factureId) {
         if ($factureId != null) {
-            $facture = $this->factureQuery->findEmpotageDetails($factureId);
-             $ligneEmpotage = $this->factureQuery->findAllProduitByEmpotage($factureId);
-             $colis = $this->factureQuery->findColisByEmpotage($factureId);
-             $reglement = $this->factureQuery->findReglementByEmpotage($factureId);
-             $conteneurs = $this->factureQuery->findConteneurByEmpotage($factureId);
+            $facture = $this->empotageQuery->findEmpotageDetails($factureId);
+             $ligneEmpotage = $this->empotageQuery->findAllProduitByEmpotage($factureId);
+             $colis = $this->empotageQuery->findColisByEmpotage($factureId);
+             $reglement = $this->empotageQuery->findReglementByEmpotage($factureId);
+             $conteneurs = $this->empotageQuery->findConteneurByEmpotage($factureId);
             $factureDetail = array();
             foreach ($facture as $key => $value) {
                // $factureDetail ['id'] = $value ['achat.id'];
@@ -199,14 +199,14 @@ public function findStatisticByUsine($codeUsine) {
     
     public function getTotalReglementByEmpotage($factureId) {
         $som=0;
-        $facture=$this->factureQuery->getTotalReglementByEmpotage($factureId);
+        $facture=$this->empotageQuery->getTotalReglementByEmpotage($factureId);
         if($facture['sommeAvance'] !=NULL)
             $som=$facture['sommeAvance'];
         return $som;
     }
     
     public function modifReglement($factureId, $status) {
-        return $this->factureQuery->modifReglement($factureId, $status);
+        return $this->empotageQuery->modifReglement($factureId, $status);
     }
     /**
      * 
@@ -215,7 +215,7 @@ public function findStatisticByUsine($codeUsine) {
      * Cette fonction pernmet de recuperer les informations de l'achat pour la validation et l'ajout du stock
      */
     public function ajoutStockParAchact($factureId) {
-        $facture = $this->factureQuery->findInfoByAchact($factureId);
+        $facture = $this->empotageQuery->findInfoByAchact($factureId);
         foreach ($facture as $key => $value) {
             $stockManager = new \Produit\StockManager();
             $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
@@ -226,7 +226,7 @@ public function findStatisticByUsine($codeUsine) {
     	if ($codeUsine != null) {
     		//$validEmpotage = $this->factureQuery->findValidEmpotageByUsine($codeUsine);
     		//$nonValidEmpotage = $this->factureQuery->findNonValidEmpotageByUsine($codeUsine);
-    		$factureAnnuler = $this->factureQuery->findEmpotageAnnulerByUsine($codeUsine);
+    		$factureAnnuler = $this->empotageQuery->findEmpotageAnnulerByUsine($codeUsine);
     		$factureTab = array();
     		if ($factureAnnuler != null)
     			$factureTab['nbAnnule'] = $factureAnnuler;
@@ -240,8 +240,8 @@ public function findStatisticByUsine($codeUsine) {
     }
     
     public function getInfoInventaire($clientId,$typeEmpotage, $dateDebut, $dateFin, $codeUsine) {
-    	$infosP = $this->factureQuery->getInfoPoidsTotal($clientId,$typeEmpotage, $dateDebut, $dateFin, $codeUsine);
-    	$infosM = $this->factureQuery->getInfoMontantTotal($clientId,$typeEmpotage, $dateDebut, $dateFin, $codeUsine);
+    	$infosP = $this->empotageQuery->getInfoPoidsTotal($clientId,$typeEmpotage, $dateDebut, $dateFin, $codeUsine);
+    	$infosM = $this->empotageQuery->getInfoMontantTotal($clientId,$typeEmpotage, $dateDebut, $dateFin, $codeUsine);
     	$infosTab = array();
     	//var_dump($infos);
     	if ($infosP != null && $infosM !=null) {
@@ -263,10 +263,10 @@ public function findStatisticByUsine($codeUsine) {
     }
     
     public function retrieveEmpotageInventaire($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
-    	return $this->factureQuery->retrieveEmpotageInventaire($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
+    	return $this->empotageQuery->retrieveEmpotageInventaire($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $offset, $rowCount, $sOrder, $sWhere);
     }
 
     public function countInventaires($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $where = "") {
-        return $this->factureQuery->countInventaires($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $where);
+        return $this->empotageQuery->countInventaires($clientId,$dateDebut, $dateFin, $regle, $codeUsine, $where);
     }
 }
