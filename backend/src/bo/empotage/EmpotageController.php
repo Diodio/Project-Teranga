@@ -82,10 +82,7 @@ class EmpotageController extends BaseController implements BaseAction {
                 $clientManager = new \Client\ClientManager();
                 $client = $clientManager->findById($request['client']);
                 $empotage->setClient($client);
-                //$empotageAdded = $$empotageManager->insert($empotage);
-                //if ($empotageAdded->getId() != null) {
                     $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
-                    var_dump($jsonConteneur);
                     foreach ($jsonConteneur as $key => $ligneConteneur) {
                         if (isset($ligneConteneur["nConteneur"])) {
                             if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
@@ -93,60 +90,20 @@ class EmpotageController extends BaseController implements BaseAction {
                                 $conteneur->setEmpotage($empotage);
                                 $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
                                 $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
-                               // $conteneurManager = new \Empotage\ConteneurManager();
                                 $listConteneur[]=$conteneur;
-                                //$conteneurManager->insert($conteneur);
                             }
                         }
                     }
                     $jsonProduit = json_decode($_POST['jsonProduit'], true);
-//                    foreach ($jsonProduit as $key => $ligne) {
-//                        if (isset($ligne["nColis"])) {
-//                            if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-//                                $ligneEmpotage = new \Empotage\LigneEmpotage;
-//                                $ligneEmpotage->setEmpotage($empotage);
-//                                $ligneEmpotage->setNbColis($ligne["nColis"]);
-//                                $ligneEmpotage->setProduit_id($ligne["produitId"]);
-//                                $ligneEmpotage->setQuantite($ligne["pnet"]);
-//                               // $ligneEmpotage->setPrixUnitaire($ligne["pu"]);
-//                               // $ligneEmpotage->setMontant($ligne["montant"]);
-//                               // $ligneEmpotageManager = new \Empotage\LigneEmpotageManager();
-//                              //  $inserted = $ligneEmpotageManager->insert($ligneEmpotage);
-//                                //if ($inserted->getId() != null) {
-//                                    $stockEmpotagee = new \Stock\StockEmpotage();
-//                                    $stockEmpotagee->setEmpotageId($empotageAdded->getId());
-//                                    $stockEmpotagee->setProduitId($ligne["produitId"]);
-//                                    $stockEmpotagee->setQuantiteEmpotagee($ligne["pnet"]);
-//                                    $stockManager = new \Stock\StockManager();
-//                                    $stockManager->insert($stockEmpotagee);
-//                                    $stockManager->destockageReel($ligne["produitId"], $request['codeUsine'], $ligne["pnet"]);
-//                               // }
-//                            }
-//                        }
-//                    }
+
 
                     $jsonColis = json_decode($_POST['jsonColis'], true);
-//                    foreach ($jsonColis as $key => $ligneC) {
-//                        if (isset($ligneC["nbColis"])) {
-//                            if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-//                                $colis = new \Empotage\LigneColis();
-//                                $colis->setNombreCarton($ligneC["nbColis"]);
-//                                $colis->setQuantiteParCarton($ligneC["qte"]);
-//                                $colis->setProduitId($ligneC["produitId"]);
-//                                $colis->setEmpotageId($empotageAdded->getId());
-//                                $ligneColisManager = new \Empotage\LigneColisManager;
-//                                $inserted = $ligneColisManager->insert($colis);
-//                                if ($inserted->getId() != null) {
-//                                    $ligneColisManager->dimunieColisEmpotagee($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
-//                                }
-//                            }
-//                        }
-//                    }
+
                     $empotageAdded = $empotageManager->insert($empotage,$listConteneur,$jsonProduit,$jsonColis);
                     if ($empotageAdded != NULL) {
                         $this->doSuccess($empotageAdded->getId(), 'Empotage enregistré avec succes');
                    } else {
-                    $this->doError('-1', 'Impossible d\'inserer cette empotage');
+                    $this->doError('-1', 'Impossible d\'inserer cette empotage. Merci de vérifier vos parametres');
                 }
             } else
                 $this->doError('-1', 'Impossible d\'inserer cette empotage');
@@ -162,7 +119,7 @@ class EmpotageController extends BaseController implements BaseAction {
             if (isset($request['iDisplayStart']) && isset($request['iDisplayLength'])) {
                 // Begin order from dataTable
                 $sOrder = "";
-                $aColumns = array('dateEmpotage', 'numero', 'nom');
+                $aColumns = array('date', 'numero', 'nom');
                 if (isset($request['iSortCol_0'])) {
                     $sOrder = "ORDER BY  ";
                     for ($i = 1; $i < intval($request['iSortingCols']); $i++) {
@@ -174,7 +131,7 @@ class EmpotageController extends BaseController implements BaseAction {
 
                     $sOrder = substr_replace($sOrder, "", -2);
                     if ($sOrder == "ORDER BY") {
-                        $sOrder .= " dateEmpotage desc";
+                        $sOrder .= " date desc";
                     }
                 }
                 // End order from DataTable
@@ -305,10 +262,10 @@ class EmpotageController extends BaseController implements BaseAction {
 
     public function doAnnuleEmpotage($request) {
         try {
-            if ($request['factureId'] != null) {
+            if ($request['empotageId'] != null) {
                 $empotageManager = new EmpotageManager();
-                $empotageManager->annulerEmpotage($request['factureId']);
-                $this->doSuccess($request['factureId'], 'Annulation effectuée avec succes');
+                $empotageManager->annulerEmpotage($request['empotageId']);
+                $this->doSuccess($request['empotageId'], 'Annulation effectuée avec succes');
             } else {
                 $this->doError('-1', 'Params not enough');
             }
@@ -367,9 +324,9 @@ class EmpotageController extends BaseController implements BaseAction {
 
     public function doViewDetails($request) {
         try {
-            if (isset($request['factureId'])) {
+            if (isset($request['empotageId'])) {
                 $empotageManager = new EmpotageManager();
-                $empotageDetails = $empotageManager->findEmpotageDetails($request['factureId']);
+                $empotageDetails = $empotageManager->findEmpotageDetails($request['empotageId']);
                 if ($empotageDetails != null)
                     $this->doSuccessO($empotageDetails);
                 else

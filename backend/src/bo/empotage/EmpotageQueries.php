@@ -97,11 +97,11 @@ class EmpotageQueries {
         }
     }
 
-    public function update($facture, $listLigneEmpotage) {
+    public function update($empotage, $listLigneEmpotage) {
         Bootstrap::$entityManager->getConnection()->beginTransaction();
-        if ($facture != null) {
+        if ($empotage != null) {
             try {
-                Bootstrap::$entityManager->merge($facture);
+                Bootstrap::$entityManager->merge($empotage);
                 Bootstrap::$entityManager->flush();
                 if ($listLigneEmpotage != null) {
                     foreach ($listLigneEmpotage as $ligneEmpotage) {
@@ -110,7 +110,7 @@ class EmpotageQueries {
                     }
                 }
                 Bootstrap::$entityManager->getConnection()->commit();
-                return $facture;
+                return $empotage;
             } catch (\Exception $e) {
                 Bootstrap::$entityManager->getConnection()->rollback();
                 Bootstrap::$entityManager->close();
@@ -134,10 +134,10 @@ class EmpotageQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'SELECT facture.id, facture.status, dateEmpotage, numero, nom FROM facture, client WHERE status<>0 and  facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status<>0 and  empotage.client_id =client.id  AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'SELECT facture.id, facture.status, dateEmpotage, numero, nom FROM facture, client WHERE status<>0 and facture.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status<>0 and empotage.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -148,7 +148,7 @@ class EmpotageQueries {
         foreach ($products as $key => $value) {
             $arrayEmpotages [$i] [] = $value ['id'];
             $arrayEmpotages [$i] [] = $value ['status'];
-            $arrayEmpotages [$i] [] = $value ['dateEmpotage'];
+            $arrayEmpotages [$i] [] = $value ['date'];
             $arrayEmpotages [$i] [] = $value ['numero'];
             $arrayEmpotages [$i] [] = $value ['nom'];
             $i++;
@@ -159,7 +159,7 @@ class EmpotageQueries {
     public function retrieveAllEmpotageAnnules($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
     	if($sWhere !== "")
     		$sWhere = " and " . $sWhere;
-    	$sql = 'SELECT facture.id, facture.status, dateEmpotage, numero, nom FROM facture, client WHERE status=0 and  facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    	$sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status=0 and  empotage.client_id =client.id  AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     	$sql = str_replace("`", "", $sql);
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
@@ -169,7 +169,7 @@ class EmpotageQueries {
     	foreach ($products as $key => $value) {
     		$arrayEmpotages [$i] [] = $value ['id'];
     		$arrayEmpotages [$i] [] = $value ['status'];
-    		$arrayEmpotages [$i] [] = $value ['dateEmpotage'];
+    		$arrayEmpotages [$i] [] = $value ['date'];
     		$arrayEmpotages [$i] [] = $value ['numero'];
     		$arrayEmpotages [$i] [] = $value ['nom'];
     		$i++;
@@ -183,10 +183,10 @@ class EmpotageQueries {
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'SELECT facture.id, facture.regle, dateEmpotage, numero, nom FROM facture, client WHERE facture.client_id = client.id AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT empotage.id, empotage.regle, date, numero, nom FROM empotage, client WHERE empotage.client_id = client.id AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'SELECT facture.id, facture.regle, dateEmpotage, numero, nom FROM facture,client WHERE facture.client_id = client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT empotage.id, empotage.regle, date, numero, nom FROM empotage,client WHERE empotage.client_id = client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -197,7 +197,7 @@ class EmpotageQueries {
         foreach ($products as $key => $value) {
             $arrayAchats [$i] [] = $value ['id'];
             $arrayAchats [$i] [] = $value ['regle'];
-            $arrayAchats [$i] [] = $value ['dateEmpotage'];
+            $arrayAchats [$i] [] = $value ['date'];
             $arrayAchats [$i] [] = $value ['numero'];
             $arrayAchats [$i] [] = $value ['nom'];
             $i++;
@@ -205,19 +205,19 @@ class EmpotageQueries {
         return $arrayAchats;
     }
 
-     public function findById($factureId) {
-            if ($factureId != null) {
-                    return Bootstrap::$entityManager->find('Empotage\Empotage', $factureId);
+     public function findById($empotageId) {
+            if ($empotageId != null) {
+                    return Bootstrap::$entityManager->find('Empotage\Empotage', $empotageId);
             }
     }
     public function count($codeUsine, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'SELECT count(*) as nbEmpotages FROM facture, client WHERE facture.client_id =client.id  AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'SELECT count(*) as nbEmpotages FROM empotage, client WHERE empotage.client_id =client.id  AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'SELECT count(*) as nbEmpotages  FROM facture, client WHERE facture.client_id = client.id ' . $sWhere . '';
+             $sql = 'SELECT count(*) as nbEmpotages  FROM empotage, client WHERE empotage.client_id = client.id ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -231,10 +231,10 @@ class EmpotageQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'SELECT count(*) as nbEmpotages FROM facture, client WHERE facture.client_id =client.id and facture.status=0 AND facture.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'SELECT count(*) as nbEmpotages FROM empotage, client WHERE empotage.client_id =client.id and empotage.status=0 AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'SELECT count(*) as nbEmpotages  FROM facture, client WHERE facture.client_id = client.id and facture.status=0 ' . $sWhere . '';
+             $sql = 'SELECT count(*) as nbEmpotages  FROM empotage, client WHERE empotage.client_id = client.id and empotage.status=0 ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -260,7 +260,7 @@ class EmpotageQueries {
         return $query->getResult();
     }
     public function findValidEmpotageByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM facture WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM empotage WHERE STATUS=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Empotage = $stmt->fetch();
@@ -268,21 +268,21 @@ class EmpotageQueries {
     }
     
     public function findNonValidEmpotageByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM facture WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM empotage WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Empotage = $stmt->fetch();
         return $Empotage['nb'];
     }
     public function findEmpotageAnnulerByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(STATUS) AS nb FROM facture WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(STATUS) AS nb FROM empotage WHERE STATUS=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Empotage = $stmt->fetch();
         return $Empotage['nb'];
     }
      public function findRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM empotage WHERE regle=2 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -290,7 +290,7 @@ class EmpotageQueries {
     }
     
     public function findNonRegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=0 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM empotage WHERE regle=0 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
@@ -298,40 +298,40 @@ class EmpotageQueries {
     }
     
     public function findARegleByUsine($codeUsine) {
-        $sql = 'SELECT COUNT(regle) AS nb FROM facture WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
+        $sql = 'SELECT COUNT(regle) AS nb FROM empotage WHERE regle=1 AND codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $Achat = $stmt->fetch();
         return $Achat['nb'];
     }
-     public function findEmpotageDetails($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT * from facture, client where facture.client_id =client.id and facture.id=' . $factureId;
+     public function findEmpotageDetails($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT * from empotage, client where empotage.client_id =client.id and empotage.id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
-            $facture = $stmt->fetchAll();
-            if ($facture != null)
-                return $facture;
+            $empotage = $stmt->fetchAll();
+            if ($empotage != null)
+                return $empotage;
             else
                 return null;
         }
     }
     
-    public function findAllProduitByEmpotage($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT lf.id, nbColis, libelle produit, quantite,prixUnitaire,montant FROM ligne_facture lf, facture f,produit p WHERE f.id=lf.facture_id AND p.id = lf.produit AND f.id=' . $factureId;
+    public function findAllProduitByEmpotage($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT lf.id, nbColis, libelle, quantite FROM ligne_empotage lf, empotage f,produit p WHERE f.id=lf.empotage_id AND p.id = lf.produit_id AND f.id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
-            $facture = $stmt->fetchAll();
-            if ($facture != null)
-                return $facture;
+            $empotage = $stmt->fetchAll();
+            if ($empotage != null)
+                return $empotage;
             else
                 return null;
         }
     }
-     public function findColisByEmpotage($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT libelle,nombreCarton, quantiteParCarton FROM ligne_colis,produit WHERE produitId=produit.id AND factureId=' . $factureId;
+     public function findColisByEmpotage($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT libelle,nombreCarton, quantiteParCarton FROM ligne_colis,produit WHERE produitId=produit.id AND empotage_id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $colis = $stmt->fetchAll();
@@ -341,22 +341,22 @@ class EmpotageQueries {
                 return null;
         }
     }
-    public function findReglementByEmpotage($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT datePaiement, avance FROM reglement_facture WHERE facture_id=' . $factureId;
+    public function findReglementByEmpotage($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT datePaiement, avance FROM reglement_empotage WHERE empotage_id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
-            $facture = $stmt->fetchAll();
-            if ($facture != null)
-                return $facture;
+            $empotage = $stmt->fetchAll();
+            if ($empotage != null)
+                return $empotage;
             else
                 return null;
         }
     }
     
-     public function findConteneurByEmpotage($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT numConteneur, numPlomb FROM conteneur WHERE facture_id=' . $factureId;
+     public function findConteneurByEmpotage($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT numConteneur, numPlomb FROM conteneur WHERE empotage_id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $conteneur = $stmt->fetchAll();
@@ -367,17 +367,17 @@ class EmpotageQueries {
         }
     }
     
-    public function getTotalReglementByEmpotage($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_facture WHERE facture_id=' . $factureId;
+    public function getTotalReglementByEmpotage($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_empotage WHERE empotage_id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
-            $facture = $stmt->fetchAll();
-            return $facture[0];
+            $empotage = $stmt->fetchAll();
+            return $empotage[0];
         }
     }
-    public function modifReglement($factureId, $status) {
-        $query = Bootstrap::$entityManager->createQuery("UPDATE Empotage\Empotage f set f.regle=$status WHERE f.id IN( '$factureId')");
+    public function modifReglement($empotageId, $status) {
+        $query = Bootstrap::$entityManager->createQuery("UPDATE Empotage\Empotage f set f.regle=$status WHERE f.id IN( '$empotageId')");
         return $query->getResult();
     }
     /***
@@ -398,7 +398,7 @@ class EmpotageQueries {
     
     public function findInfoByEmpotage($facturId) {
         if ($facturId != null) {
-            $sql = 'SELECT produit,quantite FROM ligne_facture WHERE facture_id=' . $facturId;
+            $sql = 'SELECT produit_id,quantite FROM ligne_empotage WHERE empotage_id=' . $facturId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $achat = $stmt->fetchAll();
@@ -409,9 +409,9 @@ class EmpotageQueries {
         }
     }
     
-    public function findColisageByEmpotageId($factureId) {
-        if ($factureId != null) {
-            $sql = 'SELECT produitId, nombreCarton, quantiteParCarton FROM ligne_colis WHERE factureId=' . $factureId;
+    public function findColisageByEmpotageId($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT produitId, nombreCarton, quantiteParCarton FROM ligne_colis WHERE empotageId=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $colis = $stmt->fetchAll();
@@ -444,9 +444,9 @@ class EmpotageQueries {
             $sqlClients.=" and client_id=$clientId";
         }
     	if($typeEmpotage=='*')
-    		$sql = 'SELECT SUM(montantHt * d.montant) montantTotal FROM facture f, devise d WHERE f.devise=d.devise and status=1 and montantHt<>0.00 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'" '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+    		$sql = 'SELECT SUM(montantHt * d.montant) montantTotal FROM empotage f, devise d WHERE f.devise=d.devise and status=1 and montantHt<>0.00 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'" '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ';
     	else
-    		$sql = 'SELECT SUM(montantHt  * d.montant) montantTotal FROM facture f, devise d WHERE  f.devise=d.devise and status=1 AND regle='.$typeEmpotage.' and montantHt<>0.00 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.'  and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ';
+    		$sql = 'SELECT SUM(montantHt  * d.montant) montantTotal FROM empotage f, devise d WHERE  f.devise=d.devise and status=1 AND regle='.$typeEmpotage.' and montantHt<>0.00 AND nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.'  and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$infos = $stmt->fetch();
@@ -467,9 +467,9 @@ class EmpotageQueries {
             $sqlClients.=" and client_id=$clientId";
         }
     	if($typeEmpotage=='*'){
-    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture WHERE status=1 and montantHt<>0.00 and  nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'"';
+    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM empotage WHERE status=1 and montantHt<>0.00 and  nbTotalPoids<>0.00 and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'"';
         } else   
-    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM facture WHERE status=1 and montantHt<>0.00  AND nbTotalPoids<>0.00 and regle='.$typeEmpotage.' and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'"';
+    		$sql = 'SELECT SUM(nbTotalPoids) poidsTotal FROM empotage WHERE status=1 and montantHt<>0.00  AND nbTotalPoids<>0.00 and regle='.$typeEmpotage.' and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'"';
     	$stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
     	$stmt->execute();
     	$infos = $stmt->fetch();
@@ -494,22 +494,22 @@ class EmpotageQueries {
         }
     	if($codeUsine !=='*') {
     		if($regle !=='*'){
-    			$sql = 'select facture.id,date_format(dateEmpotage, "'.\Common\Common::setFormatDate().'") as dateEmpotage, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00 and regle='.$regle.'  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    			$sql = 'select empotage.id,date_format(date, "'.\Common\Common::setFormatDate().'") as date, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
+                    from empotage, client where status=1 and client.id=empotage.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00 and regle='.$regle.'  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
-                     $sql = 'select facture.id,date_format(dateEmpotage, "'.\Common\Common::setFormatDate().'") as dateEmpotage, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
-                     from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                     $sql = 'select empotage.id,date_format(date, "'.\Common\Common::setFormatDate().'") as date, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
+                     from empotage, client where status=1 and client.id=empotage.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00  and codeUsine="'.$codeUsine.'"  '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}
     	else {
     		if($regle !=='*'){
-    			$sql = 'select facture.id,date_format(dateEmpotage, "'.\Common\Common::setFormatDate().'") as dateEmpotage, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id and regle='.$regle.' and facture.id=facture_id and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    			$sql = 'select empotage.id,date_format(date, "'.\Common\Common::setFormatDate().'") as date, numero, nom,nbTotalPoids, montantHt montantTotal, regle, devise
+                    from empotage, client where status=1 and client.id=empotage.client_id and regle='.$regle.' and empotage.id=empotage_id and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     		else {
-    			$sql = 'select facture.id, date_format(dateEmpotage, "'.\Common\Common::setFormatDate().'") as dateEmpotage, numero, nom,nbTotalPoids,montantHt montantTotal , regle, devise
-                    from facture, client where status=1 and client.id=facture.client_id  and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+    			$sql = 'select empotage.id, date_format(date, "'.\Common\Common::setFormatDate().'") as date, numero, nom,nbTotalPoids,montantHt montantTotal , regle, devise
+                    from empotage, client where status=1 and client.id=empotage.client_id  and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.' and date(dateAchat) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere .  ' group by numero ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
     		}
     	}
     	$sql = str_replace("`", "", $sql);
@@ -523,7 +523,7 @@ class EmpotageQueries {
     		$reglement = $this->getTotalReglementByEmpotage($value ['id']);
     		$arrayAchats [$i] [] = $value ['regle'];
     		$arrayAchats [$i] [] = $value ['numero'];
-    		$arrayAchats [$i] [] = $value ['dateEmpotage'];
+    		$arrayAchats [$i] [] = $value ['date'];
     		$arrayAchats [$i] [] = $value ['nom'];
     		$arrayAchats [$i] [] = $value ['nbTotalPoids'];
                 $montantDevise=$this->getMontantDevise($value['devise']);
@@ -552,19 +552,19 @@ class EmpotageQueries {
         }
         if ($codeUsine !== '*') {
             if ($regle !== '*') {
-                $sql = 'select count(facture.id) as nbEmpotage
-                    from facture, client where status=1 and client.id=facture.client_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
+                $sql = 'select count(empotage.id) as nbEmpotage
+                    from empotage, client where status=1 and client.id=empotage.client_id and regle=' . $regle . ' and codeUsine="' . $codeUsine . '" and montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
             } else {
-                $sql = 'select count(facture.id) as nbEmpotage
-                    from facture, client where status=1 and client.id=facture.client_id and codeUsine="' . $codeUsine . '" AND montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
+                $sql = 'select count(empotage.id) as nbEmpotage
+                    from empotage, client where status=1 and client.id=empotage.client_id and codeUsine="' . $codeUsine . '" AND montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . ' ';
             }
         } else {
             if ($regle !== '*') {
-                $sql = 'select count(facture.id) as nbEmpotage
-                    from facture, client where status=1 and client.id=facture.client_id and regle=' . $regle . ' and montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '  ';
+                $sql = 'select count(empotage.id) as nbEmpotage
+                    from empotage, client where status=1 and client.id=empotage.client_id and regle=' . $regle . ' and montantHt<>0.00 AND nbTotalPoids<>0.00 '.$sqlClients.' and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '  ';
             } else {
-                $sql = 'select count(facture.id) as nbEmpotage
-                    from facture, client where status=1 and client.id=facture.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.'  and date(dateEmpotage) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
+                $sql = 'select count(empotage.id) as nbEmpotage
+                    from empotage, client where status=1 and client.id=empotage.client_id and montantHt<>0.00 AND nbTotalPoids<>0.00  '.$sqlClients.'  and date(date) between "'.$dateDebut.'" and "'.$dateFin.'" ' . $sWhere . '';
             }
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);

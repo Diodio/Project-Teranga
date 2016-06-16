@@ -65,25 +65,23 @@ class EmpotageManager {
     public function validEmpotage($factureId) {
         return $this->empotageQuery->validEmpotage($factureId);
     }
-    public function annulerEmpotage($factureId) {
-        $facture= $this->empotageQuery->findById($factureId);
-        $nbTotalColis=$facture->getNbTotalColis();
-        $nbTotalPoids=$facture->getNbTotalPoids();
+    public function annulerEmpotage($empotageId) {
+        $facture= $this->empotageQuery->findById($empotageId);
         $codeUsine=$facture->getCodeUsine();
-        $ligneEmpotage = $this->empotageQuery->findInfoByEmpotage($factureId);
+        $ligneEmpotage = $this->empotageQuery->findInfoByEmpotage($empotageId);
         foreach ($ligneEmpotage as $key => $value) {
             $stockManager = new \Stock\StockManager();
-            $stockManager->updateNbStockReel($value ['produit'], $codeUsine, $value ['quantite']);
-            $stockManager->deleteStockEmpotagee($factureId, $value ['produit']);
+            $stockManager->updateNbStockReel($value ['produit_id'], $codeUsine, $value ['quantite']);
+           // $stockManager->deleteStockEmpotagee($empotageId, $value ['produit']);
         }
-        $infosColis = $this->empotageQuery->findColisageByEmpotageId($factureId);
+        $infosColis = $this->empotageQuery->findColisageByEmpotageId($empotageId);
         foreach ($infosColis as $key => $value) {
             $colisManager = new \Produit\ColisageManager();
             $isExist = $colisManager->verifieColisage($value ['produitId'], $value ['quantiteParCarton'],$codeUsine);
             if($isExist !==0)
                 $colisManager->misAjourColis($value ['produitId'], $value ['quantiteParCarton'], $value ['nombreCarton'], $codeUsine);
             else{
-                 $colisage = new \Produit\Colisage();
+                $colisage = new \Produit\Colisage();
                 $colisage->setNombreCarton($value ['nombreCarton']);
                 $colisage->setQuantiteParCarton($value ['quantiteParCarton']);
                 $colisage->setProduitId($value ['produitId']);
@@ -92,7 +90,7 @@ class EmpotageManager {
             }
                 
         }
-        $this->empotageQuery->annulerEmpotage($factureId);
+        $this->empotageQuery->annulerEmpotage($empotageId);
     }
 public function getLastNumberEmpotage($codeUsine) {
     $lastEmpotageId=$this->empotageQuery->getLastNumberEmpotage($codeUsine);
@@ -156,42 +154,32 @@ public function findStatisticByUsine($codeUsine) {
         } else
             return 0;
     }
-    public function findEmpotageDetails($factureId) {
-        if ($factureId != null) {
-            $facture = $this->empotageQuery->findEmpotageDetails($factureId);
-             $ligneEmpotage = $this->empotageQuery->findAllProduitByEmpotage($factureId);
-             $colis = $this->empotageQuery->findColisByEmpotage($factureId);
-             $reglement = $this->empotageQuery->findReglementByEmpotage($factureId);
-             $conteneurs = $this->empotageQuery->findConteneurByEmpotage($factureId);
-            $factureDetail = array();
+    public function findEmpotageDetails($empotageId) {
+        if ($empotageId != null) {
+            $facture = $this->empotageQuery->findEmpotageDetails($empotageId);
+             $ligneEmpotage = $this->empotageQuery->findAllProduitByEmpotage($empotageId);
+             $colis = $this->empotageQuery->findColisByEmpotage($empotageId);
+             $conteneurs = $this->empotageQuery->findConteneurByEmpotage($empotageId);
+            $empotageDetail = array();
             foreach ($facture as $key => $value) {
                // $factureDetail ['id'] = $value ['achat.id'];
-                $factureDetail ['numero'] = $value ['numero'];
-                $factureDetail ['dateEmpotage']  = date_format(date_create($value ['dateEmpotage']), 'd/m/Y');
-                $factureDetail ['nomClient']  = $value ['nom'];
-                $factureDetail ['adresse']  =  $value ['adresse'];
-                $factureDetail ['pays']  =  $value ['pays'];
-                $factureDetail ['devise']  =  $value ['devise'];
+                $empotageDetail ['numero'] = $value ['numero'];
+                $empotageDetail ['dateEmpotage']  = date_format(date_create($value ['date']), 'd/m/Y');
+                $empotageDetail ['nomClient']  = $value ['nom'];
+                $empotageDetail ['adresse']  =  $value ['adresse'];
+                $empotageDetail ['pays']  =  $value ['pays'];
                 $userManager = new \Utilisateur\UtilisateurManager();
                 $user = $userManager->findByLogin($value ['login'],$value ['codeUsine']);
-                $factureDetail ['user']  =  $user;
-                $factureDetail ['nbTotalColis']  =  $value ['nbTotalColis'];
-                $factureDetail ['nbTotalPoids']  =  $value ['nbTotalPoids'];
-                $factureDetail ['montantHt']  =  $value ['montantHt'];
-                $factureDetail ['montantTtc']  =  $value ['montantTtc'];
-                $factureDetail ['modePaiement']  =  $value ['modePaiement'];
-                $factureDetail ['numCheque']  =  $value ['numCheque'];
-                $factureDetail ['datePaiement']  =  $value ['datePaiement'];
-                $factureDetail ['inconterm']  =  $value ['inconterm'];
-                $factureDetail ['regle']  =  $value ['regle'];
-                $factureDetail ['portDechargement']  =  $value ['portDechargement'];
-                $factureDetail['colis'] = $colis;
-                $factureDetail['ligneEmpotage'] = $ligneEmpotage;
-                $factureDetail['reglement'] = $reglement;
-                $factureDetail['conteneurs'] = $conteneurs;
+                $empotageDetail ['user']  =  $user;
+                $empotageDetail ['nbTotalColis']  =  $value ['nbTotalColis'];
+                $empotageDetail ['nbTotalPoids']  =  $value ['nbTotalPoids'];
+                $empotageDetail ['portDechargement']  =  $value ['portDechargement'];
+                $empotageDetail['colis'] = $colis;
+                $empotageDetail['ligneEmpotage'] = $ligneEmpotage;
+                $empotageDetail['conteneurs'] = $conteneurs;
                 
             }
-            return $factureDetail;
+            return $empotageDetail;
         }
         else
             return null;

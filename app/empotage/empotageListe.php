@@ -69,7 +69,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                         <div class="widget-body">
                             <div class="widget-main no-padding">
-                                <table id="LIST_FACTURES" class="table table-striped table-bordered table-hover">
+                                <table id="LIST_EMPOTAGES" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th class="center" style="border-right: 0px none;">
@@ -173,9 +173,9 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                                     <div class="profile-user-info">
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name">Date facture </div>
+                                                            <div class="profile-info-name">Date empotage </div>
                                                             <div class="profile-info-value">
-                                                                <span id="FactureDate"></span>
+                                                                <span id="empotageDate"></span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-info-row">
@@ -414,21 +414,21 @@ $codeUsine = $_COOKIE['codeUsine'];
     <script type="text/javascript">
         jQuery(function ($) {
             var oTableFactures = null;
-            var nbTotalFactureChecked = 0;
-            var checkedFacture = new Array();
+            var nbTotalEmpotageChecked = 0;
+            var checkedEmpotage = new Array();
             // Check if an item is in the array
 
-            checkedFactureContains = function (item) {
-                for (var i = 0; i < checkedFacture.length; i++) {
-                    if (checkedFacture[i] == item)
+            checkedEmpotageContains = function (item) {
+                for (var i = 0; i < checkedEmpotage.length; i++) {
+                    if (checkedEmpotage[i] == item)
                         return true;
                 }
                 return false;
             };
             // Persist checked Message when navigating
             persistChecked = function () {
-                $('input[type="checkbox"]', "#LIST_FACTURES").each(function () {
-                    if (checkedFactureContains($(this).val())) {
+                $('input[type="checkbox"]', "#LIST_EMPOTAGES").each(function () {
+                    if (checkedEmpotageContains($(this).val())) {
                         $(this).attr('checked', 'checked');
                     } else {
                         $(this).removeAttr('checked');
@@ -441,15 +441,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                     this.checked = that.checked;
                     if (this.checked)
                     {
-                        checkedFactureAdd($(this).val());
+                        checkedEmpotageAdd($(this).val());
                         //MessageSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                         $('#TAB_MSG_VIEW').hide();
-                        nbTotalFactureChecked = checkedFacture.length;
+                        nbTotalEmpotageChecked = checkedEmpotage.length;
                     }
                     else
                     {
-                        checkedFactureRemove($(this).val());
+                        checkedEmpotageRemove($(this).val());
 //                        MessageUnSelected();
                         $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                         $('#TAB_MSG_VIEW').hide();
@@ -460,11 +460,11 @@ $codeUsine = $_COOKIE['codeUsine'];
 
             EnableAction = function ()
             {
-                if (checkedFacture.length == 1)
+                if (checkedEmpotage.length == 1)
                 {
                     $('#MNU_ANNULATION').removeClass('disabled');
                     $('#MNU_IMPRIMER').removeClass('disabled');
-                    var state = $('#stag' + checkedFacture[0]).val();
+                    var state = $('#stag' + checkedEmpotage[0]).val();
                     if (state == 1) {
                         $('#MNU_ANNULATION').addClass('disabled');
                         if ($.cookie('profil') == 'directeur') {
@@ -479,7 +479,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                     }
                 }
-                else if (checkedFacture.length > 1) {
+                else if (checkedEmpotage.length > 1) {
                     $('#MNU_ANNULATION').removeClass('enable');
                     $('#MNU_IMPRIMER').removeClass('enable');
                     $('#MNU_REMOVE').addClass('disabled');
@@ -487,8 +487,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#MNU_ANNULATION').addClass('disabled');
                         $('#MNU_REMOVE').addClass('disabled');
                     }
-                    bootbox.alert("Veuillez selectionnez une seule facture  SVP!");
-                    loadFactures();
+                    bootbox.alert("Veuillez selectionnez une seule empotage  SVP!");
+                    loadEmpotages();
                 }
                 else {
                     $('#MNU_ANNULATION').removeClass('enable');
@@ -501,8 +501,8 @@ $codeUsine = $_COOKIE['codeUsine'];
             MessageSelected = function (click)
             {
                 EnableAction();
-                if (checkedFacture.length == 1) {
-                    loadFactureSelected(checkedFacture[0]);
+                if (checkedEmpotage.length == 1) {
+                    loadFactureSelected(checkedEmpotage[0]);
                     $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 } else
@@ -511,15 +511,15 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#TAB_MSG_VIEW').hide();
 
                 }
-                if (checkedFacture.length == nbTotalFactureChecked) {
+                if (checkedEmpotage.length == nbTotalEmpotageChecked) {
                     $('table th input:checkbox').prop('checked', true);
                 }
             };
             MessageUnSelected = function ()
             {
                 EnableAction();
-                if (checkedFacture.length === 1) {
-                    loadFactureSelected(checkedFacture[0]);
+                if (checkedEmpotage.length === 1) {
+                    loadFactureSelected(checkedEmpotage[0]);
                     $('#TAB_MSG_VIEW').show();
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                 }
@@ -534,36 +534,36 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
 
             // Add checked item to the array
-            checkedFactureAdd = function (item) {
+            checkedEmpotageAdd = function (item) {
                 if (!checkedMessageContains(item)) {
-                    checkedFacture.push(item);
+                    checkedEmpotage.push(item);
                 }
             };
             // Remove unchecked items from the array
-            checkedFactureRemove = function (item) {
+            checkedEmpotageRemove = function (item) {
                 var i = 0;
-                while (i < checkedFacture.length) {
-                    if (checkedFacture[i] == item) {
-                        checkedFacture.splice(i, 1);
+                while (i < checkedEmpotage.length) {
+                    if (checkedEmpotage[i] == item) {
+                        checkedEmpotage.splice(i, 1);
                     } else {
                         i++;
                     }
                 }
             };
             checkedMessageContains = function (item) {
-                for (var i = 0; i < checkedFacture.length; i++) {
-                    if (checkedFacture[i] == item)
+                for (var i = 0; i < checkedEmpotage.length; i++) {
+                    if (checkedEmpotage[i] == item)
                         return true;
                 }
                 return false;
             };
-            loadFactures = function () {
-                nbTotalFactureChecked = 0;
-                checkedFacture = new Array();
-                var url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
+            loadEmpotages = function () {
+                nbTotalEmpotageChecked = 0;
+                checkedEmpotage = new Array();
+                var url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
                 if (oTableFactures != null)
                     oTableFactures.fnDestroy();
-                oTableFactures = $('#LIST_FACTURES').dataTable({
+                oTableFactures = $('#LIST_EMPOTAGES').dataTable({
                     "oLanguage": {
                         "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
                     },
@@ -603,13 +603,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             if (!checkbox.is(':checked')) {
                                 checkbox.prop('checked', true);
                                 ;
-                                checkedFactureAdd(aData[0]);
+                                checkedEmpotageAdd(aData[0]);
                                 MessageSelected();
 
                             } else {
                                 checkbox.removeAttr('checked');
 
-                                checkedFactureRemove(aData[0]);
+                                checkedEmpotageRemove(aData[0]);
                                 MessageUnSelected();
                             }
                         });
@@ -648,7 +648,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 } else {
                                     $('table th input:checkbox').removeAttr('checked');
                                     fnCallback(json);
-                                    nbTotalFactureChecked = json.iTotalRecords;
+                                    nbTotalEmpotageChecked = json.iTotalRecords;
                                 }
 
                             }
@@ -657,40 +657,25 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
 
-            loadFactures();
-            loadFactureSelected = function (factureId)
+            loadEmpotages();
+            loadFactureSelected = function (empotageId)
             {
                 var url;
-                url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
+                url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
 
-                $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
+                $.post(url, {empotageId: empotageId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                     data = $.parseJSON(data);
-                    $('#deviseTextTtc').text(data.devise);
-                    $('#deviseTextMontantPaye').text(data.devise);
-                    $('#deviseTextReliquat').text(data.devise);
-                    $('#TAB_MSG_TITLE').text("Numero facture: " + data.numero);
-                    $('#FactureDate').text(data.dateFacture);
-                    $('#numFacture').text(data.numero);
+                    $('#TAB_MSG_TITLE').text("Numero empotage: " + data.numero);
+                    $('#empotageDate').text(data.dateEmpotage);
+                    $('#numEmpotage').text(data.numero);
                     $('#nomClient').text(data.nomClient);
                     $('#origine').text(data.adresse);
                     $('#pays').text(data.pays);
                     $('#user').text(data.user);
                     $('#totalColis').text(data.nbTotalColis);
                     $('#PoidsTotal').text(data.nbTotalPoids+ ' kg');
-                    $('#MontantHt').text(data.montantHt+ ' ' + data.devise);
-//                    $('#montantTtc').val(data.montantTtc );
-                    if (data.modePaiement == '' && data.modePaiement == 'undefined')
-                        $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
-                    if (data.numCheque !== null && data.numCheque !== "")
-                        $('#numCheque').val(data.numCheque);
-                    else
-                        $('#numCheque').val('');
-                    if (data.datePaiement !== null && data.datePaiement !== "")
-                        $('#datePaiement').val(data.datePaiement);
-                    else
-                        $('#datePaiement').val('');
-                    //colis
+//                   
                     $('#tab_colis tbody').html("");
                     loadEditable = function (compteur)
                     {
@@ -772,7 +757,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     trHTMLConteneur = '';
 
                     $('#tab_produit tbody').html("");
-                    var table = data.ligneFacture;
+                    var table = data.ligneEmpotage;
                     var trHTML = '';
                     $(table).each(function (index, element) {
                         var row = $('<tr id=' + element.id + ' />');
@@ -787,10 +772,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                         row.append($('<td id="ligneId' + index + '">' + element.id + '</td>'));
                         row.append($('<td id="nbColis' + index + '">' + element.nbColis + '</td>'));
-                        row.append($('<td id="designation' + index + '">' + element.produit + '</td>'));
-                        row.append($('<td ><span class="editText" id="prix' + index + '">' + pu + '</span></td>'));
+                        row.append($('<td id="designation' + index + '">' + element.libelle + '</td>'));
                         row.append($('<td  id="quantite' + index + '">' + element.quantite + '</td>'));
-                        row.append($('<td class="montant" id="montant' + index + '">' + mt + '</td>'));
                         loadEditable(index);
                         // trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
                     });
@@ -924,14 +907,14 @@ $codeUsine = $_COOKIE['codeUsine'];
 
             $("#MNU_VALIDATION").click(function ()
             {
-                if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez un facture");
-                else if (checkedFacture.length == 1)
+                if (checkedEmpotage.length == 0)
+                    bootbox.alert("Veuillez selectionnez un empotage");
+                else if (checkedEmpotage.length == 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment valider cet facture?", "Non", "Oui", function (result) {
+                    bootbox.confirm("Voulez vous vraiment valider cet empotage?", "Non", "Oui", function (result) {
                         if (result) {
-                            var factureId = checkedFacture[0];
-                            $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function (data)
+                            var empotageId = checkedEmpotage[0];
+                            $.post("<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php", {empotageId: empotageId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function (data)
                             {
                                 if (data.rc == 0)
                                 {
@@ -942,48 +925,48 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     bootbox.alert(data.error);
                                 }
                             }, "json");
-                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsFactureVue.php", function () {
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/empotage/listebonsFactureVue.php", function () {
                             });
                         }
                     });
                 }
-                else if (checkedFacture.length > 1)
+                else if (checkedEmpotage.length > 1)
                 {
-                    bootbox.alert("Veuillez selectionnez un seule facture SVP!");
+                    bootbox.alert("Veuillez selectionnez un seule empotage SVP!");
                 }
             });
             $("#MNU_IMPRIMER").click(function ()
             {
-                if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez une facture SVP!");
-                else if (checkedFacture.length == 1)
+                if (checkedEmpotage.length == 0)
+                    bootbox.alert("Veuillez selectionnez une empotage SVP!");
+                else if (checkedEmpotage.length == 1)
                 {
-                    var factureId = checkedFacture[0];
-                    window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId=' + factureId, 'nom_de_ma_popup', 'menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+                    var empotageId = checkedEmpotage[0];
+                    window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId=' + empotageId, 'nom_de_ma_popup', 'menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
 
                 }
-                else if (checkedFacture.length > 1)
+                else if (checkedEmpotage.length > 1)
                 {
-                    bootbox.alert("Veuillez selectionnez une seul facture SVP!");
+                    bootbox.alert("Veuillez selectionnez une seul empotage SVP!");
                 }
             });
 
 
             $("#MNU_ANNULATION").click(function ()
             {
-                if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez une facture");
-                else if (checkedFacture.length >= 1)
+                if (checkedEmpotage.length == 0)
+                    bootbox.alert("Veuillez selectionnez une empotage");
+                else if (checkedEmpotage.length >= 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment annuler cette facture", function (result) {
+                    bootbox.confirm("Voulez vous vraiment annuler cette empotage", function (result) {
                         if (result) {
-                            var factureId = checkedFacture[0];
-                            $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function (data)
+                            var empotageId = checkedEmpotage[0];
+                            $.post("<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php", {empotageId: empotageId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function (data)
                             {
                                 if (data.rc === 0)
                                 {
                                     bootbox.alert("Facture annulée");
-                                    loadFactures();
+                                    loadEmpotages();
                                 }
                                 else
                                 {
@@ -1000,19 +983,19 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_REMOVE").click(function ()
             {
                 if (checkedBon.length == 0)
-                    bootbox.alert("Veuillez selectionnez une facture");
+                    bootbox.alert("Veuillez selectionnez une empotage");
                 else if (checkedBon.length >= 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment supprimer cette facture", function (result) {
+                    bootbox.confirm("Voulez vous vraiment supprimer cette empotage", function (result) {
                         if (result) {
                             var bonsortieId = checkedBon[0];
-                            $.post("<?php echo App::getBoPath(); ?>/facture/FactureeController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function (data)
+                            $.post("<?php echo App::getBoPath(); ?>/empotage/FactureeController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function (data)
                             {
                                 if (data.rc === 0)
                                 {
                                     bootbox.alert("Bon de sortie supprimé");
                                     getIndicator();
-                                    loadFactures();
+                                    loadEmpotages();
 
                                 }
                                 else
@@ -1026,12 +1009,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
             
-            ReglementProcess = function (factureId)
+            ReglementProcess = function (empotageId)
         {
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
             var frmData;
-            //var achatId= factureId;
+            //var achatId= empotageId;
             var montantHt = $("#MontantHt").text();
             var tva = $("#tva").val();
             var montantTtc = $("#montantTtc").val();
@@ -1078,7 +1061,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('factureId', factureId);
+            formData.append('empotageId', empotageId);
             formData.append('montantHt', montantHt);
             formData.append('montantTtc', montantTtc);
             formData.append('tva', tva);
@@ -1093,7 +1076,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
+                url: '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -1108,10 +1091,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                        window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                          $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_INFO_VIEW').show();
-                   loadFactures();
+                   loadEmpotages();
                     } 
                     else
                     {
@@ -1135,7 +1118,7 @@ $codeUsine = $_COOKIE['codeUsine'];
         
         $("#SAVE").bind("click", function () {
             // alert(checkedAchat[0]);
-             ReglementProcess(checkedFacture[0]);
+             ReglementProcess(checkedEmpotage[0]);
          });
 
 
