@@ -411,7 +411,7 @@ class EmpotageQueries {
     
     public function findColisageByEmpotageId($empotageId) {
         if ($empotageId != null) {
-            $sql = 'SELECT produitId, nombreCarton, quantiteParCarton FROM ligne_colis WHERE empotageId=' . $empotageId;
+            $sql = 'SELECT produitId, nombreCarton, quantiteParCarton FROM ligne_colis WHERE empotage_id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $colis = $stmt->fetchAll();

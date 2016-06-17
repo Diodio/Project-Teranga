@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des factures
+            Gestion des empotages
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des factures
+                Liste des empotages
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -57,7 +57,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter">
                                 <i class="ace-icon fa fa-star orange"></i>
-                                Liste des factures
+                                Liste des empotages
                             </h4>
 
                             <div class="widget-toolbar">
@@ -173,7 +173,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                                                     <div class="profile-user-info">
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name">Date facture </div>
+                                                            <div class="profile-info-name">Date empotage </div>
                                                             <div class="profile-info-value">
                                                                 <span id="FactureDate"></span>
                                                             </div>
@@ -489,7 +489,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#MNU_ANNULATION').addClass('disabled');
                         $('#MNU_REMOVE').addClass('disabled');
                     }
-                    bootbox.alert("Veuillez selectionnez une seule facture  SVP!");
+                    bootbox.alert("Veuillez selectionnez une seule empotage  SVP!");
                     loadFactures();
                 }
                 else {
@@ -562,7 +562,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             loadFactures = function () {
                 nbTotalFactureChecked = 0;
                 checkedFacture = new Array();
-                var url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
+                var url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
                 if (oTableFactures != null)
                     oTableFactures.fnDestroy();
                 oTableFactures = $('#LIST_FACTURES').dataTable({
@@ -660,17 +660,17 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
 
             loadFactures();
-            loadFactureSelected = function (factureId)
+            loadFactureSelected = function (empotageId)
             {
                 var url;
-                url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
+                url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
 
-                $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
+                $.post(url, {empotageId: empotageId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                     data = $.parseJSON(data);
                     $('#deviseTextTtc').text(data.devise);
                     $('#deviseTextMontantPaye').text(data.devise);
                     $('#deviseTextReliquat').text(data.devise);
-                    $('#TAB_MSG_TITLE').text("Numero facture: " + data.numero);
+                    $('#TAB_MSG_TITLE').text("Numero empotage: " + data.numero);
                     $('#FactureDate').text(data.dateFacture);
                     $('#numFacture').text(data.numero);
                     $('#nomClient').text(data.nomClient);
@@ -927,13 +927,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_VALIDATION").click(function ()
             {
                 if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez un facture");
+                    bootbox.alert("Veuillez selectionnez un empotage");
                 else if (checkedFacture.length == 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment valider cet facture?", "Non", "Oui", function (result) {
+                    bootbox.confirm("Voulez vous vraiment valider cet empotage?", "Non", "Oui", function (result) {
                         if (result) {
-                            var factureId = checkedFacture[0];
-                            $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function (data)
+                            var empotageId = checkedFacture[0];
+                            $.post("<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php", {empotageId: empotageId, ACTION: "<?php echo App::ACTION_ACTIVER; ?>"}, function (data)
                             {
                                 if (data.rc == 0)
                                 {
@@ -944,29 +944,29 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     bootbox.alert(data.error);
                                 }
                             }, "json");
-                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/facture/listebonsFactureVue.php", function () {
+                            $("#MAIN_CONTENT").load("<?php echo App::getHome(); ?>/app/empotage/listebonsFactureVue.php", function () {
                             });
                         }
                     });
                 }
                 else if (checkedFacture.length > 1)
                 {
-                    bootbox.alert("Veuillez selectionnez un seule facture SVP!");
+                    bootbox.alert("Veuillez selectionnez un seule empotage SVP!");
                 }
             });
             $("#MNU_IMPRIMER").click(function ()
             {
                 if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez une facture SVP!");
+                    bootbox.alert("Veuillez selectionnez une empotage SVP!");
                 else if (checkedFacture.length == 1)
                 {
-                    var factureId = checkedFacture[0];
-                    window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId=' + factureId, 'nom_de_ma_popup', 'menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+                    var empotageId = checkedFacture[0];
+                    window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId=' + empotageId, 'nom_de_ma_popup', 'menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
 
                 }
                 else if (checkedFacture.length > 1)
                 {
-                    bootbox.alert("Veuillez selectionnez une seul facture SVP!");
+                    bootbox.alert("Veuillez selectionnez une seul empotage SVP!");
                 }
             });
 
@@ -974,13 +974,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_ANNULATION").click(function ()
             {
                 if (checkedFacture.length == 0)
-                    bootbox.alert("Veuillez selectionnez une facture");
+                    bootbox.alert("Veuillez selectionnez une empotage");
                 else if (checkedFacture.length >= 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment annuler cette facture", function (result) {
+                    bootbox.confirm("Voulez vous vraiment annuler cette empotage", function (result) {
                         if (result) {
-                            var factureId = checkedFacture[0];
-                            $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {factureId: factureId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function (data)
+                            var empotageId = checkedFacture[0];
+                            $.post("<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php", {empotageId: empotageId, ACTION: "<?php echo App::ACTION_DESACTIVER; ?>"}, function (data)
                             {
                                 if (data.rc === 0)
                                 {
@@ -1002,13 +1002,13 @@ $codeUsine = $_COOKIE['codeUsine'];
             $("#MNU_REMOVE").click(function ()
             {
                 if (checkedBon.length == 0)
-                    bootbox.alert("Veuillez selectionnez une facture");
+                    bootbox.alert("Veuillez selectionnez une empotage");
                 else if (checkedBon.length >= 1)
                 {
-                    bootbox.confirm("Voulez vous vraiment supprimer cette facture", function (result) {
+                    bootbox.confirm("Voulez vous vraiment supprimer cette empotage", function (result) {
                         if (result) {
                             var bonsortieId = checkedBon[0];
-                            $.post("<?php echo App::getBoPath(); ?>/facture/FactureeController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function (data)
+                            $.post("<?php echo App::getBoPath(); ?>/empotage/FactureeController.php", {bonsortieId: bonsortieId, ACTION: "<?php echo App::ACTION_REMOVE; ?>"}, function (data)
                             {
                                 if (data.rc === 0)
                                 {
@@ -1028,12 +1028,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
             
-            ReglementProcess = function (factureId)
+            ReglementProcess = function (empotageId)
         {
            $('#SAVE').attr("disabled", true);
             var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
             var frmData;
-            //var achatId= factureId;
+            //var achatId= empotageId;
             var montantHt = $("#MontantHt").text();
             var tva = $("#tva").val();
             var montantTtc = $("#montantTtc").val();
@@ -1080,7 +1080,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('factureId', factureId);
+            formData.append('empotageId', empotageId);
             formData.append('montantHt', montantHt);
             formData.append('montantTtc', montantTtc);
             formData.append('tva', tva);
@@ -1095,7 +1095,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
+                url: '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -1110,7 +1110,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                        window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                          $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_INFO_VIEW').show();
                    loadFactures();
