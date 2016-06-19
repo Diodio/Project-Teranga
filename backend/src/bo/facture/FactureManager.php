@@ -18,8 +18,8 @@ class FactureManager {
         $this->factureQuery = new FactureQueries();
     }
     
-    public function insert($facture) {
-        $this->factureQuery->insert($facture);
+    public function insert($facture,$reglement,$ligneEmpotage,$stockFacturee) {
+        $this->factureQuery->insert($facture,$reglement,$ligneEmpotage,$stockFacturee);
     	return $facture;
     }
     
@@ -37,8 +37,8 @@ class FactureManager {
     }
    
     
-    public function findTypeFactureById($typeproduitId) {
-        return $this->factureQuery->findTypeFactureById($typeproduitId);
+    public function findFactureByEmpotageId($empotageId) {
+        return $this->factureQuery->findFactureByEmpotageId($empotageId);
     }
 
     
@@ -94,8 +94,8 @@ class FactureManager {
         }
         $this->factureQuery->annulerFacture($factureId);
     }
-public function getLastNumberFacture() {
-    $lastFactureId=$this->factureQuery->getLastNumberFacture();
+public function getLastNumberFacture($codeUsine) {
+    $lastFactureId=$this->factureQuery->getLastNumberFacture($codeUsine);
     if($lastFactureId !=null){
     if(strlen($lastFactureId)==1) $lastFactureId="0000".$lastFactureId;
     else if(strlen($lastFactureId)==2) $lastFactureId="000".$lastFactureId;
@@ -177,8 +177,9 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['user']  =  $user;
                 $factureDetail ['nbTotalColis']  =  $value ['nbTotalColis'];
                 $factureDetail ['nbTotalPoids']  =  $value ['nbTotalPoids'];
-                $factureDetail ['montantHt']  =  $value ['montantHt'];
-                $factureDetail ['montantTtc']  =  $value ['montantTtc'];
+                $factureDetail ['montant']  =  $value ['montant'];
+                $factureDetail ['montantPaye']  =  $value ['montantPaye'];
+                $factureDetail ['montantTotal']  =  $value ['montantTotal'];
                 $factureDetail ['modePaiement']  =  $value ['modePaiement'];
                 $factureDetail ['numCheque']  =  $value ['numCheque'];
                 $factureDetail ['datePaiement']  =  $value ['datePaiement'];

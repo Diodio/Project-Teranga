@@ -53,6 +53,12 @@ class Empotage {
      **/
     protected $status;
     
+    //Facture ou pas
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $etat;
+    
     /** @Column(type="datetime", nullable=true) */
     protected $createdDate;
 
@@ -189,10 +195,18 @@ class Empotage {
         $this->conteneur = $conteneur;
     }
 
-    
-    
+    function getEtat() {
+        return $this->etat;
+    }
+
+    function setEtat($etat) {
+        $this->etat = $etat;
+    }
+
+        
         /** @PrePersist */
     public function doPrePersist() {
+        $this->etat=0;
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }

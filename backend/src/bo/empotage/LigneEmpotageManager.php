@@ -19,6 +19,11 @@ class LigneEmpotageManager {
     	return $ligneFacture;
     }
     
+    public function update($ligneEmpotage) {
+        $this->ligneEmpotageQuery->update($ligneEmpotage);
+    	return $ligneEmpotage;
+    }
+    
     public function findById($ligneFactureId) {
         return $this->ligneEmpotageQuery->findById($ligneFactureId);
     }

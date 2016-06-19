@@ -4,6 +4,7 @@ namespace Facture;
 
 use Racine\Bootstrap as Bootstrap;
 use Exception as Exception;
+use Log\Loggers as Logger;
 
 class FactureQueries {
     /*
@@ -12,6 +13,7 @@ class FactureQueries {
 
     private $entityManager;
     private $classString;
+    private $logger;
 
     /*
      *
@@ -20,14 +22,47 @@ class FactureQueries {
     public function __construct() {
         $this->entityManager = Bootstrap::$entityManager;
         $this->classString = 'Facture\Facture';
+        $this->logger = new Logger(__CLASS__);
     }
 
    
-    public function insert($achat) {
-        if ($achat != null) {
-            Bootstrap::$entityManager->persist($achat);
-            Bootstrap::$entityManager->flush();
-            return $achat;
+    public function insert($facture, $reglement, $ligneEmpotage, $stockFacturee) {
+        Bootstrap::$entityManager->getConnection()->beginTransaction();
+        if ($facture != null) {
+            try {
+                
+                if($facture->getId() != null)
+                    Bootstrap::$entityManager->merge($facture);
+                else
+                    Bootstrap::$entityManager->persist($facture);
+                Bootstrap::$entityManager->flush();
+                Bootstrap::$entityManager->persist($reglement);
+                Bootstrap::$entityManager->flush();
+                if ($ligneEmpotage !== null) {
+                    foreach ($ligneEmpotage as $ligne) {
+                        Bootstrap::$entityManager->merge($ligne);
+                       Bootstrap::$entityManager->flush();
+                    }
+                }
+                if ($stockFacturee !== null) {
+                    foreach ($stockFacturee as $stock) {
+                        Bootstrap::$entityManager->persist($stock);
+                        Bootstrap::$entityManager->flush();
+                    }
+                }
+                $empotageId=$facture->getEmpotage()->getId();
+                $connexion=Bootstrap::$entityManager->getConnection();
+                $connexion->executeUpdate("UPDATE empotage SET etat = 1  WHERE id = ".$empotageId."");
+                Bootstrap::$entityManager->getConnection()->commit();
+                return $facture;
+            } catch (\Exception $e) {
+                $this->logger->log->error($e->getMessage());
+                Bootstrap::$entityManager->getConnection()->rollback();
+                Bootstrap::$entityManager->close();
+                $b = new Bootstrap();
+                Bootstrap::$entityManager = $b->getEntityManager();
+                return null;
+            }
         }
     }
 
@@ -177,12 +212,20 @@ class FactureQueries {
         return $nbClients['nbFactures'];
     }
     
-    public function getLastNumberFacture() {
-        $sql = 'select max(id)+1 as last from facture';
+    public function getLastNumberFacture($codeUsine) {
+        $sql = 'select max(id)+1 as last from facture where codeUsine="'.$codeUsine.'"';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $lastFacture = $stmt->fetch();
         return $lastFacture['last'];
+    }
+    
+    public function findFactureByEmpotageId($empotageId) {
+        $sql = 'SELECT id FROM facture WHERE empotage_id="'.$empotageId.'"';
+        $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+        $stmt->execute();
+        $facture = $stmt->fetch();
+        return $facture['id'];
     }
     
     public function validFacture($achatId) {

@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des empotages
+            Gestion des factures
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Empotages
+                Facturation
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -57,7 +57,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter">
                                 <i class="ace-icon fa fa-star orange"></i>
-                                Liste des empotages
+                                Facturation
                             </h4>
 
                             <div class="widget-toolbar">
@@ -83,7 +83,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                 Date
                                             </th>
                                             <th style="border-left: 0px none;border-right: 0px none;">
-                                                Numéro
+                                                Numéro Empotage
                                             </th>
                                             <th style="border-left: 0px none;border-right: 0px none;">
                                                 Nom Client
@@ -170,39 +170,53 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div id="TAB_MSG" class="tab-pane">
                                             <div class="slim-scroll" data-height="100">
                                                 <div class="span12">
-
-                                                    <div class="profile-user-info">
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name">Date empotage </div>
-                                                            <div class="profile-info-value">
-                                                                <span id="empotageDate"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name">Client </div>
-                                                            <div class="profile-info-value">
-                                                                <span id="nomClient"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name">Destination </div>
-                                                            <div class="profile-info-value">
-                                                                <span id="origine"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name">Pays </div>
-                                                            <div class="profile-info-value">
-                                                                <span id="pays"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="profile-info-row">
-                                                            <div class="profile-info-name">Créé par  </div>
-                                                            <div class="profile-info-value">
-                                                                <span id="user"></span>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label no-padding-right"
+                                                                   for="form-field-1"> Numero Facture</label>
+                                                            <div class="col-sm-6">
+                                                                <input type="text" id="numFacture" placeholder=""
+                                                                       class="col-xs-10 col-sm-7">
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label no-padding-right"
+                                                                   for="form-field-1"> Date Facture</label>
+                                                            <div class="col-sm-6">
+                                                                <input type="text" id="dateFacture" placeholder=""
+                                                                       class="col-xs-10 col-sm-7">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="input-append bootstrap-timepicker form-group">
+                                                            <label class="col-sm-3 control-label no-padding-right"
+                                                                   for="form-field-1"> Heure de Facture</label>
+                                                            <div class="bootstrap-timepicker col-sm-6">
+                                                                <input name="heureFacture" id="heureFacture" type="text" class="col-xs-10 col-sm-7" />
+                                                            </div>
+                                                        </div
+                                                    </div>
+                                                </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                    <label class="col-sm-3 control-label no-padding-right"
+                                                           for="form-field-1"> Devise</label>
+                                                    <div class="col-sm-6">
+                                                        <select id="devise" data-placeholder=""      >
+                                                            <option value="&euro;">&euro;</option>
+                                                            <option value="FCFA">FCFA</option>
+                                                            <option value="$">US$</option>
+                                                        </select>
+                                                    </div>
+                                                    </div>
+
+                                                    
                                                     <h4 class="widget-title lighter">
                                                         <i class="ace-icon fa fa-star orange"></i>
                                                         Conteneur et Numero Plomb
@@ -237,7 +251,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                                 <th class=""></th>
                                                                 <th class="">Nombre de colis</th>
                                                                 <th class="">Désignation</th>
+                                                                <th class="">Prix unitaire</th>
                                                                 <th class="">Poids net</th>
+                                                                <th class="">Montant</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -259,20 +275,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                                 <span id="PoidsTotal"></span>
                                                             </div>
                                                         </div>
-<!--                                                         <div class="profile-info-row"> -->
-<!--                                                             <div class="profile-info-name" id="labelmontantHt">Montant HT </div> -->
-<!--                                                             <div class="profile-info-value"> -->
-<!--                                                                 <span id="MontantHt"></span> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-                                                    </div>
-<!--                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Tva </label>
-                                                            <div class="col-sm-7">
-                                                                <input type="text" id="tva" name="tva" placeholder=""
-                                                                       class="" value="18"> %
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name" id="labelmontant">Montant (<span id="deviseTextMontant"></span>) </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="montant"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -280,120 +286,134 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1" id=""> Montant Ttc (<span id="deviseTextTtc"></span>)</label>
-                                                            
+                                                                   for="form-field-1"> Transport (<span id="deviseTextTransport"></span>)</label>
                                                             <div class="col-sm-7">
-                                                                <input type="text" readonly id="montantTtc" name="montantTtc" placeholder=""
-                                                                       class="" >
+                                                                <div class="clearfix">
+                                                                    <input type="text"  id="transport" placeholder=""
+                                                                           class="" value="0">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>-->
+                                                    </div>
                                                     <div class="space-6"></div>
                                                     <div class="row">
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1"> Mode de paiement </label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <select id="modePaiement" class=""> -->
-<!--                                                                     <option value="ESPECES">Especes</option> -->
-<!--                                                                     <option value="CHEQUE">Cheque</option> -->
-<!--                                                                     <option value="VIREMENT">Virement</option> -->
-<!--                                                                 </select> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="space-6"></div> -->
-<!--                                                     <div class="row"> -->
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1"> No Cheque </label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <div class="clearfix"> -->
-<!--                                                                     <input type="text" readonly id="numCheque" placeholder="" -->
-<!--                                                                            class=""> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="space-6"></div> -->
-<!--                                                     <div class="row"> -->
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1"> Date de paiement </label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <div class="clearfix"> -->
-<!--                                                                     <input type="text" readonly id="datePaiement" placeholder="" -->
-<!--                                                                            class=""> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="space-6"></div> -->
-<!--                                                     <div class="row"> -->
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1" id="labelmontantPaye"> Montant payé (<span id="deviseTextMontantPaye"></span>)</label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <div class="clearfix"> -->
-<!--                                                                     <input type="text" class="bolder"  id="avance" name="avance" placeholder="" -->
-<!--                                                                            class=""> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="space-6"></div> -->
-<!--                                                     <div class="row"> -->
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1"> Reliquat  (<span id="deviseTextReliquat"></span>)</label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <div class="clearfix"> -->
-<!--                                                                     <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder="" -->
-<!--                                                                            class=""> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="space-6"></div> -->
-<!--                                                     <div class="row"> -->
-<!--                                                         <div class="space-12"></div> -->
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1"> Reglé </label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <div class="clearfix"> -->
-<!--                                                                     <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder="" -->
-<!--                                                                            > -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Montant total (<span id="deviseTextMontantTotal"></span>)</label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <input type="text" readonly id="montantTotal" placeholder=""
+                                                                           class="" value="0">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Mode de paiement </label>
+                                                            <div class="col-sm-7">
+                                                                <select id="modePaiement" class="">
+                                                                    <option value="ESPECES">Especes</option>
+                                                                    <option value="CHEQUE">Cheque</option>
+                                                                    <option value="VIREMENT">Virement</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> No Cheque </label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <input type="text" readonly id="numCheque" placeholder=""
+                                                                           class="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Date de paiement </label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <input type="text" readonly id="datePaiement" placeholder=""
+                                                                           class="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1" id="labelmontantPaye"> Montant payé (<span id="deviseTextMontantPaye"></span>)</label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <input type="text" class="bolder"  id="montantPaye" name="montantPaye" placeholder=""
+                                                                           class="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Reliquat  (<span id="deviseTextReliquat"></span>)</label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder=""
+                                                                           class="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="space-12"></div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Reglé </label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder=""
+                                                                           >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                      
-<!--                                                     <div class="space-6"></div> -->
-<!--                                                     <div class="row"> -->
-<!--                                                         <div class="form-group"> -->
-<!--                                                             <label class="col-sm-5 control-label no-padding-right" -->
-<!--                                                                    for="form-field-1"> Inconterm  </label> -->
-<!--                                                             <div class="col-sm-7"> -->
-<!--                                                                 <div class="clearfix"> -->
-<!--                                                                     <select id="Inconterm" class="width-25" > -->
-<!--                                                                         <option value=""></option> -->
-<!--                                                                     <option value="CNF">CNF</option> -->
-<!--                                                                     <option value="FOB">FOB</option> -->
-<!--                                                                     <option value="CAF">CAF</option> -->
-<!--                                                                 </select> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                         </div> -->
-<!--                                                     </div>            -->
+                                                    <div class="space-6"></div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-5 control-label no-padding-right"
+                                                                   for="form-field-1"> Inconterm  </label>
+                                                            <div class="col-sm-7">
+                                                                <div class="clearfix">
+                                                                    <select id="Inconterm" class="width-25" >
+                                                                        <option value=""></option>
+                                                                    <option value="CNF">CNF</option>
+                                                                    <option value="FOB">FOB</option>
+                                                                    <option value="CAF">CAF</option>
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>           
 
                                                     <div style="float: right">
-<!--                                                         <button id="SAVE" class="btn btn-small btn-info" > -->
-<!--                                                             <i class="ace-icon fa fa-save"></i> -->
-<!--                                                             Enregistrer -->
-<!--                                                         </button> -->
+                                                        <button id="SAVE" class="btn btn-small btn-info" >
+                                                            <i class="ace-icon fa fa-save"></i>
+                                                            Enregistrer
+                                                        </button>
 
-<!--                                                     </div> -->
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -413,7 +433,7 @@ $codeUsine = $_COOKIE['codeUsine'];
     </div>
     <script type="text/javascript">
         jQuery(function ($) {
-            var oTableFactures = null;
+            var oTableEmpotages = null;
             var nbTotalEmpotageChecked = 0;
             var checkedEmpotage = new Array();
             // Check if an item is in the array
@@ -561,9 +581,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                 nbTotalEmpotageChecked = 0;
                 checkedEmpotage = new Array();
                 var url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
-                if (oTableFactures != null)
-                    oTableFactures.fnDestroy();
-                oTableFactures = $('#LIST_EMPOTAGES').dataTable({
+                if (oTableEmpotages != null)
+                    oTableEmpotages.fnDestroy();
+                oTableEmpotages = $('#LIST_EMPOTAGES').dataTable({
                     "oLanguage": {
                         "sUrl": "<?php echo App::getHome(); ?>/datatable_fr.txt"
                     },
@@ -659,6 +679,39 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
 
             loadEmpotages();
+            loadNumeroFacture = function () {
+                    $.post("<?php echo App::getBoPath(); ?>/facture/FactureController.php", {codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
+                    sData=$.parseJSON(data);
+                        if(sData.rc==-1){
+                            $.gritter.add({
+                                    title: 'Notification',
+                                    text: sData.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                        }else{
+                            $("#numFacture").val(sData.oId);
+                        }
+                });
+                };
+                $('#devise').change(function() {
+                    if($('#devise').val()!==''){
+                        $('#deviseTextMontant').text($('#devise').val());
+                        $('#deviseTextTransport').text($('#devise').val());
+                        $('#deviseTextMontantPaye').text($('#devise').val());
+                        $('#deviseTextMontantTotal').text($('#devise').val());
+                        $('#deviseTextReliquat').text($('#devise').val());
+                    }
+    
+        });
+        $("#transport").keyup(function() {
+           var montant = parseFloat($("#montant").text());
+           var total=0;
+           if(!isNaN(montant) && montant > 0){
+                total=montant + parseFloat($("#transport").val());
+                $('#montantTotal').val(total);
+            }
+//        
+      });
             loadFactureSelected = function (empotageId)
             {
                 var url;
@@ -666,17 +719,48 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                 $.post(url, {empotageId: empotageId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                     data = $.parseJSON(data);
+                    loadNumeroFacture();
+                    var today = new Date();
+                    var dateFacture = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+
+                    var yyyy = today.getFullYear();
+                    if(dd<10){dd='0'+dd;} if(mm<10){mm='0'+mm;} today = dd+'/'+mm+'/'+yyyy;dateFacture=yyyy+'-'+mm+'-'+dd;
+                    $('#dateFacture').attr('value', today);
+
+                    $('#heureFacture').timepicker({
+                            minuteStep: 1,
+                            showSeconds: false,
+                            showMeridian: false
+                        });
+                    $('#deviseTextMontant').text($('#devise').val());
+                    $('#deviseTextTransport').text($('#devise').val());
+                    $('#deviseTextMontantPaye').text($('#devise').val());
+                    $('#deviseTextMontantTotal').text($('#devise').val());
+                    $('#deviseTextReliquat').text($('#devise').val());
                     $('#TAB_MSG_TITLE').text("Numero empotage: " + data.numero);
-                    $('#empotageDate').text(data.dateEmpotage);
-                    $('#numEmpotage').text(data.numero);
+                    //$('#FactureDate').text(data.dateFacture);
                     $('#nomClient').text(data.nomClient);
                     $('#origine').text(data.adresse);
                     $('#pays').text(data.pays);
                     $('#user').text(data.user);
                     $('#totalColis').text(data.nbTotalColis);
-                    $('#PoidsTotal').text(data.nbTotalPoids+ ' kg');
+                    $('#PoidsTotal').text(data.nbTotalPoids);
+                    //$('#montant').text(data.montant+ ' ' + data.devise);
+//                    $('#montantTtc').val(data.montantTtc );
+                    if (data.modePaiement == '' && data.modePaiement == 'undefined')
+                        $('#modePaiement').text(data.modePaiement);
                     $('#portDechargement').text(data.portDechargement);
-//                   
+                    if (data.numCheque !== null && data.numCheque !== "")
+                        $('#numCheque').val(data.numCheque);
+                    else
+                        $('#numCheque').val('');
+                    if (data.datePaiement !== null && data.datePaiement !== "")
+                        $('#datePaiement').val(data.datePaiement);
+                    else
+                        $('#datePaiement').val('');
+                    //colis
                     $('#tab_colis tbody').html("");
                     loadEditable = function (compteur)
                     {
@@ -710,16 +794,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                         if ($(this).html() !== 0)
                                                             tot += parseFloat($(this).html());
                                                     });
-                                                    var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
-                                                    $('#avance').val("");
+                                                    //var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
+                                                    $('#transport').val("0");
+                                                    $('#montantPaye').val("0");
+                                                    $('#montantTotal').val("0");
                                                     $('#reliquat').val("");
                                                     $('#datePaiement').val("");
                                                     $('#numCheque').val("");
-                                                    //$('#modePaiement').val("-1").change;
-                                                    $('#transport').val("");
                                                 }
                                                 //console.log(tot);
-                                                $('#MontantHt').text(tot);
+                                                $('#montant').text(tot);
 //                                                $('#montantTtc').val(Ttc);
                                                 // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                             }
@@ -774,7 +858,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                         row.append($('<td id="ligneId' + index + '">' + element.id + '</td>'));
                         row.append($('<td id="nbColis' + index + '">' + element.nbColis + '</td>'));
                         row.append($('<td id="designation' + index + '">' + element.libelle + '</td>'));
+                        row.append($('<td ><span class="editText" id="prix' + index + '">' + pu + '</span></td>'));
                         row.append($('<td  id="quantite' + index + '">' + element.quantite + '</td>'));
+                        row.append($('<td class="montant" id="montant' + index + '">' + mt + '</td>'));
                         loadEditable(index);
                         // trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
                     });
@@ -786,31 +872,41 @@ $codeUsine = $_COOKIE['codeUsine'];
                             tot += parseFloat($(this).html());
                     });
                          
-                    var Ttc = tot+(tot * ($("#tva").val()/100));
-//                    $('#montantTtc').val(Ttc);
+                   // var Ttc = tot+(tot * ($("#tva").val()/100));
+                   if(tot!=='undefined')
+                        $('#montant').text(tot);
+                    else
+                        $('#montant').text('0');
+                    if(data.transport!=null)
+                        $('#transport').val(data.transport);
+                    if(data.montantTotal!=null)
+                        $('#montantTotal').val(data.montantTotal);
+//                    if(data.montantPaye!=null)
+//                        $('#montantPaye').val(data.montantPaye);
+                    
                     var infoAvance = data.reglement;
                     var mtAv = 0;
                     var rel = 0;
                     if (infoAvance !== null) {
                         $(infoAvance).each(function (index, element) {
-                            mtAv += parseFloat(element.avance);
+                            mtAv += parseFloat(element.montantPaye);
                         });
                         
-                        if (!isNaN(mtAv)) {
-                            rel = tot - mtAv;
-                            if(!isNaN(rel) && rel>0){
-                                $('#reliquat').val(rel);
-                            }
-                            else
-                                $('#reliquat').val("");
-                        }
-                        $('#avance').val(mtAv);
+                    if (!isNaN(mtAv)) {
+                        rel = tot - mtAv;
+                        if(!isNaN(rel) && rel>0){
+                            $('#reliquat').val(rel);
+                    }
+                    else
+                        $('#reliquat').val("");
+                    }
+                        $('#montantPaye').val(mtAv);
                        
 //                    } 
 //                    
                     }
                     else {
-                        $('#avance').val("0.00");
+                        $('#montantPaye').val("0.00");
                         $('#reliquat').val(tot);
                     }
                      $('#Inconterm').val(data.inconterm).change();
@@ -848,7 +944,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     .next().on(ace.click_event, function () {
                 $(this).prev().focus();
             });
-            $("#avance").keyup(function () {
+            $("#montantPaye").keyup(function () {
                 calculReliquat();
             });
 
@@ -856,7 +952,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 var tva = parseFloat($("#tva").val());
                 if (!isNaN(tva) && tva > 0) {
                     $('#montantTtc').val('');
-                    var mtHt = parseFloat($('#MontantHt').text());
+                    var mtHt = parseFloat($('#montant').text());
                     var mtTtc = 0;
                     mtTtc = mtHt + (mtHt * (tva / 100));
                     if(!isNaN(mtTtc) && mtTtc >0)
@@ -870,10 +966,10 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
             function calculReliquat() {
                 var rel = 0;
-                var mt = parseFloat($("#MontantHt").text());
-                var avance = parseFloat($("#avance").val());
-                if (!isNaN(avance) && !isNaN(avance)) {
-                    rel = mt - avance;
+                var mt = parseFloat($("#montantTotal").val());
+                var montantPaye = parseFloat($("#montantPaye").val());
+                if (!isNaN(montantPaye) && !isNaN(montantPaye)) {
+                    rel = mt - montantPaye;
                     if (!isNaN(rel) && rel > 0) {
                         $("#reliquat").val(rel);
                         $('#regleFacture').attr("disabled", true);
@@ -890,7 +986,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: 'Le montant saisi ne doit pas être supérieur au montant HT',
                             class_name: 'gritter-error gritter-light'
                         });
-                        $("#avance").val("");
+                        $("#montantPaye").val("");
                         $("#reliquat").val("");
                         $('#regleFacture').attr("disabled", true);
                         $('#regleFacture').prop('checked', false);
@@ -899,7 +995,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 else {
                     $.gritter.add({
                         title: 'Notification',
-                        text: 'Le montant avance ne doit pas être vide',
+                        text: 'Le montant montantPaye ne doit pas être vide',
                         class_name: 'gritter-error gritter-light'
                     });
                     $("#reliquat").val("");
@@ -1010,19 +1106,26 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
             
-            ReglementProcess = function (empotageId)
+        FactureProcess = function (empotageId)
         {
            $('#SAVE').attr("disabled", true);
-            var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
+            var ACTION = '<?php echo App::ACTION_INSERT; ?>';
             var frmData;
-            //var achatId= empotageId;
-            var montantHt = $("#MontantHt").text();
-            var tva = $("#tva").val();
-            var montantTtc = $("#montantTtc").val();
+            var numFacture = $("#numFacture").val();
+            var dateFacture = $("#dateFacture").val();
+            var heureFacture = $("#heureFacture").val();
+            
+            var portDechargement = $("#portDechargement").text();
+            var devise = $("#devise").val();
+            var nbTotalColis = $("#totalColis").text();
+            var nbTotalPoids = $("#PoidsTotal").text();
+            var montant = $("#montant").text();
+            var transport = $("#transport").val();
+            var montantTotal = $("#montantTotal").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
             var datePaiement = $("#datePaiement").val();
-            var avance = $("#avance").val();
+            var montantPaye = $("#montantPaye").val();
             var reliquat = $("#reliquat").val();
             var inconterm = $("#Inconterm").val();
             var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
@@ -1063,13 +1166,20 @@ $codeUsine = $_COOKIE['codeUsine'];
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('empotageId', empotageId);
-            formData.append('montantHt', montantHt);
-            formData.append('montantTtc', montantTtc);
-            formData.append('tva', tva);
+            formData.append('numFacture', numFacture);
+            formData.append('dateFacture', dateFacture);
+            formData.append('nbTotalColis', nbTotalColis);
+            formData.append('nbTotalPoids', nbTotalPoids);
+            formData.append('heureFacture', heureFacture);
+            formData.append('portDechargement', portDechargement);
+            formData.append('devise', devise);
+            formData.append('montant', montant);
+            formData.append('transport', transport);
+            formData.append('montantTotal', montantTotal);
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
             formData.append('datePaiement', datePaiement);
-            formData.append('avance', avance);
+            formData.append('montantPaye', montantPaye);
             formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
             formData.append('inconterm', inconterm);
@@ -1077,7 +1187,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php',
+                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -1092,7 +1202,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                       // window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                          $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_INFO_VIEW').show();
                    loadEmpotages();
@@ -1118,8 +1228,8 @@ $codeUsine = $_COOKIE['codeUsine'];
         };
         
         $("#SAVE").bind("click", function () {
-            // alert(checkedAchat[0]);
-             ReglementProcess(checkedEmpotage[0]);
+            // alert(checkedEmpotage[0]);
+             FactureProcess(checkedEmpotage[0]);
          });
 
 

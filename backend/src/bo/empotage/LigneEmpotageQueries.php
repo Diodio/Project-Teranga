@@ -5,7 +5,7 @@ namespace Empotage;
 use Racine\Bootstrap as Bootstrap;
 use Exception as Exception;
 
-class LigneFactureQueries {
+class LigneEmpotageQueries {
     /*
      *
      */
@@ -23,17 +23,25 @@ class LigneFactureQueries {
     }
 
    
-    public function insert($ligneFacture) {
-        if ($ligneFacture != null) {
-            Bootstrap::$entityManager->persist($ligneFacture);
+    public function insert($ligneEmpotage) {
+        if ($ligneEmpotage != null) {
+            Bootstrap::$entityManager->persist($ligneEmpotage);
             Bootstrap::$entityManager->flush();
-            return $ligneFacture;
+            return $ligneEmpotage;
+        }
+    }
+    
+    public function update($ligneEmpotage) {
+        if ($ligneEmpotage != null) {
+            Bootstrap::$entityManager->merge($ligneEmpotage);
+            Bootstrap::$entityManager->flush();
+            return $ligneEmpotage;
         }
     }
     
     public function findById($ligneFactureId) {
             if ($ligneFactureId != null) {
-                    return Bootstrap::$entityManager->find('Facture\LigneFacture', $ligneFactureId);
+                    return Bootstrap::$entityManager->find('Empotage\LigneEmpotage', $ligneFactureId);
             }
     }
 }

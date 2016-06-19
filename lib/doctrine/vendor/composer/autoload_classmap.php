@@ -62,7 +62,7 @@ return array(
     'Empotage\\LigneColisQueries' => $baseDir . '/../backend/src/bo/empotage/LigneColisQueries.php',
     'Empotage\\LigneEmpotage' => $baseDir . '/../backend/src/be/LigneEmpotage.php',
     'Empotage\\LigneEmpotageManager' => $baseDir . '/../backend/src/bo/empotage/LigneEmpotageManager.php',
-    'Empotage\\LigneFactureQueries' => $baseDir . '/../backend/src/bo/empotage/LigneEmpotageQueries.php',
+    'Empotage\\LigneEmpotageQueries' => $baseDir . '/../backend/src/bo/empotage/LigneEmpotageQueries.php',
     'Exceptions\\ConstraintException' => $baseDir . '/../backend/src/bo/exception/ConstraintException.php',
     'FactureController' => $baseDir . '/../backend/src/bo/facture/FactureController.php',
     'Facture\\ConteneurManager' => $baseDir . '/../backend/src/bo/empotage/ConteneurManager.php',

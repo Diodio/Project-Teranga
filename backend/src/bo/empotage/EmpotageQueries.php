@@ -129,15 +129,15 @@ class EmpotageQueries {
     }
 
    
-    public function retrieveAll($codeUsine,$offset, $rowCount, $orderBy = "", $sWhere = "") {
+    public function retrieveAll($codeUsine,$etat,$offset, $rowCount, $orderBy = "", $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
             
-            $sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status<>0 and  empotage.client_id =client.id  AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status<>0 and etat="'.$etat.'"  and empotage.client_id =client.id  AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else {
-            $sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status<>0 and empotage.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+            $sql = 'SELECT empotage.id, empotage.status, date, numero, nom FROM empotage, client WHERE status<>0 and etat="'.$etat.'" and empotage.client_id =client.id ' . $sWhere .  ' ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }   
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -210,14 +210,14 @@ class EmpotageQueries {
                     return Bootstrap::$entityManager->find('Empotage\Empotage', $empotageId);
             }
     }
-    public function count($codeUsine, $sWhere = "") {
+    public function count($codeUsine, $etat, $sWhere = "") {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'SELECT count(*) as nbEmpotages FROM empotage, client WHERE empotage.client_id =client.id  AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'SELECT count(*) as nbEmpotages FROM empotage, client WHERE empotage.client_id =client.id and etat="'.$etat.'" AND empotage.codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'SELECT count(*) as nbEmpotages  FROM empotage, client WHERE empotage.client_id = client.id ' . $sWhere . '';
+             $sql = 'SELECT count(*) as nbEmpotages  FROM empotage, client WHERE and etat="'.$etat.'" and empotage.client_id = client.id ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -319,7 +319,7 @@ class EmpotageQueries {
     
     public function findAllProduitByEmpotage($empotageId) {
         if ($empotageId != null) {
-            $sql = 'SELECT lf.id, nbColis, libelle, quantite FROM ligne_empotage lf, empotage f,produit p WHERE f.id=lf.empotage_id AND p.id = lf.produit_id AND f.id=' . $empotageId;
+            $sql = 'SELECT lf.id, nbColis, libelle, prixUnitaire, quantite, montant FROM ligne_empotage lf, empotage f,produit p WHERE f.id=lf.empotage_id AND p.id = lf.produit_id AND f.id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $empotage = $stmt->fetchAll();

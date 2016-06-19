@@ -22,6 +22,16 @@ class LigneEmpotage {
     protected $quantite;
     
     
+    /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
+    protected $prixUnitaire;
+   
+    
+    /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
+    protected $montant;
 
     /**
      * @Column(type="integer", nullable=true)
@@ -106,7 +116,23 @@ class LigneEmpotage {
         $this->deletedDate = $deletedDate;
     }
 
-        
+    function getPrixUnitaire() {
+        return $this->prixUnitaire;
+    }
+
+    function getMontant() {
+        return $this->montant;
+    }
+
+    function setPrixUnitaire($prixUnitaire) {
+        $this->prixUnitaire = $prixUnitaire;
+    }
+
+    function setMontant($montant) {
+        $this->montant = $montant;
+    }
+
+    
     
         /** @PrePersist */
     public function doPrePersist() {

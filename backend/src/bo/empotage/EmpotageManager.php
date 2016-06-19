@@ -42,8 +42,8 @@ class EmpotageManager {
     }
 
     
-    public function retrieveAll($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
-        return $this->empotageQuery->retrieveAll($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
+    public function retrieveAll($codeUsine,$etat,$offset, $rowCount, $sOrder = "", $sWhere = "") {
+        return $this->empotageQuery->retrieveAll($codeUsine,$etat,$offset, $rowCount, $sOrder, $sWhere);
     }
     
     public function retrieveAllEmpotageAnnules($codeUsine,$offset, $rowCount, $sOrder = "", $sWhere = "") {
@@ -54,7 +54,7 @@ class EmpotageManager {
         return $this->empotageQuery->retrieveAllReglements($codeUsine,$offset, $rowCount, $sOrder, $sWhere);
     }
     
-    public function count($codeUsine,$where="") {
+    public function count($codeUsine,$etat,$where="") {
         return $this->empotageQuery->count($codeUsine,$where);
     }
     

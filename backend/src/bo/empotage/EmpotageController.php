@@ -150,9 +150,9 @@ class EmpotageController extends BaseController implements BaseAction {
                 //    }
                 }
                 // End filter from dataTable
-                $empotage = $empotageManager->retrieveAll($request['codeUsine'], $request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
+                $empotage = $empotageManager->retrieveAll($request['codeUsine'], $request['etat'],$request['iDisplayStart'], $request['iDisplayLength'], $sOrder, $sWhere);
                 if ($empotage != null) {
-                    $nbEmpotages = $empotageManager->count($request['codeUsine'], $sWhere);
+                    $nbEmpotages = $empotageManager->count($request['codeUsine'], $request['etat'], $sWhere);
                     $this->doSuccessO($this->dataTableFormat($empotage, $request['sEcho'], $nbEmpotages));
                 } else {
                     $this->doSuccessO($this->dataTableFormat(array(), $request['sEcho'], 0));

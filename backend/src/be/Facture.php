@@ -12,7 +12,7 @@ class Facture {
     protected $id;
     
     /**
-     * @Column(type="string", length=60, nullable=false, unique=true)
+     * @Column(type="string", length=60, nullable=false)
      * */
     protected $numero;
     
@@ -41,11 +41,17 @@ class Facture {
     
     
    /** @Column(type="decimal", scale=2, precision=10, nullable=true) */
-    public $montantHt;
+    public $montant;
     /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=false)
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
-    protected $montantTtc;
+    protected $transport;
+    
+    /**
+     * @Column(type="decimal", scale=2, precision=10, nullable=true)
+     * */
+    protected $montantTotal;
+    
     
     /**
      * @Column(type="string", length=60, nullable=true)
@@ -63,7 +69,7 @@ class Facture {
     /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
      * */
-    protected $avance;
+    protected $montantPaye;
     
     /**
      * @Column(type="decimal", scale=2, precision=10, nullable=true)
@@ -110,7 +116,6 @@ class Facture {
      * @OneToOne(targetEntity="Empotage\Empotage")
      * @JoinColumn(name="empotage_id", referencedColumnName="id")
      **/
-    
     private $empotage;
     
     function getId() {
@@ -145,12 +150,16 @@ class Facture {
         return $this->nbTotalPoids;
     }
 
-    function getMontantHt() {
-        return $this->montantHt;
+    function getMontant() {
+        return $this->montant;
     }
 
-    function getMontantTtc() {
-        return $this->montantTtc;
+    function getTransport() {
+        return $this->transport;
+    }
+
+    function getMontantTotal() {
+        return $this->montantTotal;
     }
 
     function getModePaiement() {
@@ -165,9 +174,7 @@ class Facture {
         return $this->datePaiement;
     }
 
-    function getAvance() {
-        return $this->avance;
-    }
+   
 
     function getReliquat() {
         return $this->reliquat;
@@ -241,12 +248,16 @@ class Facture {
         $this->nbTotalPoids = $nbTotalPoids;
     }
 
-    function setMontantHt($montantHt) {
-        $this->montantHt = $montantHt;
+    function setMontant($montant) {
+        $this->montant = $montant;
     }
 
-    function setMontantTtc($montantTtc) {
-        $this->montantTtc = $montantTtc;
+    function setTransport($transport) {
+        $this->transport = $transport;
+    }
+
+    function setMontantTotal($montantTotal) {
+        $this->montantTotal = $montantTotal;
     }
 
     function setModePaiement($modePaiement) {
@@ -259,10 +270,6 @@ class Facture {
 
     function setDatePaiement($datePaiement) {
         $this->datePaiement = $datePaiement;
-    }
-
-    function setAvance($avance) {
-        $this->avance = $avance;
     }
 
     function setReliquat($reliquat) {
@@ -303,6 +310,21 @@ class Facture {
 
     function setEmpotage($empotage) {
         $this->empotage = $empotage;
+    }
+
+    function getMontantPaye() {
+        return $this->montantPaye;
+    }
+
+    function setMontantPaye($montantPaye) {
+        $this->montantPaye = $montantPaye;
+    }
+
+
+        /** @PrePersist */
+    public function doPrePersist() {
+        $this->createdDate = new \DateTime("now");
+        $this->updatedDate = new \DateTime("now");
     }
 
 

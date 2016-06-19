@@ -96,118 +96,103 @@ class FactureController extends BaseController implements BaseAction {
 
     public function doInsert($request) {
         try {
-            if ($request['client'] != "null" || $request['client'] != "undefined") {
+             $listEmpotage=null;
+             $listStockFacture=null;
+            if ($request['empotageId'] != null) {
                 $factureManager = new FactureManager();
                 $facture = new Facture();
+                $idFacture=$factureManager->findFactureByEmpotageId($request['empotageId']);
+                if($idFacture!=null)
+                    $facture->setId ($idFacture);
                 $facture->setNumero($request['numFacture']);
                 $facture->setDateFacture(new \DateTime("now"));
                 $facture->setHeureFacture(new \DateTime($request['heureFacture']));
                 $facture->setDevise($request['devise']);
                 $facture->setPortDechargement($request['portDechargement']);
-                $facture->setMontantHt($request['montantHt']);
-                $facture->setMontantTtc($request['montantTtc']);
+                $facture->setMontant($request['montant']);
+                $facture->setTransport($request['transport']);
+                $facture->setMontantTotal($request['montantTotal']);
                 $facture->setModePaiement($request['modePaiement']);
                 if ($request['modePaiement'] == 'CHEQUE')
                     $facture->setNumCheque($request['numCheque']);
                 else if ($request['modePaiement'] == 'VIREMENT')
                     $facture->setDatePaiement(new \DateTime($request['datePaiement']));
-                $facture->setAvance($request['avance']);
+                $facture->setMontantPaye($request['montantPaye']);
                 $facture->setReliquat($request['reliquat']);
                 $facture->setNbTotalColis($request['nbTotalColis']);
                 $facture->setNbTotalPoids($request['nbTotalPoids']);
+                $facture->setInconterm($request['inconterm']);
                 $facture->setStatus(1);
-                $facture->setRegle(0);
+               // $facture->setRegle(0);
 //                if ($request['regle'] == "true")
 //                    $facture->setRegle(2);
-//                else {
-//                    if ($request['avance'] != "" && $request['avance'] != "undefined") {
-//                        $facture->setRegle(1);
-//                        $reliquat = $request['montantTtc'] - $request['avance'];
-//                        if ($reliquat == 0)
-//                            $facture->setRegle(2);
-//                        $facture->setReliquat($reliquat);
-//                        $reglement = new Reglement\ReglementFacture();
-//                        $reglement->setFacture($facture);
-//                        $reglement->setDatePaiement(new \DateTime("now"));
-//                        $reglement->setAvance($request['avance']);
-//                    }
-//                    else {
-//                        $facture->setRegle(0);
-//                    }
-//                }
+                //else {
+                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined") {
+                        $facture->setRegle(1);
+                        $reliquat = $request['montantTotal'] - $request['montantPaye'];
+                        if ($reliquat == 0)
+                            $facture->setRegle(2);
+                        $facture->setReliquat($reliquat);
+                        $reglement = new Reglement\ReglementFacture();
+                        $reglement->setFacture($facture);
+                        $reglement->setDatePaiement(new \DateTime("now"));
+                        $reglement->setAvance($request['montantPaye']);
+                    }
+                    else {
+                        $facture->setRegle(0);
+                    }
+               
+                
                 $facture->setCodeUsine($request['codeUsine']);
                 $facture->setLogin($request['login']);
-                $clientManager = new \Client\ClientManager();
-                $client = $clientManager->findById($request['client']);
-                $facture->setClient($client);
-                $factureAdded = $factureManager->insert($facture);
-                if ($factureAdded->getId() != null) {
-                    if ($request['avance'] != "" && $request['avance'] != "undefined" && $request['regle'] != "true") {
-                        $reglementManager = new Reglement\ReglementManager();
-                        $reglementManager->insert($reglement);
-                    }
-                    $jsonConteneur = json_decode($_POST['jsonConteneur'], true);
-                    foreach ($jsonConteneur as $key => $ligneConteneur) {
-                        if (isset($ligneConteneur["nConteneur"])) {
-                            if ($ligneConteneur["nConteneur"] !== "" && $ligneConteneur["nPlomb"] !== "") {
-                                $conteneur = new \Facture\Conteneur();
-                                $conteneur->setFacture($facture);
-                                $conteneur->setNumConteneur($ligneConteneur["nConteneur"]);
-                                $conteneur->setNumPlomb($ligneConteneur["nPlomb"]);
-                                $conteneurManager = new \Facture\ConteneurManager();
-                                $conteneurManager->insert($conteneur);
-                            }
-                        }
-                    }
+                $empotageManager = new \Empotage\EmpotageManager();
+                $empotage = $empotageManager->findById($request['empotageId']);
+                $facture->setEmpotage($empotage);
+                //$factureAdded = $factureManager->insert($facture);
+                
+                    //if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined") {
+                        //$reglementManager = new Reglement\ReglementManager();
+                        //$reglementManager->insert($reglement);
+                   // }
+                    
                     $jsonProduit = json_decode($_POST['jsonProduit'], true);
                     foreach ($jsonProduit as $key => $ligne) {
-                        if (isset($ligne["nColis"])) {
-                            if ($ligne["nColis"] !== "" && $ligne["designation"] !== "") {
-                                $ligneFacture = new \Facture\LigneFacture;
-                                $ligneFacture->setFacture($facture);
-                                $ligneFacture->setNbColis($ligne["nColis"]);
-                                $ligneFacture->setProduit($ligne["produitId"]);
-                                $ligneFacture->setQuantite($ligne["pnet"]);
-                               // $ligneFacture->setPrixUnitaire($ligne["pu"]);
-                               // $ligneFacture->setMontant($ligne["montant"]);
-                                $ligneFactureManager = new \Facture\LigneFactureManager();
-                                $inserted = $ligneFactureManager->insert($ligneFacture);
-                                if ($inserted->getId() != null) {
+                        if (isset($ligne["nbColis"])) {
+                            if ($ligne["nbColis"] !== "" && $ligne["libelle"] !== "") {
+                                $ligneEmpotageManager = new Empotage\LigneEmpotageManager();
+                                $ligneEmpotage=$ligneEmpotageManager->findById($ligne["ligneId"]);
+                                //$ligneEmpotage->setEmpotage($empotage);
+                                //$ligneEmpotage->setNbColis($ligne["nbColis"]);
+                               // $ligneEmpotage->setProduit($ligne["produitId"]);
+                                //$ligneEmpotage->setQuantite($ligne["pnet"]);
+                                //$ligneEmpotage->setId($ligne["ligneId"]);
+                                $ligneEmpotage->setPrixUnitaire($ligne["pu"]);
+                                $ligneEmpotage->setMontant($ligne["montant"]);
+                                $listEmpotage[]=$ligneEmpotage;
+                               // $ligneFactureManager = new \Empotage\LigneEmpotageManager();
+                                //$inserted = $ligneFactureManager->insert($ligneEmpotage);
+                                //if ($inserted->getId() != null) {
                                     $stockFacturee = new \Stock\StockFacture();
-                                    $stockFacturee->setFactureId($factureAdded->getId());
-                                    $stockFacturee->setProduitId($ligne["produitId"]);
-                                    $stockFacturee->setQuantiteFacturee($ligne["pnet"]);
-                                    $stockManager = new \Stock\StockManager();
-                                    $stockManager->insert($stockFacturee);
-                                    $stockManager->destockageReel($ligne["produitId"], $request['codeUsine'], $ligne["pnet"]);
-                                }
+                                    $stockFacturee->setFactureId($facture->getId());
+                                    //$stockFacturee->setProduitId($ligne["produitId"]);
+                                    $stockFacturee->setQuantiteFacturee($ligne["qte"]);
+                                    $listStockFacture[]=$stockFacturee;
+                               //     $stockManager = new \Stock\StockManager();
+                                    //$stockManager->insert($stockFacturee);
+                               // }
                             }
                         }
                     }
-
-                    $jsonColis = json_decode($_POST['jsonColis'], true);
-                    foreach ($jsonColis as $key => $ligneC) {
-                        if (isset($ligneC["nbColis"])) {
-                            if ($ligneC["nbColis"] !== "" && $ligneC["qte"] !== "") {
-                                $colis = new \Facture\LigneColis();
-                                $colis->setNombreCarton($ligneC["nbColis"]);
-                                $colis->setQuantiteParCarton($ligneC["qte"]);
-                                $colis->setProduitId($ligneC["produitId"]);
-                                $colis->setFactureId($factureAdded->getId());
-                                $ligneColisManager = new \Facture\LigneColisManager;
-                                $inserted = $ligneColisManager->insert($colis);
-                                if ($inserted->getId() != null) {
-                                    $ligneColisManager->dimunieColisFacturee($ligneC["produitId"], $ligneC["qte"], $ligneC["nbColis"], $request['codeUsine']);
-                                }
-                            }
-                        }
-                    }
-                    $this->doSuccess($factureAdded->getId(), 'Facture enregistré avec succes');
+                    
+                
+                    $factureAdded = $factureManager->insert($facture,$reglement,$listEmpotage,$listStockFacture);
+                    if ($factureAdded->getId() != null) {
+                    $this->doSuccess($factureAdded->getId(), 'Facture enregistrée avec succes');
                 } else {
-                    $this->doError('-1', 'Impossible d\'inserer ce facture');
+                    $this->doError('-1', 'Impossible d\'inserer cette facture');
                 }
             } else
-                $this->doError('-1', 'Impossible d\'inserer ce facture');
+                $this->doError('-1', 'Impossible d\'inserer cette facture');
         } catch (Exception $e) {
             $this->doError('-1', 'ERREUR SERVEUR');
         }
@@ -455,8 +440,8 @@ class FactureController extends BaseController implements BaseAction {
     public function doGetLastNumber($request) {
         try {
             $factureManager = new FactureManager();
-            $lastFacture = $factureManager->getLastNumberFacture();
-            $this->doSuccess($lastFacture, 'Dernier bon de sortie');
+            $lastFacture = $factureManager->getLastNumberFacture($request['codeUsine']);
+            $this->doSuccess($lastFacture, 'Derniere Facture');
         } catch (Exception $e) {
             $this->doError('-1', $e->getMessage());
         }

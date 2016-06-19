@@ -19,6 +19,11 @@ class LigneFactureManager {
     	return $ligneFacture;
     }
     
+    public function update($ligneFacture) {
+        $this->ligneFactureQuery->update($ligneFacture);
+    	return $ligneFacture;
+    }
+    
     public function findById($ligneFactureId) {
         return $this->ligneFactureQuery->findById($ligneFactureId);
     }
