@@ -14,10 +14,10 @@ $codeUsine = $_COOKIE['codeUsine'];
 <div class="page-content">
     <div class="page-header">
         <h1>
-            Gestion des empotages
+            Gestion des factures
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des empotages
+                Liste des factures
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -57,7 +57,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter">
                                 <i class="ace-icon fa fa-star orange"></i>
-                                Liste des empotages
+                                Liste des factures
                             </h4>
 
                             <div class="widget-toolbar">
@@ -562,7 +562,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             loadFactures = function () {
                 nbTotalFactureChecked = 0;
                 checkedFacture = new Array();
-                var url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
+                var url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
                 if (oTableFactures != null)
                     oTableFactures.fnDestroy();
                 oTableFactures = $('#LIST_FACTURES').dataTable({
