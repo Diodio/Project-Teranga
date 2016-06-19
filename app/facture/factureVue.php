@@ -797,7 +797,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     //var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
                                                     $('#transport').val("0");
                                                     $('#montantPaye').val("0");
-                                                    $('#montantTotal').val("0");
+                                                    $('#montantTotal').val(tot);
                                                     $('#reliquat').val("");
                                                     $('#datePaiement').val("");
                                                     $('#numCheque').val("");
