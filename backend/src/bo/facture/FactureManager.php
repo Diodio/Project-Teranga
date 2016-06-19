@@ -159,14 +159,15 @@ public function findStatisticByUsine($codeUsine) {
     public function findFactureDetails($factureId) {
         if ($factureId != null) {
             $facture = $this->factureQuery->findFactureDetails($factureId);
-             $ligneFacture = $this->factureQuery->findAllProduitByFacture($factureId);
-             $colis = $this->factureQuery->findColisByFacture($factureId);
-             $reglement = $this->factureQuery->findReglementByFacture($factureId);
-             $conteneurs = $this->factureQuery->findConteneurByFacture($factureId);
+             
             $factureDetail = array();
             foreach ($facture as $key => $value) {
-               // $factureDetail ['id'] = $value ['achat.id'];
                 $factureDetail ['numero'] = $value ['numero'];
+                $empotageQueries= new \Empotage\EmpotageQueries();
+                $ligneFacture = $empotageQueries->findAllProduitByEmpotage($value ['empotage_id']);
+                $colis = $empotageQueries->findColisByEmpotage($value ['empotage_id']);
+                //$reglement = $empotageQueries->findReglementByFacture($value ['empotage_id']);
+                $conteneurs = $empotageQueries->findConteneurByEmpotage($value ['empotage_id']);
                 $factureDetail ['dateFacture']  = date_format(date_create($value ['dateFacture']), 'd/m/Y');
                 $factureDetail ['nomClient']  = $value ['nom'];
                 $factureDetail ['adresse']  =  $value ['adresse'];
@@ -188,7 +189,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['portDechargement']  =  $value ['portDechargement'];
                 $factureDetail['colis'] = $colis;
                 $factureDetail['ligneFacture'] = $ligneFacture;
-                $factureDetail['reglement'] = $reglement;
+               // $factureDetail['reglement'] = $reglement;
                 $factureDetail['conteneurs'] = $conteneurs;
                 
             }

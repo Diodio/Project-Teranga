@@ -660,12 +660,12 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
 
             loadFactures();
-            loadFactureSelected = function (empotageId)
+            loadFactureSelected = function (factureId)
             {
                 var url;
-                url = '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php';
+                url = '<?php echo App::getBoPath(); ?>/facture/FactureController.php';
 
-                $.post(url, {empotageId: empotageId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
+                $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                     data = $.parseJSON(data);
                     $('#deviseTextTtc').text(data.devise);
                     $('#deviseTextMontantPaye').text(data.devise);

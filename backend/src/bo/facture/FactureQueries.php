@@ -283,7 +283,7 @@ class FactureQueries {
     }
      public function findFactureDetails($factureId) {
         if ($factureId != null) {
-            $sql = 'SELECT * from facture, client where facture.client_id =client.id and facture.id=' . $factureId;
+            $sql = 'SELECT * from facture f, empotage e, client c where f.empotage_id =e.id and c.id=e.client_id and f.id=' . $factureId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $facture = $stmt->fetchAll();
