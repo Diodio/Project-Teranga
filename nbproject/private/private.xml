@@ -3,11 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/macfish/app/facture/factureVue.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/be/LigneEmpotage.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/reglement/reglementFacture.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/be/Facture.php</file>
             <file>file:/C:/xampp/htdocs/macfish/app/facture/factureListe.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/app/empotage/empotageListeOLD.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/main.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/app/facture/factureVueOLD.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/log/logFile.log</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/reglement/ReglementController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/referentiel.sql</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/achat/achatListe.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/facture/FactureManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/facture/FactureController.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/facture/FactureQueries.php</file>
         </group>
     </open-files>
 </project-private>

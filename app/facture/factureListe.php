@@ -17,7 +17,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             Gestion des factures
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
-                Liste des factures
+                Facturation
             </small>
         </h1>
     </div><!-- /.page-header -->
@@ -170,10 +170,16 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         <div id="TAB_MSG" class="tab-pane">
                                             <div class="slim-scroll" data-height="100">
                                                 <div class="span12">
+                                                    <h4 class="blue">
+                                                        <span class="middle blue" id="status"></span>
+                                                        <span id="isStatus"
 
+                                                            </span>
+                                                    </span>
+                                                    </h4>
                                                     <div class="profile-user-info">
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name">Date empotage </div>
+                                                            <div class="profile-info-name">Date </div>
                                                             <div class="profile-info-value">
                                                                 <span id="FactureDate"></span>
                                                             </div>
@@ -262,140 +268,62 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             </div>
                                                         </div>
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name" id="labelmontantHt">Montant HT </div>
+                                                            <div class="profile-info-name">Montant </div>
                                                             <div class="profile-info-value">
-                                                                <span id="MontantHt"></span>
+                                                                <span id="Montant"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                           <div class="profile-info-name">Transport </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="Transport"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">Montant total </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="MontantTotal"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">Mode de paiement </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="ModePaiement"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">No Cheque </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="NumCheque"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">Date de paiement </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="DatePaiement"></span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">Montant paye </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="MontantPaye"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">Reliquat </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="Reliquat"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name">Inconterm </div>
+                                                            <div class="profile-info-value">
+                                                                <span id="Inconterm"></span>
                                                             </div>
                                                         </div>
                                                     </div>
-<!--                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Tva </label>
-                                                            <div class="col-sm-7">
-                                                                <input type="text" id="tva" name="tva" placeholder=""
-                                                                       class="" value="18"> %
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1" id=""> Montant Ttc (<span id="deviseTextTtc"></span>)</label>
-                                                            
-                                                            <div class="col-sm-7">
-                                                                <input type="text" readonly id="montantTtc" name="montantTtc" placeholder=""
-                                                                       class="" >
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Mode de paiement </label>
-                                                            <div class="col-sm-7">
-                                                                <select id="modePaiement" class="">
-                                                                    <option value="ESPECES">Especes</option>
-                                                                    <option value="CHEQUE">Cheque</option>
-                                                                    <option value="VIREMENT">Virement</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> No Cheque </label>
-                                                            <div class="col-sm-7">
-                                                                <div class="clearfix">
-                                                                    <input type="text" readonly id="numCheque" placeholder=""
-                                                                           class="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Date de paiement </label>
-                                                            <div class="col-sm-7">
-                                                                <div class="clearfix">
-                                                                    <input type="text" readonly id="datePaiement" placeholder=""
-                                                                           class="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1" id="labelmontantPaye"> Montant payé (<span id="deviseTextMontantPaye"></span>)</label>
-                                                            <div class="col-sm-7">
-                                                                <div class="clearfix">
-                                                                    <input type="text" class="bolder"  id="avance" name="avance" placeholder=""
-                                                                           class="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Reliquat  (<span id="deviseTextReliquat"></span>)</label>
-                                                            <div class="col-sm-7">
-                                                                <div class="clearfix">
-                                                                    <input type="text" class="bolder" readonly id="reliquat" name="reliquat" placeholder=""
-                                                                           class="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="space-12"></div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Reglé </label>
-                                                            <div class="col-sm-7">
-                                                                <div class="clearfix">
-                                                                    <input type="checkbox" disabled="disabled" id="regleFacture" name="regleFacture" placeholder=""
-                                                                           >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                     
-                                                    <div class="space-6"></div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-5 control-label no-padding-right"
-                                                                   for="form-field-1"> Inconterm  </label>
-                                                            <div class="col-sm-7">
-                                                                <div class="clearfix">
-                                                                    <select id="Inconterm" class="width-25" >
-                                                                        <option value=""></option>
-                                                                    <option value="CNF">CNF</option>
-                                                                    <option value="FOB">FOB</option>
-                                                                    <option value="CAF">CAF</option>
-                                                                </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>           
-
-                                                    <div style="float: right">
-                                                        <button id="SAVE" class="btn btn-small btn-info" >
-                                                            <i class="ace-icon fa fa-save"></i>
-                                                            Enregistrer
-                                                        </button>
-
-                                                    </div>
+<!--                                                  
                                                 </div>
                                             </div>
 
@@ -667,96 +595,32 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                 $.post(url, {factureId: factureId, ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                     data = $.parseJSON(data);
+                    if(data.regle==2){
+                    $("#isStatus").empty().append("");
+                    $("#isStatus").append('<span class="infobox-green tooltip-error" title="Reglé"><i class="smaller fa fa-circle"></i> Reglé</span>');
+                  }else if(data.regle==1){
+                      $("#isStatus").empty().append("");
+                        $("#isStatus").append('<span class="infobox-orange tooltip-error" title="Reliquat a verser"><i class="fa fa-circle"></i> Reliquat a verser</span>');
+                  }else if(data.regle==0){
+                     $("#isStatus").empty().append("");
+                        $("#isStatus").append('<span class="infobox-red tooltip-error" title="Non reglé"><i class="fa fa-circle"></i> Non reglé</span>');
+                 }
                     $('#deviseTextTtc').text(data.devise);
                     $('#deviseTextMontantPaye').text(data.devise);
                     $('#deviseTextReliquat').text(data.devise);
-                    $('#TAB_MSG_TITLE').text("Numero empotage: " + data.numero);
-                    $('#FactureDate').text(data.dateFacture);
-                    $('#numFacture').text(data.numero);
+                    $('#TAB_MSG_TITLE').text("Numero facture: " + data.numero);
+                    $('#FactureDate').text(data.dateFacture +" à"+ data.heureFacture);
+                   // $('#numFacture').text(data.numero);
                     $('#nomClient').text(data.nomClient);
                     $('#origine').text(data.adresse);
                     $('#pays').text(data.pays);
                     $('#user').text(data.user);
+                    $('#portDechargement').text(data.portDechargement);
                     $('#totalColis').text(data.nbTotalColis);
                     $('#PoidsTotal').text(data.nbTotalPoids+ ' kg');
-                    $('#MontantHt').text(data.montantHt+ ' ' + data.devise);
-//                    $('#montantTtc').val(data.montantTtc );
-                    if (data.modePaiement == '' && data.modePaiement == 'undefined')
-                        $('#modePaiement').text(data.modePaiement);
-                    $('#portDechargement').text(data.portDechargement);
-                    if (data.numCheque !== null && data.numCheque !== "")
-                        $('#numCheque').val(data.numCheque);
-                    else
-                        $('#numCheque').val('');
-                    if (data.datePaiement !== null && data.datePaiement !== "")
-                        $('#datePaiement').val(data.datePaiement);
-                    else
-                        $('#datePaiement').val('');
                     //colis
                     $('#tab_colis tbody').html("");
-                    loadEditable = function (compteur)
-                    {
-                        $('#prix' + compteur).editable({
-                            type: 'text',
-                            name: 'prix',
-                            title: "Saisir un montant",
-                            id: 'id',
-                            submit: 'OK',
-                            emptytext: "Saisir un montant",
-                            placement: "right",
-                            validate: function (value) {
-
-
-                                if (value === '')
-                                    return 'Veuillez saisir  un montant S.V.P.';
-                            },
-                            placement: 'right',
-                                    url: function (editParams) {
-                                        var prix = editParams.value;
-                                        function save() {
-                                            var produitId = $('#prix' + compteur).closest('tr').attr('id');
-
-                                            if ($.trim(prix) !== "") {
-                                                var tot = 0;
-                                                var qte = $('#quantite' + compteur).text();
-                                                var montant = prix * parseFloat(qte);
-                                                if (!isNaN(montant)) {
-                                                    $('#montant' + compteur).text(montant);
-                                                    $('#tab_produit .montant').each(function () {
-                                                        if ($(this).html() !== 0)
-                                                            tot += parseFloat($(this).html());
-                                                    });
-                                                    var Ttc = tot+(tot * (parseFloat($("#tva").val())/100));
-                                                    $('#avance').val("");
-                                                    $('#reliquat').val("");
-                                                    $('#datePaiement').val("");
-                                                    $('#numCheque').val("");
-                                                    //$('#modePaiement').val("-1").change;
-                                                    $('#transport').val("");
-                                                }
-                                                //console.log(tot);
-                                                $('#MontantHt').text(tot);
-//                                                $('#montantTtc').val(Ttc);
-                                                // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
-                                            }
-                                            else {
-
-                                                $.gritter.add({
-                                                    title: 'Server notification',
-                                                    text: "Veuillez saisir  un montant S.V.P.",
-                                                    class_name: 'gritter-error gritter-light'
-                                                });
-                                            }
-                                        }
-
-                                        save(function () {
-                                        });
-
-                                    }
-
-                        });
-                    }
-                    var tableColis = data.colis;
+                   var tableColis = data.colis;
                     var trColisHTML = '';
                     $(tableColis).each(function (index, element) {
                         trColisHTML += '<tr><td>' + element.libelle + '</td><td>' + element.nombreCarton + '</td><td>' + element.quantiteParCarton + '</td></tr>';
@@ -789,11 +653,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                         }
                         row.append($('<td id="ligneId' + index + '">' + element.id + '</td>'));
                         row.append($('<td id="nbColis' + index + '">' + element.nbColis + '</td>'));
-                        row.append($('<td id="designation' + index + '">' + element.produit + '</td>'));
+                        row.append($('<td id="designation' + index + '">' + element.libelle + '</td>'));
                         row.append($('<td ><span class="editText" id="prix' + index + '">' + pu + '</span></td>'));
                         row.append($('<td  id="quantite' + index + '">' + element.quantite + '</td>'));
                         row.append($('<td class="montant" id="montant' + index + '">' + mt + '</td>'));
-                        loadEditable(index);
+                        //loadEditable(index);
                         // trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#tab_produit tbody').append(trHTML);
@@ -803,9 +667,24 @@ $codeUsine = $_COOKIE['codeUsine'];
                         if ($(this).html() !== 0)
                             tot += parseFloat($(this).html());
                     });
-                         
-                    var Ttc = tot+(tot * ($("#tva").val()/100));
-//                    $('#montantTtc').val(Ttc);
+                    
+                    $('#Montant').text(data.montant+ ' ' + data.devise);
+                    $('#Transport').text(data.transport+ ' ' + data.devise );
+                    $('#MontantTotal').text(data.montantTotal+ ' ' + data.devise );
+                    if (data.modePaiement !== '' && data.modePaiement !== 'undefined')
+                        $('#ModePaiement').text(data.modePaiement);
+                    else
+                        $('#ModePaiement').text('Non défini');
+                    if (data.numCheque !== null && data.numCheque !== "")
+                        $('#NumCheque').text(data.numCheque);
+                    else
+                        $('#NumCheque').text('Non défini');
+                    if (data.datePaiement !== null && data.datePaiement !== "")
+                        $('#datePaiement').text(data.datePaiement);
+                    else
+                        $('#DatePaiement').text('Non défini');
+                    
+                 //!! $('#MontantPaye').text(data.montantPaye );
                     var infoAvance = data.reglement;
                     var mtAv = 0;
                     var rel = 0;
@@ -813,29 +692,28 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $(infoAvance).each(function (index, element) {
                             mtAv += parseFloat(element.avance);
                         });
+                        tot=tot+ parseFloat(data.transport);
                         
                         if (!isNaN(mtAv)) {
                             rel = tot - mtAv;
-                            if(!isNaN(rel) && rel>0){
-                                $('#reliquat').val(rel);
+                            console.log(rel);
+                            if(!isNaN(rel) && rel>=0){
+                                $('#Reliquat').text(rel);
                             }
                             else
-                                $('#reliquat').val("");
+                                $('#Reliquat').text("");
                         }
-                        $('#avance').val(mtAv);
+                        $('#MontantPaye').text(mtAv);
                        
 //                    } 
 //                    
                     }
                     else {
-                        $('#avance').val("0.00");
-                        $('#reliquat').val(tot);
+                        $('#MontantPaye').val("0.00");
+                        $('#Reliquat').val(tot);
                     }
-                     $('#Inconterm').val(data.inconterm).change();
-                    if(data.regle==2)
-                         $('#regleFacture').prop('checked', true);
-                    else
-                         $('#regleFacture').prop('checked', false);
+                     $('#Inconterm').text(data.inconterm);
+                   
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();
                 }).error(function (error) {
@@ -874,7 +752,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                 var tva = parseFloat($("#tva").val());
                 if (!isNaN(tva) && tva > 0) {
                     $('#montantTtc').val('');
-                    var mtHt = parseFloat($('#MontantHt').text());
+                    var mtHt = parseFloat($('#Montant').text());
                     var mtTtc = 0;
                     mtTtc = mtHt + (mtHt * (tva / 100));
                     if(!isNaN(mtTtc) && mtTtc >0)
@@ -888,7 +766,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
             function calculReliquat() {
                 var rel = 0;
-                var mt = parseFloat($("#MontantHt").text());
+                var mt = parseFloat($("#Montant").text());
                 var avance = parseFloat($("#avance").val());
                 if (!isNaN(avance) && !isNaN(avance)) {
                     rel = mt - avance;
@@ -1034,7 +912,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
             var frmData;
             //var achatId= empotageId;
-            var montantHt = $("#MontantHt").text();
+            var montantHt = $("#Montant").text();
             var tva = $("#tva").val();
             var montantTtc = $("#montantTtc").val();
             var modePaiement = $("#modePaiement").val();

@@ -174,7 +174,7 @@ class FactureController extends BaseController implements BaseAction {
                                 //if ($inserted->getId() != null) {
                                     $stockFacturee = new \Stock\StockFacture();
                                     $stockFacturee->setFactureId($facture->getId());
-                                    //$stockFacturee->setProduitId($ligne["produitId"]);
+                                    $stockFacturee->setProduitId($ligneEmpotage->getProduit_id());
                                     $stockFacturee->setQuantiteFacturee($ligne["qte"]);
                                     $listStockFacture[]=$stockFacturee;
                                //     $stockManager = new \Stock\StockManager();

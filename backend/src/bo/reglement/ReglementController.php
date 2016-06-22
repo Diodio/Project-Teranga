@@ -142,9 +142,9 @@ private $logger;
             $reglementManager = new Reglement\ReglementManager();
             $factureManager = new Facture\FactureManager();
             $facture = $factureManager->findById($request['factureId']);
-            $montantHt = $facture->getMontantHt();
+            $montant = $facture->getMontantTotal();
             $somAvance = $factureManager->getTotalReglementByFacture($request['factureId']);
-            $reliquat = $montantHt - $somAvance;
+            $reliquat = $montant - $somAvance;
             if($reliquat !=0){
             if ($request['versement'] <= $reliquat) {
                 $reglement = new \Reglement\ReglementFacture();
@@ -154,7 +154,7 @@ private $logger;
                 $reglementAdded = $reglementManager->insert($reglement);
                 if ($reglementAdded->getId() != null) {
                      $somme = $factureManager->getTotalReglementByFacture($request['factureId']);
-                     $reliquat = $montantHt - $somme;
+                     $reliquat = $montant - $somme;
                      if($reliquat==0)
                          $factureManager->modifReglement ($request['factureId'], 2);
                      else {

@@ -261,9 +261,21 @@ $codeUsine = $_COOKIE['codeUsine'];
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name">Montant Total </div>
+                                <div class="profile-info-name">Montant </div>
                                 <div class="profile-info-value">
-                                    <span id="MontantHt"></span>
+                                    <span id="Montant"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Transport </div>
+                                <div class="profile-info-value">
+                                    <span id="Transport"></span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Montant total </div>
+                                <div class="profile-info-value">
+                                    <span id="MontantTotal"></span>
                                 </div>
                             </div>
                             
@@ -709,7 +721,9 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $('#adresse').text(data.adresse);
                     $('#pays').text(data.pays);
                     $('#factureUser').text(data.user);
-                    $('#MontantHt').text(data.montantHt);
+                    $('#Montant').text(data.montant);
+                    $('#Transport').text(data.transport);
+                    $('#MontantTotal').text(data.montantTotal);
                     $('#TABLE_FACTURES tbody').html("");
                     var table = data.ligneFacture;
                     var trHTML='';
@@ -718,7 +732,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                     $(table).each(function(index, element){
                         pT += parseFloat(element.quantite);
                         nC += parseFloat(element.nbColis);
-                        trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
+                        trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.libelle + '</td><td>' + element.prixUnitaire + '</td><td>' + element.quantite + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#TABLE_FACTURES tbody').append(trHTML);
                     $('#nbColis').text(nC);
@@ -745,8 +759,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                         trHTMLAv += '<tr><td>' + element.datePaiement + '</td><td class="montant">' + element.avance + '</td></tr>';
                     });
                     $('#tab_versement tbody').append(trHTMLAv);
+                    console.log(mtAv);
                     if(!isNaN(mtAv)) {
-                        rel = data.montantHt - mtAv;
+                        rel = data.montantTotal - mtAv;
+                        console.log(rel);
                         $('#sommeAvance').text(mtAv);
                          if(!isNaN(rel))
                             $('#reliquat').text(rel);

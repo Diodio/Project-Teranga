@@ -166,9 +166,10 @@ public function findStatisticByUsine($codeUsine) {
                 $empotageQueries= new \Empotage\EmpotageQueries();
                 $ligneFacture = $empotageQueries->findAllProduitByEmpotage($value ['empotage_id']);
                 $colis = $empotageQueries->findColisByEmpotage($value ['empotage_id']);
-                //$reglement = $empotageQueries->findReglementByFacture($value ['empotage_id']);
+                $reglement = $this->factureQuery->findReglementByFacture($factureId);
                 $conteneurs = $empotageQueries->findConteneurByEmpotage($value ['empotage_id']);
                 $factureDetail ['dateFacture']  = date_format(date_create($value ['dateFacture']), 'd/m/Y');
+                $factureDetail ['heureFacture']  = $value ['heureFacture'];
                 $factureDetail ['nomClient']  = $value ['nom'];
                 $factureDetail ['adresse']  =  $value ['adresse'];
                 $factureDetail ['pays']  =  $value ['pays'];
@@ -179,6 +180,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['nbTotalColis']  =  $value ['nbTotalColis'];
                 $factureDetail ['nbTotalPoids']  =  $value ['nbTotalPoids'];
                 $factureDetail ['montant']  =  $value ['montant'];
+                $factureDetail ['transport']  =  $value ['transport'];
                 $factureDetail ['montantPaye']  =  $value ['montantPaye'];
                 $factureDetail ['montantTotal']  =  $value ['montantTotal'];
                 $factureDetail ['modePaiement']  =  $value ['modePaiement'];
@@ -189,7 +191,7 @@ public function findStatisticByUsine($codeUsine) {
                 $factureDetail ['portDechargement']  =  $value ['portDechargement'];
                 $factureDetail['colis'] = $colis;
                 $factureDetail['ligneFacture'] = $ligneFacture;
-               // $factureDetail['reglement'] = $reglement;
+                $factureDetail['reglement'] = $reglement;
                 $factureDetail['conteneurs'] = $conteneurs;
                 
             }
