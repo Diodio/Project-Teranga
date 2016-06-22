@@ -55,7 +55,7 @@ class EmpotageManager {
     }
     
     public function count($codeUsine,$etat,$where="") {
-        return $this->empotageQuery->count($codeUsine,$where);
+        return $this->empotageQuery->count($codeUsine,$etat,$where);
     }
     
     public function countEmpotageAnnules($codeUsine,$where="") {
@@ -66,8 +66,10 @@ class EmpotageManager {
         return $this->empotageQuery->validEmpotage($factureId);
     }
     public function annulerEmpotage($empotageId) {
-        $facture= $this->empotageQuery->findById($empotageId);
-        $codeUsine=$facture->getCodeUsine();
+        $empotage= $this->empotageQuery->findById($empotageId);
+        $isBilling=$this->empotageQuery->isBilling($empotageId);
+        if($isBilling==NULL){
+        $codeUsine=$empotage->getCodeUsine();
         $ligneEmpotage = $this->empotageQuery->findInfoByEmpotage($empotageId);
         foreach ($ligneEmpotage as $key => $value) {
             $stockManager = new \Stock\StockManager();
@@ -91,6 +93,11 @@ class EmpotageManager {
                 
         }
         $this->empotageQuery->annulerEmpotage($empotageId);
+        return 1;
+        }
+    else {
+     return 0;
+ }
     }
 public function getLastNumberEmpotage($codeUsine) {
     $lastEmpotageId=$this->empotageQuery->getLastNumberEmpotage($codeUsine);

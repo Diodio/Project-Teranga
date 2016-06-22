@@ -264,8 +264,12 @@ class EmpotageController extends BaseController implements BaseAction {
         try {
             if ($request['empotageId'] != null) {
                 $empotageManager = new EmpotageManager();
-                $empotageManager->annulerEmpotage($request['empotageId']);
-                $this->doSuccess($request['empotageId'], 'Annulation effectuée avec succes');
+                $annule = $empotageManager->annulerEmpotage($request['empotageId']);
+                if($annule==1)
+                    $this->doSuccess($request['empotageId'], 'Annulation effectuée avec succes');
+                else {
+                  $this->doError('-1', 'Impossible d\'annuler cet empotage car il est deja facturé');  
+                }
             } else {
                 $this->doError('-1', 'Params not enough');
             }

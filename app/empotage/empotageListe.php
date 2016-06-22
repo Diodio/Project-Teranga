@@ -632,7 +632,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         aoData.push({"name": "offset", "value": "1"});
                         aoData.push({"name": "rowCount", "value": "10"});
                         aoData.push({"name": "profil", "value": $.cookie('profil')});
-                        aoData.push({"name": "etat", "value": "0"});
+                        aoData.push({"name": "etat", "value": "*"});
                         aoData.push({"name": "codeUsine", "value": "<?php echo $codeUsine; ?>"});
                         $.ajax({
                             "dataType": 'json',
