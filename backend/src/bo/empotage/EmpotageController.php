@@ -29,6 +29,9 @@ class EmpotageController extends BaseController implements BaseAction {
                     case \App::ACTION_UPDATE:
                         $this->doUpdate($request);
                         break;
+                    case \App::ACTION_UPDATE_LIGNE:
+                        $this->doUpdateLigne($request);
+                        break;
                     case \App::ACTION_VIEW:
                         $this->doView($request);
                         break;
@@ -244,6 +247,36 @@ class EmpotageController extends BaseController implements BaseAction {
         
     }
 
+     public function doUpdateLigne($request) {
+        try {
+            if (isset($request['empotageId']) && $request['empotageId'] != "") {
+                $empotageId = $request['empotageId'];
+                $ligneId = $request['ligneId'];
+                $pu = $request['pu'];
+                $montant = $request['montant'];
+                //$montantTotal = $request['montantTotal'];
+               // $empotageManager = new EmpotageManager();
+               // $empotage = $empotageManager->findById($empotageId);
+                //$empotage->setMontantTotal($montantTotal);
+                $ligneEmpotageManager = new \Empotage\LigneEmpotageManager();
+                $ligneEmpotage = $ligneEmpotageManager->findById($ligneId);
+                $ligneEmpotage->setPrixUnitaire($pu);
+                $ligneEmpotage->setMontant($montant);
+               $empotageAdded =  $ligneEmpotageManager->update($ligneEmpotage);
+               // $empotageAdded = $empotageManager->updateLigne($empotage, $ligneEmpotage);
+                if ($empotageAdded->getId() !== null) {
+                    $this->doSuccess($empotageAdded->getId(), ' Mis à jour avec succes');
+                } else {
+                    $this->doError('-1', 'Impossible d\'effectuer cette mise a jour');
+                }
+            } else {
+                $this->doError('-1', 'Impossible d\'effectuer ce reglement');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', 'Erreur lors du traitement de votre requete');
+        }
+    }
+    
     public function doValidEmpotage($request) {
         try {
             if ($request['achatId'] != null) {

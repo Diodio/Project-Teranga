@@ -121,6 +121,29 @@ class EmpotageQueries {
         }
     }
     
+    public function updateLigne($empotage, $ligneEmpotage) {
+        Bootstrap::$entityManager->getConnection()->beginTransaction();
+        if ($empotage != null) {
+            try {
+                Bootstrap::$entityManager->merge($empotage);
+                Bootstrap::$entityManager->flush();
+               // if ($listLigneEmpotage != null) {
+                //    foreach ($listLigneEmpotage as $ligneEmpotage) {
+                Bootstrap::$entityManager->merge($ligneEmpotage);
+                Bootstrap::$entityManager->flush();
+              //      }
+               // }
+                Bootstrap::$entityManager->getConnection()->commit();
+                return $empotage;
+            } catch (\Exception $e) {
+                Bootstrap::$entityManager->getConnection()->rollback();
+                Bootstrap::$entityManager->close();
+                $b = new Bootstrap();
+                Bootstrap::$entityManager = $b->getEntityManager();
+                return null;
+            }
+        }
+    }
     
     public function findAll() {
         $clientRepository = Bootstrap::$entityManager->getRepository($this->classString);
@@ -379,10 +402,22 @@ class EmpotageQueries {
                 return null;
         }
     }
+    public function getInfosFacture($empotageId) {
+        if ($empotageId != null) {
+            $sql = 'SELECT * FROM facture WHERE empotage_id=' . $empotageId;
+            $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
+            $stmt->execute();
+            $conteneur = $stmt->fetchAll();
+            if ($conteneur != null)
+                return $conteneur;
+            else
+                return null;
+        }
+    }
     
     public function getTotalReglementByEmpotage($empotageId) {
         if ($empotageId != null) {
-            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_empotage WHERE empotage_id=' . $empotageId;
+            $sql = 'SELECT SUM(avance) sommeAvance FROM reglement_facture,facture WHERE facture.id=facture_id and empotage_id=' . $empotageId;
             $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
             $stmt->execute();
             $empotage = $stmt->fetchAll();

@@ -26,6 +26,11 @@ class EmpotageManager {
     public function update($facture, $listLigneEmpotage) {
        return $this->empotageQuery->update($facture, $listLigneEmpotage);
     }
+    
+    public function updateLigne($facture, $LigneEmpotage) {
+       return $this->empotageQuery->updateLigne($facture, $LigneEmpotage);
+    }
+    
     public function listAll() {
     	$this->empotageQuery=$this->empotageQuery->findAll();
     	return $this->empotageQuery;
@@ -163,12 +168,14 @@ public function findStatisticByUsine($codeUsine) {
     }
     public function findEmpotageDetails($empotageId) {
         if ($empotageId != null) {
-            $facture = $this->empotageQuery->findEmpotageDetails($empotageId);
+            $empotage = $this->empotageQuery->findEmpotageDetails($empotageId);
              $ligneEmpotage = $this->empotageQuery->findAllProduitByEmpotage($empotageId);
              $colis = $this->empotageQuery->findColisByEmpotage($empotageId);
              $conteneurs = $this->empotageQuery->findConteneurByEmpotage($empotageId);
+             $facture = $this->empotageQuery->getInfosFacture($empotageId);
+             $reglement = $this->empotageQuery->getTotalReglementByEmpotage($empotageId);
             $empotageDetail = array();
-            foreach ($facture as $key => $value) {
+            foreach ($empotage as $key => $value) {
                // $factureDetail ['id'] = $value ['achat.id'];
                 $empotageDetail ['numero'] = $value ['numero'];
                 $empotageDetail ['dateEmpotage']  = date_format(date_create($value ['date']), 'd/m/Y');
@@ -184,6 +191,8 @@ public function findStatisticByUsine($codeUsine) {
                 $empotageDetail['colis'] = $colis;
                 $empotageDetail['ligneEmpotage'] = $ligneEmpotage;
                 $empotageDetail['conteneurs'] = $conteneurs;
+                $empotageDetail['facture'] = $facture;
+                $empotageDetail['reglemt'] = $reglement;
                 
             }
             return $empotageDetail;

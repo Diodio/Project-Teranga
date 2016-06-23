@@ -57,7 +57,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter">
                                 <i class="ace-icon fa fa-star orange"></i>
-                                Facturation
+                                Liste des empotages à facturer
                             </h4>
 
                             <div class="widget-toolbar">
@@ -80,7 +80,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                                             </th>
                                             <th class="center" style="border-left: 0px none;border-right: 0px none;"></th>                               
                                             <th style="border-left: 0px none;border-right: 0px none;">
-                                                Date
+                                                Date Empotage
                                             </th>
                                             <th style="border-left: 0px none;border-right: 0px none;">
                                                 Numéro Empotage
@@ -762,7 +762,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#datePaiement').val('');
                     //colis
                     $('#tab_colis tbody').html("");
-                    loadEditable = function (compteur)
+                    loadEditable = function (ligneId, compteur)
                     {
                         $('#prix' + compteur).editable({
                             type: 'text',
@@ -802,10 +802,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     $('#datePaiement').val("");
                                                     $('#numCheque').val("");
                                                 }
-                                                //console.log(tot);
                                                 $('#montant').text(tot);
-//                                                $('#montantTtc').val(Ttc);
-                                                // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
+                                                saveLigneEmpotage(checkedEmpotage[0],ligneId, prix, montant);
                                             }
                                             else {
 
@@ -824,6 +822,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 
                         });
                     }
+               
                     var tableColis = data.colis;
                     var trColisHTML = '';
                     $(tableColis).each(function (index, element) {
@@ -861,7 +860,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         row.append($('<td ><span class="editText" id="prix' + index + '">' + pu + '</span></td>'));
                         row.append($('<td  id="quantite' + index + '">' + element.quantite + '</td>'));
                         row.append($('<td class="montant" id="montant' + index + '">' + mt + '</td>'));
-                        loadEditable(index);
+                        loadEditable(element.id, index);
                         // trHTML += '<tr><td>' + element.nbColis + '</td><td>' + element.produit + '</td><td>' + element.quantite + '</td><td>' + element.prixUnitaire + '</td><td>' + element.montant + '</td></tr>';
                     });
                     $('#tab_produit tbody').append(trHTML);
@@ -873,14 +872,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                     });
                          
                    // var Ttc = tot+(tot * ($("#tva").val()/100));
-                   if(tot!=='undefined')
+                   console.log(tot);
+                   if(tot !== 'undefined'){
                         $('#montant').text(tot);
+                        $('#montantTotal').val(tot);
+                    }
                     else
                         $('#montant').text('0');
-                    if(data.transport!=null)
-                        $('#transport').val(data.transport);
-                    if(data.montantTotal!=null)
-                        $('#montantTotal').val(data.montantTotal);
+                    
 //                    if(data.montantPaye!=null)
 //                        $('#montantPaye').val(data.montantPaye);
                     
@@ -920,7 +919,43 @@ $codeUsine = $_COOKIE['codeUsine'];
                 });
             };
 
-
+            function saveLigneEmpotage(empotageId, ligneId, pu, montant){
+               var ACTION = "<?php echo App::ACTION_UPDATE_LIGNE; ?>";
+               $.ajax({
+                        url: '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            ACTION: ACTION,
+                            empotageId: empotageId,
+                            ligneId: ligneId,
+                            pu: pu,
+                            montant: montant,
+                            montantTotal: $('#MontantTotal').text()
+                        },
+                        success: function(data)
+                        {
+                             $('#winModalINFO').modal('hide');
+                            if (data.rc == 0){
+                                $.gritter.add({
+                                    title: 'Server notification',
+                                    text: "<?php printf("Prix enregistré avec succes"); ?>",
+                                    class_name: 'gritter-success gritter-light'
+                                });
+                            }
+                            else{
+                                $.gritter.add({
+                                    title: 'Server notification',
+                                    text: data.error,
+                                    class_name: 'gritter-error gritter-light'
+                                });
+                            };
+                        },
+                        error: function() {
+                            alert("error");
+                        }
+                        });
+                     } 
             $("#modePaiement").change(function () {
                 if ($("#modePaiement").val() == 'CHEQUE') {
                     $("#numCheque").prop("readonly", false);
