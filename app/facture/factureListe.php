@@ -741,7 +741,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         var prix = editParams.value;
                                         function save() {
                                             var produitId = $('#prix' + compteur).closest('tr').attr('id');
-
+                                           var mont = $('#montantPaye').val();
+                                           if(mont == '' || mont == '0'){
                                             if ($.trim(prix) !== "") {
                                                 var tot = 0;
                                                 var qte = $('#quantite' + compteur).text();
@@ -771,6 +772,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                     class_name: 'gritter-error gritter-light'
                                                 });
                                             }
+                                        }
+                                        else {
+                                            $.gritter.add({
+                                                    title: 'Server notification',
+                                                    text: "Impossible de modifier le prix. Il existe deja un reglement pour cette facture.",
+                                                    class_name: 'gritter-error gritter-light'
+                                                });
+                                        }
                                         }
 
                                         save(function () {
@@ -859,6 +868,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         tot=tot+ parseFloat(data.transport);
                         
                         if (!isNaN(mtAv)) {
+                             $('#montantPaye').val(mtAv);
                             rel = tot - mtAv;
                             console.log(rel);
                             if(!isNaN(rel) && rel>=0){
@@ -867,13 +877,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                             else
                                 $('#reliquat').val("");
                         }
-                        $('#MontantPaye').val(mtAv);
+                       
                        
 //                    } 
 //                    
                     }
                     else {
-                        $('#MontantPaye').val("0.00");
+                        $('#montantPaye').val("0.00");
                         $('#Reliquat').val(tot);
                     }
                      $('#Inconterm').val(data.inconterm);
