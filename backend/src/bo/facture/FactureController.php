@@ -130,13 +130,14 @@ class FactureController extends BaseController implements BaseAction {
 //                if ($request['regle'] == "true")
 //                    $facture->setRegle(2);
                 //else {
-                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined" && $request['montantPaye'] != "0") {
+                $reglement = new Reglement\ReglementFacture();
+                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined" && $request['montantPaye'] != "0" && $request['montantPaye'] != "0.00") {
                         $facture->setRegle(1);
                         $reliquat = $request['montantTotal'] - $request['montantPaye'];
                         if ($reliquat == 0)
                             $facture->setRegle(2);
                         $facture->setReliquat($reliquat);
-                        $reglement = new Reglement\ReglementFacture();
+                        
                         $reglement->setFacture($facture);
                         $reglement->setDatePaiement(new \DateTime("now"));
                         $reglement->setAvance($request['montantPaye']);
@@ -235,13 +236,13 @@ class FactureController extends BaseController implements BaseAction {
 //                if ($request['regle'] == "true")
 //                    $facture->setRegle(2);
                 //else {
-                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined") {
+                $reglement = new Reglement\ReglementFacture();
+                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined" && $request['montantPaye'] != "0" && $request['montantPaye'] != "0.00") {
                         $facture->setRegle(1);
                         $reliquat = $request['montantTotal'] - $request['montantPaye'];
                         if ($reliquat == 0)
                             $facture->setRegle(2);
                         $facture->setReliquat($reliquat);
-                        $reglement = new Reglement\ReglementFacture();
                         $reglement->setFacture($facture);
                         $reglement->setDatePaiement(new \DateTime("now"));
                         $reglement->setAvance($request['montantPaye']);

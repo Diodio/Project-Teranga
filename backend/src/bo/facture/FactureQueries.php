@@ -36,8 +36,10 @@ class FactureQueries {
                 else
                     Bootstrap::$entityManager->persist($facture);
                 Bootstrap::$entityManager->flush();
-                Bootstrap::$entityManager->persist($reglement);
-                Bootstrap::$entityManager->flush();
+                if($reglement->getId() != null){
+                    Bootstrap::$entityManager->persist($reglement);
+                    Bootstrap::$entityManager->flush();
+                }
                 if ($ligneEmpotage !== null) {
                     foreach ($ligneEmpotage as $ligne) {
                         Bootstrap::$entityManager->merge($ligne);
