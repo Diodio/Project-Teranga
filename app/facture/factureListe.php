@@ -1215,7 +1215,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                        // window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                          $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_INFO_VIEW').show();
-                   loadEmpotages();
+                   loadFactures();
                     } 
                     else
                     {
