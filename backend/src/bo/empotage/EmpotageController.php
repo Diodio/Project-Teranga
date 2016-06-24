@@ -249,8 +249,8 @@ class EmpotageController extends BaseController implements BaseAction {
 
      public function doUpdateLigne($request) {
         try {
-            if (isset($request['empotageId']) && $request['empotageId'] != "") {
-                $empotageId = $request['empotageId'];
+            if (isset($request['ligneId']) && $request['ligneId'] != "") {
+                //$empotageId = $request['empotageId'];
                 $ligneId = $request['ligneId'];
                 $pu = $request['pu'];
                 $montant = $request['montant'];
@@ -270,7 +270,7 @@ class EmpotageController extends BaseController implements BaseAction {
                     $this->doError('-1', 'Impossible d\'effectuer cette mise a jour');
                 }
             } else {
-                $this->doError('-1', 'Impossible d\'effectuer ce reglement');
+                $this->doError('-1', 'Impossible d\'effectuer cette mise a jour');
             }
         } catch (Exception $e) {
             $this->doError('-1', 'Erreur lors du traitement de votre requete');

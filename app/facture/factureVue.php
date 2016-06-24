@@ -412,7 +412,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                                                             <i class="ace-icon fa fa-save"></i>
                                                             Enregistrer
                                                         </button>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -706,9 +705,16 @@ $codeUsine = $_COOKIE['codeUsine'];
         $("#transport").keyup(function() {
            var montant = parseFloat($("#montant").text());
            var total=0;
-           if(!isNaN(montant) && montant > 0){
-                total=montant + parseFloat($("#transport").val());
+           total=montant + parseFloat($("#transport").val());
+           if(!isNaN(total) && total > 0){
+                $('#montantPaye').val('0');
                 $('#montantTotal').val(total);
+                $('#reliquat').val(total);
+            }
+            else {
+                $('#montantPaye').val('0');
+                $('#montantTotal').val(montant);
+                $('#reliquat').val(total);
             }
 //        
       });
@@ -875,7 +881,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                    console.log(tot);
                    if(tot !== 'undefined'){
                         $('#montant').text(tot);
-                        $('#montantTotal').val(tot);
+                        $('#montantTotal').val(tot + parseFloat($('#transport').val()));
                     }
                     else
                         $('#montant').text('0');
