@@ -25,21 +25,6 @@ class Facture {
    /** @Column(type="string", length=60, nullable=true) */
     public $devise;
     
-    
-   /** @Column(type="string", length=60, nullable=true) */
-    public $portDechargement;
-    
-   /**
-     * @Column(type="integer",  nullable=true)
-     * */
-    public $nbTotalColis;
-    
-   /**
-     * @Column(type="decimal", scale=2, precision=10, nullable=true)
-     * */
-    public $nbTotalPoids;
-    
-    
    /** @Column(type="decimal", scale=2, precision=10, nullable=true) */
     public $montant;
     /**

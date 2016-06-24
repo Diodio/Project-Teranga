@@ -830,11 +830,11 @@ $codeUsine = $_COOKIE['codeUsine'];
                     
                     $('#Montant').text(tot);
                     
-                        $('#Transport').val(data.transport);
-                    if(data.transport==='0.00')
+                        $('#transport').val(data.transport);
+                    if(data.transport == '0.00')
                         $('#montantTotal').val(tot);
                     else
-                        $('#montantTotal').val(tot + data.transport);
+                        $('#montantTotal').val(tot + parseFloat(data.transport));
                     if (data.modePaiement !== '' && data.modePaiement !== 'undefined')
                         $('#ModePaiement').val(data.modePaiement);
                     else
@@ -862,10 +862,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             rel = tot - mtAv;
                             console.log(rel);
                             if(!isNaN(rel) && rel>=0){
-                                $('#Reliquat').val(rel);
+                                $('#reliquat').val(rel);
                             }
                             else
-                                $('#Reliquat').text("");
+                                $('#reliquat').val("");
                         }
                         $('#MontantPaye').val(mtAv);
                        
@@ -877,7 +877,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#Reliquat').val(tot);
                     }
                      $('#Inconterm').val(data.inconterm);
-                   
+                   if(data.regle==2)
+                         $('#regleFacture').prop('checked', true);
+                    else
+                         $('#regleFacture').prop('checked', false);
                     $('#TAB_GROUP a[href="#TAB_MSG"]').tab('show');
                     $('#TAB_MSG_VIEW').show();
                 }).error(function (error) {

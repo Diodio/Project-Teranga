@@ -32,8 +32,8 @@ class FactureManager {
     }
 
 
-   public function findById($produitId) {
-       return $this->factureQuery->findById($produitId);
+   public function findById($factureId) {
+       return $this->factureQuery->findById($factureId);
     }
    
     

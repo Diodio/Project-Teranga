@@ -28,7 +28,7 @@ class FactureController extends BaseController implements BaseAction {
                     case \App::ACTION_INSERT:
                         $this->doInsert($request);
                         break;
-                    case \App::ACTION_INSERT:
+                    case \App::ACTION_INSERT_FACTURE:
                         $this->doInsertFacture($request);
                         break;
                     case \App::ACTION_INSERT_TEMP:
@@ -130,7 +130,7 @@ class FactureController extends BaseController implements BaseAction {
 //                if ($request['regle'] == "true")
 //                    $facture->setRegle(2);
                 //else {
-                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined") {
+                    if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined" && $request['montantPaye'] != "0") {
                         $facture->setRegle(1);
                         $reliquat = $request['montantTotal'] - $request['montantPaye'];
                         if ($reliquat == 0)
@@ -207,15 +207,16 @@ class FactureController extends BaseController implements BaseAction {
              $listStockFacture=null;
             if ($request['factureId'] != null) {
                 $factureManager = new FactureManager();
-                $facture = new Facture();
-                $idFacture=$factureManager->findFactureByEmpotageId($request['empotageId']);
-                if($idFacture!=null)
-                    $facture->setId ($idFacture);
-                $facture->setNumero($request['numFacture']);
-                $facture->setDateFacture(new \DateTime("now"));
-                $facture->setHeureFacture(new \DateTime($request['heureFacture']));
-                $facture->setDevise($request['devise']);
-                $facture->setPortDechargement($request['portDechargement']);
+                $facture = $factureManager->findById($request['factureId']);
+                
+                //$idFacture=$factureManager->findFactureByEmpotageId($request['empotageId']);
+                //if($idFacture!=null)
+                //$facture->setId ($request['factureId']);
+                //$facture->setNumero($request['numFacture']);
+                //$facture->setDateFacture(new \DateTime("now"));
+               // $facture->setHeureFacture(new \DateTime($request['heureFacture']));
+                //$facture->setDevise($request['devise']);
+                //$facture->setPortDechargement($request['portDechargement']);
                 $facture->setMontant($request['montant']);
                 $facture->setTransport($request['transport']);
                 $facture->setMontantTotal($request['montantTotal']);
@@ -226,8 +227,8 @@ class FactureController extends BaseController implements BaseAction {
                     $facture->setDatePaiement(new \DateTime($request['datePaiement']));
                 $facture->setMontantPaye($request['montantPaye']);
                 $facture->setReliquat($request['reliquat']);
-                $facture->setNbTotalColis($request['nbTotalColis']);
-                $facture->setNbTotalPoids($request['nbTotalPoids']);
+              //  $facture->setNbTotalColis($request['nbTotalColis']);
+              //  $facture->setNbTotalPoids($request['nbTotalPoids']);
                 $facture->setInconterm($request['inconterm']);
                 $facture->setStatus(1);
                // $facture->setRegle(0);
@@ -252,9 +253,9 @@ class FactureController extends BaseController implements BaseAction {
                 
                 $facture->setCodeUsine($request['codeUsine']);
                 $facture->setLogin($request['login']);
-                $empotageManager = new \Empotage\EmpotageManager();
-                $empotage = $empotageManager->findById($request['empotageId']);
-                $facture->setEmpotage($empotage);
+               // $empotageManager = new \Empotage\EmpotageManager();
+               // $empotage = $empotageManager->findById($request['empotageId']);
+               // $facture->setEmpotage($empotage);
                 //$factureAdded = $factureManager->insert($facture);
                 
                     //if ($request['montantPaye'] != "" && $request['montantPaye'] != "undefined") {
