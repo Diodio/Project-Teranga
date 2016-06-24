@@ -944,9 +944,6 @@ $codeUsine = $_COOKIE['codeUsine'];
                     .next().on(ace.click_event, function () {
                 $(this).prev().focus();
             });
-            $("#avance").keyup(function () {
-                calculReliquat();
-            });
 
             $("#tva").keyup(function () {
                 var tva = parseFloat($("#tva").val());
@@ -966,8 +963,8 @@ $codeUsine = $_COOKIE['codeUsine'];
             });
             function calculReliquat() {
                 var rel = 0;
-                var mt = parseFloat($("#Montant").text());
-                var avance = parseFloat($("#avance").val());
+                var mt = parseFloat($("#montantTotal").val());
+                var avance = parseFloat($("#montantPaye").val());
                 if (!isNaN(avance) && !isNaN(avance)) {
                     rel = mt - avance;
                     if (!isNaN(rel) && rel > 0) {
@@ -986,7 +983,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: 'Le montant saisi ne doit pas être supérieur au montant HT',
                             class_name: 'gritter-error gritter-light'
                         });
-                        $("#avance").val("");
+                        $("#montantPaye").val("");
                         $("#reliquat").val("");
                         $('#regleFacture').attr("disabled", true);
                         $('#regleFacture').prop('checked', false);
@@ -1106,19 +1103,26 @@ $codeUsine = $_COOKIE['codeUsine'];
                 }
             });
             
-            ReglementProcess = function (empotageId)
+             FactureProcess = function (factureId)
         {
            $('#SAVE').attr("disabled", true);
-            var ACTION = '<?php echo App::ACTION_UPDATE; ?>';
+            var ACTION = '<?php echo App::ACTION_INSERT_FACTURE; ?>';
             var frmData;
-            //var achatId= empotageId;
-            var montantHt = $("#Montant").text();
-            var tva = $("#tva").val();
-            var montantTtc = $("#montantTtc").val();
+            var numFacture = $("#numFacture").val();
+            var dateFacture = $("#dateFacture").val();
+            var heureFacture = $("#heureFacture").val();
+            
+            var portDechargement = $("#portDechargement").text();
+            var devise = $("#devise").val();
+            var nbTotalColis = $("#totalColis").text();
+            var nbTotalPoids = $("#PoidsTotal").text();
+            var montant = $("#montant").text();
+            var transport = $("#transport").val();
+            var montantTotal = $("#montantTotal").val();
             var modePaiement = $("#modePaiement").val();
             var numCheque = $("#numCheque").val();
             var datePaiement = $("#datePaiement").val();
-            var avance = $("#avance").val();
+            var montantPaye = $("#montantPaye").val();
             var reliquat = $("#reliquat").val();
             var inconterm = $("#Inconterm").val();
             var Aregle = $("input:checkbox[name=regleFacture]:checked").val();
@@ -1158,14 +1162,21 @@ $codeUsine = $_COOKIE['codeUsine'];
             var tbl=JSON.stringify(rows);
             var formData = new FormData();
             formData.append('ACTION', ACTION);
-            formData.append('empotageId', empotageId);
-            formData.append('montantHt', montantHt);
-            formData.append('montantTtc', montantTtc);
-            formData.append('tva', tva);
+            formData.append('factureId', factureId);
+            formData.append('numFacture', numFacture);
+            formData.append('dateFacture', dateFacture);
+            formData.append('nbTotalColis', nbTotalColis);
+            formData.append('nbTotalPoids', nbTotalPoids);
+            formData.append('heureFacture', heureFacture);
+            formData.append('portDechargement', portDechargement);
+            formData.append('devise', devise);
+            formData.append('montant', montant);
+            formData.append('transport', transport);
+            formData.append('montantTotal', montantTotal);
             formData.append('modePaiement', modePaiement);
             formData.append('numCheque', numCheque);
             formData.append('datePaiement', datePaiement);
-            formData.append('avance', avance);
+            formData.append('montantPaye', montantPaye);
             formData.append('jsonProduit', tbl);
             formData.append('reliquat', reliquat);
             formData.append('inconterm', inconterm);
@@ -1173,7 +1184,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             formData.append('codeUsine', codeUsine);
             formData.append('login', login);
             $.ajax({
-                url: '<?php echo App::getBoPath(); ?>/empotage/EmpotageController.php',
+                url: '<?php echo App::getBoPath(); ?>/facture/FactureController.php',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -1188,10 +1199,10 @@ $codeUsine = $_COOKIE['codeUsine'];
                             text: data.action,
                             class_name: 'gritter-success gritter-light'
                         });
-                        window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
+                       // window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId='+data.oId,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=1200, height=650');
                          $('#TAB_GROUP a[href="#TAB_INFO"]').tab('show');
                     $('#TAB_INFO_VIEW').show();
-                   loadFactures();
+                   loadEmpotages();
                     } 
                     else
                     {
@@ -1215,9 +1226,11 @@ $codeUsine = $_COOKIE['codeUsine'];
         
         $("#SAVE").bind("click", function () {
             // alert(checkedAchat[0]);
-             ReglementProcess(checkedFacture[0]);
+             FactureProcess(checkedFacture[0]);
          });
-
+$("#montantPaye").keyup(function () {
+                calculReliquat();
+            });
 
         });
     </script>
