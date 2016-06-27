@@ -150,17 +150,6 @@ td    { vertical-align: top; }
 ?>
    
     <br>
-    
-<!--    <nobreak>
-        <br>
-        <table cellspacing="0" style="width: 100%; text-align: left;">
-            <tr>
-                <td style="width:25%;">Le Peseur</td>
-                <td style="width:25%"></td>
-                <td style="width:38%"></td>
-                <td style="width:25%"> Le Mareyeur</td>
-            </tr>
-        </table>
-    </nobreak>-->
+  
 </page>
 
