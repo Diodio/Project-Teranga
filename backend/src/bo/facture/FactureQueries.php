@@ -26,7 +26,7 @@ class FactureQueries {
     }
 
    
-    public function insert($facture, $reglement, $ligneEmpotage, $stockFacturee) {
+    public function insert($facture, $ligneEmpotage,$reglement=null, $stockFacturee=null) {
         Bootstrap::$entityManager->getConnection()->beginTransaction();
         if ($facture != null) {
             try {
@@ -36,7 +36,7 @@ class FactureQueries {
                 else
                     Bootstrap::$entityManager->persist($facture);
                 Bootstrap::$entityManager->flush();
-                if($reglement->getId() != null){
+                if($reglement != null){
                     Bootstrap::$entityManager->persist($reglement);
                     Bootstrap::$entityManager->flush();
                 }

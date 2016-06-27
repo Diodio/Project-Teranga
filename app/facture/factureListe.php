@@ -839,11 +839,14 @@ $codeUsine = $_COOKIE['codeUsine'];
                     
                     $('#Montant').text(tot);
                     
-                        $('#transport').val(data.transport);
-                    if(data.transport == '0.00')
+                        
+                    if(data.transport === '0.00' || data.transport === null)
                         $('#montantTotal').val(tot);
-                    else
+                    else {
+                        $('#transport').val(data.transport);
                         $('#montantTotal').val(tot + parseFloat(data.transport));
+                        tot=tot+ parseFloat(data.transport);
+                    }
                     if (data.modePaiement !== '' && data.modePaiement !== 'undefined')
                         $('#ModePaiement').val(data.modePaiement);
                     else
@@ -865,7 +868,7 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $(infoAvance).each(function (index, element) {
                             mtAv += parseFloat(element.avance);
                         });
-                        tot=tot+ parseFloat(data.transport);
+                        
                         
                         if (!isNaN(mtAv)) {
                              $('#montantPaye').val(mtAv);
