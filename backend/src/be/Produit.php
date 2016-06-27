@@ -54,10 +54,7 @@ class Produit {
      * @Column(type="integer", options={"default":0}) 
      **/
     protected $calibre;
-    /**
-     * @Column(type="integer", options={"default":0}) 
-     **/
-    protected $state;
+    
     
     function getId() {
         return $this->id;
@@ -150,9 +147,7 @@ class Produit {
         return $this->calibre;
     }
 
-    function getState() {
-        return $this->state;
-    }
+   
 
     function setProduit($produit) {
         $this->produit = $produit;
@@ -162,16 +157,12 @@ class Produit {
         $this->calibre = $calibre;
     }
 
-    function setState($state) {
-        $this->state = $state;
-    }
+    
 
     
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');
-        $this->state= 0;
-        $this->calibre = 0;
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
