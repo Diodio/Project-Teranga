@@ -145,7 +145,6 @@ class FactureController extends BaseController implements BaseAction {
                     else {
                         $facture->setRegle(0);
                     }
-               
                 
                 $facture->setCodeUsine($request['codeUsine']);
                 $facture->setLogin($request['login']);
@@ -189,7 +188,7 @@ class FactureController extends BaseController implements BaseAction {
                     }
                     
                 
-                    $factureAdded = $factureManager->insert($facture,$reglement,$listEmpotage,$listStockFacture);
+                    $factureAdded = $factureManager->insert($facture,$listEmpotage,$reglement, $listStockFacture);
                     if ($factureAdded->getId() != null) {
                     $this->doSuccess($factureAdded->getId(), 'Facture enregistrée avec succes');
                 } else {
@@ -251,7 +250,7 @@ class FactureController extends BaseController implements BaseAction {
                         $facture->setRegle(0);
                     }
                
-                
+                    
                 $facture->setCodeUsine($request['codeUsine']);
                 $facture->setLogin($request['login']);
                // $empotageManager = new \Empotage\EmpotageManager();
@@ -281,11 +280,11 @@ class FactureController extends BaseController implements BaseAction {
                                // $ligneFactureManager = new \Empotage\LigneEmpotageManager();
                                 //$inserted = $ligneFactureManager->insert($ligneEmpotage);
                                 //if ($inserted->getId() != null) {
-                                    $stockFacturee = new \Stock\StockFacture();
-                                    $stockFacturee->setFactureId($facture->getId());
-                                    $stockFacturee->setProduitId($ligneEmpotage->getProduit_id());
-                                    $stockFacturee->setQuantiteFacturee($ligne["qte"]);
-                                    $listStockFacture[]=$stockFacturee;
+//                                    $stockFacturee = new \Stock\StockFacture();
+//                                    $stockFacturee->setFactureId($facture->getId());
+//                                    $stockFacturee->setProduitId($ligneEmpotage->getProduit_id());
+//                                    $stockFacturee->setQuantiteFacturee($ligne["qte"]);
+//                                    $listStockFacture[]=$stockFacturee;
                                //     $stockManager = new \Stock\StockManager();
                                     //$stockManager->insert($stockFacturee);
                                // }

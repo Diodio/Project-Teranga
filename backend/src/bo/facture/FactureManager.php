@@ -18,8 +18,8 @@ class FactureManager {
         $this->factureQuery = new FactureQueries();
     }
     
-    public function insert($facture,$reglement,$ligneEmpotage,$stockFacturee) {
-        $this->factureQuery->insert($facture,$reglement,$ligneEmpotage,$stockFacturee);
+    public function insert($facture,$ligneEmpotage, $reglement,$stockFacturee) {
+        $this->factureQuery->insert($facture,$ligneEmpotage, $reglement,$stockFacturee);
     	return $facture;
     }
     

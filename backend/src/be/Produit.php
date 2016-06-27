@@ -42,6 +42,23 @@ class Produit {
     /** @OneToMany(targetEntity="BonSortie\LigneBonSortie", mappedBy="bonSortie", cascade={"persist"}) */
     protected $bonSortie;
     
+    /**
+     * @OneToMany(targetEntity="Produit\Produit", mappedBy="produit")
+     * @JoinColumn(name="produit_id", referencedColumnName="id")
+     **/
+    protected $produit;
+    
+    
+    
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $calibre;
+    /**
+     * @Column(type="integer", options={"default":0}) 
+     **/
+    protected $state;
+    
     function getId() {
         return $this->id;
     }
@@ -125,10 +142,36 @@ class Produit {
         $this->stockReel = $stockReel;
     }
 
-        
+    function getProduit() {
+        return $this->produit;
+    }
+
+    function getCalibre() {
+        return $this->calibre;
+    }
+
+    function getState() {
+        return $this->state;
+    }
+
+    function setProduit($produit) {
+        $this->produit = $produit;
+    }
+
+    function setCalibre($calibre) {
+        $this->calibre = $calibre;
+    }
+
+    function setState($state) {
+        $this->state = $state;
+    }
+
+    
 /** @PrePersist */
     public function doPrePersist() {
         date_default_timezone_set('GMT');
+        $this->state= 0;
+        $this->calibre = 0;
         $this->createdDate = new \DateTime("now");
         $this->updatedDate = new \DateTime("now");
     }
