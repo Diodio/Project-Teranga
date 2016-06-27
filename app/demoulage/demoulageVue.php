@@ -102,22 +102,34 @@ $codeUsine = $_COOKIE['codeUsine'];
 											id="nomProduit"></span>
 									</h4>
 									<div class="form-group">
-										<label class="col-sm-4 control-label no-padding-right"
-											for="form-field-1" style="margin-left: -8%"> Numéro</label>
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-left: -8%"> Stock Provisoire
+										</label>
 										<div class="col-sm-8">
-											<input type="text" id="numero"
-												name="numero" placeholder=""
+											<input type="text" id="stockProvisoire"
+												name="stockProvisoire" placeholder=""
 												class="col-xs-10 col-sm-4" disabled>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label no-padding-right"
-											for="form-field-1" style="margin-left: -8%"> Stock Provisoire
+											for="form-field-1" style="margin-left: -8%"> Numéro
 											(kg)</label>
 										<div class="col-sm-8">
 											<input type="text" id="stockProvisoire"
 												name="stockProvisoire" placeholder=""
 												class="col-xs-10 col-sm-4" disabled>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right"
+											for="form-field-1" style="margin-left: -8%">Produit Calibré</label>
+										<div class="col-sm-8">
+											 <select id="calibre" name="calibre" style="margin-left: 0px;">
+                                    <option value="*" class="">Sélectionner le Produit </option>
+<!--                                     <option value="2" class="green bigger-130 icon-only">Achats réglés</option> -->
+<!--                                     <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option> -->
+<!--                                     <option value="0" class="red bigger-130 icon-only">Achats non réglés</option> -->
+                            </select>
 										</div>
 									</div>
 									<div class="form-group">
