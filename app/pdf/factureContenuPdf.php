@@ -8,15 +8,19 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM facture, client WHERE client.id=client_id AND facture.id=" . $factureId;
+$sql = "SELECT * FROM facture, empotage, client WHERE client.id=client_id AND empotage.id=facture.empotage_id AND facture.id=" . $factureId;
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
-
-$sqlConteneur = "SELECT * FROM conteneur WHERE facture_id=" . $factureId;
+$empotageId=$row['empotage_id'];
+$sqlConteneur = "SELECT * FROM conteneur WHERE empotage_id=" . $empotageId;
 $ResultConteneur = mysqli_query($connexion, $sqlConteneur) or die(mysqli_error($connexion));
 //$rowConteneur = mysqli_fetch_array($ResultConteneur);
 
-$sqlProduit = "SELECT nbColis, libelle, prixUnitaire, quantite, montant FROM facture f,ligne_facture lf,produit p WHERE f.id=lf.facture_id AND lf.produit=p.id AND f.id=" . $factureId;
+
+$sqlReglement = "SELECT sum(avance) as montantPaye FROM reglement_facture WHERE facture_id=" . $factureId;
+$ResultReglement = mysqli_query($connexion, $sqlReglement) or die(mysqli_error($connexion));
+
+$sqlProduit = "SELECT nbColis, libelle, prixUnitaire, quantite, montant FROM empotage e,ligne_empotage le,produit p WHERE e.id=le.empotage_id AND le.produit_id=p.id AND e.id=" . $empotageId;
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 
 ?>
@@ -239,14 +243,26 @@ td    { vertical-align: top; }
             <th style="width: 30%; text-align: left;"></th>
             <th style="width: 20%; text-align: left;"></th>
             <th style="border-left: 1px solid #000;width: 20%; text-align: left;"><?php echo $row['nbTotalPoids'];?></th>
-            <th style="border-left: 1px solid #000;width: 20%; text-align: left;"><?php echo $row['montantHt'];?></th>
+            <th style="border-left: 1px solid #000;width: 20%; text-align: left;"><?php echo $row['montant'];?></th>
         </tr>
     </table>
+    <br>
+     <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
+            <tr>
+                <td style="width:25%;"></td>
+                <td style="width:25%"></td>
+                <td style="width:30%"></td>
+                <td style="width:20%"> Transport : <b><?php if($row['transport']==null) echo 0; else echo $row['transport'];?></b> <?php echo $row['devise'];?>
+                  
+                </td>
+            </tr>
+        </table>
+       
     <br>
     
     <table cellspacing="0" style="margin-left: 35px;width: 90%; text-align: left;font-size: 10pt">
         <tr>
-            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montantHt'];?></b> <?php echo $row['devise'];?> HTVA</td>
+            <td style="width:50%;">Arrêté cette facture à la somme de <b><?php echo $row['montant'] + $row['transport'];?></b> <?php echo $row['devise'];?> </td>
             <td style="width:50%; "><span  style="font-size: 25px;" ></span></td>
             <td >
             </td>
@@ -259,10 +275,10 @@ td    { vertical-align: top; }
         </tr>
         <tr>
              <td >
-                 inconterm <b> <?php if($row['inconterm'] !="") echo $row['inconterm'];?></b>
+                 inconterm <b> <?php if($row['inconterm'] !=null) echo $row['inconterm'];?></b>
             </td>  
             
-        </tr>
+        </tr> 
     </table>
     <br>
      <table cellspacing="0" style="width: 100%; text-align: left;font-size: 10pt">
@@ -270,13 +286,14 @@ td    { vertical-align: top; }
                 <td style="width:25%;"></td>
                 <td style="width:25%"></td>
                 <td style="width:30%"></td>
-                <td style="width:20%"> Avance : <b><?php if($row['avance']==null) echo 0; else echo $row['avance'];?></b> <?php echo $row['devise'];?>
+                <td style="width:20%">
+                    Avance : <b><?php if($row['montantPaye']==null) echo 0; else echo $row['montantPaye'];?></b> <?php echo $row['devise'];?>
                     <br>
-                Reliquat : <b><?php if($row['reliquat']==null) echo 0; else echo $row['reliquat'];?></b>  <?php echo $row['devise'];?>
+                    <?php $reliquat=$row['montant'] - $row['montantPaye'];?>
+                Reliquat : <b><?php if($reliquat<0) echo 0; else echo $reliquat;?></b>  <?php echo $row['devise'];?>
                 </td>
             </tr>
         </table>
-        
         <page_footer> 
      <div style="color:green;text-align: center; border-top: 1px solid">
          QUAI DE PECHE - BP:27122 Dakar Colis

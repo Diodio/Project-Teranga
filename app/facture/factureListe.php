@@ -1051,13 +1051,13 @@ $codeUsine = $_COOKIE['codeUsine'];
                     bootbox.alert("Veuillez selectionnez une empotage SVP!");
                 else if (checkedFacture.length == 1)
                 {
-                    var empotageId = checkedFacture[0];
-                    window.open('<?php echo App::getHome(); ?>/app/pdf/empotagePdf.php?empotageId=' + empotageId, 'nom_de_ma_popup', 'menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
+                    var factureId = checkedFacture[0];
+                    window.open('<?php echo App::getHome(); ?>/app/pdf/facturePdf.php?factureId=' + factureId, 'nom_de_ma_popup', 'menubar=no, scrollbars=no, top=100, left=100, width=1100, height=650');
 
                 }
                 else if (checkedFacture.length > 1)
                 {
-                    bootbox.alert("Veuillez selectionnez une seul empotage SVP!");
+                    bootbox.alert("Veuillez selectionnez une seule facture SVP!");
                 }
             });
 

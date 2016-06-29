@@ -8,15 +8,15 @@ $password = $paramsConnexion['password'];
 $connexion = mysqli_connect($hostname, $username, $password) or trigger_error(mysqli_error(), E_USER_ERROR);
 mysqli_set_charset($connexion, "utf8");
 mysqli_select_db($connexion, $database);
-$sql = "SELECT * FROM facture, client WHERE client.id=client_id AND facture.id=" . $factureId;
+echo $sql = "SELECT * FROM facture, empotage, client WHERE client.id=client_id AND empotage.id=facture.empotage_id AND facture.id=" . $factureId;
 $Result = mysqli_query($connexion, $sql) or die(mysqli_error($connexion));
 $row = mysqli_fetch_array($Result);
-
-$sqlConteneur = "SELECT * FROM conteneur WHERE facture_id=" . $factureId;
+$empotageId=$row['empotage_id'];
+$sqlConteneur = "SELECT * FROM conteneur WHERE facture_id=" . $empotageId;
 $ResultConteneur = mysqli_query($connexion, $sqlConteneur) or die(mysqli_error($connexion));
 //$rowConteneur = mysqli_fetch_array($ResultConteneur);
 
-$sqlProduit = "SELECT nbTotalColis, libelle, prixUnitaire, quantite, montant FROM facture f,ligne_facture lf,produit p WHERE f.id=lf.facture_id AND lf.produit=p.id AND f.id=" . $factureId;
+$sqlProduit = "SELECT nbTotalColis, libelle, prixUnitaire, quantite, montant FROM empotage e,ligne_empotage le,produit p WHERE e.id=le.empotage_id AND le.produit_id=p.id AND e.id=" . $empotageId;
 $ResultProduit = mysqli_query($connexion, $sqlProduit) or die(mysqli_error($connexion));
 
 ?>
