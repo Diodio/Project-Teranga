@@ -91,10 +91,10 @@ class ProduitQueries {
        if($sWhere !== "")
             $sWhere = " and " . $sWhere;
            if($codeUsine !== '*')  {
-                $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND stock > 0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
+                $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=stock_provisoire.produit_id AND stock > 0 AND calibre in(0,1) AND codeUsine="'.$codeUsine.'" ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.' ';
            }
            else {
-               $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=produit_id AND stock > 0 ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
+               $sql = 'SELECT produit.id id, libelle, stock FROM produit, stock_provisoire WHERE produit.id=stock_provisoire.produit_id AND calibre in(0,1) AND stock > 0 ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount.'  ';
            }
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -126,10 +126,10 @@ class ProduitQueries {
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*') {
-            $sql = 'select count(*) as nb from produit, stock_provisoire where produit.id=produit_id and stock !=0 AND codeUsine="'.$codeUsine.'" ' . $sWhere . '';
+            $sql = 'select count(*) as nb from produit, stock_provisoire where produit.id=stock_provisoire.produit_id and stock !=0 AND calibre in(0,1) AND codeUsine="'.$codeUsine.'" ' . $sWhere . '';
         }
         else {
-             $sql = 'select count(*) as nb from produit, stock_provisoire where produit.id=produit_id and stock !=0 ' . $sWhere . '';
+             $sql = 'select count(*) as nb from produit, stock_provisoire where produit.id=stock_provisoire.produit_id AND calibre in(0,1) AND stock !=0 ' . $sWhere . '';
         }
        
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -226,10 +226,10 @@ class ProduitQueries {
     
     public function retrieveListStockProduitParUsine($codeUsine){
         if($codeUsine !=='*') {
-            $sql = 'SELECT produit.id pid, libelle, stock FROM stock_reel, produit WHERE produit_id=produit.id AND stock<>0 AND codeUsine="'. $codeUsine .'"';
+            $sql = 'SELECT produit.id pid, libelle, stock FROM stock_reel, produit WHERE stock_reel.produit_id=produit.id AND stock<>0 and calibre in(0,2) AND codeUsine="'. $codeUsine .'"';
         }
         else {
-            $sql = 'SELECT produit.id pid, libelle, stock FROM stock_reel, produit WHERE produit_id=produit.id AND stock<>0 ';
+            $sql = 'SELECT produit.id pid, libelle, stock FROM stock_reel, produit WHERE stock_reel.produit_id=produit.id AND stock<>0 and calibre in(0,2)';
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -317,7 +317,7 @@ class ProduitQueries {
      
     
     public function retrieveAllByUsine() {
-        $query = "select p.id as value, p.libelle as text from produit p  group by p.libelle";
+        $query = "select p.id as value, p.libelle as text from produit p where calibre in(0,1) group by p.libelle";
         $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();
@@ -326,6 +326,18 @@ class ProduitQueries {
         else
             return null;
     }
+    
+    public function retrieveListCalibre($produitId) {
+        $query = "select p.id as value, p.libelle as text from produit p where calibre=2 and produit_id= $produitId";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $types = $stmt->fetchAll();
+        if ($types != null)
+            return $types;
+        else
+            return null;
+    }
+    
     
     public function findProduitsByName($name) {
         $sql = 'SELECT id FROM produit where libelle = "'. $name .'"';

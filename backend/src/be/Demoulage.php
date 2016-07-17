@@ -58,6 +58,11 @@ class Demoulage {
     /** @Column(type="datetime", nullable=true) */
     protected $deletedDate;
     
+     /**
+     * @Column(type="integer", nullable=true) 
+     **/
+    protected $produitCalibre;
+    
     function getId() {
         return $this->id;
     }
@@ -160,6 +165,14 @@ class Demoulage {
         $this->updatedDate = new \DateTime("now");
     }
    
+    function getProduitCalibre() {
+        return $this->produitCalibre;
+    }
+
+    function setProduitCalibre($produitCalibre) {
+        $this->produitCalibre = $produitCalibre;
+    }
+
 
 
     }

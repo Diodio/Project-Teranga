@@ -25,7 +25,7 @@ class DemoulageQueries {
         $this->logger = new Logger(__NAMESPACE__);
     }
 
-    public function insert($demoulage, $listCarton, $listColisage) {
+    public function insert($produitIdCalibre, $demoulage, $listCarton, $listColisage) {
         $this->logger->log->trace('insert contact ');
         Bootstrap::$entityManager->getConnection()->beginTransaction();
         if ($demoulage != null) {
@@ -47,7 +47,10 @@ class DemoulageQueries {
                         Bootstrap::$entityManager->flush();
                     }
                 }
-                $produitId = $demoulage->getProduit()->getId();
+                if($produitIdCalibre!="*")
+                    $produitId = $produitIdCalibre;
+                else
+                    $produitId = $demoulage->getProduit()->getId();
                 $codeUsine = $demoulage->getCodeUsine();
                 $login = $demoulage->getLogin();
                 $quantiteDemoulee = $demoulage->getQuantiteDemoulee();
@@ -70,11 +73,12 @@ class DemoulageQueries {
                 } else {
                     $valueStock = $stockManager->getStockValueParProduit($produitId, $codeUsine);
                     $seuil = (($valueStock + $quantiteDemoulee) * 25 / 100);
-                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantiteDemoulee, seuil=$seuil WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");
+                    $connexion->executeUpdate("UPDATE stock_reel SET stock = stock + $quantiteDemoulee, seuil=$seuil WHERE produit_id = $produitIdCalibre AND codeUsine='" . $codeUsine . "'");
                     //$stockManager->updateNbStockReel($demoulage->getProduit()->getId(), $demoulage->getCodeUsine(), $quantiteDemoulee);
                     // $stockManager->updateSeuilStock($demoulage->getProduit()->getId(), $demoulage->getCodeUsine(), $seuil);
                 }
-                $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $quantiteDemoulee WHERE produit_id = $produitId AND codeUsine='" . $codeUsine . "'");
+                $proId=$demoulage->getProduit()->getId();
+                $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock - $quantiteDemoulee WHERE produit_id = $proId AND codeUsine='" . $codeUsine . "'");
                 //$this->resetStockProvisoire($demoulage->getProduit()->getId(), $demoulage->getCodeUsine(), $quantiteDemoulee);
                 Bootstrap::$entityManager->getConnection()->commit();
                 return $demoulage;
@@ -89,19 +93,24 @@ class DemoulageQueries {
         }
     }
 
-    public function annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis) {
+    public function annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis, $produitIdCalibre) {
         try{
+            if($produitIdCalibre!=NULL)
+                $prodId=$produitIdCalibre;
+            else
+                $prodId = $produitId;
             Bootstrap::$entityManager->getConnection()->beginTransaction();
             $connexion = Bootstrap::$entityManager->getConnection();
             $connexion->executeUpdate("UPDATE stock_provisoire SET stock = stock + $quantiteDemoulee WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-            $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantiteDemoulee WHERE produit_id = $produitId AND codeUsine='".$codeUsine."'");
-            $connexion->executeUpdate("UPDATE demoulage set status=0 WHERE status=1 AND id IN( '$demoulageId')");
+            $connexion->executeUpdate("UPDATE stock_reel SET stock = stock - $quantiteDemoulee WHERE produit_id = $prodId AND codeUsine='".$codeUsine."'");
+            
             foreach ($infoColis as $key => $value) {
                 $nombreCarton=$value ['nombreCarton'];
                 $quantiteParCarton=$value ['quantiteParCarton'];
-                $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nombreCarton  WHERE produitId = $produitId AND quantiteParCarton=$quantiteParCarton  AND codeUsine='$codeUsine'");
+                $connexion->executeUpdate("UPDATE colisage SET nombreCarton = nombreCarton - $nombreCarton  WHERE produitId = $prodId AND quantiteParCarton=$quantiteParCarton  AND codeUsine='$codeUsine'");
                     //$this->demoulageQueries->diminueCartonParDemoulageId($demoulageId, $value ['produitId'], $value ['nombreCarton'], $value ['quantiteParCarton'], $codeUsine);
                 }
+            $connexion->executeUpdate("UPDATE demoulage set status=0 WHERE status=1 AND id IN( '$demoulageId')");
             Bootstrap::$entityManager->getConnection()->commit();
             return 1;
         }

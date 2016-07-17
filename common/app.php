@@ -141,8 +141,8 @@ class App
      const  ACTION_GET_NBCOLIS='GET_NBCOLIS';
      const  ACTION_GET_DEVISE='GET_DEVISE';
      const  ACTION_UPDATE_LIGNE='UPDATE_LIGNE';
-     
-     
+     const  ACTION_INSERT_CALIBRE='INSERT_CALIBRE';
+     const  ACTION_LIST_CALIBRE='LIST_CALIBRE';
      
      
      

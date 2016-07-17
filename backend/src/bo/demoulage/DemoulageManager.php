@@ -20,7 +20,7 @@ public function verifieDemoulage($produitId, $codeUsine) {
         return $demoulage['id'];
     return 0;
   }
-    public function insert($demoulage, $jsonCarton) {
+    public function insert($produitIdCalibre, $demoulage, $jsonCarton) {
         $listCarton=null;
         $listColisage=null;
         if($demoulage !=null){
@@ -37,8 +37,11 @@ public function verifieDemoulage($produitId, $codeUsine) {
                         $carton->setProduitId($demoulage->getProduit()->getId());
                         $listCarton[]=$carton;
                         $colisageManager=new ColisageManager();
-                        
-                        $colisageId=$colisageManager->verifieColisage($demoulage->getProduit()->getId(), $ligneCarton['qte'], $demoulage->getCodeUsine());
+                        if($produitIdCalibre!="*")
+                            $produitId = $produitIdCalibre;
+                        else
+                            $produitId = $demoulage->getProduit()->getId();
+                        $colisageId=$colisageManager->verifieColisage($produitId, $ligneCarton['qte'], $demoulage->getCodeUsine());
                         
                         $colisage = new \Produit\Colisage(); 
                         
@@ -52,13 +55,13 @@ public function verifieDemoulage($produitId, $codeUsine) {
                            $nombreCarton=$ligneCarton['nbCarton'];
                         }
                         $colisage->setNombreCarton($nombreCarton);
-                        $colisage->setProduitId($demoulage->getProduit()->getId());
+                        $colisage->setProduitId($produitId);
                         $colisage->setQuantiteParCarton($ligneCarton['qte']);
                         $colisage->setCodeUsine($demoulage->getCodeUsine());
                         $listColisage[]=$colisage;
                     }
         }
-        return $this->demoulageQueries->insert($demoulage, $listCarton, $listColisage);
+        return $this->demoulageQueries->insert($produitId, $demoulage, $listCarton, $listColisage);
         }
         }
     	return NULL;
@@ -182,6 +185,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
         if ($demou->getStatus() == 1) {
             $codeUsine=$demou->getCodeUsine();
             $produitId=$demou->getProduit()->getId();
+            $produitIdCalibre=$demou->getProduitCalibre();
             $quantiteDemoulee=$demou->getQuantiteDemoulee();
             if($produitId!==NULL && $quantiteDemoulee!==NULL){
            // $stockManager->updateNbStock($produitId, $codeUsine, $quantiteDemoulee);
@@ -189,7 +193,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
             //$infoStocks = $this->demoulageQueries->findInfoStockByDemoulage($demoulageId);
             
             $infoColis = $this->demoulageQueries->findInfoColisByDemoulage($demoulageId);
-            $demou = $this->annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis);
+            $demou = $this->annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis,$produitIdCalibre);
 //            if ($infoColis != NULL) {
 //                foreach ($infoColis as $key => $value) {
 //                    $this->demoulageQueries->diminueCartonParDemoulageId($demoulageId, $value ['produitId'], $value ['nombreCarton'], $value ['quantiteParCarton'], $codeUsine);
@@ -200,7 +204,7 @@ public function verificationColis($produitId, $nbCarton, $quantite) {
         }
         return $demou;
     }
-    public function annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis) {
-        return $this->demoulageQueries->annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis);
+    public function annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis, $produitIdCalibre) {
+        return $this->demoulageQueries->annulerDemoulageId($demoulageId,$produitId, $codeUsine, $quantiteDemoulee, $infoColis, $produitIdCalibre);
     }
 }

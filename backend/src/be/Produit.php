@@ -43,15 +43,14 @@ class Produit {
     protected $bonSortie;
     
     /**
-     * @OneToMany(targetEntity="Produit\Produit", mappedBy="produit")
-     * @JoinColumn(name="produit_id", referencedColumnName="id")
+     * @Column(type="integer", options={"default":0}, nullable=true) 
      **/
-    protected $produit;
+    protected $produit_id;
     
     
     
     /**
-     * @Column(type="integer", options={"default":0}) 
+     * @Column(type="integer", options={"default":0}, nullable=true) 
      **/
     protected $calibre;
     
@@ -178,6 +177,14 @@ class Produit {
 
     function setLibelleFacture($libelleFacture) {
         $this->libelleFacture = $libelleFacture;
+    }
+
+    function getProduit_id() {
+        return $this->produit_id;
+    }
+
+    function setProduit_id($produit_id) {
+        $this->produit_id = $produit_id;
     }
 
 

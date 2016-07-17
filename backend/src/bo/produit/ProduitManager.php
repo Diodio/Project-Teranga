@@ -185,6 +185,18 @@ public function retrieveTypes()
         }
         return $list;
     }
+    public function retrieveListCalibre($produitId){
+        $produits = $this->produitQuery->retrieveListCalibre($produitId);
+        $list = array();
+        $i = 0;
+        if($produits!=null)
+        foreach ($produits as $key => $value) {
+            $list [$i]['value'] = $value ['value'];
+            $list [$i]['text'] = $value ['text']; 
+            $i++;
+        }
+        return $list;
+    }
     // pour bon de sortie
     public function listByUsine($codeUsine){
         $produits = $this->produitQuery->retrieveAllByUsine();

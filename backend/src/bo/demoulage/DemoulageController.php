@@ -74,17 +74,20 @@ class DemoulageController extends BaseController {
         try {
             if ($request['produitId'] != "" && $request['numero'] != "" && $request['quantiteDemoulee'] != "") {
                 $produitManager = new \Produit\ProduitManager();
+                $produitCalibre=$request['produitIdCalibre'];
                 $produit = $produitManager->findById($request['produitId']);
                 $demoulageManager = new Produit\DemoulageManager();
                 $demoulage = new Produit\Demoulage();
                 $demoulage->setProduit($produit);
+                if($produitCalibre !="*")
+                    $demoulage->setProduitCalibre($produitCalibre);
                 $demoulage->setNumero($request['numero']);
                 $demoulage->setQuantiteAvantDemoulage($request['stockProvisoire']);
                 $demoulage->setQuantiteDemoulee($request['quantiteDemoulee']);
                 $demoulage->setCodeUsine($request['codeUsine']);
                 $demoulage->setLogin($request['login']);
                 $jsonCarton = json_decode($_POST['jsonCarton'], true);
-                $added = $demoulageManager->insert($demoulage, $jsonCarton);
+                $added = $demoulageManager->insert($produitCalibre, $demoulage, $jsonCarton);
                 if ($added != NULL) {
 //                    $stockManager = new \Stock\StockManager();
 //                    $stockManager->ajoutStockReelParProduit($request['produitId'], $request['codeUsine'], $request['login'], $request['stockProvisoire'], $request['quantiteDemoulee']);

@@ -149,6 +149,41 @@
                 </div><!-- /.modal-dialog -->
             </form>
             </div>
+
+<div id="winModalCalibre" class="modal fade" tabindex="-1" >
+            <form id="validation-form-calibre" class="form-horizontal" role="form">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Calibrer un produit</h3>
+                        </div>
+
+                        <div class="modal-body" style="height: 100px;">
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Désignation </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="designationCalibre" name="designationCalibre" placeholder="" class="col-xs-10 col-sm-7">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="SAVE-CALIBRE" class="btn btn-small btn-info" >
+                                <i class="ace-icon fa fa-save"></i>
+                                Enregistrer
+                            </button>
+                            
+                            <button id="CANCEL" class="btn btn-small btn-danger" data-dismiss="modal">
+                                <i class="fa fa-times"></i>
+                                Annuler
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </form>
+            </div>
+
         </div><!-- /.col -->
     </div><!-- /.row -->
  
@@ -375,6 +410,26 @@
                                     $(nTd).addClass('td-actions');
                                     action=$('<div></div>');
                                     action.addClass('pull-right hidden-phone visible-desktop action-buttons');
+                                    btnCalibre=$('<a class="green" href="#"> '+
+                                    '<i class="fa fa-group bigger-130"></i>'+
+                                    '</a>');
+                                    btnCalibre.click(function(){
+//                                         $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
+//                                        data = $.parseJSON(data);
+//                                        console.log(data);
+                                       
+                                        produit=oData[0];
+//                                        $('#designation').val(data.libelle);
+//                                        $('#libelleFacture').val(data.libelleFacture);
+//                                        $('#stockProvisoire').val(data.stockProvisoire);
+//                                        $('#stockReel').val(data.stockReel);
+                                   // });
+                                       
+                                        $('#winModalCalibre').modal('show');
+                                    });
+                                    btnCalibre.tooltip({
+                                        title: 'Calibrer'
+                                    });
                                     btnEdit=$('<a class="green" href="#"> '+
                                     '<i class="fa fa-pencil bigger-130"></i>'+
                                     '</a>');
@@ -405,8 +460,10 @@
                                     btnRemove.tooltip({
                                         title: 'Supprimer'
                                     });
+                                    btnCalibre.css({'margin-right': '10px', 'cursor':'pointer'});
                                     btnEdit.css({'margin-right': '10px', 'cursor':'pointer'});
                                     btnRemove.css({'cursor':'pointer'});
+                                    action.append(btnCalibre);
                                     action.append(btnEdit);
                                    // if(oData[4] !=="Admin"){
                                     action.append(btnRemove);
@@ -556,7 +613,57 @@
 
         };
 
+            calibreProcess = function (produit)
+            {
+            
+            var ACTION = '<?php echo App::ACTION_INSERT_CALIBRE; ?>';
+            var frmData;
+            var designation = $("#designationCalibre").val();
+            
+            var codeUsine = "<?php echo $codeUsine ?>";
+            var login = "<?php echo $login ?>";
+            
+            var formData = new FormData();
+            formData.append('ACTION', ACTION);
+            formData.append('produitId', produit);
+            formData.append('designationCalibre', designation);
+            formData.append('codeUsine', codeUsine);
+            formData.append('login', login);
+            $.ajax({
+                url: '<?php echo App::getBoPath(); ?>/produit/ProduitController.php',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                data: formData,
+                success: function (data)
+                {
+                    if (data.rc == 0)
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.action,
+                            class_name: 'gritter-success gritter-light'
+                        });
+                       loadProduits();
+                    } 
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Notification',
+                            text: data.error,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        
+                    };
+                    
+                },
+                error: function () {
+                    alert("failure - controller");
+                }
+            });
 
+        };
     
         
         
@@ -625,6 +732,52 @@
                             $('#libelleFacture').val("");
                             $('#stockProvisoire').val("0.00");
                             $('#stockReel').val("0.00");
+			},
+			invalidHandler: function (form) {
+			}
+		});
+
+
+       });
+
+
+       //Validate
+       $("#SAVE-CALIBRE").bind("click", function () {
+        context=$(this);
+       $('#validation-form-calibre').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+                        designationCalibre: {
+                                required: true
+                        }
+			},
+			messages: {
+                        designationCalibre: {
+                                required: "Champ obligatoire."
+                        }
+			
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+	
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+	
+			errorPlacement: function (error, element) {
+				 error.insertAfter(element);
+			},
+	
+			submitHandler: function (form) {
+				 calibreProcess(produit);
+				/// $('#winModalProduit').addClass('hide');
+                            $('#winModalCalibre').modal('hide');
+                            $('#designationCalibre').val("");
 			},
 			invalidHandler: function (form) {
 			}

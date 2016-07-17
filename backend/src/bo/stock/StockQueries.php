@@ -34,11 +34,11 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*'){
             $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
-                    FROM produit,stock_reel WHERE produit.id=produit_id and stock!=0 ' . $sWhere . ' and codeUsine="'.$codeUsine.'" group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    FROM produit,stock_reel WHERE produit.id=stock_reel.produit_id and stock!=0 ' . $sWhere . ' and codeUsine="'.$codeUsine.'" group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
         }
         else{
            $sql = 'SELECT produit.id, libelle, seuil, codeUsine, SUM(stock) AS stock
-                    FROM produit,stock_reel WHERE produit.id=produit_id and stock!=0.00 ' . $sWhere . ' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.''; 
+                    FROM produit,stock_reel WHERE produit.id=stock_reel.produit_id and stock!=0.00 ' . $sWhere . ' group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.''; 
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -59,7 +59,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
         if($sWhere !== "")
             $sWhere = " and " . $sWhere;
              $sql = 'SELECT produit.id pid, libelle, seuil, codeUsine, SUM(stock) AS stock
-                    FROM produit,stock_reel WHERE produit.id=produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' and stock!=0.00 group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
+                    FROM produit,stock_reel WHERE produit.id=stock_reel.produit_id AND codeUsine="'.$codeUsine.'" '.$sWhere.' and stock!=0.00 group by produit.id ' . $orderBy . ' LIMIT ' . $offset . ', ' . $rowCount.'';
      
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
@@ -82,11 +82,11 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
             $sWhere = " and " . $sWhere;
         if($codeUsine !=='*'){
             $sql = 'select count(produit.id) as nbStocks
-                        from produit,stock_reel where produit.id=produit_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' and stock!=0.00';
+                        from produit,stock_reel where produit.id=stock_reel.produit_id and codeUsine="'.$codeUsine.'" ' . $sWhere . ' and stock!=0.00';
         }
         else {
             $sql = 'select count(produit.id) as nbStocks
-                        from produit,stock_reel where produit.id=produit_id ' . $sWhere . ' and stock!=0.00';
+                        from produit,stock_reel where produit.id=stock_reel.produit_id ' . $sWhere . ' and stock!=0.00';
         }
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
@@ -99,7 +99,7 @@ public function retrieveAll($codeUsine, $offset, $rowCount, $orderBy = "", $sWhe
             $sWhere = " and " . $sWhere;
 
         $sql = 'select count(produit.id) as nbStocks
-                    from produit,stock_reel where produit.id=produit_id AND codeUsine="'.$codeUsine.'" ' . $sWhere . ' and stock!=0.00 ';
+                    from produit,stock_reel where produit.id=stock_reel.produit_id AND codeUsine="'.$codeUsine.'" ' . $sWhere . ' and stock!=0.00 ';
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();
         $nbTypeStocks = $stmt->fetch();

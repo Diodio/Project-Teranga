@@ -102,18 +102,17 @@ $codeUsine = $_COOKIE['codeUsine'];
 											id="nomProduit"></span>
 									</h4>
 									<div class="form-group">
-										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-left: -8%"> Stock Provisoire
-										</label>
+										<label class="col-sm-4 control-label no-padding-right"
+											for="form-field-1" style="margin-left: -8%"> Numéro</label>
 										<div class="col-sm-8">
-											<input type="text" id="stockProvisoire"
-												name="stockProvisoire" placeholder=""
+											<input type="text" id="numero"
+												name="numero" placeholder=""
 												class="col-xs-10 col-sm-4" disabled>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label no-padding-right"
-											for="form-field-1" style="margin-left: -8%"> Numéro
-											(kg)</label>
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" style="margin-left: -8%"> Stock Provisoire
+										</label>
 										<div class="col-sm-8">
 											<input type="text" id="stockProvisoire"
 												name="stockProvisoire" placeholder=""
@@ -125,7 +124,7 @@ $codeUsine = $_COOKIE['codeUsine'];
 											for="form-field-1" style="margin-left: -8%">Produit Calibré</label>
 										<div class="col-sm-8">
 											 <select id="calibre" name="calibre" style="margin-left: 0px;">
-                                    <option value="*" class="">Sélectionner le Produit </option>
+                                    <option value="*" class="calibres">Sélectionner le Produit </option>
 <!--                                     <option value="2" class="green bigger-130 icon-only">Achats réglés</option> -->
 <!--                                     <option value="1" class="orange bigger-130 icon-only">Achats avec reliquat</option> -->
 <!--                                     <option value="0" class="red bigger-130 icon-only">Achats non réglés</option> -->
@@ -204,6 +203,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var checkedDemoulages = new Array();
             // Check if an item is in the array
            // var interval = 500;
+           $('#calibre').select2();
            loadNumeroDemoulage = function () {
                     $.post("<?php echo App::getBoPath(); ?>/demoulage/DemoulageController.php", {ACTION: "<?php echo App::ACTION_GET_LAST_NUMBER; ?>"}, function (data) {
                     sData=$.parseJSON(data);
@@ -562,9 +562,25 @@ $codeUsine = $_COOKIE['codeUsine'];
             };
             
             loadDemoulages();
+            loadProduit = function(produitId){
+        $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId:produitId, codeUsine: "<?php echo $codeUsine; ?>", ACTION: "<?php echo App::ACTION_LIST_CALIBRE
+                ; ?>"}, function(data) {
+            sData=$.parseJSON(data);
+            if(sData.rc==-1){
+                $.gritter.add({
+                        title: 'Notification',
+                        text: sData.error,
+                        class_name: 'gritter-error gritter-light'
+                    });
+            }else{
+                $("#calibre").loadJSON('{"calibres":' + data + '}');
+            }
+        });
+    };
             loadDemoulagesSelected = function(produitId)
             {
                 loadNumeroDemoulage();
+                loadProduit(produitId);
                  var url;
                  url = '<?php echo App::getBoPath(); ?>/produit/ProduitController.php';
 
@@ -654,6 +670,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var numero= $('#numero').val();
             var quantiteDemoulee= $('#quantiteDemoulee').val();
             var stockProvisoire= $('#stockProvisoire').val();
+            var produitIdCalibre= $('#calibre').val();
             var codeUsine = "<?php echo $codeUsine ?>";
             var login = "<?php echo $login ?>";
             var $table = $("table");
@@ -687,6 +704,7 @@ $codeUsine = $_COOKIE['codeUsine'];
             var formData = new FormData();
             formData.append('ACTION', ACTION);
             formData.append('produitId', checkedDemoulages[0]);
+            formData.append('produitIdCalibre', produitIdCalibre);
             formData.append('numero', numero);
             formData.append('stockProvisoire', stockProvisoire);
             formData.append('quantiteDemoulee', quantiteDemoulee);
@@ -715,6 +733,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                         $('#numero').val("");
                         $('#stockProvisoire').val("");
                         $('#quantiteDemoulee').val("");
+                        $('#calibre').val("*").change();
+                        //$('#calibre').select2();
                         $("#tab_logic").find("tr:gt(0)").remove();
                         i=1;
                         $('#qte0').val("");

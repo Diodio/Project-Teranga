@@ -67,6 +67,12 @@ class ProduitController extends BaseController implements BaseAction {
                         case \App::ACTION_DETAIL_PRODUIT:
                                 $this->doDetailProduit($request);
                                 break;
+                        case \App::ACTION_INSERT_CALIBRE:
+                                $this->doInsertCalibre($request);
+                                break;
+                        case \App::ACTION_LIST_CALIBRE:
+                                $this->doListCalibre($request);
+                                break;
                         
                         
                     }
@@ -87,6 +93,7 @@ class ProduitController extends BaseController implements BaseAction {
                     $produit = new Produit();
                     $produit->setLibelle($request['designation']);
                     $produit->setLibelleFacture($request['libelleFacture']);
+                    $produit->setCalibre(0);
                     $produitAdded = $produitManager->insert($produit);
                     if ($produitAdded->getId() != null) {
                         if ($request['stockProvisoire'] !== 0 || $request['stockReel'] !== 0) {
@@ -392,6 +399,24 @@ class ProduitController extends BaseController implements BaseAction {
             throw new Exception('ERREUR SERVEUR');
         }
     }
+    public function doListCalibre($request) {
+        try {
+            if (isset($request['produitId'])) {
+                $produitManager = new ProduitManager();
+                $produit = $produitManager->retrieveListCalibre($request['produitId']);
+                if($produit !=null)
+                    $this->doSuccessO($produit);
+                else
+                   echo json_encode(array());  
+            } else {
+                throw new Exception('PARAM_NOT_ENOUGH');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw new Exception('ERREUR SERVEUR');
+        }
+    }
     public function doGetProduitReelParUsine($request) {
         try {
             if (isset($request['codeUsine'])) {
@@ -591,6 +616,37 @@ class ProduitController extends BaseController implements BaseAction {
     	} catch (Exception $e) {
     		throw new Exception('ERREUR SERVEUR');
     	}
+    }
+    
+    
+    public function doInsertCalibre($request) {
+        try {
+            if ($request['designationCalibre'] != "" && $request['produitId'] != "" ) {
+                $produitManager = new ProduitManager();
+                $checkProduit = $produitManager->findProduitsByName($request['designationCalibre']);
+                if ($checkProduit == NULL) {
+                    $produitCalibre = new Produit();
+                    $produitCalibre->setLibelle($request['designationCalibre']);
+                    $produitCalibre->setProduit_id($request['produitId']);
+                    $produitCalibre->setCalibre(2);
+                    $produitAdded = $produitManager->insert($produitCalibre);
+                    if($produitAdded->getId() !=NULL){
+                        $produit = $produitManager->findById($request['produitId']);
+                        $produit->setCalibre(1);
+                        $produitManager->update($produit);
+                        $this->doSuccess($produitAdded->getId(), 'Produit enregistré avec succes');
+                    } else {
+                        $this->doError('-1', 'Impossible d\'inserer ce produit');
+                    }
+                } else {
+                    $this->doError('-1', 'Ce produit éxiste déja');
+                }
+            } else {
+                $this->doError('-1', 'Veuillez vérifier vos parametres');
+            }
+        } catch (Exception $e) {
+            $this->doError('-1', 'ERREUR SERVEUR');
+        }
     }
     
 }
