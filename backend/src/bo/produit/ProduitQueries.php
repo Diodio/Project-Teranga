@@ -354,7 +354,7 @@ class ProduitQueries {
     public function retrieveAllProduits($codeUsine, $offset, $rowCount, $sOrder = "", $sWhere = "") {
         if ($sWhere !== "")
             $sWhere = " where " . $sWhere;
-        $sql = 'SELECT DISTINCT id, libelle FROM produit ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
+        $sql = 'SELECT DISTINCT id, libelle, calibre FROM produit ' . $sWhere . ' ' . $sOrder . ' LIMIT ' . $offset . ', ' . $rowCount . ' ';
         $sql = str_replace("`", "", $sql);
         $stmt = Bootstrap::$entityManager->getConnection()->prepare($sql);
         $stmt->execute();

@@ -436,7 +436,7 @@
                                     btnEdit.click(function(){
                                          $.post("<?php echo App::getBoPath(); ?>/produit/ProduitController.php", {produitId: oData[0], codeUsine:"<?php echo $codeUsine;?>", ACTION: "<?php echo App::ACTION_VIEW_DETAILS; ?>"}, function (data) {
                                         data = $.parseJSON(data);
-                                        console.log(data);
+                                        //console.log(data);
                                         produit=oData[0];
                                         $('#designation').val(data.libelle);
                                         $('#libelleFacture').val(data.libelleFacture);
@@ -463,7 +463,9 @@
                                     btnCalibre.css({'margin-right': '10px', 'cursor':'pointer'});
                                     btnEdit.css({'margin-right': '10px', 'cursor':'pointer'});
                                     btnRemove.css({'cursor':'pointer'});
-                                    action.append(btnCalibre);
+                                    console.log(oData[6]);
+                                    if(oData[6]==0)
+                                        action.append(btnCalibre);
                                     action.append(btnEdit);
                                    // if(oData[4] !=="Admin"){
                                     action.append(btnRemove);

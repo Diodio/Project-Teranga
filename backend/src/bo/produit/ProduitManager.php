@@ -75,6 +75,7 @@ class ProduitManager {
                 $arrayProduits [$i] [] = "0.00";
             
             $arrayProduits [$i] [] = $value ['id'];
+            $arrayProduits [$i] [] = $value ['calibre'];
             $i++;
         }
         return $arrayProduits;
