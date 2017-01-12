@@ -659,12 +659,12 @@ $codeUsine = $_COOKIE['codeUsine'];
                                     if($.trim(prix) !== ""){
                                         var tot=0;
                                         var qte=$('#quantite'+compteur).text();
-                                        var montant= prix * parseFloat(qte);
+                                        var montant= parseFloat(prix * qte).toFixed(2);
                                         if(!isNaN(montant)){
                                             $('#montant'+compteur).text(montant);
                                         $('#TABLE_ACHATS .montant').each(function () {
                                             if($(this).html()!== 0)
-                                                tot += parseFloat($(this).html());
+                                                tot += $(this).html();
                                         });
                                         $('#avance').val("");
                                         $('#reliquat').val("");
@@ -674,7 +674,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         $('#transport').val("");
                                         }
                                       //console.log(tot);
-                                      $('#MontantTotal').text(tot);
+                                     // $('#MontantTotal').text(tot);
+                                      $('#MontantTotal').text(parseFloat(tot).toFixed(2));
                                        // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                     }
                                     else {

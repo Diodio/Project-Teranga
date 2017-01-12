@@ -204,18 +204,26 @@ class AchatManager {
         $StockAcheteManager = new \Stock\StockAcheteManager();
         $achat = $this->achatQuery->findInfoByAchact($achatId);
         foreach ($achat as $key => $value) {
-            $stock = $stockManager->findStockProvisoireByProduitId($value ['produit_id'], $value ['codeUsine']);
+            //test si produit calibre
+            $produitManager = new \Produit\ProduitManager();
+            $estCalibre= $produitManager->verifieCalibrage($value ['produit_id']);
+            if($estCalibre != 0)
+                $proId=$estCalibre;
+            else
+                $proId=$value ['produit_id'];
+            //si oui ajouter le stock sur le produit
+            $stock = $stockManager->findStockProvisoireByProduitId($proId, $value ['codeUsine']);
             if ($stock == 0) {
                 $stockProvisoire = new \Stock\StockProvisoire();
                 $stockProvisoire->setCodeUsine($value ['codeUsine']);
                 $stockProvisoire->setLogin($value ['login']);
                 $produitManger = new \Produit\ProduitManager();
-                $produit = $produitManger->findById($value ['produit_id']);
+                $produit = $produitManger->findById($proId);
                 $stockProvisoire->setProduit($produit);
                 $stockProvisoire->setStock($value ['quantite']);
                 $stockManager->insert($stockProvisoire);
             } else {
-                $stockManager->updateNbStock($value ['produit_id'], $value ['codeUsine'], $value ['quantite']);
+                $stockManager->updateNbStock($proId, $value ['codeUsine'], $value ['quantite']);
             }
             // $stockA = $StockAcheteManager->findStockAcheteByProduitId($value ['produit_id'], $value ['codeUsine']);
             // if ($stockA == 0) {

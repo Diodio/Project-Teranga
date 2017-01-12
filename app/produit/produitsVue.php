@@ -464,7 +464,7 @@
                                     btnEdit.css({'margin-right': '10px', 'cursor':'pointer'});
                                     btnRemove.css({'cursor':'pointer'});
                                     console.log(oData[6]);
-                                    if(oData[6]==0)
+                                    if(oData[6]==0 || oData[6]==1 )
                                         action.append(btnCalibre);
                                     action.append(btnEdit);
                                    // if(oData[4] !=="Admin"){

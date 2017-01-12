@@ -183,7 +183,7 @@ hr {
             <td style="width: 30%;"> </td>
             <td style="width: 25%;"></td>
             <td style="width: 20%;">Reliquat </td>
-            <td style="width: 25%;"><b><?php echo  $total - $rowAvance['sommeAvance'] ?>  FCFA</b> </td>
+            <td style="width: 25%;"><b><?php echo  intval($total) - intval($rowAvance['sommeAvance']) ?>  FCFA</b> </td>
         </tr>
     </table>
     
@@ -346,7 +346,7 @@ hr {
             <td style="width: 30%;"> </td>
             <td style="width: 25%;"></td>
             <td style="width: 20%;">Reliquat </td>
-            <td style="width: 25%;"><b><?php echo  $total - $rowAvance['sommeAvance'] ?> FCFA</b> </td>
+            <td style="width: 25%;"><b><?php echo  intval($total) - intval($rowAvance['sommeAvance']) ?> FCFA</b> </td>
         </tr>
     </table>
         

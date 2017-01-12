@@ -809,7 +809,8 @@ $codeUsine = $_COOKIE['codeUsine'];
                                         $('#transport').val("");
                                         }
                                       //console.log(tot);
-                                      $('#MontantTotal').text(tot);
+                                      //$('#MontantTotal').text(tot);
+                                      $('#MontantTotal').text(parseFloat(tot).toFixed(2));
                                        // saveAvance(checkedAchat[0], versement, $('.date-picker').val());
                                     }
                                     else {

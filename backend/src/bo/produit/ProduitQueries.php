@@ -317,7 +317,7 @@ class ProduitQueries {
      
     
     public function retrieveAllByUsine() {
-        $query = "select p.id as value, p.libelle as text from produit p where calibre in(0,1) group by p.libelle";
+        $query = "select p.id as value, p.libelle as text from produit p group by p.libelle";
         $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
         $stmt->execute();
         $types = $stmt->fetchAll();
@@ -427,4 +427,14 @@ class ProduitQueries {
             return null;
     }
     
+    public function verifieCalibrage($produitId) {
+        $query = "SELECT produit_id produitId FROM produit WHERE id=$produitId ";
+        $stmt =  Bootstrap::$entityManager->getConnection()->prepare($query);
+        $stmt->execute();
+        $trouve = $stmt->fetch();
+        if ($trouve != null)
+            return $trouve['produitId'];
+        else
+            return null;
+    }
 }

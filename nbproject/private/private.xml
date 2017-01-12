@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>backend/src/bo/produit/ProduitQueries.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>429</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/demoulage/DemoulageQueries.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/produit/ProduitQueries.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/app/demoulage/demoulageVue.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/be/Produit.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/produit/ProduitController.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/produit/ProduitManager.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/log/logFile.log</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/be/Demoulage.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/demoulage/DemoulageController.php</file>
-            <file>file:/C:/xampp/htdocs/macfish/backend/src/bo/demoulage/DemoulageManager.php</file>
+            <file>file:/C:/xampp/htdocs/macfish/app/inventaire/inventaireGeneral.php</file>
         </group>
     </open-files>
 </project-private>

@@ -312,5 +312,13 @@ public function retrieveTypes()
         return $trouve;
     }
     
+    public function verifieCalibrage($produitId) {
+        $trouve=0;
+        $produitId = $this->produitQuery->verifieCalibrage($produitId);
+        if($produitId!=null)
+            $trouve =$produitId;
+        return $trouve;
+    }
+    
     
 }
